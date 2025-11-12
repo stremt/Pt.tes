@@ -21,26 +21,26 @@ export default function Tools() {
   const ToolCard = ({ tool }: { tool: typeof tools[0] }) => {
     const Icon = getToolIcon(tool.icon);
     return (
-      <Card className="hover-elevate transition-transform duration-200" data-testid={`card-tool-${tool.id}`}>
-        <CardHeader className="space-y-3">
-          <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Icon className="h-7 w-7 text-primary" />
+      <Card className="hover-elevate transition-all duration-200 group h-full" data-testid={`card-tool-${tool.id}`}>
+        <CardHeader className="space-y-4">
+          <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <Icon className="h-8 w-8 text-primary" />
           </div>
-          <div>
-            <CardTitle className="text-xl">{tool.name}</CardTitle>
-            <Badge variant="secondary" className="mt-2 capitalize">
+          <div className="space-y-2">
+            <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+            <Badge variant="secondary" className="capitalize text-xs">
               {tool.category}
             </Badge>
           </div>
         </CardHeader>
         <CardContent>
-          <CardDescription>{tool.description}</CardDescription>
+          <CardDescription className="leading-relaxed">{tool.description}</CardDescription>
         </CardContent>
         <CardFooter>
           <Link href={tool.path} className="w-full">
-            <Button className="w-full" data-testid={`button-use-${tool.id}`}>
-              Use Tool
-              <ArrowRight className="ml-2 h-4 w-4" />
+            <Button className="w-full group-hover:shadow-md transition-shadow" data-testid={`button-use-${tool.id}`}>
+              Try Now
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </CardFooter>
@@ -52,17 +52,26 @@ export default function Tools() {
     <div className="min-h-screen py-16">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center space-y-4 mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold">All Tools</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Browse our complete collection of free, fast, and privacy-focused online tools
+        <div className="text-center space-y-6 mb-20">
+          <Badge variant="secondary" className="text-sm px-4 py-1.5">All Tools</Badge>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Complete Tool <span className="text-primary">Collection</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Browse our handcrafted suite of free, lightning-fast tools. Each designed to solve a specific problem with zero compromise on privacy.
           </p>
         </div>
 
         {/* Privacy Tools */}
         {privacyTools.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Privacy Tools</h2>
+          <section className="mb-20">
+            <div className="flex items-center gap-3 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold">Privacy Tools</h2>
+              <Badge variant="outline" className="text-xs">{privacyTools.length}</Badge>
+            </div>
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Protect your identity and secure your data with our privacy-focused utilities.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {privacyTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
@@ -73,8 +82,14 @@ export default function Tools() {
 
         {/* Generator Tools */}
         {generatorTools.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Generator Tools</h2>
+          <section className="mb-20">
+            <div className="flex items-center gap-3 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold">Generator Tools</h2>
+              <Badge variant="outline" className="text-xs">{generatorTools.length}</Badge>
+            </div>
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Create QR codes, passwords, and more with our instant generation tools.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {generatorTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
@@ -85,8 +100,14 @@ export default function Tools() {
 
         {/* Utility Tools */}
         {utilityTools.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold mb-8">Utility Tools</h2>
+          <section className="mb-20">
+            <div className="flex items-center gap-3 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold">Utility Tools</h2>
+              <Badge variant="outline" className="text-xs">{utilityTools.length}</Badge>
+            </div>
+            <p className="text-muted-foreground mb-8 max-w-2xl">
+              Optimize and enhance your workflow with our practical utility tools.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {utilityTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />

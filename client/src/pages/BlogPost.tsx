@@ -87,7 +87,7 @@ export default function BlogPost() {
           {/* Article Header */}
           <header className="mb-12 text-center space-y-6">
             <Badge variant="secondary">Article</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold">{post.title}</h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">{post.title}</h1>
             <div className="flex items-center justify-center gap-6 text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
@@ -103,6 +103,20 @@ export default function BlogPost() {
               </div>
             </div>
           </header>
+
+          {/* Featured Image */}
+          {post.featuredImage && (
+            <div className="mb-12 -mx-4 md:mx-0">
+              <div className="relative aspect-video rounded-xl overflow-hidden">
+                <img 
+                  src={post.featuredImage} 
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              </div>
+            </div>
+          )}
 
           {/* Article Content */}
           <article className="prose prose-lg max-w-none mb-16">

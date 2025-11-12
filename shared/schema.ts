@@ -15,6 +15,7 @@ export const blogPostSchema = z.object({
   title: z.string(),
   date: z.string(),
   author: z.string(),
+  featuredImage: z.string().optional(),
   meta: z.object({
     description: z.string(),
     keywords: z.string(),

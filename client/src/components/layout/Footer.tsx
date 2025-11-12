@@ -1,79 +1,150 @@
 import { Link } from "wouter";
-import { Mail } from "lucide-react";
+import { Mail, Sparkles, Github, Twitter, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const toolLinks = [
+    { href: "/tools/temp-mail", label: "Temp Mail" },
+    { href: "/tools/password-generator", label: "Password Generator" },
+    { href: "/tools/qr-maker", label: "QR Code Maker" },
+    { href: "/tools/image-compressor", label: "Image Compressor" },
+  ];
+
+  const companyLinks = [
+    { href: "/about", label: "About Us" },
+    { href: "/blogs", label: "Blog" },
+    { href: "/contact", label: "Contact" },
+    { href: "/privacy", label: "Privacy Policy" },
+  ];
+
+  const socialLinks = [
+    { icon: Github, href: "https://github.com", label: "GitHub" },
+    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  ];
+
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="border-t bg-muted/20">
+      <div className="container mx-auto px-4 py-16 max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">P</span>
+                <Sparkles className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="font-bold text-lg">Pixocraft Tools</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Smart, Fast, and Free Online Tools.
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Smart, fast, and free online tools for everyone. No signup required, completely privacy-focused.
             </p>
+            <div className="flex items-center gap-2 pt-2">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <Button 
+                    key={social.label}
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-9 w-9"
+                    asChild
+                  >
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      data-testid={`link-social-${social.label.toLowerCase()}`}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  </Button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Quick Links Column */}
+          {/* Tools Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/tools" className="text-muted-foreground hover:text-foreground transition-colors">
-                  All Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/blogs" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/sitemap.xml" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Sitemap
-                </Link>
-              </li>
+            <h3 className="font-semibold text-sm uppercase tracking-wider">Popular Tools</h3>
+            <ul className="space-y-3 text-sm">
+              {toolLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Column */}
+          {/* Company Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold">Contact</h3>
-            <div className="space-y-2 text-sm">
+            <h3 className="font-semibold text-sm uppercase tracking-wider">Company</h3>
+            <ul className="space-y-3 text-sm">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact & Newsletter Column */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-sm uppercase tracking-wider">Get In Touch</h3>
+            <div className="space-y-3 text-sm">
               <a
                 href="mailto:support@pixocraft.in"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="link-contact-email"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+                data-testid="link-footer-email"
               >
-                <Mail className="h-4 w-4" />
-                support@pixocraft.in
+                <Mail className="h-4 w-4 group-hover:text-primary transition-colors" />
+                <span>support@pixocraft.in</span>
               </a>
-              <p className="text-muted-foreground">
-                Response time: 24-48 hours
+              <p className="text-muted-foreground text-xs">
+                We typically respond within 24-48 hours
+              </p>
+            </div>
+            <Separator className="my-4" />
+            <div className="space-y-2">
+              <p className="text-xs text-muted-foreground">
+                Built with precision by the Pixocraft team
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© {currentYear} Pixocraft Tools – Part of <a href="https://pixocraft.in" className="hover:text-foreground transition-colors">Pixocraft.in</a></p>
+        {/* Bottom Bar */}
+        <Separator className="my-8" />
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <p>
+            © {currentYear} Pixocraft Tools – Part of{" "}
+            <a 
+              href="https://pixocraft.in" 
+              className="hover:text-foreground transition-colors underline underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Pixocraft.in
+            </a>
+          </p>
+          <div className="flex items-center gap-4 text-xs">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
+              Privacy
+            </Link>
+            <span>•</span>
+            <Link href="/sitemap.xml" className="hover:text-foreground transition-colors">
+              Sitemap
+            </Link>
+            <span>•</span>
+            <span>Made in India with ❤️</span>
+          </div>
         </div>
       </div>
     </footer>
