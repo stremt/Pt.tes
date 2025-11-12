@@ -21,26 +21,26 @@ export default function Tools() {
   const ToolCard = ({ tool }: { tool: typeof tools[0] }) => {
     const Icon = getToolIcon(tool.icon);
     return (
-      <Card className="hover-elevate transition-all duration-200 group h-full" data-testid={`card-tool-${tool.id}`}>
-        <CardHeader className="space-y-4">
-          <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-            <Icon className="h-8 w-8 text-primary" />
+      <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col border-2" data-testid={`card-tool-${tool.id}`}>
+        <CardHeader className="space-y-6 pb-6">
+          <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+            <Icon className="h-10 w-10 text-primary" />
           </div>
-          <div className="space-y-2">
-            <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
-            <Badge variant="secondary" className="capitalize text-xs">
+          <div className="space-y-3">
+            <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors duration-200">{tool.name}</CardTitle>
+            <Badge variant="secondary" className="capitalize font-medium">
               {tool.category}
             </Badge>
           </div>
         </CardHeader>
-        <CardContent>
-          <CardDescription className="leading-relaxed">{tool.description}</CardDescription>
+        <CardContent className="flex-1 pb-6">
+          <CardDescription className="text-base leading-relaxed">{tool.description}</CardDescription>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="pt-0">
           <Link href={tool.path} className="w-full">
-            <Button className="w-full group-hover:shadow-md transition-shadow" data-testid={`button-use-${tool.id}`}>
+            <Button size="lg" className="w-full group-hover:shadow-lg transition-all duration-200" data-testid={`button-use-${tool.id}`}>
               Try Now
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </CardFooter>
@@ -49,30 +49,30 @@ export default function Tools() {
   };
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="min-h-screen py-20 bg-gradient-to-b from-background via-background to-muted/20">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center space-y-6 mb-20">
-          <Badge variant="secondary" className="text-sm px-4 py-1.5">All Tools</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Complete Tool <span className="text-primary">Collection</span>
+        <div className="text-center space-y-8 mb-24">
+          <Badge variant="secondary" className="text-base px-6 py-2 font-medium">All Tools</Badge>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            Complete Tool <span className="text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Collection</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Browse our handcrafted suite of free, lightning-fast tools. Each designed to solve a specific problem with zero compromise on privacy.
           </p>
         </div>
 
         {/* Privacy Tools */}
         {privacyTools.length > 0 && (
-          <section className="mb-20">
-            <div className="flex items-center gap-3 mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold">Privacy Tools</h2>
-              <Badge variant="outline" className="text-xs">{privacyTools.length}</Badge>
+          <section className="mb-24">
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold">Privacy Tools</h2>
+              <Badge variant="outline" className="text-base font-semibold px-3 py-1">{privacyTools.length}</Badge>
             </div>
-            <p className="text-muted-foreground mb-8 max-w-2xl">
-              Protect your identity and secure your data with our privacy-focused utilities.
+            <p className="text-lg text-muted-foreground mb-10 max-w-3xl leading-relaxed">
+              Protect your identity and secure your data with our privacy-focused utilities. Stay anonymous and safe online.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {privacyTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}
@@ -82,15 +82,15 @@ export default function Tools() {
 
         {/* Generator Tools */}
         {generatorTools.length > 0 && (
-          <section className="mb-20">
-            <div className="flex items-center gap-3 mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold">Generator Tools</h2>
-              <Badge variant="outline" className="text-xs">{generatorTools.length}</Badge>
+          <section className="mb-24">
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold">Generator Tools</h2>
+              <Badge variant="outline" className="text-base font-semibold px-3 py-1">{generatorTools.length}</Badge>
             </div>
-            <p className="text-muted-foreground mb-8 max-w-2xl">
-              Create QR codes, passwords, and more with our instant generation tools.
+            <p className="text-lg text-muted-foreground mb-10 max-w-3xl leading-relaxed">
+              Create QR codes, passwords, and more with our instant generation tools. Fast, secure, and completely free.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {generatorTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}
@@ -100,15 +100,15 @@ export default function Tools() {
 
         {/* Utility Tools */}
         {utilityTools.length > 0 && (
-          <section className="mb-20">
-            <div className="flex items-center gap-3 mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold">Utility Tools</h2>
-              <Badge variant="outline" className="text-xs">{utilityTools.length}</Badge>
+          <section className="mb-24">
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold">Utility Tools</h2>
+              <Badge variant="outline" className="text-base font-semibold px-3 py-1">{utilityTools.length}</Badge>
             </div>
-            <p className="text-muted-foreground mb-8 max-w-2xl">
-              Optimize and enhance your workflow with our practical utility tools.
+            <p className="text-lg text-muted-foreground mb-10 max-w-3xl leading-relaxed">
+              Optimize and enhance your workflow with our practical utility tools. Simplify complex tasks in seconds.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {utilityTools.map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}

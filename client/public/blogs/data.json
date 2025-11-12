@@ -27,6 +27,12 @@
         "text": "A temporary email service provides you with a disposable email address that you can use for a limited time. These addresses are perfect for one-time registrations, testing, or any situation where you don't want to use your primary email."
       },
       {
+        "type": "image",
+        "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=600&fit=crop",
+        "alt": "Secure email communication concept",
+        "caption": "Temporary email provides a secure barrier between you and potential spam"
+      },
+      {
         "type": "h3",
         "text": "Key Features"
       },
@@ -81,6 +87,12 @@
       {
         "type": "p",
         "text": "A strong password should be at least 12 characters long and include a mix of uppercase letters, lowercase letters, numbers, and symbols. Using a password generator can help you create truly random passwords that are nearly impossible to guess."
+      },
+      {
+        "type": "image",
+        "src": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&h=600&fit=crop",
+        "alt": "Password security and protection",
+        "caption": "Strong passwords are your first line of defense against cyber threats"
       },
       {
         "type": "h3",
