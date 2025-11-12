@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/lib/seo";
-import { Mail, Clock, Send } from "lucide-react";
+import { Mail, Clock, Send, MessageSquare, HelpCircle, Lightbulb } from "lucide-react";
+import { SiTwitter, SiGithub, SiLinkedin } from "react-icons/si";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -72,22 +73,24 @@ export default function Contact() {
     <div className="min-h-screen py-16">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center space-y-4 mb-16">
-          <Badge variant="secondary" className="mb-4">Contact Us</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold">Get in Touch</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions or feedback? We'd love to hear from you
+        <div className="text-center space-y-6 mb-20">
+          <Badge variant="secondary" className="text-sm px-4 py-1.5">Contact Us</Badge>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Let's <span className="text-primary">Talk</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Have questions, feedback, or suggestions? We're here to help and would love to hear from you
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="hover-elevate transition-all duration-200">
               <CardHeader>
-                <CardTitle>Send us a Message</CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll respond as soon as possible
+                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                <CardDescription className="text-base">
+                  Fill out the form below and we'll get back to you within 24-48 hours
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -191,54 +194,115 @@ export default function Contact() {
 
           {/* Contact Info */}
           <div className="space-y-6">
-            <Card>
+            <Card className="hover-elevate transition-all duration-200">
               <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Mail className="h-6 w-6 text-primary" />
+                </div>
                 <CardTitle>Email Us</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Support Email</p>
-                    <a
-                      href="mailto:support@pixocraft.in"
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      data-testid="link-email-support"
-                    >
-                      support@pixocraft.in
-                    </a>
-                  </div>
+              <CardContent className="space-y-3">
+                <div>
+                  <p className="font-medium mb-1">Support Email</p>
+                  <a
+                    href="mailto:support@pixocraft.in"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    data-testid="link-email-support"
+                  >
+                    support@pixocraft.in
+                  </a>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="hover-elevate transition-all duration-200">
               <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Clock className="h-6 w-6 text-primary" />
+                </div>
                 <CardTitle>Response Time</CardTitle>
               </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  We typically respond within 24-48 hours during business days
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate transition-all duration-200">
+              <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <MessageSquare className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>Connect With Us</CardTitle>
+              </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">Expected Response</p>
-                    <p className="text-muted-foreground">
-                      We typically respond within 24-48 hours
-                    </p>
-                  </div>
+                <p className="text-sm text-muted-foreground">
+                  Follow us on social media for updates and tips
+                </p>
+                <div className="flex items-center gap-2">
+                  <Button variant="outline" size="icon" asChild>
+                    <a
+                      href="https://twitter.com/pixocraft"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Twitter"
+                      data-testid="link-social-twitter"
+                    >
+                      <SiTwitter className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a
+                      href="https://github.com/pixocraft"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="GitHub"
+                      data-testid="link-social-github"
+                    >
+                      <SiGithub className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a
+                      href="https://linkedin.com/company/pixocraft"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      data-testid="link-social-linkedin"
+                    >
+                      <SiLinkedin className="h-4 w-4" />
+                    </a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-primary/5 border-primary/20">
+            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
               <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Lightbulb className="h-6 w-6 text-primary" />
+                </div>
                 <CardTitle>Quick Tips</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Be specific about which tool you're asking about</li>
-                  <li>• Include screenshots if reporting a bug</li>
-                  <li>• Check our blog for tutorials and guides</li>
-                  <li>• Feature requests are always welcome!</li>
+                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-0.5">•</span>
+                    <span>Be specific about which tool you're asking about</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-0.5">•</span>
+                    <span>Include screenshots if reporting a bug</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-0.5">•</span>
+                    <span>Check our blog for tutorials and guides</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-0.5">•</span>
+                    <span>Feature requests are always welcome!</span>
+                  </li>
                 </ul>
               </CardContent>
             </Card>
