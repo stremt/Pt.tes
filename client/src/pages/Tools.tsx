@@ -21,19 +21,19 @@ export default function Tools() {
   const ToolCard = ({ tool }: { tool: typeof tools[0] }) => {
     const Icon = getToolIcon(tool.icon);
     return (
-      <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col border-2" data-testid={`card-tool-${tool.id}`}>
-        <CardHeader className="space-y-6 pb-6">
-          <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
-            <Icon className="h-10 w-10 text-primary" />
+      <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col border-2 border-border hover:border-primary/50" data-testid={`card-tool-${tool.id}`}>
+        <CardHeader className="space-y-8 pb-8">
+          <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+            <Icon className="h-12 w-12 text-primary" />
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors duration-200">{tool.name}</CardTitle>
-            <Badge variant="secondary" className="capitalize font-medium">
+            <Badge variant="secondary" className="capitalize font-medium text-sm">
               {tool.category}
             </Badge>
           </div>
         </CardHeader>
-        <CardContent className="flex-1 pb-6">
+        <CardContent className="flex-1 pb-8">
           <CardDescription className="text-base leading-relaxed">{tool.description}</CardDescription>
         </CardContent>
         <CardFooter className="pt-0">
