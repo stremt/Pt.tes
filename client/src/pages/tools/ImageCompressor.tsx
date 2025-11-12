@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -23,10 +23,11 @@ export default function ImageCompressor() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Image Compressor | Pixocraft Tools",
-    description: "Compress images without losing quality with Pixocraft Tools. Reduce file size instantly, optimize images, and download for free. Supports JPG, PNG, and WebP.",
-    keywords: "image compressor, compress image, reduce image size, optimize image, image optimizer, free image compression",
+    title: "Free Image Compressor Online - Reduce Image Size | Pixocraft Tools",
+    description: "Compress images online free without losing quality. Reduce image size by up to 90% instantly with our powerful image optimizer. Supports JPG, PNG, WebP. Privacy-first compression tool for web optimization, social media, and email.",
+    keywords: "image compressor online free, reduce image size online, compress images, image optimizer, free image compression, optimize images for web, reduce photo size, pixocraft tools",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-compressor",
+    ogImage: OG_IMAGES.imageCompressor,
   });
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +127,38 @@ export default function ImageCompressor() {
 
   const relatedTools = getRelatedTools("image-compressor");
 
+  const faqItems: FAQItem[] = [
+    {
+      question: "What is image compression and how does it work?",
+      answer: "Image compression is the process of reducing the file size of an image while maintaining acceptable visual quality. Pixocraft Tools uses advanced algorithms to analyze your image and remove unnecessary data that doesn't significantly affect how the image looks. There are two types: lossy compression (removes some data for smaller files) and lossless compression (preserves all data). Our tool uses smart lossy compression that balances file size reduction with quality preservation, perfect for web use, social media, and email attachments."
+    },
+    {
+      question: "How much can I reduce my image file size?",
+      answer: "With Pixocraft Tools' image compressor, you can typically reduce image file sizes by 50-90% depending on the original image and quality settings you choose. For example, a 5MB photo can often be compressed to under 500KB while still looking great on websites and social media. The amount of compression depends on factors like image complexity, format, and your chosen quality level. Our recommended 80% quality setting usually achieves 60-70% file size reduction with minimal visible quality loss."
+    },
+    {
+      question: "Will compressing my images reduce their quality?",
+      answer: "Compression does involve a trade-off between file size and quality, but with the right settings, the difference is barely noticeable to the human eye. At 80% quality (our recommended setting), most people cannot detect any visual difference from the original. For web use, social media, and email, compressed images look identical to uncompressed ones while loading much faster. Only at very low quality settings (below 50%) will you notice visible artifacts like blurriness or color banding. You can always preview the compressed image before downloading to ensure quality meets your needs."
+    },
+    {
+      question: "Which image formats does Pixocraft Tools support?",
+      answer: "Our free image compressor online supports the most popular image formats: JPG/JPEG, PNG, and WebP. These formats cover over 95% of images used on the web. JPG is ideal for photos and complex images, PNG works best for graphics with transparency, and WebP offers superior compression for modern browsers. The compressed image maintains the same format as your original upload. We're continually improving our tool and plan to add support for more formats like GIF and SVG in future updates."
+    },
+    {
+      question: "What are the best use cases for image compression?",
+      answer: "Image compression is essential for many scenarios: optimizing images for faster website loading (which improves SEO and user experience), reducing file sizes for email attachments that have size limits, preparing images for social media uploads, saving storage space on your devices or servers, speeding up mobile app performance, and reducing bandwidth costs for high-traffic websites. Web developers, bloggers, social media managers, photographers, and e-commerce businesses all benefit from our image optimizer to deliver faster, more efficient web experiences."
+    },
+    {
+      question: "Is my image data private and secure?",
+      answer: "Absolutely! Your privacy is our top priority. All image compression happens entirely in your browser using JavaScript—your images are never uploaded to our servers or transmitted over the internet. We don't store, log, or have any access to your images. Once you close or refresh the page, everything is completely gone from memory. This browser-based approach ensures maximum privacy and security, making Pixocraft Tools safe for compressing confidential documents, personal photos, or any sensitive images."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqItems);
+
   return (
+    <>
+      <StructuredData data={faqSchema} />
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Breadcrumb */}
@@ -368,45 +400,87 @@ export default function ImageCompressor() {
 
         {/* Why Use Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Compress Images?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft Tools' Image Compressor?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card>
               <CardHeader>
-                <CardTitle>Faster Website Loading</CardTitle>
+                <CardTitle>Boost Website Performance & SEO</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Smaller images load faster, improving user experience and SEO rankings
+                  Page load speed is a critical ranking factor for Google and directly impacts user experience. Large, unoptimized images are one of the main causes of slow websites. By compressing images online free with Pixocraft Tools, you can reduce image file sizes by 60-90% without visible quality loss, dramatically improving your site's loading speed. Faster websites rank higher in search results, reduce bounce rates, and increase conversions. Studies show that a 1-second delay in page load time can decrease conversions by 7% and page views by 11%. Our image optimizer helps you deliver lightning-fast web experiences that both search engines and users love.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Save Storage Space</CardTitle>
+                <CardTitle>Save Storage & Bandwidth Costs</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Reduce file sizes to save valuable storage space on your devices and servers
+                  Whether you're managing a personal blog or running an enterprise e-commerce platform, storage and bandwidth costs add up quickly. Compressed images take up significantly less space on your servers and consume less bandwidth when delivered to visitors. For high-traffic websites, this can translate to substantial cost savings on hosting and CDN services. Our free image compressor helps photographers reduce cloud storage costs, enables bloggers to keep more content within their hosting limits, and allows businesses to optimize their infrastructure expenses while maintaining visual quality.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Maintain Quality</CardTitle>
+                <CardTitle>Privacy-First Browser-Based Compression</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Our compression algorithm maintains visual quality while reducing file size
+                  Unlike many online image compressors that upload your files to their servers, Pixocraft Tools processes everything locally in your browser using advanced JavaScript algorithms. Your images never leave your device, ensuring complete privacy and security. This is especially important when working with confidential business graphics, personal photos, or proprietary product images. There's no file size upload limit, no waiting in processing queues, and no risk of your images being stored, analyzed, or accessed by third parties. Compress images with complete peace of mind knowing your data stays private.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Easier Sharing</CardTitle>
+                <CardTitle>Perfect for All Your Image Needs</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Smaller files are easier to share via email, messaging apps, and social media
+                  Our image optimizer is designed to handle any compression scenario. Web developers use it to optimize images for responsive designs and faster Core Web Vitals scores. Social media managers compress images to meet platform upload requirements while maintaining visual appeal. Email marketers reduce image sizes to ensure newsletters load quickly and avoid spam filters. Photographers prepare high-resolution images for online portfolios. E-commerce businesses optimize product photos for faster checkout experiences. With customizable quality settings and support for JPG, PNG, and WebP formats, Pixocraft Tools adapts to your specific needs.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="prose prose-lg max-w-4xl mx-auto">
+            <p className="text-muted-foreground">
+              Image optimization is essential for modern web performance. Our tool combines powerful compression algorithms with a user-friendly interface, making it easy for anyone to reduce image size online without technical knowledge. Whether you're optimizing a single photo or preparing dozens of images for your website, Pixocraft Tools delivers professional-quality results in seconds.
+            </p>
+          </div>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Website & Blog Optimization</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Optimize images for WordPress, Shopify, Wix, or custom websites to improve Core Web Vitals, boost SEO rankings, and deliver faster page loads. Essential for bloggers, web developers, and online businesses.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Social Media & Marketing</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Prepare images for Instagram, Facebook, Twitter, and LinkedIn while meeting size requirements. Compress email newsletter graphics, reduce file sizes for faster uploads, and maintain quality across platforms.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Photography & Design</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Reduce high-resolution photo file sizes for online portfolios, client previews, and digital delivery. Save storage space while preserving visual quality for professional photography and design work.
                 </p>
               </CardContent>
             </Card>
@@ -418,36 +492,12 @@ export default function ImageCompressor() {
           <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Is my image uploaded to your servers?</AccordionTrigger>
-                <AccordionContent>
-                  No! All image compression happens entirely in your browser. Your images never leave your device, ensuring complete privacy and security.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>What's the difference between quality levels?</AccordionTrigger>
-                <AccordionContent>
-                  Higher quality (90-100%) preserves more detail but results in larger files. Lower quality (50-70%) creates smaller files but may show slight artifacts. 80% is the sweet spot for most images.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Which image formats are supported?</AccordionTrigger>
-                <AccordionContent>
-                  We support JPG, JPEG, PNG, and WebP formats. The compressed image will maintain the same format as your original upload.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>Can I compress multiple images at once?</AccordionTrigger>
-                <AccordionContent>
-                  Currently, you can compress one image at a time. We're working on adding batch compression in a future update.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-5">
-                <AccordionTrigger>What's the maximum file size I can compress?</AccordionTrigger>
-                <AccordionContent>
-                  There's no hard limit, but very large images (over 10MB) may take longer to process. For best performance, we recommend images under 5MB.
-                </AccordionContent>
-              </AccordionItem>
+              {faqItems.map((faq, index) => (
+                <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </div>
         </section>
@@ -482,5 +532,6 @@ export default function ImageCompressor() {
         </section>
       </div>
     </div>
+    </>
   );
 }

@@ -7,9 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -26,10 +26,11 @@ export default function QRMaker() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free QR Code Generator | Pixocraft Tools",
-    description: "Create custom QR codes for URLs, text, or contact information with Pixocraft Tools. Download high-quality QR codes instantly for free.",
-    keywords: "qr code generator, qr maker, create qr code, free qr code, qr code creator, custom qr code",
+    title: "Free QR Code Generator Online - Create QR Codes Instantly | Pixocraft Tools",
+    description: "Generate free QR codes online for URLs, text, and contact information with Pixocraft Tools. Create custom QR codes instantly, download high-quality images for marketing, business cards, and more. No signup required.",
+    keywords: "qr code generator free, online qr maker, free qr code creator, qr code maker, create qr code online, custom qr code generator, qr code for url, pixocraft tools, qr generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
+    ogImage: OG_IMAGES.qrMaker,
   });
 
   const generateQR = async () => {
@@ -105,7 +106,38 @@ export default function QRMaker() {
 
   const relatedTools = getRelatedTools("qr-maker");
 
+  const faqItems: FAQItem[] = [
+    {
+      question: "What is a QR code and how does it work?",
+      answer: "A QR (Quick Response) code is a two-dimensional barcode that stores information in a matrix of black and white squares. When scanned with a smartphone camera or QR reader app, it instantly decodes the embedded data—whether it's a website URL, contact details, plain text, or other information. QR codes were invented in 1994 for tracking automotive parts but have since become ubiquitous in marketing, payments, product packaging, and contactless information sharing. Pixocraft Tools generates standard QR codes that work with all modern smartphones."
+    },
+    {
+      question: "How do I use the QR code generator?",
+      answer: "Using Pixocraft Tools' free QR code generator is simple: First, choose the type of QR code you want (URL, Text, or Contact). Then, enter your information—paste a website link, type any text message, or fill in contact details including name, phone, and email. Click 'Generate QR Code' to create your custom code instantly. Finally, download the high-quality PNG image to use in print materials, digital marketing, business cards, or anywhere you need it. The entire process takes less than 30 seconds with no registration required."
+    },
+    {
+      question: "What are the best practices for using QR codes effectively?",
+      answer: "For maximum effectiveness, place QR codes where they're easily accessible and ensure they're large enough to scan (minimum 2x2 cm). Always test your QR codes before printing or publishing to verify they work correctly. Provide context with a clear call-to-action like 'Scan for menu' or 'Scan to visit website.' Use URL shorteners for tracking purposes, and avoid placing QR codes in areas with poor lighting or on curved surfaces. For marketing campaigns, combine QR codes with incentives like discounts or exclusive content to increase scan rates."
+    },
+    {
+      question: "Can I customize the appearance of QR codes?",
+      answer: "Currently, Pixocraft Tools generates standard black and white QR codes optimized for maximum compatibility and scan reliability across all devices and scanning apps. This classic design ensures the highest success rate when users scan your codes. While we plan to add customization features like color selection and logo embedding in future updates, our current focus is on reliability and ease of use. The standard QR codes we generate work universally and can be resized without quality loss."
+    },
+    {
+      question: "What are the most popular use cases for QR codes?",
+      answer: "QR codes have countless applications across industries. In marketing, they're used on posters, flyers, and advertisements to drive traffic to websites or promotional offers. Restaurants use them for contactless menu access. Business professionals include them on business cards for instant contact sharing. Event organizers use QR codes for ticketing and check-ins. Retailers use them for product information and mobile payments. Educational institutions use them for resource sharing. The versatility makes QR codes an essential tool for anyone looking to bridge physical and digital experiences seamlessly."
+    },
+    {
+      question: "Are QR codes secure and safe to use?",
+      answer: "QR codes themselves are secure—they're just a way to encode information visually. However, like any technology, they can be misused. Always scan QR codes from trusted sources, as malicious codes could direct you to phishing websites or trigger unwanted downloads. Most modern smartphones show a preview of the URL before opening it, giving you a chance to verify it's legitimate. When creating QR codes with Pixocraft Tools, the data is processed entirely in your browser—we never store or track your information. For sensitive business use, consider using dynamic QR codes with password protection."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqItems);
+
   return (
+    <>
+      <StructuredData data={faqSchema} />
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Breadcrumb */}
@@ -323,45 +355,91 @@ export default function QRMaker() {
 
         {/* Why Use Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Use QR Codes?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft Tools' QR Code Generator?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card>
               <CardHeader>
-                <CardTitle>Share Information Easily</CardTitle>
+                <Smartphone className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Instant Contactless Information Sharing</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  QR codes make it simple to share URLs, contact info, or text without typing
+                  In today's fast-paced digital world, QR codes have become the universal language for instant information transfer. Pixocraft Tools' free QR code generator empowers you to create professional QR codes in seconds, enabling seamless communication between physical and digital spaces. Whether you're sharing a website URL, contact information, or plain text, our tool eliminates the need for manual typing and ensures accuracy every time. Perfect for businesses, marketers, educators, and individuals who want to provide quick, touchless access to information without friction or barriers.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Marketing & Promotion</CardTitle>
+                <QrCode className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Powerful Marketing Tool for Modern Campaigns</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Perfect for business cards, posters, flyers, and digital marketing campaigns
+                  QR codes have revolutionized marketing by bridging offline and online channels effortlessly. With Pixocraft Tools, you can create custom QR codes for business cards, product packaging, print advertisements, event posters, and promotional materials. Drive traffic to your landing pages, social media profiles, or special offers with a simple scan. Track campaign performance by embedding analytics-enabled URLs, measure engagement rates, and optimize your marketing ROI. From small businesses to enterprise campaigns, QR codes provide measurable results and enhanced customer engagement that traditional methods can't match.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Contactless Sharing</CardTitle>
+                <Download className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>High-Quality, Professional Results</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Ideal for menus, event check-ins, and any touchless information sharing
+                  Our online QR maker generates crisp, professional-quality QR codes optimized for both digital displays and print materials. Each code is created at 300x300 pixels with optimal contrast, ensuring reliable scanning even from a distance or in various lighting conditions. Download your QR code as a PNG file ready for immediate use in presentations, flyers, websites, or product labels. The clean, standardized design ensures maximum compatibility with all smartphone cameras and QR scanning apps. No watermarks, no limitations—just high-quality QR codes you can use with confidence in any professional setting.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Track & Analyze</CardTitle>
+                <Shield className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Free, Private, and Secure Generation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Use QR codes with tracking URLs to measure campaign effectiveness
+                  Your data privacy matters. Unlike many QR code generators, Pixocraft Tools processes everything directly in your browser using client-side JavaScript. Your URLs, contact information, and text content are never transmitted to our servers or stored in any database. This means your sensitive business information, personal contact details, and proprietary URLs remain completely private. No registration, no email signup, no tracking cookies—just secure, instant QR code generation whenever you need it. Generate unlimited QR codes for free with complete peace of mind about your data security.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="prose prose-lg max-w-4xl mx-auto">
+            <p className="text-muted-foreground">
+              QR codes are transforming how businesses connect with customers and how individuals share information. Learn more about <Link href="/blogs/qr-codes-marketing-guide" className="text-primary hover:underline">leveraging QR codes in your marketing strategy</Link> to maximize engagement and drive measurable results with Pixocraft Tools.
+            </p>
+          </div>
+        </section>
+
+        {/* Popular Use Cases Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Business & Networking</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Add QR codes to business cards for instant contact sharing. Include them on email signatures, LinkedIn profiles, and conference badges. Enable professionals to save your vCard with one scan, eliminating manual data entry and ensuring accuracy.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Restaurants & Hospitality</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Create contactless digital menus for restaurants, cafes, and bars. Use QR codes for table ordering, feedback collection, and loyalty program signups. Reduce physical contact while providing customers with updated menus and special offers instantly.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Marketing & Events</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Drive engagement with QR codes on posters, flyers, and product packaging. Use them for event ticketing, registration, and check-ins. Track campaign performance, collect leads, and measure ROI across your marketing initiatives.
                 </p>
               </CardContent>
             </Card>
@@ -373,36 +451,12 @@ export default function QRMaker() {
           <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>What can I encode in a QR code?</AccordionTrigger>
-                <AccordionContent>
-                  You can encode URLs, plain text, contact information (vCard), WiFi credentials, email addresses, phone numbers, and more. Our tool currently supports URLs, text, and contact information.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Do QR codes expire?</AccordionTrigger>
-                <AccordionContent>
-                  Static QR codes (like the ones we generate) never expire. They contain the information directly and will work forever. However, if you encode a URL that later becomes inactive, the QR code will still work but lead to a dead link.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Can I customize the QR code design?</AccordionTrigger>
-                <AccordionContent>
-                  Currently, we generate standard black and white QR codes for maximum compatibility. In future updates, we plan to add color customization and logo embedding features.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>How do people scan QR codes?</AccordionTrigger>
-                <AccordionContent>
-                  Most modern smartphones can scan QR codes directly through their camera app. Users simply point their camera at the code, and a notification appears to open the link or view the content.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-5">
-                <AccordionTrigger>What's the best size to print QR codes?</AccordionTrigger>
-                <AccordionContent>
-                  For reliable scanning, QR codes should be at least 2 x 2 cm (0.8 x 0.8 inches). Larger is better for viewing from a distance. Our generated codes are 300x300 pixels and scale well for both digital and print use.
-                </AccordionContent>
-              </AccordionItem>
+              {faqItems.map((faq, index) => (
+                <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </div>
         </section>
@@ -440,5 +494,6 @@ export default function QRMaker() {
         <canvas ref={canvasRef} className="hidden" />
       </div>
     </div>
+    </>
   );
 }

@@ -94,3 +94,84 @@ export function StructuredData({ data }: { data: object }) {
     />
   );
 }
+
+// FAQ Schema Generator
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export function generateFAQSchema(faqs: FAQItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+}
+
+// Article Schema Generator for Blog Posts
+export interface ArticleSchemaProps {
+  title: string;
+  description: string;
+  author: string;
+  publishedTime: string;
+  image?: string;
+  url: string;
+}
+
+export function generateArticleSchema({
+  title,
+  description,
+  author,
+  publishedTime,
+  image,
+  url,
+}: ArticleSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "author": {
+      "@type": "Person",
+      "name": author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pixocraft Tools",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tools.pixocraft.in/favicon.png"
+      }
+    },
+    "datePublished": publishedTime,
+    "dateModified": publishedTime,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": url
+    },
+    ...(image && {
+      "image": {
+        "@type": "ImageObject",
+        "url": image
+      }
+    })
+  };
+}
+
+// Default OG Images for tool pages
+export const OG_IMAGES = {
+  home: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop",
+  tempMail: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=1200&h=630&fit=crop",
+  passwordGenerator: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1200&h=630&fit=crop",
+  qrMaker: "https://images.unsplash.com/photo-1617984683318-dfe7b780b2f8?w=1200&h=630&fit=crop",
+  imageCompressor: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=630&fit=crop",
+  blogs: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=630&fit=crop",
+} as const;

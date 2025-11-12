@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO, StructuredData } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Copy, RefreshCw, Mail, Check, Inbox, Clock, User, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -33,10 +33,11 @@ export default function TempMail() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Temp Mail Generator | Pixocraft Tools",
-    description: "Generate temporary disposable emails instantly with Pixocraft Tools. Receive messages online, avoid spam, and protect your privacy. No registration required.",
-    keywords: "temp mail, free temp mail, disposable email, pixocraft mail, temporary email, free disposable email, privacy email",
+    title: "Free Temp Mail Generator - Temporary Email | Pixocraft Tools",
+    description: "Generate temporary disposable emails instantly with Pixocraft Tools. Receive messages online, avoid spam, and protect your privacy. No registration required. Free forever.",
+    keywords: "temp mail, temporary email generator, free disposable email, pixocraft mail, temporary email, free temp mail, privacy email, disposable email generator, fake email",
     canonicalUrl: "https://tools.pixocraft.in/tools/temp-mail",
+    ogImage: OG_IMAGES.tempMail,
   });
 
   // Load saved session from localStorage
@@ -170,36 +171,34 @@ export default function TempMail() {
 
   const relatedTools = getRelatedTools("temp-mail");
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How long does the temporary email last?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Your temporary email session lasts as long as you keep it in your browser. We save your session locally, so you can return to check messages. However, the email service may delete the account after a period of inactivity."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I send emails from my temp mail?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No, temporary email addresses are designed to receive emails only. They cannot be used to send outgoing messages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my data secure?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! All email data is stored temporarily and we don't track or store any personal information. Your session is saved locally in your browser only."
-        }
-      }
-    ]
-  };
+  const faqItems: FAQItem[] = [
+    {
+      question: "What is a temporary email address?",
+      answer: "A temporary email address (also called disposable email or temp mail) is a short-term email address that you can use to receive emails without exposing your real email. It's perfect for one-time signups, testing services, or avoiding spam. At Pixocraft Tools, we provide free temporary email addresses that work instantly without any registration."
+    },
+    {
+      question: "How long does the temporary email last?",
+      answer: "Your temporary email session lasts as long as you keep it in your browser. We save your session locally, so you can return to check messages. However, the email service may delete the account after a period of inactivity (typically 24-48 hours). For permanent email needs, use your regular email provider."
+    },
+    {
+      question: "Can I send emails from my temp mail?",
+      answer: "No, temporary email addresses from Pixocraft Tools are designed to receive emails only. They cannot be used to send outgoing messages. This is a security feature that prevents spam and abuse. If you need to send emails, use your regular email account or a proper email service provider."
+    },
+    {
+      question: "Is my data secure with temp mail?",
+      answer: "Yes! All email data is stored temporarily and we don't track or store any personal information. Your session is saved locally in your browser only. We use secure HTTPS connections and don't share your temporary email address or any received messages with third parties. However, avoid using temp mail for sensitive or confidential information."
+    },
+    {
+      question: "What are the best use cases for temporary email?",
+      answer: "Temporary email is perfect for: signing up for free trials, downloading resources that require email verification, testing email functionality in your applications, registering for forums or communities you'll use once, avoiding spam from promotional newsletters, and protecting your privacy on untrusted websites. It's used by developers, digital marketers, and privacy-conscious users worldwide."
+    },
+    {
+      question: "Can I use this for important accounts?",
+      answer: "We don't recommend using temporary emails for important accounts or services you plan to use long-term. They're best for one-time signups, testing, or avoiding spam. For banking, social media, or work accounts, always use a permanent email address to ensure you can recover your account and receive important notifications."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqItems);
 
   return (
     <>
@@ -435,15 +434,15 @@ export default function TempMail() {
 
         {/* Why Use Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Temp Mail?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Temp Mail from Pixocraft Tools?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card>
               <CardHeader>
                 <CardTitle>Protect Your Privacy</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Keep your real email address private and avoid exposing it to untrusted websites
+                  Keep your real email address private and avoid exposing it to untrusted websites. In today's digital world, your email is a key to your identity. Temporary email addresses act as a shield, protecting your primary inbox from potential data breaches, tracking, and unwanted marketing campaigns.
                 </p>
               </CardContent>
             </Card>
@@ -453,27 +452,69 @@ export default function TempMail() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Prevent spam and promotional emails from cluttering your primary inbox
+                  Prevent spam and promotional emails from cluttering your primary inbox. Once you use your email on a website, it can be sold to marketers or leaked in data breaches. With disposable email from Pixocraft Tools, you maintain a clean inbox and only receive emails that matter to you.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>No Registration</CardTitle>
+                <CardTitle>No Registration Required</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Get started instantly without creating an account or providing personal information
+                  Get started instantly without creating an account or providing personal information. Unlike other temp mail services, Pixocraft Tools doesn't ask for your details. Just click generate and you're ready to use your temporary email address immediately—it's that simple.
                 </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Perfect for Testing</CardTitle>
+                <CardTitle>Perfect for Developers</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Ideal for developers testing email functionality or trying out new services
+                  Ideal for testing email functionality or trying out new services. Developers use our temp mail tool to test registration flows, email verification systems, and notification features without using real email addresses or setting up test accounts.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="prose prose-lg max-w-4xl mx-auto">
+            <p className="text-muted-foreground">
+              Whether you're signing up for a free trial, downloading a resource, or just browsing websites that require email verification, Pixocraft Tools' temporary email generator helps you stay safe online. Learn more about <Link href="/blogs/what-is-temp-mail" className="text-primary hover:underline">how temporary email works and why it's essential for online privacy</Link>.
+            </p>
+          </div>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Free Trials & Downloads</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Sign up for free trials without committing your real email. Download ebooks, templates, or resources that require email verification.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Testing & Development</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Test your app's email features, verify registration flows, and debug email-related functionality without creating multiple test accounts.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Forum Registrations</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <p className="text-muted-foreground">
+                  Join online communities and forums for quick questions without exposing your primary email to potential spam from newsletters.
                 </p>
               </CardContent>
             </Card>
@@ -485,36 +526,12 @@ export default function TempMail() {
           <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
           <div className="max-w-3xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>How long does the temporary email last?</AccordionTrigger>
-                <AccordionContent>
-                  Your temporary email session lasts as long as you keep it in your browser. We save your session locally, so you can return to check messages. However, the email service may delete the account after a period of inactivity.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Can I send emails from my temp mail?</AccordionTrigger>
-                <AccordionContent>
-                  No, temporary email addresses are designed to receive emails only. They cannot be used to send outgoing messages.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Is my data secure?</AccordionTrigger>
-                <AccordionContent>
-                  Yes! All email data is stored temporarily and we don't track or store any personal information. Your session is saved locally in your browser only.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>Can I use this for important accounts?</AccordionTrigger>
-                <AccordionContent>
-                  We don't recommend using temporary emails for important accounts or services you plan to use long-term. They're best for one-time signups, testing, or avoiding spam.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-5">
-                <AccordionTrigger>What happens if I close my browser?</AccordionTrigger>
-                <AccordionContent>
-                  Your email session is saved in your browser's local storage. When you return to this page in the same browser, your email will still be available.
-                </AccordionContent>
-              </AccordionItem>
+              {faqItems.map((faq, index) => (
+                <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion>
           </div>
         </section>
