@@ -23,8 +23,8 @@ export default function Tools() {
     return (
       <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col border-2 border-border hover:border-primary/50" data-testid={`card-tool-${tool.id}`}>
         <CardHeader className="space-y-8 pb-8">
-          <div className="h-24 w-24 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
-            <Icon className="h-12 w-12 text-primary" />
+          <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300 group-hover:scale-110">
+            <Icon className="h-8 w-8 text-primary" />
           </div>
           <div className="space-y-4">
             <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors duration-200">{tool.name}</CardTitle>
