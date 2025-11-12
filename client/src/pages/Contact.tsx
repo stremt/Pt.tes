@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/lib/seo";
 import { Mail, Clock, Send, MessageSquare, HelpCircle, Lightbulb } from "lucide-react";
-import { SiTwitter, SiGithub, SiLinkedin } from "react-icons/si";
+import { SiX, SiGithub, SiLinkedin } from "react-icons/si";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -249,7 +249,7 @@ export default function Contact() {
                       aria-label="Twitter"
                       data-testid="link-social-twitter"
                     >
-                      <SiTwitter className="h-4 w-4" />
+                      <SiX className="h-4 w-4" />
                     </a>
                   </Button>
                   <Button variant="outline" size="icon" asChild>
