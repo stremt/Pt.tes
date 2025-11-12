@@ -12,19 +12,20 @@ const nouns = [
   "Vortex", "Nexus", "Matrix", "Cipher", "Pixel", "Byte", "Pulse", "Storm"
 ];
 
-export function generateRandomUsername(includeNumbers: boolean = true): string {
-  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+export function generateRandomUsername(includeNumbers: boolean = true, customWords: string[] = []): string {
+  const allAdjectives = customWords.length > 0 ? [...adjectives, ...customWords] : adjectives;
+  const adjective = allAdjectives[Math.floor(Math.random() * allAdjectives.length)];
   const noun = nouns[Math.floor(Math.random() * nouns.length)];
   const number = includeNumbers ? Math.floor(Math.random() * 1000) : "";
   
   return `${adjective}${noun}${number}`;
 }
 
-export function generateMultipleUsernames(count: number = 10, includeNumbers: boolean = true): string[] {
+export function generateMultipleUsernames(count: number = 10, includeNumbers: boolean = true, customWords: string[] = []): string[] {
   const usernames = new Set<string>();
   
   while (usernames.size < count) {
-    usernames.add(generateRandomUsername(includeNumbers));
+    usernames.add(generateRandomUsername(includeNumbers, customWords));
   }
   
   return Array.from(usernames);

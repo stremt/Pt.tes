@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
@@ -142,9 +143,11 @@ export default function URLEncoder() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="p-4 bg-muted rounded-lg font-mono text-sm break-all" data-testid="text-output">
-                {output}
-              </div>
+              <ScrollArea className="h-[200px] w-full rounded-lg border bg-muted">
+                <div className="p-4 font-mono text-sm break-all" data-testid="text-output">
+                  {output}
+                </div>
+              </ScrollArea>
             </CardContent>
           </Card>
         )}

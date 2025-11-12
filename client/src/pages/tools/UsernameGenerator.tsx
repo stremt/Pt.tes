@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
@@ -13,6 +14,7 @@ import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe } from "lucide-react"
 export default function UsernameGenerator() {
   const [usernames, setUsernames] = useState<string[]>([]);
   const [includeNumbers, setIncludeNumbers] = useState(true);
+  const [customWords, setCustomWords] = useState("");
   const { copyToClipboard } = useClipboard();
 
   useSEO({
@@ -23,7 +25,11 @@ export default function UsernameGenerator() {
   });
 
   const handleGenerate = () => {
-    const newUsernames = generateMultipleUsernames(12, includeNumbers);
+    const customWordArray = customWords
+      .split(',')
+      .map(word => word.trim())
+      .filter(word => word.length > 0);
+    const newUsernames = generateMultipleUsernames(12, includeNumbers, customWordArray);
     setUsernames(newUsernames);
   };
 
@@ -60,6 +66,19 @@ export default function UsernameGenerator() {
             <CardTitle>Generate Usernames</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="custom-words" className="text-base">Custom Words (Optional)</Label>
+              <Input
+                id="custom-words"
+                placeholder="Enter words separated by commas (e.g., Cool, Epic, Super)"
+                value={customWords}
+                onChange={(e) => setCustomWords(e.target.value)}
+                data-testid="input-custom-words"
+              />
+              <p className="text-xs text-muted-foreground">
+                Add your own words to be included in username generation
+              </p>
+            </div>
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label htmlFor="include-numbers" className="text-base">Include Numbers</Label>

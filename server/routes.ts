@@ -1,12 +1,123 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { contactFormSchema } from "@shared/schema";
 import express from "express";
+import multer from "multer";
+import mammoth from "mammoth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Configure multer for file uploads
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 10 * 1024 * 1024, // 10MB limit
+    },
+  });
+
   // Serve blog data
   app.use("/blogs", express.static("client/public/blogs"));
+
+  // Text extraction from files (PDF, DOCX, TXT)
+  app.post("/api/text/extract", upload.single("file"), async (req: Request, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
+      const file = req.file as Express.Multer.File;
+      let extractedText = "";
+
+      // Extract text based on file type
+      if (file.mimetype === "application/pdf") {
+        // Dynamically import pdf-parse for ES module compatibility
+        const { default: pdfParse } = await import("pdf-parse");
+        const pdfData = await pdfParse(file.buffer);
+        extractedText = pdfData.text;
+      } else if (
+        file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ) {
+        const result = await mammoth.extractRawText({ buffer: file.buffer });
+        extractedText = result.value;
+      } else if (file.mimetype === "text/plain") {
+        extractedText = file.buffer.toString("utf-8");
+      } else {
+        return res.status(400).json({ error: "Unsupported file type. Please upload PDF, DOCX, or TXT files." });
+      }
+
+      // Limit text length to prevent abuse
+      if (extractedText.length > 100000) {
+        extractedText = extractedText.substring(0, 100000);
+      }
+
+      res.json({ text: extractedText });
+    } catch (error) {
+      console.error("Text extraction error:", error);
+      res.status(500).json({ error: "Failed to extract text from file" });
+    }
+  });
+
+  // Text summarization using HuggingFace API
+  app.post("/api/summarize", async (req, res) => {
+    try {
+      const { text, apiKey } = req.body;
+
+      if (!text) {
+        return res.status(400).json({ error: "No text provided" });
+      }
+
+      if (!apiKey) {
+        return res.status(400).json({ error: "HuggingFace API key is required" });
+      }
+
+      // Limit text length
+      const maxLength = 8000;
+      const textToSummarize = text.length > maxLength ? text.substring(0, maxLength) : text;
+
+      // Call HuggingFace API
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            inputs: textToSummarize,
+            parameters: {
+              max_length: 150,
+              min_length: 30,
+            },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("HuggingFace API error:", errorData);
+        return res.status(response.status).json({ 
+          error: errorData.error || "Failed to summarize text",
+          details: errorData
+        });
+      }
+
+      const result = await response.json();
+      
+      // Handle model loading state
+      if (result.error && result.error.includes("loading")) {
+        return res.status(503).json({ 
+          error: "Model is loading. Please try again in a few seconds.",
+          loading: true
+        });
+      }
+
+      res.json({ summary: result[0]?.summary_text || result });
+    } catch (error) {
+      console.error("Summarization error:", error);
+      res.status(500).json({ error: "Failed to summarize text" });
+    }
+  });
 
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
@@ -58,6 +169,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/tools/color-picker", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/username-generator", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/password-strength-checker", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/text-summarizer", priority: "0.9", changefreq: "weekly" },
     ];
 
     // Blog posts (dynamically loaded)

@@ -288,31 +288,33 @@ export default function QRMaker() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col items-center justify-center space-y-4">
-                {!qrCodeUrl ? (
-                  <div className="text-center py-12 text-muted-foreground">
-                    <QrCode className="h-24 w-24 mx-auto mb-4 opacity-20" />
-                    <p className="font-medium">No QR code yet</p>
-                    <p className="text-sm">Fill in the details and click generate</p>
-                  </div>
-                ) : (
-                  <>
-                    <div className="p-6 bg-white rounded-lg">
-                      <canvas
-                        ref={canvasRef}
-                        className="max-w-full"
-                        data-testid="canvas-qr-code"
-                      />
+                <div className="p-6 bg-white rounded-lg min-h-[340px] flex items-center justify-center">
+                  {!qrCodeUrl ? (
+                    <div className="text-center text-muted-foreground">
+                      <QrCode className="h-24 w-24 mx-auto mb-4 opacity-20" />
+                      <p className="font-medium">No QR code yet</p>
+                      <p className="text-sm">Fill in the details and click generate</p>
                     </div>
-                    <Button
-                      onClick={downloadQR}
-                      variant="outline"
-                      className="w-full"
-                      data-testid="button-download-qr"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      Download QR Code
-                    </Button>
-                  </>
+                  ) : (
+                    <canvas
+                      ref={canvasRef}
+                      width={300}
+                      height={300}
+                      className="max-w-full"
+                      data-testid="canvas-qr-code"
+                    />
+                  )}
+                </div>
+                {qrCodeUrl && (
+                  <Button
+                    onClick={downloadQR}
+                    variant="outline"
+                    className="w-full"
+                    data-testid="button-download-qr"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download QR Code
+                  </Button>
                 )}
               </CardContent>
             </Card>

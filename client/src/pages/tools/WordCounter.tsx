@@ -1,9 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
+import { useToast } from "@/hooks/use-toast";
 import {
   countWords,
   countCharacters,
@@ -11,10 +13,15 @@ import {
   countParagraphs,
   estimateReadingTime,
 } from "@/lib/text-utils";
-import { FileText, Clock, Type, FileType, Hash, Sparkles, Zap, Lock, Globe } from "lucide-react";
+import { FileText, Clock, Type, FileType, Hash, Sparkles, Zap, Lock, Globe, Upload, X } from "lucide-react";
 
 export default function WordCounter() {
   const [text, setText] = useState("");
+  const [fileName, setFileName] = useState<string>("");
+  const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   useSEO({
     title: "Word Counter | Count Words, Characters & Sentences | Pixocraft Tools",
@@ -31,6 +38,93 @@ export default function WordCounter() {
     paragraphs: countParagraphs(text),
     readingTime: estimateReadingTime(text),
   }), [text]);
+
+  const handleFileUpload = async (file: File) => {
+    if (!file) return;
+
+    const validTypes = [
+      "text/plain",
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    if (!validTypes.includes(file.type)) {
+      toast({
+        title: "Invalid File Type",
+        description: "Please upload a .txt, .pdf, or .docx file",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setUploading(true);
+    setFileName(file.name);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/text/extract", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to extract text");
+      }
+
+      const data = await response.json();
+      setText(data.text);
+
+      toast({
+        title: "Success!",
+        description: "Text extracted from file successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to extract text from file",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileUpload(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      handleFileUpload(file);
+    }
+  };
+
+  const handleClear = () => {
+    setText("");
+    setFileName("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const statCards = [
     { icon: <FileText className="h-6 w-6" />, label: "Words", value: stats.words, color: "text-blue-600" },
@@ -87,12 +181,72 @@ export default function WordCounter() {
           ))}
         </div>
 
+        {/* File Upload */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Upload className="h-5 w-5" />
+                Upload File
+              </span>
+              {fileName && (
+                <Badge variant="secondary" className="text-xs">
+                  {fileName}
+                </Badge>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div
+              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                isDragging
+                  ? "border-primary bg-primary/5"
+                  : "border-muted-foreground/25 hover:border-primary/50"
+              }`}
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              data-testid="dropzone-word-counter"
+            >
+              <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="font-medium mb-2">
+                {uploading ? "Extracting text..." : "Click to upload or drag & drop"}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Supports .txt, .pdf, and .docx files (Max 10MB)
+              </p>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".txt,.pdf,.docx"
+                onChange={handleFileSelect}
+                className="hidden"
+                data-testid="input-file-word-counter"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Text Editor */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              Your Text
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                Your Text
+              </span>
+              {text && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClear}
+                  data-testid="button-clear-text"
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  Clear
+                </Button>
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -102,6 +256,7 @@ export default function WordCounter() {
               onChange={(e) => setText(e.target.value)}
               className="min-h-[300px] text-base leading-relaxed"
               data-testid="input-text-counter"
+              disabled={uploading}
             />
           </CardContent>
         </Card>

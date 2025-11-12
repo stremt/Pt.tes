@@ -10,7 +10,8 @@ import {
   Link2, 
   Palette, 
   User, 
-  ShieldCheck 
+  ShieldCheck,
+  Sparkles
 } from "lucide-react";
 
 export const tools: ToolMetadata[] = [
@@ -113,6 +114,15 @@ export const tools: ToolMetadata[] = [
     category: "privacy",
     keywords: ["password strength", "password checker", "security checker", "password test", "strong password"],
   },
+  {
+    id: "text-summarizer",
+    name: "AI Text Summarizer",
+    description: "Summarize any text with AI power using HuggingFace BART model. Upload PDFs or paste articles for instant summaries.",
+    icon: "Sparkles",
+    path: "/tools/text-summarizer",
+    category: "utility",
+    keywords: ["text summarizer", "ai summarizer", "summarize text", "pdf summarizer", "article summarizer", "huggingface"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
@@ -128,6 +138,7 @@ export const getToolIcon = (iconName: string) => {
     Palette,
     User,
     ShieldCheck,
+    Sparkles,
   };
   return icons[iconName] || Mail;
 };

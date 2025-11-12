@@ -59,14 +59,28 @@ export default function ImageCompressor() {
 
     setLoading(true);
     try {
+      const originalSizeMB = originalFile.size / (1024 * 1024);
+      const targetSizeMB = originalSizeMB * (1 - (100 - quality) / 100);
+      
       const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1920,
+        maxSizeMB: Math.max(0.1, targetSizeMB),
+        maxWidthOrHeight: quality < 50 ? 1280 : 1920,
         useWebWorker: true,
         quality: quality / 100,
+        initialQuality: quality / 100,
       };
 
       const compressed = await imageCompression(originalFile, options);
+      
+      const reductionPercent = Math.round((1 - compressed.size / originalFile.size) * 100);
+      
+      if (reductionPercent < 5) {
+        toast({
+          title: "Minimal Compression",
+          description: `Only ${reductionPercent}% reduction achieved. Try lowering quality for better results.`,
+        });
+      }
+      
       setCompressedFile(compressed);
 
       const reader = new FileReader();
@@ -77,7 +91,7 @@ export default function ImageCompressor() {
 
       toast({
         title: "Success!",
-        description: `Image compressed successfully. Reduced by ${Math.round((1 - compressed.size / originalFile.size) * 100)}%`,
+        description: `Image compressed successfully. Reduced by ${reductionPercent}%`,
       });
     } catch (error) {
       toast({
