@@ -1,0 +1,151 @@
+[
+  {
+    "slug": "what-is-temp-mail",
+    "title": "What is Temporary Email and How It Works",
+    "date": "2025-01-10",
+    "author": "Pixocraft Team",
+    "meta": {
+      "description": "Understand how temporary email works and why it's the best privacy tool online. Learn about disposable emails and protecting your inbox.",
+      "keywords": "temp mail, temporary email, free email, disposable mail, privacy"
+    },
+    "content": [
+      {
+        "type": "h2",
+        "text": "Introduction to Temporary Email"
+      },
+      {
+        "type": "p",
+        "text": "Temporary emails are powerful tools for avoiding spam and maintaining privacy online. In today's digital age, almost every service requires an email address for registration, which often leads to unwanted promotional emails and potential privacy risks."
+      },
+      {
+        "type": "h2",
+        "text": "How Temporary Email Works"
+      },
+      {
+        "type": "p",
+        "text": "A temporary email service provides you with a disposable email address that you can use for a limited time. These addresses are perfect for one-time registrations, testing, or any situation where you don't want to use your primary email."
+      },
+      {
+        "type": "h3",
+        "text": "Key Features"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Instant email generation",
+          "No registration required",
+          "Automatic inbox updates",
+          "Complete privacy protection",
+          "Free to use forever"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Why Use Temporary Email?"
+      },
+      {
+        "type": "p",
+        "text": "There are several compelling reasons to use temporary email addresses. Privacy is paramount in today's digital landscape, and temporary emails help you maintain control over your personal information."
+      },
+      {
+        "type": "p",
+        "text": "By using a disposable email, you can sign up for services without exposing your real email address to potential data breaches, spam, or tracking. It's an essential tool for anyone who values their online privacy."
+      }
+    ],
+    "relatedTools": ["temp-mail", "password-generator"]
+  },
+  {
+    "slug": "password-security-best-practices",
+    "title": "Password Security Best Practices for 2025",
+    "date": "2025-01-08",
+    "author": "Pixocraft Team",
+    "meta": {
+      "description": "Learn essential password security best practices to protect your online accounts. Tips for creating strong passwords and staying safe online.",
+      "keywords": "password security, strong passwords, cybersecurity, online safety"
+    },
+    "content": [
+      {
+        "type": "h2",
+        "text": "The Importance of Strong Passwords"
+      },
+      {
+        "type": "p",
+        "text": "In 2025, password security remains one of the most critical aspects of cybersecurity. With data breaches becoming more sophisticated, having strong, unique passwords for each account is no longer optional—it's essential."
+      },
+      {
+        "type": "h2",
+        "text": "Creating Strong Passwords"
+      },
+      {
+        "type": "p",
+        "text": "A strong password should be at least 12 characters long and include a mix of uppercase letters, lowercase letters, numbers, and symbols. Using a password generator can help you create truly random passwords that are nearly impossible to guess."
+      },
+      {
+        "type": "h3",
+        "text": "Password Best Practices"
+      },
+      {
+        "type": "ol",
+        "items": [
+          "Use unique passwords for each account",
+          "Enable two-factor authentication whenever possible",
+          "Change passwords every 3-6 months",
+          "Never share passwords via email or text",
+          "Use a password manager to store passwords securely"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Common Password Mistakes"
+      },
+      {
+        "type": "p",
+        "text": "Many people still use weak passwords like '123456' or 'password'. These are easily cracked by automated tools. Avoid using personal information like birthdays, names, or common words in your passwords."
+      }
+    ],
+    "relatedTools": ["password-generator", "temp-mail"]
+  },
+  {
+    "slug": "qr-codes-marketing-guide",
+    "title": "The Ultimate Guide to QR Codes for Marketing",
+    "date": "2025-01-05",
+    "author": "Pixocraft Team",
+    "meta": {
+      "description": "Learn how to use QR codes effectively in your marketing campaigns. Tips, best practices, and creative ideas for QR code marketing.",
+      "keywords": "qr codes, marketing, digital marketing, qr code campaigns"
+    },
+    "content": [
+      {
+        "type": "h2",
+        "text": "Why QR Codes Are Perfect for Marketing"
+      },
+      {
+        "type": "p",
+        "text": "QR codes have experienced a massive resurgence in recent years, becoming an essential tool for modern marketing. They provide a seamless bridge between physical and digital experiences, making it easy for customers to access information with a simple scan."
+      },
+      {
+        "type": "h2",
+        "text": "Creative QR Code Marketing Ideas"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Add QR codes to business cards for instant contact sharing",
+          "Place codes on product packaging for detailed information",
+          "Use them in print ads to drive traffic to landing pages",
+          "Create QR codes for event check-ins and registrations",
+          "Include them on restaurant menus for easy ordering"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Best Practices for QR Code Campaigns"
+      },
+      {
+        "type": "p",
+        "text": "To ensure your QR code marketing is effective, always test codes before printing, make sure they're large enough to scan easily, and provide clear instructions on what users will find when they scan. Always include a call-to-action near your QR code."
+      }
+    ],
+    "relatedTools": ["qr-maker", "image-compressor"]
+  }
+]
