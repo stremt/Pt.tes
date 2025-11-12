@@ -12,6 +12,13 @@ import TempMail from "@/pages/tools/TempMail";
 import PasswordGenerator from "@/pages/tools/PasswordGenerator";
 import QRMaker from "@/pages/tools/QRMaker";
 import ImageCompressor from "@/pages/tools/ImageCompressor";
+import TextCaseConverter from "@/pages/tools/TextCaseConverter";
+import WordCounter from "@/pages/tools/WordCounter";
+import JSONFormatter from "@/pages/tools/JSONFormatter";
+import URLEncoder from "@/pages/tools/URLEncoder";
+import ColorPicker from "@/pages/tools/ColorPicker";
+import UsernameGenerator from "@/pages/tools/UsernameGenerator";
+import PasswordStrengthChecker from "@/pages/tools/PasswordStrengthChecker";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -40,6 +47,13 @@ function Router() {
         <Route path="/tools/password-generator" component={PasswordGenerator} />
         <Route path="/tools/qr-maker" component={QRMaker} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
+        <Route path="/tools/text-case-converter" component={TextCaseConverter} />
+        <Route path="/tools/word-counter" component={WordCounter} />
+        <Route path="/tools/json-formatter" component={JSONFormatter} />
+        <Route path="/tools/url-encoder" component={URLEncoder} />
+        <Route path="/tools/color-picker" component={ColorPicker} />
+        <Route path="/tools/username-generator" component={UsernameGenerator} />
+        <Route path="/tools/password-strength-checker" component={PasswordStrengthChecker} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />

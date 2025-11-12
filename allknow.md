@@ -34,6 +34,13 @@ Pixocraft Tools is a free, privacy-focused online utilities platform. It's built
 2. Password Generator
 3. QR Code Maker
 4. Image Compressor
+5. Text Case Converter
+6. Word Counter
+7. JSON Formatter
+8. URL Encoder/Decoder
+9. Color Picker
+10. Username Generator
+11. Password Strength Checker
 
 ---
 
@@ -58,6 +65,13 @@ Pixocraft Tools is a free, privacy-focused online utilities platform. It's built
 | `/tools/password-generator` | Password Generator | Create strong, secure passwords |
 | `/tools/qr-maker` | QR Code Maker | Generate custom QR codes |
 | `/tools/image-compressor` | Image Compressor | Compress images without quality loss |
+| `/tools/text-case-converter` | Text Case Converter | Convert text to any case format |
+| `/tools/word-counter` | Word Counter | Count words, characters, sentences |
+| `/tools/json-formatter` | JSON Formatter | Beautify and validate JSON |
+| `/tools/url-encoder` | URL Encoder/Decoder | Encode or decode URLs |
+| `/tools/color-picker` | Color Picker | Select colors in HEX, RGB, HSL |
+| `/tools/username-generator` | Username Generator | Generate creative usernames |
+| `/tools/password-strength-checker` | Password Strength Checker | Check password security |
 
 ### Dynamic Routes
 
@@ -171,6 +185,167 @@ Pixocraft Tools is a free, privacy-focused online utilities platform. It's built
 - Download button
 
 **Keywords:** image compressor, compress image, reduce image size, optimize image, image optimizer
+
+---
+
+### 5. Text Case Converter (`/tools/text-case-converter`)
+
+**Purpose:** Convert text between different case formats instantly.
+
+**Features:**
+- Uppercase conversion
+- Lowercase conversion
+- Sentence case
+- Capital Case (each word)
+- Title Case (with proper article handling)
+- camelCase conversion
+- snake_case conversion
+- kebab-case conversion
+- One-click copy for any format
+- Real-time conversion as you type
+
+**UI Layout:**
+- Centered input card
+- Grid of conversion result cards (8 formats)
+- Each card shows format name and converted text
+- Click any card to copy
+
+**Keywords:** text case converter, uppercase, lowercase, title case, camel case, snake case, text transform
+
+---
+
+### 6. Word Counter (`/tools/word-counter`)
+
+**Purpose:** Count words, characters, sentences, and paragraphs with reading time estimation.
+
+**Features:**
+- Real-time word count
+- Character count (with and without spaces)
+- Sentence count
+- Paragraph count
+- Reading time estimation (200 WPM)
+- Large text editor
+- Live stats update as you type
+
+**UI Layout:**
+- Stats grid at top (6 stat cards)
+- Large textarea editor below
+- All stats update in real-time
+
+**Keywords:** word counter, character counter, text analyzer, word count, writing tool
+
+---
+
+### 7. JSON Formatter (`/tools/json-formatter`)
+
+**Purpose:** Beautify, validate, and minify JSON data.
+
+**Features:**
+- Format with 2 or 4 space indentation
+- Minify JSON (remove whitespace)
+- Validate JSON syntax
+- Detailed error messages
+- Side-by-side input/output view
+- Copy formatted result
+- Clear validation status
+
+**UI Layout:**
+- Action buttons at top
+- Two-column layout (input/output)
+- Error display in output panel
+- Validation badge
+
+**Keywords:** json formatter, json beautifier, json validator, json minifier, format json
+
+---
+
+### 8. URL Encoder/Decoder (`/tools/url-encoder`)
+
+**Purpose:** Encode URLs for safe transmission or decode percent-encoded URLs.
+
+**Features:**
+- URL encoding (percent encoding)
+- URL decoding
+- Tab-based mode switching
+- Copy encoded/decoded result
+- Clear and swap functions
+- Error handling for invalid URLs
+
+**UI Layout:**
+- Mode tabs (Encode/Decode)
+- Input textarea
+- Action buttons (Encode/Decode, Clear, Swap)
+- Output card with copy button
+
+**Keywords:** url encoder, url decoder, encode url, decode url, url escape
+
+---
+
+### 9. Color Picker (`/tools/color-picker`)
+
+**Purpose:** Select colors and get HEX, RGB, and HSL values.
+
+**Features:**
+- Visual color picker
+- Manual HEX input
+- 20 preset colors
+- Large color preview
+- HEX, RGB, and HSL formats
+- RGB component breakdown
+- Click any format to copy
+
+**UI Layout:**
+- Large color preview panel
+- Color picker control and HEX input
+- Preset color grid
+- Format cards (HEX, RGB, HSL)
+- RGB components display
+
+**Keywords:** color picker, hex color, rgb color, color converter, color tool
+
+---
+
+### 10. Username Generator (`/tools/username-generator`)
+
+**Purpose:** Generate creative and unique usernames.
+
+**Features:**
+- Generate 12 usernames at once
+- Toggle numbers on/off
+- Creative adjective + noun combinations
+- Click any username to copy
+- Unlimited generation
+- No duplicates in single batch
+
+**UI Layout:**
+- Controls card (toggle and generate button)
+- Results grid (12 username cards)
+- Click any card to copy
+
+**Keywords:** username generator, random username, gamer tag, username ideas, name generator
+
+---
+
+### 11. Password Strength Checker (`/tools/password-strength-checker`)
+
+**Purpose:** Check password strength and get security recommendations.
+
+**Features:**
+- Real-time strength analysis using zxcvbn
+- 5-level strength meter (Very Weak to Very Strong)
+- Security checklist (12+ chars, uppercase, lowercase, numbers, symbols)
+- Detailed feedback and suggestions
+- Warning messages
+- Show/hide password toggle
+- Completely private (client-side only)
+
+**UI Layout:**
+- Password input with toggle visibility
+- Strength meter with badge
+- Warning/suggestion boxes
+- Security checklist with checkmarks
+
+**Keywords:** password strength, password checker, security checker, password test, strong password
 
 ---
 

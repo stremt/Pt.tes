@@ -51,6 +51,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/tools/password-generator", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/qr-maker", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/image-compressor", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/text-case-converter", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/word-counter", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/json-formatter", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/url-encoder", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/color-picker", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/username-generator", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/password-strength-checker", priority: "0.9", changefreq: "weekly" },
     ];
 
     // Blog posts (dynamically loaded)

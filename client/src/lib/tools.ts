@@ -1,5 +1,17 @@
 import { ToolMetadata } from "@shared/schema";
-import { Mail, Lock, QrCode, ImageDown } from "lucide-react";
+import { 
+  Mail, 
+  Lock, 
+  QrCode, 
+  ImageDown, 
+  Type, 
+  FileText, 
+  Code, 
+  Link2, 
+  Palette, 
+  User, 
+  ShieldCheck 
+} from "lucide-react";
 
 export const tools: ToolMetadata[] = [
   {
@@ -38,6 +50,69 @@ export const tools: ToolMetadata[] = [
     category: "utility",
     keywords: ["image compressor", "compress image", "reduce image size", "optimize image", "image optimizer"],
   },
+  {
+    id: "text-case-converter",
+    name: "Text Case Converter",
+    description: "Convert text to uppercase, lowercase, title case, camel case, and more. Fast and simple text transformation.",
+    icon: "Type",
+    path: "/tools/text-case-converter",
+    category: "utility",
+    keywords: ["text case converter", "uppercase", "lowercase", "title case", "camel case", "snake case", "text transform"],
+  },
+  {
+    id: "word-counter",
+    name: "Word Counter",
+    description: "Count words, characters, sentences, and paragraphs instantly. Perfect for writers and students.",
+    icon: "FileText",
+    path: "/tools/word-counter",
+    category: "utility",
+    keywords: ["word counter", "character counter", "text analyzer", "word count", "writing tool"],
+  },
+  {
+    id: "json-formatter",
+    name: "JSON Formatter",
+    description: "Beautify and validate JSON data. Format, minify, and fix JSON syntax errors instantly.",
+    icon: "Code",
+    path: "/tools/json-formatter",
+    category: "generator",
+    keywords: ["json formatter", "json beautifier", "json validator", "json minifier", "format json"],
+  },
+  {
+    id: "url-encoder",
+    name: "URL Encoder/Decoder",
+    description: "Encode or decode URLs instantly. Convert special characters for safe URL transmission.",
+    icon: "Link2",
+    path: "/tools/url-encoder",
+    category: "utility",
+    keywords: ["url encoder", "url decoder", "encode url", "decode url", "url escape"],
+  },
+  {
+    id: "color-picker",
+    name: "Color Picker",
+    description: "Select and copy colors in HEX, RGB, and HSL formats. Perfect for designers and developers.",
+    icon: "Palette",
+    path: "/tools/color-picker",
+    category: "generator",
+    keywords: ["color picker", "hex color", "rgb color", "color converter", "color tool"],
+  },
+  {
+    id: "username-generator",
+    name: "Username Generator",
+    description: "Generate creative and unique usernames instantly. Perfect for gaming, social media, and more.",
+    icon: "User",
+    path: "/tools/username-generator",
+    category: "generator",
+    keywords: ["username generator", "random username", "gamer tag", "username ideas", "name generator"],
+  },
+  {
+    id: "password-strength-checker",
+    name: "Password Strength Checker",
+    description: "Check how strong your password is. Get instant feedback and security recommendations.",
+    icon: "ShieldCheck",
+    path: "/tools/password-strength-checker",
+    category: "privacy",
+    keywords: ["password strength", "password checker", "security checker", "password test", "strong password"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
@@ -46,6 +121,13 @@ export const getToolIcon = (iconName: string) => {
     Lock,
     QrCode,
     ImageDown,
+    Type,
+    FileText,
+    Code,
+    Link2,
+    Palette,
+    User,
+    ShieldCheck,
   };
   return icons[iconName] || Mail;
 };
