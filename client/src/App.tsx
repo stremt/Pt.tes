@@ -24,6 +24,16 @@ import TextSummarizer from "@/pages/tools/TextSummarizer";
 import ImageResizer from "@/pages/tools/ImageResizer";
 import Base64Encoder from "@/pages/tools/Base64Encoder";
 import BarcodeGenerator from "@/pages/tools/BarcodeGenerator";
+import JSONCSVConverter from "@/pages/tools/JSONCSVConverter";
+import JSONYAMLConverter from "@/pages/tools/JSONYAMLConverter";
+import CodeBeautifier from "@/pages/tools/CodeBeautifier";
+import CSSMinifier from "@/pages/tools/CSSMinifier";
+import JSMinifier from "@/pages/tools/JSMinifier";
+import HTMLBeautifier from "@/pages/tools/HTMLBeautifier";
+import RegexTester from "@/pages/tools/RegexTester";
+import MarkdownEditor from "@/pages/tools/MarkdownEditor";
+import APISnippetBuilder from "@/pages/tools/APISnippetBuilder";
+import TextDiffer from "@/pages/tools/TextDiffer";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -63,6 +73,16 @@ function Router() {
         <Route path="/tools/image-resizer" component={ImageResizer} />
         <Route path="/tools/base64-encoder" component={Base64Encoder} />
         <Route path="/tools/barcode-generator" component={BarcodeGenerator} />
+        <Route path="/tools/json-csv-converter" component={JSONCSVConverter} />
+        <Route path="/tools/json-yaml-converter" component={JSONYAMLConverter} />
+        <Route path="/tools/code-beautifier" component={CodeBeautifier} />
+        <Route path="/tools/css-minifier" component={CSSMinifier} />
+        <Route path="/tools/js-minifier" component={JSMinifier} />
+        <Route path="/tools/html-beautifier" component={HTMLBeautifier} />
+        <Route path="/tools/regex-tester" component={RegexTester} />
+        <Route path="/tools/markdown-editor" component={MarkdownEditor} />
+        <Route path="/tools/api-snippet-builder" component={APISnippetBuilder} />
+        <Route path="/tools/text-differ" component={TextDiffer} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
