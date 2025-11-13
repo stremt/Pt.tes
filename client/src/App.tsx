@@ -20,6 +20,9 @@ import ColorPicker from "@/pages/tools/ColorPicker";
 import UsernameGenerator from "@/pages/tools/UsernameGenerator";
 import PasswordStrengthChecker from "@/pages/tools/PasswordStrengthChecker";
 import TextSummarizer from "@/pages/tools/TextSummarizer";
+import ImageResizer from "@/pages/tools/ImageResizer";
+import Base64Encoder from "@/pages/tools/Base64Encoder";
+import BarcodeGenerator from "@/pages/tools/BarcodeGenerator";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -56,6 +59,9 @@ function Router() {
         <Route path="/tools/username-generator" component={UsernameGenerator} />
         <Route path="/tools/password-strength-checker" component={PasswordStrengthChecker} />
         <Route path="/tools/text-summarizer" component={TextSummarizer} />
+        <Route path="/tools/image-resizer" component={ImageResizer} />
+        <Route path="/tools/base64-encoder" component={Base64Encoder} />
+        <Route path="/tools/barcode-generator" component={BarcodeGenerator} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />

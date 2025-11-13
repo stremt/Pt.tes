@@ -171,6 +171,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/tools/username-generator", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/password-strength-checker", priority: "0.9", changefreq: "weekly" },
       { url: "/tools/text-summarizer", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/image-resizer", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/base64-encoder", priority: "0.9", changefreq: "weekly" },
+      { url: "/tools/barcode-generator", priority: "0.9", changefreq: "weekly" },
     ];
 
     // Blog posts (dynamically loaded)

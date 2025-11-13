@@ -11,7 +11,10 @@ import {
   Palette, 
   User, 
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  Maximize2,
+  Binary,
+  Barcode
 } from "lucide-react";
 
 export const tools: ToolMetadata[] = [
@@ -117,11 +120,38 @@ export const tools: ToolMetadata[] = [
   {
     id: "text-summarizer",
     name: "AI Text Summarizer",
-    description: "Summarize any text with AI power using HuggingFace BART model. Upload PDFs or paste articles for instant summaries.",
+    description: "Summarize any text with AI power. Upload PDFs or paste articles for instant summaries.",
     icon: "Sparkles",
     path: "/tools/text-summarizer",
     category: "utility",
-    keywords: ["text summarizer", "ai summarizer", "summarize text", "pdf summarizer", "article summarizer", "huggingface"],
+    keywords: ["text summarizer", "ai summarizer", "summarize text", "pdf summarizer", "article summarizer"],
+  },
+  {
+    id: "image-resizer",
+    name: "Image Resizer",
+    description: "Resize JPG, PNG or WebP images online. Change width & height instantly. Fast, offline & private.",
+    icon: "Maximize2",
+    path: "/tools/image-resizer",
+    category: "utility",
+    keywords: ["image resizer", "resize image online", "image scaling tool", "change image size"],
+  },
+  {
+    id: "base64-encoder",
+    name: "Base64 Encoder/Decoder",
+    description: "Convert text to Base64 or decode Base64 to text instantly. 100% offline, secure & fast.",
+    icon: "Binary",
+    path: "/tools/base64-encoder",
+    category: "utility",
+    keywords: ["base64 encoder", "base64 decoder online", "encode text", "decode base64"],
+  },
+  {
+    id: "barcode-generator",
+    name: "Barcode Generator",
+    description: "Generate high-quality barcodes instantly. Supports Code128, EAN, UPC & more. Download in PNG.",
+    icon: "Barcode",
+    path: "/tools/barcode-generator",
+    category: "generator",
+    keywords: ["barcode generator", "code128 barcode", "ean barcode", "upc creator"],
   },
 ];
 
@@ -139,6 +169,9 @@ export const getToolIcon = (iconName: string) => {
     User,
     ShieldCheck,
     Sparkles,
+    Maximize2,
+    Binary,
+    Barcode,
   };
   return icons[iconName] || Mail;
 };
