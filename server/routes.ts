@@ -60,14 +60,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Text summarization using HuggingFace API
   app.post("/api/summarize", async (req, res) => {
     try {
-      const { text, apiKey } = req.body;
+      const { text } = req.body;
 
       if (!text) {
         return res.status(400).json({ error: "No text provided" });
       }
 
+      const apiKey = process.env.HUGGINGFACE_API_KEY;
       if (!apiKey) {
-        return res.status(400).json({ error: "HuggingFace API key is required" });
+        return res.status(500).json({ error: "Server configuration error: API key not configured" });
       }
 
       // Limit text length

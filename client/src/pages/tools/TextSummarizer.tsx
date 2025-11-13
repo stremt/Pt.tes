@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,12 +9,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Upload, Sparkles, Zap, Lock, Globe, Key } from "lucide-react";
+import { FileText, Upload, Sparkles, Zap, Lock, Globe } from "lucide-react";
 
 export default function TextSummarizer() {
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
-  const [apiKey, setApiKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -26,8 +24,8 @@ export default function TextSummarizer() {
 
   useSEO({
     title: "AI Text Summarizer | Summarize Articles & Documents | Pixocraft Tools",
-    description: "Free AI-powered text summarizer using HuggingFace BART model. Summarize articles, research papers, and documents instantly. Upload PDFs or paste text.",
-    keywords: "text summarizer, ai summarizer, summarize text, pdf summarizer, article summarizer, huggingface, bart model",
+    description: "Free AI-powered text summarizer. Summarize articles, research papers, and documents instantly. Upload PDFs or paste text.",
+    keywords: "text summarizer, ai summarizer, summarize text, pdf summarizer, article summarizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-summarizer",
   });
 
@@ -120,15 +118,6 @@ export default function TextSummarizer() {
       return;
     }
 
-    if (!apiKey.trim()) {
-      toast({
-        title: "API Key Required",
-        description: "Please enter your HuggingFace API key",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setLoading(true);
     setSummary("");
 
@@ -138,7 +127,7 @@ export default function TextSummarizer() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text, apiKey }),
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
@@ -184,60 +173,29 @@ export default function TextSummarizer() {
   return (
     <ToolLayout
       title="AI Text Summarizer"
-      description="Summarize any text with AI power using HuggingFace BART model. Upload PDFs or paste articles to get instant, accurate summaries."
+      description="Summarize any text with AI power. Upload PDFs or paste articles to get instant, accurate summaries."
       icon={<Sparkles className="h-10 w-10 text-primary" />}
       toolId="text-summarizer"
       category="AI Tool"
       howItWorks={[
-        { step: 1, title: "Add API Key", description: "Enter your HuggingFace API key (get it free from HuggingFace)" },
-        { step: 2, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
-        { step: 3, title: "Summarize", description: "Click summarize to get an AI-powered summary" },
+        { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
+        { step: 2, title: "Summarize", description: "Click summarize to get an AI-powered summary instantly" },
+        { step: 3, title: "Review", description: "Read and copy your AI-generated summary" },
       ]}
       benefits={[
-        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "AI-Powered", description: "Uses state-of-the-art HuggingFace BART model for accurate summaries" },
+        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "AI-Powered", description: "Uses state-of-the-art AI model for accurate summaries" },
         { icon: <Zap className="h-6 w-6 text-primary" />, title: "Fast & Accurate", description: "Get summaries in seconds with 95% accuracy rate" },
         { icon: <Lock className="h-6 w-6 text-primary" />, title: "Privacy First", description: "Your documents are processed securely and never stored" },
         { icon: <Globe className="h-6 w-6 text-primary" />, title: "Multiple Formats", description: "Supports PDF, DOCX, and plain text files" },
       ]}
       faqs={[
-        { question: "How do I get a HuggingFace API key?", answer: "Visit huggingface.co, create a free account, go to Settings > Access Tokens, and generate a new token. The free tier is sufficient for personal use." },
-        { question: "Is my API key stored?", answer: "No, your API key is only used for the current session and stored in your browser's local storage. It's never sent to our servers or stored in any database." },
         { question: "What is the maximum text length?", answer: "The summarizer can handle up to 8,000 characters at once. Longer texts are automatically truncated to ensure fast processing." },
-        { question: "How accurate are the summaries?", answer: "The BART model has a 95% accuracy rate and is specifically trained for summarization tasks, providing high-quality, contextually relevant summaries." },
+        { question: "How accurate are the summaries?", answer: "Our AI model has a 95% accuracy rate and is specifically trained for summarization tasks, providing high-quality, contextually relevant summaries." },
         { question: "Can I use this for academic papers?", answer: "Yes! The summarizer works great for research papers, articles, and academic documents. However, always review the summary for critical work." },
+        { question: "Is my data secure?", answer: "Absolutely! Your documents are processed securely and are never stored on our servers. All processing happens in real-time." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* API Key Input */}
-        <Card className="border-primary/20">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Key className="h-5 w-5" />
-              HuggingFace API Key
-            </CardTitle>
-            <CardDescription>
-              Enter your HuggingFace API key. Get one free at{" "}
-              <a
-                href="https://huggingface.co/settings/tokens"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                huggingface.co/settings/tokens
-              </a>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Input
-              type="password"
-              placeholder="Enter your HuggingFace API key"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              data-testid="input-api-key"
-            />
-          </CardContent>
-        </Card>
-
         {/* Input Method Selection */}
         <Tabs value={inputMethod} onValueChange={(v) => setInputMethod(v as typeof inputMethod)}>
           <TabsList className="grid w-full grid-cols-2">
@@ -336,7 +294,7 @@ export default function TextSummarizer() {
         <div className="flex gap-2">
           <Button
             onClick={handleSummarize}
-            disabled={loading || uploading || !text || !apiKey}
+            disabled={loading || uploading || !text}
             size="lg"
             className="flex-1"
             data-testid="button-summarize"
@@ -374,7 +332,7 @@ export default function TextSummarizer() {
                 Summary
               </CardTitle>
               <CardDescription>
-                AI-generated summary using HuggingFace BART model
+                AI-generated summary
               </CardDescription>
             </CardHeader>
             <CardContent>
