@@ -187,14 +187,14 @@ export default function Home() {
             {tools.map((tool) => {
               const Icon = getToolIcon(tool.icon);
               return (
-                <Card key={tool.id} className="hover-elevate transition-all duration-200 group" data-testid={`card-tool-${tool.id}`}>
+                <Card key={tool.id} className="hover-elevate transition-all duration-200 group flex flex-col" data-testid={`card-tool-${tool.id}`}>
                   <CardHeader className="space-y-4">
                     <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Icon className="h-7 w-7 text-primary" />
                     </div>
                     <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex-1">
                     <CardDescription className="line-clamp-3 leading-relaxed">
                       {tool.description}
                     </CardDescription>
