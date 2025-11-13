@@ -2,7 +2,7 @@
 
 ## Overview
 
-Pixocraft Tools is a multi-tool web platform offering free, privacy-focused online utilities. The application is built as a single-page application (SPA) with a React frontend and Express backend, designed to provide fast, SEO-optimized tools without requiring user registration. The platform currently includes tools like Temp Mail Generator, Password Generator, QR Code Maker, and Image Compressor, with architecture designed for easy expansion.
+Pixocraft Tools is a multi-tool web platform offering free, privacy-focused online utilities. The application is built as a single-page application (SPA) with a React frontend and Express backend, designed to provide fast, SEO-optimized tools without requiring user registration. The platform currently includes 15 tools: Temp Mail Generator, Password Generator, QR Code Maker, Image Compressor, Image Resizer, Text Case Converter, Word Counter, JSON Formatter, URL Encoder/Decoder, Base64 Encoder/Decoder, Barcode Generator, Color Picker, Username Generator, Password Strength Checker, and AI Text Summarizer, with architecture designed for easy expansion.
 
 The project targets the domain `tools.pixocraft.in` and emphasizes organic search visibility through dynamic SEO, unique tool layouts, and a JSON-based blog system.
 
@@ -50,6 +50,8 @@ Preferred communication style: Simple, everyday language.
 **API Structure:**
 - RESTful endpoints under `/api` prefix
 - Contact form submission endpoint (`POST /api/contact`)
+- Text summarization endpoint (`POST /api/summarize`) - uses HuggingFace API
+- Text extraction from files (`POST /api/text/extract`) - supports PDF, DOCX, TXT
 - Dynamic sitemap generation (`GET /sitemap.xml`)
 - Blog data served as static JSON files
 
@@ -176,6 +178,7 @@ Preferred communication style: Simple, everyday language.
 
 **Environment Variables:**
 - `DATABASE_URL` - PostgreSQL connection string (required for Drizzle)
+- `HUGGINGFACE_API_KEY` - API key for AI text summarization feature (required for text summarizer tool)
 - `NODE_ENV` - Environment flag (development/production)
 - `REPL_ID` - Replit environment detection
 
