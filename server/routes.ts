@@ -31,7 +31,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Extract text based on file type
       if (file.mimetype === "application/pdf") {
         // Dynamically import pdf-parse for ES module compatibility
-        const { default: pdfParse } = await import("pdf-parse");
+        const pdfParse = (await import("pdf-parse")) as any;
         const pdfData = await pdfParse(file.buffer);
         extractedText = pdfData.text;
       } else if (
