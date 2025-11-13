@@ -120,6 +120,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // JavaScript minification
+  app.post("/api/minify/js", async (req, res) => {
+    try {
+      const { code } = req.body;
+      if (!code) {
+        return res.status(400).json({ error: "No code provided" });
+      }
+
+      const { minify } = await import("terser");
+      const result = await minify(code);
+      
+      if (!result.code) {
+        return res.status(500).json({ error: "Minification failed" });
+      }
+
+      res.json({ code: result.code });
+    } catch (error) {
+      console.error("JS minification error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Minification failed" });
+    }
+  });
+
+  // CSS minification
+  app.post("/api/minify/css", async (req, res) => {
+    try {
+      const { code } = req.body;
+      if (!code) {
+        return res.status(400).json({ error: "No code provided" });
+      }
+
+      const CleanCSS = (await import("clean-css")).default;
+      const cleaner = new CleanCSS({});
+      const result = cleaner.minify(code);
+
+      if (result.errors && result.errors.length > 0) {
+        return res.status(400).json({ error: result.errors.join(", ") });
+      }
+
+      res.json({ code: result.styles });
+    } catch (error) {
+      console.error("CSS minification error:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Minification failed" });
+    }
+  });
+
   // Contact form submission
   app.post("/api/contact", async (req, res) => {
     try {

@@ -7,7 +7,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
 import { Minimize2, Copy, RotateCcw, Zap, Lock, TrendingDown } from "lucide-react";
-import { minify } from "terser";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function JSMinifier() {
   const [input, setInput] = useState("");
@@ -28,18 +28,10 @@ export default function JSMinifier() {
     setIsMinifying(true);
     setError("");
     try {
-      const result = await minify(input, {
-        compress: {
-          dead_code: true,
-          drop_console: false,
-          drop_debugger: true,
-          keep_classnames: false,
-          keep_fnames: false,
-        },
-        mangle: false,
-        format: {
-          comments: false,
-        },
+      const result = await apiRequest("/api/minify/js", {
+        method: "POST",
+        body: JSON.stringify({ code: input }),
+        headers: { "Content-Type": "application/json" },
       });
       
       if (result.code) {

@@ -7,13 +7,14 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
 import { Minimize2, Copy, RotateCcw, Zap, Lock, TrendingDown } from "lucide-react";
-import CleanCSS from "clean-css";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function CSSMinifier() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
   const [stats, setStats] = useState({ original: 0, minified: 0, saved: 0 });
+  const [isMinifying, setIsMinifying] = useState(false);
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
@@ -23,30 +24,28 @@ export default function CSSMinifier() {
     canonicalUrl: "https://tools.pixocraft.in/tools/css-minifier",
   });
 
-  const handleMinify = () => {
+  const handleMinify = async () => {
+    setIsMinifying(true);
     setError("");
     try {
-      const cleanCss = new CleanCSS({
-        level: 1,
+      const result = await apiRequest("/api/minify/css", {
+        method: "POST",
+        body: JSON.stringify({ code: input }),
+        headers: { "Content-Type": "application/json" },
       });
-      const result = cleanCss.minify(input);
       
-      if (result.errors && result.errors.length > 0) {
-        setError(result.errors.join(", "));
-        setOutput("");
-        return;
-      }
-      
-      if (result.styles) {
-        setOutput(result.styles);
+      if (result.code) {
+        setOutput(result.code);
         const originalSize = new Blob([input]).size;
-        const minifiedSize = new Blob([result.styles]).size;
+        const minifiedSize = new Blob([result.code]).size;
         const saved = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
         setStats({ original: originalSize, minified: minifiedSize, saved: parseFloat(saved) });
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Minification failed");
       setOutput("");
+    } finally {
+      setIsMinifying(false);
     }
   };
 
