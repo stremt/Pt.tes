@@ -1,0 +1,493 @@
+===========================
+🔥 PIXOCRAFT TOOLS — STATIC TOOLS 161–190  
+🔥 FULL SEO PACK (TITLE + META + FAQ + PAGE CONTENT)
+===========================
+
+
+========================================================
+1️⃣6️⃣1️⃣ TOOL: PRIME NUMBER CHECKER
+========================================================
+🎯 TITLE:
+Prime Number Checker | Check If Number Is Prime
+
+📝 META DESCRIPTION:
+Instantly check whether a number is prime or composite. Fully offline.
+
+🔑 KEYWORDS:
+prime number checker, is prime tool
+
+❓ FAQ:
+Q: Large numbers supported?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Enter number → check prime instantly.
+
+
+--------------------------------------------------------
+1️⃣6️⃣2️⃣ TOOL: PRIME NUMBER GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Prime Number Generator | Generate Prime Numbers
+
+📝 META DESCRIPTION:
+Generate prime numbers in a range. Offline, accurate.
+
+🔑 KEYWORDS:
+prime number generator, list of primes
+
+💬 PAGE CONTENT PROMPT:
+Enter range → generate prime list.
+
+
+--------------------------------------------------------
+1️⃣6️⃣3️⃣ TOOL: PRIME FACTORIZATION TOOL
+--------------------------------------------------------
+🎯 TITLE:
+Prime Factorization Calculator | Factor Numbers
+
+📝 META DESCRIPTION:
+Break any number into prime factors instantly.
+
+🔑 KEYWORDS:
+prime factorization, factor number tool
+
+💬 PAGE CONTENT PROMPT:
+Enter number → get prime factors.
+
+
+--------------------------------------------------------
+1️⃣6️⃣4️⃣ TOOL: LCM & HCF CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+LCM HCF Calculator | Find LCM & GCD Instantly
+
+📝 META DESCRIPTION:
+Calculate LCM and HCF/ GCD of numbers instantly.
+
+🔑 KEYWORDS:
+lcm calculator, hcf calculator
+
+💬 PAGE CONTENT PROMPT:
+Enter numbers → find LCM & HCF.
+
+
+--------------------------------------------------------
+1️⃣6️⃣5️⃣ TOOL: RATIO SIMPLIFIER
+--------------------------------------------------------
+🎯 TITLE:
+Ratio Simplifier | Reduce Ratios Easily
+
+📝 META DESCRIPTION:
+Simplify any ratio like 120:45 into simplest form.
+
+🔑 KEYWORDS:
+ratio simplifier, simplify ratio
+
+💬 PAGE CONTENT PROMPT:
+Enter ratio → get simplified output.
+
+
+--------------------------------------------------------
+1️⃣6️⃣6️⃣ TOOL: PERCENTAGE CHANGE CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Percentage Change Calculator | Increase/Decrease
+
+📝 META DESCRIPTION:
+Calculate percentage increase or decrease quickly.
+
+🔑 KEYWORDS:
+percentage change, percent increase decrease
+
+💬 PAGE CONTENT PROMPT:
+Enter values → see % change.
+
+
+--------------------------------------------------------
+1️⃣6️⃣7️⃣ TOOL: MEAN / MEDIAN / MODE CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Mean Median Mode Calculator | Statistics Tool
+
+📝 META DESCRIPTION:
+Calculate mean, median & mode of datasets offline.
+
+🔑 KEYWORDS:
+mean calculator, mode calculator
+
+💬 PAGE CONTENT PROMPT:
+Paste numbers → get stats instantly.
+
+
+--------------------------------------------------------
+1️⃣6️⃣8️⃣ TOOL: TRIANGLE AREA CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Triangle Area Calculator | Base Height & Heron Formula
+
+📝 META DESCRIPTION:
+Calculate triangle area using base-height or Heron formula.
+
+🔑 KEYWORDS:
+triangle area calculator
+
+💬 PAGE CONTENT PROMPT:
+Enter sides → calculate area.
+
+
+--------------------------------------------------------
+1️⃣6️⃣9️⃣ TOOL: CIRCLE AREA & CIRCUMFERENCE CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Circle Calculator | Area & Circumference
+
+📝 META DESCRIPTION:
+Compute area and circumference with radius/diameter.
+
+🔑 KEYWORDS:
+circle calculator, area of circle
+
+💬 PAGE CONTENT PROMPT:
+Enter radius → get area + circumference.
+
+
+--------------------------------------------------------
+1️⃣7️⃣0️⃣ TOOL: FIBONACCI SEQUENCE GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Fibonacci Generator | Generate Sequence Numbers
+
+📝 META DESCRIPTION:
+Generate Fibonacci sequence up to any length.
+
+🔑 KEYWORDS:
+fibonacci generator, fibonacci numbers
+
+💬 PAGE CONTENT PROMPT:
+Enter count → generate Fibonacci sequence.
+
+
+--------------------------------------------------------
+1️⃣7️⃣1️⃣ TOOL: QUADRATIC EQUATION SOLVER
+--------------------------------------------------------
+🎯 TITLE:
+Quadratic Calculator | Solve ax² + bx + c Equation
+
+📝 META DESCRIPTION:
+Solve quadratic equations and show roots instantly.
+
+🔑 KEYWORDS:
+quadratic equation solver
+
+💬 PAGE CONTENT PROMPT:
+Enter a, b, c → get equation roots.
+
+
+--------------------------------------------------------
+1️⃣7️⃣2️⃣ TOOL: MODULAR ARITHMETIC CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Modulo Calculator | Find Remainder Easily
+
+📝 META DESCRIPTION:
+Compute modular arithmetic (a mod b) offline.
+
+🔑 KEYWORDS:
+modulo calculator, mod calculator
+
+💬 PAGE CONTENT PROMPT:
+Enter numbers → get result.
+
+
+--------------------------------------------------------
+1️⃣7️⃣3️⃣ TOOL: EXPONENT CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Exponent Calculator | Power Calculation Tool
+
+📝 META DESCRIPTION:
+Calculate powers like 8², 5³, etc instantly.
+
+🔑 KEYWORDS:
+exponent calculator, power calculator
+
+💬 PAGE CONTENT PROMPT:
+Enter base & exponent → get results.
+
+
+--------------------------------------------------------
+1️⃣7️⃣4️⃣ TOOL: SIMPLE INTEREST CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Simple Interest Calculator | Calculate SI Instantly
+
+📝 META DESCRIPTION:
+Calculate simple interest & total amount quickly.
+
+🔑 KEYWORDS:
+simple interest tool, si calculator
+
+💬 PAGE CONTENT PROMPT:
+Enter P, R, T → get interest.
+
+
+--------------------------------------------------------
+1️⃣7️⃣5️⃣ TOOL: COMPOUND INTEREST CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Compound Interest Calculator | Annual & Monthly CI
+
+📝 META DESCRIPTION:
+Calculate compound interest over custom time periods.
+
+🔑 KEYWORDS:
+compound interest calculator, ci tool
+
+💬 PAGE CONTENT PROMPT:
+Enter values → get CI & growth chart.
+
+
+--------------------------------------------------------
+1️⃣7️⃣6️⃣ TOOL: AGE GAP CALCULATOR
+--------------------------------------------------------
+🎯 TITLE:
+Age Gap Calculator | Difference Between Ages
+
+📝 META DESCRIPTION:
+Calculate age gap between two birthdates.
+
+🔑 KEYWORDS:
+age gap calculator, age difference tool
+
+💬 PAGE CONTENT PROMPT:
+Enter two dates → get age gap.
+
+
+--------------------------------------------------------
+1️⃣7️⃣7️⃣ TOOL: HEIGHT CONVERTER (CM ⇄ FEET ⇄ INCH)
+--------------------------------------------------------
+🎯 TITLE:
+Height Converter | cm to feet & inches
+
+📝 META DESCRIPTION:
+Convert height between feet, cm and inches instantly.
+
+🔑 KEYWORDS:
+height converter, cm to feet
+
+💬 PAGE CONTENT PROMPT:
+Enter value → convert instantly.
+
+
+--------------------------------------------------------
+1️⃣7️⃣8️⃣ TOOL: RANDOM ANIMAL GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Animal Generator | Offline Animal Picker
+
+📝 META DESCRIPTION:
+Generate random animals from a static list.
+
+🔑 KEYWORDS:
+random animal, animal picker
+
+💬 PAGE CONTENT PROMPT:
+Click → get random animal.
+
+
+--------------------------------------------------------
+1️⃣7️⃣9️⃣ TOOL: RANDOM COUNTRY GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Country Generator | Pick Country Offline
+
+📝 META DESCRIPTION:
+Generate random country names from static list.
+
+🔑 KEYWORDS:
+random country, country picker
+
+💬 PAGE CONTENT PROMPT:
+Click → get a random country.
+
+
+--------------------------------------------------------
+1️⃣8️⃣0️⃣ TOOL: RANDOM OBJECT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Object Generator | Offline Object Picker
+
+📝 META DESCRIPTION:
+Generate random objects from dictionary list.
+
+🔑 KEYWORDS:
+random object generator
+
+💬 PAGE CONTENT PROMPT:
+Click → get random object.
+
+
+--------------------------------------------------------
+1️⃣8️⃣1️⃣ TOOL: RANDOM FAKE ADDRESS GENERATOR (STATIC)
+--------------------------------------------------------
+🎯 TITLE:
+Fake Indian Address Generator | Offline Static Addresses
+
+📝 META DESCRIPTION:
+Generate random Indian-style addresses (static safe).
+
+🔑 KEYWORDS:
+fake address, random indian address
+
+💬 PAGE CONTENT PROMPT:
+Click → show random address.
+
+
+--------------------------------------------------------
+1️⃣8️⃣2️⃣ TOOL: RANDOM MOVIE SUGGESTION TOOL
+--------------------------------------------------------
+🎯 TITLE:
+Movie Suggestion Generator | Random Movie Picker
+
+📝 META DESCRIPTION:
+Get offline movie suggestions from a static list.
+
+🔑 KEYWORDS:
+movie generator, movie picker
+
+💬 PAGE CONTENT PROMPT:
+Click → show a random movie.
+
+
+--------------------------------------------------------
+1️⃣8️⃣3️⃣ TOOL: RANDOM HINDI NAME GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Hindi Name Generator | Indian Names
+
+📝 META DESCRIPTION:
+Generate offline Indian names for characters, ideas, etc.
+
+🔑 KEYWORDS:
+hindi name generator, indian names
+
+💬 PAGE CONTENT PROMPT:
+Click → get names.
+
+
+--------------------------------------------------------
+1️⃣8️⃣4️⃣ TOOL: RANDOM TECH STACK GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Tech Stack Generator | Random Stack Selector
+
+📝 META DESCRIPTION:
+Randomly generate tech stacks for fun or projects.
+
+🔑 KEYWORDS:
+tech stack generator
+
+💬 PAGE CONTENT PROMPT:
+Click → get a random tech stack.
+
+
+--------------------------------------------------------
+1️⃣8️⃣5️⃣ TOOL: RANDOM STARTUP IDEA GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Startup Idea Generator | Random Business Ideas
+
+📝 META DESCRIPTION:
+Get random startup ideas from offline static library.
+
+🔑 KEYWORDS:
+startup idea generator
+
+💬 PAGE CONTENT PROMPT:
+Click → generate idea instantly.
+
+
+--------------------------------------------------------
+1️⃣8️⃣6️⃣ TOOL: RANDOM RIDDLE GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Riddle Generator | Random Offline Riddles
+
+📝 META DESCRIPTION:
+Generate random riddles from static list.
+
+🔑 KEYWORDS:
+riddle generator, riddles offline
+
+💬 PAGE CONTENT PROMPT:
+Click → get a riddle.
+
+
+--------------------------------------------------------
+1️⃣8️⃣7️⃣ TOOL: RANDOM TASK GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Task Generator | Offline Challenge Ideas
+
+📝 META DESCRIPTION:
+Generate challenge tasks (study, fitness, fun).
+
+🔑 KEYWORDS:
+task generator, challenge idea
+
+💬 PAGE CONTENT PROMPT:
+Click → get task.
+
+
+--------------------------------------------------------
+1️⃣8️⃣8️⃣ TOOL: RANDOM SUPERHERO NAME GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Superhero Name Generator | Offline Static Superhero Names
+
+📝 META DESCRIPTION:
+Generate random superhero names offline.
+
+🔑 KEYWORDS:
+superhero name generator
+
+💬 PAGE CONTENT PROMPT:
+Click → get hero name.
+
+
+--------------------------------------------------------
+1️⃣8️⃣9️⃣ TOOL: RANDOM TRUTH/DARE GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Truth or Dare Generator | Offline Party Tool
+
+📝 META DESCRIPTION:
+Get static truth & dare prompts for fun.
+
+🔑 KEYWORDS:
+truth dare generator
+
+💬 PAGE CONTENT PROMPT:
+Click Truth → get question  
+Click Dare → get challenge.
+
+
+--------------------------------------------------------
+1️⃣9️⃣0️⃣ TOOL: RANDOM MOTIVATIONAL LINE GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Motivational Quote Generator | Offline Static Quotes
+
+📝 META DESCRIPTION:
+Generate offline motivational lines instantly.
+
+🔑 KEYWORDS:
+motivational quote generator
+
+💬 PAGE CONTENT PROMPT:
+Click → get new motivational line.
+
+===========================
+🔥 END OF STATIC TOOLS (161–190)
+===========================
