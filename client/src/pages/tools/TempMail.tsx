@@ -28,8 +28,10 @@ export default function TempMail() {
   const [messages, setMessages] = useState<MailMessage[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<MailMessage | null>(null);
   const [loading, setLoading] = useState(false);
+  const [fetchingMessages, setFetchingMessages] = useState(false);
   const [copied, setCopied] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [error, setError] = useState<string>("");
   const { toast } = useToast();
 
   useSEO({
@@ -65,6 +67,7 @@ export default function TempMail() {
   }, [autoRefresh, accountId, accountToken]);
 
   const fetchMessages = async (id: string, token: string) => {
+    setFetchingMessages(true);
     try {
       const response = await axios.get(`https://api.mail.tm/messages`, {
         headers: {
@@ -77,11 +80,19 @@ export default function TempMail() {
       }
     } catch (error) {
       console.error("Error fetching messages:", error);
+      toast({
+        title: "Failed to fetch messages",
+        description: "Could not retrieve inbox. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setFetchingMessages(false);
     }
   };
 
   const generateEmail = async () => {
     setLoading(true);
+    setError("");
     try {
       // Get available domains
       const domainsResponse = await axios.get("https://api.mail.tm/domains");
@@ -132,6 +143,7 @@ export default function TempMail() {
       });
     } catch (error) {
       console.error("Error generating email:", error);
+      setError("Failed to generate email. The service might be temporarily unavailable.");
       toast({
         title: "Error",
         description: "Failed to generate email. Please try again.",
@@ -245,25 +257,32 @@ export default function TempMail() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {!email ? (
-                  <Button
-                    onClick={generateEmail}
-                    disabled={loading}
-                    className="w-full"
-                    size="lg"
-                    data-testid="button-generate-email"
-                  >
-                    {loading ? (
-                      <>
-                        <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                        Generating...
-                      </>
-                    ) : (
-                      <>
-                        <Mail className="mr-2 h-4 w-4" />
-                        Generate Email
-                      </>
+                  <>
+                    <Button
+                      onClick={generateEmail}
+                      disabled={loading}
+                      className="w-full"
+                      size="lg"
+                      data-testid="button-generate-email"
+                    >
+                      {loading ? (
+                        <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Generating...
+                        </>
+                      ) : (
+                        <>
+                          <Mail className="mr-2 h-4 w-4" />
+                          Generate Email
+                        </>
+                      )}
+                    </Button>
+                    {error && (
+                      <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-sm text-destructive">
+                        {error}
+                      </div>
                     )}
-                  </Button>
+                  </>
                 ) : (
                   <div className="space-y-4">
                     <div>
@@ -297,10 +316,11 @@ export default function TempMail() {
                         onClick={() => fetchMessages(accountId, accountToken)}
                         variant="outline"
                         className="flex-1"
+                        disabled={fetchingMessages}
                         data-testid="button-refresh-inbox"
                       >
-                        <RefreshCw className="mr-2 h-4 w-4" />
-                        Refresh
+                        <RefreshCw className={`mr-2 h-4 w-4 ${fetchingMessages ? 'animate-spin' : ''}`} />
+                        {fetchingMessages ? 'Refreshing...' : 'Refresh'}
                       </Button>
                       <Button
                         onClick={deleteSession}
@@ -381,7 +401,12 @@ export default function TempMail() {
                             </div>
                             <div className="flex items-center gap-1 text-xs text-muted-foreground">
                               <Clock className="h-3 w-3" />
-                              {new Date(message.createdAt).toLocaleTimeString()}
+                              {new Date(message.createdAt).toLocaleString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric', 
+                                hour: '2-digit', 
+                                minute: '2-digit' 
+                              })}
                             </div>
                           </div>
                           <p className="font-medium">{message.subject}</p>
