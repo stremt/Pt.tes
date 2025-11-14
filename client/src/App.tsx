@@ -190,6 +190,7 @@ import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
+import QADashboard from "@/pages/QADashboard";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -209,6 +210,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/tools" component={Tools} />
+        <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
         <Route path="/tools/qr-maker" component={QRMaker} />
