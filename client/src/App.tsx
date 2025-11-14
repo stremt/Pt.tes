@@ -85,6 +85,15 @@ import PDFSplitter from "@/pages/tools/PDFSplitter";
 import PDFRotator from "@/pages/tools/PDFRotator";
 import PDFToImage from "@/pages/tools/PDFToImage";
 import ImageToPDF from "@/pages/tools/ImageToPDF";
+import FractionCalculator from "@/pages/tools/FractionCalculator";
+import RomanNumeralConverter from "@/pages/tools/RomanNumeralConverter";
+import TextCleaner from "@/pages/tools/TextCleaner";
+import TextEncryptDecrypt from "@/pages/tools/TextEncryptDecrypt";
+import HashGenerator from "@/pages/tools/HashGenerator";
+import NumberSorter from "@/pages/tools/NumberSorter";
+import PaySplitCalculator from "@/pages/tools/PaySplitCalculator";
+import MatrixCalculator from "@/pages/tools/MatrixCalculator";
+import CaseRandomizer from "@/pages/tools/CaseRandomizer";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -183,6 +192,15 @@ function Router() {
         <Route path="/tools/pdf-rotator" component={PDFRotator} />
         <Route path="/tools/pdf-to-image" component={PDFToImage} />
         <Route path="/tools/image-to-pdf" component={ImageToPDF} />
+        <Route path="/tools/fraction-calculator" component={FractionCalculator} />
+        <Route path="/tools/roman-numeral-converter" component={RomanNumeralConverter} />
+        <Route path="/tools/text-cleaner" component={TextCleaner} />
+        <Route path="/tools/text-encrypt-decrypt" component={TextEncryptDecrypt} />
+        <Route path="/tools/hash-generator" component={HashGenerator} />
+        <Route path="/tools/number-sorter" component={NumberSorter} />
+        <Route path="/tools/pay-split-calculator" component={PaySplitCalculator} />
+        <Route path="/tools/matrix-calculator" component={MatrixCalculator} />
+        <Route path="/tools/case-randomizer" component={CaseRandomizer} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />

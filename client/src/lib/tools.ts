@@ -57,7 +57,11 @@ import {
   PiggyBank,
   CreditCard,
   Divide,
-  Shuffle
+  Shuffle,
+  Eraser,
+  Unlock,
+  ArrowUpDown,
+  Users
 } from "lucide-react";
 
 export const tools: ToolMetadata[] = [
@@ -727,6 +731,87 @@ export const tools: ToolMetadata[] = [
     category: "generator",
     keywords: ["random string generator", "random text generator", "secure string generator", "random password"],
   },
+  {
+    id: "fraction-calculator",
+    name: "Fraction Calculator",
+    description: "Solve fractions instantly with addition, subtraction, multiplication, division & simplification. Offline & accurate.",
+    icon: "Calculator",
+    path: "/tools/fraction-calculator",
+    category: "utility",
+    keywords: ["fraction calculator", "add fractions", "simplify fractions", "fraction solver", "multiply fractions"],
+  },
+  {
+    id: "roman-numeral-converter",
+    name: "Roman Numeral Converter",
+    description: "Convert Roman numerals to numbers or numbers to Roman instantly. Offline, accurate & easy.",
+    icon: "RefreshCw",
+    path: "/tools/roman-numeral-converter",
+    category: "utility",
+    keywords: ["roman numeral converter", "number to roman", "roman calculator", "roman to number"],
+  },
+  {
+    id: "text-cleaner",
+    name: "Text Cleaner",
+    description: "Clean messy text by removing extra spaces, duplicates, symbols, line breaks & formatting. Offline & fast.",
+    icon: "Eraser",
+    path: "/tools/text-cleaner",
+    category: "utility",
+    keywords: ["text cleaner", "remove spaces", "clean text online", "remove symbols", "text formatter"],
+  },
+  {
+    id: "text-encrypt-decrypt",
+    name: "Text Encrypt & Decrypt",
+    description: "Encrypt or decrypt text with a password using offline browser crypto. Zero data storage. AES encryption.",
+    icon: "Lock",
+    path: "/tools/text-encrypt-decrypt",
+    category: "privacy",
+    keywords: ["text encrypt", "text decrypt", "offline encryption", "aes encrypt text", "secure text encryption"],
+  },
+  {
+    id: "hash-generator",
+    name: "Hash Generator",
+    description: "Generate MD5, SHA1 & SHA256 hashes instantly. Developer-friendly, offline & secure.",
+    icon: "Hash",
+    path: "/tools/hash-generator",
+    category: "utility",
+    keywords: ["md5 generator", "sha256 hash tool", "hash calculator", "sha1 online", "hash generator"],
+  },
+  {
+    id: "number-sorter",
+    name: "Number Sorter",
+    description: "Sort large lists of numbers instantly. Offline, fast & suitable for math, data & business.",
+    icon: "ArrowUpDown",
+    path: "/tools/number-sorter",
+    category: "utility",
+    keywords: ["number sorter", "sort numbers online", "number ordering tool", "ascending descending sort"],
+  },
+  {
+    id: "pay-split-calculator",
+    name: "Pay Split Calculator",
+    description: "Split bills evenly or assign custom percentages. Perfect for friends, families & groups.",
+    icon: "Users",
+    path: "/tools/pay-split-calculator",
+    category: "utility",
+    keywords: ["bill split calculator", "split payment", "group bill tool", "payment splitter"],
+  },
+  {
+    id: "matrix-calculator",
+    name: "Matrix Calculator",
+    description: "Solve matrix addition, subtraction & multiplication offline. Fast, accurate & great for students.",
+    icon: "Calculator",
+    path: "/tools/matrix-calculator",
+    category: "utility",
+    keywords: ["matrix calculator", "matrix multiplication", "add matrices online", "matrix operations"],
+  },
+  {
+    id: "case-randomizer",
+    name: "Case Randomizer",
+    description: "Convert text into random case or alternating case instantly. Fun, fast & offline.",
+    icon: "Shuffle",
+    path: "/tools/case-randomizer",
+    category: "utility",
+    keywords: ["random case generator", "crazy text", "alternating case", "mixed case generator"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
@@ -789,6 +874,10 @@ export const getToolIcon = (iconName: string) => {
     CreditCard,
     Divide,
     Shuffle,
+    Eraser,
+    Unlock,
+    ArrowUpDown,
+    Users,
   };
   return icons[iconName] || Mail;
 };
