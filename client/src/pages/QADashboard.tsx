@@ -24,6 +24,7 @@ interface ToolTest {
   testedAt?: number;
   issues: ToolIssue[];
   notes: string;
+  checklistProgress: Record<number, boolean>;
 }
 
 interface ToolIssue {
@@ -125,8 +126,39 @@ export default function QADashboard() {
         testedAt: Date.now(),
         issues: prev[toolId]?.issues || [],
         notes: prev[toolId]?.notes || "",
+        checklistProgress: prev[toolId]?.checklistProgress || {},
       }
     }));
+  };
+
+  const initializeChecklist = (toolId: string, category: string) => {
+    const checklist = TEST_CHECKLISTS[category as keyof typeof TEST_CHECKLISTS] || TEST_CHECKLISTS.text;
+    const initialized: Record<number, boolean> = {};
+    checklist.forEach((_, idx) => {
+      initialized[idx] = false;
+    });
+    return initialized;
+  };
+
+  const toggleChecklistItem = (toolId: string, itemIndex: number, category: string) => {
+    setTestData(prev => {
+      const currentProgress = prev[toolId]?.checklistProgress || initializeChecklist(toolId, category);
+      
+      return {
+        ...prev,
+        [toolId]: {
+          ...prev[toolId],
+          toolId,
+          status: prev[toolId]?.status || "in-progress",
+          issues: prev[toolId]?.issues || [],
+          notes: prev[toolId]?.notes || "",
+          checklistProgress: {
+            ...currentProgress,
+            [itemIndex]: !currentProgress[itemIndex],
+          },
+        }
+      };
+    });
   };
 
   const addIssue = (toolId: string) => {
@@ -148,6 +180,7 @@ export default function QADashboard() {
         status: "failed",
         issues: [...(prev[toolId]?.issues || []), issue],
         notes: prev[toolId]?.notes || "",
+        checklistProgress: prev[toolId]?.checklistProgress || {},
       }
     }));
 
@@ -157,15 +190,22 @@ export default function QADashboard() {
   };
 
   const markIssueFixed = (toolId: string, issueId: string) => {
-    setTestData(prev => ({
-      ...prev,
-      [toolId]: {
-        ...prev[toolId],
-        issues: prev[toolId].issues.map(issue =>
-          issue.id === issueId ? { ...issue, fixedAt: Date.now() } : issue
-        ),
-      }
-    }));
+    setTestData(prev => {
+      const updatedIssues = prev[toolId].issues.map(issue =>
+        issue.id === issueId ? { ...issue, fixedAt: Date.now() } : issue
+      );
+      const hasOpenIssues = updatedIssues.some(i => !i.fixedAt);
+      
+      return {
+        ...prev,
+        [toolId]: {
+          ...prev[toolId],
+          issues: updatedIssues,
+          status: hasOpenIssues ? "needs-improvement" : "passed",
+        }
+      };
+    });
+    toast({ title: "Issue Marked Fixed", description: "Issue has been resolved" });
   };
 
   const updateNotes = (toolId: string, notes: string) => {
@@ -177,6 +217,7 @@ export default function QADashboard() {
         status: prev[toolId]?.status || "pending",
         issues: prev[toolId]?.issues || [],
         notes,
+        checklistProgress: prev[toolId]?.checklistProgress || {},
       }
     }));
   };
@@ -220,6 +261,12 @@ export default function QADashboard() {
         {config.text}
       </Badge>
     );
+  };
+
+  const resetAllData = () => {
+    localStorage.removeItem("qa-test-data");
+    setTestData({});
+    toast({ title: "Data Reset", description: "All QA testing data has been cleared" });
   };
 
   const exportReport = () => {
@@ -304,7 +351,7 @@ export default function QADashboard() {
               <Download className="w-4 h-4 mr-2" />
               Export Report
             </Button>
-            <Button onClick={() => setTestData({})} variant="outline" size="sm" data-testid="button-reset-data">
+            <Button onClick={resetAllData} variant="outline" size="sm" data-testid="button-reset-data">
               Reset All Data
             </Button>
           </CardContent>
@@ -452,12 +499,43 @@ export default function QADashboard() {
                       </TabsList>
                       
                       <TabsContent value="checklist" className="space-y-2">
-                        {(TEST_CHECKLISTS[tool.category as keyof typeof TEST_CHECKLISTS] || TEST_CHECKLISTS.text).map((item, idx) => (
-                          <div key={idx} className="flex items-start gap-2 text-sm">
-                            <Checkbox id={`check-${tool.id}-${idx}`} />
-                            <label htmlFor={`check-${tool.id}-${idx}`} className="cursor-pointer">{item}</label>
-                          </div>
-                        ))}
+                        {(() => {
+                          const checklist = TEST_CHECKLISTS[tool.category as keyof typeof TEST_CHECKLISTS] || TEST_CHECKLISTS.text;
+                          const progress = test?.checklistProgress || {};
+                          const completedCount = Object.values(progress).filter(Boolean).length;
+                          const totalCount = checklist.length;
+                          
+                          return (
+                            <>
+                              {checklist.map((item, idx) => {
+                                const isChecked = progress[idx] || false;
+                                
+                                return (
+                                  <div key={idx} className="flex items-start gap-2 text-sm">
+                                    <Checkbox 
+                                      id={`check-${tool.id}-${idx}`}
+                                      checked={isChecked}
+                                      onCheckedChange={() => toggleChecklistItem(tool.id, idx, tool.category)}
+                                    />
+                                    <label htmlFor={`check-${tool.id}-${idx}`} className="cursor-pointer flex-1">
+                                      {item}
+                                    </label>
+                                  </div>
+                                );
+                              })}
+                              <div className="mt-4 pt-4 border-t">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                  <span>Checklist Progress</span>
+                                  <span>{completedCount} / {totalCount} completed</span>
+                                </div>
+                                <Progress 
+                                  value={(completedCount / totalCount) * 100} 
+                                  className="h-1 mt-2"
+                                />
+                              </div>
+                            </>
+                          );
+                        })()}
                       </TabsContent>
                       
                       <TabsContent value="issues" className="space-y-3">
