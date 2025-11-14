@@ -156,6 +156,35 @@ import ImageInvertTool from "@/pages/tools/ImageInvertTool";
 import ImageGrayscaleTool from "@/pages/tools/ImageGrayscaleTool";
 import ImageRotateTool from "@/pages/tools/ImageRotateTool";
 import SignaturePadTool from "@/pages/tools/SignaturePadTool";
+import PrimeNumberChecker from "@/pages/tools/PrimeNumberChecker";
+import PrimeNumberGenerator from "@/pages/tools/PrimeNumberGenerator";
+import PrimeFactorization from "@/pages/tools/PrimeFactorization";
+import LCMHCFCalculator from "@/pages/tools/LCMHCFCalculator";
+import RatioSimplifier from "@/pages/tools/RatioSimplifier";
+import PercentageChangeCalculator from "@/pages/tools/PercentageChangeCalculator";
+import MeanMedianModeCalculator from "@/pages/tools/MeanMedianModeCalculator";
+import TriangleAreaCalculator from "@/pages/tools/TriangleAreaCalculator";
+import CircleCalculator from "@/pages/tools/CircleCalculator";
+import FibonacciGenerator from "@/pages/tools/FibonacciGenerator";
+import QuadraticSolver from "@/pages/tools/QuadraticSolver";
+import ModuloCalculator from "@/pages/tools/ModuloCalculator";
+import ExponentCalculator from "@/pages/tools/ExponentCalculator";
+import SimpleInterestCalculator from "@/pages/tools/SimpleInterestCalculator";
+import CompoundInterestCalculator from "@/pages/tools/CompoundInterestCalculator";
+import AgeGapCalculator from "@/pages/tools/AgeGapCalculator";
+import HeightConverter from "@/pages/tools/HeightConverter";
+import RandomAnimalGenerator from "@/pages/tools/RandomAnimalGenerator";
+import RandomObjectGenerator from "@/pages/tools/RandomObjectGenerator";
+import RandomFakeAddress from "@/pages/tools/RandomFakeAddress";
+import RandomMovieSuggestion from "@/pages/tools/RandomMovieSuggestion";
+import RandomHindiName from "@/pages/tools/RandomHindiName";
+import RandomTechStack from "@/pages/tools/RandomTechStack";
+import RandomStartupIdea from "@/pages/tools/RandomStartupIdea";
+import RandomRiddle from "@/pages/tools/RandomRiddle";
+import RandomTask from "@/pages/tools/RandomTask";
+import RandomSuperheroName from "@/pages/tools/RandomSuperheroName";
+import RandomTruthDare from "@/pages/tools/RandomTruthDare";
+import RandomMotivationalQuote from "@/pages/tools/RandomMotivationalQuote";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -325,6 +354,35 @@ function Router() {
         <Route path="/tools/image-grayscale-tool" component={ImageGrayscaleTool} />
         <Route path="/tools/image-rotate-tool" component={ImageRotateTool} />
         <Route path="/tools/signature-pad-tool" component={SignaturePadTool} />
+        <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
+        <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
+        <Route path="/tools/prime-factorization" component={PrimeFactorization} />
+        <Route path="/tools/lcm-hcf-calculator" component={LCMHCFCalculator} />
+        <Route path="/tools/ratio-simplifier" component={RatioSimplifier} />
+        <Route path="/tools/percentage-change-calculator" component={PercentageChangeCalculator} />
+        <Route path="/tools/mean-median-mode-calculator" component={MeanMedianModeCalculator} />
+        <Route path="/tools/triangle-area-calculator" component={TriangleAreaCalculator} />
+        <Route path="/tools/circle-calculator" component={CircleCalculator} />
+        <Route path="/tools/fibonacci-generator" component={FibonacciGenerator} />
+        <Route path="/tools/quadratic-solver" component={QuadraticSolver} />
+        <Route path="/tools/modulo-calculator" component={ModuloCalculator} />
+        <Route path="/tools/exponent-calculator" component={ExponentCalculator} />
+        <Route path="/tools/simple-interest-calculator" component={SimpleInterestCalculator} />
+        <Route path="/tools/compound-interest-calculator" component={CompoundInterestCalculator} />
+        <Route path="/tools/age-gap-calculator" component={AgeGapCalculator} />
+        <Route path="/tools/height-converter" component={HeightConverter} />
+        <Route path="/tools/random-animal-generator" component={RandomAnimalGenerator} />
+        <Route path="/tools/random-object-generator" component={RandomObjectGenerator} />
+        <Route path="/tools/random-fake-address" component={RandomFakeAddress} />
+        <Route path="/tools/random-movie-suggestion" component={RandomMovieSuggestion} />
+        <Route path="/tools/random-hindi-name" component={RandomHindiName} />
+        <Route path="/tools/random-tech-stack" component={RandomTechStack} />
+        <Route path="/tools/random-startup-idea" component={RandomStartupIdea} />
+        <Route path="/tools/random-riddle" component={RandomRiddle} />
+        <Route path="/tools/random-task" component={RandomTask} />
+        <Route path="/tools/random-superhero-name" component={RandomSuperheroName} />
+        <Route path="/tools/random-truth-dare" component={RandomTruthDare} />
+        <Route path="/tools/random-motivational-quote" component={RandomMotivationalQuote} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
