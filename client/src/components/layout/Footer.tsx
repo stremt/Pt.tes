@@ -38,8 +38,11 @@ export function Footer() {
               </div>
               <span className="font-bold text-lg">Pixocraft Tools</span>
             </div>
+            <p className="text-sm text-muted-foreground leading-relaxed font-semibold">
+              India's Biggest Free Online Tool Hub
+            </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Smart, fast, and free online tools for everyone. No signup required, completely privacy-focused.
+              200+ Browser Tools • 100% Private & Offline • Made in India
             </p>
             <div className="flex items-center gap-2 pt-2">
               {socialLinks.map((social) => {
@@ -124,7 +127,7 @@ export function Footer() {
         <Separator className="my-8" />
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>
-            © {currentYear} Pixocraft Tools – Part of{" "}
+            © {currentYear} Pixocraft Tools — India's Biggest Free Online Tool Hub • Part of{" "}
             <a 
               href="https://pixocraft.in" 
               className="hover:text-foreground transition-colors underline underline-offset-4"
@@ -136,14 +139,14 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4 text-xs">
             <Link href="/privacy" className="hover:text-foreground transition-colors">
-              Privacy
+              Privacy Policy
             </Link>
             <span>•</span>
-            <Link href="/sitemap.xml" className="hover:text-foreground transition-colors">
-              Sitemap
-            </Link>
+            <a href="mailto:support@pixocraft.in" className="hover:text-foreground transition-colors">
+              Contact Support
+            </a>
             <span>•</span>
-            <span>Made in India with ❤️</span>
+            <span>Made in India</span>
           </div>
         </div>
       </div>
