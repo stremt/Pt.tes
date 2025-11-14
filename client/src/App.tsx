@@ -94,6 +94,25 @@ import NumberSorter from "@/pages/tools/NumberSorter";
 import PaySplitCalculator from "@/pages/tools/PaySplitCalculator";
 import MatrixCalculator from "@/pages/tools/MatrixCalculator";
 import CaseRandomizer from "@/pages/tools/CaseRandomizer";
+import BMICalculator from "@/pages/tools/BMICalculator";
+import CalorieCalculator from "@/pages/tools/CalorieCalculator";
+import HexColorPickerTool from "@/pages/tools/HexColorPickerTool";
+import ScreenResolutionChecker from "@/pages/tools/ScreenResolutionChecker";
+import UUIDGenerator from "@/pages/tools/UUIDGenerator";
+import WordShuffler from "@/pages/tools/WordShuffler";
+import RemoveDuplicateWords from "@/pages/tools/RemoveDuplicateWords";
+import RemoveDuplicateLines from "@/pages/tools/RemoveDuplicateLines";
+import LineBreakRemover from "@/pages/tools/LineBreakRemover";
+import SilentText from "@/pages/tools/SilentText";
+import RandomDateGenerator from "@/pages/tools/RandomDateGenerator";
+import RandomCountryGenerator from "@/pages/tools/RandomCountryGenerator";
+import TodoList from "@/pages/tools/TodoList";
+import NotesApp from "@/pages/tools/NotesApp";
+import CharacterParagraphCounter from "@/pages/tools/CharacterParagraphCounter";
+import KeywordDensityChecker from "@/pages/tools/KeywordDensityChecker";
+import HTMLTableGenerator from "@/pages/tools/HTMLTableGenerator";
+import TextReverser from "@/pages/tools/TextReverser";
+import PalindromeChecker from "@/pages/tools/PalindromeChecker";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -201,6 +220,25 @@ function Router() {
         <Route path="/tools/pay-split-calculator" component={PaySplitCalculator} />
         <Route path="/tools/matrix-calculator" component={MatrixCalculator} />
         <Route path="/tools/case-randomizer" component={CaseRandomizer} />
+        <Route path="/tools/bmi-calculator" component={BMICalculator} />
+        <Route path="/tools/calorie-calculator" component={CalorieCalculator} />
+        <Route path="/tools/hex-color-picker-tool" component={HexColorPickerTool} />
+        <Route path="/tools/screen-resolution-checker" component={ScreenResolutionChecker} />
+        <Route path="/tools/uuid-generator" component={UUIDGenerator} />
+        <Route path="/tools/word-shuffler" component={WordShuffler} />
+        <Route path="/tools/remove-duplicate-words" component={RemoveDuplicateWords} />
+        <Route path="/tools/remove-duplicate-lines" component={RemoveDuplicateLines} />
+        <Route path="/tools/line-break-remover" component={LineBreakRemover} />
+        <Route path="/tools/silent-text" component={SilentText} />
+        <Route path="/tools/random-date-generator" component={RandomDateGenerator} />
+        <Route path="/tools/random-country-generator" component={RandomCountryGenerator} />
+        <Route path="/tools/todo-list" component={TodoList} />
+        <Route path="/tools/notes-app" component={NotesApp} />
+        <Route path="/tools/character-paragraph-counter" component={CharacterParagraphCounter} />
+        <Route path="/tools/keyword-density-checker" component={KeywordDensityChecker} />
+        <Route path="/tools/html-table-generator" component={HTMLTableGenerator} />
+        <Route path="/tools/text-reverser" component={TextReverser} />
+        <Route path="/tools/palindrome-checker" component={PalindromeChecker} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
