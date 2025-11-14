@@ -143,6 +143,19 @@ import SymbolCombiner from "@/pages/tools/SymbolCombiner";
 import TextRotator from "@/pages/tools/TextRotator";
 import PangramGenerator from "@/pages/tools/PangramGenerator";
 import RandomWordGenerator from "@/pages/tools/RandomWordGenerator";
+import JSONTreeViewer from "@/pages/tools/JSONTreeViewer";
+import CSSClampGenerator from "@/pages/tools/CSSClampGenerator";
+import CSSAnimationGenerator from "@/pages/tools/CSSAnimationGenerator";
+import HTMLMinifier from "@/pages/tools/HTMLMinifier";
+import ExtractNumbers from "@/pages/tools/ExtractNumbers";
+import RemoveNumbers from "@/pages/tools/RemoveNumbers";
+import ImageDarkenTool from "@/pages/tools/ImageDarkenTool";
+import ImageLightenTool from "@/pages/tools/ImageLightenTool";
+import ImageMirrorTool from "@/pages/tools/ImageMirrorTool";
+import ImageInvertTool from "@/pages/tools/ImageInvertTool";
+import ImageGrayscaleTool from "@/pages/tools/ImageGrayscaleTool";
+import ImageRotateTool from "@/pages/tools/ImageRotateTool";
+import SignaturePadTool from "@/pages/tools/SignaturePadTool";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -299,6 +312,19 @@ function Router() {
         <Route path="/tools/text-rotator" component={TextRotator} />
         <Route path="/tools/pangram-generator" component={PangramGenerator} />
         <Route path="/tools/random-word-generator" component={RandomWordGenerator} />
+        <Route path="/tools/json-tree-viewer" component={JSONTreeViewer} />
+        <Route path="/tools/css-clamp-generator" component={CSSClampGenerator} />
+        <Route path="/tools/css-animation-generator" component={CSSAnimationGenerator} />
+        <Route path="/tools/html-minifier" component={HTMLMinifier} />
+        <Route path="/tools/extract-numbers" component={ExtractNumbers} />
+        <Route path="/tools/remove-numbers" component={RemoveNumbers} />
+        <Route path="/tools/image-darken-tool" component={ImageDarkenTool} />
+        <Route path="/tools/image-lighten-tool" component={ImageLightenTool} />
+        <Route path="/tools/image-mirror-tool" component={ImageMirrorTool} />
+        <Route path="/tools/image-invert-tool" component={ImageInvertTool} />
+        <Route path="/tools/image-grayscale-tool" component={ImageGrayscaleTool} />
+        <Route path="/tools/image-rotate-tool" component={ImageRotateTool} />
+        <Route path="/tools/signature-pad-tool" component={SignaturePadTool} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
