@@ -22,7 +22,12 @@ import {
   Search,
   FileEdit,
   Code2,
-  Diff
+  Diff,
+  Image,
+  Droplets,
+  Square,
+  Crop,
+  Hash
 } from "lucide-react";
 
 export const tools: ToolMetadata[] = [
@@ -251,6 +256,87 @@ export const tools: ToolMetadata[] = [
     category: "utility",
     keywords: ["text compare", "code diff tool", "diff checker online"],
   },
+  {
+    id: "image-to-base64",
+    name: "Image to Base64 Converter",
+    description: "Convert JPG, PNG or WebP images to Base64 instantly. Fast, offline, secure and works on any device.",
+    icon: "Image",
+    path: "/tools/image-to-base64",
+    category: "utility",
+    keywords: ["image to base64", "convert image base64", "base64 generator", "jpg to base64", "png to base64"],
+  },
+  {
+    id: "base64-to-image",
+    name: "Base64 to Image Converter",
+    description: "Paste Base64 code and download the decoded image in one click. Works offline and secure.",
+    icon: "Image",
+    path: "/tools/base64-to-image",
+    category: "utility",
+    keywords: ["base64 to image", "decode base64", "base64 converter online", "base64 decoder"],
+  },
+  {
+    id: "hex-rgb-converter",
+    name: "HEX to RGB Converter",
+    description: "Convert HEX to RGB or RGB to HEX instantly. Perfect for designers and developers.",
+    icon: "Palette",
+    path: "/tools/hex-rgb-converter",
+    category: "generator",
+    keywords: ["hex to rgb", "rgb converter", "color converter online", "rgb to hex"],
+  },
+  {
+    id: "color-palette-generator",
+    name: "Color Palette Generator",
+    description: "Generate beautiful color palettes instantly. Stunning random colors, hex codes & offline support.",
+    icon: "Palette",
+    path: "/tools/color-palette-generator",
+    category: "generator",
+    keywords: ["color palette generator", "color theme maker", "random colors", "palette creator"],
+  },
+  {
+    id: "gradient-generator",
+    name: "CSS Gradient Generator",
+    description: "Create linear & radial gradients visually and copy CSS instantly. Works offline.",
+    icon: "Droplets",
+    path: "/tools/gradient-generator",
+    category: "generator",
+    keywords: ["css gradient generator", "gradient maker", "background generator", "linear gradient"],
+  },
+  {
+    id: "box-shadow-generator",
+    name: "CSS Box Shadow Generator",
+    description: "Design box shadows visually and copy CSS instantly. No ads, no login, fully offline.",
+    icon: "Square",
+    path: "/tools/box-shadow-generator",
+    category: "generator",
+    keywords: ["css shadow generator", "box shadow maker", "shadow css tool", "box shadow css"],
+  },
+  {
+    id: "border-radius-generator",
+    name: "Border Radius Generator",
+    description: "Create smooth border radius shapes visually & copy CSS with one click.",
+    icon: "Square",
+    path: "/tools/border-radius-generator",
+    category: "generator",
+    keywords: ["border radius generator", "css curve tool", "radius editor", "rounded corners"],
+  },
+  {
+    id: "image-cropper",
+    name: "Image Cropper",
+    description: "Crop images in your browser. No upload, no server — fully private and fast.",
+    icon: "Crop",
+    path: "/tools/image-cropper",
+    category: "utility",
+    keywords: ["image cropper", "crop image online", "photo crop tool", "image crop"],
+  },
+  {
+    id: "random-number-generator",
+    name: "Random Number Generator",
+    description: "Generate random numbers instantly in any range. Offline, free and secure.",
+    icon: "Hash",
+    path: "/tools/random-number-generator",
+    category: "generator",
+    keywords: ["random number generator", "number picker online", "rng tool", "random number"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
@@ -278,6 +364,11 @@ export const getToolIcon = (iconName: string) => {
     FileEdit,
     Code2,
     Diff,
+    Image,
+    Droplets,
+    Square,
+    Crop,
+    Hash,
   };
   return icons[iconName] || Mail;
 };
