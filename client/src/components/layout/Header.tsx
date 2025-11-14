@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { SearchButton } from "@/components/SearchDialog";
 import { Menu, X, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -59,6 +60,7 @@ export function Header() {
               </span>
             </Link>
           ))}
+          <SearchButton variant="outline" />
           <ThemeToggle />
           <Link href="/contact">
             <Button size="sm" data-testid="button-contact-cta">
@@ -69,6 +71,7 @@ export function Header() {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-2">
+          <SearchButton variant="ghost" />
           <ThemeToggle />
           <Button
             variant="ghost"

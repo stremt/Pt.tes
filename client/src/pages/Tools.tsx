@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { tools, getToolIcon } from "@/lib/tools";
 import { useSEO } from "@/lib/seo";
+import { SearchButton } from "@/components/SearchDialog";
 import { ArrowRight } from "lucide-react";
 
 export default function Tools() {
@@ -60,6 +61,9 @@ export default function Tools() {
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Browse our handcrafted suite of free, lightning-fast tools. Each designed to solve a specific problem with zero compromise on privacy.
           </p>
+          <div className="flex justify-center pt-4">
+            <SearchButton variant="default" />
+          </div>
         </div>
 
         {/* Privacy Tools */}
