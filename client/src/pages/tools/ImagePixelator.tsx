@@ -104,6 +104,7 @@ export default function ImagePixelator() {
           onChange={handleImageUpload}
           accept="image/*"
           className="hidden"
+          data-testid="input-file"
         />
 
         <Card>

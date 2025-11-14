@@ -92,7 +92,7 @@ export default function WordFrequencyCounter() {
                   <div
                     key={index}
                     className="flex items-center justify-between p-3 bg-muted/50 rounded hover-elevate"
-                    data-testid={`word-${word}`}
+                    data-testid={`row-word-${index}`}
                   >
                     <span className="font-mono font-semibold">{word}</span>
                     <div className="flex items-center gap-3">

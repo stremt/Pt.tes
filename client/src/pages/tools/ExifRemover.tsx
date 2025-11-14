@@ -84,6 +84,7 @@ export default function ExifRemover() {
           onChange={handleImageUpload}
           accept="image/*"
           className="hidden"
+          data-testid="input-file"
         />
 
         <Card>

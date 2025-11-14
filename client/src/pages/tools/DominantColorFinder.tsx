@@ -95,6 +95,7 @@ export default function DominantColorFinder() {
           onChange={handleImageUpload}
           accept="image/*"
           className="hidden"
+          data-testid="input-file"
         />
 
         <Card>

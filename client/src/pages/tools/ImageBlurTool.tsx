@@ -96,6 +96,7 @@ export default function ImageBlurTool() {
           onChange={handleImageUpload}
           accept="image/*"
           className="hidden"
+          data-testid="input-file"
         />
 
         <Card>
