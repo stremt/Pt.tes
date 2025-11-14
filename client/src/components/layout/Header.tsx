@@ -21,9 +21,11 @@ export function Header() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/tools", label: "Tools" },
+    { href: "/tools", label: "All Tools" },
+    { href: "/categories", label: "Categories" },
     { href: "/blogs", label: "Blog" },
     { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
   ];
 
   const isActive = (href: string) => {
@@ -41,7 +43,7 @@ export function Header() {
             </div>
             <div className="flex flex-col">
               <span className={`font-bold leading-none transition-all ${scrolled ? 'text-base' : 'text-lg'}`}>Pixocraft Tools</span>
-              <span className="text-xs text-muted-foreground leading-none hidden sm:block">Fast & Free</span>
+              <span className="text-xs text-muted-foreground leading-none hidden sm:block">India's Biggest Tool Hub</span>
             </div>
           </div>
         </Link>
@@ -62,11 +64,6 @@ export function Header() {
           ))}
           <SearchButton variant="outline" />
           <ThemeToggle />
-          <Link href="/contact">
-            <Button size="sm" data-testid="button-contact-cta">
-              Contact Us
-            </Button>
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -96,17 +93,12 @@ export function Header() {
                       ? 'bg-secondary text-foreground' 
                       : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                   }`}
-                  data-testid={`link-mobile-${link.label.toLowerCase()}`}
+                  data-testid={`link-mobile-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {link.label}
                 </div>
               </Link>
             ))}
-            <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full mt-2" data-testid="button-mobile-contact-cta">
-                Contact Us
-              </Button>
-            </Link>
           </nav>
         </div>
       )}
