@@ -36,6 +36,15 @@ import RegexTester from "@/pages/tools/RegexTester";
 import MarkdownEditor from "@/pages/tools/MarkdownEditor";
 import APISnippetBuilder from "@/pages/tools/APISnippetBuilder";
 import TextDiffer from "@/pages/tools/TextDiffer";
+import RandomNumberGenerator from "@/pages/tools/RandomNumberGenerator";
+import HexRgbConverter from "@/pages/tools/HexRgbConverter";
+import ColorPaletteGenerator from "@/pages/tools/ColorPaletteGenerator";
+import GradientGenerator from "@/pages/tools/GradientGenerator";
+import BoxShadowGenerator from "@/pages/tools/BoxShadowGenerator";
+import BorderRadiusGenerator from "@/pages/tools/BorderRadiusGenerator";
+import ImageToBase64 from "@/pages/tools/ImageToBase64";
+import Base64ToImage from "@/pages/tools/Base64ToImage";
+import ImageCropper from "@/pages/tools/ImageCropper";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -85,6 +94,15 @@ function Router() {
         <Route path="/tools/markdown-editor" component={MarkdownEditor} />
         <Route path="/tools/api-snippet-builder" component={APISnippetBuilder} />
         <Route path="/tools/text-differ" component={TextDiffer} />
+        <Route path="/tools/random-number-generator" component={RandomNumberGenerator} />
+        <Route path="/tools/hex-rgb-converter" component={HexRgbConverter} />
+        <Route path="/tools/color-palette-generator" component={ColorPaletteGenerator} />
+        <Route path="/tools/gradient-generator" component={GradientGenerator} />
+        <Route path="/tools/box-shadow-generator" component={BoxShadowGenerator} />
+        <Route path="/tools/border-radius-generator" component={BorderRadiusGenerator} />
+        <Route path="/tools/image-to-base64" component={ImageToBase64} />
+        <Route path="/tools/base64-to-image" component={Base64ToImage} />
+        <Route path="/tools/image-cropper" component={ImageCropper} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
