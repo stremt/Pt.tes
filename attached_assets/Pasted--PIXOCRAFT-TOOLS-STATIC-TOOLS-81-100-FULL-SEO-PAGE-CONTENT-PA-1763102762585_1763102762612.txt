@@ -1,0 +1,412 @@
+===========================
+🔥 PIXOCRAFT TOOLS — STATIC TOOLS 81–100  
+🔥 FULL SEO + PAGE CONTENT PACK (NO DUPLICATES)
+===========================
+
+========================================================
+8️⃣1️⃣ TOOL: BMI CALCULATOR
+========================================================
+
+🎯 TITLE:
+BMI Calculator Online | Body Mass Index Checker
+
+📝 META DESCRIPTION:
+Calculate BMI instantly with height & weight. Shows category: underweight, normal, overweight, obese.
+
+🔑 KEYWORDS:
+bmi calculator, body mass index, health calculator
+
+❓ FAQ:
+Q: Does it show category?
+A: Yes — shows BMI category & health range.
+
+💬 PAGE CONTENT PROMPT:
+Enter height & weight → get BMI instantly.  
+Perfect for fitness, health tracking & diet planning.
+
+--------------------------------------------------------
+8️⃣2️⃣ TOOL: CALORIE NEEDS CALCULATOR (BMR)
+--------------------------------------------------------
+
+🎯 TITLE:
+Daily Calorie Calculator | BMR & TDEE Calculator
+
+📝 META DESCRIPTION:
+Calculate daily calorie requirements using BMR & TDEE formula. Fitness-friendly & offline.
+
+🔑 KEYWORDS:
+calorie calculator, bmr calculator, tdee calculator
+
+❓ FAQ:
+Q: Does it support activity levels?
+A: Yes — sedentary to highly active.
+
+💬 PAGE CONTENT PROMPT:
+Enter details → get calories needed for weight gain, loss or maintenance.
+
+--------------------------------------------------------
+8️⃣3️⃣ TOOL: HEX COLOR PICKER
+--------------------------------------------------------
+
+🎯 TITLE:
+Hex Color Picker | Choose & Copy Colors Instantly
+
+📝 META DESCRIPTION:
+Pick any color and copy HEX, RGB instantly. Perfect for designers & developers.
+
+🔑 KEYWORDS:
+hex color picker, color tool, color selector
+
+❓ FAQ:
+Q: Does it show RGB also?
+A: Yes — HEX + RGB both.
+
+💬 PAGE CONTENT PROMPT:
+Pick a color → copy HEX/RGB → use in your design or code.
+
+--------------------------------------------------------
+8️⃣4️⃣ TOOL: SCREEN RESOLUTION CHECKER
+--------------------------------------------------------
+
+🎯 TITLE:
+Screen Resolution Checker | Device Width & Height
+
+📝 META DESCRIPTION:
+Check your screen resolution, DPR, viewport size & browser window instantly.
+
+🔑 KEYWORDS:
+screen resolution checker, screen size, viewport size tool
+
+❓ FAQ:
+Q: Mobile supported?
+A: Yes — auto detects all sizes.
+
+💬 PAGE CONTENT PROMPT:
+Shows screen size, viewport, DPR & device info instantly.
+
+--------------------------------------------------------
+8️⃣5️⃣ TOOL: PASSWORD GENERATOR (ADVANCED OPTIONS)
+--------------------------------------------------------
+
+🎯 TITLE:
+Advanced Password Generator | Strong Secure Passwords
+
+📝 META DESCRIPTION:
+Generate custom strong passwords with length, symbols, numbers & uppercase control.
+
+🔑 KEYWORDS:
+password generator, strong password maker, secure password tool
+
+❓ FAQ:
+Q: Is it secure?
+A: Yes — uses local random crypto.
+
+💬 PAGE CONTENT PROMPT:
+Choose length & options → generate ultra-strong passwords instantly.
+
+--------------------------------------------------------
+8️⃣6️⃣ TOOL: UUID GENERATOR (V4)
+--------------------------------------------------------
+
+🎯 TITLE:
+UUID Generator Online | Generate UUID v4 Instantly
+
+📝 META DESCRIPTION:
+Generate secure random UUID v4 identifiers. Works offline, developer-friendly.
+
+🔑 KEYWORDS:
+uuid generator, uuid v4, random id generator
+
+❓ FAQ:
+Q: Is UUID unique?
+A: Yes — 128-bit randomness.
+
+💬 PAGE CONTENT PROMPT:
+Click generate → copy UUID instantly for apps, APIs & databases.
+
+--------------------------------------------------------
+8️⃣7️⃣ TOOL: WORD SHUFFLER
+--------------------------------------------------------
+
+🎯 TITLE:
+Word Shuffler Online | Shuffle Words & Sentences
+
+📝 META DESCRIPTION:
+Randomly shuffle words or lines in text. Offline & fun to use.
+
+🔑 KEYWORDS:
+word shuffler, shuffle text, randomize words
+
+❓ FAQ:
+Q: Can it shuffle sentences?
+A: Yes — entire lines or words.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → shuffle → copy new randomized content instantly.
+
+--------------------------------------------------------
+8️⃣8️⃣ TOOL: REMOVE DUPLICATE WORDS
+--------------------------------------------------------
+
+🎯 TITLE:
+Duplicate Word Remover | Clean Repeated Words
+
+📝 META DESCRIPTION:
+Remove repeated words or duplicates from text instantly. Offline & easy.
+
+🔑 KEYWORDS:
+remove duplicate words, text cleaner, delete duplicates
+
+❓ FAQ:
+Q: Does it keep first appearance?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Paste your text → remove duplicates → get clean output instantly.
+
+--------------------------------------------------------
+8️⃣9️⃣ TOOL: REMOVE DUPLICATE LINES
+--------------------------------------------------------
+
+🎯 TITLE:
+Duplicate Lines Remover | Clean Text Lines Instantly
+
+📝 META DESCRIPTION:
+Remove duplicate lines, sort lines & clean text in seconds. Fast & offline.
+
+🔑 KEYWORDS:
+remove duplicate lines, delete repeated lines, clean text lines
+
+❓ FAQ:
+Q: Sorting available?
+A: Yes — ascending & descending.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → remove duplicate lines → sorted/clean output immediately.
+
+--------------------------------------------------------
+9️⃣0️⃣ TOOL: LINE BREAK REMOVER
+--------------------------------------------------------
+
+🎯 TITLE:
+Line Break Remover | Delete New Lines Instantly
+
+📝 META DESCRIPTION:
+Remove line breaks and join text into one clean paragraph. Offline & simple.
+
+🔑 KEYWORDS:
+remove line breaks, delete new lines, text formatter
+
+❓ FAQ:
+Q: Does it handle huge text?
+A: Yes — thousands of lines.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → remove line breaks → clean single-line output instantly.
+
+--------------------------------------------------------
+9️⃣1️⃣ TOOL: SILENT TEXT (REMOVE VOWELS)
+--------------------------------------------------------
+
+🎯 TITLE:
+Silent Text Generator | Remove Vowels from Text
+
+📝 META DESCRIPTION:
+Remove vowels from text instantly. Fun tool for coding, puzzles & learning.
+
+🔑 KEYWORDS:
+remove vowels, silent text, fun text tools
+
+❓ FAQ:
+Q: AEIOU remove karta hai?
+A: Yes — all vowels.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → remove vowels → generate silent puzzle-style text.
+
+--------------------------------------------------------
+9️⃣2️⃣ TOOL: RANDOM DATE GENERATOR
+--------------------------------------------------------
+
+🎯 TITLE:
+Random Date Generator | Generate Dates in Range
+
+📝 META DESCRIPTION:
+Generate random dates between any two dates. Perfect for testing & coding.
+
+🔑 KEYWORDS:
+random date, date generator, pick random day
+
+❓ FAQ:
+Q: Can I control start & end?
+A: Yes — full range support.
+
+💬 PAGE CONTENT PROMPT:
+Select date range → generate random dates instantly.
+
+--------------------------------------------------------
+9️⃣3️⃣ TOOL: RANDOM COUNTRY GENERATOR
+--------------------------------------------------------
+
+🎯 TITLE:
+Random Country Generator | Pick Random Countries
+
+📝 META DESCRIPTION:
+Generate random countries with flags, capitals & continent info.
+
+🔑 KEYWORDS:
+random country, country picker, flag generator
+
+❓ FAQ:
+Q: Does it show flag?
+A: Yes — SVG flags.
+
+💬 PAGE CONTENT PROMPT:
+Click generate → get random country name, capital & flag instantly.
+
+--------------------------------------------------------
+9️⃣4️⃣ TOOL: TO-DO LIST (OFFLINE LOCAL STORAGE)
+--------------------------------------------------------
+
+🎯 TITLE:
+To-Do List App | Offline Task Manager
+
+📝 META DESCRIPTION:
+Create tasks, checklists & notes offline with local storage. Lightweight & fast.
+
+🔑 KEYWORDS:
+todo list offline, task manager, simple todo app
+
+❓ FAQ:
+Q: Does it save tasks?
+A: Yes — local storage.
+
+💬 PAGE CONTENT PROMPT:
+Add tasks → mark done → delete anytime.  
+Perfect for study, work & daily planning.
+
+--------------------------------------------------------
+9️⃣5️⃣ TOOL: NOTES APP (OFFLINE)
+--------------------------------------------------------
+
+🎯 TITLE:
+Online Notes App | Save Notes Offline (No Login)
+
+📝 META DESCRIPTION:
+Create and save notes offline using local storage. Fast & private.
+
+🔑 KEYWORDS:
+notes app online, save notes offline, simple notes tool
+
+❓ FAQ:
+Q: Does it sync?
+A: No — purely offline for privacy.
+
+💬 PAGE CONTENT PROMPT:
+Write notes → auto save → edit anytime.  
+Clean, distraction-free notes tool.
+
+--------------------------------------------------------
+9️⃣6️⃣ TOOL: COUNT CHARACTERS & PARAGRAPHS
+--------------------------------------------------------
+
+🎯 TITLE:
+Character & Paragraph Counter | Instant Text Stats
+
+📝 META DESCRIPTION:
+Count characters, paragraphs, sentences & lines instantly.
+
+🔑 KEYWORDS:
+paragraph counter, character counter, text stats tool
+
+❓ FAQ:
+Q: Real-time?
+A: Yes — updates instantly.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → get character, paragraph, line & sentence count instantly.
+
+--------------------------------------------------------
+9️⃣7️⃣ TOOL: KEYWORD DENSITY CHECKER (STATIC)
+--------------------------------------------------------
+
+🎯 TITLE:
+Keyword Density Checker | SEO Keyword Scanner
+
+📝 META DESCRIPTION:
+Check keyword density of any text. Perfect for SEO, writers & blogs.
+
+🔑 KEYWORDS:
+keyword density, seo tool, keyword checker
+
+❓ FAQ:
+Q: Does it highlight keywords?
+A: Yes — with percentage.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → find keyword frequency → optimize SEO content instantly.
+
+--------------------------------------------------------
+9️⃣8️⃣ TOOL: HTML TABLE GENERATOR
+--------------------------------------------------------
+
+🎯 TITLE:
+HTML Table Generator | Create Clean Table Code
+
+📝 META DESCRIPTION:
+Create HTML tables visually and copy clean table code instantly. Offline supported.
+
+🔑 KEYWORDS:
+html table generator, table maker, table code tool
+
+❓ FAQ:
+Q: Borders & styles supported?
+A: Basic styles supported.
+
+💬 PAGE CONTENT PROMPT:
+Choose rows/columns → fill data → copy clean HTML table code.
+
+--------------------------------------------------------
+9️⃣9️⃣ TOOL: TEXT REVERSER
+--------------------------------------------------------
+
+🎯 TITLE:
+Text Reverser Online | Reverse Words & Sentences
+
+📝 META DESCRIPTION:
+Reverse text, words or full sentences instantly. Offline & fun.
+
+🔑 KEYWORDS:
+text reverser, reverse words, reverse text tool
+
+❓ FAQ:
+Q: Does it reverse only words?
+A: Both — words or full sentence.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → reverse → copy output instantly.
+
+--------------------------------------------------------
+1️⃣0️⃣0️⃣ TOOL: PALINDROME CHECKER
+--------------------------------------------------------
+
+🎯 TITLE:
+Palindrome Checker Online | Check Word or Sentence
+
+📝 META DESCRIPTION:
+Check if a word or sentence is palindrome. Fast, offline & accurate.
+
+🔑 KEYWORDS:
+palindrome checker, word palindrome, check palindrome
+
+❓ FAQ:
+Q: Does it ignore spaces?
+A: Yes — optional ignore mode.
+
+💬 PAGE CONTENT PROMPT:
+Enter a word/sentence → check instantly if it's a palindrome.  
+Perfect for students & fun word games.
+
+========================================================
+🔥 END OF STATIC TOOLS (81–100)
+========================================================
