@@ -1,0 +1,474 @@
+===========================
+🔥 PIXOCRAFT TOOLS — STATIC TOOLS 101–130  
+🔥 FULL SEO + TITLE + META + FAQ + PAGE CONTENT PACK
+===========================
+
+========================================================
+1️⃣0️⃣1️⃣ TOOL: TITLE CASE CONVERTER
+========================================================
+🎯 TITLE:
+Title Case Converter | Convert Text to Proper Case Instantly
+
+📝 META DESCRIPTION:
+Convert your text into clean and professional Title Case instantly. Offline & secure.
+
+🔑 KEYWORDS:
+title case converter, proper case generator, text capitalizer
+
+❓ FAQ:
+Q: Can I convert to sentence case?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → convert to perfect Title Case instantly for headings & captions.
+
+--------------------------------------------------------
+1️⃣0️⃣2️⃣ TOOL: SLUG GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Slug Generator | Create Clean SEO-Friendly URLs
+
+📝 META DESCRIPTION:
+Convert text into SEO-friendly URL slugs instantly. Free, fast, offline-safe.
+
+🔑 KEYWORDS:
+slug generator, url slug generator, seo slug tool
+
+❓ FAQ:
+Q: Does it remove symbols?
+A: Yes — auto cleans.
+
+💬 PAGE CONTENT PROMPT:
+Enter text → get clean URL-friendly slug with hyphens.
+
+--------------------------------------------------------
+1️⃣0️⃣3️⃣ TOOL: MORSE CODE TRANSLATOR
+--------------------------------------------------------
+🎯 TITLE:
+Morse Code Translator | Text ↔ Morse Converter
+
+📝 META DESCRIPTION:
+Convert any text to Morse code and decode Morse instantly. Offline and secure.
+
+🔑 KEYWORDS:
+morse code translator, text to morse, morse decoder
+
+❓ FAQ:
+Q: Does it support beep sound?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Write text → convert to Morse code instantly with optional beeps.
+
+--------------------------------------------------------
+1️⃣0️⃣4️⃣ TOOL: NATO PHONETIC CONVERTER
+--------------------------------------------------------
+🎯 TITLE:
+NATO Phonetic Alphabet Converter | Text to Alpha-Bravo
+
+📝 META DESCRIPTION:
+Convert any text into NATO phonetic alphabet words like Alpha, Bravo & Charlie.
+
+🔑 KEYWORDS:
+nato converter, alpha bravo converter, phonetic alphabet tool
+
+❓ FAQ:
+Q: Supports lowercase?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Enter text → get phonetic alphabet instantly.
+
+--------------------------------------------------------
+1️⃣0️⃣5️⃣ TOOL: SUPERSCRIPT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Superscript Generator | Convert Text to Superscript
+
+📝 META DESCRIPTION:
+Generate superscript characters for math & styling. Offline and private.
+
+🔑 KEYWORDS:
+superscript generator, tiny text generator
+
+💬 PAGE CONTENT PROMPT:
+Type text → convert to superscript instantly.
+
+--------------------------------------------------------
+1️⃣0️⃣6️⃣ TOOL: SUBSCRIPT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Subscript Generator | Create Subscript Text
+
+📝 META DESCRIPTION:
+Convert text into subscript characters like H₂O, CO₂. Perfect for formulas.
+
+🔑 KEYWORDS:
+subscript generator, chemical text generator
+
+💬 PAGE CONTENT PROMPT:
+Enter text → convert to subscript instantly.
+
+--------------------------------------------------------
+1️⃣0️⃣7️⃣ TOOL: GLITCH TEXT GENERATOR (ZALGO)
+--------------------------------------------------------
+🎯 TITLE:
+Glitch Text Generator | Zalgo Spooky Text
+
+📝 META DESCRIPTION:
+Create glitchy, spooky Zalgo text instantly. Offline & fun.
+
+🔑 KEYWORDS:
+glitch text, zalgo generator, crazy text
+
+💬 PAGE CONTENT PROMPT:
+Enter text → glitchify it instantly.
+
+--------------------------------------------------------
+1️⃣0️⃣8️⃣ TOOL: WORD FREQUENCY COUNTER
+--------------------------------------------------------
+🎯 TITLE:
+Word Frequency Counter | Count Word Occurrences
+
+📝 META DESCRIPTION:
+Analyze text and count frequency of each word. Great for SEO & writing.
+
+🔑 KEYWORDS:
+word frequency tool, repeated words, text analyzer
+
+💬 PAGE CONTENT PROMPT:
+Paste text → see frequency of each word immediately.
+
+--------------------------------------------------------
+1️⃣0️⃣9️⃣ TOOL: TEXT SPACER
+--------------------------------------------------------
+🎯 TITLE:
+Text Spacer | Add Spaces Between Letters
+
+📝 META DESCRIPTION:
+Create spaced-out text easily. Offline & free.
+
+🔑 KEYWORDS:
+text spacer, spaced text generator
+
+💬 PAGE CONTENT PROMPT:
+Generate spaced-out text for design and emphasis.
+
+--------------------------------------------------------
+1️⃣1️⃣0️⃣ TOOL: RANDOM EMOJI GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Emoji Generator | Generate Emojis Instantly
+
+📝 META DESCRIPTION:
+Click to generate random emojis instantly. Fun, fast & offline.
+
+🔑 KEYWORDS:
+random emoji generator, emoji picker
+
+💬 PAGE CONTENT PROMPT:
+Click button → get a random emoji instantly.
+
+--------------------------------------------------------
+1️⃣1️⃣1️⃣ TOOL: DOMINANT COLOR FINDER
+--------------------------------------------------------
+🎯 TITLE:
+Dominant Color Finder | Extract Main Image Color
+
+📝 META DESCRIPTION:
+Upload image → detect its dominant color instantly. Fully offline.
+
+🔑 KEYWORDS:
+dominant color tool, extract image color
+
+💬 PAGE CONTENT PROMPT:
+Upload your photo → see dominant HEX/RGB colors instantly.
+
+--------------------------------------------------------
+1️⃣1️⃣2️⃣ TOOL: IMAGE PIXELATOR
+--------------------------------------------------------
+🎯 TITLE:
+Image Pixelator | Pixelate Photos Offline
+
+📝 META DESCRIPTION:
+Pixelate any image instantly using Canvas. No uploads.
+
+🔑 KEYWORDS:
+pixelate image, pixel effect generator
+
+💬 PAGE CONTENT PROMPT:
+Upload → pixelate → download.
+
+--------------------------------------------------------
+1️⃣1️⃣3️⃣ TOOL: IMAGE BLUR TOOL
+--------------------------------------------------------
+🎯 TITLE:
+Image Blur Tool | Blur Photos Instantly
+
+📝 META DESCRIPTION:
+Apply blur effect to images instantly. Canvas-based, 100% offline.
+
+🔑 KEYWORDS:
+blur image tool, photo blur online
+
+💬 PAGE CONTENT PROMPT:
+Set blur level → apply → download.
+
+--------------------------------------------------------
+1️⃣1️⃣4️⃣ TOOL: EXIF REMOVER
+--------------------------------------------------------
+🎯 TITLE:
+Image EXIF Remover | Remove Photo Metadata
+
+📝 META DESCRIPTION:
+Remove EXIF metadata from images using offline canvas method.
+
+🔑 KEYWORDS:
+exif remover, remove metadata image
+
+💬 PAGE CONTENT PROMPT:
+Upload image → download clean privacy-safe image.
+
+--------------------------------------------------------
+1️⃣1️⃣5️⃣ TOOL: GRADIENT TEXT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Gradient Text Generator | CSS Gradient Text Maker
+
+📝 META DESCRIPTION:
+Generate stunning gradient text with live preview & CSS copy.
+
+🔑 KEYWORDS:
+gradient text generator, css text gradient tool
+
+💬 PAGE CONTENT PROMPT:
+Choose colors → preview → copy CSS gradient.
+
+--------------------------------------------------------
+1️⃣1️⃣6️⃣ TOOL: BUTTON CSS GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+CSS Button Generator | Create Modern Buttons
+
+📝 META DESCRIPTION:
+Design modern CSS buttons with hover + shadow + radius.
+
+🔑 KEYWORDS:
+css button generator, button maker tool
+
+💬 PAGE CONTENT PROMPT:
+Customize button → preview → copy CSS.
+
+--------------------------------------------------------
+1️⃣1️⃣7️⃣ TOOL: FLEXBOX PLAYGROUND
+--------------------------------------------------------
+🎯 TITLE:
+Flexbox Playground | Visual Flex Editor
+
+📝 META DESCRIPTION:
+Play with Flexbox properties visually. Copy CSS instantly.
+
+🔑 KEYWORDS:
+flexbox generator, css flex tool
+
+💬 PAGE CONTENT PROMPT:
+Adjust flex properties → copy CSS output.
+
+--------------------------------------------------------
+1️⃣1️⃣8️⃣ TOOL: CSS GRID GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+CSS Grid Generator | Visual Grid Layout Creator
+
+📝 META DESCRIPTION:
+Create CSS grid layouts visually and copy clean CSS code.
+
+🔑 KEYWORDS:
+css grid generator, grid maker tool
+
+💬 PAGE CONTENT PROMPT:
+Select rows/columns → preview → copy CSS.
+
+--------------------------------------------------------
+1️⃣1️⃣9️⃣ TOOL: OUTLINE CSS GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Outline CSS Generator | Create Outlines for Elements
+
+📝 META DESCRIPTION:
+Generate CSS outlines with width, style & offset.
+
+🔑 KEYWORDS:
+outline css generator, css outline tool
+
+💬 PAGE CONTENT PROMPT:
+Adjust outline → copy CSS output.
+
+--------------------------------------------------------
+1️⃣2️⃣0️⃣ TOOL: VARIABLE FONT VIEWER
+--------------------------------------------------------
+🎯 TITLE:
+Variable Font Viewer | Test Variable Font Weights
+
+📝 META DESCRIPTION:
+Experiment with variable fonts using sliders for weight, width & italics.
+
+🔑 KEYWORDS:
+variable font viewer, font weight slider
+
+💬 PAGE CONTENT PROMPT:
+Load variable font → adjust sliders → preview live.
+
+--------------------------------------------------------
+1️⃣2️⃣1️⃣ TOOL: RANDOM HEX COLOR GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Color Generator | HEX & RGB Colors
+
+📝 META DESCRIPTION:
+Generate random HEX & RGB colors in one click. Perfect for designers.
+
+🔑 KEYWORDS:
+hex color generator, random color picker
+
+💬 PAGE CONTENT PROMPT:
+Click → get fresh color ideas instantly.
+
+--------------------------------------------------------
+1️⃣2️⃣2️⃣ TOOL: PALETTE SHUFFLER
+--------------------------------------------------------
+🎯 TITLE:
+Color Palette Generator | Create 5-Color Palettes
+
+📝 META DESCRIPTION:
+Generate random color palettes instantly. Offline & useful for UI/UX.
+
+🔑 KEYWORDS:
+color palette generator, random palette creator
+
+💬 PAGE CONTENT PROMPT:
+Generate 5-color palettes for design inspiration.
+
+--------------------------------------------------------
+1️⃣2️⃣3️⃣ TOOL: BOX SHADOW GENERATOR (ADVANCED)
+--------------------------------------------------------
+🎯 TITLE:
+Advanced Box Shadow Generator | Multiple Shadows CSS
+
+📝 META DESCRIPTION:
+Create complex multi-layer CSS box shadows visually.
+
+🔑 KEYWORDS:
+box shadow generator, advanced shadow tool
+
+💬 PAGE CONTENT PROMPT:
+Adjust sliders → preview → copy advanced shadow CSS.
+
+--------------------------------------------------------
+1️⃣2️⃣4️⃣ TOOL: TEXT HIGHLIGHT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Text Highlight Generator | HTML <mark> Color Generator
+
+📝 META DESCRIPTION:
+Highlight text with custom colors using HTML <mark>. Offline tool.
+
+🔑 KEYWORDS:
+text highlight, html mark generator
+
+💬 PAGE CONTENT PROMPT:
+Choose color → highlight text → copy HTML.
+
+--------------------------------------------------------
+1️⃣2️⃣5️⃣ TOOL: FANCY TEXT GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Fancy Text Generator | Stylish Unicode Fonts
+
+📝 META DESCRIPTION:
+Create stylish fancy Unicode text with 50+ font styles.
+
+🔑 KEYWORDS:
+fancy text generator, stylish text online
+
+💬 PAGE CONTENT PROMPT:
+Type → generate fancy Unicode fonts instantly.
+
+--------------------------------------------------------
+1️⃣2️⃣6️⃣ TOOL: ASCII ART GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+ASCII Art Generator | Text to ASCII Art
+
+📝 META DESCRIPTION:
+Convert text into ASCII art using predefined static ASCII styles.
+
+🔑 KEYWORDS:
+ascii art generator, text to ascii tool
+
+💬 PAGE CONTENT PROMPT:
+Enter text → choose style → get ASCII art instantly.
+
+--------------------------------------------------------
+1️⃣2️⃣7️⃣ TOOL: SYMBOL COMBINER
+--------------------------------------------------------
+🎯 TITLE:
+Symbol Combiner | Mix Unicode Symbols Online
+
+📝 META DESCRIPTION:
+Combine symbols creatively for decoration & stylish designs.
+
+🔑 KEYWORDS:
+symbol combiner, unicode mix tool
+
+💬 PAGE CONTENT PROMPT:
+Pick symbols → combine → copy.
+
+--------------------------------------------------------
+1️⃣2️⃣8️⃣ TOOL: TEXT ROTATOR
+--------------------------------------------------------
+🎯 TITLE:
+Text Rotator | Rotate Text 90°, 180°, 270°
+
+📝 META DESCRIPTION:
+Rotate text orientation into vertical, reversed or angled directions.
+
+🔑 KEYWORDS:
+text rotator, rotate text online
+
+💬 PAGE CONTENT PROMPT:
+Paste text → rotate instantly.
+
+--------------------------------------------------------
+1️⃣2️⃣9️⃣ TOOL: PANGRAM CHECKER
+--------------------------------------------------------
+🎯 TITLE:
+Pangram Checker | Check A–Z Sentence Coverage
+
+📝 META DESCRIPTION:
+Check if a sentence contains all 26 letters of the English alphabet.
+
+🔑 KEYWORDS:
+pangram checker, alphabet sentence tool
+
+💬 PAGE CONTENT PROMPT:
+Enter sentence → check pangram status instantly.
+
+--------------------------------------------------------
+1️⃣3️⃣0️⃣ TOOL: RANDOM WORD GENERATOR
+--------------------------------------------------------
+🎯 TITLE:
+Random Word Generator | Generate English Words
+
+📝 META DESCRIPTION:
+Generate random English nouns, verbs & adjectives instantly.
+
+🔑 KEYWORDS:
+random word generator, english word picker
+
+💬 PAGE CONTENT PROMPT:
+Click generate → get random words instantly.
+
+===========================
+🔥 END OF STATIC TOOLS (101–130)
+===========================
