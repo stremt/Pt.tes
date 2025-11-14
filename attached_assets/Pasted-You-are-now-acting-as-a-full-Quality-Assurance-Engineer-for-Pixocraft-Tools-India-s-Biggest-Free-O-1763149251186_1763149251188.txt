@@ -1,0 +1,119 @@
+You are now acting as a full Quality Assurance Engineer for Pixocraft Tools — India’s Biggest Free Online Tool Hub (207+ tools).
+
+Your job is to TEST, DEBUG, and IMPROVE every tool on the website exactly like a real user.
+
+Follow this process STRICTLY for EVERY SINGLE TOOL:
+
+====================================================
+🔥 1. LOAD THE TOOL AS A REAL USER
+====================================================
+- Open the tool’s page
+- Check UI load
+- Check if buttons work
+- Check if input fields accept text, numbers, files, URLs, etc.
+- Check responsiveness (mobile, tablet, desktop)
+- Check speed (should be instant)
+- Check offline functionality wherever applicable
+
+====================================================
+🔥 2. TEST CORE FUNCTIONALITY
+====================================================
+Based on tool type:
+
+Text tools → Try multiple paragraphs, special symbols, emojis, long text  
+Image tools → Upload multiple images, large size, wrong formats  
+PDF tools → Upload multi-page, encrypted PDFs (graceful error handling)  
+Developer tools → Format/minify code, test invalid JSON, special chars  
+Math tools → Test edge cases (0, negative, decimals, huge numbers)  
+Random tools → Check randomness & repeat actions  
+Color tools → Check HEX/RGB conversions  
+Privacy tools → Test password generator strength & encryption accuracy  
+AI tools → Check text summarizer accuracy  
+
+====================================================
+🔥 3. CHECK FOR COMMON ISSUES
+====================================================
+Check for:
+
+• Buttons not working  
+• Crashes or freezes  
+• Wrong output  
+• Formatting issues  
+• Layout breaking  
+• Missing error messages  
+• Incorrect logic  
+• Slow performance  
+• File handling bugs  
+• Compatibility issues  
+
+====================================================
+🔥 4. FIX EVERY ISSUE YOU FIND
+====================================================
+If ANY problem is detected:
+
+- Write updated HTML/CSS/JS code  
+- Fix the bug  
+- Improve UI/UX  
+- Make validation stronger  
+- Make error messages clean  
+- Ensure full offline support if required  
+- Optimize for speed and accessibility  
+
+====================================================
+🔥 5. IMPROVE THE TOOL
+====================================================
+Enhance usability:
+
+✔ Add placeholder examples  
+✔ Add clear labels  
+✔ Add error handling  
+✔ Add copy-to-clipboard buttons  
+✔ Add drag & drop where needed  
+✔ Improve responsiveness  
+✔ Add loading animations where necessary  
+✔ Add keyboard shortcuts if possible  
+
+====================================================
+🔥 6. RECHECK THE TOOL AFTER FIXING
+====================================================
+Repeat full testing cycle:
+
+• Is the tool stable?  
+• Is output correct?  
+• Is UI neat?  
+• Is mobile perfect?  
+• Is speed instant?  
+
+ONLY move to the next tool when this tool is perfect.
+
+====================================================
+🔥 7. REPORT PROGRESS
+====================================================
+For every tool tested:
+
+Write:
+
+TOOL NAME:  
+STATUS: Passed / Issues Found  
+FIXES MADE:  
+IMPROVEMENTS DONE:  
+FINAL RESULT: Working perfectly  
+
+====================================================
+🔥 8. COMPLETE THE WHOLE WEBSITE
+====================================================
+Test **all 207 tools** one by one.
+
+Proceed automatically and do not skip any tool.
+
+====================================================
+🔥 9. FINAL GOAL
+====================================================
+End result should be:
+
+• Every tool bug-free  
+• Every tool fully functional  
+• Every tool optimized  
+• Every tool user-friendly  
+• Every tool consistent with UI theme  
+• India’s Biggest Tool Hub runs flawlessly  
