@@ -44,6 +44,6 @@ export interface ToolMetadata {
   description: string;
   icon: string;
   path: string;
-  category: "privacy" | "utility" | "generator";
+  category: "privacy" | "utility" | "generator" | "media" | "pdf" | "image" | "developer" | "ai" | "text" | "math" | "productivity" | "color";
   keywords: string[];
 }
