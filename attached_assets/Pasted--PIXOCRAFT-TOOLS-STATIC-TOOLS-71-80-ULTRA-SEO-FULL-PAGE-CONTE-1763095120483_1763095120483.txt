@@ -1,0 +1,217 @@
+===========================
+🔥 PIXOCRAFT TOOLS — STATIC TOOLS 71–80  
+🔥 ULTRA SEO + FULL PAGE CONTENT PACK
+===========================
+
+========================================================
+7️⃣1️⃣ TOOL: FRACTION CALCULATOR
+========================================================
+
+🎯 TITLE:
+Fraction Calculator Online | Add, Subtract, Multiply & Divide Fractions
+
+📝 META DESCRIPTION:
+Solve fractions instantly with addition, subtraction, multiplication, division & simplification. Offline & accurate.
+
+🔑 KEYWORDS:
+fraction calculator, add fractions, simplify fractions, fraction solver
+
+❓ FAQ:
+Q: Can it simplify fractions?
+A: Yes, fully automatic.
+
+💬 PAGE CONTENT PROMPT:
+Enter fractions → get instant answers with steps.  
+Perfect for students, teachers & math work.
+
+--------------------------------------------------------
+7️⃣2️⃣ TOOL: ROMAN NUMERAL CONVERTER
+--------------------------------------------------------
+
+🎯 TITLE:
+Roman Numeral Converter | Roman ↔ Number Instantly
+
+📝 META DESCRIPTION:
+Convert Roman numerals to numbers or numbers to Roman instantly. Offline, accurate & easy.
+
+🔑 KEYWORDS:
+roman numeral converter, number to roman, roman calculator
+
+❓ FAQ:
+Q: Does it support large numbers?
+A: Yes, up to 3999 safely.
+
+💬 PAGE CONTENT PROMPT:
+Convert Roman ↔ Number in one click.  
+Perfect for students, historians, indexing & notes.
+
+--------------------------------------------------------
+7️⃣3️⃣ TOOL: PASSWORD STRENGTH CHECKER
+--------------------------------------------------------
+
+🎯 TITLE:
+Password Strength Checker | Check Strong & Secure Passwords
+
+📝 META DESCRIPTION:
+Check how strong your password is using offline security analysis. Free, private & instant.
+
+🔑 KEYWORDS:
+password strength checker, strong password test, password safety
+
+❓ FAQ:
+Q: Is my password saved?
+A: No — zero data storage.
+
+💬 PAGE CONTENT PROMPT:
+Paste a password → instantly see strength level, security score & suggestions.  
+100% offline and private.
+
+--------------------------------------------------------
+7️⃣4️⃣ TOOL: TEXT CLEANER (REMOVE SYMBOLS, SPACES, LINE BREAKS)
+--------------------------------------------------------
+
+🎯 TITLE:
+Text Cleaner Online | Remove Extra Spaces, Symbols & Line Breaks
+
+📝 META DESCRIPTION:
+Clean messy text by removing extra spaces, duplicates, symbols, line breaks & formatting. Offline & fast.
+
+🔑 KEYWORDS:
+text cleaner, remove spaces, clean text online
+
+❓ FAQ:
+Q: Does it remove emojis?
+A: Yes, if you select emoji removal.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → choose cleaning options → get instant clean output.  
+Perfect for writers, editors & students.
+
+--------------------------------------------------------
+7️⃣5️⃣ TOOL: TEXT ENCRYPT / DECRYPT (STATIC)
+--------------------------------------------------------
+
+🎯 TITLE:
+Text Encrypt & Decrypt | Secure AES Text Encryption (Offline)
+
+📝 META DESCRIPTION:
+Encrypt or decrypt text with a password using offline browser crypto. Zero data storage.
+
+🔑 KEYWORDS:
+text encrypt, text decrypt, offline encryption, aes encrypt text
+
+❓ FAQ:
+Q: Is this safe?
+A: Yes — AES encryption inside your device.
+
+💬 PAGE CONTENT PROMPT:
+Enter text + password → encrypt or decrypt instantly.  
+Ideal for private notes & secure message sharing.
+
+--------------------------------------------------------
+7️⃣6️⃣ TOOL: HASH GENERATOR (MD5 / SHA1 / SHA256)
+--------------------------------------------------------
+
+🎯 TITLE:
+Hash Generator Online | MD5, SHA1, SHA256 Hash Tool
+
+📝 META DESCRIPTION:
+Generate MD5, SHA1 & SHA256 hashes instantly. Developer-friendly, offline & secure.
+
+🔑 KEYWORDS:
+md5 generator, sha256 hash tool, hash calculator, sha1 online
+
+❓ FAQ:
+Q: Is hashing offline?
+A: Yes, browser crypto only.
+
+💬 PAGE CONTENT PROMPT:
+Paste text → get MD5, SHA1, SHA256 hash instantly.  
+Perfect for coding, security & verification.
+
+--------------------------------------------------------
+7️⃣7️⃣ TOOL: NUMBER SORTER
+--------------------------------------------------------
+
+🎯 TITLE:
+Number Sorter Online | Sort Numbers Ascending/Descending
+
+📝 META DESCRIPTION:
+Sort large lists of numbers instantly. Offline, fast & suitable for math, data & business.
+
+🔑 KEYWORDS:
+number sorter, sort numbers online, number ordering tool
+
+❓ FAQ:
+Q: Can I paste large lists?
+A: Yes — thousands of numbers supported.
+
+💬 PAGE CONTENT PROMPT:
+Paste numbers → sort ascending or descending → get result instantly.  
+Ideal for math, data work, business & analysis.
+
+--------------------------------------------------------
+7️⃣8️⃣ TOOL: PAY SPLIT CALCULATOR (EVEN/UNEQUAL SPLIT)
+--------------------------------------------------------
+
+🎯 TITLE:
+Bill Split Calculator | Split Payments Evenly or Custom
+
+📝 META DESCRIPTION:
+Split bills evenly or assign custom percentages. Perfect for friends, families & groups.
+
+🔑 KEYWORDS:
+bill split calculator, split payment, group bill tool
+
+❓ FAQ:
+Q: Can I add custom shares?
+A: Yes — custom split supported.
+
+💬 PAGE CONTENT PROMPT:
+Enter bill amount → number of people → optional custom shares → split instantly.  
+Perfect for restaurants, travel & groups.
+
+--------------------------------------------------------
+7️⃣9️⃣ TOOL: MATRIX CALCULATOR (ADD/SUB/MULTIPLY)
+--------------------------------------------------------
+
+🎯 TITLE:
+Matrix Calculator Online | Add, Subtract & Multiply Matrices
+
+📝 META DESCRIPTION:
+Solve matrix addition, subtraction & multiplication offline. Fast, accurate & great for students.
+
+🔑 KEYWORDS:
+matrix calculator, matrix multiplication, add matrices online
+
+❓ FAQ:
+Q: Does it support 3×3 and 4×4?
+A: Yes.
+
+💬 PAGE CONTENT PROMPT:
+Choose matrix size → fill values → calculate instantly.  
+Perfect for engineering, math & programming.
+
+--------------------------------------------------------
+8️⃣0️⃣ TOOL: CASE RANDOMIZER (SHAKE TEXT)
+--------------------------------------------------------
+
+🎯 TITLE:
+Random Case Generator | cRaZy TeXt / Alternating Case Tool
+
+📝 META DESCRIPTION:
+Convert text into random case or alternating case instantly. Fun, fast & offline.
+
+🔑 KEYWORDS:
+random case generator, crazy text, alternating case
+
+❓ FAQ:
+Q: Can I copy output?
+A: Yes — one-click copy.
+
+💬 PAGE CONTENT PROMPT:
+Paste your text → choose random / alternating mode → generate fun mixed-case text instantly.
+
+========================================================
+🔥 END OF STATIC TOOLS (71–80)
+========================================================
