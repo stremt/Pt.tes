@@ -55,6 +55,16 @@ import UTMBuilder from "@/pages/tools/UTMBuilder";
 import MetaTagGenerator from "@/pages/tools/MetaTagGenerator";
 import OGPreview from "@/pages/tools/OGPreview";
 import TimerStopwatch from "@/pages/tools/TimerStopwatch";
+import InvoiceGenerator from "@/pages/tools/InvoiceGenerator";
+import ReceiptGenerator from "@/pages/tools/ReceiptGenerator";
+import QuotationGenerator from "@/pages/tools/QuotationGenerator";
+import AreaConverter from "@/pages/tools/AreaConverter";
+import CommissionCalculator from "@/pages/tools/CommissionCalculator";
+import EMICalculator from "@/pages/tools/EMICalculator";
+import PercentageCalculator from "@/pages/tools/PercentageCalculator";
+import AgeCalculator from "@/pages/tools/AgeCalculator";
+import TimeDifferenceCalculator from "@/pages/tools/TimeDifferenceCalculator";
+import ExpenseTracker from "@/pages/tools/ExpenseTracker";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -123,6 +133,16 @@ function Router() {
         <Route path="/tools/meta-tag-generator" component={MetaTagGenerator} />
         <Route path="/tools/og-preview" component={OGPreview} />
         <Route path="/tools/timer-stopwatch" component={TimerStopwatch} />
+        <Route path="/tools/invoice-generator" component={InvoiceGenerator} />
+        <Route path="/tools/receipt-generator" component={ReceiptGenerator} />
+        <Route path="/tools/quotation-generator" component={QuotationGenerator} />
+        <Route path="/tools/area-converter" component={AreaConverter} />
+        <Route path="/tools/commission-calculator" component={CommissionCalculator} />
+        <Route path="/tools/emi-calculator" component={EMICalculator} />
+        <Route path="/tools/percentage-calculator" component={PercentageCalculator} />
+        <Route path="/tools/age-calculator" component={AgeCalculator} />
+        <Route path="/tools/time-difference-calculator" component={TimeDifferenceCalculator} />
+        <Route path="/tools/expense-tracker" component={ExpenseTracker} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
