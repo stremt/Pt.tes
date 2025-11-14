@@ -65,6 +65,26 @@ import PercentageCalculator from "@/pages/tools/PercentageCalculator";
 import AgeCalculator from "@/pages/tools/AgeCalculator";
 import TimeDifferenceCalculator from "@/pages/tools/TimeDifferenceCalculator";
 import ExpenseTracker from "@/pages/tools/ExpenseTracker";
+import TextToSpeech from "@/pages/tools/TextToSpeech";
+import SpeechToText from "@/pages/tools/SpeechToText";
+import UnitConverter from "@/pages/tools/UnitConverter";
+import ASCIIConverter from "@/pages/tools/ASCIIConverter";
+import CharacterMap from "@/pages/tools/CharacterMap";
+import AverageCalculator from "@/pages/tools/AverageCalculator";
+import RandomStringGenerator from "@/pages/tools/RandomStringGenerator";
+import TipCalculator from "@/pages/tools/TipCalculator";
+import CurrencyFormatter from "@/pages/tools/CurrencyFormatter";
+import DaysCalculator from "@/pages/tools/DaysCalculator";
+import Stopwatch from "@/pages/tools/Stopwatch";
+import CountdownTimer from "@/pages/tools/CountdownTimer";
+import LoanCalculator from "@/pages/tools/LoanCalculator";
+import MortgageCalculator from "@/pages/tools/MortgageCalculator";
+import TextDiff from "@/pages/tools/TextDiff";
+import PDFMerger from "@/pages/tools/PDFMerger";
+import PDFSplitter from "@/pages/tools/PDFSplitter";
+import PDFRotator from "@/pages/tools/PDFRotator";
+import PDFToImage from "@/pages/tools/PDFToImage";
+import ImageToPDF from "@/pages/tools/ImageToPDF";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -143,6 +163,26 @@ function Router() {
         <Route path="/tools/age-calculator" component={AgeCalculator} />
         <Route path="/tools/time-difference-calculator" component={TimeDifferenceCalculator} />
         <Route path="/tools/expense-tracker" component={ExpenseTracker} />
+        <Route path="/tools/text-to-speech" component={TextToSpeech} />
+        <Route path="/tools/speech-to-text" component={SpeechToText} />
+        <Route path="/tools/unit-converter" component={UnitConverter} />
+        <Route path="/tools/ascii-converter" component={ASCIIConverter} />
+        <Route path="/tools/character-map" component={CharacterMap} />
+        <Route path="/tools/average-calculator" component={AverageCalculator} />
+        <Route path="/tools/random-string-generator" component={RandomStringGenerator} />
+        <Route path="/tools/tip-calculator" component={TipCalculator} />
+        <Route path="/tools/currency-formatter" component={CurrencyFormatter} />
+        <Route path="/tools/days-calculator" component={DaysCalculator} />
+        <Route path="/tools/stopwatch" component={Stopwatch} />
+        <Route path="/tools/countdown-timer" component={CountdownTimer} />
+        <Route path="/tools/loan-calculator" component={LoanCalculator} />
+        <Route path="/tools/mortgage-calculator" component={MortgageCalculator} />
+        <Route path="/tools/text-diff" component={TextDiff} />
+        <Route path="/tools/pdf-merger" component={PDFMerger} />
+        <Route path="/tools/pdf-splitter" component={PDFSplitter} />
+        <Route path="/tools/pdf-rotator" component={PDFRotator} />
+        <Route path="/tools/pdf-to-image" component={PDFToImage} />
+        <Route path="/tools/image-to-pdf" component={ImageToPDF} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
