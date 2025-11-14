@@ -113,6 +113,36 @@ import KeywordDensityChecker from "@/pages/tools/KeywordDensityChecker";
 import HTMLTableGenerator from "@/pages/tools/HTMLTableGenerator";
 import TextReverser from "@/pages/tools/TextReverser";
 import PalindromeChecker from "@/pages/tools/PalindromeChecker";
+import TitleCaseConverter from "@/pages/tools/TitleCaseConverter";
+import SlugGenerator from "@/pages/tools/SlugGenerator";
+import MorseCodeTranslator from "@/pages/tools/MorseCodeTranslator";
+import NATOPhoneticConverter from "@/pages/tools/NATOPhoneticConverter";
+import SuperscriptGenerator from "@/pages/tools/SuperscriptGenerator";
+import SubscriptGenerator from "@/pages/tools/SubscriptGenerator";
+import GlitchTextGenerator from "@/pages/tools/GlitchTextGenerator";
+import WordFrequencyCounter from "@/pages/tools/WordFrequencyCounter";
+import TextSpacer from "@/pages/tools/TextSpacer";
+import RandomEmojiGenerator from "@/pages/tools/RandomEmojiGenerator";
+import DominantColorFinder from "@/pages/tools/DominantColorFinder";
+import ImagePixelator from "@/pages/tools/ImagePixelator";
+import ImageBlurTool from "@/pages/tools/ImageBlurTool";
+import ExifRemover from "@/pages/tools/ExifRemover";
+import GradientTextGenerator from "@/pages/tools/GradientTextGenerator";
+import ButtonCSSGenerator from "@/pages/tools/ButtonCSSGenerator";
+import FlexboxPlayground from "@/pages/tools/FlexboxPlayground";
+import CSSGridGenerator from "@/pages/tools/CSSGridGenerator";
+import OutlineCSSGenerator from "@/pages/tools/OutlineCSSGenerator";
+import VariableFontViewer from "@/pages/tools/VariableFontViewer";
+import RandomHexColor from "@/pages/tools/RandomHexColor";
+import ColorPaletteShuffler from "@/pages/tools/ColorPaletteShuffler";
+import AdvancedTextShadow from "@/pages/tools/AdvancedTextShadow";
+import TextHighlightMarker from "@/pages/tools/TextHighlightMarker";
+import FancyTextStyler from "@/pages/tools/FancyTextStyler";
+import ASCIIArtGenerator from "@/pages/tools/ASCIIArtGenerator";
+import SymbolCombiner from "@/pages/tools/SymbolCombiner";
+import TextRotator from "@/pages/tools/TextRotator";
+import PangramGenerator from "@/pages/tools/PangramGenerator";
+import RandomWordGenerator from "@/pages/tools/RandomWordGenerator";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -239,6 +269,36 @@ function Router() {
         <Route path="/tools/html-table-generator" component={HTMLTableGenerator} />
         <Route path="/tools/text-reverser" component={TextReverser} />
         <Route path="/tools/palindrome-checker" component={PalindromeChecker} />
+        <Route path="/tools/title-case-converter" component={TitleCaseConverter} />
+        <Route path="/tools/slug-generator" component={SlugGenerator} />
+        <Route path="/tools/morse-code-translator" component={MorseCodeTranslator} />
+        <Route path="/tools/nato-phonetic-converter" component={NATOPhoneticConverter} />
+        <Route path="/tools/superscript-generator" component={SuperscriptGenerator} />
+        <Route path="/tools/subscript-generator" component={SubscriptGenerator} />
+        <Route path="/tools/glitch-text-generator" component={GlitchTextGenerator} />
+        <Route path="/tools/word-frequency-counter" component={WordFrequencyCounter} />
+        <Route path="/tools/text-spacer" component={TextSpacer} />
+        <Route path="/tools/random-emoji-generator" component={RandomEmojiGenerator} />
+        <Route path="/tools/dominant-color-finder" component={DominantColorFinder} />
+        <Route path="/tools/image-pixelator" component={ImagePixelator} />
+        <Route path="/tools/image-blur-tool" component={ImageBlurTool} />
+        <Route path="/tools/exif-remover" component={ExifRemover} />
+        <Route path="/tools/gradient-text-generator" component={GradientTextGenerator} />
+        <Route path="/tools/button-css-generator" component={ButtonCSSGenerator} />
+        <Route path="/tools/flexbox-playground" component={FlexboxPlayground} />
+        <Route path="/tools/css-grid-generator" component={CSSGridGenerator} />
+        <Route path="/tools/outline-css-generator" component={OutlineCSSGenerator} />
+        <Route path="/tools/variable-font-viewer" component={VariableFontViewer} />
+        <Route path="/tools/random-hex-color" component={RandomHexColor} />
+        <Route path="/tools/color-palette-shuffler" component={ColorPaletteShuffler} />
+        <Route path="/tools/advanced-text-shadow" component={AdvancedTextShadow} />
+        <Route path="/tools/text-highlight-marker" component={TextHighlightMarker} />
+        <Route path="/tools/fancy-text-styler" component={FancyTextStyler} />
+        <Route path="/tools/ascii-art-generator" component={ASCIIArtGenerator} />
+        <Route path="/tools/symbol-combiner" component={SymbolCombiner} />
+        <Route path="/tools/text-rotator" component={TextRotator} />
+        <Route path="/tools/pangram-generator" component={PangramGenerator} />
+        <Route path="/tools/random-word-generator" component={RandomWordGenerator} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
