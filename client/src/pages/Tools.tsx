@@ -85,70 +85,70 @@ export default function Tools() {
     {
       id: "privacy",
       name: "Privacy Tools",
-      description: "Protect your identity with temp emails, password generators, encryption tools, and privacy utilities",
+      description: "Secure your digital identity with temporary email generators, robust password creators, hash generators, and encryption utilities. Keep your personal information private with India's most trusted offline privacy tools.",
       icon: Lock,
       tools: getToolsByCategory("privacy")
     },
     {
-      id: "developer",
-      name: "Developer Tools",
-      description: "Code beautifiers, minifiers, JSON formatters, regex testers, and essential developer utilities",
-      icon: Code,
-      tools: getToolsByCategory("developer")
-    },
-    {
       id: "text",
       name: "Text Tools",
-      description: "Transform, analyze, and manipulate text with powerful conversion and formatting tools",
+      description: "Powerful text manipulation suite including case converters, word counters, text cleaners, format tools, and advanced text analyzers. Perfect for writers, students, developers, and content creators across India.",
       icon: Type,
       tools: getToolsByCategory("text")
     },
     {
       id: "image",
       name: "Image Tools",
-      description: "Compress, resize, crop, and edit images with professional-grade browser-based tools",
+      description: "Professional-grade image editing tools for compression, resizing, cropping, rotating, filtering, and format conversion. Process images instantly in your browser with zero uploads and full privacy protection.",
       icon: Image,
       tools: getToolsByCategory("image")
     },
     {
       id: "pdf",
       name: "PDF Tools",
-      description: "Merge, split, rotate, and convert PDFs without uploading files to any server",
+      description: "Complete PDF toolkit to merge, split, rotate, compress, and convert PDF documents. All processing happens locally in your browser ensuring your sensitive documents never leave your device.",
       icon: FileText,
       tools: getToolsByCategory("pdf")
     },
     {
+      id: "developer",
+      name: "Developer Tools",
+      description: "Essential developer utilities including JSON formatters, code beautifiers, minifiers, Base64 converters, regex testers, API builders, and syntax validators. Built for India's thriving developer community.",
+      icon: Code,
+      tools: getToolsByCategory("developer")
+    },
+    {
       id: "math",
       name: "Math Tools",
-      description: "Calculators for EMI, loans, percentages, fractions, and complex mathematical operations",
+      description: "Advanced calculators for EMI, loans, mortgages, percentages, fractions, prime numbers, geometry, compound interest, and financial planning. Accurate, fast, and completely free for students and professionals.",
       icon: Calculator,
       tools: getToolsByCategory("math")
     },
     {
       id: "random",
       name: "Random Tools",
-      description: "Generate random numbers, passwords, usernames, and creative content instantly",
+      description: "Creative random generators for numbers, passwords, usernames, names, dates, countries, quotes, ideas, and more. Perfect for developers, content creators, and anyone needing instant randomized data.",
       icon: Sparkles,
       tools: getToolsByCategory("random")
     },
     {
       id: "productivity",
       name: "Productivity Tools",
-      description: "Todo lists, timers, expense trackers, and tools to boost your daily workflow",
+      description: "Boost your efficiency with todo lists, timers, stopwatches, expense trackers, invoice generators, receipt makers, and workflow automation tools. Streamline your daily tasks with India's best productivity suite.",
       icon: TrendingUp,
       tools: getToolsByCategory("productivity")
     },
     {
       id: "color",
       name: "Color Tools",
-      description: "Color pickers, palette generators, converters, and gradient creators for designers",
+      description: "Designer's essential color toolkit featuring color pickers, palette generators, gradient creators, HEX/RGB converters, and CSS shadow generators. Create stunning color schemes instantly for web and graphic design.",
       icon: Palette,
       tools: getToolsByCategory("color")
     },
     {
       id: "ai",
       name: "AI Tools",
-      description: "AI-powered text summarization, speech-to-text, and intelligent writing assistants",
+      description: "Harness AI power with intelligent text summarizers, speech-to-text converters, text-to-speech generators, and smart writing assistants. Experience cutting-edge AI technology running entirely in your browser.",
       icon: Wand2,
       tools: getToolsByCategory("ai")
     }
@@ -309,13 +309,13 @@ export default function Tools() {
             </div>
             <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-4">
               <p>
-                Pixocraft Tools has established itself as India's largest and most comprehensive free online tool hub, offering over 200 premium-quality browser-based utilities that work completely offline. Unlike traditional online tools that require server uploads and compromise your privacy, every tool on Pixocraft runs entirely in your browser, ensuring zero data tracking and instant performance.
+                Pixocraft Tools stands as <strong>India's biggest free online tool hub</strong>, offering over <strong>200+ fully static, offline-supported browser tools</strong> that process everything locally on your device. Unlike traditional online tools that upload your data to remote servers, every single tool on Pixocraft runs entirely in your browser with zero tracking, ensuring complete privacy and instant performance with 0ms server delay.
               </p>
               <p>
-                Our extensive collection includes professional-grade text tools for case conversion and word counting, powerful image tools for compression and resizing, comprehensive PDF tools for merging and splitting documents, advanced developer utilities including JSON formatters and code beautifiers, precise math calculators for EMI and loan calculations, innovative AI tools for text summarization, secure privacy tools including temporary email services, creative color tools for designers, random generators for passwords and usernames, and productivity tools to streamline your workflow.
+                Our comprehensive collection includes premium <strong>text tools</strong> (case converters, word counters, text cleaners), professional <strong>image tools</strong> (compressors, resizers, croppers, filters), powerful <strong>PDF tools</strong> (merge, split, rotate, convert), essential <strong>developer tools</strong> (JSON formatters, code beautifiers, minifiers, Base64 encoders), advanced <strong>math calculators</strong> (EMI, loans, percentages, geometry), intelligent <strong>AI tools</strong> (text summarizers, speech converters), secure <strong>privacy tools</strong> (temp mail, password generators, encryption), creative <strong>color tools</strong> (pickers, palette generators, gradient makers), versatile <strong>random generators</strong> (passwords, usernames, data), and efficient <strong>productivity tools</strong> (timers, todo lists, expense trackers, invoice generators).
               </p>
               <p>
-                What sets Pixocraft apart is our unwavering commitment to privacy, speed, and accessibility. All 200+ tools are completely free with no hidden costs, registration requirements, or usage limits. Built with cutting-edge web technologies, each tool delivers lightning-fast performance with zero server delays. Whether you're a developer, designer, student, content creator, or business professional in India, Pixocraft Tools provides the comprehensive toolkit you need to work efficiently and securely.
+                What makes Pixocraft India's largest tool library is our commitment to being <strong>100% free forever</strong> with no premium tiers, paywalls, or hidden costs. Every tool works completely <strong>offline after loading</strong>, requires <strong>no signup or login</strong>, performs <strong>zero tracking or data collection</strong>, and delivers <strong>lightning-fast browser-based processing</strong>. Whether you're a developer building apps, a designer creating graphics, a student working on assignments, a content creator writing articles, or a business professional managing documents, Pixocraft Tools provides the most comprehensive free tool hub in India for all your digital needs.
               </p>
             </div>
           </div>

@@ -188,74 +188,74 @@ export default function Home() {
 
     return [
       {
+        id: "privacy",
+        name: "Privacy Tools",
+        description: "Secure your digital identity with temporary email generators, robust password creators, hash generators, and encryption utilities. Keep your personal information private with India's most trusted offline privacy tools.",
+        icon: Lock,
+        toolCount: getToolsByCategory("privacy").length
+      },
+      {
         id: "text",
         name: "Text Tools",
-        description: "Transform, analyze, and manipulate text with powerful conversion and formatting tools",
+        description: "Powerful text manipulation suite including case converters, word counters, text cleaners, format tools, and advanced text analyzers. Perfect for writers, students, developers, and content creators across India.",
         icon: Type,
         toolCount: getToolsByCategory("text").length
       },
       {
         id: "image",
         name: "Image Tools",
-        description: "Compress, resize, crop, and edit images with professional-grade browser-based tools",
+        description: "Professional-grade image editing tools for compression, resizing, cropping, rotating, filtering, and format conversion. Process images instantly in your browser with zero uploads and full privacy protection.",
         icon: Image,
         toolCount: getToolsByCategory("image").length
       },
       {
         id: "pdf",
         name: "PDF Tools",
-        description: "Merge, split, rotate, and convert PDFs without uploading files to any server",
+        description: "Complete PDF toolkit to merge, split, rotate, compress, and convert PDF documents. All processing happens locally in your browser ensuring your sensitive documents never leave your device.",
         icon: FileText,
         toolCount: getToolsByCategory("pdf").length
       },
       {
         id: "developer",
         name: "Developer Tools",
-        description: "Code beautifiers, minifiers, JSON formatters, and essential developer utilities",
+        description: "Essential developer utilities including JSON formatters, code beautifiers, minifiers, Base64 converters, regex testers, API builders, and syntax validators. Built for India's thriving developer community.",
         icon: Code,
         toolCount: getToolsByCategory("developer").length
       },
       {
         id: "math",
         name: "Math Tools",
-        description: "Calculators for EMI, loans, percentages, fractions, and complex mathematical operations",
+        description: "Advanced calculators for EMI, loans, mortgages, percentages, fractions, prime numbers, geometry, compound interest, and financial planning. Accurate, fast, and completely free for students and professionals.",
         icon: Calculator,
         toolCount: getToolsByCategory("math").length
       },
       {
         id: "random",
         name: "Random Tools",
-        description: "Generate random numbers, passwords, usernames, and creative content instantly",
+        description: "Creative random generators for numbers, passwords, usernames, names, dates, countries, quotes, ideas, and more. Perfect for developers, content creators, and anyone needing instant randomized data.",
         icon: Sparkles,
         toolCount: getToolsByCategory("random").length
       },
       {
         id: "productivity",
         name: "Productivity Tools",
-        description: "Todo lists, timers, expense trackers, and tools to boost your daily workflow",
+        description: "Boost your efficiency with todo lists, timers, stopwatches, expense trackers, invoice generators, receipt makers, and workflow automation tools. Streamline your daily tasks with India's best productivity suite.",
         icon: TrendingUp,
         toolCount: getToolsByCategory("productivity").length
       },
       {
         id: "color",
         name: "Color Tools",
-        description: "Color pickers, palette generators, converters, and gradient creators for designers",
+        description: "Designer's essential color toolkit featuring color pickers, palette generators, gradient creators, HEX/RGB converters, and CSS shadow generators. Create stunning color schemes instantly for web and graphic design.",
         icon: Palette,
         toolCount: getToolsByCategory("color").length
       },
       {
         id: "ai",
         name: "AI Tools",
-        description: "AI-powered text summarization, speech-to-text, and intelligent writing assistants",
+        description: "Harness AI power with intelligent text summarizers, speech-to-text converters, text-to-speech generators, and smart writing assistants. Experience cutting-edge AI technology running entirely in your browser.",
         icon: Wand2,
         toolCount: getToolsByCategory("ai").length
-      },
-      {
-        id: "privacy",
-        name: "Privacy Tools",
-        description: "Temp email, password generators, encryption, and privacy-focused utilities",
-        icon: Lock,
-        toolCount: getToolsByCategory("privacy").length
       }
     ];
   }, []);
