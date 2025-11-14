@@ -45,6 +45,16 @@ import BorderRadiusGenerator from "@/pages/tools/BorderRadiusGenerator";
 import ImageToBase64 from "@/pages/tools/ImageToBase64";
 import Base64ToImage from "@/pages/tools/Base64ToImage";
 import ImageCropper from "@/pages/tools/ImageCropper";
+import FaviconGenerator from "@/pages/tools/FaviconGenerator";
+import FileToBase64 from "@/pages/tools/FileToBase64";
+import HTMLEncoderDecoder from "@/pages/tools/HTMLEncoderDecoder";
+import EmojiRemover from "@/pages/tools/EmojiRemover";
+import TextRepeater from "@/pages/tools/TextRepeater";
+import SentenceCaseConverter from "@/pages/tools/SentenceCaseConverter";
+import UTMBuilder from "@/pages/tools/UTMBuilder";
+import MetaTagGenerator from "@/pages/tools/MetaTagGenerator";
+import OGPreview from "@/pages/tools/OGPreview";
+import TimerStopwatch from "@/pages/tools/TimerStopwatch";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -103,6 +113,16 @@ function Router() {
         <Route path="/tools/image-to-base64" component={ImageToBase64} />
         <Route path="/tools/base64-to-image" component={Base64ToImage} />
         <Route path="/tools/image-cropper" component={ImageCropper} />
+        <Route path="/tools/favicon-generator" component={FaviconGenerator} />
+        <Route path="/tools/file-to-base64" component={FileToBase64} />
+        <Route path="/tools/html-encoder-decoder" component={HTMLEncoderDecoder} />
+        <Route path="/tools/emoji-remover" component={EmojiRemover} />
+        <Route path="/tools/text-repeater" component={TextRepeater} />
+        <Route path="/tools/sentence-case-converter" component={SentenceCaseConverter} />
+        <Route path="/tools/utm-builder" component={UTMBuilder} />
+        <Route path="/tools/meta-tag-generator" component={MetaTagGenerator} />
+        <Route path="/tools/og-preview" component={OGPreview} />
+        <Route path="/tools/timer-stopwatch" component={TimerStopwatch} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />

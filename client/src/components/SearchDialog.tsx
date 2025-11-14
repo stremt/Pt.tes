@@ -152,15 +152,15 @@ export function SearchButton({ variant = "default" }: { variant?: "default" | "g
   return (
     <Button
       variant={variant}
-      size="sm"
+      size="lg"
       onClick={openSearch}
-      className="gap-2"
+      className="gap-3 px-8 shadow-lg hover:shadow-xl transition-all"
       data-testid="button-search"
     >
-      <Search className="h-4 w-4" />
-      <span className="hidden sm:inline">Search</span>
-      <kbd className="hidden md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 ml-1">
-        <span className="text-xs">⌘</span>K
+      <Search className="h-5 w-5" />
+      <span>Search Tools</span>
+      <kbd className="hidden md:inline-flex h-6 select-none items-center gap-1 rounded border bg-muted px-2 font-mono text-xs font-medium opacity-100">
+        <span className="text-sm">⌘</span>K
       </kbd>
     </Button>
   );
