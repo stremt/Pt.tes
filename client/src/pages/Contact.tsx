@@ -206,7 +206,7 @@ export default function Contact() {
                   <p className="text-sm sm:text-base font-medium mb-1">Support Email</p>
                   <a
                     href="mailto:support@pixocraft.in"
-                    className="text-muted-foreground hover:text-primary transition-colors text-xs sm:text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
                     data-testid="link-email-support"
                   >
                     support@pixocraft.in

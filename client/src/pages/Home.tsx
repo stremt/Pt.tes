@@ -349,7 +349,7 @@ export default function Home() {
               </div>
               
               {/* Trust Indicators */}
-              <div className="pt-6 sm:pt-8 md:pt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-xs px-2 sm:px-4">
+              <div className="pt-6 sm:pt-8 md:pt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-sm px-2 sm:px-4">
                 <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-india-biggest">
                   <Star className="h-4 w-4 text-primary" />
                   <span className="font-medium">India's Biggest Tool Hub</span>

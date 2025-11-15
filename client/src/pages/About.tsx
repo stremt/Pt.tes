@@ -39,7 +39,7 @@ export default function About() {
               <Card key={index} className="text-center p-4 md:p-6">
                 <CardContent className="p-0">
                   <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}

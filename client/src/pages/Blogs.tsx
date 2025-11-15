@@ -77,7 +77,7 @@ export default function Blogs() {
                       <CardTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
                         {posts[0].title}
                       </CardTitle>
-                      <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm md:text-base text-muted-foreground">
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-sm md:text-base text-muted-foreground">
                         <div className="flex items-center gap-1.5 sm:gap-2">
                           <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
                           {new Date(posts[0].date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -133,7 +133,7 @@ export default function Blogs() {
                         <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-primary transition-colors line-clamp-2 leading-tight">
                           {post.title}
                         </CardTitle>
-                        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
                           <div className="flex items-center gap-1.5">
                             <Calendar className="h-4 w-4" />
                             {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
