@@ -29,9 +29,9 @@ export default function Contact() {
   });
 
   useSEO({
-    title: "Contact Us | Pixocraft Tools",
-    description: "Get in touch with the Pixocraft Tools team. We're here to help with questions, feedback, and support. Contact us at support@pixocraft.in",
-    keywords: "contact pixocraft, support, feedback, help",
+    title: "Contact Pixocraft Tools - India's Biggest Free Online Tool Hub | Get Support & Feedback",
+    description: "Get in touch with the Pixocraft Tools team. We're here to help with questions, feature requests, bug reports, and feedback about our 200+ free online tools. Email us at support@pixocraft.in or use our contact form. Fast response within 24-48 hours.",
+    keywords: "contact pixocraft tools, support, customer service, feedback, help desk, report bug, feature request, pixocraft support email, India tool hub contact, get in touch",
     canonicalUrl: "https://tools.pixocraft.in/contact",
   });
 
@@ -73,17 +73,17 @@ export default function Contact() {
     <div className="min-h-screen py-16">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center space-y-6 mb-20">
+        <div className="text-center space-y-4 sm:space-y-6 mb-12 sm:mb-16 md:mb-20 px-4">
           <Badge variant="secondary" className="text-sm px-4 py-1.5">Contact Us</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             Let's <span className="text-primary">Talk</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Have questions, feedback, or suggestions? We're here to help and would love to hear from you
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="hover-elevate transition-all duration-200">

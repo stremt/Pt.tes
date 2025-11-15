@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/button";
 
 export default function Blogs() {
   useSEO({
-    title: "Blog | Pixocraft Tools",
-    description: "Read our latest articles about online tools, privacy, security, and digital productivity. Tips, guides, and best practices from the Pixocraft team.",
-    keywords: "blog, articles, tutorials, guides, online tools, privacy, security",
+    title: "Blog - Pixocraft Tools | Latest Guides, Tips & Tutorials for Free Online Tools",
+    description: "Explore our comprehensive blog featuring in-depth tutorials, expert tips, and guides on using 200+ free online tools. Learn about privacy, security, productivity, text tools, image editing, PDF manipulation, developer utilities, and more. Expert insights from India's biggest tool hub.",
+    keywords: "pixocraft blog, online tools tutorials, tool guides, privacy tips, security guides, productivity hacks, text tool tips, image editing tutorials, PDF tools guide, developer utilities, free tools blog, India tool hub blog, how to use online tools",
     canonicalUrl: "https://tools.pixocraft.in/blogs",
   });
 
@@ -23,19 +23,19 @@ export default function Blogs() {
     <div className="min-h-screen py-20 bg-gradient-to-b from-background via-background to-muted/20">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
-        <div className="text-center space-y-8 mb-24">
-          <Badge variant="secondary" className="text-base px-6 py-2 font-medium">Our Blog</Badge>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+        <div className="text-center space-y-6 sm:space-y-8 mb-12 sm:mb-16 md:mb-24 px-4">
+          <Badge variant="secondary" className="text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 font-medium">Our Blog</Badge>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-tight">
             Insights & <span className="text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Guides</span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Learn about online tools, privacy, security, and digital productivity from the Pixocraft team
           </p>
         </div>
 
         {/* Blog Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="animate-pulse overflow-hidden border-2">
                 <div className="h-56 bg-muted"></div>
@@ -59,7 +59,7 @@ export default function Blogs() {
               <Card className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 group border-2" data-testid={`card-blog-${posts[0].slug}`}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   {posts[0].featuredImage && (
-                    <div className="relative h-80 lg:h-full min-h-[500px] overflow-hidden">
+                    <div className="relative h-64 sm:h-80 lg:h-full min-h-[400px] lg:min-h-[500px] overflow-hidden">
                       <img 
                         src={posts[0].featuredImage} 
                         alt={posts[0].title}
@@ -72,9 +72,9 @@ export default function Blogs() {
                       </Badge>
                     </div>
                   )}
-                  <div className="p-10 lg:p-12 flex flex-col justify-center">
-                    <CardHeader className="p-0 space-y-6">
-                      <CardTitle className="text-4xl md:text-5xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
+                  <div className="p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center">
+                    <CardHeader className="p-0 space-y-4 sm:space-y-6">
+                      <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
                         {posts[0].title}
                       </CardTitle>
                       <div className="flex items-center gap-6 text-base text-muted-foreground">
@@ -107,11 +107,11 @@ export default function Blogs() {
             {/* Other Posts */}
             {posts.length > 1 && (
               <>
-                <div className="flex items-center gap-4 mb-8">
-                  <h2 className="text-4xl md:text-5xl font-bold">Latest Articles</h2>
-                  <Badge variant="outline" className="text-base font-semibold px-3 py-1">{posts.length - 1}</Badge>
+                <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Latest Articles</h2>
+                  <Badge variant="outline" className="text-sm sm:text-base font-semibold px-2 sm:px-3 py-1">{posts.length - 1}</Badge>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                   {posts.slice(1).map((post) => (
                     <Card
                       key={post.slug}
