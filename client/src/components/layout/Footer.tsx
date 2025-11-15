@@ -28,25 +28,25 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-muted/20">
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-8 sm:py-12 md:py-16 max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-8 lg:gap-12">
           {/* Brand Column */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center gap-2">
               <img 
                 src="/logo.png" 
                 alt="Pixocraft Tools Logo" 
-                className="h-8 w-8"
+                className="h-7 w-7 sm:h-8 sm:w-8"
               />
-              <span className="font-bold text-lg">Pixocraft Tools</span>
+              <span className="font-bold text-base sm:text-lg">Pixocraft Tools</span>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed font-semibold">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed font-semibold">
               India's Biggest Free Online Tool Hub
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
               200+ Browser Tools • 100% Private & Offline • Made in India
             </p>
-            <div className="flex items-center gap-2 pt-2">
+            <div className="flex items-center gap-2 pt-1 sm:pt-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -73,9 +73,9 @@ export function Footer() {
           </div>
 
           {/* Tools Column */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Popular Tools</h3>
-            <ul className="space-y-3 text-sm">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-xs sm:text-sm uppercase tracking-wider">Popular Tools</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               {toolLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
@@ -87,9 +87,9 @@ export function Footer() {
           </div>
 
           {/* Company Column */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Company</h3>
-            <ul className="space-y-3 text-sm">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-xs sm:text-sm uppercase tracking-wider">Company</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               {companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
@@ -101,24 +101,24 @@ export function Footer() {
           </div>
 
           {/* Contact & Newsletter Column */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-sm uppercase tracking-wider">Get In Touch</h3>
-            <div className="space-y-3 text-sm">
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-xs sm:text-sm uppercase tracking-wider">Get In Touch</h3>
+            <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
               <a
                 href="mailto:support@pixocraft.in"
                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
                 data-testid="link-footer-email"
               >
-                <Mail className="h-4 w-4 group-hover:text-primary transition-colors" />
-                <span>support@pixocraft.in</span>
+                <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 group-hover:text-primary transition-colors" />
+                <span className="text-xs sm:text-sm">support@pixocraft.in</span>
               </a>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-muted-foreground text-[10px] sm:text-xs">
                 We typically respond within 24-48 hours
               </p>
             </div>
-            <Separator className="my-4" />
+            <Separator className="my-3 sm:my-4" />
             <div className="space-y-2">
-              <p className="text-xs text-muted-foreground">
+              <p className="text-[10px] sm:text-xs text-muted-foreground">
                 Built with precision by the Pixocraft team
               </p>
             </div>
@@ -126,9 +126,9 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <Separator className="my-8" />
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>
+        <Separator className="my-6 sm:my-8" />
+        <div className="flex flex-col sm:flex-row md:flex-row justify-between items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
+          <p className="text-center sm:text-left">
             © {currentYear} Pixocraft Tools — India's Biggest Free Online Tool Hub • Part of{" "}
             <a 
               href="https://pixocraft.in" 
@@ -139,7 +139,7 @@ export function Footer() {
               Pixocraft.in
             </a>
           </p>
-          <div className="flex items-center gap-4 text-xs">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-[10px] sm:text-xs flex-wrap justify-center">
             <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>

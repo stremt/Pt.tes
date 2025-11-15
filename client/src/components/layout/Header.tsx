@@ -33,28 +33,28 @@ export function Header() {
   };
 
   return (
-    <header className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ${scrolled ? 'h-14' : 'h-16'}`}>
-      <div className="container mx-auto flex h-full items-center justify-between px-4 max-w-7xl">
-        <Link href="/" className="flex items-center space-x-2 hover-elevate rounded-lg px-2 py-1">
-          <div className="flex items-center gap-2">
+    <header className={`sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300 ${scrolled ? 'h-14 md:h-14' : 'h-16 md:h-16'}`}>
+      <div className="container mx-auto flex h-full items-center justify-between px-3 sm:px-4 md:px-6 max-w-7xl">
+        <Link href="/" className="flex items-center space-x-2 hover-elevate rounded-lg px-1 sm:px-2 py-1">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <img 
               src="/logo.png" 
               alt="Pixocraft Tools Logo" 
-              className={`transition-all ${scrolled ? 'h-7 w-7' : 'h-8 w-8'}`}
+              className={`transition-all ${scrolled ? 'h-6 w-6 sm:h-7 sm:w-7' : 'h-7 w-7 sm:h-8 sm:w-8'}`}
             />
             <div className="flex flex-col">
-              <span className={`font-bold leading-none transition-all ${scrolled ? 'text-base' : 'text-lg'}`}>Pixocraft Tools</span>
-              <span className="text-xs text-muted-foreground leading-none hidden sm:block">India's Biggest Tool Hub</span>
+              <span className={`font-bold leading-none transition-all ${scrolled ? 'text-sm sm:text-base' : 'text-base sm:text-lg'}`}>Pixocraft Tools</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground leading-none hidden sm:block">India's Biggest Tool Hub</span>
             </div>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-3 lg:gap-6">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <span
-                className={`text-sm font-medium transition-colors hover:text-primary cursor-pointer ${
+                className={`text-sm md:text-sm lg:text-base font-medium transition-colors hover:text-primary cursor-pointer ${
                   isActive(link.href) ? 'text-foreground' : 'text-muted-foreground'
                 }`}
                 data-testid={`link-${link.label.toLowerCase()}`}
@@ -68,7 +68,7 @@ export function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-1">
+        <div className="md:hidden flex items-center gap-0.5 sm:gap-1">
           <SearchButton variant="ghost" iconOnly={true} />
           <ThemeToggle />
           <Button
@@ -77,7 +77,7 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="button-mobile-menu"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
           </Button>
         </div>
       </div>
@@ -85,7 +85,7 @@ export function Header() {
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t bg-background/95 backdrop-blur">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+          <nav className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 flex flex-col gap-1.5 sm:gap-2">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}>
                 <div
