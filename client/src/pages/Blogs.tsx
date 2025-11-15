@@ -20,12 +20,12 @@ export default function Blogs() {
   });
 
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-b from-background via-background to-muted/20">
+    <div className="min-h-screen py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-background via-background to-muted/20">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
         <div className="text-center space-y-6 sm:space-y-8 mb-12 sm:mb-16 md:mb-24 px-4">
           <Badge variant="secondary" className="text-sm sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 font-medium">Our Blog</Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight">
             Insights & <span className="text-primary bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Guides</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -35,11 +35,11 @@ export default function Blogs() {
 
         {/* Blog Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="animate-pulse overflow-hidden border-2">
-                <div className="h-56 bg-muted"></div>
-                <CardHeader className="space-y-4">
+                <div className="h-48 sm:h-56 bg-muted"></div>
+                <CardHeader className="p-4 sm:p-6 space-y-4">
                   <div className="h-6 bg-muted rounded w-3/4"></div>
                   <div className="h-4 bg-muted rounded w-1/2"></div>
                 </CardHeader>
@@ -59,7 +59,7 @@ export default function Blogs() {
               <Card className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 group border-2" data-testid={`card-blog-${posts[0].slug}`}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   {posts[0].featuredImage && (
-                    <div className="relative h-64 sm:h-80 lg:h-full min-h-[400px] lg:min-h-[500px] overflow-hidden">
+                    <div className="relative h-56 sm:h-64 md:h-80 lg:h-full min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[500px] overflow-hidden">
                       <img 
                         src={posts[0].featuredImage} 
                         alt={posts[0].title}
@@ -67,35 +67,35 @@ export default function Blogs() {
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                      <Badge variant="default" className="absolute top-6 left-6 text-base px-4 py-2 font-semibold">
+                      <Badge variant="default" className="absolute top-4 left-4 sm:top-6 sm:left-6 text-xs sm:text-sm md:text-base px-3 py-1.5 sm:px-4 sm:py-2 font-semibold">
                         Featured Article
                       </Badge>
                     </div>
                   )}
-                  <div className="p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center">
-                    <CardHeader className="p-0 space-y-4 sm:space-y-6">
-                      <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
+                  <div className="p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 flex flex-col justify-center">
+                    <CardHeader className="p-0 space-y-3 sm:space-y-4 md:space-y-6">
+                      <CardTitle className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight group-hover:text-primary transition-colors duration-200">
                         {posts[0].title}
                       </CardTitle>
-                      <div className="flex items-center gap-6 text-base text-muted-foreground">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="h-5 w-5" />
+                      <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm md:text-base text-muted-foreground">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
                           {new Date(posts[0].date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                         </div>
-                        <div className="flex items-center gap-2">
-                          <User className="h-5 w-5" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <User className="h-4 w-4 sm:h-5 sm:w-5" />
                           {posts[0].author}
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="p-0 space-y-8 mt-6">
-                      <CardDescription className="text-lg leading-relaxed">
+                    <CardContent className="p-0 space-y-4 sm:space-y-6 md:space-y-8 mt-4 sm:mt-6">
+                      <CardDescription className="text-sm sm:text-base md:text-lg leading-relaxed">
                         {posts[0].meta.description}
                       </CardDescription>
                       <Link href={`/blogs/${posts[0].slug}`}>
-                        <Button size="lg" data-testid={`button-read-${posts[0].slug}`}>
+                        <Button size="lg" className="text-sm sm:text-base" data-testid={`button-read-${posts[0].slug}`}>
                           Read Full Article
-                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                     </CardContent>
@@ -107,11 +107,11 @@ export default function Blogs() {
             {/* Other Posts */}
             {posts.length > 1 && (
               <>
-                <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Latest Articles</h2>
-                  <Badge variant="outline" className="text-sm sm:text-base font-semibold px-2 sm:px-3 py-1">{posts.length - 1}</Badge>
+                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 px-4 sm:px-0">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">Latest Articles</h2>
+                  <Badge variant="outline" className="text-xs sm:text-sm md:text-base font-semibold px-2 sm:px-3 py-0.5 sm:py-1">{posts.length - 1}</Badge>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
                   {posts.slice(1).map((post) => (
                     <Card
                       key={post.slug}
@@ -119,7 +119,7 @@ export default function Blogs() {
                       data-testid={`card-blog-${post.slug}`}
                     >
                       {post.featuredImage && (
-                        <div className="relative h-56 overflow-hidden">
+                        <div className="relative h-48 sm:h-56 overflow-hidden">
                           <img 
                             src={post.featuredImage} 
                             alt={post.title}
@@ -129,11 +129,11 @@ export default function Blogs() {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       )}
-                      <CardHeader className="flex-1 space-y-4 pb-4">
-                        <CardTitle className="text-2xl font-bold group-hover:text-primary transition-colors line-clamp-2 leading-tight">
+                      <CardHeader className="p-4 sm:p-6 flex-1 space-y-3 sm:space-y-4 pb-3 sm:pb-4">
+                        <CardTitle className="text-lg sm:text-xl md:text-2xl font-bold group-hover:text-primary transition-colors line-clamp-2 leading-tight">
                           {post.title}
                         </CardTitle>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
                           <div className="flex items-center gap-1.5">
                             <Calendar className="h-4 w-4" />
                             {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -144,14 +144,14 @@ export default function Blogs() {
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="space-y-5 pt-0">
-                        <CardDescription className="line-clamp-3 leading-relaxed text-base">
+                      <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-5 pt-0">
+                        <CardDescription className="line-clamp-3 leading-relaxed text-sm sm:text-base">
                           {post.meta.description}
                         </CardDescription>
                         <Link href={`/blogs/${post.slug}`}>
-                          <Button variant="outline" size="lg" className="w-full" data-testid={`button-read-${post.slug}`}>
+                          <Button variant="outline" size="lg" className="w-full text-sm sm:text-base" data-testid={`button-read-${post.slug}`}>
                             Read Article
-                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                           </Button>
                         </Link>
                       </CardContent>
@@ -162,14 +162,14 @@ export default function Blogs() {
             )}
           </div>
         ) : (
-          <div className="text-center py-32">
-            <div className="space-y-6">
-              <div className="h-24 w-24 rounded-full bg-muted/50 flex items-center justify-center mx-auto">
-                <User className="h-12 w-12 text-muted-foreground" />
+          <div className="text-center py-16 sm:py-24 md:py-32">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-muted/50 flex items-center justify-center mx-auto">
+                <User className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold">No blog posts yet</h3>
-                <p className="text-lg text-muted-foreground">Check back soon for our latest articles and guides!</p>
+                <h3 className="text-xl sm:text-2xl font-bold">No blog posts yet</h3>
+                <p className="text-base sm:text-lg text-muted-foreground">Check back soon for our latest articles and guides!</p>
               </div>
             </div>
           </div>

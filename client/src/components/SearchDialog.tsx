@@ -156,8 +156,10 @@ export function SearchButton({ variant = "default", iconOnly = false }: { varian
         size="icon"
         onClick={openSearch}
         data-testid="button-search"
+        aria-label="Search Tools"
       >
         <Search className="h-5 w-5" />
+        <span className="sr-only">Search Tools</span>
       </Button>
     );
   }

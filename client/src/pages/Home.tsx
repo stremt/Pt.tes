@@ -326,12 +326,12 @@ export default function Home() {
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
                 India's Biggest Tool Hub
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight px-2 sm:px-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight px-2 sm:px-4">
                 Pixocraft Tools — India's Biggest Free Online Tool Hub
                 <br />
                 <span className="text-primary">(200+ Tools)</span>
               </h1>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
                 Access 200+ fast, fully browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup. No tracking. 100% private & offline supported.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -432,7 +432,7 @@ export default function Home() {
         <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
             <div className="text-center space-y-2 sm:space-y-3 md:space-y-4 mb-8 sm:mb-12 md:mb-16 px-2 sm:px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Why India Chooses Pixocraft Tools</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Why India Chooses Pixocraft Tools</h2>
               <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                 The most comprehensive free online tool hub built for speed, privacy, and convenience
               </p>
@@ -447,77 +447,77 @@ export default function Home() {
                   <CardTitle className="text-lg sm:text-xl">Blazing Fast</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 sm:p-6 pt-0">
-                  <p className="text-xs sm:text-sm text-muted-foreground text-center leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Runs entirely in your browser with 0ms server delay. No waiting, no loading spinners—just instant results every time.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-privacy">
-                <CardHeader className="text-center">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Shield className="h-7 w-7 text-primary" />
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Shield className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">Privacy First</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Privacy First</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     No uploads, no tracking, no data collection. Everything processes locally in your browser for maximum privacy and security.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-free">
-                <CardHeader className="text-center">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="h-7 w-7 text-primary" />
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">Always Free</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Always Free</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Every feature, every tool, 100% free forever. No premium tiers, no paywalls, no hidden costs or limitations.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-india">
-                <CardHeader className="text-center">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Star className="h-7 w-7 text-primary" />
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Star className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">India's Biggest</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">India's Biggest</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     With 200+ tools and growing, Pixocraft is India's largest free online tool hub serving thousands daily.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-static">
-                <CardHeader className="text-center">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Globe className="h-7 w-7 text-primary" />
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Globe className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">100% Static</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">100% Static</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Fully browser-based tools that work offline. No backend servers, no databases—complete client-side processing.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-no-limits">
-                <CardHeader className="text-center">
-                  <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Clock className="h-7 w-7 text-primary" />
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-xl">No Limits</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">No Limits</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     No ads, no login requirements, no usage limits. Use any tool as many times as you want, completely unrestricted.
                   </p>
                 </CardContent>
@@ -543,26 +543,26 @@ export default function Home() {
         </section>
 
         {/* Popular Tools Section */}
-        <section className="py-12 sm:py-16 md:py-20 border-b">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-4">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
+          <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
               <Badge variant="secondary">Most Popular</Badge>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Popular Tools</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Popular Tools</h2>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Handpicked favorites from our collection of 200+ tools, used by thousands daily
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
               {popularTools.map((tool) => {
                 const Icon = getToolIcon(tool.icon);
                 return (
                   <Card key={tool.id} className="hover-elevate transition-all duration-200 group flex flex-col" data-testid={`card-tool-${tool.id}`}>
-                    <CardHeader className="space-y-4">
-                      <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <Icon className="h-7 w-7 text-primary" />
+                    <CardHeader className="space-y-2 sm:space-y-4 p-4 sm:p-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                      <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1">
                       <CardDescription className="line-clamp-3 leading-relaxed">
@@ -594,29 +594,29 @@ export default function Home() {
         </section>
 
         {/* Browse by Category Section */}
-        <section className="py-20 border-b bg-gradient-to-b from-background to-muted/30">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-4 mb-12">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b bg-gradient-to-b from-background to-muted/30">
+          <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
               <Badge variant="secondary">Categories</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold">Browse by Category</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Browse by Category</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Explore our organized collection of tools across different categories
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {categories.map((category) => {
                 const Icon = category.icon;
                 return (
                   <Card key={category.id} className="hover-elevate transition-all duration-200 group" data-testid={`card-category-${category.id}`}>
-                    <CardHeader>
+                    <CardHeader className="p-4 sm:p-6">
                       <div className="flex items-start justify-between mb-2">
-                        <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                          <Icon className="h-6 w-6 text-primary" />
+                        <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                          <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                         </div>
                         <Badge variant="secondary" className="text-xs">{category.toolCount}+ tools</Badge>
                       </div>
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">{category.name}</CardTitle>
+                      <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">{category.name}</CardTitle>
                       <CardDescription className="leading-relaxed">
                         {category.description}
                       </CardDescription>
@@ -637,27 +637,27 @@ export default function Home() {
         </section>
 
         {/* Featured Premium Tools Section */}
-        <section className="py-20 border-b">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-4 mb-12">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
+          <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
               <Badge variant="secondary">Premium Features, Zero Cost</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold">Featured Premium Tools</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Featured Premium Tools</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Advanced tools that would cost money elsewhere—completely free here
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
               {premiumTools.map((tool) => {
                 if (!tool) return null;
                 const Icon = getToolIcon(tool.icon);
                 return (
                   <Card key={tool.id} className="hover-elevate transition-all duration-200 group text-center" data-testid={`card-premium-${tool.id}`}>
-                    <CardHeader className="space-y-3">
-                      <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
-                        <Icon className="h-8 w-8 text-primary" />
+                    <CardHeader className="space-y-2 sm:space-y-3 p-4 sm:p-6">
+                      <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
+                        <Icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
                       </div>
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                      <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors">{tool.name}</CardTitle>
                     </CardHeader>
                     <CardFooter>
                       <Link href={tool.path} className="w-full">
@@ -674,32 +674,32 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-20 border-b bg-muted/30">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-4 mb-12">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b bg-muted/30">
+          <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
               <Badge variant="secondary">Testimonials</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold">Loved by Users Across India</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Loved by Users Across India</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Join thousands of satisfied users who trust Pixocraft Tools daily
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {testimonials.map((testimonial, index) => (
                 <Card key={index} className="bg-background" data-testid={`card-testimonial-${index}`}>
-                  <CardHeader>
-                    <div className="flex items-center gap-1 mb-3">
+                  <CardHeader className="p-4 sm:p-6">
+                    <div className="flex items-center gap-1 mb-2 sm:mb-3">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <CardDescription className="text-base leading-relaxed text-foreground">
+                    <CardDescription className="text-sm sm:text-base leading-relaxed text-foreground">
                       "{testimonial.content}"
                     </CardDescription>
                   </CardHeader>
-                  <CardFooter className="flex-col items-start gap-1">
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <CardFooter className="flex-col items-start gap-1 p-4 sm:p-6 pt-0">
+                    <p className="font-semibold text-sm sm:text-base">{testimonial.name}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.role}</p>
                   </CardFooter>
                 </Card>
               ))}
@@ -708,85 +708,85 @@ export default function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20 border-b">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="text-center space-y-4 mb-12">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
+          <div className="container mx-auto px-2 sm:px-4 max-w-4xl">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
               <Badge variant="secondary">FAQ</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-              <p className="text-lg text-muted-foreground">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Frequently Asked Questions</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
                 Everything you need to know about Pixocraft Tools
               </p>
             </div>
 
-            <Accordion type="single" collapsible className="space-y-4" data-testid="accordion-faq">
-              <AccordionItem value="item-1" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-what-is">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4" data-testid="accordion-faq">
+              <AccordionItem value="item-1" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-what-is">
                   What is Pixocraft Tools?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Pixocraft Tools is India's biggest free online tool hub offering 200+ browser-based tools for text processing, image editing, PDF manipulation, developer utilities, math calculations, and productivity. All tools are 100% free, work offline, and require no signup.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-why-biggest">
+              <AccordionItem value="item-2" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-why-biggest">
                   Why is Pixocraft India's biggest tool hub?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Pixocraft Tools is India's biggest tool hub because we offer 200+ completely free, static, browser-based tools with zero tracking, no login requirements, and full offline support. All tools run entirely in your browser with 0ms server delay.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-free">
+              <AccordionItem value="item-3" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-free">
                   Are all tools completely free?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Yes, all 200+ tools on Pixocraft are 100% free forever. There are no premium tiers, no paywalls, no credits system, and no hidden costs. Every feature is completely free with no limitations.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-offline">
+              <AccordionItem value="item-4" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-offline">
                   Do tools work offline?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Yes, all tools on Pixocraft are fully browser-based and work offline once the page is loaded. Your data never leaves your device and everything processes locally in your browser.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-5" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-data-safe">
+              <AccordionItem value="item-5" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-data-safe">
                   Is my data safe?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Absolutely. Pixocraft Tools processes everything locally in your browser. We don't upload, store, or track any of your data. Your files and information never leave your device, ensuring 100% privacy and security.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-6" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-tracking">
+              <AccordionItem value="item-6" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-tracking">
                   Do you track users?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   No. Pixocraft Tools does not track users, collect analytics, or store any personal information. We are committed to your privacy with zero tracking and zero data collection.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-7" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-how-many">
+              <AccordionItem value="item-7" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-how-many">
                   How many tools are available?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Pixocraft Tools currently offers 200+ free tools and is continuously growing. Our collection includes text tools, image tools, PDF tools, developer tools, math tools, AI tools, productivity tools, and more.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-8" className="border rounded-lg px-6">
-                <AccordionTrigger className="text-left" data-testid="faq-trigger-upload">
+              <AccordionItem value="item-8" className="border rounded-lg px-4 sm:px-6">
+                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-upload">
                   Are files uploaded to a server?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
+                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   No. All processing happens entirely in your browser. Files are never uploaded to any server. This ensures maximum privacy, security, and blazing-fast performance with 0ms server delay.
                 </AccordionContent>
               </AccordionItem>
@@ -795,18 +795,18 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-b from-background to-muted/30">
-          <div className="container mx-auto px-4 max-w-5xl">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-background to-muted/30">
+          <div className="container mx-auto px-2 sm:px-4 max-w-5xl">
             <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background shadow-lg">
-              <CardContent className="p-12 text-center space-y-6">
-                <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-4">
-                  <Sparkles className="h-8 w-8 text-primary" />
+              <CardContent className="p-6 sm:p-8 md:p-10 lg:p-12 text-center space-y-4 sm:space-y-6">
+                <div className="inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full bg-primary/10 mb-2 sm:mb-4">
+                  <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
                 </div>
-                <h2 className="text-3xl md:text-5xl font-bold">Ready to Get Started?</h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Ready to Get Started?</h2>
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
                   Join 10,000+ daily users who trust India's biggest tool hub for their workflows. No signup, no credit card, completely free.
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 sm:pt-4">
                   <Link href="/tools">
                     <Button size="lg" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-cta-start">
                       Browse All Tools

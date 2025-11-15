@@ -70,12 +70,12 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="min-h-screen py-8 sm:py-12 md:py-16">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Page Header */}
         <div className="text-center space-y-4 sm:space-y-6 mb-12 sm:mb-16 md:mb-20 px-4">
           <Badge variant="secondary" className="text-sm px-4 py-1.5">Contact Us</Badge>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
             Let's <span className="text-primary">Talk</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -87,9 +87,9 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="hover-elevate transition-all duration-200">
-              <CardHeader>
-                <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                <CardDescription className="text-base">
+              <CardHeader className="p-4 sm:p-6">
+                <CardTitle className="text-xl sm:text-2xl">Send us a Message</CardTitle>
+                <CardDescription className="text-sm sm:text-base">
                   Fill out the form below and we'll get back to you within 24-48 hours
                 </CardDescription>
               </CardHeader>
@@ -195,18 +195,18 @@ export default function Contact() {
           {/* Contact Info */}
           <div className="space-y-6">
             <Card className="hover-elevate transition-all duration-200">
-              <CardHeader>
-                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                  <Mail className="h-6 w-6 text-primary" />
+              <CardHeader className="p-4 sm:p-6">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <CardTitle>Email Us</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Email Us</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="p-4 sm:p-6 space-y-3">
                 <div>
-                  <p className="font-medium mb-1">Support Email</p>
+                  <p className="text-sm sm:text-base font-medium mb-1">Support Email</p>
                   <a
                     href="mailto:support@pixocraft.in"
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                    className="text-muted-foreground hover:text-primary transition-colors text-xs sm:text-sm"
                     data-testid="link-email-support"
                   >
                     support@pixocraft.in
@@ -216,28 +216,28 @@ export default function Contact() {
             </Card>
 
             <Card className="hover-elevate transition-all duration-200">
-              <CardHeader>
-                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                  <Clock className="h-6 w-6 text-primary" />
+              <CardHeader className="p-4 sm:p-6">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <CardTitle>Response Time</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Response Time</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+              <CardContent className="p-4 sm:p-6">
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
                   We typically respond within 24-48 hours during business days
                 </p>
               </CardContent>
             </Card>
 
             <Card className="hover-elevate transition-all duration-200">
-              <CardHeader>
-                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                  <MessageSquare className="h-6 w-6 text-primary" />
+              <CardHeader className="p-4 sm:p-6">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <CardTitle>Connect With Us</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Connect With Us</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
+              <CardContent className="p-4 sm:p-6 space-y-4">
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Follow us on social media for updates and tips
                 </p>
                 <div className="flex items-center gap-2">
@@ -279,14 +279,14 @@ export default function Contact() {
             </Card>
 
             <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-              <CardHeader>
-                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
-                  <Lightbulb className="h-6 w-6 text-primary" />
+              <CardHeader className="p-4 sm:p-6">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  <Lightbulb className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
-                <CardTitle>Quick Tips</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Quick Tips</CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2.5 text-sm text-muted-foreground">
+              <CardContent className="p-4 sm:p-6">
+                <ul className="space-y-2.5 text-sm sm:text-base text-muted-foreground">
                   <li className="flex items-start gap-2">
                     <span className="text-primary mt-0.5">•</span>
                     <span>Be specific about which tool you're asking about</span>
