@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,16 +31,21 @@ export default function Tools() {
     canonicalUrl: "https://tools.pixocraft.in/tools",
   });
 
+  const [location] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  const validCategoryIds = ["privacy", "text", "image", "pdf", "media", "developer", "math", "random", "productivity", "color", "ai"];
+
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    if (category) {
-      setSelectedCategory(category);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('category');
+      if (category && validCategoryIds.includes(category)) {
+        setSelectedCategory(category);
+      }
     }
-  }, []);
+  }, [location]);
 
   // Helper function to categorize tools accurately
   const getToolsByCategory = (categoryId: string) => {
