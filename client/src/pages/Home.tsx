@@ -266,27 +266,50 @@ export default function Home() {
     return toolIds.map(id => tools.find(t => t.id === id)).filter((tool): tool is NonNullable<typeof tool> => tool !== undefined);
   }, []);
 
-  // Testimonials
-  const testimonials = [
-    {
-      name: "Rajat Kumar",
-      role: "Software Developer",
-      content: "India's fastest offline tool website. I use it daily for JSON formatting and Base64 encoding. No ads, no nonsense!",
-      rating: 5
-    },
-    {
-      name: "Vivaan Patel",
-      role: "Designer",
-      content: "No ads, no login. Instant speed. The image tools and color generators are absolutely perfect for my workflow.",
-      rating: 5
-    },
-    {
-      name: "Maria Singh",
-      role: "Content Writer",
-      content: "Love the 200+ tools in one place! Word counter, text summarizer, and case converters save me hours every week.",
-      rating: 5
-    }
+  // All testimonials - rotates daily
+  const allTestimonials = [
+    { name: "Rajat Kumar", role: "Software Developer, Mumbai", content: "India's fastest offline tool website. I use it daily for JSON formatting and Base64 encoding. No ads, no nonsense!", rating: 5 },
+    { name: "Priya Sharma", role: "Graphic Designer, Delhi", content: "The color palette generator and image compressor are game-changers for my design work. Absolutely love this tool hub!", rating: 5 },
+    { name: "Arjun Mehta", role: "Content Writer, Bangalore", content: "Word counter, text summarizer, and case converters save me hours every week. Best free tool collection I've found!", rating: 5 },
+    { name: "Neha Gupta", role: "Digital Marketer, Pune", content: "QR code generator and image tools are perfect for my campaigns. Fast, reliable, and completely free!", rating: 5 },
+    { name: "Vikram Singh", role: "Full Stack Developer, Hyderabad", content: "The developer tools section is incredible. JSON formatter, code beautifier, and Base64 encoder - all in one place!", rating: 5 },
+    { name: "Aisha Khan", role: "UI/UX Designer, Chennai", content: "Color tools and gradient generators are exactly what I needed. No login, no tracking, just pure functionality!", rating: 5 },
+    { name: "Rohit Verma", role: "Freelance Writer, Kolkata", content: "Text tools are fantastic! Case converter and character counter are my daily go-to utilities. Highly recommend!", rating: 5 },
+    { name: "Sneha Patel", role: "Social Media Manager, Ahmedabad", content: "Image compressor saves me so much time. Upload speed is instant, and quality is maintained perfectly!", rating: 5 },
+    { name: "Karan Desai", role: "Web Developer, Surat", content: "CSS generators and code minifiers are professional-grade. Can't believe this is completely free!", rating: 5 },
+    { name: "Ananya Iyer", role: "Blogger, Mumbai", content: "Word counter and SEO tools help me optimize every post. This is my secret weapon for content creation!", rating: 5 },
+    { name: "Siddharth Joshi", role: "Mobile App Developer, Noida", content: "API snippet builder and JSON tools are lifesavers. Fast, accurate, and works offline too!", rating: 5 },
+    { name: "Divya Reddy", role: "E-commerce Manager, Bangalore", content: "QR code maker and barcode generator are perfect for my product listings. Super easy to use!", rating: 5 },
+    { name: "Amit Gupta", role: "Data Analyst, Gurgaon", content: "Math calculators and conversion tools are spot-on accurate. Use them daily for quick calculations!", rating: 5 },
+    { name: "Riya Shah", role: "Student, Delhi", content: "BMI calculator, age calculator, and study tools help me every day. Perfect for students like me!", rating: 5 },
+    { name: "Manish Kumar", role: "Photographer, Jaipur", content: "Background remover and image editing tools are professional quality. Saves me hours of Photoshop work!", rating: 5 },
+    { name: "Kavya Nair", role: "HR Professional, Kochi", content: "PDF tools for merging and splitting documents are incredibly useful. No more expensive subscriptions!", rating: 5 },
+    { name: "Rahul Malhotra", role: "Startup Founder, Chandigarh", content: "Password generator and privacy tools keep my startup secure. Love the zero-tracking policy!", rating: 5 },
+    { name: "Pooja Agarwal", role: "Teacher, Lucknow", content: "Educational tools and calculators are perfect for my classroom. Students love using these free resources!", rating: 5 },
+    { name: "Varun Kapoor", role: "DevOps Engineer, Pune", content: "Hash generators and encryption tools are essential for my security workflows. Lightning fast!", rating: 5 },
+    { name: "Simran Kaur", role: "Fashion Blogger, Delhi", content: "Image tools and color pickers help me create stunning visuals. This is my creative companion!", rating: 5 },
+    { name: "Abhishek Pandey", role: "Finance Analyst, Mumbai", content: "EMI calculator and compound interest tools are accurate and easy to use. Perfect for financial planning!", rating: 5 },
+    { name: "Meera Krishnan", role: "Interior Designer, Bangalore", content: "Gradient generators and color schemes inspire my design projects. Beautiful, functional, and free!", rating: 5 },
+    { name: "Nikhil Sinha", role: "Video Editor, Kolkata", content: "GIF compressor and video tools process files instantly. No more waiting for uploads!", rating: 5 },
+    { name: "Ishita Bansal", role: "Nutritionist, Chandigarh", content: "Calorie calculator and health tools are accurate and helpful for my clients. Highly professional!", rating: 5 },
+    { name: "Harsh Tiwari", role: "Game Developer, Hyderabad", content: "Random generators and developer utilities speed up my prototyping. Invaluable for game dev!", rating: 5 },
+    { name: "Sakshi Rao", role: "Marketing Executive, Chennai", content: "Text styler and fancy text generators create eye-catching social media posts. Love it!", rating: 5 },
+    { name: "Gaurav Mishra", role: "Architect, Indore", content: "Measurement converters and calculators are essential for my architectural work. Super reliable!", rating: 5 },
+    { name: "Tanvi Chopra", role: "Podcast Host, Mumbai", content: "Audio tools and noise remover enhance my podcast quality. Professional results, zero cost!", rating: 5 },
+    { name: "Ajay Yadav", role: "SEO Specialist, Noida", content: "Keyword tools and text analyzers boost my SEO strategies. This hub is a goldmine for marketers!", rating: 5 },
+    { name: "Nisha Pillai", role: "Event Planner, Bangalore", content: "QR codes for invites and image tools for flyers - everything I need in one place. Absolutely brilliant!", rating: 5 }
   ];
+
+  // Select 3 testimonials based on day of year (changes daily)
+  const testimonials = useMemo(() => {
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24));
+    const startIndex = (dayOfYear * 3) % allTestimonials.length;
+    return [
+      allTestimonials[startIndex % allTestimonials.length],
+      allTestimonials[(startIndex + 1) % allTestimonials.length],
+      allTestimonials[(startIndex + 2) % allTestimonials.length]
+    ];
+  }, []);
 
   return (
     <>
@@ -297,7 +320,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background">
           <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-          <div className="container mx-auto px-4 py-24 md:py-32 lg:py-40 max-w-7xl relative">
+          <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 max-w-7xl relative">
             <div className="mx-auto max-w-4xl text-center space-y-8">
               <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5" data-testid="badge-india-biggest">
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
