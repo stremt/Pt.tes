@@ -16,7 +16,8 @@ import {
   toSnakeCase,
   toKebabCase,
 } from "@/lib/text-utils";
-import { Type, Copy, RotateCcw, Zap, Lock, Sparkles, Globe } from "lucide-react";
+import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT, BUTTON_LABELS } from "@/lib/ui-constants";
+import { Type, Copy, RotateCcw, Zap, Lock, Sparkles, Globe, Check } from "lucide-react";
 
 export default function TextCaseConverter() {
   const [inputText, setInputText] = useState("");
@@ -90,9 +91,12 @@ export default function TextCaseConverter() {
               placeholder="Type or paste your text here..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="min-h-[150px] text-base"
+              className={`${TEXTAREA_HEIGHTS.MEDIUM} ${SCROLLABLE_OUTPUT} text-base`}
               data-testid="input-text-case"
             />
+            <p className="text-xs text-muted-foreground mt-2">
+              {inputText.length} characters • {inputText.trim().split(/\s+/).filter(w => w.length > 0).length} words
+            </p>
           </CardContent>
         </Card>
 
@@ -114,7 +118,7 @@ export default function TextCaseConverter() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-sm font-mono break-all min-h-[60px] text-foreground">
+                <div className={`text-sm font-mono break-words min-h-[60px] max-h-[200px] ${SCROLLABLE_OUTPUT} text-foreground`}>
                   {conversion.value || <span className="text-muted-foreground italic">No text entered</span>}
                 </div>
               </CardContent>

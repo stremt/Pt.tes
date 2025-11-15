@@ -8,9 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Lock, Unlock, Copy, Check, ArrowRight } from "lucide-react";
+import { Lock, Unlock, Copy, Check, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT } from "@/lib/ui-constants";
 
 async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const encoder = new TextEncoder();
@@ -88,12 +89,16 @@ export default function TextEncryptDecrypt() {
   const [encryptText, setEncryptText] = useState("");
   const [encryptPassword, setEncryptPassword] = useState("");
   const [encryptedResult, setEncryptedResult] = useState("");
+  const [showEncryptPassword, setShowEncryptPassword] = useState(false);
   
   const [decryptText, setDecryptText] = useState("");
   const [decryptPassword, setDecryptPassword] = useState("");
   const [decryptedResult, setDecryptedResult] = useState("");
+  const [showDecryptPassword, setShowDecryptPassword] = useState(false);
   
   const [copied, setCopied] = useState(false);
+  const [encrypting, setEncrypting] = useState(false);
+  const [decrypting, setDecrypting] = useState(false);
   const { toast } = useToast();
 
   useSEO({
@@ -124,19 +129,31 @@ export default function TextEncryptDecrypt() {
       return;
     }
 
+    if (encryptPassword.length < 6) {
+      toast({
+        title: "Weak Password",
+        description: "Password should be at least 6 characters long for better security",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setEncrypting(true);
     try {
       const result = await encryptTextData(encryptText, encryptPassword);
       setEncryptedResult(result);
       toast({
         title: "Encrypted Successfully",
-        description: "Your text has been encrypted",
+        description: `Your text (${encryptText.length} characters) has been encrypted`,
       });
     } catch (error) {
       toast({
         title: "Encryption Failed",
-        description: "An error occurred during encryption",
+        description: error instanceof Error ? error.message : "An error occurred during encryption",
         variant: "destructive",
       });
+    } finally {
+      setEncrypting(false);
     }
   };
 
@@ -159,22 +176,26 @@ export default function TextEncryptDecrypt() {
       return;
     }
 
+    setDecrypting(true);
     try {
       const result = await decryptTextData(decryptText, decryptPassword);
       setDecryptedResult(result);
       toast({
         title: "Decrypted Successfully",
-        description: "Your text has been decrypted",
+        description: `Your text has been decrypted (${result.length} characters)`,
       });
     } catch (error) {
       setDecryptedResult("");
+      const errorMessage = error instanceof Error ? error.message : '';
       toast({
         title: "Decryption Failed",
-        description: error instanceof Error && error.message.includes('Invalid') 
-          ? "Invalid encrypted data format"
-          : "Wrong password or corrupted data",
+        description: errorMessage.includes('Invalid') 
+          ? "Invalid encrypted data format. Please make sure you copied the complete encrypted text."
+          : "Wrong password or corrupted data. Please verify your password and try again.",
         variant: "destructive",
       });
+    } finally {
+      setDecrypting(false);
     }
   };
 
@@ -263,27 +284,51 @@ export default function TextEncryptDecrypt() {
                           value={encryptText}
                           onChange={(e) => setEncryptText(e.target.value)}
                           placeholder="Enter your secret text..."
-                          className="min-h-[150px] mt-2"
+                          className={`${TEXTAREA_HEIGHTS.MEDIUM} ${SCROLLABLE_OUTPUT} mt-2`}
                           data-testid="input-encrypt-text"
                         />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {encryptText.length} characters
+                        </p>
                       </div>
 
                       <div>
                         <Label htmlFor="encrypt-password">Password</Label>
-                        <Input
-                          id="encrypt-password"
-                          type="password"
-                          value={encryptPassword}
-                          onChange={(e) => setEncryptPassword(e.target.value)}
-                          placeholder="Enter a strong password"
-                          className="mt-2"
-                          data-testid="input-encrypt-password"
-                        />
+                        <div className="relative mt-2">
+                          <Input
+                            id="encrypt-password"
+                            type={showEncryptPassword ? "text" : "password"}
+                            value={encryptPassword}
+                            onChange={(e) => setEncryptPassword(e.target.value)}
+                            placeholder="Enter a strong password (min 6 characters)"
+                            className="pr-10"
+                            data-testid="input-encrypt-password"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                            onClick={() => setShowEncryptPassword(!showEncryptPassword)}
+                            data-testid="button-toggle-encrypt-password"
+                          >
+                            {showEncryptPassword ? (
+                              <EyeOff className="h-4 w-4 text-muted-foreground" />
+                            ) : (
+                              <Eye className="h-4 w-4 text-muted-foreground" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
 
-                      <Button onClick={handleEncrypt} className="w-full" data-testid="button-encrypt">
+                      <Button 
+                        onClick={handleEncrypt} 
+                        className="w-full" 
+                        disabled={encrypting}
+                        data-testid="button-encrypt"
+                      >
                         <Lock className="mr-2 h-4 w-4" />
-                        Encrypt Text
+                        {encrypting ? "Encrypting..." : "Encrypt Text"}
                       </Button>
 
                       {encryptedResult && (
@@ -312,9 +357,12 @@ export default function TextEncryptDecrypt() {
                           <Textarea
                             value={encryptedResult}
                             readOnly
-                            className="min-h-[150px] bg-muted/50 font-mono text-sm"
+                            className={`${TEXTAREA_HEIGHTS.MEDIUM} ${SCROLLABLE_OUTPUT} bg-muted/50 font-mono text-sm`}
                             data-testid="output-encrypted"
                           />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Encrypted length: {encryptedResult.length} characters
+                          </p>
                         </div>
                       )}
                     </div>
@@ -329,27 +377,51 @@ export default function TextEncryptDecrypt() {
                           value={decryptText}
                           onChange={(e) => setDecryptText(e.target.value)}
                           placeholder="Paste encrypted text here..."
-                          className="min-h-[150px] mt-2 font-mono text-sm"
+                          className={`${TEXTAREA_HEIGHTS.MEDIUM} ${SCROLLABLE_OUTPUT} mt-2 font-mono text-sm`}
                           data-testid="input-decrypt-text"
                         />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {decryptText.length} characters
+                        </p>
                       </div>
 
                       <div>
                         <Label htmlFor="decrypt-password">Password</Label>
-                        <Input
-                          id="decrypt-password"
-                          type="password"
-                          value={decryptPassword}
-                          onChange={(e) => setDecryptPassword(e.target.value)}
-                          placeholder="Enter the password"
-                          className="mt-2"
-                          data-testid="input-decrypt-password"
-                        />
+                        <div className="relative mt-2">
+                          <Input
+                            id="decrypt-password"
+                            type={showDecryptPassword ? "text" : "password"}
+                            value={decryptPassword}
+                            onChange={(e) => setDecryptPassword(e.target.value)}
+                            placeholder="Enter the password used for encryption"
+                            className="pr-10"
+                            data-testid="input-decrypt-password"
+                          />
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                            onClick={() => setShowDecryptPassword(!showDecryptPassword)}
+                            data-testid="button-toggle-decrypt-password"
+                          >
+                            {showDecryptPassword ? (
+                              <EyeOff className="h-4 w-4 text-muted-foreground" />
+                            ) : (
+                              <Eye className="h-4 w-4 text-muted-foreground" />
+                            )}
+                          </Button>
+                        </div>
                       </div>
 
-                      <Button onClick={handleDecrypt} className="w-full" data-testid="button-decrypt">
+                      <Button 
+                        onClick={handleDecrypt} 
+                        className="w-full" 
+                        disabled={decrypting}
+                        data-testid="button-decrypt"
+                      >
                         <Unlock className="mr-2 h-4 w-4" />
-                        Decrypt Text
+                        {decrypting ? "Decrypting..." : "Decrypt Text"}
                       </Button>
 
                       {decryptedResult && (
@@ -378,9 +450,12 @@ export default function TextEncryptDecrypt() {
                           <Textarea
                             value={decryptedResult}
                             readOnly
-                            className="min-h-[150px] bg-muted/50"
+                            className={`${TEXTAREA_HEIGHTS.MEDIUM} ${SCROLLABLE_OUTPUT} bg-muted/50`}
                             data-testid="output-decrypted"
                           />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Decrypted length: {decryptedResult.length} characters
+                          </p>
                         </div>
                       )}
                     </div>

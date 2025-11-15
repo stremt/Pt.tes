@@ -41,7 +41,7 @@ export default function HTMLtoPDF() {
         margin: 10,
         filename: 'document.pdf',
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
       };
 
       await html2pdf().set(opt).from(element).save();

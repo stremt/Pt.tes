@@ -13,6 +13,8 @@ import {
   countParagraphs,
   estimateReadingTime,
 } from "@/lib/text-utils";
+import { extractTextFromFile, getSupportedTextFileTypes, getSupportedTextFileMimeTypes } from "@/lib/file-parsing-utils";
+import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT, formatFileSize } from "@/lib/ui-constants";
 import { FileText, Clock, Type, FileType, Hash, Sparkles, Zap, Lock, Globe, Upload, X } from "lucide-react";
 
 export default function WordCounter() {
@@ -42,50 +44,26 @@ export default function WordCounter() {
   const handleFileUpload = async (file: File) => {
     if (!file) return;
 
-    const validTypes = [
-      "text/plain",
-      "application/pdf",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    ];
-
-    if (!validTypes.includes(file.type)) {
-      toast({
-        title: "Invalid File Type",
-        description: "Please upload a .txt, .pdf, or .docx file",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setUploading(true);
     setFileName(file.name);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("/api/text/extract", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to extract text");
-      }
-
-      const data = await response.json();
-      setText(data.text);
+      const result = await extractTextFromFile(file);
+      setText(result.text);
 
       toast({
-        title: "Success!",
-        description: "Text extracted from file successfully",
+        title: "File Uploaded",
+        description: `Extracted ${result.wordCount} words from ${file.name}`,
       });
     } catch (error) {
+      console.error("Error uploading file:", error);
+      const errorMessage = error instanceof Error ? error.message : "Could not extract text from file";
       toast({
-        title: "Error",
-        description: "Failed to extract text from file",
+        title: "Upload Failed",
+        description: errorMessage,
         variant: "destructive",
       });
+      setFileName("");
     } finally {
       setUploading(false);
     }
@@ -214,12 +192,12 @@ export default function WordCounter() {
                 {uploading ? "Extracting text..." : "Click to upload or drag & drop"}
               </p>
               <p className="text-sm text-muted-foreground">
-                Supports .txt, .pdf, and .docx files (Max 10MB)
+                Supports .txt, .pdf, .docx, and .md files
               </p>
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".txt,.pdf,.docx"
+                accept={getSupportedTextFileMimeTypes()}
                 onChange={handleFileSelect}
                 className="hidden"
                 data-testid="input-file-word-counter"
@@ -254,7 +232,7 @@ export default function WordCounter() {
               placeholder="Start typing or paste your text here to see word count and statistics..."
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="min-h-[300px] text-base leading-relaxed"
+              className={`${TEXTAREA_HEIGHTS.LARGE} ${SCROLLABLE_OUTPUT} text-base leading-relaxed`}
               data-testid="input-text-counter"
               disabled={uploading}
             />

@@ -52,6 +52,38 @@ export default function PasswordStrengthChecker() {
     return strengthLevels[score];
   }, [analysis]);
 
+  const timeToCrack = useMemo(() => {
+    if (!analysis) return null;
+
+    const seconds = analysis.crackTimesSeconds.onlineNoThrottling10PerSecond;
+    
+    if (seconds < 1) return "Instantly";
+    if (seconds < 60) return `${Math.round(seconds)} seconds`;
+    if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
+    if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
+    if (seconds < 2592000) return `${Math.round(seconds / 86400)} days`;
+    if (seconds < 31536000) return `${Math.round(seconds / 2592000)} months`;
+    
+    const years = seconds / 31536000;
+    if (years < 1000000) return `${Math.round(years)} years`;
+    if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
+    return "Centuries";
+  }, [analysis]);
+
+  const passwordEntropy = useMemo(() => {
+    if (!password) return 0;
+    
+    let charsetSize = 0;
+    if (/[a-z]/.test(password)) charsetSize += 26;
+    if (/[A-Z]/.test(password)) charsetSize += 26;
+    if (/[0-9]/.test(password)) charsetSize += 10;
+    if (/[^A-Za-z0-9]/.test(password)) charsetSize += 32; // common special chars
+    
+    // Entropy = log2(charsetSize^passwordLength)
+    const entropy = password.length * Math.log2(charsetSize);
+    return Math.round(entropy);
+  }, [password]);
+
   const checks = useMemo(() => {
     const hasLowercase = /[a-z]/.test(password);
     const hasUppercase = /[A-Z]/.test(password);
@@ -141,6 +173,19 @@ export default function PasswordStrengthChecker() {
                   </div>
                   <Progress value={strengthInfo.percent} className="h-3" />
                 </div>
+
+                {timeToCrack && passwordEntropy > 0 && (
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">Time to Crack</p>
+                      <p className="text-lg font-semibold" data-testid="text-time-to-crack">{timeToCrack}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">Password Entropy</p>
+                      <p className="text-lg font-semibold" data-testid="text-entropy">{passwordEntropy} bits</p>
+                    </div>
+                  </div>
+                )}
 
                 {analysis && analysis.feedback.warning && (
                   <div className="flex items-start gap-3 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg">

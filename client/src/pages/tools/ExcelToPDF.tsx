@@ -57,7 +57,7 @@ export default function ExcelToPDF() {
         margin: 10,
         filename: file.name.replace(/\.(xlsx|xls)$/i, '.pdf'),
         html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
       };
 
       await html2pdf().set(opt).from(element).save();
