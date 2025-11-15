@@ -146,8 +146,21 @@ export function SearchDialog() {
   );
 }
 
-export function SearchButton({ variant = "default" }: { variant?: "default" | "ghost" | "outline" }) {
+export function SearchButton({ variant = "default", iconOnly = false }: { variant?: "default" | "ghost" | "outline", iconOnly?: boolean }) {
   const { openSearch } = useSearch();
+
+  if (iconOnly) {
+    return (
+      <Button
+        variant={variant}
+        size="icon"
+        onClick={openSearch}
+        data-testid="button-search"
+      >
+        <Search className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   return (
     <Button

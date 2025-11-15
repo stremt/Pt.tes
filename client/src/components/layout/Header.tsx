@@ -68,8 +68,8 @@ export function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center gap-2">
-          <SearchButton variant="ghost" />
+        <div className="md:hidden flex items-center gap-1">
+          <SearchButton variant="ghost" iconOnly={true} />
           <ThemeToggle />
           <Button
             variant="ghost"
