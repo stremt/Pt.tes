@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { FileText, Download } from "lucide-react";
@@ -7,6 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import html2pdf from "html2pdf.js";
+import { useToast } from "@/hooks/use-toast";
+
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  INR: "₹",
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  AED: "د.إ"
+};
 
 export default function InvoiceGenerator() {
   const [invoiceNumber, setInvoiceNumber] = useState<string>("");
@@ -16,6 +27,10 @@ export default function InvoiceGenerator() {
   const [clientAddress, setClientAddress] = useState<string>("");
   const [items, setItems] = useState<Array<{desc: string, qty: number, rate: number}>>([{desc: "", qty: 1, rate: 0}]);
   const [invoiceDate, setInvoiceDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [currency, setCurrency] = useState<string>("USD");
+  const [downloading, setDownloading] = useState(false);
+  const invoiceRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useSEO({
     title: "Free Invoice Generator Online | Create & Download PDF Instantly | Pixocraft Tools",
@@ -38,8 +53,45 @@ export default function InvoiceGenerator() {
     return items.reduce((sum, item) => sum + (item.qty * item.rate), 0);
   };
 
-  const generatePDF = () => {
-    window.print();
+  const generatePDF = async () => {
+    if (!invoiceRef.current) return;
+    
+    if (!businessName || !clientName || !invoiceNumber) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in business name, client name, and invoice number",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setDownloading(true);
+    
+    try {
+      const element = invoiceRef.current;
+      const opt = {
+        margin: [10, 10, 10, 10] as [number, number, number, number],
+        filename: `invoice-${invoiceNumber || 'draft'}.pdf`,
+        image: { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm' as const, format: 'a4', orientation: 'portrait' as const }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+      
+      toast({
+        title: "Success!",
+        description: "Invoice PDF downloaded successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate PDF. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const howItWorks = [
@@ -124,7 +176,7 @@ export default function InvoiceGenerator() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
             <Label htmlFor="invoice-number">Invoice Number</Label>
             <Input
@@ -144,6 +196,21 @@ export default function InvoiceGenerator() {
               onChange={(e) => setInvoiceDate(e.target.value)}
               data-testid="input-invoice-date"
             />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="currency">Currency</Label>
+            <Select value={currency} onValueChange={setCurrency}>
+              <SelectTrigger id="currency" data-testid="select-currency">
+                <SelectValue placeholder="Select currency" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="USD">USD ($)</SelectItem>
+                <SelectItem value="EUR">EUR (€)</SelectItem>
+                <SelectItem value="GBP">GBP (£)</SelectItem>
+                <SelectItem value="INR">INR (₹)</SelectItem>
+                <SelectItem value="AED">AED (د.إ)</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -178,56 +245,58 @@ export default function InvoiceGenerator() {
           <Button onClick={addItem} variant="outline" data-testid="button-add-item">+ Add Item</Button>
         </div>
 
-        <Card className="print:shadow-none">
-          <CardContent className="p-6 space-y-6">
-            <div className="text-center border-b pb-4">
-              <h2 className="text-2xl font-bold">{businessName || "Your Business"}</h2>
-              <p className="text-sm text-muted-foreground whitespace-pre-line">{businessAddress}</p>
+        <Card ref={invoiceRef} className="bg-white">
+          <CardContent className="p-8 space-y-8">
+            <div className="text-center border-b-2 pb-6">
+              <h2 className="text-3xl font-bold text-gray-900">{businessName || "Your Business"}</h2>
+              <p className="text-sm text-gray-600 whitespace-pre-line mt-2">{businessAddress}</p>
+              <p className="text-xs text-gray-500 mt-4 uppercase tracking-wide">Invoice</p>
             </div>
-            <div className="flex justify-between">
+            <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="font-semibold">Bill To:</p>
-                <p>{clientName || "Client Name"}</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-line">{clientAddress}</p>
+                <p className="font-semibold text-gray-900 mb-2">Bill To:</p>
+                <p className="font-medium text-gray-800">{clientName || "Client Name"}</p>
+                <p className="text-sm text-gray-600 whitespace-pre-line">{clientAddress}</p>
               </div>
               <div className="text-right">
-                <p className="font-semibold">Invoice: {invoiceNumber || "---"}</p>
-                <p className="text-sm">Date: {invoiceDate}</p>
+                <p className="text-sm text-gray-600">Invoice #: <span className="font-semibold text-gray-900">{invoiceNumber || "---"}</span></p>
+                <p className="text-sm text-gray-600 mt-1">Date: <span className="font-semibold text-gray-900">{invoiceDate}</span></p>
+                <p className="text-sm text-gray-600 mt-1">Currency: <span className="font-semibold text-gray-900">{currency}</span></p>
               </div>
             </div>
             <table className="w-full">
-              <thead className="border-b">
+              <thead className="bg-gray-100 border-y-2 border-gray-300">
                 <tr className="text-left">
-                  <th className="py-2">Description</th>
-                  <th className="text-center">Qty</th>
-                  <th className="text-right">Rate</th>
-                  <th className="text-right">Amount</th>
+                  <th className="py-3 px-4 font-semibold text-gray-900">Description</th>
+                  <th className="py-3 px-4 text-center font-semibold text-gray-900">Qty</th>
+                  <th className="py-3 px-4 text-right font-semibold text-gray-900">Rate</th>
+                  <th className="py-3 px-4 text-right font-semibold text-gray-900">Amount</th>
                 </tr>
               </thead>
               <tbody>
                 {items.map((item, i) => (
-                  <tr key={i} className="border-b">
-                    <td className="py-2">{item.desc || "---"}</td>
-                    <td className="text-center">{item.qty}</td>
-                    <td className="text-right">${item.rate.toFixed(2)}</td>
-                    <td className="text-right">${(item.qty * item.rate).toFixed(2)}</td>
+                  <tr key={i} className="border-b border-gray-200">
+                    <td className="py-3 px-4 text-gray-800">{item.desc || "---"}</td>
+                    <td className="py-3 px-4 text-center text-gray-800">{item.qty}</td>
+                    <td className="py-3 px-4 text-right text-gray-800">{CURRENCY_SYMBOLS[currency]}{item.rate.toFixed(2)}</td>
+                    <td className="py-3 px-4 text-right text-gray-800">{CURRENCY_SYMBOLS[currency]}{(item.qty * item.rate).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <tr className="font-bold">
-                  <td colSpan={3} className="text-right py-4">Total:</td>
-                  <td className="text-right py-4">${calculateTotal().toFixed(2)}</td>
+                <tr className="border-t-2 border-gray-300 bg-gray-50">
+                  <td colSpan={3} className="text-right py-4 px-4 font-bold text-gray-900 text-lg">Total:</td>
+                  <td className="text-right py-4 px-4 font-bold text-gray-900 text-lg">{CURRENCY_SYMBOLS[currency]}{calculateTotal().toFixed(2)}</td>
                 </tr>
               </tfoot>
             </table>
           </CardContent>
         </Card>
 
-        <div className="flex justify-center print:hidden">
-          <Button onClick={generatePDF} size="lg" data-testid="button-download-pdf">
+        <div className="flex justify-center">
+          <Button onClick={generatePDF} size="lg" disabled={downloading} data-testid="button-download-pdf">
             <Download className="mr-2 h-5 w-5" />
-            Download PDF
+            {downloading ? "Generating PDF..." : "Download PDF"}
           </Button>
         </div>
       </div>

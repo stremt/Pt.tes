@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Receipt, Download } from "lucide-react";
@@ -7,6 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import html2pdf from "html2pdf.js";
+import { useToast } from "@/hooks/use-toast";
+
+const CURRENCY_SYMBOLS: Record<string, string> = {
+  INR: "₹",
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  AED: "د.إ"
+};
 
 export default function ReceiptGenerator() {
   const [receiptNo, setReceiptNo] = useState<string>("");
@@ -15,6 +26,10 @@ export default function ReceiptGenerator() {
   const [amount, setAmount] = useState<string>("");
   const [purpose, setPurpose] = useState<string>("");
   const [receivedBy, setReceivedBy] = useState<string>("");
+  const [currency, setCurrency] = useState<string>("USD");
+  const [downloading, setDownloading] = useState(false);
+  const receiptRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useSEO({
     title: "Receipt Generator Online | Create Payment Receipts Fast | Pixocraft Tools",
@@ -23,8 +38,45 @@ export default function ReceiptGenerator() {
     canonicalUrl: "https://tools.pixocraft.in/tools/receipt-generator",
   });
 
-  const generatePDF = () => {
-    window.print();
+  const generatePDF = async () => {
+    if (!receiptRef.current) return;
+    
+    if (!receiptNo || !receivedFrom || !amount) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in receipt number, received from, and amount",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setDownloading(true);
+    
+    try {
+      const element = receiptRef.current;
+      const opt = {
+        margin: [10, 10, 10, 10] as [number, number, number, number],
+        filename: `receipt-${receiptNo || 'draft'}.pdf`,
+        image: { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm' as const, format: 'a4', orientation: 'portrait' as const }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+      
+      toast({
+        title: "Success!",
+        description: "Receipt PDF downloaded successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate PDF. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setDownloading(false);
+    }
   };
 
   const howItWorks = [

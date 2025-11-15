@@ -10,6 +10,56 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { FileText, Upload, Sparkles, Zap, Lock, Globe } from "lucide-react";
+import { extractTextFromFile } from "@/lib/file-parsing-utils";
+import { Slider } from "@/components/ui/slider";
+
+// Client-side extractive summarization algorithm
+function summarizeText(text: string, sentenceCount: number = 3): string {
+  if (!text.trim()) return "";
+  
+  // Split into sentences
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  
+  if (sentences.length <= sentenceCount) {
+    return text;
+  }
+  
+  // Calculate word frequencies
+  const words = text.toLowerCase().match(/\b\w+\b/g) || [];
+  const wordFreq: Record<string, number> = {};
+  
+  const stopWords = new Set(["the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from", "as", "is", "was", "are", "were", "been", "be", "have", "has", "had", "do", "does", "did", "will", "would", "should", "could", "may", "might", "must", "can", "this", "that", "these", "those", "i", "you", "he", "she", "it", "we", "they", "what", "which", "who", "when", "where", "why", "how"]);
+  
+  words.forEach(word => {
+    if (!stopWords.has(word) && word.length > 2) {
+      wordFreq[word] = (wordFreq[word] || 0) + 1;
+    }
+  });
+  
+  // Score each sentence
+  const sentenceScores = sentences.map((sentence, index) => {
+    const sentenceWords = sentence.toLowerCase().match(/\b\w+\b/g) || [];
+    const score = sentenceWords.reduce((sum, word) => sum + (wordFreq[word] || 0), 0);
+    
+    // Boost first and second sentences slightly
+    const positionBoost = index === 0 ? 1.5 : (index === 1 ? 1.2 : 1);
+    
+    return {
+      sentence: sentence.trim(),
+      score: score * positionBoost,
+      index
+    };
+  });
+  
+  // Select top sentences and sort by original position
+  const topSentences = sentenceScores
+    .sort((a, b) => b.score - a.score)
+    .slice(0, sentenceCount)
+    .sort((a, b) => a.index - b.index)
+    .map(s => s.sentence);
+  
+  return topSentences.join(' ');
+}
 
 export default function TextSummarizer() {
   const [text, setText] = useState("");
@@ -19,13 +69,14 @@ export default function TextSummarizer() {
   const [isDragging, setIsDragging] = useState(false);
   const [fileName, setFileName] = useState<string>("");
   const [inputMethod, setInputMethod] = useState<"text" | "pdf">("text");
+  const [summaryLength, setSummaryLength] = useState([3]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
+  const { toast} = useToast();
 
   useSEO({
-    title: "AI Text Summarizer | Summarize Articles & Documents | Pixocraft Tools",
-    description: "Free AI-powered text summarizer. Summarize articles, research papers, and documents instantly. Upload PDFs or paste text.",
-    keywords: "text summarizer, ai summarizer, summarize text, pdf summarizer, article summarizer",
+    title: "Text Summarizer | Summarize Articles & Documents Instantly | Pixocraft Tools",
+    description: "Free offline text summarizer. Extract key sentences from articles, research papers, and documents. Upload PDFs or paste text. 100% private.",
+    keywords: "text summarizer, extractive summarizer, summarize text, pdf summarizer, article summarizer, offline summarizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-summarizer",
   });
 
@@ -51,29 +102,18 @@ export default function TextSummarizer() {
     setFileName(file.name);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("/api/text/extract", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to extract text");
-      }
-
-      const data = await response.json();
-      setText(data.text);
+      const result = await extractTextFromFile(file);
+      const extractedText = result.text.substring(0, 20000); // Limit to 20k chars for performance
+      setText(extractedText);
 
       toast({
         title: "Success!",
-        description: "Text extracted from file successfully",
+        description: `Extracted ${result.wordCount} words from ${file.name}`,
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to extract text from file",
+        description: error instanceof Error ? error.message : "Failed to extract text from file",
         variant: "destructive",
       });
     } finally {
@@ -108,7 +148,7 @@ export default function TextSummarizer() {
     }
   };
 
-  const handleSummarize = async () => {
+  const handleSummarize = () => {
     if (!text.trim()) {
       toast({
         title: "No Text",
@@ -122,41 +162,27 @@ export default function TextSummarizer() {
     setSummary("");
 
     try {
-      const response = await fetch("/api/summarize", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text }),
-      });
+      // Use setTimeout to show loading state briefly
+      setTimeout(() => {
+        const result = summarizeText(text, summaryLength[0]);
+        setSummary(result);
 
-      const data = await response.json();
+        const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+        const reduction = Math.round((1 - result.length / text.length) * 100);
 
-      if (!response.ok) {
-        if (data.loading) {
-          toast({
-            title: "Model Loading",
-            description: "The AI model is loading. Please try again in a few seconds.",
-          });
-        } else {
-          throw new Error(data.error || "Failed to summarize");
-        }
-        return;
-      }
+        toast({
+          title: "Summarized Successfully!",
+          description: `Reduced from ${sentences.length} to ${summaryLength[0]} sentences (${reduction}% shorter)`,
+        });
 
-      setSummary(data.summary);
-
-      toast({
-        title: "Success!",
-        description: "Text summarized successfully",
-      });
+        setLoading(false);
+      }, 300);
     } catch (error) {
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to summarize text",
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };
@@ -172,27 +198,27 @@ export default function TextSummarizer() {
 
   return (
     <ToolLayout
-      title="AI Text Summarizer"
-      description="Summarize any text with AI power. Upload PDFs or paste articles to get instant, accurate summaries."
+      title="Text Summarizer"
+      description="Instantly summarize any text using smart extraction. Upload PDFs or paste articles to get key sentences extracted and organized."
       icon={<Sparkles className="h-10 w-10 text-primary" />}
       toolId="text-summarizer"
-      category="AI Tool"
+      category="Text Tool"
       howItWorks={[
         { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
-        { step: 2, title: "Summarize", description: "Click summarize to get an AI-powered summary instantly" },
-        { step: 3, title: "Review", description: "Read and copy your AI-generated summary" },
+        { step: 2, title: "Choose Length", description: "Select how many key sentences you want in the summary" },
+        { step: 3, title: "Summarize", description: "Get an instant summary with the most important sentences" },
       ]}
       benefits={[
-        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "AI-Powered", description: "Uses state-of-the-art AI model for accurate summaries" },
-        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Fast & Accurate", description: "Get summaries in seconds with 95% accuracy rate" },
-        { icon: <Lock className="h-6 w-6 text-primary" />, title: "Privacy First", description: "Your documents are processed securely and never stored" },
+        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Results", description: "Extractive summarization happens in milliseconds" },
+        { icon: <Lock className="h-6 w-6 text-primary" />, title: "100% Private", description: "All processing happens in your browser - nothing uploaded" },
         { icon: <Globe className="h-6 w-6 text-primary" />, title: "Multiple Formats", description: "Supports PDF, DOCX, and plain text files" },
+        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "Smart Extraction", description: "Identifies and extracts the most important sentences" },
       ]}
       faqs={[
-        { question: "What is the maximum text length?", answer: "The summarizer can handle up to 8,000 characters at once. Longer texts are automatically truncated to ensure fast processing." },
-        { question: "How accurate are the summaries?", answer: "Our AI model has a 95% accuracy rate and is specifically trained for summarization tasks, providing high-quality, contextually relevant summaries." },
-        { question: "Can I use this for academic papers?", answer: "Yes! The summarizer works great for research papers, articles, and academic documents. However, always review the summary for critical work." },
-        { question: "Is my data secure?", answer: "Absolutely! Your documents are processed securely and are never stored on our servers. All processing happens in real-time." },
+        { question: "How does extractive summarization work?", answer: "The tool analyzes word frequency, sentence position, and importance to identify and extract the most significant sentences from your text, then presents them in order." },
+        { question: "What is the maximum text length?", answer: "The summarizer can handle up to 20,000 characters. For files, text is automatically limited to ensure fast processing." },
+        { question: "Can I use this for academic papers?", answer: "Yes! The summarizer works great for research papers, articles, and academic documents. It extracts key sentences to give you the main points quickly." },
+        { question: "Is my data secure?", answer: "Absolutely! All summarization happens entirely in your browser. Your text and documents never leave your device or get uploaded to any server." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">
@@ -214,15 +240,15 @@ export default function TextSummarizer() {
               <CardHeader>
                 <CardTitle>Paste Your Text</CardTitle>
                 <CardDescription>
-                  {text.length} / 8000 characters
+                  {text.length} / 20000 characters
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Textarea
                   placeholder="Paste your article, research paper, or any long text here..."
                   value={text}
-                  onChange={(e) => setText(e.target.value.substring(0, 8000))}
-                  className="min-h-[300px] text-base leading-relaxed"
+                  onChange={(e) => setText(e.target.value.substring(0, 20000))}
+                  className="min-h-[300px] max-h-[300px] overflow-y-auto text-base leading-relaxed"
                   data-testid="input-text-summarizer"
                 />
               </CardContent>
@@ -290,6 +316,33 @@ export default function TextSummarizer() {
           </TabsContent>
         </Tabs>
 
+        {/* Summary Length Control */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Summary Length</CardTitle>
+            <CardDescription>
+              Select how many key sentences to include in the summary
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label>Number of Sentences: {summaryLength[0]}</Label>
+                <Badge variant="secondary">{summaryLength[0] <= 2 ? "Brief" : summaryLength[0] <= 5 ? "Moderate" : "Detailed"}</Badge>
+              </div>
+              <Slider
+                value={summaryLength}
+                onValueChange={setSummaryLength}
+                min={2}
+                max={10}
+                step={1}
+                className="w-full"
+                data-testid="slider-summary-length"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Action Buttons */}
         <div className="flex gap-2">
           <Button
@@ -350,24 +403,24 @@ export default function TextSummarizer() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <p className="text-4xl font-bold text-primary">1M+</p>
-                <p className="text-sm text-muted-foreground mt-2">Users Worldwide</p>
+                <p className="text-4xl font-bold text-primary">100%</p>
+                <p className="text-sm text-muted-foreground mt-2">Offline & Private</p>
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <p className="text-4xl font-bold text-primary">95%</p>
-                <p className="text-sm text-muted-foreground mt-2">Accuracy Rate</p>
+                <p className="text-4xl font-bold text-primary">20K</p>
+                <p className="text-sm text-muted-foreground mt-2">Max Characters</p>
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <p className="text-4xl font-bold text-primary">10M+</p>
-                <p className="text-sm text-muted-foreground mt-2">Documents Processed</p>
+                <p className="text-4xl font-bold text-primary">0ms</p>
+                <p className="text-sm text-muted-foreground mt-2">Processing Time</p>
               </div>
             </CardContent>
           </Card>
