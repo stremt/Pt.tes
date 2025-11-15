@@ -49,7 +49,7 @@ export default function ExcelViewer() {
       setSheets(sheetData);
       toast({
         title: "Success!",
-        description: \`Excel file loaded. Found \${sheetData.length} sheet(s)\`,
+        description: `Excel file loaded. Found ${sheetData.length} sheet(s)`,
       });
     } catch (error) {
       toast({
@@ -189,7 +189,7 @@ export default function ExcelViewer() {
                       <Tabs defaultValue={sheets[0]?.name || "0"}>
                         <TabsList className="mb-4">
                           {sheets.map((sheet, idx) => (
-                            <TabsTrigger key={idx} value={sheet.name} data-testid={\`tab-\${idx}\`}>
+                            <TabsTrigger key={idx} value={sheet.name} data-testid={`tab-${idx}`}>
                               {sheet.name}
                             </TabsTrigger>
                           ))}
@@ -202,7 +202,7 @@ export default function ExcelViewer() {
                                   <tr>
                                     {sheet.headers.map((header, hIdx) => (
                                       <th key={hIdx} className="border border-border px-3 py-2 text-left font-medium">
-                                        {header || \`Column \${hIdx + 1}\`}
+                                        {header || `Column ${hIdx + 1}`}
                                       </th>
                                     ))}
                                   </tr>
