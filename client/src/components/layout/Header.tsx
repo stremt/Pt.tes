@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { SearchButton } from "@/components/SearchDialog";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export function Header() {
@@ -37,9 +37,11 @@ export function Header() {
       <div className="container mx-auto flex h-full items-center justify-between px-4 max-w-7xl">
         <Link href="/" className="flex items-center space-x-2 hover-elevate rounded-lg px-2 py-1">
           <div className="flex items-center gap-2">
-            <div className={`rounded-lg bg-primary flex items-center justify-center transition-all ${scrolled ? 'h-7 w-7' : 'h-8 w-8'}`}>
-              <Sparkles className={`text-primary-foreground transition-all ${scrolled ? 'h-4 w-4' : 'h-5 w-5'}`} />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="Pixocraft Tools Logo" 
+              className={`transition-all ${scrolled ? 'h-7 w-7' : 'h-8 w-8'}`}
+            />
             <div className="flex flex-col">
               <span className={`font-bold leading-none transition-all ${scrolled ? 'text-base' : 'text-lg'}`}>Pixocraft Tools</span>
               <span className="text-xs text-muted-foreground leading-none hidden sm:block">India's Biggest Tool Hub</span>
