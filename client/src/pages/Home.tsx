@@ -326,12 +326,12 @@ export default function Home() {
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
                 India's Biggest Tool Hub
               </Badge>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight px-4">
                 Pixocraft Tools — India's Biggest Free Online Tool Hub
                 <br />
                 <span className="text-primary">(200+ Tools)</span>
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-4">
                 Access 200+ fast, fully browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup. No tracking. 100% private & offline supported.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -349,7 +349,7 @@ export default function Home() {
               </div>
               
               {/* Trust Indicators */}
-              <div className="pt-12 flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm">
+              <div className="pt-8 sm:pt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm px-4">
                 <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-india-biggest">
                   <Star className="h-4 w-4 text-primary" />
                   <span className="font-medium">India's Biggest Tool Hub</span>
@@ -376,9 +376,9 @@ export default function Home() {
         </section>
 
         {/* Trust Badge Section */}
-        <section className="py-16 bg-muted/30 border-b">
+        <section className="py-12 sm:py-16 bg-muted/30 border-b">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
               <Card className="text-center" data-testid="card-trust-largest">
                 <CardHeader>
                   <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
@@ -429,16 +429,16 @@ export default function Home() {
         </section>
 
         {/* Why Choose Pixocraft Section */}
-        <section className="py-20 border-b">
+        <section className="py-12 sm:py-16 md:py-20 border-b">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-4 mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold">Why India Chooses Pixocraft Tools</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center space-y-3 sm:space-y-4 mb-12 sm:mb-16 px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Why India Chooses Pixocraft Tools</h2>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                 The most comprehensive free online tool hub built for speed, privacy, and convenience
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
               <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-fast">
                 <CardHeader className="text-center">
                   <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -543,17 +543,17 @@ export default function Home() {
         </section>
 
         {/* Popular Tools Section */}
-        <section className="py-20 border-b">
+        <section className="py-12 sm:py-16 md:py-20 border-b">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center space-y-4 mb-12">
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-4">
               <Badge variant="secondary">Most Popular</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold">Popular Tools</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">Popular Tools</h2>
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Handpicked favorites from our collection of 200+ tools, used by thousands daily
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
               {popularTools.map((tool) => {
                 const Icon = getToolIcon(tool.icon);
                 return (

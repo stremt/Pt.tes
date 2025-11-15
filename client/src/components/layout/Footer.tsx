@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Mail, Sparkles, Github, Twitter, Linkedin } from "lucide-react";
+import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -33,9 +33,11 @@ export function Footer() {
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Pixocraft Tools Logo" 
+                className="h-8 w-8"
+              />
               <span className="font-bold text-lg">Pixocraft Tools</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed font-semibold">
