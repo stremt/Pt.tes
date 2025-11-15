@@ -19,7 +19,8 @@ import {
   Palette,
   Wand2,
   Lock,
-  Zap
+  Zap,
+  Film
 } from "lucide-react";
 
 export default function Tools() {
@@ -49,6 +50,10 @@ export default function Tools() {
                  name.includes("picture") || name.includes("compress") && category === "utility";
         case "pdf":
           return keywords.includes("pdf") || name.includes("pdf");
+        case "media":
+          return category === "media" || keywords.includes("video") || keywords.includes("audio") ||
+                 keywords.includes("mp3") || keywords.includes("mp4") || keywords.includes("gif") ||
+                 name.includes("video") || name.includes("audio") || name.includes("gif");
         case "developer":
           return keywords.includes("json") || keywords.includes("code") || keywords.includes("html") ||
                  keywords.includes("css") || keywords.includes("javascript") || keywords.includes("beautifier") ||
@@ -109,6 +114,13 @@ export default function Tools() {
       description: "Complete PDF toolkit to merge, split, rotate, compress, and convert PDF documents. All processing happens locally in your browser ensuring your sensitive documents never leave your device.",
       icon: FileText,
       tools: getToolsByCategory("pdf")
+    },
+    {
+      id: "media",
+      name: "Media Tools",
+      description: "Professional media toolkit for video compression, audio conversion, GIF creation, background removal, and format transformation. Process videos, audio, and animated images instantly in your browser with zero uploads.",
+      icon: Film,
+      tools: getToolsByCategory("media")
     },
     {
       id: "developer",
