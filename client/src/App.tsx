@@ -185,6 +185,26 @@ import RandomTask from "@/pages/tools/RandomTask";
 import RandomSuperheroName from "@/pages/tools/RandomSuperheroName";
 import RandomTruthDare from "@/pages/tools/RandomTruthDare";
 import RandomMotivationalQuote from "@/pages/tools/RandomMotivationalQuote";
+import PDFCompressor from "@/pages/tools/PDFCompressor";
+import PDFPasswordRemover from "@/pages/tools/PDFPasswordRemover";
+import PDFWatermarkAdder from "@/pages/tools/PDFWatermarkAdder";
+import PDFWatermarkRemover from "@/pages/tools/PDFWatermarkRemover";
+import HEICtoJPG from "@/pages/tools/HEICtoJPG";
+import JPGtoPNG from "@/pages/tools/JPGtoPNG";
+import PNGtoJPG from "@/pages/tools/PNGtoJPG";
+import VideoToGIF from "@/pages/tools/VideoToGIF";
+import GIFCompressor from "@/pages/tools/GIFCompressor";
+import MP3Cutter from "@/pages/tools/MP3Cutter";
+import AudioToMP3 from "@/pages/tools/AudioToMP3";
+import VideoCompressor from "@/pages/tools/VideoCompressor";
+import BackgroundRemover from "@/pages/tools/BackgroundRemover";
+import ImageUpscaler from "@/pages/tools/ImageUpscaler";
+import ExcelToPDF from "@/pages/tools/ExcelToPDF";
+import ExcelViewer from "@/pages/tools/ExcelViewer";
+import HTMLtoPDF from "@/pages/tools/HTMLtoPDF";
+import AudioNoiseRemover from "@/pages/tools/AudioNoiseRemover";
+import GIFtoMP4 from "@/pages/tools/GIFtoMP4";
+import MP4toMP3 from "@/pages/tools/MP4toMP3";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
@@ -385,6 +405,26 @@ function Router() {
         <Route path="/tools/random-superhero-name" component={RandomSuperheroName} />
         <Route path="/tools/random-truth-dare" component={RandomTruthDare} />
         <Route path="/tools/random-motivational-quote" component={RandomMotivationalQuote} />
+        <Route path="/tools/pdf-compressor" component={PDFCompressor} />
+        <Route path="/tools/pdf-password-remover" component={PDFPasswordRemover} />
+        <Route path="/tools/pdf-watermark-adder" component={PDFWatermarkAdder} />
+        <Route path="/tools/pdf-watermark-remover" component={PDFWatermarkRemover} />
+        <Route path="/tools/heic-to-jpg" component={HEICtoJPG} />
+        <Route path="/tools/jpg-to-png" component={JPGtoPNG} />
+        <Route path="/tools/png-to-jpg" component={PNGtoJPG} />
+        <Route path="/tools/video-to-gif" component={VideoToGIF} />
+        <Route path="/tools/gif-compressor" component={GIFCompressor} />
+        <Route path="/tools/mp3-cutter" component={MP3Cutter} />
+        <Route path="/tools/audio-to-mp3" component={AudioToMP3} />
+        <Route path="/tools/video-compressor" component={VideoCompressor} />
+        <Route path="/tools/background-remover" component={BackgroundRemover} />
+        <Route path="/tools/image-upscaler" component={ImageUpscaler} />
+        <Route path="/tools/excel-to-pdf" component={ExcelToPDF} />
+        <Route path="/tools/excel-viewer" component={ExcelViewer} />
+        <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
+        <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
+        <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
+        <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
