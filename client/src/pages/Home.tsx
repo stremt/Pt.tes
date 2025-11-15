@@ -379,7 +379,7 @@ export default function Home() {
         <section className="py-8 sm:py-12 md:py-16 bg-muted/30 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
-              <Card className="text-center" data-testid="card-trust-largest">
+              <Card className="text-center col-span-2 sm:col-span-1" data-testid="card-trust-largest">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Star className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -622,7 +622,7 @@ export default function Home() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Link href="/tools" className="w-full">
+                      <Link href={`/tools?category=${category.id}`} className="w-full">
                         <Button variant="outline" className="w-full" data-testid={`button-category-${category.id}`}>
                           View Tools
                           <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
