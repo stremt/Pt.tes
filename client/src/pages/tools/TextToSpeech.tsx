@@ -19,6 +19,7 @@ export default function TextToSpeech() {
   const [pitch, setPitch] = useState([1]);
   const [volume, setVolume] = useState([1]);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voicesLoading, setVoicesLoading] = useState(true);
   const { toast } = useToast();
 
   useSEO({
@@ -28,30 +29,77 @@ export default function TextToSpeech() {
     canonicalUrl: "https://tools.pixocraft.in/tools/text-to-speech",
   });
 
-  useEffect(() => {
-    const loadVoices = () => {
-      const availableVoices = window.speechSynthesis.getVoices();
-      if (availableVoices.length > 0) {
-        setVoices(availableVoices);
-        if (!selectedVoice) {
-          setSelectedVoice(availableVoices[0].name);
-        }
-      }
-    };
-
-    loadVoices();
+  const loadVoices = () => {
+    const availableVoices = window.speechSynthesis.getVoices();
+    console.log('Available voices:', availableVoices.length);
     
-    if (window.speechSynthesis.onvoiceschanged !== undefined) {
-      window.speechSynthesis.onvoiceschanged = loadVoices;
+    if (availableVoices.length > 0) {
+      setVoices(availableVoices);
+      setVoicesLoading(false);
+      if (!selectedVoice) {
+        setSelectedVoice(availableVoices[0].name);
+      }
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    if (!('speechSynthesis' in window)) {
+      toast({
+        title: "Not Supported",
+        description: "Your browser doesn't support text to speech",
+        variant: "destructive",
+      });
+      setVoicesLoading(false);
+      return;
     }
 
-    const timeoutId = setTimeout(loadVoices, 100);
+    const loaded = loadVoices();
+    
+    if (!loaded) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        if (loadVoices()) {
+          window.speechSynthesis.onvoiceschanged = null;
+        }
+      };
+
+      const intervals = [100, 500, 1000, 2000];
+      const timeouts = intervals.map((delay) => 
+        setTimeout(() => {
+          if (loadVoices()) {
+            timeouts.forEach(clearTimeout);
+          }
+        }, delay)
+      );
+
+      setTimeout(() => {
+        setVoicesLoading(false);
+      }, 3000);
+
+      return () => {
+        timeouts.forEach(clearTimeout);
+        window.speechSynthesis.cancel();
+      };
+    }
 
     return () => {
-      clearTimeout(timeoutId);
       window.speechSynthesis.cancel();
     };
   }, []);
+
+  const handleRetryVoices = () => {
+    setVoicesLoading(true);
+    const loaded = loadVoices();
+    if (!loaded) {
+      setTimeout(() => {
+        loadVoices();
+      }, 500);
+      setTimeout(() => {
+        setVoicesLoading(false);
+      }, 2000);
+    }
+  };
 
   const handleSpeak = () => {
     if (!text.trim()) {
@@ -64,18 +112,12 @@ export default function TextToSpeech() {
     }
 
     if (voices.length === 0) {
-      const availableVoices = window.speechSynthesis.getVoices();
-      if (availableVoices.length > 0) {
-        setVoices(availableVoices);
-        setSelectedVoice(availableVoices[0].name);
-      } else {
-        toast({
-          title: "Error",
-          description: "No voices available. Please try again in a moment.",
-          variant: "destructive",
-        });
-        return;
-      }
+      toast({
+        title: "No Voices Available",
+        description: "Click the 'Retry Loading Voices' button below",
+        variant: "destructive",
+      });
+      return;
     }
 
     window.speechSynthesis.cancel();
@@ -182,12 +224,54 @@ export default function TextToSpeech() {
                   />
                 </div>
 
+                {voicesLoading && voices.length === 0 && (
+                  <div className="p-4 border rounded-lg bg-muted/50 text-center">
+                    <p className="text-sm text-muted-foreground">Loading voices...</p>
+                  </div>
+                )}
+
+                {!voicesLoading && voices.length === 0 && (
+                  <div className="p-4 border border-yellow-500/50 rounded-lg bg-yellow-500/10 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <Volume2 className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+                      <div className="space-y-2 text-left flex-1">
+                        <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
+                          Voices not available in this view
+                        </p>
+                        <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                          The browser's text-to-speech feature doesn't work in embedded views. 
+                          Please open this tool in a new tab to use it.
+                        </p>
+                        <div className="flex gap-2 pt-1">
+                          <Button 
+                            onClick={() => window.open(window.location.href, '_blank')} 
+                            variant="outline" 
+                            size="sm" 
+                            className="bg-background"
+                            data-testid="button-open-new-tab"
+                          >
+                            Open in New Tab
+                          </Button>
+                          <Button 
+                            onClick={handleRetryVoices} 
+                            variant="ghost" 
+                            size="sm"
+                            data-testid="button-retry-voices"
+                          >
+                            Retry Here
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Voice</Label>
-                    <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                    <Select value={selectedVoice} onValueChange={setSelectedVoice} disabled={voices.length === 0}>
                       <SelectTrigger data-testid="select-voice">
-                        <SelectValue placeholder="Select a voice" />
+                        <SelectValue placeholder={voices.length === 0 ? "No voices available" : "Select a voice"} />
                       </SelectTrigger>
                       <SelectContent>
                         {voices.map((voice) => (
@@ -238,7 +322,7 @@ export default function TextToSpeech() {
 
                 <div className="flex gap-3">
                   {!isSpeaking ? (
-                    <Button onClick={handleSpeak} size="lg" className="flex-1" data-testid="button-speak">
+                    <Button onClick={handleSpeak} size="lg" className="flex-1" disabled={voices.length === 0} data-testid="button-speak">
                       <Play className="mr-2 h-4 w-4" />
                       Speak
                     </Button>
@@ -249,6 +333,12 @@ export default function TextToSpeech() {
                     </Button>
                   )}
                 </div>
+                
+                {voices.length > 0 && (
+                  <p className="text-xs text-muted-foreground text-center">
+                    {voices.length} voice{voices.length !== 1 ? 's' : ''} available
+                  </p>
+                )}
               </CardContent>
             </Card>
           </div>
