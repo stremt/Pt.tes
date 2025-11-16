@@ -1,0 +1,162 @@
+You are an expert full-stack developer, SEO engineer, and UI designer. 
+Update my blog system on Pixocraft Tools with the following requirements:
+
+----------------------------------------------
+🔥 1. BUILD A FULL SEO-OPTIMIZED BLOG SYSTEM
+----------------------------------------------
+• Convert existing blog system into a fully optimized blog hub.
+• Use clean HTML, CSS, JS (static only, NO backend).
+• Must support 100% static loading (no external servers).
+
+Each blog post MUST include automatically:
+
+• Full On-Page SEO  
+• Clean URL slug (example: /blog/how-to-make-money-online)  
+• Title tag, meta description  
+• OG tags (image, title, description)  
+• Twitter card tags  
+• JSON-LD Structured Data (BlogPosting schema)  
+• Auto-generated Table of Contents  
+• Auto "Estimated read time"  
+• Auto mobile-responsive layout  
+• Highlight code blocks properly  
+• SEO-friendly headings (H1-H6)
+
+----------------------------------------------
+🔥 2. AUTO-CATEGORY SYSTEM (NO BACKEND)
+----------------------------------------------
+• A blog post will contain a “category” field in its JSON file.  
+• If a new category is added, the blog page must automatically show it.  
+• Create category pages dynamically (example: /blog/category/ai-tools/).  
+
+Category page must show:
+✓ Category title  
+✓ Category description  
+✓ Posts under that category  
+✓ Auto-count of articles  
+✓ Mobile responsive  
+
+----------------------------------------------
+🔥 3. BLOG HOMEPAGE IMPROVEMENTS
+----------------------------------------------
+Homepage (/blog) must include:
+
+• Featured Blogs (Top 3)  
+• Latest Blogs (sorted by date)  
+• Most Popular Blogs (sort by views)  
+• Category Slider (auto from JSON)  
+• Search Bar with real-time results  
+• Tags cloud  
+• Trending topics section  
+
+----------------------------------------------
+🔥 4. REAL-TIME SEARCH BAR (STATIC)
+----------------------------------------------
+Add a search bar that:
+
+✓ Searches inside titles  
+✓ Searches inside blog content  
+✓ Searches inside tags  
+✓ Searches inside categories  
+✓ Shows results instantly  
+✓ Highlights matched keywords  
+✓ Fully offline (client-side JavaScript)
+
+----------------------------------------------
+🔥 5. BLOG POST PAGE UPGRADE
+----------------------------------------------
+Inside each blog article:
+
+• Auto Table of Contents (scrolling + sticky)  
+• Previous post / Next post  
+• Related posts (same category)  
+• Tags section  
+• Social sharing buttons  
+• Copy link button  
+• Perfect typography (larger line height, spacing)  
+• Dark mode toggle  
+• Comment section (static-based, NO backend) using localStorage  
+
+----------------------------------------------
+🔥 6. AUTO JSON BLOG SYSTEM
+----------------------------------------------
+Store all blogs in a single JSON file:
+
+blogs.json →  
+
+[
+  {
+    "title": "",
+    "slug": "",
+    "category": "",
+    "tags": [],
+    "image": "",
+    "date": "",
+    "content": "",
+    "views": 0
+  }
+]
+
+Every new post must automatically appear in:
+• Blog homepage  
+• Category pages  
+• Search results  
+• Trending posts  
+• Latest posts  
+• Sitemap generator  
+
+----------------------------------------------
+🔥 7. AUTO SITEMAP FOR BLOGS
+----------------------------------------------
+Generate sitemap automatically:
+
+/sitemap.xml includes:
+• All blog post links  
+• All category links  
+• All tag pages  
+• Update the sitemap on each new post  
+
+----------------------------------------------
+🔥 8. PERFORMANCE OPTIMIZATION
+----------------------------------------------
+• Lazy-load all images  
+• Minify HTML, CSS, JS  
+• Use responsive images  
+• Preload fonts  
+• Cache posts using localStorage  
+• Lighthouse score 95+ required  
+• Pure static (no API calls)  
+
+----------------------------------------------
+🔥 9. BLOG EDITOR (OPTIONAL)
+----------------------------------------------
+Add a static editor page only for admin:
+
+• Markdown editor  
+• Auto preview  
+• Auto slug generator  
+• Auto category selection  
+• Auto tag generator  
+• Export blog JSON entry  
+
+No login needed, just a static page.
+
+----------------------------------------------
+🔥 10. UI STYLE REQUIREMENTS
+----------------------------------------------
+• Minimal modern UI  
+• CSS Flex + Grid  
+• Pastel colors  
+• Rounded cards  
+• Smooth hover animations  
+• Responsive up to 360px screens  
+• Loading shimmer effect on blogs  
+• Category badges  
+
+----------------------------------------------
+IMPORTANT:
+• Use ONLY HTML, CSS, JS (no backend).
+• Must work on Replit static hosting perfectly.
+• Ensure everything is fully SEO optimized.
+• Make code clean, documented and modifiable.
+• All changes must be production-ready.
