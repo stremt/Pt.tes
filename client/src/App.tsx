@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { SearchProvider } from "@/contexts/SearchContext";
 import { SearchDialog } from "@/components/SearchDialog";
+import { FeedbackButton } from "@/components/FeedbackButton";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import Home from "@/pages/Home";
@@ -450,6 +451,7 @@ function App() {
               <Footer />
             </div>
             <SearchDialog />
+            <FeedbackButton />
             <Toaster />
           </TooltipProvider>
         </SearchProvider>
