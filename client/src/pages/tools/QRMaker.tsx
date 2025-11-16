@@ -78,9 +78,10 @@ export default function QRMaker() {
         });
       }
     } catch (error) {
+      console.error("QR generation error:", error);
       toast({
         title: "Error",
-        description: "Failed to generate QR code",
+        description: error instanceof Error ? error.message : "Failed to generate QR code",
         variant: "destructive",
       });
     }

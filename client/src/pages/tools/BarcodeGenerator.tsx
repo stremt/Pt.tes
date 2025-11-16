@@ -27,11 +27,74 @@ export default function BarcodeGenerator() {
     canonicalUrl: "https://tools.pixocraft.in/tools/barcode-generator",
   });
 
+  const getFormatRequirements = (format: string): string => {
+    switch (format) {
+      case "EAN13":
+        return "EAN-13 requires exactly 12 or 13 digits";
+      case "UPC":
+        return "UPC requires exactly 11 or 12 digits";
+      case "CODE39":
+        return "CODE39 accepts letters, numbers, and some special characters";
+      case "CODE128":
+        return "CODE128 accepts any text and numbers";
+      case "ITF14":
+        return "ITF-14 requires exactly 14 digits";
+      case "pharmacode":
+        return "Pharmacode requires a number between 3 and 131070";
+      default:
+        return "";
+    }
+  };
+
+  const validateInput = (text: string, format: string): { valid: boolean; error?: string } => {
+    const trimmedText = text.trim();
+    
+    if (!trimmedText) {
+      return { valid: false, error: "Please enter text to generate a barcode" };
+    }
+
+    switch (format) {
+      case "EAN13":
+        if (!/^\d{12,13}$/.test(trimmedText)) {
+          return { valid: false, error: "EAN-13 requires exactly 12 or 13 digits. Example: 123456789012" };
+        }
+        break;
+      case "UPC":
+        if (!/^\d{11,12}$/.test(trimmedText)) {
+          return { valid: false, error: "UPC requires exactly 11 or 12 digits. Example: 12345678901" };
+        }
+        break;
+      case "ITF14":
+        if (!/^\d{14}$/.test(trimmedText)) {
+          return { valid: false, error: "ITF-14 requires exactly 14 digits" };
+        }
+        break;
+      case "pharmacode":
+        const num = parseInt(trimmedText);
+        if (isNaN(num) || num < 3 || num > 131070) {
+          return { valid: false, error: "Pharmacode requires a number between 3 and 131070" };
+        }
+        break;
+      case "CODE39":
+        if (!/^[0-9A-Z\-\.\ \$\/\+\%]+$/.test(trimmedText)) {
+          return { valid: false, error: "CODE39 only accepts: A-Z, 0-9, and special chars: - . $ / + % space" };
+        }
+        break;
+      case "CODE128":
+        // CODE128 accepts almost anything
+        break;
+    }
+    
+    return { valid: true };
+  };
+
   const generateBarcode = () => {
-    if (!text.trim()) {
+    const validation = validateInput(text, format);
+    
+    if (!validation.valid) {
       toast({
-        title: "Error",
-        description: "Please enter text to generate a barcode",
+        title: "Invalid Input",
+        description: validation.error,
         variant: "destructive",
       });
       return;
@@ -41,7 +104,7 @@ export default function BarcodeGenerator() {
     if (!canvas) return;
 
     try {
-      JsBarcode(canvas, text, {
+      JsBarcode(canvas, text.trim(), {
         format: format,
         width: 2,
         height: 100,
@@ -60,8 +123,8 @@ export default function BarcodeGenerator() {
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to generate barcode. Check your input format.",
+        title: "Generation Error",
+        description: error instanceof Error ? error.message : "Failed to generate barcode. Check your input.",
         variant: "destructive",
       });
     }
@@ -162,13 +225,20 @@ export default function BarcodeGenerator() {
                     <Input
                       id="text"
                       type="text"
-                      placeholder="Enter text or number..."
+                      placeholder={
+                        format === "EAN13" ? "123456789012" :
+                        format === "UPC" ? "12345678901" :
+                        format === "CODE39" ? "HELLO123" :
+                        format === "ITF14" ? "12345678901234" :
+                        format === "pharmacode" ? "1234" :
+                        "Enter text or number..."
+                      }
                       value={text}
                       onChange={(e) => setText(e.target.value)}
                       data-testid="input-barcode-text"
                     />
                     <p className="text-xs text-muted-foreground">
-                      For EAN-13: Use 12 or 13 digits. For UPC: Use 11 or 12 digits.
+                      {getFormatRequirements(format)}
                     </p>
                   </div>
 
