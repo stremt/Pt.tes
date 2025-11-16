@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, MicOff, Copy, Trash2, Zap, Lock, Languages } from "lucide-react";
+import { Mic, MicOff, Copy, Trash2, Download, Zap, Lock, Languages, ExternalLink, AlertCircle } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -11,6 +11,10 @@ import { Badge } from "@/components/ui/badge";
 export default function SpeechToText() {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const [isSupported, setIsSupported] = useState(false);
+  const [isInIframe, setIsInIframe] = useState(false);
+  const [interimText, setInterimText] = useState("");
+  const [charCount, setCharCount] = useState(0);
   const recognitionRef = useRef<any>(null);
   const { toast } = useToast();
 
@@ -22,11 +26,24 @@ export default function SpeechToText() {
   });
 
   useEffect(() => {
+    try {
+      setIsInIframe(window.self !== window.top);
+    } catch (e) {
+      setIsInIframe(true);
+    }
+
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      setIsSupported(true);
       const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
+      recognitionRef.current.maxAlternatives = 1;
+
+      recognitionRef.current.onstart = () => {
+        setIsListening(true);
+        setInterimText("");
+      };
 
       recognitionRef.current.onresult = (event: any) => {
         let interimTranscript = '';
@@ -41,51 +58,119 @@ export default function SpeechToText() {
           }
         }
 
-        setText(prev => prev + finalTranscript);
+        if (finalTranscript) {
+          setText(prev => prev + finalTranscript);
+          setInterimText("");
+        } else {
+          setInterimText(interimTranscript);
+        }
       };
 
       recognitionRef.current.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error);
         setIsListening(false);
+        setInterimText("");
+        
+        let errorMessage = "Speech recognition error. Please try again.";
+        
+        if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+          errorMessage = "Microphone permission denied. Please allow microphone access and try again.";
+        } else if (event.error === 'no-speech') {
+          errorMessage = "No speech detected. Please try speaking again.";
+        } else if (event.error === 'network') {
+          errorMessage = "Network error. Please check your connection.";
+        } else if (event.error === 'aborted') {
+          return;
+        }
+        
         toast({
           title: "Error",
-          description: "Speech recognition error. Please try again.",
+          description: errorMessage,
           variant: "destructive",
         });
       };
 
       recognitionRef.current.onend = () => {
         setIsListening(false);
+        setInterimText("");
       };
+    } else {
+      setIsSupported(false);
     }
 
     return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
+      if (recognitionRef.current && isListening) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {
+          console.error('Error stopping recognition:', e);
+        }
       }
     };
-  }, [toast]);
+  }, []);
 
-  const toggleListening = () => {
-    if (!recognitionRef.current) {
+  useEffect(() => {
+    setCharCount(text.length);
+  }, [text]);
+
+  const startListening = async () => {
+    if (!isSupported) {
       toast({
         title: "Not Supported",
-        description: "Speech recognition is not supported in your browser",
+        description: "Speech recognition is not supported in your browser. Try Chrome or Edge.",
         variant: "destructive",
       });
       return;
     }
 
-    if (isListening) {
-      recognitionRef.current.stop();
-      setIsListening(false);
-    } else {
-      recognitionRef.current.start();
-      setIsListening(true);
+    if (!recognitionRef.current) {
+      toast({
+        title: "Error",
+        description: "Speech recognition is not initialized. Please refresh the page.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      await recognitionRef.current.start();
       toast({
         title: "Listening",
         description: "Start speaking now...",
       });
+    } catch (error: any) {
+      console.error('Failed to start recognition:', error);
+      
+      if (error.message && error.message.includes('already started')) {
+        recognitionRef.current.stop();
+        setTimeout(() => startListening(), 100);
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to start speech recognition. Try opening in a new tab.",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error('Error stopping recognition:', e);
+      }
+    }
+    setIsListening(false);
+    setInterimText("");
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
     }
   };
 
@@ -99,8 +184,32 @@ export default function SpeechToText() {
     }
   };
 
+  const downloadText = () => {
+    if (!text) return;
+    
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `speech-to-text-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Downloaded!",
+      description: "Text file saved successfully",
+    });
+  };
+
   const clearText = () => {
     setText("");
+    setInterimText("");
+  };
+
+  const handleOpenInNewTab = () => {
+    window.open(window.location.href, '_blank');
   };
 
   const faqSchema = {
@@ -145,6 +254,7 @@ export default function SpeechToText() {
               <Badge variant="secondary">Free</Badge>
               <Badge variant="secondary">No Login</Badge>
               <Badge variant="secondary">100% Private</Badge>
+              <Badge variant="secondary">Offline Ready</Badge>
             </div>
           </div>
 
@@ -157,16 +267,63 @@ export default function SpeechToText() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
+                {isInIframe && (
+                  <div className="p-4 border border-yellow-500/50 rounded-lg bg-yellow-500/10 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <ExternalLink className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+                      <div className="space-y-2 text-left flex-1">
+                        <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
+                          Speech recognition may not work in embedded views
+                        </p>
+                        <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                          Microphone access is restricted in embedded/iframe contexts. 
+                          Click below to open this tool in a new tab for full functionality.
+                        </p>
+                        <Button 
+                          onClick={handleOpenInNewTab} 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-background mt-2"
+                          data-testid="button-open-new-tab"
+                        >
+                          <ExternalLink className="mr-2 h-3 w-3" />
+                          Open in New Tab
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {!isSupported && (
+                  <div className="p-4 border border-destructive/50 rounded-lg bg-destructive/10 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+                      <div className="space-y-2 text-left flex-1">
+                        <p className="text-sm font-medium text-destructive">
+                          Speech recognition not supported
+                        </p>
+                        <p className="text-xs text-destructive/80">
+                          Your browser doesn't support the Web Speech API. Try using Chrome, Edge, or Safari.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex justify-center">
                   <Button
                     onClick={toggleListening}
                     size="lg"
                     variant={isListening ? "destructive" : "default"}
                     className="w-48 h-48 rounded-full"
+                    disabled={!isSupported}
                     data-testid={isListening ? "button-stop-listening" : "button-start-listening"}
                   >
                     {isListening ? (
-                      <MicOff className="h-20 w-20" />
+                      <div className="flex flex-col items-center gap-2">
+                        <MicOff className="h-16 w-16 animate-pulse" />
+                        <span className="text-xs">Listening...</span>
+                      </div>
                     ) : (
                       <Mic className="h-20 w-20" />
                     )}
@@ -175,13 +332,23 @@ export default function SpeechToText() {
 
                 <div className="text-center">
                   <p className="text-sm text-muted-foreground">
-                    {isListening ? "Listening... Speak now" : "Click to start voice typing"}
+                    {isListening ? "Listening... Speak now" : "Click microphone to start"}
                   </p>
+                  {isListening && interimText && (
+                    <p className="text-sm text-primary mt-2 italic">
+                      "{interimText}"
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="text-sm font-medium">Transcribed Text</label>
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm font-medium">Transcribed Text</label>
+                      <span className="text-xs text-muted-foreground">
+                        {charCount} character{charCount !== 1 ? 's' : ''}
+                      </span>
+                    </div>
                     <div className="flex gap-2">
                       <Button
                         onClick={copyText}
@@ -192,6 +359,16 @@ export default function SpeechToText() {
                       >
                         <Copy className="h-4 w-4 mr-2" />
                         Copy
+                      </Button>
+                      <Button
+                        onClick={downloadText}
+                        variant="outline"
+                        size="sm"
+                        disabled={!text}
+                        data-testid="button-download"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
                       </Button>
                       <Button
                         onClick={clearText}
@@ -209,7 +386,7 @@ export default function SpeechToText() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Your transcribed text will appear here..."
-                    className="min-h-[300px] resize-none"
+                    className="min-h-[300px] resize-y"
                     data-testid="textarea-output"
                   />
                 </div>
@@ -232,7 +409,7 @@ export default function SpeechToText() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Click the microphone button to start listening
+                      Click the microphone button and allow microphone access
                     </p>
                   </CardContent>
                 </Card>
@@ -279,7 +456,7 @@ export default function SpeechToText() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Speak faster than you can type. Perfect for notes, messages, and essays
+                      Speak 3x faster than typing. Perfect for notes, messages, and essays
                     </p>
                   </CardContent>
                 </Card>
@@ -290,7 +467,7 @@ export default function SpeechToText() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Your voice is processed locally in your browser. Nothing is uploaded
+                      Your voice is processed locally in your browser. Nothing is uploaded to servers
                     </p>
                   </CardContent>
                 </Card>
@@ -331,7 +508,7 @@ export default function SpeechToText() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Chrome, Edge, Safari, and most modern browsers support the Web Speech API. Firefox has limited support.
+                      Chrome and Edge have the best support. Safari works on iOS/macOS. Firefox has limited support. We recommend using Chrome for the best experience.
                     </p>
                   </CardContent>
                 </Card>
@@ -347,11 +524,11 @@ export default function SpeechToText() {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">What languages are supported?</CardTitle>
+                    <CardTitle className="text-lg">Why doesn't it work in embedded views?</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      The tool supports most major languages including English, Spanish, French, German, Chinese, Hindi, and many more depending on your browser.
+                      Browsers restrict microphone access in embedded/iframe contexts for security and privacy. Simply click the "Open in New Tab" button to use the tool in a regular browser tab.
                     </p>
                   </CardContent>
                 </Card>
