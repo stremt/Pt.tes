@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Barcode, Download, Zap, Lock, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import JsBarcode from "jsbarcode";
 
 export default function BarcodeGenerator() {
   const [text, setText] = useState("");
@@ -39,43 +40,17 @@ export default function BarcodeGenerator() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
     try {
-      canvas.width = 400;
-      canvas.height = 200;
-      
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = "#000000";
-      ctx.font = "16px monospace";
-      ctx.textAlign = "center";
-      
-      const textWidth = ctx.measureText(text).width;
-      const barWidth = 3;
-      const bars = text.length * 2;
-      const totalWidth = bars * barWidth;
-      const startX = (canvas.width - totalWidth) / 2;
-      const startY = 50;
-      const barHeight = 100;
-      
-      for (let i = 0; i < text.length; i++) {
-        const charCode = text.charCodeAt(i);
-        const x = startX + (i * barWidth * 2);
-        
-        if (charCode % 2 === 0) {
-          ctx.fillRect(x, startY, barWidth, barHeight);
-        }
-        if (charCode % 3 === 0) {
-          ctx.fillRect(x + barWidth, startY, barWidth, barHeight);
-        }
-      }
-      
-      ctx.fillText(text, canvas.width / 2, startY + barHeight + 30);
-      ctx.fillText(format, canvas.width / 2, 30);
-      
+      JsBarcode(canvas, text, {
+        format: format,
+        width: 2,
+        height: 100,
+        displayValue: true,
+        fontSize: 14,
+        margin: 10,
+        background: "#ffffff",
+      });
+
       const url = canvas.toDataURL();
       setBarcodeUrl(url);
       
@@ -86,7 +61,7 @@ export default function BarcodeGenerator() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to generate barcode",
+        description: error instanceof Error ? error.message : "Failed to generate barcode. Check your input format.",
         variant: "destructive",
       });
     }
@@ -95,7 +70,7 @@ export default function BarcodeGenerator() {
   const downloadBarcode = () => {
     if (barcodeUrl) {
       const link = document.createElement("a");
-      link.download = `barcode-${text}-${Date.now()}.png`;
+      link.download = `pixocraft-barcode-${text}-${Date.now()}.png`;
       link.href = barcodeUrl;
       link.click();
 
@@ -109,13 +84,6 @@ export default function BarcodeGenerator() {
   const handleClear = () => {
     setText("");
     setBarcodeUrl("");
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
   };
 
   const relatedTools = getRelatedTools("barcode-generator");
@@ -127,7 +95,7 @@ export default function BarcodeGenerator() {
     },
     {
       question: "What barcode formats are supported?",
-      answer: "We support popular formats including CODE128, EAN-13, UPC, and more. CODE128 is the most versatile and works for most use cases."
+      answer: "We support popular formats including CODE128 (most versatile), EAN-13 (for retail products), UPC (Universal Product Code), and CODE39 (alphanumeric). CODE128 is recommended for most use cases as it supports numbers, letters, and special characters."
     },
     {
       question: "Can I download the barcodes?",
@@ -135,7 +103,7 @@ export default function BarcodeGenerator() {
     },
     {
       question: "Are barcodes scannable?",
-      answer: "Yes, all generated barcodes are scannable with standard barcode scanners and smartphone apps."
+      answer: "Yes, all generated barcodes are industry-standard and scannable with any barcode scanner or smartphone app."
     },
     {
       question: "Does it work offline?",
@@ -143,7 +111,7 @@ export default function BarcodeGenerator() {
     },
     {
       question: "What can I use barcodes for?",
-      answer: "Barcodes are perfect for product labeling, inventory management, asset tracking, ticketing, and business operations."
+      answer: "Barcodes are perfect for product labeling, inventory management, asset tracking, ticketing, event management, and business operations."
     }
   ];
 
@@ -199,6 +167,9 @@ export default function BarcodeGenerator() {
                       onChange={(e) => setText(e.target.value)}
                       data-testid="input-barcode-text"
                     />
+                    <p className="text-xs text-muted-foreground">
+                      For EAN-13: Use 12 or 13 digits. For UPC: Use 11 or 12 digits.
+                    </p>
                   </div>
 
                   <div className="space-y-2">
@@ -208,10 +179,12 @@ export default function BarcodeGenerator() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="CODE128">CODE128</SelectItem>
+                        <SelectItem value="CODE128">CODE128 (Recommended)</SelectItem>
                         <SelectItem value="EAN13">EAN-13</SelectItem>
                         <SelectItem value="UPC">UPC</SelectItem>
                         <SelectItem value="CODE39">CODE39</SelectItem>
+                        <SelectItem value="pharmacode">Pharmacode</SelectItem>
+                        <SelectItem value="ITF14">ITF-14</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -247,7 +220,7 @@ export default function BarcodeGenerator() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-4">
-                  <div className="p-6 bg-white rounded-lg min-h-[200px] w-full flex items-center justify-center">
+                  <div className="p-6 bg-white rounded-lg min-h-[250px] w-full flex items-center justify-center">
                     {!barcodeUrl ? (
                       <div className="text-center text-muted-foreground">
                         <Barcode className="h-24 w-24 mx-auto mb-4 opacity-20" />
@@ -255,11 +228,13 @@ export default function BarcodeGenerator() {
                         <p className="text-sm">Enter text and click generate</p>
                       </div>
                     ) : (
-                      <canvas
-                        ref={canvasRef}
-                        className="max-w-full"
-                        data-testid="canvas-barcode"
-                      />
+                      <div className="flex flex-col items-center">
+                        <canvas
+                          ref={canvasRef}
+                          className="max-w-full"
+                          data-testid="canvas-barcode"
+                        />
+                      </div>
                     )}
                   </div>
                   {barcodeUrl && (
@@ -333,7 +308,7 @@ export default function BarcodeGenerator() {
                     </div>
                     <h3 className="font-semibold">Instant Generation</h3>
                     <p className="text-sm text-muted-foreground">
-                      Generate barcodes in seconds with one click
+                      Generate industry-standard barcodes in seconds
                     </p>
                   </div>
                 </CardContent>
