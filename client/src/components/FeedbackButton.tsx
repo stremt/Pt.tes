@@ -46,11 +46,11 @@ export function FeedbackButton({ toolName }: FeedbackButtonProps) {
         <DialogTrigger asChild>
           <Button
             size="icon"
-            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 h-12 w-12 sm:h-14 sm:w-14 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all z-50"
+            className="fixed bottom-6 right-6 rounded-full shadow-lg z-[9999]"
             data-testid="button-feedback-floating"
             aria-label="Send Feedback"
           >
-            <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
+            <MessageCircle className="h-5 w-5" />
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]" data-testid="dialog-feedback">
