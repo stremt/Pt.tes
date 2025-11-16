@@ -221,21 +221,20 @@ export default function BarcodeGenerator() {
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-4">
                   <div className="p-6 bg-white rounded-lg min-h-[250px] w-full flex items-center justify-center">
-                    {!barcodeUrl ? (
-                      <div className="text-center text-muted-foreground">
-                        <Barcode className="h-24 w-24 mx-auto mb-4 opacity-20" />
-                        <p className="font-medium">No barcode yet</p>
-                        <p className="text-sm">Enter text and click generate</p>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center">
-                        <canvas
-                          ref={canvasRef}
-                          className="max-w-full"
-                          data-testid="canvas-barcode"
-                        />
-                      </div>
-                    )}
+                    <div className="flex flex-col items-center w-full">
+                      {!barcodeUrl && (
+                        <div className="text-center text-muted-foreground">
+                          <Barcode className="h-24 w-24 mx-auto mb-4 opacity-20" />
+                          <p className="font-medium">No barcode yet</p>
+                          <p className="text-sm">Enter text and click generate</p>
+                        </div>
+                      )}
+                      <canvas
+                        ref={canvasRef}
+                        className={barcodeUrl ? "max-w-full" : "hidden"}
+                        data-testid="canvas-barcode"
+                      />
+                    </div>
                   </div>
                   {barcodeUrl && (
                     <Button
