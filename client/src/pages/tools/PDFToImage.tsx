@@ -1,18 +1,18 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Image, Upload, Download, Zap, Lock } from "lucide-react";
+import { Image, Upload, Download, Zap, Lock, FileImage } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
-import { PDFDocument } from "pdf-lib";
+import { renderPDFToImages, downloadPageImage, downloadAllPageImages, type PDFPageImage } from "@/lib/pdf-rendering-utils";
 
 export default function PDFToImage() {
   const [file, setFile] = useState<File | null>(null);
-  const [pageCount, setPageCount] = useState(0);
   const [converting, setConverting] = useState(false);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [images, setImages] = useState<PDFPageImage[]>([]);
+  const [progress, setProgress] = useState({ current: 0, total: 0 });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -23,7 +23,7 @@ export default function PDFToImage() {
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-to-image",
   });
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
@@ -37,37 +37,29 @@ export default function PDFToImage() {
     }
 
     setFile(selectedFile);
-    setImageUrls([]);
-
-    try {
-      const arrayBuffer = await selectedFile.arrayBuffer();
-      const pdf = await PDFDocument.load(arrayBuffer);
-      setPageCount(pdf.getPageCount());
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Error",
-        description: "Failed to load PDF",
-        variant: "destructive",
-      });
-    }
+    setImages([]);
+    setProgress({ current: 0, total: 0 });
   };
 
   const convertToImages = async () => {
     if (!file) return;
 
     setConverting(true);
-    toast({
-      title: "Converting...",
-      description: "This may take a moment for large PDFs",
-    });
-
+    setProgress({ current: 0, total: 0 });
+    
     try {
-      // Note: This is a simplified version. For production, you'd want to use 
-      // a library like pdf.js to properly render PDFs to canvas
+      const renderedImages = await renderPDFToImages(
+        file,
+        { scale: 2, format: 'png' },
+        (current, total) => {
+          setProgress({ current, total });
+        }
+      );
+      
+      setImages(renderedImages);
       toast({
-        title: "Note",
-        description: "PDF to Image conversion requires additional rendering library. Download the PDF and use desktop software for best results.",
+        title: "Success!",
+        description: `Converted ${renderedImages.length} ${renderedImages.length === 1 ? 'page' : 'pages'} to images`,
       });
     } catch (error) {
       console.error(error);
@@ -78,7 +70,27 @@ export default function PDFToImage() {
       });
     } finally {
       setConverting(false);
+      setProgress({ current: 0, total: 0 });
     }
+  };
+
+  const handleDownloadPage = (pageImage: PDFPageImage) => {
+    const filename = `${file?.name.replace('.pdf', '')}_page_${pageImage.pageNumber}.png`;
+    downloadPageImage(pageImage, filename);
+    toast({
+      title: "Downloaded!",
+      description: `Page ${pageImage.pageNumber} saved`,
+    });
+  };
+
+  const handleDownloadAll = () => {
+    if (!file) return;
+    const baseFilename = file.name.replace('.pdf', '');
+    downloadAllPageImages(images, baseFilename);
+    toast({
+      title: "Downloading All Pages",
+      description: `${images.length} ${images.length === 1 ? 'image' : 'images'} will be downloaded`,
+    });
   };
 
   const faqSchema = {
@@ -126,55 +138,131 @@ export default function PDFToImage() {
             </div>
           </div>
 
-          <div className="max-w-2xl mx-auto mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Convert PDF to Images</CardTitle>
-                <CardDescription>
-                  Upload a PDF to convert each page into images
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
-                  data-testid="dropzone-upload"
-                >
-                  <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="font-medium mb-2">Click to upload PDF file</p>
-                  <p className="text-sm text-muted-foreground">
-                    Select a PDF file to convert to images
-                  </p>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="application/pdf"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                    data-testid="input-file"
-                  />
-                </div>
-
-                {file && (
-                  <Card className="bg-muted/50">
-                    <CardContent className="py-4">
-                      <div className="space-y-2">
-                        <p className="text-sm font-medium">{file.name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          Total pages: {pageCount}
-                        </p>
-                        <div className="pt-2">
-                          <p className="text-sm text-amber-600 dark:text-amber-400">
-                            Note: PDF to image conversion requires additional rendering library (pdf.js). 
-                            For best results, use desktop software or online tools with full PDF rendering support.
-                          </p>
-                        </div>
+          <div className="max-w-4xl mx-auto mb-16 space-y-6">
+            {!file ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Convert PDF to Images</CardTitle>
+                  <CardDescription>
+                    Upload a PDF to convert each page into high-quality PNG images
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    data-testid="dropzone-upload"
+                  >
+                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                    <p className="font-medium mb-2">Click to upload PDF file</p>
+                    <p className="text-sm text-muted-foreground">
+                      Each page will be converted to a separate PNG image
+                    </p>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="application/pdf"
+                      onChange={handleFileSelect}
+                      className="hidden"
+                      data-testid="input-file"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <>
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle>Convert PDF</CardTitle>
+                        <CardDescription>{file.name}</CardDescription>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => {
+                          setFile(null);
+                          setImages([]);
+                          if (fileInputRef.current) fileInputRef.current.value = "";
+                        }}
+                        data-testid="button-reset"
+                      >
+                        <Upload className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={convertToImages}
+                        disabled={converting}
+                        className="flex-1"
+                        size="lg"
+                        data-testid="button-convert"
+                      >
+                        {converting ? (
+                          <>
+                            <FileImage className="mr-2 h-4 w-4 animate-pulse" />
+                            Converting {progress.current}/{progress.total}...
+                          </>
+                        ) : (
+                          <>
+                            <FileImage className="mr-2 h-4 w-4" />
+                            Convert to Images
+                          </>
+                        )}
+                      </Button>
+                      {images.length > 0 && (
+                        <Button
+                          onClick={handleDownloadAll}
+                          variant="outline"
+                          className="flex-1"
+                          size="lg"
+                          data-testid="button-download-all"
+                        >
+                          <Download className="mr-2 h-4 w-4" />
+                          Download All ({images.length})
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {images.length > 0 && (
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Converted Pages</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {images.map((pageImage) => (
+                        <Card key={pageImage.pageNumber}>
+                          <CardHeader>
+                            <CardTitle className="text-base flex items-center justify-between">
+                              <span>Page {pageImage.pageNumber}</span>
+                              <Button
+                                size="sm"
+                                onClick={() => handleDownloadPage(pageImage)}
+                                data-testid={`button-download-page-${pageImage.pageNumber}`}
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download
+                              </Button>
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <img
+                              src={pageImage.imageUrl}
+                              alt={`Page ${pageImage.pageNumber}`}
+                              className="w-full border rounded-lg"
+                              data-testid={`img-page-${pageImage.pageNumber}`}
+                            />
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
                 )}
-              </CardContent>
-            </Card>
+              </>
+            )}
           </div>
 
           <section className="py-16 border-t bg-muted/30">

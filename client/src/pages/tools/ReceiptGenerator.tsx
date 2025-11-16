@@ -178,42 +178,58 @@ export default function ReceiptGenerator() {
           />
         </div>
 
-        <Card className="print:shadow-none">
+        <div className="space-y-2">
+          <Label htmlFor="currency">Currency</Label>
+          <Select value={currency} onValueChange={setCurrency}>
+            <SelectTrigger id="currency" data-testid="select-currency">
+              <SelectValue placeholder="Select currency" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="USD">USD ($)</SelectItem>
+              <SelectItem value="EUR">EUR (€)</SelectItem>
+              <SelectItem value="GBP">GBP (£)</SelectItem>
+              <SelectItem value="INR">INR (₹)</SelectItem>
+              <SelectItem value="AED">AED (د.إ)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Card ref={receiptRef} className="print:shadow-none bg-white">
           <CardContent className="p-8 space-y-6">
-            <div className="text-center border-b-2 pb-4">
-              <h2 className="text-3xl font-bold">RECEIPT</h2>
-              <p className="text-sm text-muted-foreground mt-2">Receipt #{receiptNo || "---"}</p>
+            <div className="text-center border-b-2 border-gray-300 pb-4">
+              <h2 className="text-3xl font-bold text-gray-900">RECEIPT</h2>
+              <p className="text-sm text-gray-600 mt-2">Receipt #{receiptNo || "---"}</p>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between">
-                <span className="font-semibold">Date:</span>
-                <span>{date}</span>
+                <span className="font-semibold text-gray-900">Date:</span>
+                <span className="text-gray-800">{date}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-semibold">Received From:</span>
-                <span>{receivedFrom || "---"}</span>
+                <span className="font-semibold text-gray-900">Received From:</span>
+                <span className="text-gray-800">{receivedFrom || "---"}</span>
               </div>
               <div className="flex justify-between items-center py-4 border-y-2">
-                <span className="font-semibold text-lg">Amount:</span>
-                <span className="text-2xl font-bold">${amount || "0.00"}</span>
+                <span className="font-semibold text-lg text-gray-900">Amount:</span>
+                <span className="text-2xl font-bold text-gray-900">{CURRENCY_SYMBOLS[currency]}{amount || "0.00"}</span>
               </div>
               <div>
-                <p className="font-semibold mb-2">Purpose:</p>
-                <p className="text-muted-foreground">{purpose || "---"}</p>
+                <p className="font-semibold text-gray-900 mb-2">Purpose:</p>
+                <p className="text-gray-600">{purpose || "---"}</p>
               </div>
-              <div className="pt-8 mt-8 border-t">
-                <p className="font-semibold">Received By:</p>
-                <p className="mt-4">{receivedBy || "---"}</p>
-                <p className="text-sm text-muted-foreground mt-6">Signature: _______________</p>
+              <div className="pt-8 mt-8 border-t border-gray-300">
+                <p className="font-semibold text-gray-900">Received By:</p>
+                <p className="mt-4 text-gray-800">{receivedBy || "---"}</p>
+                <p className="text-sm text-gray-600 mt-6">Signature: _______________</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <div className="flex justify-center print:hidden">
-          <Button onClick={generatePDF} size="lg" data-testid="button-download-pdf">
+          <Button onClick={generatePDF} size="lg" disabled={downloading} data-testid="button-download-pdf">
             <Download className="mr-2 h-5 w-5" />
-            Download PDF
+            {downloading ? "Generating PDF..." : "Download PDF"}
           </Button>
         </div>
       </div>

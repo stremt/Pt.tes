@@ -88,7 +88,7 @@ export default function SuperscriptGenerator() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="p-4 bg-muted/50 rounded-lg text-2xl min-h-[80px]">
+            <div className="p-4 bg-muted/50 rounded-lg text-2xl min-h-[80px] max-h-[300px] overflow-y-auto break-words">
               {output || <span className="text-muted-foreground italic text-base">ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ ᵒᵘᵗᵖᵘᵗ ʰᵉʳᵉ...</span>}
             </div>
           </CardContent>

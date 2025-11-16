@@ -1,7 +1,9 @@
 import { PDFDocument, rgb, degrees, StandardFonts } from "pdf-lib";
 
+export type CompressionLevel = 'standard' | 'maximum';
+
 export interface CompressPDFOptions {
-  quality?: number;
+  level?: CompressionLevel;
   removeMetadata?: boolean;
 }
 
@@ -9,24 +11,45 @@ export async function compressPDF(
   file: File,
   options: CompressPDFOptions = {}
 ): Promise<Blob> {
-  const { removeMetadata = true } = options;
+  const { level = 'standard', removeMetadata = level === 'maximum' } = options;
   
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(arrayBuffer);
 
-  if (removeMetadata) {
+  // Configure save options based on compression level
+  const saveOptions: any = {
+    addDefaultPage: false,
+  };
+
+  if (level === 'maximum') {
+    // Maximum compression with object streams
+    saveOptions.useObjectStreams = true;
+    
+    // Remove all metadata for maximum compression
     pdfDoc.setTitle('');
     pdfDoc.setAuthor('');
     pdfDoc.setSubject('');
     pdfDoc.setKeywords([]);
     pdfDoc.setProducer('');
     pdfDoc.setCreator('');
+    pdfDoc.setCreationDate(new Date(0));
+    pdfDoc.setModificationDate(new Date(0));
+  } else {
+    // Standard compression
+    saveOptions.useObjectStreams = true;
+    
+    // Only remove metadata if specified
+    if (removeMetadata) {
+      pdfDoc.setTitle('');
+      pdfDoc.setAuthor('');
+      pdfDoc.setSubject('');
+      pdfDoc.setKeywords([]);
+      pdfDoc.setProducer('');
+      pdfDoc.setCreator('');
+    }
   }
 
-  const pdfBytes = await pdfDoc.save({
-    useObjectStreams: true,
-    addDefaultPage: false,
-  });
+  const pdfBytes = await pdfDoc.save(saveOptions);
 
   return new Blob([pdfBytes], { type: 'application/pdf' });
 }

@@ -2,18 +2,21 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { FileDown, Upload, Download, FileText, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import { compressPDF, formatFileSize, getPDFInfo } from "@/lib/pdf-utils";
+import { compressPDF, formatFileSize, getPDFInfo, type CompressionLevel } from "@/lib/pdf-utils";
 
 export default function PDFCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [compressedFile, setCompressedFile] = useState<Blob | null>(null);
   const [originalInfo, setOriginalInfo] = useState<{ pageCount: number; fileSize: string } | null>(null);
+  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>('standard');
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -49,7 +52,10 @@ export default function PDFCompressor() {
 
     setLoading(true);
     try {
-      const compressed = await compressPDF(originalFile, { removeMetadata: true });
+      const compressed = await compressPDF(originalFile, { 
+        level: compressionLevel,
+        removeMetadata: compressionLevel === 'maximum' // Only remove metadata in maximum mode
+      });
       
       const reductionPercent = Math.round((1 - compressed.size / originalFile.size) * 100);
       
@@ -216,14 +222,35 @@ export default function PDFCompressor() {
                       </div>
                     )}
 
-                    <div className="flex gap-2">
-                      <Button
-                        onClick={compressPDFFile}
-                        disabled={loading}
-                        className="flex-1"
-                        size="lg"
-                        data-testid="button-compress"
-                      >
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label>Compression Mode</Label>
+                        <Select 
+                          value={compressionLevel} 
+                          onValueChange={(v: CompressionLevel) => setCompressionLevel(v)}
+                        >
+                          <SelectTrigger data-testid="select-compression-level">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="standard">Standard (Recommended)</SelectItem>
+                            <SelectItem value="maximum">Maximum (Remove All Metadata)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <p className="text-xs text-muted-foreground">
+                          {compressionLevel === 'standard' && 'Optimizes PDF structure while preserving document metadata. Works for most files.'}
+                          {compressionLevel === 'maximum' && 'Removes all metadata and timestamps for maximum file size reduction.'}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={compressPDFFile}
+                          disabled={loading}
+                          className="flex-1"
+                          size="lg"
+                          data-testid="button-compress"
+                        >
                         {loading ? (
                           <>
                             <FileDown className="mr-2 h-4 w-4 animate-pulse" />
@@ -248,6 +275,7 @@ export default function PDFCompressor() {
                           Download ({formatFileSize(compressedFile.size)})
                         </Button>
                       )}
+                      </div>
                     </div>
 
                     {compressedFile && (

@@ -179,7 +179,7 @@ export default function MorseCodeTranslator() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="p-4 bg-muted/50 rounded-lg min-h-[120px] font-mono text-base break-all">
+            <div className="p-4 bg-muted/50 rounded-lg min-h-[120px] max-h-[300px] overflow-y-auto font-mono text-base break-words whitespace-pre-wrap">
               {output || <span className="text-muted-foreground italic">Output will appear here...</span>}
             </div>
           </CardContent>
