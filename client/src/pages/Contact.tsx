@@ -6,16 +6,21 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/lib/seo";
-import { Mail, Clock, Send, MessageSquare, HelpCircle, Lightbulb } from "lucide-react";
+import { Mail, Clock, Send, MessageSquare, HelpCircle, Lightbulb, MapPin, Phone } from "lucide-react";
 import { SiX, SiGithub, SiLinkedin } from "react-icons/si";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, ContactForm as ContactFormType } from "@shared/schema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<ContactFormType>({
@@ -35,39 +40,47 @@ export default function Contact() {
     canonicalUrl: "https://tools.pixocraft.in/contact",
   });
 
-  const onSubmit = async (data: ContactFormType) => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  const onSubmit = (data: ContactFormType) => {
+    const emailSubject = encodeURIComponent(data.subject);
+    const emailBody = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+    );
+    const mailtoLink = `mailto:support@pixocraft.in?subject=${emailSubject}&body=${emailBody}`;
+    
+    window.location.href = mailtoLink;
+    
+    toast({
+      title: "Opening Email Client",
+      description: "Your default email app will open to send this message.",
+    });
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Failed to send message");
-      }
-
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you within 24-48 hours.",
-      });
-
+    setTimeout(() => {
       form.reset();
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or email us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    }, 500);
   };
+
+  const faqs = [
+    {
+      question: "How quickly will I get a response?",
+      answer: "We typically respond to all inquiries within 24-48 hours during business days. For urgent matters, please mention 'URGENT' in your subject line."
+    },
+    {
+      question: "What types of inquiries do you handle?",
+      answer: "We handle all types of inquiries including bug reports, feature requests, tool suggestions, partnership opportunities, technical support, and general feedback."
+    },
+    {
+      question: "Are all your tools really free?",
+      answer: "Yes! All 200+ tools on Pixocraft are completely free to use with no hidden charges. We believe in providing accessible tools for everyone."
+    },
+    {
+      question: "Can I suggest a new tool?",
+      answer: "Absolutely! We love hearing tool suggestions from our users. Please include as much detail as possible about the tool you'd like to see."
+    },
+    {
+      question: "Do you offer API access?",
+      answer: "Currently, we don't offer public API access, but we're considering it for the future. Contact us if you have specific use cases."
+    }
+  ];
 
   return (
     <div className="min-h-screen py-8 sm:py-12 md:py-16">
@@ -83,14 +96,14 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mb-12">
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="hover-elevate transition-all duration-200">
               <CardHeader className="p-4 sm:p-6">
                 <CardTitle className="text-xl sm:text-2xl">Send us a Message</CardTitle>
                 <CardDescription className="text-sm sm:text-base">
-                  Fill out the form below and we'll get back to you within 24-48 hours
+                  Fill out the form and click send to open your email client
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -170,21 +183,25 @@ export default function Contact() {
                       )}
                     />
 
+                    <div className="bg-muted/50 rounded-lg p-3 space-y-2">
+                      <p className="text-sm font-medium flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-primary" />
+                        Your email app will open
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Clicking send will open your default email app with this message ready to send to{" "}
+                        <span className="font-semibold text-foreground">support@pixocraft.in</span>
+                      </p>
+                    </div>
+
                     <Button
                       type="submit"
                       size="lg"
-                      disabled={isSubmitting}
                       className="w-full"
                       data-testid="button-submit-contact"
                     >
-                      {isSubmitting ? (
-                        <>Sending...</>
-                      ) : (
-                        <>
-                          <Send className="mr-2 h-4 w-4" />
-                          Send Message
-                        </>
-                      )}
+                      <Send className="mr-2 h-4 w-4" />
+                      Send via Email
                     </Button>
                   </form>
                 </Form>
@@ -318,6 +335,51 @@ export default function Contact() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="max-w-4xl mx-auto">
+          <Card>
+            <CardHeader className="p-6 sm:p-8 text-center">
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <HelpCircle className="h-6 w-6 text-primary" />
+              </div>
+              <CardTitle className="text-2xl sm:text-3xl">Frequently Asked Questions</CardTitle>
+              <CardDescription className="text-base">
+                Quick answers to common questions
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 sm:p-8 pt-0">
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={index} value={`item-${index}`}>
+                    <AccordionTrigger 
+                      className="text-left hover:no-underline"
+                      data-testid={`accordion-faq-${index}`}
+                    >
+                      <span className="font-medium">{faq.question}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              <div className="mt-8 p-4 bg-muted/50 rounded-lg text-center">
+                <p className="text-sm text-muted-foreground">
+                  Still have questions?{" "}
+                  <a 
+                    href="mailto:support@pixocraft.in" 
+                    className="text-primary font-medium hover:underline"
+                    data-testid="link-faq-email"
+                  >
+                    Get in touch
+                  </a>
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
