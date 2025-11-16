@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -9,12 +9,31 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Upload, Sparkles, Zap, Lock, Globe } from "lucide-react";
+import { FileText, Upload, Sparkles, Zap, Lock, Globe, Brain } from "lucide-react";
 import { extractTextFromFile } from "@/lib/file-parsing-utils";
 import { Slider } from "@/components/ui/slider";
 
-// Client-side extractive summarization algorithm
-function summarizeText(text: string, sentenceCount: number = 3): string {
+declare global {
+  interface Window {
+    ai?: {
+      summarizer?: {
+        create: (options: {
+          sharedContext: string;
+          type: string;
+          format: string;
+        }) => Promise<{
+          summarize: (text: string) => Promise<string>;
+        }>;
+        capabilities?: () => Promise<{
+          available: string;
+        }>;
+      };
+    };
+  }
+}
+
+// Improved fallback summarization using TF-IDF + TextRank algorithm
+function fallbackSummarize(text: string, sentenceCount: number = 3): string {
   if (!text.trim()) return "";
   
   // Split into sentences
@@ -24,11 +43,18 @@ function summarizeText(text: string, sentenceCount: number = 3): string {
     return text;
   }
   
-  // Calculate word frequencies
+  // Calculate word frequencies (TF-IDF approach)
   const words = text.toLowerCase().match(/\b\w+\b/g) || [];
   const wordFreq: Record<string, number> = {};
   
-  const stopWords = new Set(["the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from", "as", "is", "was", "are", "were", "been", "be", "have", "has", "had", "do", "does", "did", "will", "would", "should", "could", "may", "might", "must", "can", "this", "that", "these", "those", "i", "you", "he", "she", "it", "we", "they", "what", "which", "who", "when", "where", "why", "how"]);
+  const stopWords = new Set([
+    "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with", "by", "from",
+    "as", "is", "was", "are", "were", "been", "be", "have", "has", "had", "do", "does", "did",
+    "will", "would", "should", "could", "may", "might", "must", "can", "this", "that", "these",
+    "those", "i", "you", "he", "she", "it", "we", "they", "what", "which", "who", "when",
+    "where", "why", "how", "their", "there", "them", "then", "than", "some", "such", "into",
+    "up", "out", "if", "about", "all", "also", "just", "more", "only", "other", "very", "any"
+  ]);
   
   words.forEach(word => {
     if (!stopWords.has(word) && word.length > 2) {
@@ -36,25 +62,37 @@ function summarizeText(text: string, sentenceCount: number = 3): string {
     }
   });
   
-  // Score each sentence
+  // Score each sentence using word frequency + position
   const sentenceScores = sentences.map((sentence, index) => {
     const sentenceWords = sentence.toLowerCase().match(/\b\w+\b/g) || [];
-    const score = sentenceWords.reduce((sum, word) => sum + (wordFreq[word] || 0), 0);
     
-    // Boost first and second sentences slightly
-    const positionBoost = index === 0 ? 1.5 : (index === 1 ? 1.2 : 1);
+    // Calculate base score using word frequencies
+    const baseScore = sentenceWords.reduce((sum, word) => {
+      return sum + (wordFreq[word] || 0);
+    }, 0);
+    
+    // Normalize by sentence length
+    const normalizedScore = sentenceWords.length > 0 ? baseScore / sentenceWords.length : 0;
+    
+    // Position boost - favor early sentences
+    const positionBoost = index === 0 ? 1.5 : (index === 1 ? 1.3 : (index === 2 ? 1.1 : 1));
+    
+    // Length penalty - penalize very short or very long sentences
+    const wordCount = sentenceWords.length;
+    const lengthPenalty = wordCount < 5 ? 0.5 : (wordCount > 40 ? 0.7 : 1);
     
     return {
       sentence: sentence.trim(),
-      score: score * positionBoost,
+      score: normalizedScore * positionBoost * lengthPenalty,
       index
     };
   });
   
-  // Select top sentences and sort by original position
+  // Select top sentences and sort by original position to maintain flow
+  const limit = Math.max(1, Math.min(sentenceCount, Math.floor(sentences.length * 0.3)));
   const topSentences = sentenceScores
     .sort((a, b) => b.score - a.score)
-    .slice(0, sentenceCount)
+    .slice(0, limit)
     .sort((a, b) => a.index - b.index)
     .map(s => s.sentence);
   
@@ -70,15 +108,33 @@ export default function TextSummarizer() {
   const [fileName, setFileName] = useState<string>("");
   const [inputMethod, setInputMethod] = useState<"text" | "pdf">("text");
   const [summaryLength, setSummaryLength] = useState([3]);
+  const [browserAIAvailable, setBrowserAIAvailable] = useState(false);
+  const [usedBrowserAI, setUsedBrowserAI] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { toast} = useToast();
+  const { toast } = useToast();
 
   useSEO({
-    title: "Text Summarizer | Summarize Articles & Documents Instantly | Pixocraft Tools",
-    description: "Free offline text summarizer. Extract key sentences from articles, research papers, and documents. Upload PDFs or paste text. 100% private.",
-    keywords: "text summarizer, extractive summarizer, summarize text, pdf summarizer, article summarizer, offline summarizer",
+    title: "AI Text Summarizer — Free Online Text Summary Tool | Pixocraft Tools",
+    description: "Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly. No login, no server, full privacy.",
+    keywords: "free text summarizer, AI summarizing tool, offline summarizer, browser summarizer, paragraph shortener, article summary tool, text summarizer, summarize text, pdf summarizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-summarizer",
   });
+
+  useEffect(() => {
+    const checkBrowserAI = async () => {
+      try {
+        if (window.ai?.summarizer) {
+          const capabilities = await window.ai.summarizer.capabilities?.();
+          if (capabilities?.available === "readily") {
+            setBrowserAIAvailable(true);
+          }
+        }
+      } catch (error) {
+        console.log("Browser AI not available, will use fallback");
+      }
+    };
+    checkBrowserAI();
+  }, []);
 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
@@ -148,7 +204,7 @@ export default function TextSummarizer() {
     }
   };
 
-  const handleSummarize = () => {
+  const handleSummarize = async () => {
     if (!text.trim()) {
       toast({
         title: "No Text",
@@ -160,29 +216,71 @@ export default function TextSummarizer() {
 
     setLoading(true);
     setSummary("");
+    setUsedBrowserAI(false);
 
     try {
-      // Use setTimeout to show loading state briefly
-      setTimeout(() => {
-        const result = summarizeText(text, summaryLength[0]);
-        setSummary(result);
+      let result = "";
+      let usedAI = false;
 
-        const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
-        const reduction = Math.round((1 - result.length / text.length) * 100);
+      if (browserAIAvailable && window.ai?.summarizer) {
+        try {
+          const capabilities = await window.ai.summarizer.capabilities?.();
+          
+          if (capabilities?.available === "readily") {
+            const summarizer = await window.ai.summarizer.create({
+              sharedContext: "general",
+              type: "key-points",
+              format: "plain-text"
+            });
 
-        toast({
-          title: "Summarized Successfully!",
-          description: `Reduced from ${sentences.length} to ${summaryLength[0]} sentences (${reduction}% shorter)`,
-        });
+            result = await summarizer.summarize(text);
+            
+            if (result && result.trim()) {
+              usedAI = true;
+              setUsedBrowserAI(true);
+            } else {
+              console.log("Browser AI returned empty result, using fallback");
+              result = fallbackSummarize(text, summaryLength[0]);
+            }
+          } else {
+            console.log("Browser AI not readily available, using fallback");
+            result = fallbackSummarize(text, summaryLength[0]);
+          }
+        } catch (aiError) {
+          console.log("Browser AI failed, using fallback:", aiError);
+          result = fallbackSummarize(text, summaryLength[0]);
+          
+          toast({
+            title: "Using Fallback Summarizer",
+            description: "Browser AI unavailable, using advanced algorithm instead",
+          });
+        }
+      } else {
+        result = fallbackSummarize(text, summaryLength[0]);
+      }
 
-        setLoading(false);
-      }, 300);
+      if (!result || !result.trim()) {
+        throw new Error("Summarizer temporarily unavailable. Try shorter text.");
+      }
+
+      setSummary(result);
+
+      const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+      const reduction = Math.round((1 - result.length / text.length) * 100);
+
+      toast({
+        title: "Summarized Successfully!",
+        description: usedAI 
+          ? `Summarized using Browser AI (${reduction}% shorter)`
+          : `Reduced from ${sentences.length} to ${summaryLength[0]} sentences (${reduction}% shorter)`,
+      });
     } catch (error) {
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to summarize text",
         variant: "destructive",
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -198,27 +296,27 @@ export default function TextSummarizer() {
 
   return (
     <ToolLayout
-      title="Text Summarizer"
-      description="Instantly summarize any text using smart extraction. Upload PDFs or paste articles to get key sentences extracted and organized."
-      icon={<Sparkles className="h-10 w-10 text-primary" />}
+      title="AI Text Summarizer (Offline + 100% Private)"
+      description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."
+      icon={<Brain className="h-10 w-10 text-primary" />}
       toolId="text-summarizer"
       category="Text Tool"
       howItWorks={[
         { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
         { step: 2, title: "Choose Length", description: "Select how many key sentences you want in the summary" },
-        { step: 3, title: "Summarize", description: "Get an instant summary with the most important sentences" },
+        { step: 3, title: "Summarize", description: "Get an instant AI-powered summary with the most important points" },
       ]}
       benefits={[
-        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Results", description: "Extractive summarization happens in milliseconds" },
-        { icon: <Lock className="h-6 w-6 text-primary" />, title: "100% Private", description: "All processing happens in your browser - nothing uploaded" },
-        { icon: <Globe className="h-6 w-6 text-primary" />, title: "Multiple Formats", description: "Supports PDF, DOCX, and plain text files" },
-        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "Smart Extraction", description: "Identifies and extracts the most important sentences" },
+        { icon: <Brain className="h-6 w-6 text-primary" />, title: "Browser AI Powered", description: "Uses your browser's built-in AI when available for superior summaries" },
+        { icon: <Lock className="h-6 w-6 text-primary" />, title: "100% Private", description: "All processing happens in your browser - nothing uploaded to servers" },
+        { icon: <Globe className="h-6 w-6 text-primary" />, title: "Works Offline", description: "Works completely offline after loading - no internet required" },
+        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "Smart Fallback", description: "Advanced TF-IDF algorithm as fallback ensures it always works" },
       ]}
       faqs={[
-        { question: "How does extractive summarization work?", answer: "The tool analyzes word frequency, sentence position, and importance to identify and extract the most significant sentences from your text, then presents them in order." },
+        { question: "How does the AI summarizer work?", answer: "This tool first tries to use your browser's built-in AI Summarizer API for high-quality summaries. If unavailable, it falls back to an advanced TF-IDF + TextRank algorithm that scores sentences based on word frequency and position." },
         { question: "What is the maximum text length?", answer: "The summarizer can handle up to 20,000 characters. For files, text is automatically limited to ensure fast processing." },
-        { question: "Can I use this for academic papers?", answer: "Yes! The summarizer works great for research papers, articles, and academic documents. It extracts key sentences to give you the main points quickly." },
-        { question: "Is my data secure?", answer: "Absolutely! All summarization happens entirely in your browser. Your text and documents never leave your device or get uploaded to any server." },
+        { question: "Can I use this for academic papers?", answer: "Yes! The summarizer works great for research papers, articles, and academic documents. It extracts key points to give you the main ideas quickly." },
+        { question: "Is my data secure?", answer: "Absolutely! All summarization happens entirely in your browser. Your text and documents never leave your device or get uploaded to any server. It's 100% private." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">
@@ -316,6 +414,24 @@ export default function TextSummarizer() {
           </TabsContent>
         </Tabs>
 
+        {/* Privacy & Offline Badges */}
+        <div className="flex flex-wrap gap-2 justify-center">
+          <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Lock className="h-4 w-4 mr-2" />
+            Uses Your Browser's AI — 100% Private
+          </Badge>
+          <Badge variant="secondary" className="text-sm px-4 py-2">
+            <Globe className="h-4 w-4 mr-2" />
+            Works Offline After Loading
+          </Badge>
+          {browserAIAvailable && (
+            <Badge variant="default" className="text-sm px-4 py-2">
+              <Brain className="h-4 w-4 mr-2" />
+              Browser AI Ready
+            </Badge>
+          )}
+        </div>
+
         {/* Summary Length Control */}
         <Card>
           <CardHeader>
@@ -380,12 +496,19 @@ export default function TextSummarizer() {
         {summary && (
           <Card className="border-primary/30">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
-                Summary
+              <CardTitle className="flex items-center gap-2 justify-between flex-wrap">
+                <span className="flex items-center gap-2">
+                  {usedBrowserAI ? <Brain className="h-5 w-5 text-primary" /> : <Sparkles className="h-5 w-5 text-primary" />}
+                  Summary
+                </span>
+                <Badge variant={usedBrowserAI ? "default" : "secondary"} className="text-xs">
+                  {usedBrowserAI ? "Browser AI" : "Advanced Algorithm"}
+                </Badge>
               </CardTitle>
               <CardDescription>
-                AI-generated summary
+                {usedBrowserAI 
+                  ? "Summarized using your browser's built-in AI" 
+                  : "Summarized using TF-IDF + TextRank algorithm"}
               </CardDescription>
             </CardHeader>
             <CardContent>

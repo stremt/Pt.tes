@@ -57,69 +57,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Text summarization using HuggingFace API
-  app.post("/api/summarize", async (req, res) => {
-    try {
-      const { text } = req.body;
-
-      if (!text) {
-        return res.status(400).json({ error: "No text provided" });
-      }
-
-      const apiKey = process.env.HUGGINGFACE_API_KEY;
-      if (!apiKey) {
-        return res.status(500).json({ error: "Server configuration error: API key not configured" });
-      }
-
-      // Limit text length
-      const maxLength = 8000;
-      const textToSummarize = text.length > maxLength ? text.substring(0, maxLength) : text;
-
-      // Call HuggingFace API
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputs: textToSummarize,
-            parameters: {
-              max_length: 150,
-              min_length: 30,
-            },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("HuggingFace API error:", errorData);
-        return res.status(response.status).json({ 
-          error: errorData.error || "Failed to summarize text",
-          details: errorData
-        });
-      }
-
-      const result = await response.json();
-      
-      // Handle model loading state
-      if (result.error && result.error.includes("loading")) {
-        return res.status(503).json({ 
-          error: "Model is loading. Please try again in a few seconds.",
-          loading: true
-        });
-      }
-
-      res.json({ summary: result[0]?.summary_text || result });
-    } catch (error) {
-      console.error("Summarization error:", error);
-      res.status(500).json({ error: "Failed to summarize text" });
-    }
-  });
-
   // JavaScript minification
   app.post("/api/minify/js", async (req, res) => {
     try {
