@@ -105,6 +105,7 @@ Preferred communication style: Simple, everyday language.
 - Sticky header with navigation
 - Responsive mobile menu (hamburger)
 - Footer with quick links and branding
+- Floating feedback button (appears on all pages, opens user's email client)
 
 **Page Structure:**
 - Homepage: Hero + tool grid + blog preview
@@ -123,9 +124,12 @@ Preferred communication style: Simple, everyday language.
 
 ### Third-Party Services
 
-**Email Service (Planned):**
+**Email Service:**
 - Temp Mail tool integrates with Mail.tm API
-- No backend email service currently configured
+- Feedback system uses mailto: links to open user's email client
+- Support email: support@pixocraft.in
+- Contact form available on Contact page
+- Floating feedback button available on all pages (via FeedbackButton component)
 
 **Analytics and Tracking:**
 - No analytics services currently integrated
