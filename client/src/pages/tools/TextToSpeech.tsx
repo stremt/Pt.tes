@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Volume2, Play, Square, Zap, Lock, Globe } from "lucide-react";
+import { Volume2, Play, Pause, Square, RotateCcw, Zap, Lock, Globe, ExternalLink, Loader2 } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
+
+interface VoiceSettings {
+  voiceName: string;
+  rate: number;
+  pitch: number;
+  volume: number;
+}
 
 export default function TextToSpeech() {
   const [text, setText] = useState("");
@@ -19,7 +26,11 @@ export default function TextToSpeech() {
   const [pitch, setPitch] = useState([1]);
   const [volume, setVolume] = useState([1]);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [voicesLoading, setVoicesLoading] = useState(true);
+  const [isInIframe, setIsInIframe] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const { toast } = useToast();
 
   useSEO({
@@ -29,22 +40,50 @@ export default function TextToSpeech() {
     canonicalUrl: "https://tools.pixocraft.in/tools/text-to-speech",
   });
 
-  const loadVoices = () => {
-    const availableVoices = window.speechSynthesis.getVoices();
-    console.log('Available voices:', availableVoices.length);
-    
-    if (availableVoices.length > 0) {
-      setVoices(availableVoices);
-      setVoicesLoading(false);
-      if (!selectedVoice) {
-        setSelectedVoice(availableVoices[0].name);
+  const loadVoices = (): boolean => {
+    try {
+      const availableVoices = window.speechSynthesis.getVoices();
+      
+      if (availableVoices.length > 0) {
+        setVoices(availableVoices);
+        setVoicesLoading(false);
+        
+        const savedSettings = localStorage.getItem('tts-settings');
+        if (savedSettings) {
+          try {
+            const settings: VoiceSettings = JSON.parse(savedSettings);
+            const voiceExists = availableVoices.find(v => v.name === settings.voiceName);
+            if (voiceExists) {
+              setSelectedVoice(settings.voiceName);
+              setRate([settings.rate]);
+              setPitch([settings.pitch]);
+              setVolume([settings.volume]);
+              return true;
+            }
+          } catch (e) {
+            console.error('Failed to load saved settings:', e);
+          }
+        }
+        
+        if (!selectedVoice && availableVoices.length > 0) {
+          setSelectedVoice(availableVoices[0].name);
+        }
+        return true;
       }
-      return true;
+      return false;
+    } catch (error) {
+      console.error('Error loading voices:', error);
+      return false;
     }
-    return false;
   };
 
   useEffect(() => {
+    try {
+      setIsInIframe(window.self !== window.top);
+    } catch (e) {
+      setIsInIframe(true);
+    }
+
     if (!('speechSynthesis' in window)) {
       toast({
         title: "Not Supported",
@@ -58,27 +97,29 @@ export default function TextToSpeech() {
     const loaded = loadVoices();
     
     if (!loaded) {
-      window.speechSynthesis.onvoiceschanged = () => {
+      const voicesChangedHandler = () => {
         if (loadVoices()) {
-          window.speechSynthesis.onvoiceschanged = null;
+          if (window.speechSynthesis.onvoiceschanged) {
+            window.speechSynthesis.onvoiceschanged = null;
+          }
         }
       };
 
-      const intervals = [100, 500, 1000, 2000];
-      const timeouts = intervals.map((delay) => 
+      window.speechSynthesis.onvoiceschanged = voicesChangedHandler;
+
+      const timeoutIds = [100, 300, 500, 1000, 2000].map((delay) => 
         setTimeout(() => {
-          if (loadVoices()) {
-            timeouts.forEach(clearTimeout);
-          }
+          loadVoices();
         }, delay)
       );
 
-      setTimeout(() => {
+      const finalTimeout = setTimeout(() => {
         setVoicesLoading(false);
       }, 3000);
 
       return () => {
-        timeouts.forEach(clearTimeout);
+        timeoutIds.forEach(clearTimeout);
+        clearTimeout(finalTimeout);
         window.speechSynthesis.cancel();
       };
     }
@@ -88,16 +129,28 @@ export default function TextToSpeech() {
     };
   }, []);
 
+  useEffect(() => {
+    setCharCount(text.length);
+  }, [text]);
+
+  useEffect(() => {
+    if (selectedVoice && voices.length > 0) {
+      const settings: VoiceSettings = {
+        voiceName: selectedVoice,
+        rate: rate[0],
+        pitch: pitch[0],
+        volume: volume[0],
+      };
+      localStorage.setItem('tts-settings', JSON.stringify(settings));
+    }
+  }, [selectedVoice, rate, pitch, volume]);
+
   const handleRetryVoices = () => {
     setVoicesLoading(true);
     const loaded = loadVoices();
     if (!loaded) {
-      setTimeout(() => {
-        loadVoices();
-      }, 500);
-      setTimeout(() => {
-        setVoicesLoading(false);
-      }, 2000);
+      setTimeout(() => loadVoices(), 500);
+      setTimeout(() => setVoicesLoading(false), 2000);
     }
   };
 
@@ -114,7 +167,7 @@ export default function TextToSpeech() {
     if (voices.length === 0) {
       toast({
         title: "No Voices Available",
-        description: "Click the 'Retry Loading Voices' button below",
+        description: "Please click 'Open in New Tab' or try refreshing the page",
         variant: "destructive",
       });
       return;
@@ -131,24 +184,59 @@ export default function TextToSpeech() {
     utterance.pitch = pitch[0];
     utterance.volume = volume[0];
 
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = (event) => {
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+      setIsPaused(false);
+    };
+    
+    utterance.onend = () => {
       setIsSpeaking(false);
+      setIsPaused(false);
+      utteranceRef.current = null;
+    };
+    
+    utterance.onerror = (event) => {
       console.error('Speech synthesis error:', event);
-      toast({
-        title: "Error",
-        description: "Failed to speak text. Please try again.",
-        variant: "destructive",
-      });
+      setIsSpeaking(false);
+      setIsPaused(false);
+      utteranceRef.current = null;
+      
+      if (event.error !== 'interrupted') {
+        toast({
+          title: "Error",
+          description: "Failed to speak text. Try opening in a new tab.",
+          variant: "destructive",
+        });
+      }
     };
 
+    utteranceRef.current = utterance;
     window.speechSynthesis.speak(utterance);
+  };
+
+  const handlePause = () => {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+      window.speechSynthesis.pause();
+      setIsPaused(true);
+    }
+  };
+
+  const handleResume = () => {
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      setIsPaused(false);
+    }
   };
 
   const handleStop = () => {
     window.speechSynthesis.cancel();
     setIsSpeaking(false);
+    setIsPaused(false);
+    utteranceRef.current = null;
+  };
+
+  const handleOpenInNewTab = () => {
+    window.open(window.location.href, '_blank');
   };
 
   const faqSchema = {
@@ -201,6 +289,7 @@ export default function TextToSpeech() {
               <Badge variant="secondary">Free</Badge>
               <Badge variant="secondary">No Login</Badge>
               <Badge variant="secondary">100% Private</Badge>
+              <Badge variant="secondary">Offline Ready</Badge>
             </div>
           </div>
 
@@ -213,67 +302,90 @@ export default function TextToSpeech() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
+                {isInIframe && voices.length === 0 && !voicesLoading && (
+                  <div className="p-4 border border-yellow-500/50 rounded-lg bg-yellow-500/10 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <ExternalLink className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+                      <div className="space-y-2 text-left flex-1">
+                        <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
+                          Voice output may not work in embedded views
+                        </p>
+                        <p className="text-xs text-yellow-800 dark:text-yellow-200">
+                          The browser's text-to-speech feature is restricted in embedded/iframe contexts. 
+                          Click below to open this tool in a new tab for full functionality.
+                        </p>
+                        <Button 
+                          onClick={handleOpenInNewTab} 
+                          variant="outline" 
+                          size="sm" 
+                          className="bg-background mt-2"
+                          data-testid="button-open-new-tab"
+                        >
+                          <ExternalLink className="mr-2 h-3 w-3" />
+                          Open in New Tab
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="space-y-2">
-                  <Label>Your Text</Label>
+                  <div className="flex items-center justify-between">
+                    <Label>Your Text</Label>
+                    <span className="text-xs text-muted-foreground">
+                      {charCount} character{charCount !== 1 ? 's' : ''}
+                    </span>
+                  </div>
                   <Textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Enter text to be spoken..."
-                    className="min-h-[200px] resize-none"
+                    className="min-h-[200px] resize-y"
                     data-testid="textarea-input"
                   />
                 </div>
 
                 {voicesLoading && voices.length === 0 && (
-                  <div className="p-4 border rounded-lg bg-muted/50 text-center">
+                  <div className="p-4 border rounded-lg bg-muted/50 text-center flex items-center justify-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
                     <p className="text-sm text-muted-foreground">Loading voices...</p>
                   </div>
                 )}
 
-                {!voicesLoading && voices.length === 0 && (
-                  <div className="p-4 border border-yellow-500/50 rounded-lg bg-yellow-500/10 space-y-3">
+                {!voicesLoading && voices.length === 0 && !isInIframe && (
+                  <div className="p-4 border border-destructive/50 rounded-lg bg-destructive/10 space-y-3">
                     <div className="flex items-start gap-3">
-                      <Volume2 className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
+                      <Volume2 className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
                       <div className="space-y-2 text-left flex-1">
-                        <p className="text-sm font-medium text-yellow-900 dark:text-yellow-100">
-                          Voices not available in this view
+                        <p className="text-sm font-medium text-destructive">
+                          No voices available
                         </p>
-                        <p className="text-xs text-yellow-800 dark:text-yellow-200">
-                          The browser's text-to-speech feature doesn't work in embedded views. 
-                          Please open this tool in a new tab to use it.
+                        <p className="text-xs text-destructive/80">
+                          Your browser couldn't load any voices. Try refreshing the page or using a different browser.
                         </p>
-                        <div className="flex gap-2 pt-1">
-                          <Button 
-                            onClick={() => window.open(window.location.href, '_blank')} 
-                            variant="outline" 
-                            size="sm" 
-                            className="bg-background"
-                            data-testid="button-open-new-tab"
-                          >
-                            Open in New Tab
-                          </Button>
-                          <Button 
-                            onClick={handleRetryVoices} 
-                            variant="ghost" 
-                            size="sm"
-                            data-testid="button-retry-voices"
-                          >
-                            Retry Here
-                          </Button>
-                        </div>
+                        <Button 
+                          onClick={handleRetryVoices} 
+                          variant="outline" 
+                          size="sm"
+                          className="mt-2"
+                          data-testid="button-retry-voices"
+                        >
+                          <RotateCcw className="mr-2 h-3 w-3" />
+                          Retry Loading Voices
+                        </Button>
                       </div>
                     </div>
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-2 md:col-span-2">
                     <Label>Voice</Label>
                     <Select value={selectedVoice} onValueChange={setSelectedVoice} disabled={voices.length === 0}>
                       <SelectTrigger data-testid="select-voice">
                         <SelectValue placeholder={voices.length === 0 ? "No voices available" : "Select a voice"} />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="max-h-[300px]">
                         {voices.map((voice) => (
                           <SelectItem key={voice.name} value={voice.name}>
                             {voice.name} ({voice.lang})
@@ -291,6 +403,7 @@ export default function TextToSpeech() {
                       min={0.5}
                       max={2}
                       step={0.1}
+                      disabled={voices.length === 0}
                       data-testid="slider-rate"
                     />
                   </div>
@@ -303,11 +416,12 @@ export default function TextToSpeech() {
                       min={0.5}
                       max={2}
                       step={0.1}
+                      disabled={voices.length === 0}
                       data-testid="slider-pitch"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 md:col-span-2">
                     <Label>Volume: {Math.round(volume[0] * 100)}%</Label>
                     <Slider
                       value={volume}
@@ -315,28 +429,66 @@ export default function TextToSpeech() {
                       min={0}
                       max={1}
                       step={0.1}
+                      disabled={voices.length === 0}
                       data-testid="slider-volume"
                     />
                   </div>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                   {!isSpeaking ? (
-                    <Button onClick={handleSpeak} size="lg" className="flex-1" disabled={voices.length === 0} data-testid="button-speak">
+                    <Button 
+                      onClick={handleSpeak} 
+                      size="lg" 
+                      className="flex-1 min-w-[120px]" 
+                      disabled={voices.length === 0 || !text.trim()} 
+                      data-testid="button-speak"
+                    >
                       <Play className="mr-2 h-4 w-4" />
                       Speak
                     </Button>
                   ) : (
-                    <Button onClick={handleStop} variant="destructive" size="lg" className="flex-1" data-testid="button-stop">
-                      <Square className="mr-2 h-4 w-4" />
-                      Stop
-                    </Button>
+                    <>
+                      {!isPaused ? (
+                        <Button 
+                          onClick={handlePause} 
+                          variant="outline"
+                          size="lg" 
+                          className="flex-1 min-w-[120px]" 
+                          data-testid="button-pause"
+                        >
+                          <Pause className="mr-2 h-4 w-4" />
+                          Pause
+                        </Button>
+                      ) : (
+                        <Button 
+                          onClick={handleResume} 
+                          variant="outline"
+                          size="lg" 
+                          className="flex-1 min-w-[120px]" 
+                          data-testid="button-resume"
+                        >
+                          <Play className="mr-2 h-4 w-4" />
+                          Resume
+                        </Button>
+                      )}
+                      <Button 
+                        onClick={handleStop} 
+                        variant="destructive" 
+                        size="lg" 
+                        className="flex-1 min-w-[120px]" 
+                        data-testid="button-stop"
+                      >
+                        <Square className="mr-2 h-4 w-4" />
+                        Stop
+                      </Button>
+                    </>
                   )}
                 </div>
                 
                 {voices.length > 0 && (
                   <p className="text-xs text-muted-foreground text-center">
-                    {voices.length} voice{voices.length !== 1 ? 's' : ''} available
+                    {voices.length} voice{voices.length !== 1 ? 's' : ''} available • Settings saved automatically
                   </p>
                 )}
               </CardContent>
@@ -476,11 +628,11 @@ export default function TextToSpeech() {
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Is my text saved or uploaded anywhere?</CardTitle>
+                    <CardTitle className="text-lg">Why doesn't it work in embedded views?</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      No, your text never leaves your device. All speech synthesis happens locally in your browser, ensuring complete privacy.
+                      Browsers restrict speech synthesis in embedded/iframe contexts for security reasons. Simply click the "Open in New Tab" button to use the tool in a regular browser tab where it will work perfectly.
                     </p>
                   </CardContent>
                 </Card>
