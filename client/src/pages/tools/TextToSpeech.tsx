@@ -31,19 +31,27 @@ export default function TextToSpeech() {
   useEffect(() => {
     const loadVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
-      if (availableVoices.length > 0 && !selectedVoice) {
-        setSelectedVoice(availableVoices[0].name);
+      if (availableVoices.length > 0) {
+        setVoices(availableVoices);
+        if (!selectedVoice) {
+          setSelectedVoice(availableVoices[0].name);
+        }
       }
     };
 
     loadVoices();
-    window.speechSynthesis.onvoiceschanged = loadVoices;
+    
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    const timeoutId = setTimeout(loadVoices, 100);
 
     return () => {
+      clearTimeout(timeoutId);
       window.speechSynthesis.cancel();
     };
-  }, [selectedVoice]);
+  }, []);
 
   const handleSpeak = () => {
     if (!text.trim()) {
@@ -53,6 +61,21 @@ export default function TextToSpeech() {
         variant: "destructive",
       });
       return;
+    }
+
+    if (voices.length === 0) {
+      const availableVoices = window.speechSynthesis.getVoices();
+      if (availableVoices.length > 0) {
+        setVoices(availableVoices);
+        setSelectedVoice(availableVoices[0].name);
+      } else {
+        toast({
+          title: "Error",
+          description: "No voices available. Please try again in a moment.",
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     window.speechSynthesis.cancel();
@@ -68,11 +91,12 @@ export default function TextToSpeech() {
 
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => {
+    utterance.onerror = (event) => {
       setIsSpeaking(false);
+      console.error('Speech synthesis error:', event);
       toast({
         title: "Error",
-        description: "Failed to speak text",
+        description: "Failed to speak text. Please try again.",
         variant: "destructive",
       });
     };
