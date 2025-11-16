@@ -1,0 +1,182 @@
+You are now an elite-level Technical SEO + On-Page SEO + Site Structure optimization expert.
+Your job is to audit, repair, and upgrade the entire SEO of Pixocraft Tools (a static 200+ tool website).
+
+Your tasks:
+
+===========================
+🔥 1. FULL SEO AUDIT (AUTO)
+===========================
+Scan the entire codebase and check:
+
+• Title tag issues  
+• Meta descriptions  
+• H1, H2, structure  
+• Internal linking  
+• Missing alt tags  
+• Missing canonical tags  
+• Missing schema  
+• Duplicate content  
+• Low keyword saturation  
+• Missing keywords  
+• Performance issues  
+• Lazy-loading issues  
+• Image optimization  
+• Sitemap issues  
+• Robots tags  
+• 404 pages  
+• Mobile responsiveness  
+• CLS / LCP  
+• HTML validation  
+• Accessibility issues  
+
+AFTER scanning, automatically FIX everything.
+
+===========================
+🔥 2. FIX TECHNICAL SEO
+===========================
+Do the following automatically:
+
+✔ Add canonical tags  
+✔ Add Open Graph tags  
+✔ Add Twitter cards  
+✔ Add meta tags to every tool page  
+✔ Add JSON-LD schema:
+   - WebSite
+   - WebPage
+   - Breadcrumbs
+   - FAQ schema
+✔ Add structured breadcrumbs
+✔ Add sitemap & robots.txt if missing
+✔ Add correct alt tags to images
+✔ Add loading="lazy"
+
+===========================
+🔥 3. FIX TOOL PAGE SEO
+===========================
+For every tool page, automatically add:
+
+• Perfect title  
+• Perfect meta description  
+• SEO keywords related to that tool  
+• H1 + H2  
+• 150–250 word SEO-optimized introduction  
+• Internal links to 2–4 related tools  
+• Breadcrumb  
+• FAQ section (5–7 FAQs auto-generated)  
+• Schema for FAQ  
+• Add consistent tool description layout
+
+===========================
+🔥 4. GLOBAL SEO IMPROVEMENTS
+===========================
+Make site-wide improvements:
+
+✔ Improve navigation SEO  
+✔ Add perfect internal linking  
+✔ Add strong category pages SEO  
+✔ Improve mobile-first layout  
+✔ Add proper heading hierarchy  
+✔ Improve performance:  
+   - Minify CSS  
+   - Remove unused JS  
+   - Inline critical CSS  
+✔ Add preload for fonts  
+✔ Add compression for SVGs  
+
+===========================
+🔥 5. KEYWORD STRATEGY (AUTO)
+===========================
+For each page:
+
+• Identify correct HIGH-VOLUME keywords  
+• Add them naturally  
+• Add long-tail keywords  
+• Add LSI keywords  
+• Optimize content for RankBrain  
+• Improve semantic density  
+• Zero keyword stuffing  
+
+===========================
+🔥 6. INDIAN MARKET SEO BOOST
+===========================
+Since Pixocraft Tools is “India’s Biggest Tool Hub”, optimize for:
+
+Keywords such as:
+- india online tools
+- free online tools india
+- pdf tools india
+- text tools india
+- image tools india
+- developer tools india
+- static tools india
+- offline tools india
+
+Add them naturally.
+
+===========================
+🔥 7. AI SEO CONTENT UPGRADE
+===========================
+For homepage + all categories:
+
+✔ Rewrite content to be SUPER polished  
+✔ 300–500 word SEO-rich section  
+✔ Add strong power words  
+✔ Improve readability  
+✔ Improve conversions  
+✔ Make content rank-ready  
+
+===========================
+🔥 8. PERFORMANCE OPTIMIZATION
+===========================
+Make sure:
+
+• Pages get 95+ Lighthouse score  
+• No blocking scripts  
+• No unnecessary CSS/JS  
+• All images → optimized  
+• All icons → SVG only  
+• Remove any unused assets  
+• Improve CLS
+
+===========================
+🔥 9. ERROR FIXING
+===========================
+Detect and fix:
+
+✔ Missing file references  
+✔ Bad imports  
+✔ Incorrect canonical links  
+✔ 404 internal links  
+✔ JS errors in console  
+✔ HTML errors  
+✔ Overlapping layout  
+✔ Mobile UI issues
+
+===========================
+🔥 10. FINAL OUTPUT
+===========================
+When done, provide:
+
+• Exact list of improvements made  
+• Any remaining issues  
+• Updated code  
+• Updated SEO content  
+• Updated metadata  
+• Updated schemas  
+• Updated tags  
+
+====================================
+⚡ REQUIRED: MAKE EVERYTHING PERFECT
+====================================
+
+Make the SEO so strong that:
+✔ Google considers Pixocraft Tools → top Indian online tool hub  
+✔ Every tool page is perfectly optimized  
+✔ Site becomes eligible for rich results  
+✔ Maximum search visibility  
+✔ Extreme keyword coverage  
+✔ Top ranking in all categories  
+
+DO NOT ASK QUESTIONS.  
+DO NOT WAIT FOR CONFIRMATION.  
+SCAN → FIX → IMPROVE → DELIVER.
