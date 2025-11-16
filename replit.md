@@ -2,9 +2,9 @@
 
 ## Overview
 
-Pixocraft Tools is a multi-tool web platform offering free, privacy-focused online utilities. The application is built as a single-page application (SPA) with a React frontend and Express backend, designed to provide fast, SEO-optimized tools without requiring user registration. The platform currently includes 15 tools: Temp Mail Generator, Password Generator, QR Code Maker, Image Compressor, Image Resizer, Text Case Converter, Word Counter, JSON Formatter, URL Encoder/Decoder, Base64 Encoder/Decoder, Barcode Generator, Color Picker, Username Generator, Password Strength Checker, and AI Text Summarizer, with architecture designed for easy expansion.
+Pixocraft Tools is a comprehensive multi-tool web platform offering 175+ free, privacy-focused online utilities. The application is built as a single-page application (SPA) with a React frontend and Express backend, featuring production-ready SEO optimization with comprehensive schema.org markup, dynamic sitemap generation, and Indian market keyword targeting.
 
-The project targets the domain `tools.pixocraft.in` and emphasizes organic search visibility through dynamic SEO, unique tool layouts, and a JSON-based blog system.
+The project targets the domain `tools.pixocraft.in` and emphasizes organic search visibility through structured data, breadcrumb navigation, sitelinks search box integration, and a comprehensive sitemap covering all 175+ tools.
 
 ## User Preferences
 
@@ -81,23 +81,33 @@ Preferred communication style: Simple, everyday language.
 
 ### SEO and Content Strategy
 
-**SEO Implementation:**
-- Custom `useSEO` hook for managing document metadata
-- Dynamic title, description, keywords per page
-- Canonical URLs for all pages
-- Open Graph and structured data (JSON-LD) support
-- Separate meta tags for blog articles with author and publish time
+**Comprehensive SEO Implementation (November 2025):**
+- Custom `useSEO` hook for managing document metadata with schema.org integration
+- Dynamic title, description, keywords per page optimized for Indian market
+- Canonical URLs and Open Graph tags for all pages
+- Production-ready structured data generators in `client/src/lib/seo.tsx`:
+  - `generateWebPageSchema()` - Basic WebPage markup for all pages
+  - `generateSoftwareApplicationSchema()` - Tool-specific application schema
+  - `generateBreadcrumbSchema()` - Breadcrumb navigation schema
+  - `generateItemListSchema()` - Tool collection schema for listings
+  - `generateSitelinkSearchActionSchema()` - Google sitelinks search box
+- Reusable `<Breadcrumb>` component with automatic schema injection
+- All schemas follow Google's guidelines (no fabricated ratings/reviews)
+
+**Sitemap System:**
+- Comprehensive XML sitemap at `/sitemap.xml` with 184 URLs:
+  - 175+ tool pages (priority: 0.9, weekly updates)
+  - 6 static pages (homepage, tools, blogs, about, contact, privacy)
+  - 3 blog posts (priority: 0.7, monthly updates)
+- Production-ready implementation with embedded tool paths
+- Robots.txt configured at `/robots.txt` pointing to sitemap
+- **Maintenance Note:** Tool paths are embedded in `server/routes.ts` sitemap handler. When adding new tools, update the `toolPaths` array to keep sitemap in sync.
 
 **Blog System:**
 - JSON-based content storage (`client/public/blogs/data.json`)
 - Structured content with type-safe schema
 - Support for various content blocks (headings, paragraphs, lists, code, images)
 - Related tools linking for cross-promotion
-
-**Sitemap Generation:**
-- Dynamically generated XML sitemap
-- Includes all static pages, tool pages, and blog posts
-- Priority and change frequency metadata for SEO
 
 ### Component Architecture
 

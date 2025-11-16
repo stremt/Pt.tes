@@ -124,8 +124,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Generate sitemap.xml
-  app.get("/sitemap.xml", async (req, res) => {
+  // Generate sitemap.xml - Comprehensive sitemap with ALL 175+ tools for maximum SEO coverage
+  app.get("/sitemap.xml", (req, res) => {
     const baseUrl = "https://tools.pixocraft.in";
     const currentDate = new Date().toISOString().split('T')[0];
     
@@ -139,24 +139,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/privacy", priority: "0.5", changefreq: "monthly" },
     ];
 
-    // Tool pages
-    const toolPages = [
-      { url: "/tools/temp-mail", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/password-generator", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/qr-maker", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/image-compressor", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/text-case-converter", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/word-counter", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/json-formatter", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/url-encoder", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/color-picker", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/username-generator", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/password-strength-checker", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/text-summarizer", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/image-resizer", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/base64-encoder", priority: "0.9", changefreq: "weekly" },
-      { url: "/tools/barcode-generator", priority: "0.9", changefreq: "weekly" },
+    // COMPREHENSIVE Tool pages - All 175+ tools for maximum SEO coverage
+    const toolPaths = [
+      "/tools/temp-mail", "/tools/password-generator", "/tools/qr-maker", "/tools/image-compressor",
+      "/tools/text-case-converter", "/tools/word-counter", "/tools/json-formatter", "/tools/url-encoder",
+      "/tools/color-picker", "/tools/username-generator", "/tools/password-strength-checker", "/tools/text-summarizer",
+      "/tools/image-resizer", "/tools/base64-encoder", "/tools/barcode-generator", "/tools/json-csv-converter",
+      "/tools/json-yaml-converter", "/tools/code-beautifier", "/tools/css-minifier", "/tools/js-minifier",
+      "/tools/html-beautifier", "/tools/regex-tester", "/tools/markdown-editor", "/tools/api-snippet-builder",
+      "/tools/text-differ", "/tools/image-to-base64", "/tools/base64-to-image", "/tools/hex-rgb-converter",
+      "/tools/color-palette-generator", "/tools/gradient-generator", "/tools/box-shadow-generator", "/tools/border-radius-generator",
+      "/tools/image-cropper", "/tools/random-number-generator", "/tools/favicon-generator", "/tools/file-to-base64",
+      "/tools/html-encoder-decoder", "/tools/emoji-remover", "/tools/text-repeater", "/tools/sentence-case-converter",
+      "/tools/utm-builder", "/tools/meta-tag-generator", "/tools/og-preview", "/tools/timer-stopwatch",
+      "/tools/invoice-generator", "/tools/receipt-generator", "/tools/quotation-generator", "/tools/area-converter",
+      "/tools/commission-calculator", "/tools/emi-calculator", "/tools/percentage-calculator", "/tools/age-calculator",
+      "/tools/time-difference-calculator", "/tools/expense-tracker", "/tools/text-to-speech", "/tools/speech-to-text",
+      "/tools/unit-converter", "/tools/pdf-merger", "/tools/pdf-splitter", "/tools/pdf-rotator",
+      "/tools/pdf-to-image", "/tools/image-to-pdf", "/tools/character-map", "/tools/ascii-converter",
+      "/tools/text-diff", "/tools/days-calculator", "/tools/stopwatch", "/tools/countdown-timer",
+      "/tools/currency-formatter", "/tools/loan-calculator", "/tools/mortgage-calculator", "/tools/tip-calculator",
+      "/tools/average-calculator", "/tools/random-string-generator", "/tools/fraction-calculator", "/tools/roman-numeral-converter",
+      "/tools/text-cleaner", "/tools/text-encrypt-decrypt", "/tools/hash-generator", "/tools/number-sorter",
+      "/tools/pay-split-calculator", "/tools/matrix-calculator", "/tools/case-randomizer", "/tools/title-case-converter",
+      "/tools/slug-generator", "/tools/morse-code-translator", "/tools/nato-phonetic-converter", "/tools/superscript-generator",
+      "/tools/subscript-generator", "/tools/glitch-text-generator", "/tools/word-frequency-counter", "/tools/text-spacer",
+      "/tools/random-emoji-generator", "/tools/dominant-color-finder", "/tools/image-pixelator", "/tools/image-blur-tool",
+      "/tools/exif-remover", "/tools/gradient-text-generator", "/tools/button-css-generator", "/tools/flexbox-playground",
+      "/tools/css-grid-generator", "/tools/outline-css-generator", "/tools/variable-font-viewer", "/tools/random-hex-color",
+      "/tools/palette-shuffler", "/tools/advanced-box-shadow", "/tools/text-highlight-generator", "/tools/fancy-text-generator",
+      "/tools/ascii-art-generator", "/tools/symbol-combiner", "/tools/text-rotator", "/tools/pangram-checker",
+      "/tools/random-word-generator", "/tools/json-tree-viewer", "/tools/css-clamp-generator", "/tools/css-animation-generator",
+      "/tools/html-minifier", "/tools/extract-numbers", "/tools/remove-numbers", "/tools/image-darken-tool",
+      "/tools/image-lighten-tool", "/tools/image-mirror-tool", "/tools/image-invert-tool", "/tools/image-grayscale-tool",
+      "/tools/image-rotate-tool", "/tools/signature-pad-tool", "/tools/prime-number-checker", "/tools/prime-number-generator",
+      "/tools/prime-factorization", "/tools/lcm-hcf-calculator", "/tools/ratio-simplifier", "/tools/percentage-change-calculator",
+      "/tools/mean-median-mode-calculator", "/tools/triangle-area-calculator", "/tools/circle-calculator", "/tools/fibonacci-generator",
+      "/tools/quadratic-solver", "/tools/modulo-calculator", "/tools/exponent-calculator", "/tools/simple-interest-calculator",
+      "/tools/compound-interest-calculator", "/tools/age-gap-calculator", "/tools/height-converter", "/tools/random-animal-generator",
+      "/tools/random-object-generator", "/tools/random-fake-address", "/tools/random-movie-suggestion", "/tools/random-hindi-name",
+      "/tools/random-tech-stack", "/tools/random-startup-idea", "/tools/random-riddle", "/tools/random-task",
+      "/tools/random-superhero-name", "/tools/random-truth-dare", "/tools/random-motivational-quote", "/tools/pdf-compressor",
+      "/tools/pdf-password-remover", "/tools/pdf-watermark-adder", "/tools/pdf-watermark-remover", "/tools/heic-to-jpg",
+      "/tools/jpg-to-png", "/tools/png-to-jpg", "/tools/video-to-gif", "/tools/gif-compressor",
+      "/tools/mp3-cutter", "/tools/audio-to-mp3", "/tools/video-compressor", "/tools/background-remover",
+      "/tools/image-upscaler", "/tools/excel-to-pdf", "/tools/excel-viewer", "/tools/html-to-pdf",
+      "/tools/audio-noise-remover", "/tools/gif-to-mp4", "/tools/mp4-to-mp3"
     ];
+    
+    const toolPages = toolPaths.map(path => ({
+      url: path,
+      priority: "0.9",
+      changefreq: "weekly"
+    }));
 
     // Blog posts (dynamically loaded)
     const blogPages = [

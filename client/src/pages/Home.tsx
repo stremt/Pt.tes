@@ -29,9 +29,9 @@ import {
 
 export default function Home() {
   useSEO({
-    title: "Pixocraft Tools — India's Biggest Free Online Tool Hub (200+ Tools)",
-    description: "Access 200+ fast, fully browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup. No tracking. 100% private & offline supported. India's biggest free online tool hub.",
-    keywords: "pixocraft tools, India's biggest tool hub, free online tools, text tools, image tools, PDF tools, developer tools, offline tools, static tools, privacy tools, fastest online tools, 200+ tools",
+    title: "Pixocraft Tools — India's Biggest Free Online Tool Hub (200+ Tools) | Free Tools India",
+    description: "India's biggest free online tool hub with 200+ fast, browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup, no tracking, 100% private & offline supported. Best free online tools in India.",
+    keywords: "pixocraft tools, India's biggest tool hub, free online tools india, india online tools, text tools india, image tools india, PDF tools india, developer tools india, offline tools india, static tools india, privacy tools, fastest online tools, 200+ tools, free tools india, best online tools india, browser tools india",
     canonicalUrl: "https://tools.pixocraft.in/",
   });
 
@@ -39,14 +39,18 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Pixocraft Tools",
-    "alternateName": "India's Biggest Free Online Tool Hub",
+    "alternateName": ["India's Biggest Free Online Tool Hub", "Free Tools India", "Online Tools India"],
     "url": "https://tools.pixocraft.in",
     "logo": "https://tools.pixocraft.in/favicon.png",
-    "description": "India's biggest free online tool hub with 200+ static, offline-supported tools for text, images, PDF, coding, math, AI, and productivity",
+    "description": "India's biggest free online tool hub with 200+ static, offline-supported tools for text, images, PDF, coding, math, AI, and productivity. Best free online tools in India.",
+    "areaServed": "IN",
+    "slogan": "India's Biggest Free Online Tool Hub",
     "contactPoint": {
       "@type": "ContactPoint",
       "email": "support@pixocraft.in",
-      "contactType": "Customer Support"
+      "contactType": "Customer Support",
+      "areaServed": "IN",
+      "availableLanguage": "en"
     }
   };
 
@@ -54,12 +58,21 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Pixocraft Tools",
-    "alternateName": "India's Biggest Tool Hub",
+    "alternateName": ["India's Biggest Tool Hub", "Free Tools India"],
     "url": "https://tools.pixocraft.in",
-    "description": "200+ free browser-based tools including temp mail, password generator, QR code maker, image compressor, PDF tools, and more",
+    "description": "200+ free browser-based tools including temp mail, password generator, QR code maker, image compressor, PDF tools, and more. India's biggest free online tool hub.",
+    "inLanguage": "en-IN",
     "publisher": {
       "@type": "Organization",
       "name": "Pixocraft Tools"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://tools.pixocraft.in/tools?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
     }
   };
 

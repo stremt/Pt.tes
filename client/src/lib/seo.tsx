@@ -166,6 +166,160 @@ export function generateArticleSchema({
   };
 }
 
+// WebPage Schema Generator  
+export interface WebPageSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+}
+
+export function generateWebPageSchema({
+  name,
+  description,
+  url,
+}: WebPageSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": name,
+    "description": description,
+    "url": url,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pixocraft Tools",
+      "url": "https://tools.pixocraft.in",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tools.pixocraft.in/favicon.png"
+      }
+    },
+    "inLanguage": "en-IN",
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://tools.pixocraft.in"
+    }
+  };
+}
+
+// SoftwareApplication Schema for Tool Pages
+export interface SoftwareApplicationSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory: string;
+  operatingSystem?: string;
+  offers?: {
+    price: string;
+    priceCurrency: string;
+  };
+}
+
+export function generateSoftwareApplicationSchema({
+  name,
+  description,
+  url,
+  applicationCategory = "UtilityApplication",
+  operatingSystem = "Any",
+  offers = { price: "0", priceCurrency: "INR" }
+}: SoftwareApplicationSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": name,
+    "description": description,
+    "url": url,
+    "applicationCategory": applicationCategory,
+    "operatingSystem": operatingSystem,
+    "offers": {
+      "@type": "Offer",
+      "price": offers.price,
+      "priceCurrency": offers.priceCurrency
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pixocraft Tools",
+      "url": "https://tools.pixocraft.in"
+    },
+    "inLanguage": "en-IN",
+    "browserRequirements": "Requires JavaScript. Works offline.",
+    "softwareVersion": "1.0"
+  };
+}
+
+// Breadcrumb Schema Generator
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  };
+}
+
+// ItemList Schema for Category Pages
+export interface ItemListSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  items: Array<{
+    name: string;
+    url: string;
+    description: string;
+  }>;
+}
+
+export function generateItemListSchema({
+  name,
+  description,
+  url,
+  items
+}: ItemListSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": name,
+    "description": description,
+    "url": url,
+    "numberOfItems": items.length,
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "SoftwareApplication",
+        "name": item.name,
+        "url": item.url,
+        "description": item.description
+      }
+    }))
+  };
+}
+
+// Sitelinks SearchAction Schema for Homepage
+export function generateSitelinksSearchSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://tools.pixocraft.in",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://tools.pixocraft.in/tools?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+}
+
 // Default OG Images for tool pages
 export const OG_IMAGES = {
   home: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=630&fit=crop",
