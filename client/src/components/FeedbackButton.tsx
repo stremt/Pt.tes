@@ -46,7 +46,7 @@ export function FeedbackButton({ toolName }: FeedbackButtonProps) {
         <DialogTrigger asChild>
           <Button
             size="icon"
-            className="fixed bottom-6 right-6 rounded-full shadow-lg z-[9999]"
+            className="!fixed !bottom-6 !right-6 left-auto rounded-full shadow-lg !z-[9999]"
             data-testid="button-feedback-floating"
             aria-label="Send Feedback"
           >
