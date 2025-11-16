@@ -2,12 +2,14 @@ import { z } from "zod";
 
 // Blog post schema
 export const blogContentItemSchema = z.object({
-  type: z.enum(["h2", "h3", "p", "ul", "ol", "code", "image"]),
+  type: z.enum(["h1", "h2", "h3", "h4", "h5", "h6", "p", "ul", "ol", "code", "image", "blockquote"]),
   text: z.string().optional(),
-  items: z.array(z.string()).optional(), // for lists
-  src: z.string().optional(), // for images
-  alt: z.string().optional(), // for images
-  caption: z.string().optional(), // for images
+  items: z.array(z.string()).optional(),
+  src: z.string().optional(),
+  alt: z.string().optional(),
+  caption: z.string().optional(),
+  language: z.string().optional(),
+  id: z.string().optional(),
 });
 
 export const blogPostSchema = z.object({
@@ -15,7 +17,11 @@ export const blogPostSchema = z.object({
   title: z.string(),
   date: z.string(),
   author: z.string(),
+  category: z.string(),
+  tags: z.array(z.string()),
   featuredImage: z.string().optional(),
+  views: z.number().default(0),
+  readingTime: z.number().optional(),
   meta: z.object({
     description: z.string(),
     keywords: z.string(),
@@ -26,6 +32,18 @@ export const blogPostSchema = z.object({
 
 export type BlogPost = z.infer<typeof blogPostSchema>;
 export type BlogContentItem = z.infer<typeof blogContentItemSchema>;
+
+export const blogCommentSchema = z.object({
+  id: z.string(),
+  postSlug: z.string(),
+  author: z.string(),
+  email: z.string().optional(),
+  content: z.string(),
+  date: z.string(),
+  replies: z.array(z.any()).optional(),
+});
+
+export type BlogComment = z.infer<typeof blogCommentSchema>;
 
 // Contact form schema
 export const contactFormSchema = z.object({

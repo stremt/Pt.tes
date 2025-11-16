@@ -59,19 +59,7 @@
         "text": "By using a disposable email, you can sign up for services without exposing your real email address to potential data breaches, spam, or tracking. It's an essential tool for anyone who values their online privacy."
       }
     ],
-    "relatedTools": [
-      "temp-mail",
-      "password-generator"
-    ],
-    "category": "Privacy & Security",
-    "tags": [
-      "email",
-      "privacy",
-      "security",
-      "temp-mail"
-    ],
-    "views": 1250,
-    "readingTime": 1
+    "relatedTools": ["temp-mail", "password-generator"]
   },
   {
     "slug": "password-security-best-practices",
@@ -129,19 +117,7 @@
         "text": "Many people still use weak passwords like '123456' or 'password'. These are easily cracked by automated tools. Avoid using personal information like birthdays, names, or common words in your passwords."
       }
     ],
-    "relatedTools": [
-      "password-generator",
-      "temp-mail"
-    ],
-    "category": "Privacy & Security",
-    "tags": [
-      "security",
-      "passwords",
-      "cybersecurity",
-      "best-practices"
-    ],
-    "views": 890,
-    "readingTime": 1
+    "relatedTools": ["password-generator", "temp-mail"]
   },
   {
     "slug": "qr-codes-marketing-guide",
@@ -185,19 +161,7 @@
         "text": "To ensure your QR code marketing is effective, always test codes before printing, make sure they're large enough to scan easily, and provide clear instructions on what users will find when they scan. Always include a call-to-action near your QR code."
       }
     ],
-    "relatedTools": [
-      "qr-maker",
-      "image-compressor"
-    ],
-    "category": "Marketing & Business",
-    "tags": [
-      "qr-codes",
-      "marketing",
-      "digital-marketing",
-      "business"
-    ],
-    "views": 650,
-    "readingTime": 1
+    "relatedTools": ["qr-maker", "image-compressor"]
   },
   {
     "slug": "why-use-temporary-email-top-use-cases",
@@ -349,19 +313,7 @@
         "text": "Ready to start protecting your privacy? Try Pixocraft Tools' Temp Mail today and experience the freedom of disposable email addresses. For even more online security, combine temp mail with our Password Generator to create strong, unique passwords for every account."
       }
     ],
-    "relatedTools": [
-      "temp-mail",
-      "password-generator"
-    ],
-    "category": "Privacy & Security",
-    "tags": [
-      "temp-mail",
-      "privacy",
-      "email",
-      "use-cases"
-    ],
-    "views": 1450,
-    "readingTime": 6
+    "relatedTools": ["temp-mail", "password-generator"]
   },
   {
     "slug": "strong-password-guide-2026",
@@ -545,19 +497,7 @@
         "text": "Remember: your passwords are the keys to your digital life. Treat them with the seriousness they deserve, and stay one step ahead of cyber threats in 2026 and beyond."
       }
     ],
-    "relatedTools": [
-      "password-generator",
-      "temp-mail"
-    ],
-    "category": "Privacy & Security",
-    "tags": [
-      "passwords",
-      "security",
-      "cybersecurity",
-      "2026"
-    ],
-    "views": 1100,
-    "readingTime": 8
+    "relatedTools": ["password-generator", "temp-mail"]
   },
   {
     "slug": "qr-codes-small-business-guide",
@@ -813,17 +753,7 @@
         "text": "The key is to start now. Begin with one or two simple applications—perhaps a QR code on your business card and another encouraging Google reviews. As you see the results and become comfortable with the technology, expand to more sophisticated uses. With free tools like Pixocraft Tools' QR Code Generator, there's no reason not to give this powerful marketing tool a try."
       }
     ],
-    "relatedTools": [
-      "qr-maker",
-      "image-compressor"
-    ],
-    "category": "Tools & Utilities",
-    "tags": [
-      "tools",
-      "utilities"
-    ],
-    "views": 0,
-    "readingTime": 9
+    "relatedTools": ["qr-maker", "image-compressor"]
   },
   {
     "slug": "image-compression-web-performance",
@@ -1055,16 +985,6 @@
         "text": "Image optimization shouldn't be an afterthought—it should be a standard part of your web development workflow. Whether you're building a new site or improving an existing one, proper image compression can dramatically improve performance, user experience, and search rankings. Start today by auditing your most important pages. Identify large, unoptimized images. Run them through Pixocraft Tools' Image Compressor. Implement lazy loading and responsive images. Measure the impact on your page load times and Core Web Vitals scores. You'll likely see immediate, dramatic improvements—and your users will thank you with better engagement and higher conversion rates."
       }
     ],
-    "relatedTools": [
-      "image-compressor",
-      "qr-maker"
-    ],
-    "category": "Tools & Utilities",
-    "tags": [
-      "tools",
-      "utilities"
-    ],
-    "views": 0,
-    "readingTime": 8
+    "relatedTools": ["image-compressor", "qr-maker"]
   }
 ]

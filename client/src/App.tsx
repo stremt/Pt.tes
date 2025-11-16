@@ -208,6 +208,10 @@ import GIFtoMP4 from "@/pages/tools/GIFtoMP4";
 import MP4toMP3 from "@/pages/tools/MP4toMP3";
 import Blogs from "@/pages/Blogs";
 import BlogPost from "@/pages/BlogPost";
+import BlogCategory from "@/pages/BlogCategory";
+import BlogTag from "@/pages/BlogTag";
+import BlogEditor from "@/pages/BlogEditor";
+import Sitemap from "@/pages/Sitemap";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
@@ -427,6 +431,10 @@ function Router() {
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
         <Route path="/blogs" component={Blogs} />
+        <Route path="/blog-editor" component={BlogEditor} />
+        <Route path="/sitemap-generator" component={Sitemap} />
+        <Route path="/blogs/category/:category" component={BlogCategory} />
+        <Route path="/blogs/tag/:tag" component={BlogTag} />
         <Route path="/blogs/:slug" component={BlogPost} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
