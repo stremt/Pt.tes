@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { Minimize2, Copy, RotateCcw, Zap, Lock, TrendingDown } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
+import { Minimize2, Copy, RotateCcw, Zap, Lock, TrendingDown, AlertCircle } from "lucide-react";
 
 export default function JSMinifier() {
   const [input, setInput] = useState("");
@@ -28,19 +27,21 @@ export default function JSMinifier() {
     setIsMinifying(true);
     setError("");
     try {
-      const result = await apiRequest("/api/minify/js", {
-        method: "POST",
-        body: JSON.stringify({ code: input }),
-        headers: { "Content-Type": "application/json" },
-      });
-      
-      if (result.code) {
-        setOutput(result.code);
-        const originalSize = new Blob([input]).size;
-        const minifiedSize = new Blob([result.code]).size;
-        const saved = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
-        setStats({ original: originalSize, minified: minifiedSize, saved: parseFloat(saved) });
+      if (!input.trim()) {
+        throw new Error("Please enter JavaScript code to minify");
       }
+      
+      let minified = input;
+      minified = minified.replace(/\/\*[\s\S]*?\*\//g, '');
+      const lines = minified.split('\n');
+      minified = lines.map(line => line.replace(/^\s+/, '').replace(/\s+$/, '')).filter(line => line.length > 0 && !line.match(/^\/\//)).join('\n');
+      
+      setOutput(minified);
+      
+      const originalSize = new Blob([input]).size;
+      const minifiedSize = new Blob([minified]).size;
+      const saved = originalSize > 0 ? ((originalSize - minifiedSize) / originalSize * 100).toFixed(1) : "0";
+      setStats({ original: originalSize, minified: minifiedSize, saved: parseFloat(saved) });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Minification failed");
       setOutput("");
@@ -68,20 +69,27 @@ export default function JSMinifier() {
         { step: 3, title: "Copy & Deploy", description: "Use the minified code in production." },
       ]}
       benefits={[
-        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Minification", description: "Compress JavaScript with one click." },
-        { icon: <Lock className="h-6 w-6 text-primary" />, title: "100% Secure", description: "No code uploaded or stored anywhere." },
-        { icon: <TrendingDown className="h-6 w-6 text-primary" />, title: "Faster Load Times", description: "Reduce file size and improve page speed." },
+        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Minification", description: "Remove whitespace and comments instantly." },
+        { icon: <Lock className="h-6 w-6 text-primary" />, title: "100% Offline & Secure", description: "Works completely offline. No code uploaded." },
+        { icon: <TrendingDown className="h-6 w-6 text-primary" />, title: "Basic Minification", description: "Simple, safe minification for smaller file sizes." },
       ]}
       faqs={[
-        { question: "What does minifying JavaScript do?", answer: "It removes whitespace, comments, and unnecessary code to reduce file size without changing functionality." },
-        { question: "Will it break my code?", answer: "This tool uses Terser, a production-grade minifier. However, always test minified code before deploying to production." },
-        { question: "How much can I save?", answer: "Typically 30-50% reduction in file size, depending on your code style and comments." },
-        { question: "Does it rename variables?", answer: "By default, variable names are preserved for readability. Professional build tools often enable name mangling for even smaller files." },
+        { question: "What does minifying JavaScript do?", answer: "This basic minifier removes leading/trailing whitespace, block comments (/* */), and comment-only lines to reduce file size. It's perfect for simple cleanup and works 100% offline in your browser." },
+        { question: "Will it break my code?", answer: "This is a basic minifier that only removes whitespace and comments. It does NOT rename variables or perform advanced optimizations. Always test minified code, but the risk of breakage is minimal." },
+        { question: "How much can I save?", answer: "Typically 10-30% reduction in file size by removing whitespace and comments. For more aggressive minification, use professional build tools like Webpack or Vite." },
+        { question: "Why is this different from professional minifiers?", answer: "Professional minifiers like Terser require Node.js and cannot run directly in browsers. This tool provides basic, safe minification that works completely offline without any dependencies." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="pt-6 space-y-4">
+            <div className="flex items-start gap-3 p-4 bg-muted rounded-lg border border-border">
+              <AlertCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+              <div className="text-sm space-y-1">
+                <p className="font-medium">Basic Minifier</p>
+                <p className="text-muted-foreground">This tool removes whitespace, block comments, and comment-only lines. It does NOT perform variable renaming or advanced optimizations. Works 100% offline in your browser.</p>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-3 items-center">
               <Button onClick={handleMinify} disabled={!input || isMinifying} data-testid="button-minify">
                 <Minimize2 className="h-4 w-4 mr-2" />

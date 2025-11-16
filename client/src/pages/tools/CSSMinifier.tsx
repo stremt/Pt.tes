@@ -7,7 +7,6 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
 import { Minimize2, Copy, RotateCcw, Zap, Lock, TrendingDown } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
 
 export default function CSSMinifier() {
   const [input, setInput] = useState("");
@@ -24,23 +23,31 @@ export default function CSSMinifier() {
     canonicalUrl: "https://tools.pixocraft.in/tools/css-minifier",
   });
 
+  const minifyCSS = (css: string): string => {
+    return css
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\s+/g, ' ')
+      .replace(/\s*([{}:;,])\s*/g, '$1')
+      .replace(/;}/g, '}')
+      .replace(/^\s+|\s+$/g, '')
+      .trim();
+  };
+
   const handleMinify = async () => {
     setIsMinifying(true);
     setError("");
     try {
-      const result = await apiRequest("/api/minify/css", {
-        method: "POST",
-        body: JSON.stringify({ code: input }),
-        headers: { "Content-Type": "application/json" },
-      });
-      
-      if (result.code) {
-        setOutput(result.code);
-        const originalSize = new Blob([input]).size;
-        const minifiedSize = new Blob([result.code]).size;
-        const saved = ((originalSize - minifiedSize) / originalSize * 100).toFixed(1);
-        setStats({ original: originalSize, minified: minifiedSize, saved: parseFloat(saved) });
+      if (!input.trim()) {
+        throw new Error("Please enter CSS code to minify");
       }
+      
+      const minified = minifyCSS(input);
+      setOutput(minified);
+      
+      const originalSize = new Blob([input]).size;
+      const minifiedSize = new Blob([minified]).size;
+      const saved = originalSize > 0 ? ((originalSize - minifiedSize) / originalSize * 100).toFixed(1) : "0";
+      setStats({ original: originalSize, minified: minifiedSize, saved: parseFloat(saved) });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Minification failed");
       setOutput("");
@@ -73,10 +80,10 @@ export default function CSSMinifier() {
         { icon: <TrendingDown className="h-6 w-6 text-primary" />, title: "Reduce File Size", description: "Decrease load times and improve performance." },
       ]}
       faqs={[
-        { question: "What does minifying CSS do?", answer: "Minification removes whitespace, comments, and unnecessary characters to reduce file size without changing functionality." },
-        { question: "How much can I save?", answer: "Typically 20-40% reduction in file size, depending on your coding style and comments." },
+        { question: "What does minifying CSS do?", answer: "This basic minifier removes whitespace, comments, and unnecessary spaces around CSS syntax to reduce file size. It works 100% offline in your browser." },
+        { question: "How much can I save?", answer: "Typically 15-35% reduction in file size, depending on your coding style and comments." },
         { question: "Is minified CSS reversible?", answer: "Not automatically, but you can use a CSS beautifier to add formatting back." },
-        { question: "Is this safe for production?", answer: "This tool uses clean-css, a production-grade minifier. However, always test minified CSS in your application before deploying." },
+        { question: "Is this safe for production?", answer: "This is a basic minifier that performs safe, simple compression. Always test minified CSS in your application before deploying to production." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">

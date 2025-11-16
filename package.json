@@ -103,6 +103,7 @@
     "tailwindcss-animate": "^1.0.7",
     "terser": "^5.44.1",
     "tw-animate-css": "^1.2.5",
+    "uglify-js": "^3.19.3",
     "vaul": "^1.1.2",
     "wouter": "^3.3.5",
     "ws": "^8.18.0",
