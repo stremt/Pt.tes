@@ -212,6 +212,17 @@ export default function Contact() {
                     support@pixocraft.in
                   </a>
                 </div>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full"
+                  data-testid="button-email-direct"
+                >
+                  <a href="mailto:support@pixocraft.in">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Email Us Directly
+                  </a>
+                </Button>
               </CardContent>
             </Card>
 
