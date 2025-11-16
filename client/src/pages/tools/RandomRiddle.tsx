@@ -40,7 +40,7 @@ export default function RandomRiddle() {
   const faqItems: FAQItem[] = [
     {
       question: "How many riddles are available?",
-      answer: "We have 8+ classic riddles with varying difficulty levels, perfect for all ages."
+      answer: "We have 900+ riddles with varying difficulty levels, perfect for all ages."
     }
   ];
 
