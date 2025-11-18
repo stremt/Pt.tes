@@ -1,7 +1,7 @@
 import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { contactFormSchema } from "@shared/schema";
+import { contactFormSchema, tempMailAccountSchema, tempMailAuthSchema } from "@shared/schema";
 import express from "express";
 import multer from "multer";
 import mammoth from "mammoth";
@@ -121,6 +121,184 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: false, 
         error: error instanceof Error ? error.message : "Invalid form data" 
       });
+    }
+  });
+
+  // Temp Mail API Proxy Routes
+  app.get("/api/tempmail/domains", async (req, res) => {
+    try {
+      const response = await fetch("https://api.mail.tm/domains");
+      
+      if (!response.ok) {
+        return res.status(response.status).json({ 
+          error: "Failed to fetch domains from mail service" 
+        });
+      }
+      
+      const contentLength = response.headers.get("content-length");
+      if (response.status === 204 || contentLength === "0") {
+        return res.json({ "@type": "hydra:Collection", "hydra:member": [] });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail domains error:", error);
+      res.status(500).json({ error: "Failed to fetch domains" });
+    }
+  });
+
+  app.post("/api/tempmail/account", async (req, res) => {
+    try {
+      const validatedData = tempMailAccountSchema.parse(req.body);
+      
+      const response = await fetch("https://api.mail.tm/accounts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
+      
+      if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const errorData = await response.json();
+          return res.status(response.status).json(errorData);
+        }
+        return res.status(response.status).json({ 
+          error: "Account creation failed" 
+        });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail account creation error:", error);
+      if (error instanceof Error && error.name === "ZodError") {
+        return res.status(400).json({ 
+          error: "Invalid request data",
+          details: error.message 
+        });
+      }
+      res.status(500).json({ error: "Failed to create account" });
+    }
+  });
+
+  app.post("/api/tempmail/token", async (req, res) => {
+    try {
+      const validatedData = tempMailAuthSchema.parse(req.body);
+      
+      const response = await fetch("https://api.mail.tm/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
+      
+      if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const errorData = await response.json();
+          return res.status(response.status).json(errorData);
+        }
+        return res.status(response.status).json({ 
+          error: "Authentication failed" 
+        });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail token error:", error);
+      if (error instanceof Error && error.name === "ZodError") {
+        return res.status(400).json({ 
+          error: "Invalid request data",
+          details: error.message 
+        });
+      }
+      res.status(500).json({ error: "Failed to get token" });
+    }
+  });
+
+  app.get("/api/tempmail/me", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader) {
+        return res.status(401).json({ error: "No authorization token provided" });
+      }
+
+      const response = await fetch("https://api.mail.tm/me", {
+        headers: {
+          Authorization: authHeader,
+        },
+      });
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          return res.status(401).json({ 
+            error: "Invalid or expired token" 
+          });
+        }
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const errorData = await response.json();
+          return res.status(response.status).json(errorData);
+        }
+        return res.status(response.status).json({ 
+          error: "Failed to fetch account info" 
+        });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail me error:", error);
+      res.status(500).json({ error: "Failed to fetch account info" });
+    }
+  });
+
+  app.get("/api/tempmail/messages", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader) {
+        return res.status(401).json({ error: "No authorization token provided" });
+      }
+
+      const response = await fetch("https://api.mail.tm/messages", {
+        headers: {
+          Authorization: authHeader,
+        },
+      });
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          return res.status(401).json({ 
+            error: "Invalid or expired token",
+            shouldClearSession: true
+          });
+        }
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const errorData = await response.json();
+          return res.status(response.status).json(errorData);
+        }
+        return res.status(response.status).json({ 
+          error: "Failed to fetch messages" 
+        });
+      }
+      
+      const contentLength = response.headers.get("content-length");
+      if (response.status === 204 || contentLength === "0") {
+        return res.json({ "@type": "hydra:Collection", "hydra:member": [] });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail messages error:", error);
+      res.status(500).json({ error: "Failed to fetch messages" });
     }
   });
 

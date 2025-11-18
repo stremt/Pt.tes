@@ -69,7 +69,7 @@ export default function TempMail() {
   const fetchMessages = async (id: string, token: string) => {
     setFetchingMessages(true);
     try {
-      const response = await axios.get(`https://api.mail.tm/messages`, {
+      const response = await axios.get(`/api/tempmail/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,13 +78,23 @@ export default function TempMail() {
       if (response.data && response.data["hydra:member"]) {
         setMessages(response.data["hydra:member"]);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching messages:", error);
-      toast({
-        title: "Failed to fetch messages",
-        description: "Could not retrieve inbox. Please try again.",
-        variant: "destructive",
-      });
+      
+      if (error.response?.status === 401 || error.response?.data?.shouldClearSession) {
+        deleteSession();
+        toast({
+          title: "Session Expired",
+          description: "Your session has expired. Please generate a new email.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Failed to fetch messages",
+          description: error.response?.data?.error || "Could not retrieve inbox. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setFetchingMessages(false);
     }
@@ -95,32 +105,37 @@ export default function TempMail() {
     setError("");
     try {
       // Get available domains
-      const domainsResponse = await axios.get("https://api.mail.tm/domains");
+      const domainsResponse = await axios.get("/api/tempmail/domains");
       const domains = domainsResponse.data["hydra:member"];
       
       if (!domains || domains.length === 0) {
-        throw new Error("No domains available");
+        throw new Error("No domains available from the email service");
       }
 
       const domain = domains[0].domain;
       const username = `user${Math.floor(Math.random() * 1000000)}`;
       const generatedEmail = `${username}@${domain}`;
-      const password = Math.random().toString(36).substring(2, 15);
+      const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
       // Create account
-      await axios.post("https://api.mail.tm/accounts", {
+      await axios.post("/api/tempmail/account", {
         address: generatedEmail,
         password: password,
       });
 
       // Get token
-      const authResponse = await axios.post("https://api.mail.tm/token", {
+      const authResponse = await axios.post("/api/tempmail/token", {
         address: generatedEmail,
         password: password,
       });
 
       const token = authResponse.data.token;
-      const accountResponse = await axios.get("https://api.mail.tm/me", {
+      
+      if (!token) {
+        throw new Error("Failed to receive authentication token");
+      }
+      
+      const accountResponse = await axios.get("/api/tempmail/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -141,12 +156,13 @@ export default function TempMail() {
         title: "Email Generated",
         description: "Your temporary email is ready to use!",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error generating email:", error);
-      setError("Failed to generate email. The service might be temporarily unavailable.");
+      const errorMessage = error.response?.data?.error || error.message || "Failed to generate email. Please try again.";
+      setError(errorMessage);
       toast({
         title: "Error",
-        description: "Failed to generate email. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

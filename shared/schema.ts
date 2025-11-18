@@ -55,6 +55,20 @@ export const contactFormSchema = z.object({
 
 export type ContactForm = z.infer<typeof contactFormSchema>;
 
+// Temp mail schemas
+export const tempMailAccountSchema = z.object({
+  address: z.string().email("Please provide a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export const tempMailAuthSchema = z.object({
+  address: z.string().email("Please provide a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+export type TempMailAccount = z.infer<typeof tempMailAccountSchema>;
+export type TempMailAuth = z.infer<typeof tempMailAuthSchema>;
+
 // Tool metadata
 export interface ToolMetadata {
   id: string;
