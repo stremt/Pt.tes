@@ -5,9 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Copy, RefreshCw, Mail, Check, Inbox, Clock, User, ArrowRight } from "lucide-react";
+import { Copy, RefreshCw, Mail, Check, Inbox, Clock, User, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import axios from "axios";
@@ -19,6 +20,8 @@ interface MailMessage {
   intro: string;
   createdAt: string;
   hasAttachments: boolean;
+  text?: string;
+  html?: string;
 }
 
 export default function TempMail() {
@@ -27,6 +30,8 @@ export default function TempMail() {
   const [accountToken, setAccountToken] = useState<string>("");
   const [messages, setMessages] = useState<MailMessage[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<MailMessage | null>(null);
+  const [messageDialogOpen, setMessageDialogOpen] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetchingMessages, setFetchingMessages] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -188,6 +193,7 @@ export default function TempMail() {
     setAccountToken("");
     setMessages([]);
     setSelectedMessage(null);
+    setMessageDialogOpen(false);
     localStorage.removeItem("tempmail_email");
     localStorage.removeItem("tempmail_id");
     localStorage.removeItem("tempmail_token");
@@ -195,6 +201,42 @@ export default function TempMail() {
       title: "Session Deleted",
       description: "Your temporary email session has been cleared",
     });
+  };
+
+  const openMessage = async (message: MailMessage) => {
+    setLoadingMessage(true);
+    setMessageDialogOpen(true);
+    setSelectedMessage(message);
+    
+    try {
+      const response = await axios.get(`/api/tempmail/messages/${message.id}`, {
+        headers: {
+          Authorization: `Bearer ${accountToken}`,
+        },
+      });
+      
+      setSelectedMessage(response.data);
+    } catch (error: any) {
+      console.error("Error fetching message:", error);
+      
+      if (error.response?.status === 401 || error.response?.data?.shouldClearSession) {
+        setMessageDialogOpen(false);
+        deleteSession();
+        toast({
+          title: "Session Expired",
+          description: "Your session has expired. Please generate a new email.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Failed to load message",
+          description: error.response?.data?.error || "Could not load the full message.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setLoadingMessage(false);
+    }
   };
 
   const relatedTools = getRelatedTools("temp-mail");
@@ -405,7 +447,8 @@ export default function TempMail() {
                       <Card
                         key={message.id}
                         className="hover-elevate cursor-pointer"
-                        onClick={() => setSelectedMessage(message)}
+                        onClick={() => openMessage(message)}
+                        data-testid={`card-message-${message.id}`}
                       >
                         <CardContent className="p-4 space-y-2">
                           <div className="flex items-start justify-between gap-2">
@@ -607,6 +650,79 @@ export default function TempMail() {
         </section>
       </div>
     </div>
+
+    {/* Message Viewer Dialog */}
+    <Dialog open={messageDialogOpen} onOpenChange={setMessageDialogOpen}>
+      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto" data-testid="dialog-message-viewer">
+        <DialogHeader>
+          <DialogTitle className="flex items-center justify-between gap-4">
+            <span className="truncate">{selectedMessage?.subject || "Loading..."}</span>
+          </DialogTitle>
+        </DialogHeader>
+
+        {loadingMessage ? (
+          <div className="flex items-center justify-center py-12">
+            <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        ) : selectedMessage ? (
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm">
+                <User className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium">From:</span>
+                <span className="text-muted-foreground">
+                  {selectedMessage.from.name || selectedMessage.from.address}
+                  {selectedMessage.from.name && (
+                    <span className="text-xs ml-1">({selectedMessage.from.address})</span>
+                  )}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium">Date:</span>
+                <span className="text-muted-foreground">
+                  {new Date(selectedMessage.createdAt).toLocaleString('en-US', {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </span>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="prose prose-sm max-w-none dark:prose-invert">
+              {selectedMessage.html ? (
+                <div 
+                  dangerouslySetInnerHTML={{ __html: selectedMessage.html }}
+                  className="bg-muted/30 p-4 rounded-lg"
+                />
+              ) : selectedMessage.text ? (
+                <div className="whitespace-pre-wrap bg-muted/30 p-4 rounded-lg">
+                  {selectedMessage.text}
+                </div>
+              ) : (
+                <p className="text-muted-foreground italic">No message content available</p>
+              )}
+            </div>
+
+            {selectedMessage.hasAttachments && (
+              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 p-4 rounded-lg">
+                <p className="text-sm text-amber-900 dark:text-amber-100">
+                  This message has attachments. Attachment viewing is not currently supported.
+                </p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <p className="text-center text-muted-foreground py-8">No message selected</p>
+        )}
+      </DialogContent>
+    </Dialog>
     </>
   );
 }

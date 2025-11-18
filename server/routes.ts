@@ -302,6 +302,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/tempmail/messages/:id", async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader) {
+        return res.status(401).json({ error: "No authorization token provided" });
+      }
+
+      const { id } = req.params;
+      const response = await fetch(`https://api.mail.tm/messages/${id}`, {
+        headers: {
+          Authorization: authHeader,
+        },
+      });
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          return res.status(401).json({ 
+            error: "Invalid or expired token",
+            shouldClearSession: true
+          });
+        }
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const errorData = await response.json();
+          return res.status(response.status).json(errorData);
+        }
+        return res.status(response.status).json({ 
+          error: "Failed to fetch message" 
+        });
+      }
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("Temp mail message fetch error:", error);
+      res.status(500).json({ error: "Failed to fetch message" });
+    }
+  });
+
   // Generate sitemap.xml - Comprehensive sitemap with ALL 175+ tools for maximum SEO coverage
   app.get("/sitemap.xml", (req, res) => {
     const baseUrl = "https://tools.pixocraft.in";
