@@ -9,10 +9,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
+
+interface QRHistoryItem {
+  id: string;
+  type: "text" | "url" | "contact";
+  content: string;
+  label: string;
+  qrCodeUrl: string;
+  createdAt: string;
+}
+
+const QR_HISTORY_KEY = "pixocraft_qr_history";
+const MAX_HISTORY_ITEMS = 20;
 
 export default function QRMaker() {
   const [inputType, setInputType] = useState<"text" | "url" | "contact">("url");
@@ -22,8 +34,94 @@ export default function QRMaker() {
   const [contactPhone, setContactPhone] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
+  const [history, setHistory] = useState<QRHistoryItem[]>([]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [isLoadingFromHistory, setIsLoadingFromHistory] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem(QR_HISTORY_KEY);
+    if (savedHistory) {
+      try {
+        setHistory(JSON.parse(savedHistory));
+      } catch {
+        localStorage.removeItem(QR_HISTORY_KEY);
+      }
+    }
+  }, []);
+
+  const saveToHistory = (type: "text" | "url" | "contact", content: string, label: string, qrUrl: string) => {
+    const newItem: QRHistoryItem = {
+      id: Date.now().toString(),
+      type,
+      content,
+      label,
+      qrCodeUrl: qrUrl,
+      createdAt: new Date().toISOString(),
+    };
+    
+    const updatedHistory = [newItem, ...history].slice(0, MAX_HISTORY_ITEMS);
+    setHistory(updatedHistory);
+    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updatedHistory));
+  };
+
+  const deleteHistoryItem = (id: string) => {
+    const updatedHistory = history.filter(item => item.id !== id);
+    setHistory(updatedHistory);
+    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updatedHistory));
+    toast({
+      title: "Deleted",
+      description: "QR code removed from history",
+    });
+  };
+
+  const clearAllHistory = () => {
+    setHistory([]);
+    localStorage.removeItem(QR_HISTORY_KEY);
+    toast({
+      title: "History Cleared",
+      description: "All QR codes have been removed from history",
+    });
+  };
+
+  const loadFromHistory = (item: QRHistoryItem) => {
+    setIsLoadingFromHistory(true);
+    setInputType(item.type);
+    setQrCodeUrl(item.qrCodeUrl);
+    
+    if (item.type === "url") {
+      setUrlValue(item.content);
+      setTextValue("");
+      setContactName("");
+      setContactPhone("");
+      setContactEmail("");
+    } else if (item.type === "text") {
+      setTextValue(item.content);
+      setUrlValue("");
+      setContactName("");
+      setContactPhone("");
+      setContactEmail("");
+    } else if (item.type === "contact") {
+      const lines = item.content.split("\n");
+      const name = lines.find(l => l.startsWith("FN:"))?.replace("FN:", "") || "";
+      const phone = lines.find(l => l.startsWith("TEL:"))?.replace("TEL:", "") || "";
+      const email = lines.find(l => l.startsWith("EMAIL:"))?.replace("EMAIL:", "") || "";
+      setContactName(name);
+      setContactPhone(phone);
+      setContactEmail(email);
+      setUrlValue("");
+      setTextValue("");
+    }
+    
+    setShowHistory(false);
+    toast({
+      title: "Loaded",
+      description: "QR code loaded from history",
+    });
+    
+    setTimeout(() => setIsLoadingFromHistory(false), 100);
+  };
 
   useSEO({
     title: "Free QR Code Generator Online - Create QR Codes Instantly | Pixocraft Tools",
@@ -35,17 +133,20 @@ export default function QRMaker() {
 
   const generateQR = async () => {
     let data = "";
+    let label = "";
 
     switch (inputType) {
       case "text":
         data = textValue;
+        label = textValue.substring(0, 50) + (textValue.length > 50 ? "..." : "");
         break;
       case "url":
         data = urlValue;
+        label = urlValue;
         break;
       case "contact":
-        // vCard format for contact
         data = `BEGIN:VCARD\nVERSION:3.0\nFN:${contactName}\nTEL:${contactPhone}\nEMAIL:${contactEmail}\nEND:VCARD`;
+        label = contactName || contactEmail || contactPhone;
         break;
     }
 
@@ -72,9 +173,11 @@ export default function QRMaker() {
         const url = canvasRef.current.toDataURL();
         setQrCodeUrl(url);
 
+        saveToHistory(inputType, data, label, url);
+
         toast({
           title: "Success!",
-          description: "QR code generated successfully",
+          description: "QR code generated and saved to history",
         });
       }
     } catch (error) {
@@ -102,8 +205,10 @@ export default function QRMaker() {
   };
 
   useEffect(() => {
-    setQrCodeUrl("");
-  }, [inputType, textValue, urlValue, contactName, contactPhone, contactEmail]);
+    if (!isLoadingFromHistory) {
+      setQrCodeUrl("");
+    }
+  }, [inputType, textValue, urlValue, contactName, contactPhone, contactEmail, isLoadingFromHistory]);
 
   const relatedTools = getRelatedTools("qr-maker");
 
@@ -319,6 +424,108 @@ export default function QRMaker() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* History Section */}
+        <div className="mb-16 max-w-6xl mx-auto">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <History className="h-5 w-5 text-primary" />
+                  <CardTitle>QR Code History</CardTitle>
+                  {history.length > 0 && (
+                    <Badge variant="secondary">{history.length}</Badge>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowHistory(!showHistory)}
+                    data-testid="button-toggle-history"
+                  >
+                    {showHistory ? "Hide" : "Show"} History
+                  </Button>
+                  {history.length > 0 && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={clearAllHistory}
+                      data-testid="button-clear-history"
+                    >
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      Clear All
+                    </Button>
+                  )}
+                </div>
+              </div>
+              <CardDescription>
+                Your recently generated QR codes are saved locally in your browser
+              </CardDescription>
+            </CardHeader>
+            {showHistory && (
+              <CardContent>
+                {history.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <History className="h-12 w-12 mx-auto mb-4 opacity-20" />
+                    <p className="font-medium">No history yet</p>
+                    <p className="text-sm">Generate QR codes to see them here</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {history.map((item) => (
+                      <div
+                        key={item.id}
+                        className="relative group"
+                        data-testid={`history-item-${item.id}`}
+                      >
+                        <div
+                          className="bg-white p-2 rounded-lg border hover-elevate cursor-pointer"
+                          onClick={() => loadFromHistory(item)}
+                        >
+                          <img
+                            src={item.qrCodeUrl}
+                            alt={`QR code for ${item.label}`}
+                            className="w-full aspect-square object-contain"
+                          />
+                          <div className="mt-2 space-y-1">
+                            <div className="flex items-center gap-1">
+                              {item.type === "url" && <LinkIcon className="h-3 w-3 text-muted-foreground" />}
+                              {item.type === "text" && <FileText className="h-3 w-3 text-muted-foreground" />}
+                              {item.type === "contact" && <User className="h-3 w-3 text-muted-foreground" />}
+                              <Badge variant="secondary" className="text-xs capitalize">
+                                {item.type}
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-muted-foreground truncate" title={item.label}>
+                              {item.label}
+                            </p>
+                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <Clock className="h-3 w-3" />
+                              {new Date(item.createdAt).toLocaleDateString()}
+                            </div>
+                          </div>
+                        </div>
+                        <Button
+                          size="icon"
+                          variant="destructive"
+                          className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteHistoryItem(item.id);
+                          }}
+                          data-testid={`button-delete-history-${item.id}`}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            )}
+          </Card>
         </div>
 
         {/* How It Works */}

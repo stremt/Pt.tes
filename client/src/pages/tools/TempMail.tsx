@@ -11,7 +11,8 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Copy, RefreshCw, Mail, Check, Inbox, Clock, User, ArrowRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import axios from "axios";
+
+const MAIL_TM_API = "https://api.mail.tm";
 
 interface MailMessage {
   id: string;
@@ -74,32 +75,36 @@ export default function TempMail() {
   const fetchMessages = async (id: string, token: string) => {
     setFetchingMessages(true);
     try {
-      const response = await axios.get(`/api/tempmail/messages`, {
+      const response = await fetch(`${MAIL_TM_API}/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (response.data && response.data["hydra:member"]) {
-        setMessages(response.data["hydra:member"]);
+      if (!response.ok) {
+        if (response.status === 401) {
+          deleteSession();
+          toast({
+            title: "Session Expired",
+            description: "Your session has expired. Please generate a new email.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw new Error("Failed to fetch messages");
+      }
+
+      const data = await response.json();
+      if (data && data["hydra:member"]) {
+        setMessages(data["hydra:member"]);
       }
     } catch (error: any) {
       console.error("Error fetching messages:", error);
-      
-      if (error.response?.status === 401 || error.response?.data?.shouldClearSession) {
-        deleteSession();
-        toast({
-          title: "Session Expired",
-          description: "Your session has expired. Please generate a new email.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Failed to fetch messages",
-          description: error.response?.data?.error || "Could not retrieve inbox. Please try again.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Failed to fetch messages",
+        description: "Could not retrieve inbox. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setFetchingMessages(false);
     }
@@ -109,9 +114,13 @@ export default function TempMail() {
     setLoading(true);
     setError("");
     try {
-      // Get available domains
-      const domainsResponse = await axios.get("/api/tempmail/domains");
-      const domains = domainsResponse.data["hydra:member"];
+      // Get available domains directly from Mail.tm API
+      const domainsResponse = await fetch(`${MAIL_TM_API}/domains`);
+      if (!domainsResponse.ok) {
+        throw new Error("Failed to fetch domains from email service");
+      }
+      const domainsData = await domainsResponse.json();
+      const domains = domainsData["hydra:member"];
       
       if (!domains || domains.length === 0) {
         throw new Error("No domains available from the email service");
@@ -122,31 +131,59 @@ export default function TempMail() {
       const generatedEmail = `${username}@${domain}`;
       const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-      // Create account
-      await axios.post("/api/tempmail/account", {
-        address: generatedEmail,
-        password: password,
+      // Create account directly with Mail.tm API
+      const createResponse = await fetch(`${MAIL_TM_API}/accounts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          address: generatedEmail,
+          password: password,
+        }),
       });
 
-      // Get token
-      const authResponse = await axios.post("/api/tempmail/token", {
-        address: generatedEmail,
-        password: password,
+      if (!createResponse.ok) {
+        const errorData = await createResponse.json().catch(() => ({}));
+        throw new Error(errorData.message || "Failed to create account");
+      }
+
+      // Get token directly from Mail.tm API
+      const authResponse = await fetch(`${MAIL_TM_API}/token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          address: generatedEmail,
+          password: password,
+        }),
       });
 
-      const token = authResponse.data.token;
+      if (!authResponse.ok) {
+        throw new Error("Failed to authenticate");
+      }
+
+      const authData = await authResponse.json();
+      const token = authData.token;
       
       if (!token) {
         throw new Error("Failed to receive authentication token");
       }
       
-      const accountResponse = await axios.get("/api/tempmail/me", {
+      // Get account info directly from Mail.tm API
+      const accountResponse = await fetch(`${MAIL_TM_API}/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const accountId = accountResponse.data.id;
+      if (!accountResponse.ok) {
+        throw new Error("Failed to get account info");
+      }
+
+      const accountData = await accountResponse.json();
+      const accountId = accountData.id;
 
       setEmail(generatedEmail);
       setAccountId(accountId);
@@ -163,7 +200,7 @@ export default function TempMail() {
       });
     } catch (error: any) {
       console.error("Error generating email:", error);
-      const errorMessage = error.response?.data?.error || error.message || "Failed to generate email. Please try again.";
+      const errorMessage = error.message || "Failed to generate email. Please try again.";
       setError(errorMessage);
       toast({
         title: "Error",
@@ -209,31 +246,35 @@ export default function TempMail() {
     setSelectedMessage(message);
     
     try {
-      const response = await axios.get(`/api/tempmail/messages/${message.id}`, {
+      const response = await fetch(`${MAIL_TM_API}/messages/${message.id}`, {
         headers: {
           Authorization: `Bearer ${accountToken}`,
         },
       });
       
-      setSelectedMessage(response.data);
+      if (!response.ok) {
+        if (response.status === 401) {
+          setMessageDialogOpen(false);
+          deleteSession();
+          toast({
+            title: "Session Expired",
+            description: "Your session has expired. Please generate a new email.",
+            variant: "destructive",
+          });
+          return;
+        }
+        throw new Error("Failed to load message");
+      }
+      
+      const data = await response.json();
+      setSelectedMessage(data);
     } catch (error: any) {
       console.error("Error fetching message:", error);
-      
-      if (error.response?.status === 401 || error.response?.data?.shouldClearSession) {
-        setMessageDialogOpen(false);
-        deleteSession();
-        toast({
-          title: "Session Expired",
-          description: "Your session has expired. Please generate a new email.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Failed to load message",
-          description: error.response?.data?.error || "Could not load the full message.",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: "Failed to load message",
+        description: "Could not load the full message.",
+        variant: "destructive",
+      });
     } finally {
       setLoadingMessage(false);
     }
