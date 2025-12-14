@@ -1,0 +1,62 @@
+Improve and finalize the **Word Counter** page of Pixocraft Tools to make it a complete, SEO-optimized landing page capable of ranking in the Top-3 for “word counter” related searches.
+
+Do NOT remove existing functionality. The tool works well. Focus on content depth, search intent coverage, trust, and CTR.
+
+---
+
+## OBJECTIVES
+- Rank for keywords like:
+  “word counter”, “character counter”, “reading time calculator”, “essay word count”
+- Increase dwell time and user trust
+- Clearly communicate privacy and real-time accuracy
+
+---
+
+## REQUIRED IMPROVEMENTS
+
+1. Upgrade or reinforce the main heading to clearly state:
+   free usage, instant counting, characters, sentences, and reading time.
+
+2. Expand the “Perfect For” section into a structured **Popular Use Cases** section covering:
+   - Students & academic assignments
+   - Writers & bloggers
+   - SEO professionals & marketers
+   - Social media & content creators
+
+3. Add a dedicated **Privacy & Offline Usage** section explaining:
+   - All analysis happens locally in the browser
+   - Text and uploaded files are never stored or uploaded
+   - Tool works offline once loaded
+
+4. Improve and reorder the FAQ section so the most searched questions appear first, including:
+   - How accurate is this word counter?
+   - Does this tool work offline?
+   - Are uploaded files stored or saved?
+   - How is reading time calculated?
+
+5. Improve meta title and meta description for higher CTR using:
+   free, instant, online word counter, characters, reading time.
+
+6. Add one contextual internal link (not footer) to a related Pixocraft tool such as:
+   Password Generator or Image Compressor.
+
+7. Add a subtle brand authority line positioning Pixocraft Tools as:
+   India’s largest offline-first tool hub with 200+ browser-based tools.
+
+---
+
+## CONSTRAINTS
+- Do not mention technologies, frameworks, or libraries.
+- Do not change core UI behavior.
+- Keep page fast, clean, and professional.
+
+---
+
+## FINAL EXPECTATION
+After improvement, this Word Counter page should:
+- Outperform most competing word counter tools
+- Fully satisfy multiple search intents
+- Be competitive for Top-3 Google rankings
+- Encourage internal navigation across Pixocraft Tools
+
+End.
