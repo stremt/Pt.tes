@@ -7,9 +7,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Clock } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Clock, CheckCircle, Globe, CreditCard, Building2, CalendarDays } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -218,32 +218,40 @@ export default function QRMaker() {
       answer: "A QR (Quick Response) code is a two-dimensional barcode that stores information in a matrix of black and white squares. When scanned with a smartphone camera or QR reader app, it instantly decodes the embedded data—whether it's a website URL, contact details, plain text, or other information. QR codes were invented in 1994 for tracking automotive parts but have since become ubiquitous in marketing, payments, product packaging, and contactless information sharing. Pixocraft Tools generates standard QR codes that work with all modern smartphones."
     },
     {
-      question: "How do I use the QR code generator?",
-      answer: "Using Pixocraft Tools' free QR code generator is simple: First, choose the type of QR code you want (URL, Text, or Contact). Then, enter your information—paste a website link, type any text message, or fill in contact details including name, phone, and email. Click 'Generate QR Code' to create your custom code instantly. Finally, download the high-quality PNG image to use in print materials, digital marketing, business cards, or anywhere you need it. The entire process takes less than 30 seconds with no registration required."
+      question: "Are QR codes secure and safe to use?",
+      answer: "QR codes themselves are secure—they're just a way to encode information visually. However, like any technology, they can be misused. Always scan QR codes from trusted sources, as malicious codes could direct you to phishing websites or trigger unwanted downloads. Most modern smartphones show a preview of the URL before opening it, giving you a chance to verify it's legitimate. When creating QR codes with Pixocraft Tools, the data is processed entirely in your browser—we never store or track your information. For sensitive business use, consider using dynamic QR codes with password protection."
     },
     {
       question: "What are the best practices for using QR codes effectively?",
       answer: "For maximum effectiveness, place QR codes where they're easily accessible and ensure they're large enough to scan (minimum 2x2 cm). Always test your QR codes before printing or publishing to verify they work correctly. Provide context with a clear call-to-action like 'Scan for menu' or 'Scan to visit website.' Use URL shorteners for tracking purposes, and avoid placing QR codes in areas with poor lighting or on curved surfaces. For marketing campaigns, combine QR codes with incentives like discounts or exclusive content to increase scan rates."
     },
     {
+      question: "How can QR codes help my business marketing?",
+      answer: "QR codes are powerful marketing tools that bridge offline and online channels. Use them on business cards for instant contact sharing, on product packaging for detailed information, in print ads to drive website traffic, and on posters for event registrations. They enable trackable campaigns when combined with UTM parameters, allowing you to measure engagement and ROI. Restaurants use them for contactless menus, retailers for product catalogs, and event organizers for ticketing. The versatility and low cost make QR codes essential for modern marketing strategies."
+    },
+    {
+      question: "How do I use this QR code generator?",
+      answer: "Using Pixocraft Tools' free QR code generator is simple: First, choose the type of QR code you want (URL, Text, or Contact). Then, enter your information—paste a website link, type any text message, or fill in contact details including name, phone, and email. Click 'Generate QR Code' to create your custom code instantly. Finally, download the high-quality PNG image to use in print materials, digital marketing, business cards, or anywhere you need it. The entire process takes less than 30 seconds with no registration required."
+    },
+    {
       question: "Can I customize the appearance of QR codes?",
       answer: "Currently, Pixocraft Tools generates standard black and white QR codes optimized for maximum compatibility and scan reliability across all devices and scanning apps. This classic design ensures the highest success rate when users scan your codes. While we plan to add customization features like color selection and logo embedding in future updates, our current focus is on reliability and ease of use. The standard QR codes we generate work universally and can be resized without quality loss."
-    },
-    {
-      question: "What are the most popular use cases for QR codes?",
-      answer: "QR codes have countless applications across industries. In marketing, they're used on posters, flyers, and advertisements to drive traffic to websites or promotional offers. Restaurants use them for contactless menu access. Business professionals include them on business cards for instant contact sharing. Event organizers use QR codes for ticketing and check-ins. Retailers use them for product information and mobile payments. Educational institutions use them for resource sharing. The versatility makes QR codes an essential tool for anyone looking to bridge physical and digital experiences seamlessly."
-    },
-    {
-      question: "Are QR codes secure and safe to use?",
-      answer: "QR codes themselves are secure—they're just a way to encode information visually. However, like any technology, they can be misused. Always scan QR codes from trusted sources, as malicious codes could direct you to phishing websites or trigger unwanted downloads. Most modern smartphones show a preview of the URL before opening it, giving you a chance to verify it's legitimate. When creating QR codes with Pixocraft Tools, the data is processed entirely in your browser—we never store or track your information. For sensitive business use, consider using dynamic QR codes with password protection."
     }
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
+  
+  const softwareAppSchema = generateSoftwareApplicationSchema({
+    name: "Free QR Code Generator",
+    description: "Generate free QR codes online for URLs, text, and contact information. Create custom QR codes instantly, download high-quality PNG images for marketing, business cards, and more. No signup required.",
+    url: "https://tools.pixocraft.in/tools/qr-maker",
+    applicationCategory: "UtilityApplication",
+  });
 
   return (
     <>
       <StructuredData data={faqSchema} />
+      <StructuredData data={softwareAppSchema} />
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Breadcrumb */}
@@ -262,15 +270,19 @@ export default function QRMaker() {
               <QrCode className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">QR Code Maker</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Free QR Code Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Create custom QR codes for URLs, text, or contact information. Download instantly in high quality.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <Badge variant="secondary">Free</Badge>
-            <Badge variant="secondary">High Quality</Badge>
-            <Badge variant="secondary">Instant Download</Badge>
+            <Badge variant="secondary">Free Forever</Badge>
+            <Badge variant="secondary">No Signup</Badge>
+            <Badge variant="secondary">High Quality PNG</Badge>
+            <Badge variant="secondary">Works Offline</Badge>
           </div>
+          <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
+            Generate unlimited QR codes online for free. Create scannable codes for websites, business cards, and marketing in seconds with instant PNG download.
+          </h2>
         </div>
 
         {/* Main Tool Interface */}
@@ -421,6 +433,10 @@ export default function QRMaker() {
                     Download QR Code
                   </Button>
                 )}
+                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                  <Shield className="h-3 w-3" />
+                  <span>Generated locally in your browser. No data uploaded.</span>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -528,6 +544,55 @@ export default function QRMaker() {
           </Card>
         </div>
 
+        {/* QR Code Types Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">QR Code Types & Use Cases</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card>
+              <CardHeader>
+                <Globe className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Website & URL QR Codes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  The most popular type of QR code. Link to any website, landing page, or online resource. Perfect for marketing campaigns, product pages, social media profiles, and promotional materials. Users scan and instantly visit your website without typing.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Best for:</strong> Marketing, advertising, product packaging, business cards
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <User className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Business & vCard QR Codes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Share contact information instantly with vCard QR codes. Include name, phone number, and email in a single scannable code. Recipients can save your details directly to their phone contacts with one tap—no manual typing required.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Best for:</strong> Business cards, networking events, email signatures, LinkedIn profiles
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <FileText className="h-8 w-8 text-primary mb-2" />
+                <CardTitle>Text & Information QR Codes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Encode any plain text message up to 500 characters. Ideal for sharing instructions, Wi-Fi passwords, discount codes, event details, or any information you want to convey quickly. Works offline without internet connection.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Best for:</strong> Wi-Fi passwords, instructions, discount codes, event info
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* How It Works */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
@@ -611,9 +676,12 @@ export default function QRMaker() {
               </CardContent>
             </Card>
           </div>
-          <div className="prose prose-lg max-w-4xl mx-auto">
+          <div className="prose prose-lg max-w-4xl mx-auto space-y-4">
             <p className="text-muted-foreground">
-              QR codes are transforming how businesses connect with customers and how individuals share information. Learn more about <Link href="/blogs/qr-codes-marketing-guide" className="text-primary hover:underline">leveraging QR codes in your marketing strategy</Link> to maximize engagement and drive measurable results with Pixocraft Tools.
+              QR codes are transforming how businesses connect with customers and how individuals share information. For secure QR codes with sensitive data, pair them with our <Link href="/tools/password-generator" className="text-primary hover:underline">Password Generator</Link> to create protected links. Need to compress images before embedding them in QR code landing pages? Try our <Link href="/tools/image-compressor" className="text-primary hover:underline">Image Compressor</Link> for faster page loads.
+            </p>
+            <p className="text-muted-foreground">
+              For business networking, combine your vCard QR codes with a professional <Link href="/tools/temp-mail" className="text-primary hover:underline">temporary email</Link> for lead generation campaigns where you want to filter responses before revealing your primary email address.
             </p>
           </div>
         </section>
@@ -668,6 +736,30 @@ export default function QRMaker() {
               ))}
             </Accordion>
           </div>
+        </section>
+
+        {/* Authority & Freshness Signals */}
+        <section className="mb-16">
+          <Card className="bg-muted/30">
+            <CardContent className="py-6">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-6 flex-wrap justify-center">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    <span>Trusted by 100,000+ users worldwide</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4 text-primary" />
+                    <span>Part of Pixocraft Tools - 175+ free utilities</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4" />
+                  <span>Last updated: December 2024</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* Related Tools */}

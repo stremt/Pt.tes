@@ -660,7 +660,7 @@ export default function PasswordGenerator() {
           {/* Freshness & Authority Indicator */}
           <div className="text-center mb-12 space-y-2">
             <p className="text-sm text-muted-foreground">
-              Last updated: December 2024
+              Last updated: December 2025
             </p>
             <p className="text-xs text-muted-foreground">
               Pixocraft Tools is a trusted platform with 175+ free online tools used by millions worldwide.
