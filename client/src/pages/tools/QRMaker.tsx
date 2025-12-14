@@ -841,7 +841,7 @@ export default function QRMaker() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CalendarDays className="h-4 w-4" />
-                  <span>Last updated: December 2024</span>
+                  <span>Last updated: December 2025</span>
                 </div>
               </div>
             </CardContent>
