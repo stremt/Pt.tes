@@ -41,9 +41,9 @@ export default function TempMail() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Temp Mail Generator - Instant Disposable Email, No Signup | Pixocraft Tools",
-    description: "Get a free temporary email address instantly with no signup required. Receive messages online, avoid spam, and protect your privacy. 100% free disposable email generator from Pixocraft Tools.",
-    keywords: "temp mail, temporary email generator, free disposable email, pixocraft mail, temporary email, free temp mail, privacy email, disposable email generator, fake email, no signup email, instant temp mail",
+    title: "Free Temp Mail - Instant Disposable Email, No Signup, 100% Private | Pixocraft",
+    description: "Get a free temporary email instantly—no signup, no personal data, 100% private. Protect your privacy, avoid spam, and receive verification emails safely with our disposable email generator.",
+    keywords: "temp mail, temporary email generator, free disposable email, pixocraft mail, temporary email, free temp mail, privacy email, disposable email generator, fake email, no signup email, instant temp mail, private email",
     canonicalUrl: "https://tools.pixocraft.in/tools/temp-mail",
     ogImage: OG_IMAGES.tempMail,
   });
@@ -340,16 +340,19 @@ export default function TempMail() {
               <Mail className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">Temp Mail Generator</h1>
-          <h2 className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Free instant disposable email with no signup required. Protect your privacy, avoid spam, and receive verification emails safely.
-          </h2>
+          <h1 className="text-4xl md:text-5xl font-bold">Free Temp Mail Generator</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Get an instant disposable email—no signup, no personal data, 100% private. Perfect for protecting your privacy and avoiding spam.
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <Badge variant="secondary">100% Free</Badge>
-            <Badge variant="secondary">No Signup</Badge>
-            <Badge variant="secondary">Instant</Badge>
+            <Badge variant="secondary">100% Free Forever</Badge>
+            <Badge variant="secondary">No Signup Required</Badge>
+            <Badge variant="secondary">Instant Generation</Badge>
             <Badge variant="secondary">Privacy First</Badge>
           </div>
+          <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
+            Create a free disposable email address in one click. No registration, no personal information—just instant privacy protection. Receive verification emails, test signups, and keep your real inbox spam-free. For stronger account security, pair with our <Link href="/tools/password-generator" className="text-primary hover:underline">Password Generator</Link>.
+          </h2>
         </div>
 
         {/* Main Tool Interface */}
