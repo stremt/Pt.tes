@@ -16,7 +16,7 @@ import {
 } from "@/lib/text-utils";
 import { extractTextFromFile, getSupportedTextFileTypes, getSupportedTextFileMimeTypes } from "@/lib/file-parsing-utils";
 import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT, formatFileSize } from "@/lib/ui-constants";
-import { FileText, Clock, Type, FileType, Hash, Sparkles, Zap, Lock, Globe, Upload, X, GraduationCap, PenTool, Search, Share2, Shield, WifiOff, CheckCircle, Building2, CalendarDays } from "lucide-react";
+import { FileText, Clock, Type, FileType, Hash, Sparkles, Zap, Lock, Globe, Upload, X, GraduationCap, PenTool, Search, Share2, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Loader2 } from "lucide-react";
 
 export default function WordCounter() {
   const [text, setText] = useState("");
@@ -210,23 +210,38 @@ export default function WordCounter() {
             </CardHeader>
             <CardContent>
               <div
-                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                  isDragging
-                    ? "border-primary bg-primary/5"
-                    : "border-muted-foreground/25 hover:border-primary/50"
+                className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                  uploading
+                    ? "border-primary/50 bg-primary/5 cursor-wait"
+                    : isDragging
+                    ? "border-primary bg-primary/5 cursor-pointer"
+                    : "border-muted-foreground/25 hover:border-primary/50 cursor-pointer"
                 }`}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={() => !uploading && fileInputRef.current?.click()}
+                onKeyDown={(e) => {
+                  if (!uploading && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    fileInputRef.current?.click();
+                  }
+                }}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
+                onDrop={(e) => !uploading && handleDrop(e)}
+                tabIndex={uploading ? -1 : 0}
+                role="button"
+                aria-disabled={uploading}
                 data-testid="dropzone-word-counter"
               >
-                <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                {uploading ? (
+                  <Loader2 className="h-12 w-12 mx-auto mb-4 text-primary animate-spin" />
+                ) : (
+                  <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                )}
                 <p className="font-medium mb-2">
-                  {uploading ? "Extracting text..." : "Click to upload or drag & drop"}
+                  {uploading ? "Extracting text from your file..." : "Click to upload or drag & drop"}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  Supports .txt, .pdf, .docx, and .md files
+                  {uploading ? "Please wait, this may take a moment for large files" : "Supports .txt, .pdf, .docx, and .md files"}
                 </p>
                 <input
                   ref={fileInputRef}
@@ -234,6 +249,7 @@ export default function WordCounter() {
                   accept={getSupportedTextFileMimeTypes()}
                   onChange={handleFileSelect}
                   className="hidden"
+                  disabled={uploading}
                   data-testid="input-file-word-counter"
                 />
               </div>
@@ -359,7 +375,7 @@ export default function WordCounter() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Optimize content length for search engines. Check meta descriptions, headlines, and article word counts to meet SEO best practices. Perfect for ensuring content hits the ideal length for rankings. Pair with our <Link href="/tools/password-generator" className="text-primary hover:underline">Password Generator</Link> for secure account management.
+                    Optimize content length for search engines. Check meta descriptions, headlines, and article word counts to meet SEO best practices. Perfect for ensuring content hits the ideal length for rankings. Pair with our <Link href="/tools/password-generator" className="text-primary hover:underline" data-testid="link-password-generator">Password Generator</Link> for secure account management.
                   </p>
                 </CardContent>
               </Card>
