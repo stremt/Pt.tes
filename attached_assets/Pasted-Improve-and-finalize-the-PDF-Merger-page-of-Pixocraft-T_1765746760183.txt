@@ -1,0 +1,69 @@
+Improve and finalize the **PDF Merger** page of Pixocraft Tools to make it a complete, SEO-optimized landing page capable of ranking in the Top-3 for “PDF Merger” related keywords.
+
+Do NOT remove existing functionality. The tool already works. Focus on content depth, trust, and search intent coverage.
+
+---
+
+## OBJECTIVES
+- Rank for: “PDF merger”, “merge PDF online”, “combine PDF files”, “offline PDF merger”
+- Increase trust, dwell time, and CTR
+- Clearly differentiate Pixocraft from server-based PDF tools
+
+---
+
+## REQUIRED IMPROVEMENTS
+
+1. Upgrade or enhance the main heading to clearly state:
+   free usage, offline merging, privacy, and security.
+
+2. Add a clear **How It Works** section with 3 simple steps:
+   upload PDFs, merge, download.
+
+3. Add a detailed **Why Use Pixocraft PDF Merger?** section explaining:
+   - Fully offline processing
+   - No uploads, no tracking
+   - Fast browser-based merging
+   - Unlimited usage, no watermark
+
+4. Add a **Popular Use Cases** section covering:
+   - Office & business documents
+   - Student assignments
+   - Government & banking PDFs
+   - Scanned and downloaded PDFs
+
+5. Expand the FAQ section to at least 6–8 questions, including:
+   - Is PDF merging safe?
+   - Are my files uploaded to a server?
+   - Does this work offline?
+   - Is there a file size limit?
+   - Can I merge password-protected PDFs?
+   - Is this legal to use?
+
+6. Improve meta title and meta description for higher CTR using:
+   free, offline, secure, private PDF merger.
+
+7. Add contextual internal links (not footer) to:
+   - Image Compressor
+   - Password Generator
+   where relevant in the content.
+
+8. Add a subtle brand authority line positioning Pixocraft Tools as:
+   India’s largest offline-first tool hub with 200+ browser-based tools.
+
+---
+
+## CONSTRAINTS
+- Do not mention libraries, APIs, or technical stack.
+- Do not add heavy UI elements.
+- Keep page fast, clean, and professional.
+
+---
+
+## FINAL EXPECTATION
+After improvement, this PDF Merger page should:
+- Look and read like a trusted reference page
+- Clearly outperform most free PDF merger tools
+- Be competitive for Top-3 Google rankings
+- Encourage users to explore other Pixocraft tools
+
+End.
