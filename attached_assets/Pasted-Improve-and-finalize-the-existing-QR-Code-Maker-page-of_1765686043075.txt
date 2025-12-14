@@ -1,0 +1,96 @@
+Improve and finalize the existing **QR Code Maker** page of “Pixocraft Tools” to maximize SEO ranking, user retention, and trust.
+
+Do NOT remove existing sections or features. The page already has strong content and functionality. Only refine, enhance, and optimize.
+
+---
+
+## 🎯 OBJECTIVES
+- Rank for keywords like:
+  “QR code generator”, “free QR code generator”, “QR code maker online”, “offline QR code generator”
+- Increase CTR, dwell time, and repeat usage.
+- Highlight privacy, offline usage, and local QR history as key differentiators.
+
+---
+
+## 🔍 REQUIRED IMPROVEMENTS
+
+### 1️⃣ Heading & Intent Reinforcement
+- Keep the main H1 or slightly enhance it for higher CTR.
+- Add a supporting H2 below the hero emphasizing:
+  free, high-quality, instant download, and privacy.
+
+---
+
+### 2️⃣ Highlight Local QR History Feature
+Add a dedicated short section explaining:
+- QR codes are saved locally in the browser
+- No cloud storage, no servers
+- Users can revisit past QR creations anytime
+- History can be cleared manually
+
+This should clearly position Pixocraft as privacy-first and user-friendly.
+
+---
+
+### 3️⃣ Offline Capability Emphasis
+Reinforce that:
+- The QR code generator works fully offline once loaded
+- Ideal for low-internet or secure environments
+
+---
+
+### 4️⃣ Use-Case Expansion
+Ensure use cases clearly cover:
+- Business & networking
+- Restaurants & hospitality
+- Marketing & events
+Use concise, scannable formatting.
+
+---
+
+### 5️⃣ FAQ Optimization
+- Reorder FAQs to answer the most common Google “People Also Ask” questions first.
+- Add FAQs about:
+  - Offline usage
+  - Data storage
+  - QR code validity
+- Ensure answers are clear, factual, and confidence-building.
+
+---
+
+### 6️⃣ Meta & CTR Optimization
+Refine meta title and description to:
+- Include “free”, “offline”, “high-quality”, “instant download”
+- Stay within Google length limits
+- Encourage clicks from search results
+
+---
+
+### 7️⃣ Internal Linking
+- Add at least one contextual internal link (not footer) to:
+  - Temp Mail Generator or Password Generator
+- Use natural language.
+
+---
+
+### 8️⃣ Brand Authority Signal
+Add a subtle line positioning Pixocraft Tools as:
+India’s largest offline-first tool hub with 200+ browser-based tools.
+
+---
+
+## ⚙️ CONSTRAINTS
+- Do not mention technologies, frameworks, or libraries.
+- Do not change design language or add heavy elements.
+- Keep page fast, clean, accessible, and professional.
+
+---
+
+## ✅ FINAL EXPECTATION
+After improvement, this QR Code Maker page should:
+- Clearly outperform most competing QR code generators
+- Stand out due to local history + privacy
+- Be fully ready to compete for Top-3 rankings
+- Encourage repeat usage and internal navigation
+
+End of instructions.
