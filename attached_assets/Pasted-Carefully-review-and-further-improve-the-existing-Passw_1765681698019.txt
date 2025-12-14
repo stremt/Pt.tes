@@ -1,0 +1,104 @@
+Carefully review and further improve the existing **Password Generator** page of the website “Pixocraft Tools”.
+
+This page is already well-built. Your task is to apply the FINAL SEO, UX, and ranking polish so it competes with and outperforms top-ranking password generator websites globally.
+
+Do NOT remove existing sections or rewrite unnecessarily. Only refine, enhance, and strengthen where needed.
+
+---
+
+## 🎯 PRIMARY OBJECTIVE
+Make this page:
+- Extremely clear for Google’s understanding
+- Highly engaging for users
+- Optimized for Top-3 ranking potential
+- Strong in trust, authority, and retention signals
+
+---
+
+## 🔍 FINAL SEO IMPROVEMENTS
+
+### 1️⃣ Strengthen Search Intent Signals
+- Ensure the main H1 clearly targets “free strong password generator”.
+- Add ONE short supporting H2 immediately after the hero section that reinforces:
+  - online
+  - secure
+  - private
+  - no signup
+- Avoid keyword stuffing; keep it natural.
+
+---
+
+### 2️⃣ Add Micro “Use Case” SEO Section
+Insert a short section explaining password recommendations by account type:
+- Email & social media accounts
+- Banking & work accounts
+- Developer & API credentials
+
+Keep it concise and educational.
+This unlocks long-tail searches Google looks for.
+
+---
+
+### 3️⃣ Improve User Retention Signals
+Enhance the password output area with:
+- A short visual or text-based strength/entropy indicator
+- Clear feedback when password is copied
+These should increase interaction without slowing the page.
+
+---
+
+### 4️⃣ Optimize Internal Linking (Contextual)
+Add 1–2 contextual internal links naturally inside the content (not footer):
+- Link to Temp Mail Generator for privacy use-cases
+- Link to Password Strength Checker after generation
+
+Anchor text should feel natural, not forced.
+
+---
+
+### 5️⃣ FAQ & People-Also-Ask Optimization
+- Reorder FAQ questions so the most common Google “People Also Ask” appear first:
+  - Is an online password generator safe?
+  - Can hackers crack generated passwords?
+  - What is the best password length?
+- Ensure answers are direct, confident, and factual.
+- Apply proper FAQ structured data if not already present.
+
+---
+
+### 6️⃣ Authority & Trust Reinforcement
+- Keep external references to trusted security standards.
+- Add one short brand-authority line reinforcing Pixocraft Tools as a trusted large tool hub.
+- Keep “Last updated” visible and accurate.
+
+---
+
+### 7️⃣ CTR & Meta Optimization
+Refine meta title and meta description to:
+- Clearly state the benefit
+- Encourage clicks
+- Stay within Google display limits
+
+Focus on clarity and trust, not hype.
+
+---
+
+## ⚙️ QUALITY RULES
+- Keep the page fast and lightweight
+- No unnecessary animations or scripts
+- Maintain accessibility and readability
+- Ensure this page still feels unique compared to other tools
+
+---
+
+## ✅ FINAL EXPECTATION
+After this improvement:
+- The page should feel complete, authoritative, and reference-worthy
+- Google should clearly understand the topic, intent, and value
+- Users should trust the tool instantly and explore more tools
+- The page should be fully ready to compete for Top-3 rankings
+
+Do not mention technologies, frameworks, or design systems.
+Only improve SEO signals, structure, clarity, trust, and engagement.
+
+End of instructions.

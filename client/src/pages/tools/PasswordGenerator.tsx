@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Copy, RefreshCw, Lock, Check, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info } from "lucide-react";
+import { Copy, RefreshCw, Lock, Check, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info, Mail, CreditCard, Code } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 
@@ -24,8 +24,8 @@ export default function PasswordGenerator() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Strong Password Generator Online - Secure & Instant | Pixocraft Tools",
-    description: "Generate strong, secure passwords instantly with our free online password generator. No signup, works offline in your browser, passwords never saved. Create unbreakable passwords for maximum security.",
+    title: "Free Strong Password Generator - Secure Random Passwords Online | Pixocraft",
+    description: "Generate strong, secure passwords instantly. Free online password generator with no signup required. Works offline, 100% private - passwords never stored or transmitted.",
     keywords: "password generator, strong password generator, secure password generator online, random password generator, free password generator, password maker, password creator, generate strong password",
     canonicalUrl: "https://tools.pixocraft.in/tools/password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
@@ -67,15 +67,23 @@ export default function PasswordGenerator() {
       navigator.clipboard.writeText(password);
       setCopied(true);
       toast({
-        title: "Password Copied",
-        description: "Your secure password has been copied to clipboard",
+        title: "Copied Successfully",
+        description: "Your secure password is ready to use",
       });
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
   const getStrength = () => {
-    if (!password) return { label: "", color: "", percentage: 0, description: "" };
+    if (!password) return { label: "", color: "", percentage: 0, description: "", entropy: 0 };
+    
+    let charsetSize = 0;
+    if (/[a-z]/.test(password)) charsetSize += 26;
+    if (/[A-Z]/.test(password)) charsetSize += 26;
+    if (/[0-9]/.test(password)) charsetSize += 10;
+    if (/[^a-zA-Z0-9]/.test(password)) charsetSize += 32;
+    
+    const entropy = Math.round(password.length * Math.log2(charsetSize || 1));
     
     let strength = 0;
     if (password.length >= 12) strength += 25;
@@ -85,46 +93,47 @@ export default function PasswordGenerator() {
     if (/[0-9]/.test(password)) strength += 12.5;
     if (/[^a-zA-Z0-9]/.test(password)) strength += 12.5;
 
-    if (strength < 40) return { label: "Weak", color: "bg-destructive", percentage: strength, description: "Consider using more characters and types" };
-    if (strength < 70) return { label: "Medium", color: "bg-chart-4", percentage: strength, description: "Good, but could be stronger" };
-    return { label: "Strong", color: "bg-chart-3", percentage: strength, description: "Excellent password strength" };
+    if (strength < 40) return { label: "Weak", color: "bg-destructive", percentage: strength, description: "Add more characters for better security", entropy };
+    if (strength < 70) return { label: "Medium", color: "bg-chart-4", percentage: strength, description: "Good strength, consider adding more characters", entropy };
+    return { label: "Strong", color: "bg-chart-3", percentage: strength, description: "Excellent - virtually uncrackable", entropy };
   };
 
   const strength = getStrength();
   const relatedTools = getRelatedTools("password-generator");
 
+  // Reordered FAQs - Most common Google "People Also Ask" questions first
   const faqItems: FAQItem[] = [
     {
-      question: "Is this online password generator safe to use?",
-      answer: "Yes, absolutely. This password generator runs entirely in your browser using cryptographically secure randomization (Web Crypto API). Your passwords are never transmitted to any server, stored in any database, or logged anywhere. Once you close or refresh the page, the generated password is completely gone. This is the safest way to generate passwords online."
-    },
-    {
-      question: "What makes a password strong and secure?",
-      answer: "A strong password has three key characteristics: length (at least 12-16 characters), complexity (mix of uppercase, lowercase, numbers, and symbols), and uniqueness (different for each account). Our generator creates passwords with over 10^28 possible combinations for a 16-character password with all character types, making them virtually impossible to crack through brute force attacks."
-    },
-    {
-      question: "Are passwords generated by this tool stored anywhere?",
-      answer: "No, never. All password generation happens locally in your browser using JavaScript. We have zero access to your passwords. There are no server requests, no logging, no tracking, and no database storage. Your passwords exist only on your screen until you copy them or refresh the page."
-    },
-    {
-      question: "How long should my password be for maximum security?",
-      answer: "For standard accounts, 12-16 characters is recommended. For high-security accounts like banking, email, and work systems, use 16-24 characters. Every additional character exponentially increases the time needed to crack the password. Our generator supports up to 32 characters for maximum protection."
-    },
-    {
-      question: "Should I use a different password for every account?",
-      answer: "Yes, absolutely. Using the same password across multiple accounts is one of the biggest security risks. If one service is breached, attackers can access all your other accounts using the same credentials (called credential stuffing). Always generate a unique password for each account and store them in a password manager."
-    },
-    {
-      question: "How should I store my generated passwords securely?",
-      answer: "Use a reputable password manager like Bitwarden, 1Password, LastPass, or Dashlane. These tools encrypt your passwords and sync them across devices securely. Never store passwords in plain text files, emails, notes apps, or written on paper. Enable two-factor authentication (2FA) on your password manager for extra security."
+      question: "Is an online password generator safe to use?",
+      answer: "Yes, when the generator runs entirely in your browser like ours. This password generator uses the Web Crypto API for cryptographically secure randomization and never transmits passwords to any server. Your passwords are never stored, logged, or tracked. Once you close the page, they're gone completely. This is the safest method to generate passwords online."
     },
     {
       question: "Can hackers crack randomly generated passwords?",
-      answer: "Randomly generated passwords with sufficient length and complexity are virtually uncrackable. A 16-character password with mixed characters would take billions of years to crack using current technology. The key is true randomness (which this tool provides) and sufficient length (12+ characters minimum)."
+      answer: "Randomly generated passwords with sufficient length and complexity are virtually uncrackable. A 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, cracking it would take longer than the age of the universe. The key factors are true randomness (which our generator provides) and sufficient length (12+ characters minimum)."
+    },
+    {
+      question: "What is the best password length for security?",
+      answer: "For standard accounts, 12-16 characters is recommended by security experts including NIST. For high-security accounts like banking, email, and work systems, use 16-24 characters. Every additional character exponentially increases the difficulty of cracking. Our generator supports up to 32 characters for maximum protection."
+    },
+    {
+      question: "Should I use different passwords for every account?",
+      answer: "Absolutely. Password reuse is one of the biggest security risks. If one service is breached and you've used the same password elsewhere, attackers can access all your accounts (credential stuffing). Always generate a unique password for each account and store them securely in a password manager."
+    },
+    {
+      question: "Are passwords generated by this tool stored anywhere?",
+      answer: "No, never. All password generation happens locally in your browser using JavaScript. We have zero access to your passwords - there are no server requests, no logging, no tracking, and no database storage. Your passwords exist only on your screen until you copy them or refresh the page."
+    },
+    {
+      question: "How should I store my generated passwords securely?",
+      answer: "Use a reputable password manager like Bitwarden, 1Password, LastPass, or Dashlane. These tools encrypt your passwords and sync them securely across devices. Never store passwords in plain text files, emails, browser notes, or written on paper. Enable two-factor authentication on your password manager for extra security."
+    },
+    {
+      question: "What makes a password strong and secure?",
+      answer: "A strong password has three key characteristics: length (at least 12-16 characters), complexity (mix of uppercase, lowercase, numbers, and symbols), and uniqueness (different for each account). Our generator creates passwords with over 10^28 possible combinations for a 16-character password, making them virtually impossible to crack."
     },
     {
       question: "How often should I change my passwords?",
-      answer: "Modern security guidance suggests changing passwords only when there's a reason to (breach, suspected compromise, shared with someone). However, for critical accounts, periodic changes every 6-12 months are still recommended. Always change passwords immediately if you receive a breach notification."
+      answer: "Modern security guidance from NIST suggests changing passwords only when there's a specific reason (breach notification, suspected compromise, shared with someone). For critical accounts, periodic changes every 6-12 months are still recommended. Always change passwords immediately if you receive a breach notification from any service."
     }
   ];
 
@@ -132,7 +141,7 @@ export default function PasswordGenerator() {
   
   const softwareSchema = generateSoftwareApplicationSchema({
     name: "Free Strong Password Generator",
-    description: "Generate secure, random passwords instantly. Free online tool with no signup required. Works offline in your browser.",
+    description: "Generate secure, random passwords instantly. Free online tool with no signup required. Works offline in your browser with complete privacy.",
     url: "https://tools.pixocraft.in/tools/password-generator",
     applicationCategory: "SecurityApplication",
     operatingSystem: "Any",
@@ -155,7 +164,7 @@ export default function PasswordGenerator() {
           </div>
 
           {/* Page Header */}
-          <div className="text-center space-y-4 mb-8">
+          <div className="text-center space-y-4 mb-6">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Lock className="h-8 w-8 text-primary" />
@@ -163,7 +172,7 @@ export default function PasswordGenerator() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold">Free Strong Password Generator</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Create secure, random passwords instantly. No signup, no tracking, works offline in your browser.
+              Create secure, random passwords instantly. No signup, no tracking, works offline.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">100% Free</Badge>
@@ -172,6 +181,11 @@ export default function PasswordGenerator() {
               <Badge variant="secondary">Cryptographically Secure</Badge>
             </div>
           </div>
+
+          {/* Supporting H2 - Search Intent Signal */}
+          <h2 className="text-center text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Generate secure passwords online with complete privacy. Your passwords are created in your browser and never leave your device.
+          </h2>
 
           {/* Trust Signals - Above the Fold */}
           <div className="max-w-2xl mx-auto mb-8">
@@ -197,7 +211,7 @@ export default function PasswordGenerator() {
               <CardHeader>
                 <CardTitle>Generate Secure Password</CardTitle>
                 <CardDescription>
-                  Customize your password settings and generate cryptographically secure passwords instantly
+                  Customize settings and create cryptographically secure passwords instantly
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -222,6 +236,9 @@ export default function PasswordGenerator() {
                       {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                     </Button>
                   </div>
+                  {copied && (
+                    <p className="text-sm text-chart-3 font-medium">Password copied to clipboard</p>
+                  )}
                   {password && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
@@ -230,6 +247,7 @@ export default function PasswordGenerator() {
                           <Badge variant={strength.label === "Strong" ? "default" : strength.label === "Medium" ? "secondary" : "destructive"}>
                             {strength.label}
                           </Badge>
+                          <span className="text-xs text-muted-foreground">({strength.entropy} bits entropy)</span>
                         </div>
                       </div>
                       <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -332,9 +350,64 @@ export default function PasswordGenerator() {
             </Card>
           </div>
 
+          {/* Password Recommendations by Account Type */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-4 text-center">Password Recommendations by Account Type</h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Different accounts require different levels of security. Here's what security experts recommend:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2 text-center">Email & Social Media</h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>Minimum: 12-14 characters</li>
+                    <li>Include: Letters, numbers, symbols</li>
+                    <li>Always enable 2FA</li>
+                    <li>Use unique passwords per account</li>
+                  </ul>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2 text-center">Banking & Work Accounts</h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>Minimum: 16-20 characters</li>
+                    <li>Maximum complexity required</li>
+                    <li>Change every 6-12 months</li>
+                    <li>Never reuse across services</li>
+                  </ul>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Code className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2 text-center">Developer & API Credentials</h3>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>Minimum: 20-32 characters</li>
+                    <li>Include all character types</li>
+                    <li>Store in environment variables</li>
+                    <li>Rotate periodically or on exposure</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-6 max-w-2xl mx-auto">
+              After generating your password, verify its security with our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Password Strength Checker</Link>.
+            </p>
+          </section>
+
           {/* Who Should Use This Section */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Who Should Use This Password Generator?</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">Who Uses This Password Generator?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card>
                 <CardContent className="pt-6 text-center">
@@ -393,7 +466,7 @@ export default function PasswordGenerator() {
                 </div>
                 <h3 className="font-semibold text-lg">Customize Settings</h3>
                 <p className="text-muted-foreground">
-                  Choose your desired password length (12-16 characters recommended) and select which character types to include.
+                  Choose your password length (12-16 characters recommended) and select which character types to include.
                 </p>
               </div>
               <div className="text-center space-y-4">
@@ -427,7 +500,7 @@ export default function PasswordGenerator() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Yes, when the generator runs entirely in your browser (like ours). Our tool uses the Web Crypto API for true cryptographic randomness and never sends your passwords to any server. Your passwords exist only on your device.
+                    Yes, when the generator runs entirely in your browser (like ours). We use the Web Crypto API for true cryptographic randomness and never send your passwords to any server. Your passwords exist only on your device.
                   </p>
                 </CardContent>
               </Card>
@@ -437,17 +510,7 @@ export default function PasswordGenerator() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    A properly generated 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, it would take longer than the age of the universe to crack. Random, long passwords are virtually uncrackable.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Should I use different passwords for every account?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Absolutely. Password reuse is one of the leading causes of account breaches. When one service is compromised, attackers try those credentials on other sites. Use a unique password for every account and store them in a password manager.
+                    A properly generated 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, it would take longer than the age of the universe to crack.
                   </p>
                 </CardContent>
               </Card>
@@ -457,7 +520,17 @@ export default function PasswordGenerator() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Security organizations like NIST recommend a minimum of 12 characters, with 16+ characters being ideal for sensitive accounts. Each additional character exponentially increases security. Our generator supports up to 32 characters.
+                    Security organizations like NIST recommend a minimum of 12 characters, with 16+ characters being ideal for sensitive accounts. Each additional character exponentially increases security.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Should I use different passwords for every account?</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Absolutely. Password reuse is a leading cause of account breaches. When one service is compromised, attackers try those credentials on other sites. Use a unique password for every account.
                   </p>
                 </CardContent>
               </Card>
@@ -466,7 +539,7 @@ export default function PasswordGenerator() {
 
           {/* Why Use Section */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft's Password Generator?</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">Why Choose Pixocraft's Password Generator?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Card>
                 <CardHeader>
@@ -517,7 +590,7 @@ export default function PasswordGenerator() {
             {/* Internal Links & Authority Signals */}
             <div className="prose prose-lg max-w-4xl mx-auto space-y-4">
               <p className="text-muted-foreground">
-                After generating your password, verify its strength with our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Password Strength Checker</Link>. Need a temporary email to sign up for a service? Try our <Link href="/tools/temp-mail" className="text-primary hover:underline">Temporary Email Generator</Link> for added privacy.
+                Need a temporary email for signing up to a new service securely? Use our <Link href="/tools/temp-mail" className="text-primary hover:underline">Temporary Email Generator</Link> for added privacy. Verify your password's strength anytime with our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Password Strength Checker</Link>.
               </p>
               <p className="text-muted-foreground text-sm">
                 Our password recommendations align with guidelines from{" "}
@@ -584,10 +657,13 @@ export default function PasswordGenerator() {
             </div>
           </section>
 
-          {/* Freshness Indicator */}
-          <div className="text-center mb-12">
+          {/* Freshness & Authority Indicator */}
+          <div className="text-center mb-12 space-y-2">
             <p className="text-sm text-muted-foreground">
               Last updated: December 2024
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Pixocraft Tools is a trusted platform with 175+ free online tools used by millions worldwide.
             </p>
           </div>
 
