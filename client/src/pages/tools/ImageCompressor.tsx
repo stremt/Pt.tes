@@ -23,9 +23,9 @@ export default function ImageCompressor() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Image Compressor - Reduce Size Without Quality Loss | Pixocraft",
-    description: "Compress images free with no quality loss. Offline image compressor that works 100% in your browser. Reduce image size by up to 90% instantly. Private, no upload—your images never leave your device.",
-    keywords: "image compressor, compress images online, reduce image size, free image compressor, image optimizer, compress jpg png webp, offline image compression, private image compressor, pixocraft tools",
+    title: "Free Offline Image Compressor - No Upload, No Quality Loss | Pixocraft",
+    description: "Compress images free with no quality loss. 100% private offline image compressor—no upload, no servers, works instantly in your browser. Reduce image size by 90% in seconds.",
+    keywords: "image compressor, compress images online, reduce image size, free image compressor, image optimizer, compress jpg png webp, offline image compression, private image compressor, no upload image compressor, pixocraft tools",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-compressor",
     ogImage: OG_IMAGES.imageCompressor,
   });
@@ -195,18 +195,18 @@ export default function ImageCompressor() {
               <ImageDown className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">Free Image Compressor</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Free Offline Image Compressor</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Compress images without losing quality. Reduce file size instantly and download optimized images.
+            Compress images instantly—no upload, no servers, no quality loss. 100% private and works offline.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <Badge variant="secondary">100% Free</Badge>
+            <Badge variant="secondary">100% Free Forever</Badge>
             <Badge variant="secondary">No Quality Loss</Badge>
             <Badge variant="secondary">Works Offline</Badge>
-            <Badge variant="secondary">Private & Secure</Badge>
+            <Badge variant="secondary">No Upload Required</Badge>
           </div>
           <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
-            Reduce image size by up to 90% with instant compression. No signup, no upload to servers—your images stay private and are processed entirely in your browser, even offline.
+            Reduce image size by up to 90% in seconds. Your images never leave your device—everything happens locally in your browser. Load once, compress unlimited images anytime, even without internet.
           </h2>
         </div>
 
@@ -240,14 +240,16 @@ export default function ImageCompressor() {
                     data-testid="input-file-upload"
                   />
                 </div>
-                <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1.5">
-                    <Shield className="h-3.5 w-3.5 text-primary" />
-                    <span>Images never leave your device</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <WifiOff className="h-3.5 w-3.5 text-primary" />
-                    <span>Works offline once loaded</span>
+                <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+                  <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-4 w-4 text-primary" />
+                      <span className="font-medium">No Upload — Images stay on your device</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <WifiOff className="h-4 w-4 text-primary" />
+                      <span className="font-medium">Offline Image Compression — Works without internet</span>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -392,6 +394,29 @@ export default function ImageCompressor() {
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Compression Results Summary */}
+              {compressedFile && originalFile && (
+                <Card className="bg-primary/5 border-primary/20">
+                  <CardContent className="py-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center">
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Original Size</p>
+                        <p className="text-lg font-semibold" data-testid="text-original-size">{formatFileSize(originalFile.size)}</p>
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-primary hidden sm:block" />
+                      <div>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Compressed Size</p>
+                        <p className="text-lg font-semibold text-primary" data-testid="text-compressed-size">{formatFileSize(compressedFile.size)}</p>
+                      </div>
+                      <div className="sm:border-l sm:pl-8 sm:border-border">
+                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Size Reduced By</p>
+                        <p className="text-lg font-bold text-primary" data-testid="text-reduction-percent">{Math.round((1 - compressedFile.size / originalFile.size) * 100)}%</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           )}
         </div>
