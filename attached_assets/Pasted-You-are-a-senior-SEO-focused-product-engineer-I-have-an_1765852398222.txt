@@ -1,0 +1,88 @@
+You are a senior SEO-focused product engineer.
+
+I have an existing static web page for a “Password Strength Checker” tool.
+The tool already works perfectly and runs fully in the browser with no data storage.
+
+Your task is NOT to rebuild the tool, but to UPGRADE this page to be:
+• Search-engine dominant
+• Trust-first (security niche)
+• High CTR on Google
+• High dwell-time and internal conversion
+
+STRICT RULES:
+- Do NOT change the core logic or UI behavior
+- Do NOT mention frameworks, libraries, or tech stack
+- Do NOT add ads or popups
+- Do NOT add unnecessary animations
+- Keep everything static and fast
+
+GOALS:
+1. Make this page rank for:
+   - password strength checker online
+   - check password strength
+   - is my password strong
+   - password strength test free
+   - password strength checker offline
+
+2. Improve Google CTR using better titles, descriptions, and headings.
+3. Increase user trust and time-on-page.
+4. Funnel users naturally to:
+   - Password Generator (for weak passwords)
+   - Temp Mail (for privacy use cases)
+
+WHAT TO IMPLEMENT:
+
+### A. SEO STRUCTURE
+- Rewrite the page title to be click-optimized and keyword-rich (no branding first).
+- Rewrite meta description to clearly highlight:
+  • free
+  • private
+  • runs in browser
+  • instant result
+- Ensure only ONE H1 exists and matches search intent.
+
+### B. RESULT INTERPRETATION SECTION (IMPORTANT)
+After showing password strength results, add a new section:
+Title: “Is This Password Strong Enough for Real Use?”
+
+Include a simple table mapping:
+- Social media
+- Email
+- Banking
+- Work / admin accounts
+
+Explain what strength level is recommended for each.
+
+### C. TRUST & EXPERT SIGNALS
+- Add short explanatory micro-copy below:
+  • strength score
+  • time to crack
+  • entropy
+Explain what they mean in simple language.
+- Clearly state that all checks happen locally and nothing is stored.
+
+### D. FAQ OPTIMIZATION
+- Reduce FAQs to a maximum of 4.
+- Keep ONLY search-driven FAQs.
+- Write concise, authoritative answers (no fluff).
+
+### E. INTERNAL LINKING (INTENT-BASED)
+Add contextual links such as:
+- “Weak password?” → Password Generator
+- “Need privacy for signups?” → Temporary Email Generator
+
+These links must feel helpful, not promotional.
+
+### F. SCHEMA
+- Add FAQ schema
+- Add SoftwareApplication schema
+Ensure schema content matches visible content exactly.
+
+### OUTPUT FORMAT:
+- Provide updated page structure (headings + sections)
+- Provide rewritten SEO title & meta description
+- Provide exact new section content
+- Provide revised FAQ questions & answers
+- Provide internal linking placement suggestions
+
+Focus on clarity, authority, and ranking — not decoration.
