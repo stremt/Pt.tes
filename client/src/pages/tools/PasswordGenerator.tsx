@@ -12,6 +12,7 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Copy, RefreshCw, Lock, Check, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info, Mail, CreditCard, Code } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { RelatedUseCases } from "@/components/RelatedUseCases";
 
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("");
@@ -666,6 +667,9 @@ export default function PasswordGenerator() {
               Pixocraft Tools is a trusted platform with 175+ free online tools used by millions worldwide.
             </p>
           </div>
+
+          {/* Related Use Cases */}
+          <RelatedUseCases toolId="password-generator" toolName="Password Generator" />
 
           {/* Related Tools */}
           <section>

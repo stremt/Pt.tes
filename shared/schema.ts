@@ -79,3 +79,56 @@ export interface ToolMetadata {
   category: "privacy" | "utility" | "generator" | "media" | "pdf" | "image" | "developer" | "ai" | "text" | "math" | "productivity" | "color";
   keywords: string[];
 }
+
+// SEO Cluster Types for Long-tail Landing Pages
+export type ClusterType = "privacy" | "pdf" | "image";
+
+export interface FAQEntry {
+  question: string;
+  answer: string;
+}
+
+export interface UseCaseBenefit {
+  title: string;
+  description: string;
+}
+
+export interface UseCaseStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface ToolUseCasePage {
+  slug: string;
+  parentToolId: string;
+  seo: {
+    title: string;
+    metaDescription: string;
+    keywords: string[];
+  };
+  content: {
+    h1: string;
+    intro: string;
+    problemStatement: string;
+    solutionExplanation: string;
+    useCaseNarrative: string;
+    industries?: string[];
+    benefits: UseCaseBenefit[];
+    howItWorks: UseCaseStep[];
+    faqs: FAQEntry[];
+  };
+  internalLinks: {
+    parentToolPath: string;
+    relatedUseCases: string[];
+    clusterSiblings: string[];
+  };
+}
+
+export interface ToolCluster {
+  id: ClusterType;
+  name: string;
+  description: string;
+  priority: number;
+  tools: string[];
+}

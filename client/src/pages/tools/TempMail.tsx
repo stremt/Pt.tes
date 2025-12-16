@@ -11,6 +11,7 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Copy, RefreshCw, Mail, Check, Inbox, Clock, User, ArrowRight, X, Shield, Lock, AlertTriangle, CheckCircle, Timer, Key } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { RelatedUseCases } from "@/components/RelatedUseCases";
 
 const MAIL_TM_API = "https://api.mail.tm";
 
@@ -777,6 +778,9 @@ export default function TempMail() {
             </Accordion>
           </div>
         </section>
+
+        {/* Related Use Cases */}
+        <RelatedUseCases toolId="temp-mail" toolName="Temp Mail Generator" />
 
         {/* Brand Authority Signal */}
         <section className="mb-16">

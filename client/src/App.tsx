@@ -216,6 +216,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
 import QADashboard from "@/pages/QADashboard";
+import LongTailToolPage from "@/pages/LongTailToolPage";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -439,6 +440,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
+        <Route path="/tools/:toolId/:useCaseSlug" component={LongTailToolPage} />
         <Route component={NotFound} />
       </Switch>
     </>
