@@ -4,9 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Hash, Copy, Check, ArrowRight } from "lucide-react";
+import { Hash, Copy, Check, ArrowRight, Shield, WifiOff, Lock, Key, FileCheck, Server, GraduationCap, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 
@@ -107,9 +107,9 @@ export default function HashGenerator() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Hash Generator Online | MD5, SHA1, SHA256 Hash Tool | Pixocraft Tools",
-    description: "Generate MD5, SHA1 & SHA256 hashes instantly. Developer-friendly, offline & secure.",
-    keywords: "md5 generator, sha256 hash tool, hash calculator, sha1 online, hash generator",
+    title: "Free Hash Generator Online - MD5, SHA1, SHA256 Instant & Offline | Pixocraft",
+    description: "Generate MD5, SHA1, and SHA256 hashes instantly. 100% free, runs offline in your browser with no data uploads. Perfect for developers, file verification, and security checks.",
+    keywords: "hash generator online, md5 hash generator, sha256 hash generator, generate hash from text, offline hash generator, md5 vs sha256, sha1 generator, free hash tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/hash-generator",
   });
 
@@ -161,22 +161,38 @@ export default function HashGenerator() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is hashing offline?",
-      answer: "Yes, browser crypto only. All hash generation happens in your browser using the Web Crypto API and pure JavaScript. Your data never leaves your device."
+      question: "Is MD5 still safe to use?",
+      answer: "MD5 is safe for non-security purposes like checksums and file verification. However, for security-critical applications like digital signatures or certificates, use SHA-256 instead, as MD5 has known collision vulnerabilities."
     },
     {
-      question: "What's the difference between MD5, SHA1, and SHA256?",
-      answer: "MD5 and SHA1 are older, faster, but less secure. SHA256 is more secure and recommended for security-critical applications. All are one-way hashing algorithms."
+      question: "Can hashes be reversed to get the original text?",
+      answer: "No. Hashing is a one-way function—you cannot reverse a hash to recover the original input. This is by design. Attackers use lookup tables or brute force, but the hash itself cannot be decrypted."
     },
     {
-      question: "Can I use this for password hashing?",
-      answer: "While you can, it's not recommended to use these hashes alone for passwords. Use proper password hashing algorithms like bcrypt or Argon2 for production systems."
+      question: "Is this tool safe for passwords?",
+      answer: "This tool is safe for generating hashes, but MD5/SHA1/SHA256 alone are not recommended for password storage. Use dedicated password hashing algorithms with salting for storing user passwords securely."
+    },
+    {
+      question: "Does this tool upload my data?",
+      answer: "No. All hashing happens entirely in your browser. Your input never leaves your device—no data is sent to any server, stored, or logged. The tool works completely offline once loaded."
     }
   ];
 
+  const faqSchema = generateFAQSchema(faqItems);
+  
+  const softwareSchema = generateSoftwareApplicationSchema({
+    name: "Hash Generator",
+    description: "Free online tool to generate MD5, SHA1, and SHA256 hashes instantly. Runs entirely in your browser with no data uploads. Perfect for developers and file verification.",
+    url: "https://tools.pixocraft.in/tools/hash-generator",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Any (Browser-based)",
+    offers: { price: "0", priceCurrency: "INR" }
+  });
+
   return (
     <>
-      <StructuredData data={generateFAQSchema(faqItems)} />
+      <StructuredData data={faqSchema} />
+      <StructuredData data={softwareSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="mb-8 text-sm text-muted-foreground">
@@ -193,15 +209,16 @@ export default function HashGenerator() {
                 <Hash className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Hash Generator</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Free Hash Generator Online</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Generate MD5, SHA1 & SHA256 hashes instantly
+              Generate MD5, SHA1, and SHA256 hashes instantly—100% free, offline, and private.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">MD5</Badge>
               <Badge variant="secondary">SHA1</Badge>
               <Badge variant="secondary">SHA256</Badge>
-              <Badge variant="secondary">Offline</Badge>
+              <Badge variant="secondary">Works Offline</Badge>
+              <Badge variant="secondary">No Data Uploads</Badge>
             </div>
           </div>
 
@@ -236,7 +253,7 @@ export default function HashGenerator() {
                     {md5Hash && (
                       <Card className="bg-muted/50">
                         <CardContent className="pt-6">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                             <Label className="text-sm font-semibold">MD5</Label>
                             <Button
                               variant="outline"
@@ -265,7 +282,7 @@ export default function HashGenerator() {
                     {sha1Hash && (
                       <Card className="bg-muted/50">
                         <CardContent className="pt-6">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                             <Label className="text-sm font-semibold">SHA-1</Label>
                             <Button
                               variant="outline"
@@ -294,7 +311,7 @@ export default function HashGenerator() {
                     {sha256Hash && (
                       <Card className="bg-muted/50">
                         <CardContent className="pt-6">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                             <Label className="text-sm font-semibold">SHA-256</Label>
                             <Button
                               variant="outline"
@@ -325,16 +342,244 @@ export default function HashGenerator() {
             </Card>
           </div>
 
+          {/* What Is This Hash Generator Used For? */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center">What Is This Hash Generator Used For?</h2>
+            <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-8">
+              Hashes are one-way fingerprints of data. They're used to verify integrity, sign requests, and check consistency—without exposing the original content.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <FileCheck className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">File Integrity Verification</h3>
+                      <p className="text-sm text-muted-foreground">Compare hashes before and after download to ensure files weren't corrupted or tampered with.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Server className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">API Request Signing</h3>
+                      <p className="text-sm text-muted-foreground">Many APIs use hashes to verify request authenticity and prevent tampering during transmission.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Data Consistency Checks</h3>
+                      <p className="text-sm text-muted-foreground">Quickly verify that data hasn't changed between systems or over time using hash comparisons.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <GraduationCap className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">Learning & Education</h3>
+                      <p className="text-sm text-muted-foreground">Understand how hashing works by experimenting with different inputs and comparing outputs.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Important Clarification */}
+            <Card className="max-w-4xl mx-auto mt-8 bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <AlertTriangle className="h-6 w-6 text-yellow-600 flex-shrink-0" />
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-yellow-900 dark:text-yellow-200">Important: What Hashing Is NOT</h3>
+                    <ul className="text-sm text-yellow-800 dark:text-yellow-300 space-y-1">
+                      <li><strong>Hashing is not encryption.</strong> Encrypted data can be decrypted with a key. Hashes cannot be reversed.</li>
+                      <li><strong>Hashing alone is not a password storage solution.</strong> Use dedicated password hashing with salting for secure storage.</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* MD5 vs SHA1 vs SHA256 Comparison */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center">MD5 vs SHA1 vs SHA256: Which Should You Use?</h2>
+            <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-8">
+              Different hashing algorithms have different strengths. Here's a simple comparison to help you choose the right one.
+            </p>
+            <Card className="max-w-4xl mx-auto">
+              <CardContent className="pt-6">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-3 px-4 font-semibold">Algorithm</th>
+                        <th className="text-left py-3 px-4 font-semibold">Speed</th>
+                        <th className="text-left py-3 px-4 font-semibold">Security</th>
+                        <th className="text-left py-3 px-4 font-semibold">Best For</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="py-3 px-4 font-medium">MD5</td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Fastest</Badge>
+                        </td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Weak</Badge>
+                        </td>
+                        <td className="py-3 px-4 text-muted-foreground">Quick checksums, cache keys, non-security uses</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-3 px-4 font-medium">SHA-1</td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Fast</Badge>
+                        </td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Deprecated</Badge>
+                        </td>
+                        <td className="py-3 px-4 text-muted-foreground">Legacy systems, git commits (transitioning away)</td>
+                      </tr>
+                      <tr>
+                        <td className="py-3 px-4 font-medium">SHA-256</td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Moderate</Badge>
+                        </td>
+                        <td className="py-3 px-4">
+                          <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Strong</Badge>
+                        </td>
+                        <td className="py-3 px-4 text-muted-foreground">Digital signatures, certificates, blockchain, security-critical apps</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-sm text-muted-foreground mt-4 pt-4 border-t">
+                  <strong>Recommendation:</strong> Use SHA-256 for anything security-related. Use MD5 only for quick checksums where security doesn't matter.
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Privacy & Safety Section */}
+          <section className="mb-16">
+            <Card className="max-w-4xl mx-auto bg-primary/5 border-primary/10">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Lock className="h-5 w-5 text-primary" />
+                  Privacy & Safety
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Runs Entirely in Browser</h4>
+                      <p className="text-sm text-muted-foreground">All hashing is done locally using your browser's built-in capabilities. Nothing is processed on external servers.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <WifiOff className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Works Completely Offline</h4>
+                      <p className="text-sm text-muted-foreground">Once the page loads, you can disconnect from the internet and continue generating hashes.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Lock className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">No Data Storage or Logs</h4>
+                      <p className="text-sm text-muted-foreground">Your input is never saved, logged, or transmitted. It exists only in your browser's memory while you use the tool.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Key className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Safe for Sensitive Input</h4>
+                      <p className="text-sm text-muted-foreground">You can safely hash sensitive strings for verification purposes, knowing nothing leaves your device.</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Internal Linking Section */}
+          <section className="mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+              <Link href="/tools/password-generator" className="block" data-testid="link-password-generator">
+                <Card className="h-full hover-elevate cursor-pointer">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <h3 className="font-semibold">Need a Strong Password?</h3>
+                        <p className="text-sm text-muted-foreground">Generate random, secure passwords.</p>
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools/password-strength-checker" className="block" data-testid="link-password-checker">
+                <Card className="h-full hover-elevate cursor-pointer">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <h3 className="font-semibold">Check Password Strength</h3>
+                        <p className="text-sm text-muted-foreground">Test if your password is secure enough.</p>
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools/temp-mail" className="block" data-testid="link-temp-mail">
+                <Card className="h-full hover-elevate cursor-pointer">
+                  <CardContent className="pt-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="space-y-1">
+                        <h3 className="font-semibold">Need Privacy for Testing?</h3>
+                        <p className="text-sm text-muted-foreground">Use a temporary email address.</p>
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
+          </section>
+
+          {/* FAQ Section */}
           <section className="py-16 border-t bg-muted/30">
             <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center space-y-4 mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">About Hash Generator</h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Paste text → get MD5, SHA1, SHA256 hash instantly. Perfect for coding, security & verification.
-                </p>
-              </div>
-
-              <div className="text-center space-y-4 mb-12 mt-16">
                 <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
               </div>
               <div className="max-w-3xl mx-auto space-y-6">
