@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Building2, FileText, Users, Type, Image, RotateCw, Grid3X3, ChevronLeft, ChevronRight, Layers, Eye } from "lucide-react";
+import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Building2, FileText, Users, Type, Image, RotateCw, Grid3X3, ChevronLeft, ChevronRight, Layers, Eye, Loader2, Check, Zap, Lock, Palette, Move } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { addAdvancedWatermarkToPDF, getPDFInfo, formatFileSize, type WatermarkPosition, type WatermarkFont, type WatermarkLayer } from "@/lib/pdf-utils";
@@ -73,7 +73,10 @@ export default function PDFWatermarkAdder() {
   const [pageTo, setPageTo] = useState(1);
   
   const [loading, setLoading] = useState(false);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const [loadedImage, setLoadedImage] = useState<HTMLImageElement | null>(null);
+  const [cachedPageImage, setCachedPageImage] = useState<ImageData | null>(null);
+  const [cachedPageDimensions, setCachedPageDimensions] = useState<{width: number, height: number} | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -152,13 +155,10 @@ export default function PDFWatermarkAdder() {
     }
   };
 
-  const renderPDFPage = useCallback(async () => {
-    const canvas = previewCanvasRef.current;
-    if (!canvas || !pdfDoc) return;
+  const renderAndCachePDFPage = useCallback(async () => {
+    if (!pdfDoc) return;
     
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
+    setPreviewLoading(true);
     try {
       const page = await pdfDoc.getPage(currentPreviewPage);
       const viewport = page.getViewport({ scale: 1 });
@@ -167,22 +167,40 @@ export default function PDFWatermarkAdder() {
       const scale = containerWidth / viewport.width;
       const scaledViewport = page.getViewport({ scale });
       
-      canvas.width = scaledViewport.width;
-      canvas.height = scaledViewport.height;
+      const offscreenCanvas = document.createElement('canvas');
+      offscreenCanvas.width = scaledViewport.width;
+      offscreenCanvas.height = scaledViewport.height;
+      const offscreenCtx = offscreenCanvas.getContext('2d');
       
-      const renderContext = {
-        canvasContext: ctx,
-        viewport: scaledViewport,
-        canvas: canvas,
-      };
-      await page.render(renderContext as any).promise;
-      
-      drawWatermarkOverlay(ctx, canvas.width, canvas.height);
+      if (offscreenCtx) {
+        const renderContext = {
+          canvasContext: offscreenCtx,
+          viewport: scaledViewport,
+          canvas: offscreenCanvas,
+        };
+        await page.render(renderContext as any).promise;
+        
+        const imageData = offscreenCtx.getImageData(0, 0, offscreenCanvas.width, offscreenCanvas.height);
+        setCachedPageImage(imageData);
+        setCachedPageDimensions({ width: offscreenCanvas.width, height: offscreenCanvas.height });
+      }
     } catch (error) {
       console.error('Error rendering PDF page:', error);
-      drawFallbackPreview(ctx, canvas.width, canvas.height);
+      setCachedPageImage(null);
+      setCachedPageDimensions(null);
+    } finally {
+      setPreviewLoading(false);
     }
   }, [pdfDoc, currentPreviewPage]);
+
+  useEffect(() => {
+    if (pdfDoc) {
+      renderAndCachePDFPage();
+    } else {
+      setCachedPageImage(null);
+      setCachedPageDimensions(null);
+    }
+  }, [pdfDoc, currentPreviewPage, renderAndCachePDFPage]);
 
   const drawWatermarkOverlay = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
     ctx.save();
@@ -309,18 +327,21 @@ export default function PDFWatermarkAdder() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    if (pdfDoc) {
-      renderPDFPage();
-    } else {
+    if (cachedPageImage && cachedPageDimensions) {
+      canvas.width = cachedPageDimensions.width;
+      canvas.height = cachedPageDimensions.height;
+      ctx.putImageData(cachedPageImage, 0, 0);
+      drawWatermarkOverlay(ctx, canvas.width, canvas.height);
+    } else if (!pdfDoc) {
       canvas.width = 320;
       canvas.height = 452;
       drawFallbackPreview(ctx, canvas.width, canvas.height);
     }
-  }, [pdfDoc, renderPDFPage, drawFallbackPreview]);
+  }, [cachedPageImage, cachedPageDimensions, pdfDoc, drawWatermarkOverlay, drawFallbackPreview]);
 
   useEffect(() => {
     drawPreview();
-  }, [drawPreview, watermarkText, watermarkType, loadedImage, font, fontSize, opacity, rotation, position, isMosaic, currentPreviewPage]);
+  }, [drawPreview, watermarkText, watermarkType, loadedImage, font, fontSize, opacity, rotation, position, isMosaic]);
 
   const goToPrevPage = () => {
     if (currentPreviewPage > 1) {
@@ -844,15 +865,23 @@ export default function PDFWatermarkAdder() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="bg-muted/50 rounded-lg p-4 flex items-center justify-center">
+                      <div className="bg-muted/50 rounded-lg p-4 flex items-center justify-center min-h-[300px] relative">
+                        {previewLoading && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-muted/80 rounded-lg z-10">
+                            <div className="flex flex-col items-center gap-2">
+                              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                              <span className="text-sm text-muted-foreground">Loading preview...</span>
+                            </div>
+                          </div>
+                        )}
                         <canvas
                           ref={previewCanvasRef}
                           className="border border-border rounded shadow-sm max-w-full h-auto"
-                          style={{ maxHeight: '500px' }}
+                          style={{ maxHeight: '500px', opacity: previewLoading ? 0.3 : 1 }}
                         />
                       </div>
                       <p className="text-xs text-muted-foreground text-center mt-3">
-                        Preview updates as you change settings
+                        Preview updates live as you change settings
                       </p>
                     </CardContent>
                   </Card>
@@ -860,6 +889,100 @@ export default function PDFWatermarkAdder() {
               </div>
             )}
           </div>
+
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Key Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Type className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Text Watermarks</h3>
+                    <p className="text-sm text-muted-foreground">Add custom text with 6 font options, adjustable size, and rotation</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Image className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Image Watermarks</h3>
+                    <p className="text-sm text-muted-foreground">Upload PNG or JPG logos and graphics as watermarks</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Eye className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Live Preview</h3>
+                    <p className="text-sm text-muted-foreground">See your watermark on actual PDF pages in real-time</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Lock className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">100% Private</h3>
+                    <p className="text-sm text-muted-foreground">All processing happens in your browser - files never uploaded</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Move className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">9 Positions</h3>
+                    <p className="text-sm text-muted-foreground">Place watermark at any corner, edge, or center of the page</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Grid3X3 className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Tile Pattern</h3>
+                    <p className="text-sm text-muted-foreground">Repeat watermark across entire page for maximum protection</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Palette className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Adjustable Opacity</h3>
+                    <p className="text-sm text-muted-foreground">Control transparency from 10% to 100% for subtle or bold marks</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                      <FileText className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold">Page Selection</h3>
+                    <p className="text-sm text-muted-foreground">Apply to all pages or select a specific range</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
 
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Common Watermark Use Cases</h2>
