@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Unlock, Upload, Download, X, AlertCircle } from "lucide-react";
+import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, GraduationCap, Building2, UserCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { removePasswordFromPDF } from "@/lib/pdf-utils";
@@ -19,9 +19,9 @@ export default function PDFPasswordRemover() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Remove PDF Password Online Free - Unlock PDF Files | Pixocraft Tools",
-    description: "Remove password protection from PDF files online for free. Unlock encrypted PDFs securely in your browser. No upload required, completely private and offline.",
-    keywords: "remove pdf password, unlock pdf, pdf password remover, decrypt pdf, pdf password cracker, remove pdf security, unlock encrypted pdf",
+    title: "Remove PDF Password Online Free | Unlock PDFs Instantly",
+    description: "Remove PDF password protection instantly in your browser. Free, secure, and offline. Unlock encrypted PDFs without uploading files. Works on all devices.",
+    keywords: "remove pdf password, unlock pdf, pdf password remover, decrypt pdf, unlock encrypted pdf, remove pdf security, pdf unlocker free, unlock pdf online",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-password-remover",
   });
 
@@ -84,28 +84,48 @@ export default function PDFPasswordRemover() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is it legal to remove PDF passwords?",
-      answer: "It's legal to remove passwords from PDFs that you own or have permission to access. This tool is designed for legitimate use cases like accessing your own documents where you've forgotten the password, or removing restrictions you've added yourself. Never use this tool on documents you don't have rights to access."
+      question: "Is it legal to remove passwords from PDF files?",
+      answer: "Removing passwords from PDFs you own or have authorized access to is perfectly legal. This tool is designed for legitimate purposes—recovering access to your own documents, removing outdated protection from business files, or unlocking PDFs you've received with proper permissions. Using this tool on documents you don't have rights to access would be inappropriate and potentially illegal."
     },
     {
-      question: "What types of PDF passwords can be removed?",
-      answer: "This tool can attempt to remove user passwords (that prevent opening the PDF) if the PDF is not heavily encrypted. However, browser-based limitations mean strongly encrypted PDFs may not be processable. For best results, use this on PDFs with basic password protection."
+      question: "What types of PDF passwords can this tool remove?",
+      answer: "This tool works effectively on PDFs with standard password protection, particularly owner passwords that restrict editing or printing. For user passwords (those required to open the PDF), you'll need to know the original password. Heavily encrypted PDFs using advanced security standards may require the original password for complete access."
     },
     {
-      question: "Is my PDF secure during password removal?",
-      answer: "Absolutely! All processing happens entirely in your browser using JavaScript. Your PDF never leaves your device, and we don't store, log, or have any access to your files. This ensures complete privacy for sensitive documents."
+      question: "Is my PDF safe when I use this tool?",
+      answer: "Absolutely. All processing happens entirely in your browser—your PDF never gets uploaded to any server. We cannot see, access, store, or share your documents. This local processing approach provides maximum privacy and security, making it safe even for confidential business or personal documents."
     },
     {
-      question: "Why can't all PDFs be unlocked?",
-      answer: "Some PDFs use strong encryption standards that require specialized software to decrypt. Browser-based tools have limitations compared to desktop applications. If this tool doesn't work for your PDF, you may need to use the original password or contact the document owner."
+      question: "Why couldn't my PDF be unlocked?",
+      answer: "Some PDFs use strong encryption that requires the original password to decrypt. Browser-based tools have technical limitations compared to specialized desktop software. If this tool doesn't work for your specific PDF, the file likely uses advanced encryption that genuinely requires the password or professional data recovery services."
     },
     {
-      question: "What if I don't know the password?",
-      answer: "This tool requires the correct password to remove it. If you don't know the password, the PDF cannot be unlocked. Password cracking or guessing is not supported and would be unethical for documents you don't own."
+      question: "Do I need to install any software?",
+      answer: "No installation required. This tool runs entirely in your web browser on any device—Windows, Mac, Linux, Android, or iOS. Simply visit this page, upload your PDF, and download the unlocked version. No plugins, extensions, or downloads necessary."
+    },
+    {
+      question: "Can I unlock multiple PDFs at once?",
+      answer: "Currently, this tool processes one PDF at a time to ensure accuracy and maintain your privacy. For multiple documents, simply repeat the process for each file. Each unlock takes just seconds, making batch processing quick and straightforward."
+    },
+    {
+      question: "What happens to my PDF after unlocking?",
+      answer: "Your unlocked PDF is ready to download immediately after processing. Since everything happens in your browser, the file exists only on your device. Once you close this page or refresh it, the processed file is cleared from browser memory. We recommend downloading your unlocked PDF right away."
+    },
+    {
+      question: "Does this tool work on mobile phones?",
+      answer: "Yes, this PDF password remover works on smartphones and tablets. Whether you're using an iPhone, Android phone, or iPad, you can upload password-protected PDFs directly from your device's file storage and download the unlocked version. The mobile experience is fully functional without any app installation."
     }
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
+
+  const relatedTools = [
+    { name: "PDF Merger", href: "/tools/pdf-merger", description: "Combine multiple PDF files into one document" },
+    { name: "PDF Splitter", href: "/tools/pdf-splitter", description: "Extract specific pages or split PDFs into separate files" },
+    { name: "PDF Compressor", href: "/tools/pdf-compressor", description: "Reduce PDF file size while maintaining quality" },
+    { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert JPG, PNG, and other images to PDF format" },
+    { name: "PDF Watermark", href: "/tools/pdf-watermark", description: "Add text or image watermarks to your PDFs" }
+  ];
 
   return (
     <>
@@ -126,14 +146,15 @@ export default function PDFPasswordRemover() {
                 <Unlock className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">PDF Password Remover</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Remove password protection from PDF files. Unlock encrypted PDFs securely in your browser.
+            <h1 className="text-4xl md:text-5xl font-bold" data-testid="heading-h1">Free PDF Password Remover - Unlock Protected PDFs Online</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Struggling to open a password-protected PDF? Whether you've forgotten your own password or received a locked document you're authorized to access, unlock PDFs in seconds. No software downloads, no sign-ups, and your files never leave your device.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
               <Badge variant="secondary">Offline</Badge>
               <Badge variant="secondary">Private</Badge>
+              <Badge variant="secondary">No Sign-up</Badge>
             </div>
           </div>
 
@@ -178,7 +199,7 @@ export default function PDFPasswordRemover() {
               <div className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-2">
                       <div>
                         <CardTitle>Remove Password</CardTitle>
                         <CardDescription>{file.name}</CardDescription>
@@ -214,7 +235,7 @@ export default function PDFPasswordRemover() {
                       </p>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <Button
                         onClick={removePassword}
                         disabled={loading}
@@ -251,29 +272,182 @@ export default function PDFPasswordRemover() {
             )}
           </div>
 
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6">The Problem: Locked PDFs Create Real Frustration</h2>
+            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
+              <p>
+                Password-protected PDFs serve an important purpose—they keep sensitive information secure. But what happens when protection becomes a barrier?
+              </p>
+              <p>
+                Maybe you set a password months ago and can't remember it now. Perhaps a colleague sent you a work document that requires a password you weren't given. Or you're dealing with old archived files that are locked with passwords no one in your organisation remembers anymore.
+              </p>
+              <p>
+                The frustration is real. You know the document is yours to access, but you're stuck. Installing expensive software just to open one file seems excessive. Uploading sensitive documents to random websites feels risky. And manually trying passwords one by one wastes precious time.
+              </p>
+              <p>
+                This is exactly where a reliable, browser-based PDF password remover becomes essential.
+              </p>
+            </div>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6">How This Tool Solves Your Problem</h2>
+            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
+              <p>
+                Our PDF password remover provides a straightforward solution. Upload your password-protected PDF, enter the password if you know it, and download the unlocked version. The entire process happens right in your browser—nothing gets uploaded to any server.
+              </p>
+              <p>
+                For PDFs where you know the password but want to remove the protection permanently, this tool creates a clean, unlocked copy. You can then share this version freely without recipients needing to enter credentials.
+              </p>
+              <p>
+                For basic password protection that you're authorized to bypass, the tool attempts to create an accessible version while respecting stronger encryption standards that require the original password.
+              </p>
+            </div>
+          </section>
+
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Remove PDF Passwords?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="text-3xl font-bold mb-8 text-center">Who Uses PDF Password Remover?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Access Your Own Documents</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="h-6 w-6 text-primary" />
+                    <CardTitle>Students & Researchers</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Forgot the password to your own PDF? This tool helps you regain access to documents you created or have legitimate rights to access.
+                    Academic papers, research journals, and course materials often come with password protection. When you've legitimately accessed these materials, removing passwords makes studying, highlighting, and annotating much easier.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Remove Unnecessary Restrictions</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <Briefcase className="h-6 w-6 text-primary" />
+                    <CardTitle>Business Professionals</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Some PDFs have password protection that's no longer needed. Remove it to make documents easier to share and work with.
+                    Contracts, reports, and internal documents sometimes accumulate password protection over time. HR departments, legal teams, and project managers regularly need to unlock old PDFs for archiving, auditing, or sharing with authorized team members.
                   </p>
                 </CardContent>
               </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <UserCheck className="h-6 w-6 text-primary" />
+                    <CardTitle>Freelancers & Consultants</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Client handovers often include password-protected documents. When you're authorized to access these files but the original password has been lost in email threads or staff changes, a quick unlock saves hours of back-and-forth communication.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Building2 className="h-6 w-6 text-primary" />
+                    <CardTitle>Government & Legal</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Court documents, permits, and official paperwork may come with outdated password requirements. Legal assistants and administrative staff benefit from quick PDF unlocking when processing authorized documents.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Users className="h-6 w-6 text-primary" />
+                    <CardTitle>Small Business Owners</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Running a business means dealing with countless PDFs—invoices, vendor agreements, tax documents. When old passwords are forgotten and the original creator isn't available, having a reliable unlocking tool saves significant hassle.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="h-6 w-6 text-primary" />
+                    <CardTitle>Teachers & Educators</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Creating course materials often involves adapting password-protected templates or worksheets. Teachers who have proper authorization can unlock these PDFs to customize content for their students.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Complete Privacy: Everything Stays on Your Device</h2>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <Shield className="h-8 w-8 text-primary flex-shrink-0" />
+                  <div className="space-y-4">
+                    <p className="text-muted-foreground">
+                      Privacy isn't just a feature—it's the foundation of how this tool works. When you select a PDF file, the processing happens entirely within your web browser. Your document never travels across the internet to any external server.
+                    </p>
+                    <p className="text-muted-foreground">
+                      This matters especially for financial documents containing bank details, medical records with personal health information, legal contracts with confidential business terms, personal identification documents, and employment records with salary or performance details.
+                    </p>
+                    <p className="text-muted-foreground">
+                      Because nothing gets uploaded, there's nothing to intercept, store, or leak. Even we have zero access to your files. This browser-based approach means you get the convenience of an online tool with the security of offline software.
+                    </p>
+                    <div className="p-4 bg-muted/50 rounded-lg">
+                      <p className="text-sm font-medium">Works Without Internet After Loading</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Once this page loads in your browser, you can actually disconnect from the internet and the tool continues working. This offline capability adds another layer of security for extremely sensitive documents.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {faqItems.map((faq, index) => (
+                <Card key={index}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{faq.question}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{faq.answer}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Related Tools You May Find Useful</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedTools.map((tool) => (
+                <Link key={tool.href} href={tool.href}>
+                  <Card className="h-full hover-elevate cursor-pointer">
+                    <CardHeader>
+                      <CardTitle className="text-base">{tool.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">{tool.description}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
           </section>
         </div>
