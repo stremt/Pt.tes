@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileImage, Upload, Download, X, Zap, Lock } from "lucide-react";
-import { useSEO, StructuredData } from "@/lib/seo";
+import { FileImage, Upload, Download, X, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Camera, Smartphone } from "lucide-react";
+import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -15,9 +15,9 @@ export default function ImageToPDF() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Image to PDF Converter | Convert JPG, PNG to PDF Free | Pixocraft Tools",
-    description: "Convert images (JPG, PNG, WebP) to PDF instantly. Combine multiple images into one PDF. Offline & secure.",
-    keywords: "image to pdf, jpg to pdf, png to pdf, convert image to pdf, combine images pdf",
+    title: "Image to PDF Converter Free - JPG PNG to PDF Online | Pixocraft",
+    description: "Convert JPG, PNG images to PDF for free. Combine multiple photos into one PDF document. 100% offline, no uploads, works on any device. Trusted in India.",
+    keywords: "image to pdf, jpg to pdf, png to pdf, convert image to pdf, combine images to pdf, photo to pdf, image to pdf converter free, multiple images to pdf, picture to pdf online",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-to-pdf",
   });
 
@@ -66,7 +66,6 @@ export default function ImageToPDF() {
         } else if (file.type === 'image/png') {
           image = await pdfDoc.embedPng(arrayBuffer);
         } else {
-          // For other formats, skip for now
           continue;
         }
 
@@ -104,20 +103,50 @@ export default function ImageToPDF() {
     }
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Can I combine multiple images?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, unlimited images in one PDF."
-        }
-      }
-    ]
-  };
+  const faqItems = [
+    {
+      question: "How do I convert multiple images to one PDF?",
+      answer: "Simply upload all your images using the upload area. You can select multiple files at once or add them one by one. Once all images are added, click 'Convert & Download PDF' and all images will be combined into a single PDF document with one image per page."
+    },
+    {
+      question: "What image formats can I convert to PDF?",
+      answer: "Our tool supports the most common image formats including JPG/JPEG and PNG. These formats cover the vast majority of photos and images. Each image maintains its original quality and dimensions in the final PDF."
+    },
+    {
+      question: "Is there a limit on how many images I can convert?",
+      answer: "No, there's no fixed limit. You can add as many images as you need. However, very large batches (50+ high-resolution images) may take longer to process depending on your device's capabilities."
+    },
+    {
+      question: "Do my images get uploaded to any server?",
+      answer: "No, absolutely not. All conversion happens directly in your browser using your device's processing power. Your images never leave your device, ensuring complete privacy for personal photos and sensitive documents."
+    },
+    {
+      question: "Can I change the order of images in the PDF?",
+      answer: "Currently, images appear in the PDF in the order you add them. To control the sequence, add images in your preferred order, or remove and re-add images to adjust their position."
+    },
+    {
+      question: "Will my images lose quality when converted to PDF?",
+      answer: "No. The tool preserves the original resolution and quality of your images. Each image is embedded at its full size and clarity in the PDF document."
+    },
+    {
+      question: "Can I use this tool on my mobile phone?",
+      answer: "Yes. Our image to PDF converter works on any modern browser—Android, iPhone, iPad, or desktop. No app installation required. Just open the page and start converting."
+    },
+    {
+      question: "Is this image to PDF converter really free?",
+      answer: "Yes, completely free with no hidden charges, no watermarks, and no sign-up required. Use it unlimited times for personal or professional work."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqItems);
+
+  const relatedTools = [
+    { name: "PDF to Image", path: "/tools/pdf-to-image", description: "Convert PDF pages to JPG or PNG images" },
+    { name: "Image Compressor", path: "/tools/image-compressor", description: "Reduce image file size without quality loss" },
+    { name: "PDF Merger", path: "/tools/pdf-merger", description: "Combine multiple PDF files into one document" },
+    { name: "Image Resizer", path: "/tools/image-resizer", description: "Resize images to any dimension" },
+    { name: "JPG to PNG", path: "/tools/jpg-to-png", description: "Convert JPG images to PNG format" }
+  ];
 
   return (
     <>
@@ -138,14 +167,15 @@ export default function ImageToPDF() {
                 <FileImage className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Image to PDF Converter</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Convert JPG, PNG & WebP images to PDF. Combine multiple images into one document
+            <h1 className="text-4xl md:text-5xl font-bold">Free Image to PDF Converter - Combine Photos to PDF</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Convert JPG, PNG and other images to PDF instantly. Combine multiple photos into one document. No software installation, no account needed, and your images stay private.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">Offline</Badge>
-              <Badge variant="secondary">Multi-Image</Badge>
+              <Badge variant="secondary">100% Free</Badge>
+              <Badge variant="secondary">Works Offline</Badge>
+              <Badge variant="secondary">No Sign-up</Badge>
+              <Badge variant="secondary">Unlimited Images</Badge>
             </div>
           </div>
 
@@ -228,31 +258,63 @@ export default function ImageToPDF() {
             </Card>
           </div>
 
-          <section className="py-16 border-t bg-muted/30">
-            <div className="container mx-auto px-4 max-w-7xl">
-              <div className="text-center space-y-4 mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">Why Use Image to PDF?</h2>
+          <section className="py-12 border-t">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Why Convert Images to PDF?</h2>
+              <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
+                <p>
+                  Images are great for viewing, but they come with limitations. When you need to share multiple photos, present a portfolio, or submit documents officially, individual image files become impractical. Recipients may receive files out of order, some images might not open on their device, and large batches can overwhelm email attachments.
+                </p>
+                <p>
+                  Converting images to PDF solves these problems instantly. A PDF bundles all your photos into a single, universally readable file. It preserves the exact look of each image, maintains the sequence you intended, and works on virtually every device and operating system without special software.
+                </p>
+                <p>
+                  Whether you're compiling scanned documents, creating a photo album, preparing ID proofs for an application, or organizing receipts for reimbursement, our free image to PDF converter handles it all—right in your browser, without uploading anything to external servers.
+                </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            </div>
+          </section>
+
+          <section className="py-12 border-t">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">How to Convert Images to PDF - 3 Easy Steps</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
                   <CardHeader>
-                    <Zap className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>Fast & Offline</CardTitle>
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <span className="text-primary font-bold">1</span>
+                    </div>
+                    <CardTitle className="text-lg">Upload Images</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Convert images instantly without uploading to any server
+                      Click the upload area and select your JPG, PNG, or other image files. You can select multiple images at once.
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader>
-                    <Lock className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>100% Private</CardTitle>
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <span className="text-primary font-bold">2</span>
+                    </div>
+                    <CardTitle className="text-lg">Review & Arrange</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Your images never leave your device. Complete privacy guaranteed
+                      Preview your selected images. Remove any you don't need. Images will appear in the PDF in the order shown.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                      <span className="text-primary font-bold">3</span>
+                    </div>
+                    <CardTitle className="text-lg">Download PDF</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Click convert and your PDF downloads instantly. Each image becomes one page in the final document.
                     </p>
                   </CardContent>
                 </Card>
@@ -260,32 +322,176 @@ export default function ImageToPDF() {
             </div>
           </section>
 
-          <section className="py-16 border-t">
-            <div className="container mx-auto px-4 max-w-7xl">
-              <div className="text-center space-y-4 mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+          <section className="py-12 border-t">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Who Uses Image to PDF Conversion?</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader>
+                    <GraduationCap className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Students</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Combine assignment photos, handwritten notes, and diagrams into a single PDF for easy submission. Perfect for online assignments and project documentation.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <Briefcase className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Job Seekers</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Compile certificates, ID proofs, and qualification documents into one PDF for job applications. Many portals require single-file uploads for documentation.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <Camera className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Photographers</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Create professional photo portfolios or client proofs as PDF documents. Share your work in a polished, universally viewable format.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <FileText className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Business Owners</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Convert product images, receipts, and invoices to PDF for accounting, insurance claims, or official records. Maintains organized documentation.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <Users className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Government Applicants</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Combine Aadhaar, PAN, passport photos and other ID documents into one PDF for passport applications, visa submissions, and official forms.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <Smartphone className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle className="text-lg">Mobile Users</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Quickly convert phone photos to PDF without installing any app. Works directly in your mobile browser for instant document creation.
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
-              <div className="max-w-3xl mx-auto space-y-6">
+            </div>
+          </section>
+
+          <section className="py-12 border-t bg-muted/30">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center space-y-4 mb-10">
+                <h2 className="text-2xl md:text-3xl font-bold">Privacy & Security - Your Images Stay Private</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Unlike cloud-based converters, our tool processes everything locally. Your personal photos and documents never leave your device.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">Can I combine multiple images?</CardTitle>
+                    <Shield className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle>No Server Uploads</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      Yes! You can add unlimited images and they will all be combined into a single PDF, with one image per page.
+                      Your images are processed entirely in your browser. Nothing is sent to any server. Safe for personal photos, ID documents, medical records, and confidential business materials.
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">What image formats are supported?</CardTitle>
+                    <Lock className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle>No Data Retention</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      We support JPG, PNG, and other common image formats. Each image will be embedded as a page in the PDF.
+                      We don't store, copy, or access your images. Once you close the page, your files exist only on your device. No tracking, no logging, no data collection.
                     </p>
                   </CardContent>
                 </Card>
+                <Card>
+                  <CardHeader>
+                    <Zap className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle>No Account Required</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Use immediately without registration, email verification, or providing any personal information. Just open the tool and start converting.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <Globe className="h-8 w-8 text-primary mb-2" />
+                    <CardTitle>Works Offline</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      After the page loads, you can disconnect from the internet and continue converting. Perfect for areas with slow connectivity or when handling sensitive files.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
+
+          <section className="py-12 border-t">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center space-y-4 mb-10">
+                <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+              </div>
+              <div className="space-y-4">
+                {faqItems.map((item, index) => (
+                  <Card key={index}>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{item.question}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{item.answer}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="py-12 border-t">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center space-y-4 mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold">Related Image & PDF Tools</h2>
+                <p className="text-muted-foreground">Explore more free tools for your image and document needs</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {relatedTools.map((tool) => (
+                  <Link key={tool.path} href={tool.path} data-testid={`link-related-${tool.path.split('/').pop()}`}>
+                    <Card className="h-full hover-elevate cursor-pointer transition-all">
+                      <CardHeader>
+                        <CardTitle className="text-base">{tool.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">{tool.description}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
               </div>
             </div>
           </section>
