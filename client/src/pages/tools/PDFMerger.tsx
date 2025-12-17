@@ -17,9 +17,9 @@ export default function PDFMerger() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Offline PDF Merger - Combine PDFs Securely, No Upload | Pixocraft",
-    description: "Merge PDF files free and offline—no upload, no servers, 100% private. Combine multiple PDFs into one document instantly in your browser. Secure, fast, and works without internet.",
-    keywords: "pdf merger, merge pdf online free, combine pdf files, offline pdf merger, pdf joiner, merge pdf without upload, secure pdf merger, private pdf combiner, pixocraft tools",
+    title: "Free PDF Merger - Combine PDFs Offline | Pixocraft",
+    description: "Merge PDF files free and offline. Combine multiple PDFs into one document instantly in your browser. No upload, no servers, 100% private.",
+    keywords: "pdf merger, merge pdf online free, combine pdf files, offline pdf merger, pdf joiner, merge pdf without upload, secure pdf merger, private pdf combiner, join pdf files, pdf combine tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-merger",
   });
 
@@ -93,36 +93,36 @@ export default function PDFMerger() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is PDF merging safe and secure?",
-      answer: "Absolutely! Pixocraft's PDF merger is 100% safe because all processing happens entirely in your browser. Your PDF files never leave your device—they are not uploaded to any server. This makes our tool ideal for confidential documents, business contracts, and sensitive personal files. There's no risk of data breaches or unauthorized access."
+      question: "How do I merge PDF files for free?",
+      answer: "Simply click the upload area above, select your PDF files (minimum 2), and click 'Merge & Download PDF'. Your merged document downloads instantly. No signup, no email required—it's completely free with no limits or watermarks."
     },
     {
-      question: "Are my files uploaded to a server?",
-      answer: "No, never! Unlike most online PDF tools that upload your files to their servers, Pixocraft's PDF merger works completely offline in your browser. Your documents stay on your device throughout the entire process. We don't store, access, or have any visibility into your files. Once you close the page, everything is gone from memory."
+      question: "Is this PDF merger safe for confidential documents?",
+      answer: "Absolutely! Pixocraft's PDF merger is 100% safe because all processing happens entirely in your browser. Your PDF files never leave your device—they are not uploaded to any server. This makes our tool ideal for contracts, financial statements, legal documents, and sensitive personal files."
     },
     {
-      question: "Does this PDF merger work offline?",
-      answer: "Yes! Once the page loads, you can merge PDFs without any internet connection. This makes Pixocraft perfect for secure environments, travel, or areas with limited connectivity. Simply load the page once, and you can combine unlimited PDF files anytime—even without Wi-Fi or mobile data."
+      question: "Does the PDF merger work without internet?",
+      answer: "Yes! Once the page loads, you can merge PDFs without any internet connection. This makes Pixocraft perfect for secure environments, travel, or areas with limited connectivity. Load the page once, then combine unlimited PDF files anytime—even without Wi-Fi."
     },
     {
-      question: "Is there a file size limit?",
-      answer: "There's no fixed file size limit imposed by our tool. The actual limit depends on your device's available memory and browser capabilities. Most modern browsers can handle PDFs up to several hundred megabytes without issues. For very large files, ensure you have sufficient RAM available and close unnecessary browser tabs."
+      question: "Is there a file size or page limit?",
+      answer: "There's no fixed file size or page limit imposed by our tool. The actual limit depends on your device's memory and browser capabilities. Most modern browsers handle PDFs up to several hundred megabytes without issues. For very large files, close unnecessary browser tabs to free up memory."
+    },
+    {
+      question: "Can I merge PDFs with different page sizes?",
+      answer: "Yes! PDFs with different page sizes, orientations (portrait/landscape), or formats merge together without any issues. Each page retains its original dimensions in the final merged document. This is perfect for combining scanned documents with digital files."
+    },
+    {
+      question: "Will my merged PDF have a watermark?",
+      answer: "No, never! Pixocraft's PDF merger is completely free and never adds watermarks or branding to your documents. The merged PDF is clean and professional, exactly as you'd expect. We believe in providing genuinely free tools without hidden limitations."
     },
     {
       question: "Can I merge password-protected PDFs?",
-      answer: "Password-protected PDFs cannot be merged directly. You'll need to remove the password protection first before merging. This is a security feature—if you have the password, you can unlock the PDF using the original software that created it, then merge the unprotected version with our tool."
+      answer: "Password-protected PDFs cannot be merged directly for security reasons. You'll need to remove the password protection first using the software that created it. This protects you from accidentally merging documents you don't have authorization to modify."
     },
     {
-      question: "Is it legal to use a PDF merger?",
-      answer: "Yes, using a PDF merger is completely legal. Combining PDF documents is a standard practice for organizing files, creating reports, compiling assignments, and preparing documents for submission. Just ensure you have the rights to use and modify the documents you're merging. Our tool is used by businesses, students, and professionals worldwide for legitimate document management."
-    },
-    {
-      question: "How many PDFs can I merge at once?",
-      answer: "You can merge as many PDFs as your browser's memory allows. We've tested with dozens of files successfully. For best performance, we recommend merging up to 20-30 files at a time. If you need to combine more, you can merge in batches and then combine the resulting PDFs."
-    },
-    {
-      question: "Will the merged PDF have a watermark?",
-      answer: "No! Pixocraft's PDF merger is completely free and never adds watermarks to your documents. The merged PDF is clean and professional, exactly as you'd expect. We believe in providing genuinely free tools without hidden limitations or branding."
+      question: "How many PDFs can I combine at once?",
+      answer: "You can merge as many PDFs as your browser's memory allows—we've tested with dozens of files successfully. For optimal performance, we recommend merging 20-30 files at a time. For larger batches, merge in groups and then combine the resulting PDFs."
     }
   ];
 
@@ -148,9 +148,9 @@ export default function PDFMerger() {
                 <FileStack className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free Offline PDF Merger</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Free PDF Merger - Combine PDFs Offline</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Combine multiple PDF files into one document—100% free, fully offline, completely private.
+              Merge multiple PDF files into one document—100% free, works offline, completely private. Your files never leave your device.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">100% Free Forever</Badge>
@@ -159,7 +159,7 @@ export default function PDFMerger() {
               <Badge variant="secondary">No Watermark</Badge>
             </div>
             <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
-              Merge PDFs instantly without uploading to any server. Your files stay on your device—secure, private, and fast. Perfect for combining business documents, student assignments, or scanned files. Need to optimize images before adding to PDFs? Try our <Link href="/tools/image-compressor" className="text-primary hover:underline">Image Compressor</Link>.
+              Combine PDFs instantly without uploading to any server. Your files stay on your device—secure, private, and fast. Trusted by students, professionals, and businesses across India and worldwide for confidential document management.
             </h2>
           </div>
 
@@ -248,6 +248,22 @@ export default function PDFMerger() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Why You Need PDF Merger */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Why You Need a PDF Merger</h2>
+            <div className="prose prose-lg max-w-4xl mx-auto">
+              <p className="text-muted-foreground mb-4">
+                Working with multiple PDF files is a daily reality for millions of people. Whether you're a student compiling research papers, a professional preparing client proposals, or someone organizing scanned documents—you've likely faced the frustration of juggling separate files when you need them as one.
+              </p>
+              <p className="text-muted-foreground mb-4">
+                Most online PDF tools require you to upload your files to their servers. This creates privacy risks, especially for sensitive documents like contracts, financial statements, or personal records. Your files pass through unknown servers, potentially stored or accessed without your knowledge.
+              </p>
+              <p className="text-muted-foreground">
+                Pixocraft's PDF Merger solves both problems. Combine unlimited PDFs into a single document—without ever uploading your files anywhere. Everything happens right in your browser, keeping your documents completely private while giving you fast, professional results.
+              </p>
+            </div>
+          </section>
 
           {/* How It Works */}
           <section className="mb-16">
@@ -341,49 +357,71 @@ export default function PDFMerger() {
 
           {/* Popular Use Cases */}
           <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <h2 className="text-3xl font-bold mb-8 text-center">Who Uses PDF Merger? Real Use Cases</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card>
                 <CardHeader className="pb-3">
-                  <Briefcase className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle className="text-lg">Office & Business Documents</CardTitle>
+                  <GraduationCap className="h-8 w-8 text-primary mb-2" />
+                  <CardTitle className="text-lg">Students & Researchers</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Combine contracts, proposals, reports, and invoices into single professional documents for clients and stakeholders.
+                    Combine research papers, thesis chapters, lab reports, and reference materials into single submission files. Perfect for university assignments, dissertation submissions, and academic portfolios across India and worldwide.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <GraduationCap className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle className="text-lg">Student Assignments</CardTitle>
+                  <Briefcase className="h-8 w-8 text-primary mb-2" />
+                  <CardTitle className="text-lg">Business Professionals</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Merge research papers, essays, and project reports. Combine multiple chapters or appendices into final submissions.
+                    Merge contracts, proposals, reports, and invoices into professional client-ready documents. Ideal for consultants, accountants, and business owners who handle sensitive financial or legal paperwork daily.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
                   <Landmark className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle className="text-lg">Government & Banking PDFs</CardTitle>
+                  <CardTitle className="text-lg">Government & Banking Applications</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Combine tax documents, bank statements, ID proofs, and official forms for loan applications or visa submissions.
+                    Combine Aadhaar, PAN cards, bank statements, and supporting documents for loan applications, visa submissions, or government portals. Keep sensitive identity documents private with offline processing.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
                   <FileText className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle className="text-lg">Scanned & Downloaded PDFs</CardTitle>
+                  <CardTitle className="text-lg">Legal & HR Departments</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">
-                    Merge scanned receipts, downloaded forms, and digital documents into organized files for record-keeping.
+                    Merge employment contracts, policy documents, compliance forms, and case files. Essential for law firms and HR teams handling confidential employee or client information securely.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <ImageDown className="h-8 w-8 text-primary mb-2" />
+                  <CardTitle className="text-lg">Scanned Documents & Archives</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Combine scanned receipts, downloaded forms, medical records, and insurance papers into organized digital files. Perfect for personal record-keeping and expense management.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <Building2 className="h-8 w-8 text-primary mb-2" />
+                  <CardTitle className="text-lg">Real Estate & Property Deals</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Merge property documents, sale agreements, NOCs, and registration papers into complete transaction files. Secure offline processing protects sensitive property and financial details.
                   </p>
                 </CardContent>
               </Card>
