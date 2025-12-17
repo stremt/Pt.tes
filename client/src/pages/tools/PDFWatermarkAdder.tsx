@@ -8,22 +8,27 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Building2, FileText, Users, Type, Image, RotateCw, Grid3X3 } from "lucide-react";
+import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Building2, FileText, Users, Type, Image, RotateCw, Grid3X3, ChevronLeft, ChevronRight, Layers, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { addAdvancedWatermarkToPDF, getPDFInfo, formatFileSize, type WatermarkPosition, type WatermarkFont, type WatermarkLayer } from "@/lib/pdf-utils";
+import * as pdfjsLib from 'pdfjs-dist';
 
-const positionGrid: { id: WatermarkPosition; label: string }[] = [
-  { id: 'top-left', label: 'TL' },
-  { id: 'top-center', label: 'TC' },
-  { id: 'top-right', label: 'TR' },
-  { id: 'middle-left', label: 'ML' },
-  { id: 'middle-center', label: 'MC' },
-  { id: 'middle-right', label: 'MR' },
-  { id: 'bottom-left', label: 'BL' },
-  { id: 'bottom-center', label: 'BC' },
-  { id: 'bottom-right', label: 'BR' },
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+const positionGrid: { id: WatermarkPosition; label: string; icon: string }[] = [
+  { id: 'top-left', label: 'Top Left', icon: '↖' },
+  { id: 'top-center', label: 'Top Center', icon: '↑' },
+  { id: 'top-right', label: 'Top Right', icon: '↗' },
+  { id: 'middle-left', label: 'Middle Left', icon: '←' },
+  { id: 'middle-center', label: 'Center', icon: '●' },
+  { id: 'middle-right', label: 'Middle Right', icon: '→' },
+  { id: 'bottom-left', label: 'Bottom Left', icon: '↙' },
+  { id: 'bottom-center', label: 'Bottom Center', icon: '↓' },
+  { id: 'bottom-right', label: 'Bottom Right', icon: '↘' },
 ];
 
 const fontOptions: { id: WatermarkFont; label: string }[] = [
@@ -45,7 +50,9 @@ const rotationOptions = [
 export default function PDFWatermarkAdder() {
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(1);
+  const [currentPreviewPage, setCurrentPreviewPage] = useState(1);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
+  const [pdfDoc, setPdfDoc] = useState<pdfjsLib.PDFDocumentProxy | null>(null);
   
   const [watermarkType, setWatermarkType] = useState<'text' | 'image'>('text');
   const [watermarkText, setWatermarkText] = useState("CONFIDENTIAL");
@@ -56,7 +63,7 @@ export default function PDFWatermarkAdder() {
   const [font, setFont] = useState<WatermarkFont>('HelveticaBold');
   const [fontSize, setFontSize] = useState(50);
   const [opacity, setOpacity] = useState(30);
-  const [rotation, setRotation] = useState(0);
+  const [rotation, setRotation] = useState(-45);
   const [position, setPosition] = useState<WatermarkPosition>('middle-center');
   const [isMosaic, setIsMosaic] = useState(false);
   const [layer, setLayer] = useState<WatermarkLayer>('over');
@@ -103,13 +110,19 @@ export default function PDFWatermarkAdder() {
       }
       setFile(selectedFile);
       setWatermarkedFile(null);
+      setCurrentPreviewPage(1);
       
       try {
         const info = await getPDFInfo(selectedFile);
         setPageCount(info.pageCount);
         setPageTo(info.pageCount);
+        
+        const arrayBuffer = await selectedFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        setPdfDoc(pdf);
       } catch {
         setPageCount(1);
+        setPdfDoc(null);
       }
     }
   };
@@ -138,43 +151,48 @@ export default function PDFWatermarkAdder() {
     }
   };
 
-  const drawPreview = useCallback(() => {
+  const renderPDFPage = useCallback(async () => {
     const canvas = previewCanvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !pdfDoc) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    const width = canvas.width;
-    const height = canvas.height;
-    
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, width, height);
-    
-    ctx.strokeStyle = '#e5e7eb';
-    ctx.lineWidth = 1;
-    for (let i = 20; i < width; i += 40) {
-      ctx.beginPath();
-      ctx.moveTo(i, 30);
-      ctx.lineTo(i + 25, 30);
-      ctx.stroke();
+    try {
+      const page = await pdfDoc.getPage(currentPreviewPage);
+      const viewport = page.getViewport({ scale: 1 });
+      
+      const containerWidth = 320;
+      const scale = containerWidth / viewport.width;
+      const scaledViewport = page.getViewport({ scale });
+      
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+      
+      const renderContext = {
+        canvasContext: ctx,
+        viewport: scaledViewport,
+        canvas: canvas,
+      };
+      await page.render(renderContext as any).promise;
+      
+      drawWatermarkOverlay(ctx, canvas.width, canvas.height);
+    } catch (error) {
+      console.error('Error rendering PDF page:', error);
+      drawFallbackPreview(ctx, canvas.width, canvas.height);
     }
-    for (let j = 50; j < height - 20; j += 20) {
-      ctx.beginPath();
-      ctx.moveTo(20, j);
-      ctx.lineTo(width - 20, j);
-      ctx.stroke();
-    }
-    
+  }, [pdfDoc, currentPreviewPage]);
+
+  const drawWatermarkOverlay = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
     ctx.save();
     ctx.globalAlpha = opacity / 100;
     
-    const padding = 20;
+    const padding = 30;
     let x: number, y: number;
     
     if (isMosaic) {
-      const spacingX = 80;
-      const spacingY = 60;
+      const spacingX = 120;
+      const spacingY = 90;
       for (let my = spacingY / 2; my < height; my += spacingY) {
         for (let mx = spacingX / 2; mx < width; mx += spacingX) {
           ctx.save();
@@ -182,22 +200,23 @@ export default function PDFWatermarkAdder() {
           ctx.rotate((rotation * Math.PI) / 180);
           
           if (watermarkType === 'text') {
-            ctx.font = `${fontSize * 0.3}px ${font.includes('Bold') ? 'bold ' : ''}${font.replace('Bold', '')}`;
-            ctx.fillStyle = 'rgba(128, 128, 128, 1)';
+            const scaledFontSize = fontSize * 0.35;
+            ctx.font = `${font.includes('Bold') ? 'bold ' : ''}${scaledFontSize}px ${font.replace('Bold', '')}`;
+            ctx.fillStyle = 'rgba(100, 100, 100, 1)';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(watermarkText, 0, 0);
           } else if (loadedImage) {
-            const imgSize = fontSize * 0.4;
+            const imgSize = fontSize * 0.5;
             ctx.drawImage(loadedImage, -imgSize / 2, -imgSize / 2, imgSize, imgSize);
           }
           ctx.restore();
         }
       }
     } else {
-      ctx.font = `${fontSize * 0.3}px ${font.includes('Bold') ? 'bold ' : ''}${font.replace('Bold', '')}`;
-      const textWidth = watermarkType === 'text' ? ctx.measureText(watermarkText).width : fontSize * 0.6;
-      const textHeight = fontSize * 0.3;
+      const scaledFontSize = fontSize * 0.35;
+      ctx.font = `${font.includes('Bold') ? 'bold ' : ''}${scaledFontSize}px ${font.replace('Bold', '')}`;
+      const textHeight = scaledFontSize;
       
       switch (position) {
         case 'top-left':
@@ -246,13 +265,12 @@ export default function PDFWatermarkAdder() {
       ctx.rotate((rotation * Math.PI) / 180);
       
       if (watermarkType === 'text') {
-        ctx.font = `${fontSize * 0.3}px ${font.includes('Bold') ? 'bold ' : ''}${font.replace('Bold', '')}`;
-        ctx.fillStyle = 'rgba(128, 128, 128, 1)';
+        ctx.fillStyle = 'rgba(100, 100, 100, 1)';
         ctx.textAlign = position.includes('left') ? 'left' : position.includes('right') ? 'right' : 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(watermarkText, 0, 0);
       } else if (loadedImage) {
-        const imgSize = fontSize * 0.6;
+        const imgSize = fontSize * 0.7;
         ctx.drawImage(loadedImage, -imgSize / 2, -imgSize / 2, imgSize, imgSize);
       }
       ctx.restore();
@@ -261,9 +279,59 @@ export default function PDFWatermarkAdder() {
     ctx.restore();
   }, [watermarkText, watermarkType, loadedImage, font, fontSize, opacity, rotation, position, isMosaic]);
 
+  const drawFallbackPreview = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+    
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    for (let i = 20; i < width; i += 40) {
+      ctx.beginPath();
+      ctx.moveTo(i, 30);
+      ctx.lineTo(i + 25, 30);
+      ctx.stroke();
+    }
+    for (let j = 50; j < height - 20; j += 20) {
+      ctx.beginPath();
+      ctx.moveTo(20, j);
+      ctx.lineTo(width - 20, j);
+      ctx.stroke();
+    }
+    
+    drawWatermarkOverlay(ctx, width, height);
+  }, [drawWatermarkOverlay]);
+
+  const drawPreview = useCallback(() => {
+    const canvas = previewCanvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    if (pdfDoc) {
+      renderPDFPage();
+    } else {
+      canvas.width = 320;
+      canvas.height = 452;
+      drawFallbackPreview(ctx, canvas.width, canvas.height);
+    }
+  }, [pdfDoc, renderPDFPage, drawFallbackPreview]);
+
   useEffect(() => {
     drawPreview();
-  }, [drawPreview]);
+  }, [drawPreview, watermarkText, watermarkType, loadedImage, font, fontSize, opacity, rotation, position, isMosaic, currentPreviewPage]);
+
+  const goToPrevPage = () => {
+    if (currentPreviewPage > 1) {
+      setCurrentPreviewPage(prev => prev - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPreviewPage < pageCount) {
+      setCurrentPreviewPage(prev => prev + 1);
+    }
+  };
 
   const addWatermark = async () => {
     if (!file) {
@@ -342,6 +410,8 @@ export default function PDFWatermarkAdder() {
     setWatermarkImage(null);
     setWatermarkImagePreview(null);
     setPageCount(1);
+    setCurrentPreviewPage(1);
+    setPdfDoc(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
     if (imageInputRef.current) imageInputRef.current.value = "";
   };
@@ -442,14 +512,17 @@ export default function PDFWatermarkAdder() {
                 </CardContent>
               </Card>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                <div className="lg:col-span-3 space-y-4">
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="pb-4">
                       <div className="flex items-center justify-between gap-2">
-                        <div>
-                          <CardTitle>Watermark Settings</CardTitle>
-                          <CardDescription>{file.name} ({pageCount} pages)</CardDescription>
+                        <div className="flex items-center gap-3">
+                          <FileText className="h-5 w-5 text-primary" />
+                          <div>
+                            <CardTitle className="text-lg">{file.name}</CardTitle>
+                            <CardDescription>{pageCount} page{pageCount > 1 ? 's' : ''}</CardDescription>
+                          </div>
                         </div>
                         <Button
                           variant="ghost"
@@ -463,131 +536,159 @@ export default function PDFWatermarkAdder() {
                     </CardHeader>
                     <CardContent className="space-y-6">
                       <Tabs value={watermarkType} onValueChange={(v) => setWatermarkType(v as 'text' | 'image')}>
-                        <TabsList className="grid w-full grid-cols-2">
-                          <TabsTrigger value="text" className="flex items-center gap-2">
+                        <TabsList className="grid w-full grid-cols-2 mb-4">
+                          <TabsTrigger value="text" className="flex items-center gap-2" data-testid="tab-text">
                             <Type className="h-4 w-4" />
-                            Text
+                            Text Watermark
                           </TabsTrigger>
-                          <TabsTrigger value="image" className="flex items-center gap-2">
+                          <TabsTrigger value="image" className="flex items-center gap-2" data-testid="tab-image">
                             <Image className="h-4 w-4" />
-                            Image
+                            Image Watermark
                           </TabsTrigger>
                         </TabsList>
                         
-                        <TabsContent value="text" className="space-y-4 mt-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="watermark-text">Watermark Text</Label>
-                            <Input
-                              id="watermark-text"
-                              value={watermarkText}
-                              onChange={(e) => setWatermarkText(e.target.value)}
-                              placeholder="Enter watermark text"
-                              data-testid="input-watermark-text"
-                            />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label>Font</Label>
-                            <Select value={font} onValueChange={(v) => setFont(v as WatermarkFont)}>
-                              <SelectTrigger data-testid="select-font">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {fontOptions.map((f) => (
-                                  <SelectItem key={f.id} value={f.id}>{f.label}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
+                        <TabsContent value="text" className="space-y-4 mt-0">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="watermark-text">Watermark Text</Label>
+                              <Input
+                                id="watermark-text"
+                                value={watermarkText}
+                                onChange={(e) => setWatermarkText(e.target.value)}
+                                placeholder="Enter watermark text"
+                                data-testid="input-watermark-text"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label>Font</Label>
+                              <Select value={font} onValueChange={(v) => setFont(v as WatermarkFont)}>
+                                <SelectTrigger data-testid="select-font">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {fontOptions.map((f) => (
+                                    <SelectItem key={f.id} value={f.id}>{f.label}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
                           </div>
                         </TabsContent>
                         
-                        <TabsContent value="image" className="space-y-4 mt-4">
-                          <div className="space-y-2">
-                            <Label>Watermark Image</Label>
-                            <div
-                              className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover-elevate transition-colors"
-                              onClick={() => imageInputRef.current?.click()}
-                            >
-                              {watermarkImagePreview ? (
-                                <div className="flex flex-col items-center gap-2">
+                        <TabsContent value="image" className="mt-0">
+                          <div
+                            className="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover-elevate transition-colors"
+                            onClick={() => imageInputRef.current?.click()}
+                          >
+                            {watermarkImagePreview ? (
+                              <div className="flex flex-col items-center gap-3">
+                                <div className="p-3 bg-muted rounded-lg">
                                   <img 
                                     src={watermarkImagePreview} 
                                     alt="Watermark preview" 
-                                    className="max-h-20 max-w-full object-contain"
+                                    className="max-h-16 max-w-full object-contain"
                                   />
-                                  <p className="text-sm text-muted-foreground">Click to change image</p>
                                 </div>
-                              ) : (
-                                <>
-                                  <Image className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                                  <p className="text-sm text-muted-foreground">Click to upload image (PNG, JPG)</p>
-                                </>
-                              )}
-                              <input
-                                ref={imageInputRef}
-                                type="file"
-                                accept="image/png,image/jpeg"
-                                onChange={handleImageSelect}
-                                className="hidden"
-                                data-testid="input-image"
-                              />
-                            </div>
+                                <p className="text-sm text-muted-foreground">Click to change image</p>
+                              </div>
+                            ) : (
+                              <div className="py-2">
+                                <Image className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+                                <p className="text-sm font-medium">Upload watermark image</p>
+                                <p className="text-xs text-muted-foreground mt-1">PNG or JPG format</p>
+                              </div>
+                            )}
+                            <input
+                              ref={imageInputRef}
+                              type="file"
+                              accept="image/png,image/jpeg"
+                              onChange={handleImageSelect}
+                              className="hidden"
+                              data-testid="input-image"
+                            />
                           </div>
                         </TabsContent>
                       </Tabs>
 
-                      <div className="space-y-2">
-                        <Label className="flex items-center gap-2">
-                          <Grid3X3 className="h-4 w-4" />
-                          Position
-                        </Label>
-                        <div className="flex items-center gap-4 mb-2">
-                          <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                              type="checkbox"
+                      <Separator />
+
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <Label className="flex items-center gap-2 text-base font-medium">
+                            <Grid3X3 className="h-4 w-4" />
+                            Position
+                          </Label>
+                          <div className="flex items-center gap-2">
+                            <Switch
+                              id="mosaic"
                               checked={isMosaic}
-                              onChange={(e) => setIsMosaic(e.target.checked)}
-                              className="rounded"
+                              onCheckedChange={setIsMosaic}
                             />
-                            <span className="text-sm">Mosaic (tile pattern)</span>
-                          </label>
+                            <Label htmlFor="mosaic" className="text-sm cursor-pointer">
+                              Tile Pattern
+                            </Label>
+                          </div>
                         </div>
+                        
                         {!isMosaic && (
-                          <div className="grid grid-cols-3 gap-1 w-fit">
+                          <div className="grid grid-cols-3 gap-1.5 w-fit mx-auto">
                             {positionGrid.map((pos) => (
                               <button
                                 key={pos.id}
                                 onClick={() => setPosition(pos.id)}
-                                className={`w-10 h-10 rounded text-xs font-medium transition-colors ${
+                                className={`w-12 h-12 rounded-lg text-lg font-medium transition-all ${
                                   position === pos.id
-                                    ? 'bg-primary text-primary-foreground'
+                                    ? 'bg-primary text-primary-foreground shadow-sm'
                                     : 'bg-muted hover:bg-muted/80'
                                 }`}
+                                title={pos.label}
                                 data-testid={`button-position-${pos.id}`}
                               >
-                                {pos.label}
+                                {pos.icon}
                               </button>
                             ))}
                           </div>
                         )}
                       </div>
 
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <Label>Transparency</Label>
-                          <span className="text-sm text-muted-foreground">{100 - opacity}%</span>
+                      <Separator />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <Label className="flex items-center gap-2">
+                              <Eye className="h-4 w-4" />
+                              Opacity
+                            </Label>
+                            <span className="text-sm font-medium text-muted-foreground">{opacity}%</span>
+                          </div>
+                          <Slider
+                            value={[opacity]}
+                            onValueChange={(v) => setOpacity(v[0])}
+                            min={10}
+                            max={100}
+                            step={5}
+                            data-testid="slider-opacity"
+                          />
                         </div>
-                        <Slider
-                          value={[opacity]}
-                          onValueChange={(v) => setOpacity(v[0])}
-                          min={10}
-                          max={100}
-                          step={5}
-                          data-testid="slider-opacity"
-                        />
+
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center">
+                            <Label>Size</Label>
+                            <span className="text-sm font-medium text-muted-foreground">{fontSize}pt</span>
+                          </div>
+                          <Slider
+                            value={[fontSize]}
+                            onValueChange={(v) => setFontSize(v[0])}
+                            min={20}
+                            max={150}
+                            step={5}
+                            data-testid="slider-fontsize"
+                          />
+                        </div>
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         <Label className="flex items-center gap-2">
                           <RotateCw className="h-4 w-4" />
                           Rotation
@@ -607,76 +708,70 @@ export default function PDFWatermarkAdder() {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <Label>Size</Label>
-                          <span className="text-sm text-muted-foreground">{fontSize}pt</span>
+                      <Separator />
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                          <Label className="flex items-center gap-2">
+                            <FileText className="h-4 w-4" />
+                            Pages
+                          </Label>
+                          <RadioGroup value={pageRangeType} onValueChange={(v) => setPageRangeType(v as 'all' | 'range')}>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="all" id="all-pages" />
+                              <Label htmlFor="all-pages" className="cursor-pointer font-normal">All pages</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="range" id="page-range" />
+                              <Label htmlFor="page-range" className="cursor-pointer font-normal">Page range</Label>
+                            </div>
+                          </RadioGroup>
+                          {pageRangeType === 'range' && (
+                            <div className="flex items-center gap-2 pl-6">
+                              <Input
+                                type="number"
+                                min={1}
+                                max={pageCount}
+                                value={pageFrom}
+                                onChange={(e) => setPageFrom(Math.max(1, Math.min(pageCount, parseInt(e.target.value) || 1)))}
+                                className="w-16 h-8"
+                                data-testid="input-page-from"
+                              />
+                              <span className="text-sm text-muted-foreground">to</span>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={pageCount}
+                                value={pageTo}
+                                onChange={(e) => setPageTo(Math.max(1, Math.min(pageCount, parseInt(e.target.value) || 1)))}
+                                className="w-16 h-8"
+                                data-testid="input-page-to"
+                              />
+                            </div>
+                          )}
                         </div>
-                        <Slider
-                          value={[fontSize]}
-                          onValueChange={(v) => setFontSize(v[0])}
-                          min={20}
-                          max={150}
-                          step={5}
-                          data-testid="slider-fontsize"
-                        />
-                      </div>
 
-                      <div className="space-y-2">
-                        <Label>Pages</Label>
-                        <RadioGroup value={pageRangeType} onValueChange={(v) => setPageRangeType(v as 'all' | 'range')}>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="all" id="all-pages" />
-                            <Label htmlFor="all-pages" className="cursor-pointer">All pages</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="range" id="page-range" />
-                            <Label htmlFor="page-range" className="cursor-pointer">Page range</Label>
-                          </div>
-                        </RadioGroup>
-                        {pageRangeType === 'range' && (
-                          <div className="flex items-center gap-2 mt-2">
-                            <span className="text-sm">From</span>
-                            <Input
-                              type="number"
-                              min={1}
-                              max={pageCount}
-                              value={pageFrom}
-                              onChange={(e) => setPageFrom(Math.max(1, Math.min(pageCount, parseInt(e.target.value) || 1)))}
-                              className="w-20"
-                              data-testid="input-page-from"
-                            />
-                            <span className="text-sm">to</span>
-                            <Input
-                              type="number"
-                              min={1}
-                              max={pageCount}
-                              value={pageTo}
-                              onChange={(e) => setPageTo(Math.max(1, Math.min(pageCount, parseInt(e.target.value) || 1)))}
-                              className="w-20"
-                              data-testid="input-page-to"
-                            />
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>Layer</Label>
-                        <RadioGroup value={layer} onValueChange={(v) => setLayer(v as WatermarkLayer)}>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="over" id="layer-over" />
-                            <Label htmlFor="layer-over" className="cursor-pointer">Over the PDF content</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="below" id="layer-below" />
-                            <Label htmlFor="layer-below" className="cursor-pointer">Below the PDF content</Label>
-                          </div>
-                        </RadioGroup>
+                        <div className="space-y-3">
+                          <Label className="flex items-center gap-2">
+                            <Layers className="h-4 w-4" />
+                            Layer
+                          </Label>
+                          <RadioGroup value={layer} onValueChange={(v) => setLayer(v as WatermarkLayer)}>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="over" id="layer-over" />
+                              <Label htmlFor="layer-over" className="cursor-pointer font-normal">Over content</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem value="below" id="layer-below" />
+                              <Label htmlFor="layer-below" className="cursor-pointer font-normal">Below content</Label>
+                            </div>
+                          </RadioGroup>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
 
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     <Button
                       onClick={addWatermark}
                       disabled={loading || (watermarkType === 'text' && !watermarkText.trim()) || (watermarkType === 'image' && !watermarkImage)}
@@ -684,6 +779,7 @@ export default function PDFWatermarkAdder() {
                       size="lg"
                       data-testid="button-add-watermark"
                     >
+                      <Droplets className="mr-2 h-4 w-4" />
                       {loading ? "Adding Watermark..." : "Add Watermark"}
                     </Button>
                     {watermarkedFile && (
@@ -709,22 +805,54 @@ export default function PDFWatermarkAdder() {
                   )}
                 </div>
 
-                <div className="space-y-4">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg">Live Preview</CardTitle>
-                      <CardDescription>See how your watermark will look</CardDescription>
+                <div className="lg:col-span-2">
+                  <Card className="sticky top-4">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-base flex items-center gap-2">
+                          <Eye className="h-4 w-4" />
+                          Live Preview
+                        </CardTitle>
+                        {pageCount > 1 && (
+                          <div className="flex items-center gap-1">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-7 w-7"
+                              onClick={goToPrevPage}
+                              disabled={currentPreviewPage <= 1}
+                              data-testid="button-prev-page"
+                            >
+                              <ChevronLeft className="h-4 w-4" />
+                            </Button>
+                            <span className="text-xs text-muted-foreground min-w-[60px] text-center">
+                              {currentPreviewPage} / {pageCount}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-7 w-7"
+                              onClick={goToNextPage}
+                              disabled={currentPreviewPage >= pageCount}
+                              data-testid="button-next-page"
+                            >
+                              <ChevronRight className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="bg-muted rounded-lg p-4 flex items-center justify-center">
+                      <div className="bg-muted/50 rounded-lg p-4 flex items-center justify-center">
                         <canvas
                           ref={previewCanvasRef}
-                          width={280}
-                          height={396}
-                          className="border border-border rounded shadow-sm bg-white"
-                          style={{ maxWidth: '100%', height: 'auto' }}
+                          className="border border-border rounded shadow-sm max-w-full h-auto"
+                          style={{ maxHeight: '500px' }}
                         />
                       </div>
+                      <p className="text-xs text-muted-foreground text-center mt-3">
+                        Preview updates as you change settings
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
