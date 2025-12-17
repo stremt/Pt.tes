@@ -1,18 +1,28 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { FileStack, Upload, Download, X, Zap, Lock, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Briefcase, GraduationCap, Landmark, FileText, ImageDown, Key, ArrowRight } from "lucide-react";
+import { FileStack, Upload, Download, X, Zap, Lock, Shield, WifiOff, CheckCircle, Building2, Briefcase, GraduationCap, Landmark, FileText, ImageDown, GripVertical, ChevronUp, ChevronDown, Plus, Trash2, FileIcon } from "lucide-react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { PDFDocument } from "pdf-lib";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
+import { formatFileSize } from "@/lib/pdf-utils";
+
+interface PDFFileInfo {
+  file: File;
+  pageCount: number;
+  id: string;
+}
 
 export default function PDFMerger() {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<PDFFileInfo[]>([]);
   const [merging, setMerging] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -23,29 +33,145 @@ export default function PDFMerger() {
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-merger",
   });
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const generateId = () => Math.random().toString(36).substring(2, 9);
+
+  const loadPDFInfo = async (file: File): Promise<PDFFileInfo | null> => {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+      return {
+        file,
+        pageCount: pdfDoc.getPageCount(),
+        id: generateId(),
+      };
+    } catch (error) {
+      console.error(`Error loading ${file.name}:`, error);
+      return null;
+    }
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
     const pdfFiles = selectedFiles.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length !== selectedFiles.length) {
       toast({
-        title: "Warning",
-        description: "Only PDF files are allowed",
+        title: "Some files skipped",
+        description: "Only PDF files are allowed. Non-PDF files were ignored.",
         variant: "destructive",
       });
     }
 
-    setFiles([...files, ...pdfFiles]);
+    if (pdfFiles.length === 0) return;
+
+    setLoading(true);
+    try {
+      const fileInfos = await Promise.all(pdfFiles.map(loadPDFInfo));
+      const validFiles = fileInfos.filter((info): info is PDFFileInfo => info !== null);
+      
+      if (validFiles.length < pdfFiles.length) {
+        toast({
+          title: "Some PDFs couldn't be loaded",
+          description: "Some files may be corrupted or password-protected.",
+          variant: "destructive",
+        });
+      }
+
+      setFiles(prev => [...prev, ...validFiles]);
+      
+      if (validFiles.length > 0) {
+        toast({
+          title: "Files added",
+          description: `Added ${validFiles.length} PDF${validFiles.length > 1 ? 's' : ''} (${validFiles.reduce((sum, f) => sum + f.pageCount, 0)} pages total)`,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Failed to load some PDF files.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+      if (e.target) e.target.value = '';
+    }
   };
 
-  const removeFile = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index));
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    const pdfFiles = droppedFiles.filter(file => file.type === 'application/pdf');
+    
+    if (pdfFiles.length === 0) {
+      toast({
+        title: "No PDFs found",
+        description: "Please drop PDF files only.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const fileInfos = await Promise.all(pdfFiles.map(loadPDFInfo));
+      const validFiles = fileInfos.filter((info): info is PDFFileInfo => info !== null);
+      setFiles(prev => [...prev, ...validFiles]);
+      
+      if (validFiles.length > 0) {
+        toast({
+          title: "Files added",
+          description: `Added ${validFiles.length} PDF${validFiles.length > 1 ? 's' : ''} (${validFiles.reduce((sum, f) => sum + f.pageCount, 0)} pages total)`,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const removeFile = (id: string) => {
+    setFiles(files.filter(f => f.id !== id));
+  };
+
+  const clearAllFiles = () => {
+    setFiles([]);
+  };
+
+  const moveFile = (fromIndex: number, toIndex: number) => {
+    if (toIndex < 0 || toIndex >= files.length) return;
+    const newFiles = [...files];
+    const [removed] = newFiles.splice(fromIndex, 1);
+    newFiles.splice(toIndex, 0, removed);
+    setFiles(newFiles);
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragEnter = (index: number) => {
+    if (draggedIndex === null || draggedIndex === index) return;
+    setDragOverIndex(index);
+  };
+
+  const handleDragEnd = () => {
+    if (draggedIndex !== null && dragOverIndex !== null && draggedIndex !== dragOverIndex) {
+      moveFile(draggedIndex, dragOverIndex);
+    }
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   const mergePDFs = async () => {
     if (files.length < 2) {
       toast({
-        title: "Error",
+        title: "Need more files",
         description: "Please select at least 2 PDF files to merge",
         variant: "destructive",
       });
@@ -57,9 +183,9 @@ export default function PDFMerger() {
     try {
       const mergedPdf = await PDFDocument.create();
 
-      for (const file of files) {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdf = await PDFDocument.load(arrayBuffer);
+      for (const fileInfo of files) {
+        const arrayBuffer = await fileInfo.file.arrayBuffer();
+        const pdf = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
@@ -70,24 +196,29 @@ export default function PDFMerger() {
       const a = document.createElement('a');
       a.href = url;
       a.download = 'merged.pdf';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
+      const totalPages = files.reduce((sum, f) => sum + f.pageCount, 0);
       toast({
-        title: "Success!",
-        description: "PDFs merged successfully",
+        title: "PDFs Merged Successfully!",
+        description: `Combined ${files.length} files into ${totalPages} pages`,
       });
     } catch (error) {
       console.error(error);
       toast({
-        title: "Error",
-        description: "Failed to merge PDFs. The file may be password-protected or corrupted.",
+        title: "Merge Failed",
+        description: "Some PDFs may be password-protected or corrupted. Try removing problem files.",
         variant: "destructive",
       });
     } finally {
       setMerging(false);
     }
   };
+
+  const totalPages = files.reduce((sum, f) => sum + f.pageCount, 0);
 
   const relatedTools = getRelatedTools("pdf-merger");
 
@@ -141,7 +272,6 @@ export default function PDFMerger() {
             <span className="text-foreground">PDF Merger</span>
           </div>
 
-          {/* Page Header */}
           <div className="text-center space-y-4 mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -163,26 +293,42 @@ export default function PDFMerger() {
             </h2>
           </div>
 
-          {/* Main Tool Interface */}
           <div className="max-w-4xl mx-auto mb-16">
             <Card>
               <CardHeader>
-                <CardTitle>Merge PDF Files</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <FileStack className="h-5 w-5" />
+                  Merge PDF Files
+                </CardTitle>
                 <CardDescription>
-                  Upload 2 or more PDF files to merge them into one
+                  Add PDFs, arrange them in order, then merge into one document
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover-elevate transition-all bg-muted/30"
                   data-testid="dropzone-upload"
                 >
-                  <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="font-medium mb-2">Click to upload PDF files</p>
-                  <p className="text-sm text-muted-foreground">
-                    Select multiple PDF files to merge
-                  </p>
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="h-14 w-14 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Upload className="h-7 w-7 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-lg mb-1">
+                        {loading ? "Loading PDFs..." : "Drop PDFs here or click to browse"}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Select multiple files at once, or add more later
+                      </p>
+                    </div>
+                    <Button variant="outline" size="sm" disabled={loading} className="mt-2">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add PDF Files
+                    </Button>
+                  </div>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -197,59 +343,152 @@ export default function PDFMerger() {
                 <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground p-4 rounded-lg bg-primary/5 border border-primary/10">
                   <div className="flex items-center gap-2">
                     <Shield className="h-4 w-4 text-primary" />
-                    <span className="font-medium">No Upload — Files stay on your device</span>
+                    <span className="font-medium">Files stay on your device</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <WifiOff className="h-4 w-4 text-primary" />
-                    <span className="font-medium">Offline Merging — Works without internet</span>
+                    <span className="font-medium">Works offline</span>
                   </div>
                 </div>
 
                 {files.length > 0 && (
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Selected Files ({files.length})</p>
-                    <div className="space-y-2">
-                      {files.map((file, index) => (
-                        <Card key={index} className="bg-muted/50">
-                          <CardContent className="flex justify-between items-center py-3">
-                            <span className="text-sm truncate flex-1">{file.name}</span>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <h3 className="font-semibold">Files to Merge</h3>
+                        <Badge variant="secondary">{files.length} files</Badge>
+                        <Badge variant="outline">{totalPages} pages</Badge>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={clearAllFiles}
+                        className="text-destructive hover:text-destructive"
+                        data-testid="button-clear-all"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Clear All
+                      </Button>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground">
+                      Drag files to reorder, or use the arrows. Files will be merged from top to bottom.
+                    </p>
+
+                    <div className="space-y-2 max-h-80 overflow-y-auto pr-2">
+                      {files.map((fileInfo, index) => (
+                        <div
+                          key={fileInfo.id}
+                          draggable
+                          onDragStart={() => handleDragStart(index)}
+                          onDragEnter={() => handleDragEnter(index)}
+                          onDragEnd={handleDragEnd}
+                          onDragOver={(e) => e.preventDefault()}
+                          className={`
+                            flex items-center gap-3 p-3 rounded-lg border transition-all cursor-move
+                            ${draggedIndex === index ? 'opacity-50 scale-[0.98]' : ''}
+                            ${dragOverIndex === index && draggedIndex !== index ? 'border-primary bg-primary/5' : 'bg-muted/50'}
+                          `}
+                          data-testid={`file-item-${index}`}
+                        >
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <GripVertical className="h-5 w-5 cursor-grab" />
+                            <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium text-primary">
+                              {index + 1}
+                            </span>
+                          </div>
+
+                          <div className="h-10 w-10 rounded bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                            <FileIcon className="h-5 w-5 text-destructive" />
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium truncate text-sm">{fileInfo.file.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {fileInfo.pageCount} page{fileInfo.pageCount !== 1 ? 's' : ''} • {formatFileSize(fileInfo.file.size)}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-1">
                             <Button
-                              onClick={() => removeFile(index)}
                               variant="ghost"
                               size="icon"
-                              className="ml-2"
+                              onClick={() => moveFile(index, index - 1)}
+                              disabled={index === 0}
+                              className="h-8 w-8"
+                              data-testid={`button-move-up-${index}`}
+                            >
+                              <ChevronUp className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => moveFile(index, index + 1)}
+                              disabled={index === files.length - 1}
+                              className="h-8 w-8"
+                              data-testid={`button-move-down-${index}`}
+                            >
+                              <ChevronDown className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => removeFile(fileInfo.id)}
+                              className="h-8 w-8 text-destructive hover:text-destructive"
                               data-testid={`button-remove-${index}`}
                             >
                               <X className="h-4 w-4" />
                             </Button>
-                          </CardContent>
-                        </Card>
+                          </div>
+                        </div>
                       ))}
                     </div>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="w-full"
+                      disabled={loading}
+                      data-testid="button-add-more"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add More PDFs
+                    </Button>
                   </div>
                 )}
 
                 <Button
                   onClick={mergePDFs}
-                  disabled={files.length < 2 || merging}
+                  disabled={files.length < 2 || merging || loading}
                   className="w-full"
                   size="lg"
                   data-testid="button-merge"
                 >
                   {merging ? (
-                    <>Merging PDFs...</>
+                    <>
+                      <div className="h-4 w-4 mr-2 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                      Merging {files.length} PDFs...
+                    </>
                   ) : (
                     <>
-                      <Download className="mr-2 h-4 w-4" />
-                      Merge & Download PDF
+                      <Download className="mr-2 h-5 w-5" />
+                      {files.length < 2 
+                        ? "Add at least 2 PDFs to merge" 
+                        : `Merge ${files.length} PDFs (${totalPages} pages)`
+                      }
                     </>
                   )}
                 </Button>
+
+                {files.length > 0 && files.length < 2 && (
+                  <p className="text-center text-sm text-muted-foreground">
+                    Add one more PDF to enable merging
+                  </p>
+                )}
               </CardContent>
             </Card>
           </div>
 
-          {/* Why You Need PDF Merger */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Why You Need a PDF Merger</h2>
             <div className="prose prose-lg max-w-4xl mx-auto">
@@ -265,7 +504,6 @@ export default function PDFMerger() {
             </div>
           </section>
 
-          {/* How It Works */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -273,33 +511,32 @@ export default function PDFMerger() {
                 <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
                   <span className="text-2xl font-bold text-primary">1</span>
                 </div>
-                <h3 className="font-semibold text-lg">Upload PDFs</h3>
+                <h3 className="font-semibold text-lg">Add PDFs</h3>
                 <p className="text-muted-foreground">
-                  Click to select multiple PDF files from your device. Add as many as you need.
+                  Click or drag & drop your PDF files. Add as many as you need—each shows page count and size.
                 </p>
               </div>
               <div className="text-center space-y-4">
                 <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
                   <span className="text-2xl font-bold text-primary">2</span>
                 </div>
-                <h3 className="font-semibold text-lg">Merge Instantly</h3>
+                <h3 className="font-semibold text-lg">Arrange Order</h3>
                 <p className="text-muted-foreground">
-                  Click the merge button. Files are combined instantly in your browser—no upload needed.
+                  Drag files to reorder them or use the arrow buttons. Files merge from top to bottom.
                 </p>
               </div>
               <div className="text-center space-y-4">
                 <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
                   <span className="text-2xl font-bold text-primary">3</span>
                 </div>
-                <h3 className="font-semibold text-lg">Download</h3>
+                <h3 className="font-semibold text-lg">Merge & Download</h3>
                 <p className="text-muted-foreground">
-                  Your merged PDF downloads automatically. Clean, professional, no watermarks.
+                  Click merge and your combined PDF downloads instantly. No watermarks, no limits.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Why Use Section */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft PDF Merger?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -355,7 +592,6 @@ export default function PDFMerger() {
             </div>
           </section>
 
-          {/* Popular Use Cases */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Who Uses PDF Merger? Real Use Cases</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -428,7 +664,6 @@ export default function PDFMerger() {
             </div>
           </section>
 
-          {/* FAQ */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
             <div className="max-w-3xl mx-auto">
@@ -443,7 +678,6 @@ export default function PDFMerger() {
             </div>
           </section>
 
-          {/* Authority & Freshness Signals */}
           <section className="mb-16">
             <Card className="bg-muted/30">
               <CardContent className="py-6">
@@ -454,47 +688,42 @@ export default function PDFMerger() {
                       <span>Trusted by 100,000+ users worldwide</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-primary" />
-                      <span>India's largest offline-first tool hub with 200+ browser-based tools</span>
+                      <Shield className="h-4 w-4 text-primary" />
+                      <span>100% Private Processing</span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4" />
-                    <span>Last updated: December 2025</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </section>
 
-          {/* Related Tools */}
-          <section>
-            <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedTools.map((tool) => {
-                const Icon = getToolIcon(tool.icon);
-                return (
-                  <Card key={tool.id} className="hover-elevate">
-                    <CardHeader>
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <CardTitle>{tool.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="mb-4">{tool.description}</CardDescription>
-                      <Link href={tool.path}>
-                        <Button variant="outline" className="w-full" data-testid={`button-related-${tool.id}`}>
-                          Use Tool
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </section>
+          {relatedTools.length > 0 && (
+            <section className="mb-16">
+              <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {relatedTools.map((tool) => {
+                  const IconComponent = getToolIcon(tool.id);
+                  return (
+                    <Link key={tool.id} href={tool.path}>
+                      <Card className="hover-elevate h-full cursor-pointer">
+                        <CardHeader className="pb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                              <IconComponent className="h-5 w-5 text-primary" />
+                            </div>
+                            <CardTitle className="text-lg">{tool.name}</CardTitle>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground">{tool.description}</p>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </>
