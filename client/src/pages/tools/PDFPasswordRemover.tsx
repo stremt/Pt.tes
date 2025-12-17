@@ -124,7 +124,7 @@ export default function PDFPasswordRemover() {
     { name: "PDF Splitter", href: "/tools/pdf-splitter", description: "Extract specific pages or split PDFs into separate files" },
     { name: "PDF Compressor", href: "/tools/pdf-compressor", description: "Reduce PDF file size while maintaining quality" },
     { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert JPG, PNG, and other images to PDF format" },
-    { name: "PDF Watermark", href: "/tools/pdf-watermark", description: "Add text or image watermarks to your PDFs" }
+    { name: "PDF Watermark Adder", href: "/tools/pdf-watermark-adder", description: "Add text or image watermarks to your PDFs" }
   ];
 
   return (
