@@ -15,9 +15,10 @@ import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Buildi
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { addAdvancedWatermarkToPDF, getPDFInfo, formatFileSize, type WatermarkPosition, type WatermarkFont, type WatermarkLayer } from "@/lib/pdf-utils";
-import * as pdfjsLib from 'pdfjs-dist';
+import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy } from 'pdfjs-dist';
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 const positionGrid: { id: WatermarkPosition; label: string; icon: string }[] = [
   { id: 'top-left', label: 'Top Left', icon: '↖' },
@@ -52,7 +53,7 @@ export default function PDFWatermarkAdder() {
   const [pageCount, setPageCount] = useState(1);
   const [currentPreviewPage, setCurrentPreviewPage] = useState(1);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
-  const [pdfDoc, setPdfDoc] = useState<pdfjsLib.PDFDocumentProxy | null>(null);
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
   
   const [watermarkType, setWatermarkType] = useState<'text' | 'image'>('text');
   const [watermarkText, setWatermarkText] = useState("CONFIDENTIAL");
@@ -118,7 +119,7 @@ export default function PDFWatermarkAdder() {
         setPageTo(info.pageCount);
         
         const arrayBuffer = await selectedFile.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const pdf = await getDocument({ data: arrayBuffer }).promise;
         setPdfDoc(pdf);
       } catch {
         setPageCount(1);
