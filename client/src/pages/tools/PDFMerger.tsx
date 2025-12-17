@@ -13,8 +13,11 @@ import { formatFileSize } from "@/lib/pdf-utils";
 
 interface PDFFileInfo {
   file: File;
+  arrayBuffer: ArrayBuffer;
   pageCount: number;
   id: string;
+  name: string;
+  size: number;
 }
 
 export default function PDFMerger() {
@@ -41,8 +44,11 @@ export default function PDFMerger() {
       const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
       return {
         file,
+        arrayBuffer: arrayBuffer.slice(0),
         pageCount: pdfDoc.getPageCount(),
         id: generateId(),
+        name: file.name,
+        size: file.size,
       };
     } catch (error) {
       console.error(`Error loading ${file.name}:`, error);
@@ -184,8 +190,7 @@ export default function PDFMerger() {
       const mergedPdf = await PDFDocument.create();
 
       for (const fileInfo of files) {
-        const arrayBuffer = await fileInfo.file.arrayBuffer();
-        const pdf = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+        const pdf = await PDFDocument.load(fileInfo.arrayBuffer.slice(0), { ignoreEncryption: true });
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
@@ -403,9 +408,9 @@ export default function PDFMerger() {
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium truncate text-sm">{fileInfo.file.name}</p>
+                            <p className="font-medium truncate text-sm">{fileInfo.name}</p>
                             <p className="text-xs text-muted-foreground">
-                              {fileInfo.pageCount} page{fileInfo.pageCount !== 1 ? 's' : ''} • {formatFileSize(fileInfo.file.size)}
+                              {fileInfo.pageCount} page{fileInfo.pageCount !== 1 ? 's' : ''} • {formatFileSize(fileInfo.size)}
                             </p>
                           </div>
 
