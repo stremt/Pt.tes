@@ -7,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Droplets, Upload, Download, X } from "lucide-react";
+import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Building2, FileText, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { addWatermarkToPDF, formatFileSize } from "@/lib/pdf-utils";
@@ -24,9 +24,9 @@ export default function PDFWatermarkAdder() {
   const { toast } = useToast();
 
   useSEO({
-    title: "PDF Watermark Adder Online Free - Add Text Watermark to PDF | Pixocraft Tools",
-    description: "Add custom watermarks to PDF files online for free. Protect your documents with text watermarks. Secure, fast, and works completely offline in your browser.",
-    keywords: "add watermark to pdf, pdf watermark online, watermark pdf free, protect pdf, pdf security, add text to pdf, pdf watermarking tool",
+    title: "Add Watermark to PDF Online Free | PDF Watermark Tool",
+    description: "Add custom text watermarks to PDF files online for free. Protect documents, mark as confidential, add branding. Secure, offline processing in your browser.",
+    keywords: "add watermark to pdf, pdf watermark online, watermark pdf free, protect pdf, pdf security, add text to pdf, pdf watermarking tool, stamp pdf, pdf branding",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-watermark-adder",
   });
 
@@ -94,28 +94,48 @@ export default function PDFWatermarkAdder() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Why add watermarks to PDFs?",
-      answer: "Watermarks help protect your intellectual property, mark documents as confidential, indicate ownership, prevent unauthorized distribution, and add professional branding to your PDFs. They're essential for legal documents, contracts, proposals, and any sensitive materials."
+      question: "Why should I add watermarks to my PDF documents?",
+      answer: "Watermarks serve multiple important purposes: they protect intellectual property by clearly marking ownership, indicate document status (like DRAFT or CONFIDENTIAL), deter unauthorized copying and distribution, add professional branding to business documents, and help track document versions. For legal documents, contracts, proposals, and sensitive materials, watermarks provide an essential layer of protection and identification."
     },
     {
-      question: "Can watermarks be removed from PDFs?",
-      answer: "While watermarks can potentially be removed with specialized software, adding them still provides a layer of protection and clearly indicates document ownership. For maximum security, combine watermarks with password protection and encryption."
+      question: "Can watermarks be removed from PDFs after I add them?",
+      answer: "While watermarks can potentially be removed with specialized software, adding them still provides significant protection. They clearly establish ownership and serve as a visual deterrent against unauthorized use. For maximum security, consider combining watermarks with password protection. The effort required to remove watermarks discourages most casual misuse."
     },
     {
-      question: "Is my PDF secure when adding watermarks?",
-      answer: "Yes! All processing happens entirely in your browser. Your PDF never leaves your device, ensuring complete privacy. This is especially important for confidential documents, contracts, and sensitive business materials."
+      question: "Is my PDF secure when I add watermarks using this tool?",
+      answer: "Absolutely. All processing happens entirely within your web browser—your PDF never gets uploaded to any server. We cannot see, access, or store your documents. This local processing approach is especially important for confidential contracts, financial documents, legal materials, and sensitive business files."
     },
     {
-      question: "Can I customize the watermark appearance?",
-      answer: "Absolutely! You can customize the watermark text, size, opacity, rotation angle, and position. This allows you to create subtle background watermarks or prominent protective marks based on your needs."
+      question: "What watermark customization options are available?",
+      answer: "You have full control over your watermark appearance. Customize the text content (any words or phrases you need), adjust the opacity from subtle to prominent, change the font size for the right visual impact, and select the position—diagonal across the page, centered, or at the top or bottom. This flexibility lets you create anything from discreet background marks to bold protective stamps."
     },
     {
-      question: "Will watermarks affect PDF quality?",
-      answer: "No, watermarks are added as a layer on top of your existing PDF content without degrading the original document quality. Text remains crisp, images stay clear, and the file structure is preserved."
+      question: "Will adding a watermark reduce my PDF quality?",
+      answer: "No, watermarks are added as a separate layer on top of your existing PDF content without degrading the original document quality. Your text remains crisp and readable, images stay clear and sharp, and the overall file structure is preserved. The watermark simply overlays the content without altering it."
+    },
+    {
+      question: "What text should I use for my watermark?",
+      answer: "Common watermark texts include: CONFIDENTIAL, DRAFT, INTERNAL USE ONLY, DO NOT COPY, SAMPLE, your company name, copyright notices (like © 2024 Company Name), or document identifiers. Choose text that clearly communicates the document's status or ownership based on your specific needs."
+    },
+    {
+      question: "Can I add watermarks to multiple PDFs at once?",
+      answer: "Currently, this tool processes one PDF at a time to ensure accuracy and give you full control over each watermark. For multiple documents, simply repeat the process—each watermarking operation takes just seconds. This approach lets you customize watermark settings for different documents as needed."
+    },
+    {
+      question: "Does this tool work on mobile devices?",
+      answer: "Yes, this PDF watermark tool works on smartphones and tablets. Whether you're using an iPhone, Android phone, or iPad, you can upload PDFs, customize your watermark settings, and download the watermarked version. No app installation required—everything works directly in your mobile browser."
     }
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
+
+  const relatedTools = [
+    { name: "PDF Watermark Remover", href: "/tools/pdf-watermark-remover", description: "Remove or reduce watermarks from PDF files" },
+    { name: "PDF Password Remover", href: "/tools/pdf-password-remover", description: "Remove password protection from PDF files" },
+    { name: "PDF Compressor", href: "/tools/pdf-compressor", description: "Reduce PDF file size while maintaining quality" },
+    { name: "PDF Merger", href: "/tools/pdf-merger", description: "Combine multiple PDF files into one document" },
+    { name: "Image to PDF", href: "/tools/image-to-pdf", description: "Convert JPG, PNG, and other images to PDF format" }
+  ];
 
   return (
     <>
@@ -136,14 +156,15 @@ export default function PDFWatermarkAdder() {
                 <Droplets className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">PDF Watermark Adder</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Add custom text watermarks to your PDFs. Protect documents, mark as confidential, or add branding.
+            <h1 className="text-4xl md:text-5xl font-bold" data-testid="heading-h1">Free PDF Watermark Tool - Add Text Watermarks Online</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Protect your documents, establish ownership, and add professional branding with custom text watermarks. This free tool lets you stamp any PDF with your own watermark text—all processing happens in your browser, keeping your files completely private.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
               <Badge variant="secondary">Offline</Badge>
               <Badge variant="secondary">Customizable</Badge>
+              <Badge variant="secondary">Private</Badge>
             </div>
           </div>
 
@@ -178,7 +199,7 @@ export default function PDFWatermarkAdder() {
               <div className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-2">
                       <div>
                         <CardTitle>Watermark Settings</CardTitle>
                         <CardDescription>{file.name}</CardDescription>
@@ -254,7 +275,7 @@ export default function PDFWatermarkAdder() {
                       />
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <Button
                         onClick={addWatermark}
                         disabled={loading || !watermarkText.trim()}
@@ -273,49 +294,266 @@ export default function PDFWatermarkAdder() {
                           data-testid="button-download"
                         >
                           <Download className="mr-2 h-4 w-4" />
-                          Download
+                          Download PDF
                         </Button>
                       )}
                     </div>
+
+                    {watermarkedFile && (
+                      <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-900">
+                        <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                          Watermark added successfully! Your PDF is ready to download.
+                        </p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </div>
             )}
           </div>
 
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6">Why Add Watermarks to Your PDFs?</h2>
+            <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
+              <p>
+                In today's digital world, protecting your documents is more important than ever. Whether you're sharing contracts, proposals, creative work, or confidential reports, watermarks provide a simple yet effective layer of protection and identification.
+              </p>
+              <p>
+                A watermark clearly establishes who owns the document and what its intended use is. When someone sees "CONFIDENTIAL" stamped across a page, they immediately understand the document's sensitive nature. When your company name appears as a subtle background mark, it reinforces your brand and discourages unauthorized redistribution.
+              </p>
+              <p>
+                Unlike complex encryption or password protection, watermarks work visibly—they're a constant reminder of ownership that travels with the document no matter how many times it's shared, printed, or forwarded.
+              </p>
+            </div>
+          </section>
+
           <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Common Watermark Use Cases</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Confidential Documents</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <Shield className="h-6 w-6 text-primary" />
+                    <CardTitle>Confidential Documents</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Mark sensitive business documents, contracts, and internal reports as "CONFIDENTIAL" or "INTERNAL USE ONLY" to prevent unauthorized sharing.
+                    Mark sensitive business documents, contracts, financial reports, and internal communications as "CONFIDENTIAL" or "INTERNAL USE ONLY" to prevent unauthorized sharing and clearly communicate handling requirements.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Copyright Protection</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-6 w-6 text-primary" />
+                    <CardTitle>Copyright Protection</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Add your company name or copyright notice to PDFs to establish ownership and discourage unauthorized use or distribution of your content.
+                    Add your company name, logo text, or copyright notice to establish clear ownership. This discourages unauthorized use and makes it easy to identify the source if documents are shared without permission.
                   </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Draft Versions</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-6 w-6 text-primary" />
+                    <CardTitle>Draft & Preview Versions</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Mark documents as "DRAFT", "PREVIEW", or "NOT FOR DISTRIBUTION" to clearly indicate the document status and prevent confusion.
+                    Mark documents as "DRAFT", "PREVIEW", "SAMPLE", or "NOT FOR DISTRIBUTION" to clearly indicate document status. This prevents confusion and ensures recipients know they're viewing a work-in-progress.
                   </p>
                 </CardContent>
               </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Building2 className="h-6 w-6 text-primary" />
+                    <CardTitle>Legal Documents</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Law firms and legal departments watermark contracts, agreements, and court documents to indicate authenticity and prevent tampering. Watermarks help establish document provenance in legal proceedings.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Briefcase className="h-6 w-6 text-primary" />
+                    <CardTitle>Business Proposals</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Add your company branding to proposals, quotes, and presentations. Professional watermarks reinforce your brand identity and add a polished touch to client-facing documents.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="h-6 w-6 text-primary" />
+                    <CardTitle>Educational Materials</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Teachers and educators watermark course materials, worksheets, and study guides to indicate ownership and discourage unauthorized redistribution of their carefully created content.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Who Uses PDF Watermarks?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Briefcase className="h-6 w-6 text-primary" />
+                    <CardTitle>Business Professionals</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    From HR departments protecting employee documents to sales teams branding proposals, business professionals use watermarks daily to secure and identify their documents across every industry.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Building2 className="h-6 w-6 text-primary" />
+                    <CardTitle>Legal & Compliance Teams</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Legal professionals rely on watermarks to indicate document status, protect confidential case files, and ensure proper handling of sensitive materials throughout legal proceedings and reviews.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Users className="h-6 w-6 text-primary" />
+                    <CardTitle>Creative Professionals</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Designers, photographers, and content creators watermark portfolios, proofs, and sample work to protect their intellectual property while still showcasing their work to potential clients.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <GraduationCap className="h-6 w-6 text-primary" />
+                    <CardTitle>Educators & Trainers</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Teachers, professors, and corporate trainers watermark educational materials to maintain ownership of their content and track distribution of course materials and training documents.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <Users className="h-6 w-6 text-primary" />
+                    <CardTitle>Small Business Owners</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Entrepreneurs and small business owners add professional branding to invoices, contracts, and client documents. Watermarks elevate the professional appearance of business communications.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <FileText className="h-6 w-6 text-primary" />
+                    <CardTitle>Publishers & Authors</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Publishers and authors protect manuscript drafts, review copies, and advance reader copies with watermarks. This helps track the source if unauthorized copies appear online.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Complete Privacy: Your Documents Never Leave Your Device</h2>
+            <Card>
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <Shield className="h-8 w-8 text-primary flex-shrink-0" />
+                  <div className="space-y-4">
+                    <p className="text-muted-foreground">
+                      When you add watermarks using this tool, all processing happens entirely within your web browser. Your PDF is never uploaded to any server—it stays on your device throughout the entire process.
+                    </p>
+                    <p className="text-muted-foreground">
+                      This is critically important for sensitive documents. Whether you're watermarking financial reports, legal contracts, medical records, or confidential business materials, you can trust that your files remain completely private.
+                    </p>
+                    <p className="text-muted-foreground">
+                      We have zero access to your documents. There's no upload, no cloud processing, no storage, and no data collection. You get the convenience of an online tool with the security of offline software.
+                    </p>
+                    <div className="p-4 bg-muted/50 rounded-lg">
+                      <p className="text-sm font-medium">Works Offline After Page Loads</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Once this page loads in your browser, you can disconnect from the internet and continue using the tool. Your watermarking happens entirely offline, adding another layer of security for highly sensitive documents.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              {faqItems.map((faq, index) => (
+                <Card key={index}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{faq.question}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{faq.answer}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          <section className="mb-16 max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8 text-center">Related Tools You May Find Useful</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedTools.map((tool) => (
+                <Link key={tool.href} href={tool.href}>
+                  <Card className="h-full hover-elevate cursor-pointer">
+                    <CardHeader>
+                      <CardTitle className="text-base">{tool.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">{tool.description}</p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
           </section>
         </div>
