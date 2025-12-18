@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools } from "@/lib/tools";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Globe, WifiOff, Lock, HardDrive, Zap, Mail, MessageSquare, Wifi, Bitcoin, Palette, Check } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, History, Trash2, Lock, HardDrive, Zap, Mail, MessageSquare, Wifi, Bitcoin, Palette, Save, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -22,7 +22,24 @@ interface QRHistoryItem {
   createdAt: string;
 }
 
+interface CustomTemplate {
+  id: string;
+  name: string;
+  darkColor: string;
+  lightColor: string;
+  bgType: "solid" | "gradient" | "transparent";
+  externalEyePattern: string;
+  internalEyePattern: string;
+  bodyPattern: string;
+  frameStyle: string;
+  overlayText: string;
+  logoPreset: string | null;
+  logoImage: string | null;
+  errorCorrectionLevel: string;
+}
+
 const QR_HISTORY_KEY = "pixocraft_qr_history";
+const TEMPLATES_KEY = "pixocraft_qr_templates";
 const MAX_HISTORY_ITEMS = 20;
 
 const QR_TYPES = [
@@ -35,21 +52,55 @@ const QR_TYPES = [
   { id: "bitcoin", label: "Bitcoin Address", icon: Bitcoin, description: "Send payment" },
 ];
 
-const FRAME_PRESETS = [
-  { id: "none", name: "Classic", image: "⬜" },
-  { id: "scanme-top", name: "Scan Me (Top)", image: "📝⬜" },
-  { id: "scanme-bottom", name: "Scan Me (Bottom)", image: "⬜📝" },
-  { id: "border-thick", name: "Thick Border", image: "▪️⬜▪️" },
-  { id: "border-gradient", name: "Gradient", image: "🎨⬜🎨" },
+const SOCIAL_LOGOS = [
+  { id: "youtube", name: "YouTube", emoji: "🔴" },
+  { id: "facebook", name: "Facebook", emoji: "👤" },
+  { id: "whatsapp", name: "WhatsApp", emoji: "💬" },
+  { id: "instagram", name: "Instagram", emoji: "📷" },
+  { id: "linkedin", name: "LinkedIn", emoji: "💼" },
+  { id: "telegram", name: "Telegram", emoji: "✈️" },
+  { id: "twitter", name: "Twitter", emoji: "𝕏" },
 ];
 
-const TEMPLATES = [
+const EYE_PATTERNS = {
+  external: [
+    { id: "square", name: "Square", emoji: "⬜" },
+    { id: "circle", name: "Circle", emoji: "⭕" },
+    { id: "roundsquare", name: "Round Square", emoji: "▯" },
+  ],
+  internal: [
+    { id: "square", name: "Square", emoji: "▪️" },
+    { id: "dot", name: "Dot", emoji: "●" },
+    { id: "diamond", name: "Diamond", emoji: "◆" },
+  ],
+};
+
+const BODY_PATTERNS = [
+  { id: "square", name: "Square", emoji: "◼️" },
+  { id: "dots", name: "Dots", emoji: "••" },
+  { id: "circle", name: "Circle", emoji: "●●" },
+];
+
+const FRAME_PRESETS = [
+  { id: "none", name: "Classic", emoji: "⬜" },
+  { id: "scanme-top", name: "Scan Me (Top)", emoji: "📝⬜" },
+  { id: "scanme-bottom", name: "Scan Me (Bottom)", emoji: "⬜📝" },
+  { id: "border-thick", name: "Thick Border", emoji: "▪️⬜▪️" },
+  { id: "border-gradient", name: "Gradient", emoji: "🎨⬜🎨" },
+  { id: "rounded", name: "Rounded", emoji: "⭕" },
+  { id: "banner-top", name: "Banner Top", emoji: "🎀⬜" },
+  { id: "banner-bottom", name: "Banner Bottom", emoji: "⬜🎀" },
+];
+
+const COLOR_TEMPLATES = [
   { id: "premium-blue", name: "Premium Blue", darkColor: "#0052CC", lightColor: "#E3F2FD" },
   { id: "vibrant-red", name: "Vibrant Red", darkColor: "#DC2626", lightColor: "#FEE2E2" },
   { id: "forest-green", name: "Forest Green", darkColor: "#15803D", lightColor: "#DCFCE7" },
   { id: "sunset-orange", name: "Sunset Orange", darkColor: "#EA580C", lightColor: "#FFEDD5" },
   { id: "deep-purple", name: "Deep Purple", darkColor: "#6D28D9", lightColor: "#F3E8FF" },
   { id: "classic-black", name: "Classic Black", darkColor: "#000000", lightColor: "#FFFFFF" },
+  { id: "teal", name: "Teal", darkColor: "#0D9488", lightColor: "#CCFBF1" },
+  { id: "indigo", name: "Indigo", darkColor: "#4F46E5", lightColor: "#E0E7FF" },
 ];
 
 export default function QRMaker() {
@@ -58,12 +109,24 @@ export default function QRMaker() {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const [history, setHistory] = useState<QRHistoryItem[]>([]);
-  const [showHistory, setShowHistory] = useState(false);
+  const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([]);
+  
   const [darkColor, setDarkColor] = useState("#000000");
   const [lightColor, setLightColor] = useState("#FFFFFF");
+  const [bgType, setBgType] = useState<"solid" | "gradient" | "transparent">("solid");
   const [frameStyle, setFrameStyle] = useState("none");
   const [logoImage, setLogoImage] = useState<string | null>(null);
+  const [logoPreset, setLogoPreset] = useState<string | null>(null);
+  const [logoSize, setLogoSize] = useState(70);
+  const [logoBackground, setLogoBackground] = useState(true);
   const [errorCorrectionLevel, setErrorCorrectionLevel] = useState("M");
+  const [externalEyePattern, setExternalEyePattern] = useState("square");
+  const [internalEyePattern, setInternalEyePattern] = useState("square");
+  const [bodyPattern, setBodyPattern] = useState("square");
+  const [overlayText, setOverlayText] = useState("");
+  const [overlayTextColor, setOverlayTextColor] = useState("#000000");
+  const [templateName, setTemplateName] = useState("");
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
@@ -77,20 +140,28 @@ export default function QRMaker() {
         localStorage.removeItem(QR_HISTORY_KEY);
       }
     }
+
+    const savedTemplates = localStorage.getItem(TEMPLATES_KEY);
+    if (savedTemplates) {
+      try {
+        setCustomTemplates(JSON.parse(savedTemplates));
+      } catch {
+        localStorage.removeItem(TEMPLATES_KEY);
+      }
+    }
   }, []);
 
-  // Auto-generate QR when customization changes
   useEffect(() => {
     if (step === 3 && selectedType && canvasRef.current) {
       const timer = setTimeout(() => renderQR(), 200);
       return () => clearTimeout(timer);
     }
-  }, [darkColor, lightColor, frameStyle, logoImage, errorCorrectionLevel, step, selectedType, formData]);
+  }, [darkColor, lightColor, bgType, frameStyle, logoImage, logoPreset, logoSize, logoBackground, errorCorrectionLevel, externalEyePattern, internalEyePattern, bodyPattern, overlayText, step, selectedType, formData]);
 
   useSEO({
-    title: "Free QR Code Generator - Create Professional QR Codes | Pixocraft",
-    description: "Create professional QR codes free: URL, vCard, Email, SMS, WiFi, Bitcoin. Customize colors, frames, logos. Works offline. Instant PNG download.",
-    keywords: "qr code generator, free qr code maker, create qr code, custom qr code, qr code frames",
+    title: "Free QR Code Generator - Advanced Customization | Pixocraft",
+    description: "Professional QR codes with eye patterns, body patterns, social logos, text overlay, custom templates. 7 QR types. Works offline.",
+    keywords: "qr code generator, free qr code maker, custom qr code, qr code templates",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
     ogImage: OG_IMAGES.qrMaker,
   });
@@ -120,36 +191,6 @@ export default function QRMaker() {
     }
   };
 
-  const getCorrectionLevel = () => {
-    const levels: Record<string, any> = {
-      L: { value: "L", description: "~7% recovery" },
-      M: { value: "M", description: "~15% recovery" },
-      Q: { value: "Q", description: "~25% recovery" },
-      H: { value: "H", description: "~30% recovery" },
-    };
-    return levels[errorCorrectionLevel];
-  };
-
-  const drawFrame = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
-    const { width, height } = canvas;
-
-    if (frameStyle === "scanme-top") {
-      ctx.font = "bold 18px Arial";
-      ctx.fillStyle = "#000000";
-      ctx.textAlign = "center";
-      ctx.fillText("SCAN ME", width / 2, 30);
-    } else if (frameStyle === "scanme-bottom") {
-      ctx.font = "bold 18px Arial";
-      ctx.fillStyle = "#000000";
-      ctx.textAlign = "center";
-      ctx.fillText("SCAN ME", width / 2, height - 15);
-    } else if (frameStyle === "border-thick") {
-      ctx.strokeStyle = "#000000";
-      ctx.lineWidth = 5;
-      ctx.strokeRect(10, 10, width - 20, height - 20);
-    }
-  };
-
   const renderQR = async () => {
     try {
       if (!canvasRef.current) return;
@@ -157,30 +198,61 @@ export default function QRMaker() {
       const qrData = generateQRData();
       if (!qrData.trim()) return;
 
-      const levelObj = getCorrectionLevel();
+      const levelObj = { L: "L", M: "M", Q: "Q", H: "H" }[errorCorrectionLevel];
 
       await QRCodeLib.toCanvas(canvasRef.current, qrData, {
         width: 350,
         margin: 2,
-        errorCorrectionLevel: levelObj.value,
-        color: { dark: darkColor, light: lightColor },
+        errorCorrectionLevel: levelObj as "L" | "M" | "Q" | "H",
+        color: { dark: darkColor, light: bgType === "transparent" ? "transparent" : lightColor },
       });
 
       const ctx = canvasRef.current.getContext("2d");
-      if (ctx && frameStyle !== "none") {
-        drawFrame(canvasRef.current, ctx);
+      if (!ctx) return;
+
+      // Draw frame
+      if (frameStyle !== "none") {
+        const { width, height } = canvasRef.current;
+        if (frameStyle === "scanme-top") {
+          ctx.font = "bold 18px Arial";
+          ctx.fillStyle = darkColor;
+          ctx.textAlign = "center";
+          ctx.fillText("SCAN ME", width / 2, 30);
+        } else if (frameStyle === "scanme-bottom") {
+          ctx.font = "bold 18px Arial";
+          ctx.fillStyle = darkColor;
+          ctx.textAlign = "center";
+          ctx.fillText("SCAN ME", width / 2, height - 15);
+        } else if (frameStyle === "border-thick") {
+          ctx.strokeStyle = darkColor;
+          ctx.lineWidth = 5;
+          ctx.strokeRect(10, 10, width - 20, height - 20);
+        }
+      }
+
+      // Add overlay text
+      if (overlayText) {
+        const { width, height } = canvasRef.current;
+        ctx.font = "14px Arial";
+        ctx.fillStyle = overlayTextColor;
+        ctx.textAlign = "center";
+        ctx.fillText(overlayText, width / 2, height - 25);
       }
 
       // Add logo
-      if (logoImage && ctx) {
+      if (logoImage) {
         const img = new Image();
         img.onload = () => {
-          const logoSize = 70;
-          const x = (canvasRef.current!.width - logoSize) / 2;
-          const y = (canvasRef.current!.height - logoSize) / 2;
-          ctx.fillStyle = "#FFFFFF";
-          ctx.fillRect(x - 6, y - 6, logoSize + 12, logoSize + 12);
-          ctx.drawImage(img, x, y, logoSize, logoSize);
+          const size = logoSize;
+          const x = (canvasRef.current!.width - size) / 2;
+          const y = (canvasRef.current!.height - size) / 2;
+          
+          if (logoBackground) {
+            ctx.fillStyle = bgType === "transparent" ? "#FFFFFF" : lightColor;
+            ctx.fillRect(x - 8, y - 8, size + 16, size + 16);
+          }
+          
+          ctx.drawImage(img, x, y, size, size);
         };
         img.src = logoImage;
       }
@@ -203,30 +275,91 @@ export default function QRMaker() {
   };
 
   const downloadQR = () => {
-    if (canvasRef.current) {
-      const link = document.createElement("a");
-      link.download = `qr-code-${Date.now()}.png`;
-      link.href = canvasRef.current.toDataURL();
-      link.click();
+    if (!canvasRef.current) return;
 
-      const qrData = generateQRData();
-      const label = Object.values(formData).filter(v => v).join(" ").substring(0, 40);
-      const newItem: QRHistoryItem = {
-        id: Date.now().toString(),
-        type: selectedType,
-        label: label || "QR Code",
-        qrCodeUrl: canvasRef.current.toDataURL(),
-        createdAt: new Date().toISOString(),
-      };
-      const updated = [newItem, ...history].slice(0, MAX_HISTORY_ITEMS);
-      setHistory(updated);
-      localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updated));
+    const link = document.createElement("a");
+    link.download = `qr-code-${Date.now()}.png`;
+    link.href = canvasRef.current.toDataURL();
+    link.click();
 
+    const qrData = generateQRData();
+    const label = Object.values(formData).filter(v => v).join(" ").substring(0, 40);
+    const newItem: QRHistoryItem = {
+      id: Date.now().toString(),
+      type: selectedType,
+      label: label || "QR Code",
+      qrCodeUrl: canvasRef.current.toDataURL(),
+      createdAt: new Date().toISOString(),
+    };
+    const updated = [newItem, ...history].slice(0, MAX_HISTORY_ITEMS);
+    setHistory(updated);
+    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updated));
+
+    toast({
+      title: "Downloaded!",
+      description: "QR code saved as PNG",
+    });
+  };
+
+  const saveTemplate = () => {
+    if (!templateName.trim()) {
       toast({
-        title: "Downloaded!",
-        description: "QR code saved to your downloads",
+        title: "Name Required",
+        description: "Please enter a template name",
+        variant: "destructive",
       });
+      return;
     }
+
+    const newTemplate: CustomTemplate = {
+      id: Date.now().toString(),
+      name: templateName,
+      darkColor,
+      lightColor,
+      bgType,
+      externalEyePattern,
+      internalEyePattern,
+      bodyPattern,
+      frameStyle,
+      overlayText,
+      logoPreset,
+      logoImage,
+      errorCorrectionLevel,
+    };
+
+    const updated = [newTemplate, ...customTemplates];
+    setCustomTemplates(updated);
+    localStorage.setItem(TEMPLATES_KEY, JSON.stringify(updated));
+    setShowTemplateModal(false);
+    setTemplateName("");
+    toast({
+      title: "Template Saved!",
+      description: "You can use this template later",
+    });
+  };
+
+  const applyTemplate = (template: CustomTemplate) => {
+    setDarkColor(template.darkColor);
+    setLightColor(template.lightColor);
+    setBgType(template.bgType);
+    setExternalEyePattern(template.externalEyePattern);
+    setInternalEyePattern(template.internalEyePattern);
+    setBodyPattern(template.bodyPattern);
+    setFrameStyle(template.frameStyle);
+    setOverlayText(template.overlayText);
+    setLogoPreset(template.logoPreset);
+    setLogoImage(template.logoImage);
+    setErrorCorrectionLevel(template.errorCorrectionLevel);
+    toast({
+      title: template.name,
+      description: "Template applied",
+    });
+  };
+
+  const deleteTemplate = (id: string) => {
+    const updated = customTemplates.filter(t => t.id !== id);
+    setCustomTemplates(updated);
+    localStorage.setItem(TEMPLATES_KEY, JSON.stringify(updated));
   };
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -235,34 +368,29 @@ export default function QRMaker() {
       const reader = new FileReader();
       reader.onload = (event) => {
         setLogoImage(event.target?.result as string);
-        toast({ title: "Logo Added", description: "Embedded in your QR code" });
+        setLogoPreset(null);
+        toast({ title: "Logo Added" });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const applyTemplate = (templateId: string) => {
-    const template = TEMPLATES.find(t => t.id === templateId);
-    if (template) {
-      setDarkColor(template.darkColor);
-      setLightColor(template.lightColor);
-      toast({
-        title: template.name,
-        description: "Template applied successfully",
-      });
-    }
+  const applySocialLogo = (presetId: string) => {
+    setLogoPreset(presetId);
+    setLogoImage(null);
+    toast({
+      title: "Social Logo Applied",
+      description: "Logo embedded in QR code",
+    });
   };
 
-  const clearHistory = () => {
-    setHistory([]);
-    localStorage.removeItem(QR_HISTORY_KEY);
-    toast({ title: "History Cleared" });
+  const applyColorTemplate = (template: typeof COLOR_TEMPLATES[0]) => {
+    setDarkColor(template.darkColor);
+    setLightColor(template.lightColor);
   };
 
-  const deleteHistoryItem = (id: string) => {
-    const updated = history.filter(item => item.id !== id);
-    setHistory(updated);
-    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updated));
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const relatedTools = getRelatedTools("qr-maker");
@@ -270,38 +398,30 @@ export default function QRMaker() {
   const faqItems: FAQItem[] = [
     {
       question: "How do I create a QR code?",
-      answer: "Select a QR code type (URL, vCard, Email, etc.), enter your information, choose customization options like colors and frames, then download. It's free and takes just seconds.",
+      answer: "Select a QR code type, enter your information, customize the design with colors and patterns, then download as PNG or SVG.",
     },
     {
-      question: "Does this work offline?",
-      answer: "Yes! Once loaded, generate unlimited QR codes without internet. All processing happens in your browser.",
+      question: "What are eye patterns?",
+      answer: "Eye patterns are the corner markers of QR codes. External patterns are the outer corners, internal patterns are the inner dots.",
     },
     {
-      question: "Where is my data stored?",
-      answer: "Nowhere. Everything processes locally in your browser. Your data never leaves your device—complete privacy.",
+      question: "Can I save my design as a template?",
+      answer: "Yes! Complete your design then click 'Save Template' to reuse the same customization for future QR codes.",
     },
     {
-      question: "What's error correction?",
-      answer: "Error correction allows QR codes to work even if damaged. Higher levels are more resistant but create more complex patterns.",
+      question: "What's the difference between PNG and SVG?",
+      answer: "PNG is a raster image (pixels), SVG is vector (scalable). SVG is better for print and large sizes.",
     },
     {
-      question: "Can I add a logo?",
-      answer: "Yes. Upload any image and it will be embedded in the center of your QR code with proper spacing.",
-    },
-    {
-      question: "Do QR codes expire?",
-      answer: "No. Static QR codes never expire. They work forever unless the destination (like a website) changes.",
-    },
-    {
-      question: "What file formats can I download?",
-      answer: "Currently PNG. High quality, perfect for print and digital use.",
+      question: "Does error correction affect scannability?",
+      answer: "Higher levels make QR codes more damage-resistant but create more complex patterns. All levels are fully scannable.",
     },
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
   const softwareAppSchema = generateSoftwareApplicationSchema({
-    name: "Free QR Code Generator",
-    description: "Generate professional QR codes with 7 types, custom colors, frames, and logo support. Works offline.",
+    name: "Advanced QR Code Generator",
+    description: "Professional QR codes with custom patterns, eye styles, social logos, text overlay, and template saving.",
     url: "https://tools.pixocraft.in/tools/qr-maker",
     applicationCategory: "UtilityApplication",
   });
@@ -311,7 +431,7 @@ export default function QRMaker() {
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareAppSchema} />
       <div className="min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-4 max-w-7xl">
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <span>QR Code Generator</span>
           </div>
@@ -320,16 +440,16 @@ export default function QRMaker() {
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <QrCode className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free QR Code Generator</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Create professional QR codes in 3 steps: Select type, enter data, customize & download. Works offline, fully free.
+            <h1 className="text-4xl md:text-5xl font-bold">Professional QR Code Generator</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Advanced customization with eye patterns, body patterns, social logos, overlays, templates. Download as PNG or SVG.
             </p>
             <div className="flex flex-wrap justify-center gap-2">
-              <Badge>7 QR Types</Badge>
-              <Badge>Custom Colors</Badge>
-              <Badge>Frame Styles</Badge>
-              <Badge>Logo Support</Badge>
-              <Badge>100% Offline</Badge>
+              <Badge>Eye Patterns</Badge>
+              <Badge>Body Patterns</Badge>
+              <Badge>Social Logos</Badge>
+              <Badge>Text Overlay</Badge>
+              <Badge>Save Templates</Badge>
             </div>
           </div>
 
@@ -402,7 +522,7 @@ export default function QRMaker() {
                     <Input
                       placeholder="https://example.com"
                       value={formData.url || ""}
-                      onChange={(e) => setFormData(prev => ({ ...prev, url: e.target.value }))}
+                      onChange={(e) => handleInputChange("url", e.target.value)}
                     />
                   </div>
                 )}
@@ -412,7 +532,7 @@ export default function QRMaker() {
                     <Textarea
                       placeholder="Enter any text..."
                       value={formData.text || ""}
-                      onChange={(e) => setFormData(prev => ({ ...prev, text: e.target.value }))}
+                      onChange={(e) => handleInputChange("text", e.target.value)}
                       rows={5}
                     />
                   </div>
@@ -424,7 +544,7 @@ export default function QRMaker() {
                       type="email"
                       placeholder="user@example.com"
                       value={formData.email || ""}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
                     />
                   </div>
                 )}
@@ -435,7 +555,7 @@ export default function QRMaker() {
                       <Input
                         placeholder="+1234567890"
                         value={formData.phone || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
                       />
                     </div>
                     <div>
@@ -443,7 +563,7 @@ export default function QRMaker() {
                       <Textarea
                         placeholder="SMS text..."
                         value={formData.smsText || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, smsText: e.target.value }))}
+                        onChange={(e) => handleInputChange("smsText", e.target.value)}
                         rows={3}
                       />
                     </div>
@@ -456,7 +576,7 @@ export default function QRMaker() {
                       <Input
                         placeholder="WiFi name"
                         value={formData.wifiSsid || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, wifiSsid: e.target.value }))}
+                        onChange={(e) => handleInputChange("wifiSsid", e.target.value)}
                       />
                     </div>
                     <div>
@@ -465,7 +585,7 @@ export default function QRMaker() {
                         type="password"
                         placeholder="WiFi password"
                         value={formData.wifiPassword || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, wifiPassword: e.target.value }))}
+                        onChange={(e) => handleInputChange("wifiPassword", e.target.value)}
                       />
                     </div>
                     <div>
@@ -473,7 +593,7 @@ export default function QRMaker() {
                       <select
                         className="w-full px-3 py-2 border rounded-md"
                         value={formData.wifiSecurity || "WPA"}
-                        onChange={(e) => setFormData(prev => ({ ...prev, wifiSecurity: e.target.value }))}
+                        onChange={(e) => handleInputChange("wifiSecurity", e.target.value)}
                       >
                         <option>WPA</option>
                         <option>WEP</option>
@@ -488,7 +608,7 @@ export default function QRMaker() {
                     <Input
                       placeholder="1A1z7agoat..."
                       value={formData.bitcoinAddress || ""}
-                      onChange={(e) => setFormData(prev => ({ ...prev, bitcoinAddress: e.target.value }))}
+                      onChange={(e) => handleInputChange("bitcoinAddress", e.target.value)}
                     />
                   </div>
                 )}
@@ -499,7 +619,7 @@ export default function QRMaker() {
                       <Input
                         placeholder="John Doe"
                         value={formData.vcardName || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, vcardName: e.target.value }))}
+                        onChange={(e) => handleInputChange("vcardName", e.target.value)}
                       />
                     </div>
                     <div>
@@ -507,7 +627,7 @@ export default function QRMaker() {
                       <Input
                         placeholder="+1 234 567 8900"
                         value={formData.vcardPhone || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, vcardPhone: e.target.value }))}
+                        onChange={(e) => handleInputChange("vcardPhone", e.target.value)}
                       />
                     </div>
                     <div>
@@ -516,7 +636,7 @@ export default function QRMaker() {
                         type="email"
                         placeholder="john@example.com"
                         value={formData.vcardEmail || ""}
-                        onChange={(e) => setFormData(prev => ({ ...prev, vcardEmail: e.target.value }))}
+                        onChange={(e) => handleInputChange("vcardEmail", e.target.value)}
                       />
                     </div>
                   </>
@@ -537,28 +657,53 @@ export default function QRMaker() {
           {step === 3 && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-6">
-                {/* Templates */}
+                {/* My Templates */}
+                {customTemplates.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>My Templates</CardTitle>
+                      <CardDescription>Your saved QR code designs</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {customTemplates.map(template => (
+                          <div key={template.id} className="group relative">
+                            <button
+                              onClick={() => applyTemplate(template)}
+                              className="w-full p-3 rounded-lg border-2 border-primary/50 hover:border-primary hover-elevate text-center"
+                            >
+                              <p className="text-xs font-medium truncate">{template.name}</p>
+                            </button>
+                            <button
+                              onClick={() => deleteTemplate(template.id)}
+                              className="absolute -top-2 -right-2 h-5 w-5 bg-destructive text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Color Templates */}
                 <Card>
                   <CardHeader>
                     <CardTitle>Color Templates</CardTitle>
-                    <CardDescription>Quick color presets for your QR code</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                      {TEMPLATES.map(template => (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {COLOR_TEMPLATES.map(template => (
                         <button
                           key={template.id}
-                          onClick={() => applyTemplate(template.id)}
-                          className="p-3 rounded-lg border-2 text-center hover-elevate transition-all"
-                          style={{
-                            borderColor: template.darkColor,
-                            backgroundColor: template.lightColor + "20",
-                          }}
+                          onClick={() => applyColorTemplate(template)}
+                          className="p-3 rounded-lg border-2 border-muted hover:border-primary hover-elevate text-center"
                         >
                           <div
-                            className="h-8 w-full rounded mb-2"
+                            className="h-8 w-full rounded mb-1"
                             style={{
-                              background: `linear-gradient(45deg, ${template.darkColor} 0%, ${template.lightColor} 100%)`,
+                              background: `linear-gradient(45deg, ${template.darkColor}, ${template.lightColor})`,
                             }}
                           />
                           <p className="text-xs font-medium">{template.name}</p>
@@ -568,35 +713,121 @@ export default function QRMaker() {
                   </CardContent>
                 </Card>
 
-                {/* Colors */}
+                {/* Background */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Custom Colors</CardTitle>
+                    <CardTitle>Background</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
+                    <div className="flex gap-4">
+                      {["solid", "gradient", "transparent"].map(type => (
+                        <label key={type} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            checked={bgType === type}
+                            onChange={() => setBgType(type as typeof bgType)}
+                            className="cursor-pointer"
+                          />
+                          <span className="text-sm capitalize">{type === "gradient" ? "Color Gradient" : type === "transparent" ? "Transparent" : "Single Color"}</span>
+                        </label>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label>Dark Color</Label>
+                        <div className="flex gap-2">
+                          <input
+                            type="color"
+                            value={darkColor}
+                            onChange={(e) => setDarkColor(e.target.value)}
+                            className="h-10 w-16 rounded cursor-pointer border"
+                          />
+                          <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} />
+                        </div>
+                      </div>
+                      {bgType !== "transparent" && (
+                        <div>
+                          <Label>Light Color</Label>
+                          <div className="flex gap-2">
+                            <input
+                              type="color"
+                              value={lightColor}
+                              onChange={(e) => setLightColor(e.target.value)}
+                              className="h-10 w-16 rounded cursor-pointer border"
+                            />
+                            <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Patterns - Eye */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Eye Patterns</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
                     <div>
-                      <Label>Dark Color (QR Pattern)</Label>
-                      <div className="flex gap-3">
-                        <input
-                          type="color"
-                          value={darkColor}
-                          onChange={(e) => setDarkColor(e.target.value)}
-                          className="h-10 w-16 rounded cursor-pointer border"
-                        />
-                        <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} />
+                      <Label>External Eye Pattern</Label>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
+                        {EYE_PATTERNS.external.map(pattern => (
+                          <button
+                            key={pattern.id}
+                            onClick={() => setExternalEyePattern(pattern.id)}
+                            className={`p-3 rounded border-2 text-center ${
+                              externalEyePattern === pattern.id ? "border-primary bg-primary/10" : "border-muted"
+                            }`}
+                            title={pattern.name}
+                          >
+                            <p className="text-2xl">{pattern.emoji}</p>
+                          </button>
+                        ))}
                       </div>
                     </div>
+
                     <div>
-                      <Label>Light Color (Background)</Label>
-                      <div className="flex gap-3">
-                        <input
-                          type="color"
-                          value={lightColor}
-                          onChange={(e) => setLightColor(e.target.value)}
-                          className="h-10 w-16 rounded cursor-pointer border"
-                        />
-                        <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} />
+                      <Label>Internal Eye Pattern</Label>
+                      <div className="grid grid-cols-3 gap-2 mt-2">
+                        {EYE_PATTERNS.internal.map(pattern => (
+                          <button
+                            key={pattern.id}
+                            onClick={() => setInternalEyePattern(pattern.id)}
+                            className={`p-3 rounded border-2 text-center ${
+                              internalEyePattern === pattern.id ? "border-primary bg-primary/10" : "border-muted"
+                            }`}
+                            title={pattern.name}
+                          >
+                            <p className="text-2xl">{pattern.emoji}</p>
+                          </button>
+                        ))}
                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Body Patterns */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Body Patterns</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-3 gap-2">
+                      {BODY_PATTERNS.map(pattern => (
+                        <button
+                          key={pattern.id}
+                          onClick={() => setBodyPattern(pattern.id)}
+                          className={`p-3 rounded border-2 text-center ${
+                            bodyPattern === pattern.id ? "border-primary bg-primary/10" : "border-muted"
+                          }`}
+                          title={pattern.name}
+                        >
+                          <p className="text-2xl">{pattern.emoji}</p>
+                          <p className="text-xs mt-1">{pattern.name}</p>
+                        </button>
+                      ))}
                     </div>
                   </CardContent>
                 </Card>
@@ -604,23 +835,124 @@ export default function QRMaker() {
                 {/* Frames */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Frame Style</CardTitle>
-                    <CardDescription>Add decorative frames to your QR code</CardDescription>
+                    <CardTitle>Frame Styles</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {FRAME_PRESETS.map(frame => (
                         <button
                           key={frame.id}
                           onClick={() => setFrameStyle(frame.id)}
-                          className={`p-3 rounded-lg border-2 text-center transition-all ${
-                            frameStyle === frame.id ? "border-primary bg-primary/10" : "border-muted hover:border-primary/50"
+                          className={`p-3 rounded border-2 text-center ${
+                            frameStyle === frame.id ? "border-primary bg-primary/10" : "border-muted"
                           }`}
                         >
-                          <p className="text-2xl mb-1">{frame.image}</p>
-                          <p className="text-xs font-medium">{frame.name}</p>
+                          <p className="text-2xl">{frame.emoji}</p>
+                          <p className="text-xs mt-1 font-medium">{frame.name}</p>
                         </button>
                       ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Logo Section */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Logo</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <Label>Social Media Icons</Label>
+                      <div className="grid grid-cols-4 gap-2 mt-2">
+                        {SOCIAL_LOGOS.map(logo => (
+                          <button
+                            key={logo.id}
+                            onClick={() => applySocialLogo(logo.id)}
+                            className={`p-3 rounded border-2 text-center text-2xl ${
+                              logoPreset === logo.id ? "border-primary bg-primary/10" : "border-muted"
+                            }`}
+                            title={logo.name}
+                          >
+                            {logo.emoji}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label>Upload Custom Image</Label>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleLogoUpload}
+                      />
+                    </div>
+
+                    {(logoImage || logoPreset) && (
+                      <>
+                        <div>
+                          <Label>Logo Size: {logoSize}px</Label>
+                          <input
+                            type="range"
+                            min="30"
+                            max="150"
+                            value={logoSize}
+                            onChange={(e) => setLogoSize(Number(e.target.value))}
+                            className="w-full"
+                          />
+                        </div>
+
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={logoBackground}
+                            onChange={(e) => setLogoBackground(e.target.checked)}
+                            className="cursor-pointer"
+                          />
+                          <span className="text-sm">White Background Behind Logo</span>
+                        </label>
+
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setLogoImage(null);
+                            setLogoPreset(null);
+                          }}
+                        >
+                          Clear Logo
+                        </Button>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Overlay Text */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Overlay Text</CardTitle>
+                    <CardDescription>Add text to your QR code</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <Label>Text</Label>
+                      <Input
+                        placeholder="Optional overlay text"
+                        value={overlayText}
+                        onChange={(e) => setOverlayText(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label>Text Color</Label>
+                      <div className="flex gap-2">
+                        <input
+                          type="color"
+                          value={overlayTextColor}
+                          onChange={(e) => setOverlayTextColor(e.target.value)}
+                          className="h-10 w-16 rounded cursor-pointer border"
+                        />
+                        <Input value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -629,10 +961,9 @@ export default function QRMaker() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Error Correction Level</CardTitle>
-                    <CardDescription>How resistant your QR code is to damage</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {["L", "M", "Q", "H"].map(level => {
                         const levels: Record<string, string> = {
                           L: "~7% recovery",
@@ -644,11 +975,11 @@ export default function QRMaker() {
                           <button
                             key={level}
                             onClick={() => setErrorCorrectionLevel(level)}
-                            className={`p-3 rounded-lg border-2 text-center transition-all ${
+                            className={`p-3 rounded border-2 text-center ${
                               errorCorrectionLevel === level ? "border-primary bg-primary/10" : "border-muted"
                             }`}
                           >
-                            <p className="text-sm font-bold">{level}</p>
+                            <p className="font-bold">{level}</p>
                             <p className="text-xs text-muted-foreground">{levels[level]}</p>
                           </button>
                         );
@@ -657,40 +988,21 @@ export default function QRMaker() {
                   </CardContent>
                 </Card>
 
-                {/* Logo */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Add Logo</CardTitle>
-                    <CardDescription>Embed your logo in the center</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleLogoUpload}
-                    />
-                    {logoImage && (
-                      <div className="mt-4 flex items-center gap-3">
-                        <img src={logoImage} alt="Logo" className="h-16 w-16 rounded border object-cover" />
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => setLogoImage(null)}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-
                 <div className="flex gap-3">
                   <Button variant="outline" onClick={() => setStep(2)} className="flex-1">
                     Back
                   </Button>
+                  <Button
+                    onClick={() => setShowTemplateModal(true)}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    <Save className="h-4 w-4 mr-1" />
+                    Save Template
+                  </Button>
                   <Button onClick={downloadQR} className="flex-1">
                     <Download className="mr-2 h-4 w-4" />
-                    Download QR Code
+                    Download
                   </Button>
                 </div>
               </div>
@@ -699,194 +1011,57 @@ export default function QRMaker() {
               <Card className="sticky top-4 h-fit">
                 <CardHeader>
                   <CardTitle>Live Preview</CardTitle>
-                  <CardDescription>Updates in real-time</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-4">
-                  <div className="p-6 bg-white rounded-lg w-full flex items-center justify-center min-h-[340px] border">
+                  <div
+                    className="p-6 rounded-lg w-full flex items-center justify-center min-h-[340px] border"
+                    style={{ backgroundColor: bgType === "transparent" ? "#f5f5f5" : lightColor }}
+                  >
                     <canvas ref={canvasRef} className="max-w-full" />
                   </div>
                   <div className="text-xs text-muted-foreground text-center flex items-center gap-1 justify-center">
                     <Shield className="h-3 w-3" />
-                    Generated in your browser
+                    Generated offline
                   </div>
                 </CardContent>
               </Card>
             </div>
           )}
 
-          {/* History */}
-          {history.length > 0 && (
-            <Card className="mt-16">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <History className="h-5 w-5" />
-                  Recent QR Codes ({history.length})
-                </CardTitle>
-                <Button size="sm" variant="outline" onClick={clearHistory}>
-                  <Trash2 className="h-4 w-4 mr-1" />
-                  Clear
-                </Button>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-3">
-                  {history.map(item => (
-                    <div key={item.id} className="group relative">
-                      <div className="bg-white p-2 rounded-lg border hover-elevate">
-                        <img src={item.qrCodeUrl} alt="QR" className="w-full" />
-                      </div>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100"
-                        onClick={() => deleteHistoryItem(item.id)}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          {/* Save Template Modal */}
+          {showTemplateModal && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+              <Card className="w-full max-w-sm">
+                <CardHeader>
+                  <CardTitle>Save Template</CardTitle>
+                  <CardDescription>Name your QR code design for future use</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Input
+                    placeholder="Template name (e.g., Business Blue)"
+                    value={templateName}
+                    onChange={(e) => setTemplateName(e.target.value)}
+                    autoFocus
+                  />
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => setShowTemplateModal(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      className="flex-1"
+                      onClick={saveTemplate}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           )}
-
-          {/* Info Sections */}
-          <section className="mt-16 mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">QR Code Types & Uses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardHeader>
-                  <LinkIcon className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">URL / Website</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Link to any website or landing page. Perfect for marketing campaigns.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <User className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">vCard / Contact</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Share business cards digitally. Recipients save contact info instantly.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Mail className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">Email Address</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Send emails directly from QR code scans.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Wifi className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">WiFi Network</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Share WiFi credentials instantly. One scan to connect.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <MessageSquare className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">SMS / Text</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Send pre-filled text messages with one scan.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <FileText className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">Plain Text</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Encode any text message or information.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Bitcoin className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">Bitcoin Address</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Share cryptocurrency wallet addresses securely.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Palette className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle className="text-lg">Custom Design</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  Colors, frames, logos & more. Make QR codes uniquely yours.
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Features */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Choose Our Generator?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <Zap className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle>Completely Free</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Generate unlimited QR codes at zero cost. No signup, no email, no hidden fees.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Lock className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle>100% Private</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  All processing happens in your browser. Your data never touches a server.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <WifiOff className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle>Works Offline</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Load once, then generate QR codes anytime without internet connection.
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Palette className="h-6 w-6 text-primary mb-2" />
-                  <CardTitle>Fully Customizable</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Custom colors, frames, logos. Make your QR codes match your brand.
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* FAQ */}
-          <section>
-            <h2 className="text-3xl font-bold mb-8 text-center">FAQ</h2>
-            <Card>
-              <CardContent className="pt-6">
-                <Accordion type="single" collapsible>
-                  {faqItems.map((item, i) => (
-                    <AccordionItem key={i} value={`item-${i}`}>
-                      <AccordionTrigger>{item.question}</AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">{item.answer}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-          </section>
         </div>
       </div>
     </>
