@@ -9,14 +9,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Clock, CheckCircle, Globe, CreditCard, Building2, CalendarDays, WifiOff, Lock, HardDrive, Zap } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Smartphone, Shield, History, Trash2, Clock, CheckCircle, Globe, CreditCard, Building2, CalendarDays, WifiOff, Lock, HardDrive, Zap, Mail, MessageSquare, Wifi, Bitcoin, Share2, Music, Store, Image as ImageIcon, Palette, Frame as FrameIcon, UploadCloud } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
 
 interface QRHistoryItem {
   id: string;
-  type: "text" | "url" | "contact";
+  type: string;
   content: string;
   label: string;
   qrCodeUrl: string;
@@ -26,17 +26,43 @@ interface QRHistoryItem {
 const QR_HISTORY_KEY = "pixocraft_qr_history";
 const MAX_HISTORY_ITEMS = 20;
 
+const QR_TYPES = [
+  { id: "url", label: "URL", icon: LinkIcon, description: "Website link" },
+  { id: "vcard", label: "vCard", icon: User, description: "Contact info" },
+  { id: "text", label: "Text", icon: FileText, description: "Plain text" },
+  { id: "email", label: "E-mail", icon: Mail, description: "Email address" },
+  { id: "sms", label: "SMS", icon: MessageSquare, description: "Text message" },
+  { id: "wifi", label: "WiFi", icon: Wifi, description: "Network login" },
+  { id: "bitcoin", label: "Bitcoin", icon: Bitcoin, description: "BTC address" },
+  { id: "twitter", label: "Twitter", icon: Share2, description: "Twitter profile" },
+  { id: "facebook", label: "Facebook", icon: Share2, description: "Facebook profile" },
+  { id: "app", label: "App Stores", icon: Store, description: "App download" },
+];
+
+const FRAME_STYLES = [
+  { id: "none", label: "No Frame", description: "Classic QR code" },
+  { id: "scan-top", label: "Scan Me Top", description: "Scan me text at top" },
+  { id: "scan-bottom", label: "Scan Me Bottom", description: "Scan me text at bottom" },
+  { id: "play-button", label: "Play Button", description: "Video play icon" },
+  { id: "envelope", label: "Envelope Frame", description: "Envelope style frame" },
+  { id: "arrow", label: "Arrow Frame", description: "Arrow pointing to QR" },
+  { id: "outline", label: "Black Outline", description: "Bold outline frame" },
+  { id: "shopping-bag", label: "Shopping Bag", description: "Shopping bag frame" },
+  { id: "banner", label: "Banner Frame", description: "Banner at bottom" },
+];
+
 export default function QRMaker() {
-  const [inputType, setInputType] = useState<"text" | "url" | "contact">("url");
-  const [textValue, setTextValue] = useState("");
-  const [urlValue, setUrlValue] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [contactPhone, setContactPhone] = useState("");
-  const [contactEmail, setContactEmail] = useState("");
+  const [inputType, setInputType] = useState("url");
+  const [formData, setFormData] = useState<Record<string, string>>({});
   const [qrCodeUrl, setQrCodeUrl] = useState<string>("");
   const [history, setHistory] = useState<QRHistoryItem[]>([]);
   const [showHistory, setShowHistory] = useState(false);
-  const [isLoadingFromHistory, setIsLoadingFromHistory] = useState(false);
+  const [isDarkColor, setIsDarkColor] = useState(true);
+  const [lightColor, setLightColor] = useState("#FFFFFF");
+  const [darkColor, setDarkColor] = useState("#000000");
+  const [frameStyle, setFrameStyle] = useState("none");
+  const [logoImage, setLogoImage] = useState<string | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
 
@@ -51,109 +77,104 @@ export default function QRMaker() {
     }
   }, []);
 
-  const saveToHistory = (type: "text" | "url" | "contact", content: string, label: string, qrUrl: string) => {
-    const newItem: QRHistoryItem = {
-      id: Date.now().toString(),
-      type,
-      content,
-      label,
-      qrCodeUrl: qrUrl,
-      createdAt: new Date().toISOString(),
-    };
-    
-    const updatedHistory = [newItem, ...history].slice(0, MAX_HISTORY_ITEMS);
-    setHistory(updatedHistory);
-    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updatedHistory));
-  };
-
-  const deleteHistoryItem = (id: string) => {
-    const updatedHistory = history.filter(item => item.id !== id);
-    setHistory(updatedHistory);
-    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updatedHistory));
-    toast({
-      title: "Deleted",
-      description: "QR code removed from history",
-    });
-  };
-
-  const clearAllHistory = () => {
-    setHistory([]);
-    localStorage.removeItem(QR_HISTORY_KEY);
-    toast({
-      title: "History Cleared",
-      description: "All QR codes have been removed from history",
-    });
-  };
-
-  const loadFromHistory = (item: QRHistoryItem) => {
-    setIsLoadingFromHistory(true);
-    setInputType(item.type);
-    setQrCodeUrl(item.qrCodeUrl);
-    
-    if (item.type === "url") {
-      setUrlValue(item.content);
-      setTextValue("");
-      setContactName("");
-      setContactPhone("");
-      setContactEmail("");
-    } else if (item.type === "text") {
-      setTextValue(item.content);
-      setUrlValue("");
-      setContactName("");
-      setContactPhone("");
-      setContactEmail("");
-    } else if (item.type === "contact") {
-      const lines = item.content.split("\n");
-      const name = lines.find(l => l.startsWith("FN:"))?.replace("FN:", "") || "";
-      const phone = lines.find(l => l.startsWith("TEL:"))?.replace("TEL:", "") || "";
-      const email = lines.find(l => l.startsWith("EMAIL:"))?.replace("EMAIL:", "") || "";
-      setContactName(name);
-      setContactPhone(phone);
-      setContactEmail(email);
-      setUrlValue("");
-      setTextValue("");
-    }
-    
-    setShowHistory(false);
-    toast({
-      title: "Loaded",
-      description: "QR code loaded from history",
-    });
-    
-    setTimeout(() => setIsLoadingFromHistory(false), 100);
-  };
-
   useSEO({
-    title: "Free QR Code Generator - Offline QR Maker with Instant Download | Pixocraft",
-    description: "Create high-quality QR codes free with our offline QR code generator. Instant PNG download, no signup, 100% private. Works offline once loaded. Generate QR codes for URLs, text & contacts.",
-    keywords: "qr code generator, free qr code generator, qr code maker online, offline qr code generator, qr code creator, create qr code free, instant qr download, private qr generator, pixocraft tools",
+    title: "Free QR Code Generator - Create Custom QR Codes | Pixocraft",
+    description: "Create professional QR codes free with customization. Generate QR codes for URLs, vCard, Email, SMS, WiFi, Bitcoin, and more. Add frames, logos, custom colors. Instant download.",
+    keywords: "qr code generator, free qr code maker, create qr code, qr code customizer, vcard qr code, wifi qr code, custom qr code",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
     ogImage: OG_IMAGES.qrMaker,
   });
 
-  const generateQR = async () => {
-    let data = "";
-    let label = "";
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
-    switch (inputType) {
-      case "text":
-        data = textValue;
-        label = textValue.substring(0, 50) + (textValue.length > 50 ? "..." : "");
-        break;
-      case "url":
-        data = urlValue;
-        label = urlValue;
-        break;
-      case "contact":
-        data = `BEGIN:VCARD\nVERSION:3.0\nFN:${contactName}\nTEL:${contactPhone}\nEMAIL:${contactEmail}\nEND:VCARD`;
-        label = contactName || contactEmail || contactPhone;
-        break;
-    }
-
-    if (!data.trim()) {
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setLogoImage(event.target?.result as string);
+        setLogoFile(file);
+        toast({
+          title: "Logo Uploaded",
+          description: "Logo added to your QR code design",
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
       toast({
-        title: "Error",
-        description: "Please enter some data to generate a QR code",
+        title: "Invalid File",
+        description: "Please upload an image file",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const generateQRData = (): string => {
+    const data = formData;
+    
+    switch (inputType) {
+      case "url":
+        return data.url || "";
+      case "text":
+        return data.text || "";
+      case "email":
+        return `mailto:${data.email || ""}`;
+      case "sms":
+        return `smsto:${data.phone || ""}:${data.smsText || ""}`;
+      case "wifi":
+        return `WIFI:T:${data.wifiSecurity || "WPA"};S:${data.wifiSsid || ""};P:${data.wifiPassword || ""};;`;
+      case "bitcoin":
+        return `bitcoin:${data.bitcoinAddress || ""}`;
+      case "twitter":
+        return `https://twitter.com/${data.twitter || ""}`;
+      case "facebook":
+        return `https://facebook.com/${data.facebook || ""}`;
+      case "vcard":
+        return `BEGIN:VCARD\nVERSION:3.0\nFN:${data.vcardName || ""}\nTEL:${data.vcardPhone || ""}\nEMAIL:${data.vcardEmail || ""}\nEND:VCARD`;
+      case "app":
+        return data.appUrl || "";
+      default:
+        return "";
+    }
+  };
+
+  const drawFrame = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+    const frameSize = 40;
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+    ctx.fillStyle = "#FFFFFF";
+
+    if (frameStyle === "scan-top" || frameStyle === "scan-bottom") {
+      ctx.font = "bold 14px Arial";
+      ctx.fillStyle = "#000000";
+      ctx.textAlign = "center";
+      if (frameStyle === "scan-top") {
+        ctx.fillText("SCAN ME", width / 2, 20);
+      } else {
+        ctx.fillText("SCAN ME", width / 2, height - 10);
+      }
+    } else if (frameStyle === "outline") {
+      ctx.strokeRect(5, 5, width - 10, height - 10);
+      ctx.strokeRect(10, 10, width - 20, height - 20);
+    } else if (frameStyle === "arrow") {
+      ctx.font = "30px Arial";
+      ctx.fillStyle = "#000000";
+      ctx.textAlign = "center";
+      ctx.fillText("↓", width / 2, height - 15);
+      ctx.font = "bold 12px Arial";
+      ctx.fillText("SCAN ME", width / 2, height - 35);
+    }
+  };
+
+  const generateQR = async () => {
+    const qrData = generateQRData();
+
+    if (!qrData.trim()) {
+      toast({
+        title: "Missing Data",
+        description: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
@@ -161,23 +182,44 @@ export default function QRMaker() {
 
     try {
       if (canvasRef.current) {
-        await QRCodeLib.toCanvas(canvasRef.current, data, {
-          width: 300,
+        const canvas = canvasRef.current;
+        await QRCodeLib.toCanvas(canvas, qrData, {
+          width: 400,
           margin: 2,
           color: {
-            dark: "#000000",
-            light: "#FFFFFF",
+            dark: darkColor,
+            light: lightColor,
           },
         });
 
-        const url = canvasRef.current.toDataURL();
-        setQrCodeUrl(url);
+        const ctx = canvas.getContext("2d");
+        if (ctx && frameStyle !== "none") {
+          drawFrame(ctx, canvas.width, canvas.height);
+        }
 
-        saveToHistory(inputType, data, label, url);
+        if (logoImage && ctx) {
+          const img = new Image();
+          img.onload = () => {
+            const logoSize = 60;
+            const x = (canvas.width - logoSize) / 2;
+            const y = (canvas.height - logoSize) / 2;
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(x - 5, y - 5, logoSize + 10, logoSize + 10);
+            ctx.drawImage(img, x, y, logoSize, logoSize);
+            const url = canvas.toDataURL();
+            setQrCodeUrl(url);
+            saveToHistory(qrData, url);
+          };
+          img.src = logoImage;
+        } else {
+          const url = canvas.toDataURL();
+          setQrCodeUrl(url);
+          saveToHistory(qrData, url);
+        }
 
         toast({
-          title: "Success!",
-          description: "QR code generated and saved to history",
+          title: "QR Code Generated!",
+          description: "Your QR code is ready to download",
         });
       }
     } catch (error) {
@@ -188,6 +230,22 @@ export default function QRMaker() {
         variant: "destructive",
       });
     }
+  };
+
+  const saveToHistory = (data: string, url: string) => {
+    const label = Object.values(formData).join(" ").substring(0, 50);
+    const newItem: QRHistoryItem = {
+      id: Date.now().toString(),
+      type: inputType,
+      content: data,
+      label,
+      qrCodeUrl: url,
+      createdAt: new Date().toISOString(),
+    };
+
+    const updatedHistory = [newItem, ...history].slice(0, MAX_HISTORY_ITEMS);
+    setHistory(updatedHistory);
+    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updatedHistory));
   };
 
   const downloadQR = () => {
@@ -204,681 +262,423 @@ export default function QRMaker() {
     }
   };
 
-  useEffect(() => {
-    if (!isLoadingFromHistory) {
-      setQrCodeUrl("");
-    }
-  }, [inputType, textValue, urlValue, contactName, contactPhone, contactEmail, isLoadingFromHistory]);
+  const clearAllHistory = () => {
+    setHistory([]);
+    localStorage.removeItem(QR_HISTORY_KEY);
+    toast({
+      title: "History Cleared",
+      description: "All QR codes removed",
+    });
+  };
 
-  const relatedTools = getRelatedTools("qr-maker");
+  const deleteHistoryItem = (id: string) => {
+    const updated = history.filter(item => item.id !== id);
+    setHistory(updated);
+    localStorage.setItem(QR_HISTORY_KEY, JSON.stringify(updated));
+  };
 
-  const faqItems: FAQItem[] = [
-    {
-      question: "How do I create a QR code for free?",
-      answer: "Creating a QR code is completely free with Pixocraft Tools. Simply choose your QR type (URL, Text, or Contact), enter your information, and click 'Generate QR Code.' Your code is created instantly in your browser with no signup, no email required, and no hidden fees. Download the high-quality PNG image immediately and use it anywhere—business cards, marketing materials, product packaging, or digital campaigns. You can create unlimited QR codes at no cost."
-    },
-    {
-      question: "Does this QR code generator work offline?",
-      answer: "Yes! Once the page loads, Pixocraft Tools' QR code generator works completely offline. All processing happens directly in your browser without needing an internet connection. This makes it ideal for secure environments, areas with limited connectivity, or situations where you need to create QR codes on the go. Simply load the page once, and you can generate QR codes anytime—even without Wi-Fi or mobile data."
-    },
-    {
-      question: "Where is my QR code data stored?",
-      answer: "Your data never leaves your device. Pixocraft Tools processes everything locally in your browser—no data is sent to any server, ever. Your generated QR codes are saved to your browser's local storage for convenience, allowing you to revisit past creations anytime. This history is stored only on your device and can be cleared manually at any time. We never collect, track, or store your URLs, contact information, or text content."
-    },
-    {
-      question: "Do QR codes expire or stop working?",
-      answer: "QR codes generated by Pixocraft Tools never expire. They are static codes that permanently contain the information you encode—whether it's a URL, text, or contact details. The QR code itself will work indefinitely as long as the destination (like a website) remains active. Unlike some services that offer 'dynamic' QR codes requiring ongoing subscriptions, our free static QR codes are yours forever with no expiration date."
-    },
-    {
-      question: "What is a QR code and how does it work?",
-      answer: "A QR (Quick Response) code is a two-dimensional barcode that stores information in a matrix of black and white squares. When scanned with a smartphone camera or QR reader app, it instantly decodes the embedded data—whether it's a website URL, contact details, plain text, or other information. QR codes were invented in 1994 for tracking automotive parts but have since become ubiquitous in marketing, payments, product packaging, and contactless information sharing. Pixocraft Tools generates standard QR codes that work with all modern smartphones."
-    },
-    {
-      question: "Are QR codes secure and safe to use?",
-      answer: "QR codes themselves are secure—they're just a way to encode information visually. However, like any technology, they can be misused. Always scan QR codes from trusted sources, as malicious codes could direct you to phishing websites or trigger unwanted downloads. Most modern smartphones show a preview of the URL before opening it, giving you a chance to verify it's legitimate. When creating QR codes with Pixocraft Tools, the data is processed entirely in your browser—we never store or track your information. For sensitive business use, consider using dynamic QR codes with password protection."
-    },
-    {
-      question: "What are the best practices for using QR codes effectively?",
-      answer: "For maximum effectiveness, place QR codes where they're easily accessible and ensure they're large enough to scan (minimum 2x2 cm). Always test your QR codes before printing or publishing to verify they work correctly. Provide context with a clear call-to-action like 'Scan for menu' or 'Scan to visit website.' Use URL shorteners for tracking purposes, and avoid placing QR codes in areas with poor lighting or on curved surfaces. For marketing campaigns, combine QR codes with incentives like discounts or exclusive content to increase scan rates."
-    },
-    {
-      question: "How can QR codes help my business marketing?",
-      answer: "QR codes are powerful marketing tools that bridge offline and online channels. Use them on business cards for instant contact sharing, on product packaging for detailed information, in print ads to drive website traffic, and on posters for event registrations. They enable trackable campaigns when combined with UTM parameters, allowing you to measure engagement and ROI. Restaurants use them for contactless menus, retailers for product catalogs, and event organizers for ticketing. The versatility and low cost make QR codes essential for modern marketing strategies."
-    },
-    {
-      question: "Can I customize the appearance of QR codes?",
-      answer: "Currently, Pixocraft Tools generates standard black and white QR codes optimized for maximum compatibility and scan reliability across all devices and scanning apps. This classic design ensures the highest success rate when users scan your codes. While we plan to add customization features like color selection and logo embedding in future updates, our current focus is on reliability and ease of use. The standard QR codes we generate work universally and can be resized without quality loss."
-    }
-  ];
-
-  const faqSchema = generateFAQSchema(faqItems);
-  
-  const softwareAppSchema = generateSoftwareApplicationSchema({
-    name: "Free QR Code Generator",
-    description: "Generate free QR codes online for URLs, text, and contact information. Create custom QR codes instantly, download high-quality PNG images for marketing, business cards, and more. No signup required.",
-    url: "https://tools.pixocraft.in/tools/qr-maker",
-    applicationCategory: "UtilityApplication",
-  });
+  const getTypeIcon = (typeId: string) => {
+    const type = QR_TYPES.find(t => t.id === typeId);
+    return type?.icon || FileText;
+  };
 
   return (
     <>
-      <StructuredData data={faqSchema} />
-      <StructuredData data={softwareAppSchema} />
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Breadcrumb */}
-        <div className="mb-8 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">QR Code Maker</span>
-        </div>
+      <div className="min-h-screen py-12">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="mb-8 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">Home</Link>
+            {" / "}
+            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            {" / "}
+            <span className="text-foreground">QR Code Generator</span>
+          </div>
 
-        {/* Page Header */}
-        <div className="text-center space-y-4 mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-              <QrCode className="h-8 w-8 text-primary" />
+          <div className="text-center space-y-4 mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
+                <QrCode className="h-8 w-8 text-primary" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold">Professional QR Code Generator</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Create custom QR codes with 10+ data types, frames, colors, and logos. Download instantly.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Badge variant="secondary">10+ QR Types</Badge>
+              <Badge variant="secondary">Custom Colors</Badge>
+              <Badge variant="secondary">Frame Styles</Badge>
+              <Badge variant="secondary">Logo Support</Badge>
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">Free QR Code Generator</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Create custom QR codes for URLs, text, or contact information. Download instantly in high quality.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <Badge variant="secondary">100% Free</Badge>
-            <Badge variant="secondary">No Signup</Badge>
-            <Badge variant="secondary">Instant PNG Download</Badge>
-            <Badge variant="secondary">Works Offline</Badge>
-            <Badge variant="secondary">Privacy First</Badge>
-          </div>
-          <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
-            Create free, high-quality QR codes instantly with our privacy-first generator. Works fully offline once loaded. Instant PNG download with local history—no data ever leaves your browser.
-          </h2>
-        </div>
 
-        {/* Main Tool Interface */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 max-w-6xl mx-auto">
-          {/* Input Section */}
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>QR Code Content</CardTitle>
-                <CardDescription>
-                  Choose what type of QR code you want to create
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <Tabs value={inputType} onValueChange={(v) => setInputType(v as typeof inputType)}>
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="url" data-testid="tab-url">
-                      <LinkIcon className="h-4 w-4 mr-2" />
-                      URL
-                    </TabsTrigger>
-                    <TabsTrigger value="text" data-testid="tab-text">
-                      <FileText className="h-4 w-4 mr-2" />
-                      Text
-                    </TabsTrigger>
-                    <TabsTrigger value="contact" data-testid="tab-contact">
-                      <User className="h-4 w-4 mr-2" />
-                      Contact
-                    </TabsTrigger>
-                  </TabsList>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 max-w-7xl mx-auto">
+            <div className="lg:col-span-2 space-y-6">
+              {/* QR Type Selection */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <LinkIcon className="h-5 w-5" />
+                    Select QR Code Type
+                  </CardTitle>
+                  <CardDescription>Choose what data to encode</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {QR_TYPES.map(type => {
+                      const Icon = type.icon;
+                      return (
+                        <button
+                          key={type.id}
+                          onClick={() => { setInputType(type.id); setFormData({}); }}
+                          className={`p-3 rounded-lg border-2 text-center transition-all hover-elevate ${
+                            inputType === type.id 
+                              ? "border-primary bg-primary/5" 
+                              : "border-muted"
+                          }`}
+                          data-testid={`button-type-${type.id}`}
+                        >
+                          <Icon className="h-5 w-5 mx-auto mb-1 text-primary" />
+                          <p className="text-xs font-medium">{type.label}</p>
+                          <p className="text-xs text-muted-foreground">{type.description}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
 
-                  <TabsContent value="url" className="space-y-4 mt-4">
+              {/* Data Input */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Enter Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {inputType === "url" && (
                     <div className="space-y-2">
-                      <Label htmlFor="url">Website URL</Label>
+                      <Label>Website URL</Label>
                       <Input
-                        id="url"
                         placeholder="https://example.com"
-                        value={urlValue}
-                        onChange={(e) => setUrlValue(e.target.value)}
-                        data-testid="input-url"
+                        value={formData.url || ""}
+                        onChange={(e) => handleInputChange("url", e.target.value)}
                       />
-                      <p className="text-xs text-muted-foreground">
-                        Enter the full URL including https://
-                      </p>
                     </div>
-                  </TabsContent>
-
-                  <TabsContent value="text" className="space-y-4 mt-4">
+                  )}
+                  {inputType === "text" && (
                     <div className="space-y-2">
-                      <Label htmlFor="text">Text Content</Label>
+                      <Label>Text Content</Label>
                       <Textarea
-                        id="text"
                         placeholder="Enter any text..."
-                        value={textValue}
-                        onChange={(e) => setTextValue(e.target.value)}
-                        rows={6}
-                        data-testid="input-text"
+                        value={formData.text || ""}
+                        onChange={(e) => handleInputChange("text", e.target.value)}
                       />
-                      <p className="text-xs text-muted-foreground">
-                        Any text up to 500 characters
-                      </p>
                     </div>
-                  </TabsContent>
-
-                  <TabsContent value="contact" className="space-y-4 mt-4">
-                    <div className="space-y-4">
+                  )}
+                  {inputType === "email" && (
+                    <div className="space-y-2">
+                      <Label>Email Address</Label>
+                      <Input
+                        type="email"
+                        placeholder="user@example.com"
+                        value={formData.email || ""}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                      />
+                    </div>
+                  )}
+                  {inputType === "sms" && (
+                    <>
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
+                        <Label>Phone Number</Label>
                         <Input
-                          id="name"
+                          placeholder="+1234567890"
+                          value={formData.phone || ""}
+                          onChange={(e) => handleInputChange("phone", e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>SMS Message</Label>
+                        <Textarea
+                          placeholder="Message text..."
+                          value={formData.smsText || ""}
+                          onChange={(e) => handleInputChange("smsText", e.target.value)}
+                        />
+                      </div>
+                    </>
+                  )}
+                  {inputType === "wifi" && (
+                    <>
+                      <div className="space-y-2">
+                        <Label>Network Name (SSID)</Label>
+                        <Input
+                          placeholder="WiFi name"
+                          value={formData.wifiSsid || ""}
+                          onChange={(e) => handleInputChange("wifiSsid", e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Password</Label>
+                        <Input
+                          type="password"
+                          placeholder="WiFi password"
+                          value={formData.wifiPassword || ""}
+                          onChange={(e) => handleInputChange("wifiPassword", e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Security Type</Label>
+                        <select
+                          className="w-full px-3 py-2 border rounded-md"
+                          value={formData.wifiSecurity || "WPA"}
+                          onChange={(e) => handleInputChange("wifiSecurity", e.target.value)}
+                        >
+                          <option>WPA</option>
+                          <option>WEP</option>
+                          <option>Open</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+                  {inputType === "bitcoin" && (
+                    <div className="space-y-2">
+                      <Label>Bitcoin Address</Label>
+                      <Input
+                        placeholder="1A1z7agoat..."
+                        value={formData.bitcoinAddress || ""}
+                        onChange={(e) => handleInputChange("bitcoinAddress", e.target.value)}
+                      />
+                    </div>
+                  )}
+                  {inputType === "twitter" && (
+                    <div className="space-y-2">
+                      <Label>Twitter Handle</Label>
+                      <Input
+                        placeholder="username"
+                        value={formData.twitter || ""}
+                        onChange={(e) => handleInputChange("twitter", e.target.value)}
+                      />
+                    </div>
+                  )}
+                  {inputType === "facebook" && (
+                    <div className="space-y-2">
+                      <Label>Facebook Profile</Label>
+                      <Input
+                        placeholder="username or profile URL"
+                        value={formData.facebook || ""}
+                        onChange={(e) => handleInputChange("facebook", e.target.value)}
+                      />
+                    </div>
+                  )}
+                  {inputType === "vcard" && (
+                    <>
+                      <div className="space-y-2">
+                        <Label>Full Name</Label>
+                        <Input
                           placeholder="John Doe"
-                          value={contactName}
-                          onChange={(e) => setContactName(e.target.value)}
-                          data-testid="input-contact-name"
+                          value={formData.vcardName || ""}
+                          onChange={(e) => handleInputChange("vcardName", e.target.value)}
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
+                        <Label>Phone</Label>
                         <Input
-                          id="phone"
                           placeholder="+1 234 567 8900"
-                          value={contactPhone}
-                          onChange={(e) => setContactPhone(e.target.value)}
-                          data-testid="input-contact-phone"
+                          value={formData.vcardPhone || ""}
+                          onChange={(e) => handleInputChange("vcardPhone", e.target.value)}
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
+                        <Label>Email</Label>
                         <Input
-                          id="email"
                           type="email"
                           placeholder="john@example.com"
-                          value={contactEmail}
-                          onChange={(e) => setContactEmail(e.target.value)}
-                          data-testid="input-contact-email"
+                          value={formData.vcardEmail || ""}
+                          onChange={(e) => handleInputChange("vcardEmail", e.target.value)}
+                        />
+                      </div>
+                    </>
+                  )}
+                  {inputType === "app" && (
+                    <div className="space-y-2">
+                      <Label>App Store URL</Label>
+                      <Input
+                        placeholder="https://play.google.com/store/apps/..."
+                        value={formData.appUrl || ""}
+                        onChange={(e) => handleInputChange("appUrl", e.target.value)}
+                      />
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Customization */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Palette className="h-5 w-5" />
+                    Customize Design
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>Dark Color</Label>
+                      <div className="flex gap-2">
+                        <input
+                          type="color"
+                          value={darkColor}
+                          onChange={(e) => setDarkColor(e.target.value)}
+                          className="h-10 w-16 rounded cursor-pointer"
+                        />
+                        <Input
+                          value={darkColor}
+                          onChange={(e) => setDarkColor(e.target.value)}
+                          placeholder="#000000"
                         />
                       </div>
                     </div>
-                  </TabsContent>
-                </Tabs>
+                    <div className="space-y-2">
+                      <Label>Light Color</Label>
+                      <div className="flex gap-2">
+                        <input
+                          type="color"
+                          value={lightColor}
+                          onChange={(e) => setLightColor(e.target.value)}
+                          className="h-10 w-16 rounded cursor-pointer"
+                        />
+                        <Input
+                          value={lightColor}
+                          onChange={(e) => setLightColor(e.target.value)}
+                          placeholder="#FFFFFF"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                <Button
-                  onClick={generateQR}
-                  className="w-full"
-                  size="lg"
-                  data-testid="button-generate-qr"
-                >
-                  <QrCode className="mr-2 h-4 w-4" />
-                  Generate QR Code
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+                  <div className="space-y-2">
+                    <Label className="flex items-center gap-2">
+                      <FrameIcon className="h-4 w-4" />
+                      Frame Style
+                    </Label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {FRAME_STYLES.map(frame => (
+                        <button
+                          key={frame.id}
+                          onClick={() => setFrameStyle(frame.id)}
+                          className={`p-2 rounded border-2 text-xs text-center transition-all ${
+                            frameStyle === frame.id
+                              ? "border-primary bg-primary/5"
+                              : "border-muted"
+                          }`}
+                        >
+                          {frame.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-          {/* Preview Section */}
-          <div>
-            <Card className="h-full flex flex-col">
-              <CardHeader>
-                <CardTitle>QR Code Preview</CardTitle>
-                <CardDescription>
-                  Your QR code will appear here
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col items-center justify-center space-y-4">
-                <div className="p-6 bg-white rounded-lg min-h-[340px] w-full flex items-center justify-center">
-                  <div className="flex flex-col items-center w-full">
-                    {!qrCodeUrl && (
-                      <div className="text-center text-muted-foreground">
-                        <QrCode className="h-24 w-24 mx-auto mb-4 opacity-20" />
-                        <p className="font-medium">No QR code yet</p>
-                        <p className="text-sm">Fill in the details and click generate</p>
+                  <div className="space-y-2">
+                    <Label className="flex items-center gap-2">
+                      <ImageIcon className="h-4 w-4" />
+                      Add Logo
+                    </Label>
+                    <div className="flex gap-2">
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleLogoUpload}
+                        className="flex-1"
+                      />
+                      {logoImage && (
+                        <Button
+                          variant="outline"
+                          onClick={() => { setLogoImage(null); setLogoFile(null); }}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                    {logoImage && (
+                      <div className="mt-2">
+                        <img src={logoImage} alt="Logo preview" className="h-16 w-16 rounded border" />
                       </div>
                     )}
-                    <canvas
-                      ref={canvasRef}
-                      className={qrCodeUrl ? "max-w-full" : "hidden"}
-                      data-testid="canvas-qr-code"
-                    />
                   </div>
-                </div>
-                {qrCodeUrl && (
-                  <Button
-                    onClick={downloadQR}
-                    variant="outline"
-                    className="w-full"
-                    data-testid="button-download-qr"
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download QR Code
-                  </Button>
-                )}
-                <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                  <Shield className="h-3 w-3" />
-                  <span>Generated locally in your browser. No data uploaded.</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+                </CardContent>
+              </Card>
 
-        {/* History Section */}
-        <div className="mb-16 max-w-6xl mx-auto">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <History className="h-5 w-5 text-primary" />
-                  <CardTitle>QR Code History</CardTitle>
-                  {history.length > 0 && (
-                    <Badge variant="secondary">{history.length}</Badge>
-                  )}
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowHistory(!showHistory)}
-                    data-testid="button-toggle-history"
-                  >
-                    {showHistory ? "Hide" : "Show"} History
-                  </Button>
-                  {history.length > 0 && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={clearAllHistory}
-                      data-testid="button-clear-history"
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Clear All
+              <Button onClick={generateQR} className="w-full" size="lg">
+                <QrCode className="mr-2 h-5 w-5" />
+                Generate QR Code
+              </Button>
+            </div>
+
+            {/* Preview */}
+            <div>
+              <Card className="sticky top-4">
+                <CardHeader>
+                  <CardTitle>Preview</CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center justify-center space-y-4">
+                  <div className="p-4 bg-white rounded-lg w-full flex items-center justify-center min-h-[300px]">
+                    {!qrCodeUrl ? (
+                      <div className="text-center text-muted-foreground">
+                        <QrCode className="h-20 w-20 mx-auto mb-3 opacity-20" />
+                        <p className="font-medium">No QR code yet</p>
+                        <p className="text-sm">Fill data and click generate</p>
+                      </div>
+                    ) : (
+                      <canvas ref={canvasRef} className="max-w-full" />
+                    )}
+                  </div>
+                  {qrCodeUrl && (
+                    <Button onClick={downloadQR} className="w-full" variant="outline">
+                      <Download className="mr-2 h-4 w-4" />
+                      Download PNG
                     </Button>
                   )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* History */}
+          {history.length > 0 && (
+            <Card className="mb-16 max-w-7xl mx-auto">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <History className="h-5 w-5" />
+                    Recent QR Codes ({history.length})
+                  </CardTitle>
                 </div>
-              </div>
-              <CardDescription>
-                Your recently generated QR codes are saved locally in your browser
-              </CardDescription>
-            </CardHeader>
-            {showHistory && (
+                <Button variant="outline" size="sm" onClick={clearAllHistory}>
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Clear All
+                </Button>
+              </CardHeader>
               <CardContent>
-                {history.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">
-                    <History className="h-12 w-12 mx-auto mb-4 opacity-20" />
-                    <p className="font-medium">No history yet</p>
-                    <p className="text-sm">Generate QR codes to see them here</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {history.map((item) => (
-                      <div
-                        key={item.id}
-                        className="relative group"
-                        data-testid={`history-item-${item.id}`}
-                      >
-                        <div
-                          className="bg-white p-2 rounded-lg border hover-elevate cursor-pointer"
-                          onClick={() => loadFromHistory(item)}
-                        >
-                          <img
-                            src={item.qrCodeUrl}
-                            alt={`QR code for ${item.label}`}
-                            className="w-full aspect-square object-contain"
-                          />
-                          <div className="mt-2 space-y-1">
-                            <div className="flex items-center gap-1">
-                              {item.type === "url" && <LinkIcon className="h-3 w-3 text-muted-foreground" />}
-                              {item.type === "text" && <FileText className="h-3 w-3 text-muted-foreground" />}
-                              {item.type === "contact" && <User className="h-3 w-3 text-muted-foreground" />}
-                              <Badge variant="secondary" className="text-xs capitalize">
-                                {item.type}
-                              </Badge>
-                            </div>
-                            <p className="text-xs text-muted-foreground truncate" title={item.label}>
-                              {item.label}
-                            </p>
-                            <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                              <Clock className="h-3 w-3" />
-                              {new Date(item.createdAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </div>
-                        <Button
-                          size="icon"
-                          variant="destructive"
-                          className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            deleteHistoryItem(item.id);
-                          }}
-                          data-testid={`button-delete-history-${item.id}`}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                  {history.map(item => (
+                    <div key={item.id} className="group relative">
+                      <div className="bg-white p-2 rounded-lg border hover-elevate">
+                        <img src={item.qrCodeUrl} alt="QR" className="w-full" />
                       </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            )}
-          </Card>
-        </div>
-
-        {/* Privacy-First & Offline Section */}
-        <section className="mb-16 max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Local History Feature */}
-            <Card className="border-primary/20">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <HardDrive className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle>Your QR Codes, Saved Locally</CardTitle>
-                    <CardDescription>Privacy-first local storage</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Every QR code you generate is automatically saved to your browser's local storage—not to any cloud or server. Revisit your past creations anytime, reload them for editing, or download them again without regenerating.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Lock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Stored only on your device—zero cloud storage, zero servers</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <History className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Access your recent QR codes anytime, even after closing your browser</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Trash2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Clear your history manually whenever you want—you're in full control</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Offline Capability */}
-            <Card className="border-primary/20">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <WifiOff className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle>Works Fully Offline</CardTitle>
-                    <CardDescription>No internet required after first load</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Once this page loads, our QR code generator works completely offline. Create unlimited QR codes without Wi-Fi, mobile data, or any internet connection. Perfect for secure environments or areas with limited connectivity.
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Zap className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Instant generation with zero network latency</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Shield className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Ideal for air-gapped systems and privacy-sensitive work</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Smartphone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                    <p className="text-sm text-muted-foreground">Great for travel, remote locations, or low-bandwidth situations</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* QR Code Types Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">QR Code Types & Use Cases</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <Card>
-              <CardHeader>
-                <Globe className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Website & URL QR Codes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  The most popular type of QR code. Link to any website, landing page, or online resource. Perfect for marketing campaigns, product pages, social media profiles, and promotional materials. Users scan and instantly visit your website without typing.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Best for:</strong> Marketing, advertising, product packaging, business cards
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <User className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Business & vCard QR Codes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Share contact information instantly with vCard QR codes. Include name, phone number, and email in a single scannable code. Recipients can save your details directly to their phone contacts with one tap—no manual typing required.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Best for:</strong> Business cards, networking events, email signatures, LinkedIn profiles
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <FileText className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Text & Information QR Codes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Encode any plain text message up to 500 characters. Ideal for sharing instructions, Wi-Fi passwords, discount codes, event details, or any information you want to convey quickly. Works offline without internet connection.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Best for:</strong> Wi-Fi passwords, instructions, discount codes, event info
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* How It Works */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">1</span>
-              </div>
-              <h3 className="font-semibold text-lg">Choose Type</h3>
-              <p className="text-muted-foreground">
-                Select whether you want a URL, text, or contact QR code
-              </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">2</span>
-              </div>
-              <h3 className="font-semibold text-lg">Enter Data</h3>
-              <p className="text-muted-foreground">
-                Fill in your information and click generate
-              </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">3</span>
-              </div>
-              <h3 className="font-semibold text-lg">Download</h3>
-              <p className="text-muted-foreground">
-                Save your high-quality QR code as a PNG image
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Why Use Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft Tools' QR Code Generator?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card>
-              <CardHeader>
-                <Smartphone className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Instant Contactless Information Sharing</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  In today's fast-paced digital world, QR codes have become the universal language for instant information transfer. Pixocraft Tools' free QR code generator empowers you to create professional QR codes in seconds, enabling seamless communication between physical and digital spaces. Whether you're sharing a website URL, contact information, or plain text, our tool eliminates the need for manual typing and ensures accuracy every time. Perfect for businesses, marketers, educators, and individuals who want to provide quick, touchless access to information without friction or barriers.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <QrCode className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Powerful Marketing Tool for Modern Campaigns</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  QR codes have revolutionized marketing by bridging offline and online channels effortlessly. With Pixocraft Tools, you can create custom QR codes for business cards, product packaging, print advertisements, event posters, and promotional materials. Drive traffic to your landing pages, social media profiles, or special offers with a simple scan. Track campaign performance by embedding analytics-enabled URLs, measure engagement rates, and optimize your marketing ROI. From small businesses to enterprise campaigns, QR codes provide measurable results and enhanced customer engagement that traditional methods can't match.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Download className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>High-Quality, Professional Results</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Our online QR maker generates crisp, professional-quality QR codes optimized for both digital displays and print materials. Each code is created at 300x300 pixels with optimal contrast, ensuring reliable scanning even from a distance or in various lighting conditions. Download your QR code as a PNG file ready for immediate use in presentations, flyers, websites, or product labels. The clean, standardized design ensures maximum compatibility with all smartphone cameras and QR scanning apps. No watermarks, no limitations—just high-quality QR codes you can use with confidence in any professional setting.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Shield className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Free, Private, and Secure Generation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Your data privacy matters. Unlike many QR code generators, Pixocraft Tools processes everything directly in your browser using client-side JavaScript. Your URLs, contact information, and text content are never transmitted to our servers or stored in any database. This means your sensitive business information, personal contact details, and proprietary URLs remain completely private. No registration, no email signup, no tracking cookies—just secure, instant QR code generation whenever you need it. Generate unlimited QR codes for free with complete peace of mind about your data security.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="prose prose-lg max-w-4xl mx-auto space-y-4">
-            <p className="text-muted-foreground">
-              QR codes are transforming how businesses connect with customers and how individuals share information. For secure QR codes with sensitive data, pair them with our <Link href="/tools/password-generator" className="text-primary hover:underline">Password Generator</Link> to create protected links. Running a promotion campaign? Use our <Link href="/tools/temp-mail" className="text-primary hover:underline">Temp Mail Generator</Link> to create disposable email addresses for lead capture without exposing your primary inbox.
-            </p>
-            <p className="text-muted-foreground">
-              For business networking, create vCard QR codes for your business cards and event badges. Need to compress images before embedding them in QR code landing pages? Try our <Link href="/tools/image-compressor" className="text-primary hover:underline">Image Compressor</Link> for faster page loads.
-            </p>
-          </div>
-        </section>
-
-        {/* Popular Use Cases Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Business & Networking</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Add QR codes to business cards for instant contact sharing. Include them on email signatures, LinkedIn profiles, and conference badges. Enable professionals to save your vCard with one scan, eliminating manual data entry and ensuring accuracy.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Restaurants & Hospitality</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Create contactless digital menus for restaurants, cafes, and bars. Use QR codes for table ordering, feedback collection, and loyalty program signups. Reduce physical contact while providing customers with updated menus and special offers instantly.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Marketing & Events</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Drive engagement with QR codes on posters, flyers, and product packaging. Use them for event ticketing, registration, and check-ins. Track campaign performance, collect leads, and measure ROI across your marketing initiatives.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((faq, index) => (
-                <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
-
-        {/* Authority & Freshness Signals */}
-        <section className="mb-16">
-          <Card className="bg-muted/30">
-            <CardContent className="py-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-6 flex-wrap justify-center">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    <span>Trusted by 100,000+ users worldwide</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4 text-primary" />
-                    <span>India's largest offline-first tool hub with 200+ browser-based tools</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4" />
-                  <span>Last updated: December 2025</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Related Tools */}
-        <section>
-          <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedTools.map((tool) => {
-              const Icon = getToolIcon(tool.icon);
-              return (
-                <Card key={tool.id} className="hover-elevate">
-                  <CardHeader>
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle>{tool.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="mb-4">{tool.description}</CardDescription>
-                    <Link href={tool.path}>
-                      <Button variant="outline" className="w-full" data-testid={`button-related-${tool.id}`}>
-                        Use Tool
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        className="absolute -top-2 -right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => deleteHistoryItem(item.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
                       </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 }
