@@ -532,8 +532,8 @@ export default function QRMaker() {
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareAppSchema} />
       
-      {/* Floating Mobile Preview Button */}
-      {step === 3 && (
+      {/* Floating Mobile Preview Button - Shows during steps 1-3 */}
+      {(step === 1 || step === 2 || step === 3) && selectedType && (
         <button
           onClick={() => setShowMobilePreview(!showMobilePreview)}
           className="fixed bottom-4 right-4 z-50 lg:hidden bg-primary text-primary-foreground p-3 rounded-full shadow-lg"
@@ -543,21 +543,21 @@ export default function QRMaker() {
         </button>
       )}
 
-      {/* Floating Mobile Preview */}
-      {showMobilePreview && step === 3 && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center lg:hidden p-4">
-          <div className="relative bg-gray-900 rounded-[40px] p-3 shadow-2xl max-w-[280px]">
+      {/* Floating Mobile Preview - Live preview during customization */}
+      {showMobilePreview && (step === 1 || step === 2 || step === 3) && (
+        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center lg:hidden p-4">
+          <div className="relative w-full max-w-xs">
             <button
               onClick={() => setShowMobilePreview(false)}
-              className="absolute -top-2 -right-2 bg-white text-black rounded-full p-1"
+              className="absolute -top-3 right-0 bg-white text-black rounded-full p-1.5 z-10"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </button>
-            <div className="bg-black rounded-[32px] p-2">
-              <div className="w-20 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
+            <div className="bg-black rounded-[32px] p-3 shadow-2xl">
+              <div className="w-16 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
               <div
-                className="rounded-[24px] overflow-hidden flex items-center justify-center p-4"
-                style={{ backgroundColor: lightColor, minHeight: 300 }}
+                className="rounded-[28px] overflow-hidden flex items-center justify-center p-3"
+                style={{ backgroundColor: lightColor, minHeight: 280 }}
               >
                 <canvas ref={canvasRef} className="max-w-full max-h-full" />
               </div>
@@ -588,126 +588,7 @@ export default function QRMaker() {
             </div>
           </div>
 
-          {/* Content Sections */}
-          {step === 1 && (
-            <div className="mb-12 space-y-8 max-w-4xl mx-auto">
-              {/* Problem & Solution */}
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">Why Create Custom QR Codes?</h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Standard QR codes work fine, but they look boring. Whether you're managing an event, running a small business, or sharing your contact details, custom QR codes make a real impression. They're memorable, on-brand, and people actually want to scan them. The problem? Most QR tools either lock features behind paywalls or require you to upload data to their servers. With our generator, you get full control with nothing stored online.
-                </p>
-              </section>
-
-              {/* Use Cases */}
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">Perfect For:</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">Businesses & Marketing</h3>
-                    <p className="text-sm text-muted-foreground">Add your business logo and brand colors to QR codes on flyers, packaging, and posters. Track engagement with different patterns for different campaigns.</p>
-                  </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">Event Management</h3>
-                    <p className="text-sm text-muted-foreground">Create unique QR codes for ticket verification, speaker bios, WiFi access, and event schedules. Customize them to match your event theme.</p>
-                  </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">Students & Educators</h3>
-                    <p className="text-sm text-muted-foreground">Share assignments, research links, and educational resources with styled QR codes. Make materials more professional and engaging.</p>
-                  </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">Developers & Professionals</h3>
-                    <p className="text-sm text-muted-foreground">Generate QR codes for APIs, documentation, portfolio links, and client presentations. Full customization meets professional standards.</p>
-                  </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">E-commerce & Retail</h3>
-                    <p className="text-sm text-muted-foreground">Create product QR codes, payment links, and social media connections. Add logos and customize designs to boost brand recognition.</p>
-                  </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <h3 className="font-semibold mb-2">Personal & Creative</h3>
-                    <p className="text-sm text-muted-foreground">Design custom QR codes for portfolios, resumes, music links, and artwork. Make them unique and shareable across social media.</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Privacy & Features */}
-              <section className="space-y-4 p-6 bg-primary/5 rounded-lg border">
-                <div className="flex gap-3">
-                  <Shield className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h2 className="text-xl font-bold mb-2">100% Private & Offline</h2>
-                    <p className="text-muted-foreground">Everything happens in your browser. No uploads, no tracking, no data collection. Your QR codes never leave your device. No signup required. Create as many as you want, instantly.</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* Features Overview */}
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">Customization Features</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">8 Body Patterns</span> - Square, rounded, dots, classy, vertical, horizontal and more</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">10 Eye Patterns</span> - Customize corner markers with 5 external + 5 internal designs</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Custom Colors</span> - Choose any color or apply pre-made templates</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Social Media Logos</span> - Add YouTube, Facebook, WhatsApp, Instagram, LinkedIn, Twitter, Telegram</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Text Overlay</span> - Add labels or descriptions below your QR code</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Frame Styles</span> - Add borders, "Scan Me" text, or rounded frames</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Error Correction</span> - Choose 4 levels (7%-30%) for damaged code recovery</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                    <p><span className="font-semibold">Save Templates</span> - Store favorite designs and reuse them instantly</p>
-                  </div>
-                </div>
-              </section>
-
-              {/* How It Works */}
-              <section className="space-y-4">
-                <h2 className="text-2xl font-bold">How It Works</h2>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div className="text-center">
-                    <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mx-auto mb-2">1</div>
-                    <p className="font-semibold text-sm">Choose Type</p>
-                    <p className="text-xs text-muted-foreground mt-1">URL, text, email, WiFi, or contact card</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mx-auto mb-2">2</div>
-                    <p className="font-semibold text-sm">Enter Data</p>
-                    <p className="text-xs text-muted-foreground mt-1">Add your link, message, or details</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mx-auto mb-2">3</div>
-                    <p className="font-semibold text-sm">Customize</p>
-                    <p className="text-xs text-muted-foreground mt-1">Patterns, colors, logo, text overlay</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mx-auto mb-2">4</div>
-                    <p className="font-semibold text-sm">Download</p>
-                    <p className="text-xs text-muted-foreground mt-1">Get high-quality PNG file instantly</p>
-                  </div>
-                </div>
-              </section>
-            </div>
-          )}
+          {/* TOOL INTERFACE STARTS HERE */}
 
           {/* Step Indicator */}
           <div className="flex justify-between items-center mb-8 max-w-xl mx-auto">
@@ -789,7 +670,7 @@ export default function QRMaker() {
           )}
 
           {step === 3 && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
               <div className="lg:col-span-2 space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
@@ -1058,6 +939,57 @@ export default function QRMaker() {
               </Link>
             </div>
           </section>
+
+          {/* SEO Content Sections */}
+          {step === 1 && (
+            <div className="mt-16 space-y-12 max-w-4xl mx-auto">
+              <section className="space-y-4">
+                <h2 className="text-2xl font-bold">Why Create Custom QR Codes?</h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">Standard QR codes work, but custom QR codes stand out. They're on-brand, memorable, and users actually want to scan them. Whether for marketing, events, education, or business - custom patterns and colors make all the difference.</p>
+              </section>
+
+              <section className="space-y-4">
+                <h2 className="text-2xl font-bold">Perfect For:</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">Businesses & Marketing</h3><p className="text-sm text-muted-foreground">Add logos and brand colors to flyers, packaging, and campaigns.</p></div>
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">Events</h3><p className="text-sm text-muted-foreground">Create unique QR codes for tickets, WiFi, and speaker bios.</p></div>
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">Students & Educators</h3><p className="text-sm text-muted-foreground">Share assignments and resources with professional-looking codes.</p></div>
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">Developers</h3><p className="text-sm text-muted-foreground">Generate codes for APIs, documentation, and portfolios.</p></div>
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">E-commerce & Retail</h3><p className="text-sm text-muted-foreground">Product codes, payment links, and social media connections.</p></div>
+                  <div className="p-4 rounded-lg border bg-card"><h3 className="font-semibold mb-2">Personal & Creative</h3><p className="text-sm text-muted-foreground">Design unique codes for portfolios and social sharing.</p></div>
+                </div>
+              </section>
+
+              <section className="p-6 bg-primary/5 rounded-lg border">
+                <div className="flex gap-3">
+                  <Shield className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <div><h3 className="text-lg font-bold mb-2">100% Private & Offline</h3><p className="text-muted-foreground">Everything happens in your browser. No uploads, no tracking, no data collection. Your QR codes never leave your device. No signup required.</p></div>
+                </div>
+              </section>
+
+              <section className="space-y-4">
+                <h2 className="text-2xl font-bold">Features</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">8 Body Patterns</span> - Square, dots, rounded, classy, vertical</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">10 Eye Patterns</span> - External + internal customization</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Custom Colors</span> - 8 templates + unlimited colors</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Social Logos</span> - YouTube, WhatsApp, Instagram, Facebook</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Text Overlay</span> - Add labels below QR code</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Frames & Effects</span> - Borders and Scan Me text</p></div>
+                </div>
+              </section>
+
+              <section className="space-y-4">
+                <h2 className="text-2xl font-bold">FAQs</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2"><h3 className="font-semibold">Are my QR codes scanned anywhere?</h3><p className="text-sm text-muted-foreground">No. Everything is offline. We don't track scans or store data.</p></div>
+                  <div className="space-y-2"><h3 className="font-semibold">Do I need an account?</h3><p className="text-sm text-muted-foreground">No account needed. Use templates to save designs locally.</p></div>
+                  <div className="space-y-2"><h3 className="font-semibold">Will custom patterns work?</h3><p className="text-sm text-muted-foreground">Yes. All patterns maintain full scannability and error correction.</p></div>
+                  <div className="space-y-2"><h3 className="font-semibold">Can I use commercially?</h3><p className="text-sm text-muted-foreground">Yes. No restrictions. Use for business, marketing, or resale.</p></div>
+                </div>
+              </section>
+            </div>
+          )}
 
           {/* Save Template Modal */}
           {showTemplateModal && (
