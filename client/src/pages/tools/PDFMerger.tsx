@@ -42,9 +42,11 @@ export default function PDFMerger() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+      // Create a proper copy of the arrayBuffer
+      const bufferCopy = new Uint8Array(arrayBuffer);
       return {
         file,
-        arrayBuffer: arrayBuffer.slice(0),
+        arrayBuffer: bufferCopy.buffer,
         pageCount: pdfDoc.getPageCount(),
         id: generateId(),
         name: file.name,
@@ -190,7 +192,7 @@ export default function PDFMerger() {
       const mergedPdf = await PDFDocument.create();
 
       for (const fileInfo of files) {
-        const pdf = await PDFDocument.load(fileInfo.arrayBuffer.slice(0), { ignoreEncryption: true });
+        const pdf = await PDFDocument.load(fileInfo.arrayBuffer, { ignoreEncryption: true });
         const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
