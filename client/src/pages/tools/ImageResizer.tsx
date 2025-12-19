@@ -25,9 +25,9 @@ export default function ImageResizer() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Image Resizer Online | Resize Images in Seconds",
-    description: "Resize JPG, PNG or WebP images online. Change width & height instantly. Fast, offline & private.",
-    keywords: "image resizer, resize image online, image scaling tool, change image size",
+    title: "Free Image Resizer Online - Resize JPG, PNG, WebP",
+    description: "Resize images instantly for free. Resize JPG, PNG, WebP with custom dimensions. Fast, offline, preserves quality. No servers—100% browser-based.",
+    keywords: "image resizer, resize image online, image scaling tool, change image size, bulk image resizer, image dimensions, free image resizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-resizer",
   });
 
@@ -222,7 +222,7 @@ export default function ImageResizer() {
                 <Maximize2 className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Image Resizer</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Resize Images Instantly—No Quality Loss, Works Offline</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Resize your images in one click. Fully offline, fast & easy-to-use. Perfect for websites, social media, editing & printing.
             </p>

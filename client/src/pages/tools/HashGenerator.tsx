@@ -107,9 +107,9 @@ export default function HashGenerator() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Hash Generator Online - MD5, SHA1, SHA256 Instant & Offline | Pixocraft",
-    description: "Generate MD5, SHA1, and SHA256 hashes instantly. 100% free, runs offline in your browser with no data uploads. Perfect for developers, file verification, and security checks.",
-    keywords: "hash generator online, md5 hash generator, sha256 hash generator, generate hash from text, offline hash generator, md5 vs sha256, sha1 generator, free hash tool",
+    title: "Free Hash Generator - MD5, SHA1, SHA256 Online & Offline",
+    description: "Generate MD5, SHA1, SHA256 hashes instantly. 100% free, runs offline in your browser. Perfect for file verification, APIs, and security checks.",
+    keywords: "hash generator online, md5 hash generator, sha256 hash generator, hash from text, offline hash generator, md5 vs sha256, sha1 generator, free hash tool, file checksum",
     canonicalUrl: "https://tools.pixocraft.in/tools/hash-generator",
   });
 
@@ -209,7 +209,7 @@ export default function HashGenerator() {
                 <Hash className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free Hash Generator Online</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Generate Hashes Instantly—MD5, SHA1, SHA256 All in One</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Generate MD5, SHA1, and SHA256 hashes instantly—100% free, offline, and private.
             </p>

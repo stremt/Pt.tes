@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Lock, Unlock, Copy, Check, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Lock, Unlock, Copy, Check, ArrowRight, Eye, EyeOff, Shield, WifiOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT } from "@/lib/ui-constants";
@@ -102,9 +102,9 @@ export default function TextEncryptDecrypt() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Text Encrypt & Decrypt | Secure AES Text Encryption (Offline) | Pixocraft Tools",
-    description: "Encrypt or decrypt text with a password using offline browser crypto. Zero data storage.",
-    keywords: "text encrypt, text decrypt, offline encryption, aes encrypt text, secure text encryption",
+    title: "Text Encrypt & Decrypt - Secure AES-256 Encryption",
+    description: "Secure your text with AES-256 encryption. Free, private, offline text encryption tool. No servers, no data storage—works 100% in your browser.",
+    keywords: "text encrypt, text decrypt, offline encryption, aes encrypt text, secure text encryption, password protected text, message encryption, private message tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-encrypt-decrypt",
   });
 
@@ -211,16 +211,28 @@ export default function TextEncryptDecrypt() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is this safe?",
-      answer: "Yes — AES encryption inside your device. All encryption happens in your browser using the Web Crypto API. Your text and password are never sent to any server."
+      question: "Is this 100% private and secure?",
+      answer: "Yes. All encryption happens in your browser using military-grade AES-256 standards. Your text and password never leave your device. No servers involved, no data logged."
     },
     {
       question: "Can I decrypt text encrypted with a different password?",
-      answer: "No. You must use the exact same password that was used to encrypt the text. There is no way to decrypt without the correct password."
+      answer: "No. Encryption requires the exact password used originally. Without it, your text remains locked. This is why password strength matters—a weak password is easier to crack."
     },
     {
       question: "Is my password stored?",
-      answer: "No. Your password is only used temporarily to encrypt/decrypt and is never stored anywhere. Make sure to remember your password!"
+      answer: "No. Passwords are temporary and exist only during encryption/decryption. They're never saved, stored, or transmitted. Keep your password safe—losing it means losing access to encrypted text forever."
+    },
+    {
+      question: "What makes AES-256 strong?",
+      answer: "AES-256 uses 256-bit encryption keys with 100,000+ iteration rounds for password derivation. This standard is used by governments and financial institutions worldwide."
+    },
+    {
+      question: "Can I use this for sensitive messages?",
+      answer: "Yes. This tool is ideal for securing sensitive notes, passwords, API keys, personal data, or any information you want to keep private. Paste the encrypted text anywhere safely."
+    },
+    {
+      question: "Does this work offline?",
+      answer: "Yes. Once loaded, the tool works completely offline. All processing happens locally in your browser—perfect for secure environments without internet."
     }
   ];
 
@@ -243,7 +255,7 @@ export default function TextEncryptDecrypt() {
                 <Lock className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Text Encrypt & Decrypt</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Secure Your Text with Military-Grade AES-256 Encryption</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Secure AES encryption & decryption with password protection
             </p>
@@ -468,13 +480,88 @@ export default function TextEncryptDecrypt() {
           <section className="py-16 border-t bg-muted/30">
             <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center space-y-4 mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">About Text Encrypt/Decrypt</h2>
+                <h2 className="text-3xl md:text-4xl font-bold">Why Use Text Encryption?</h2>
                 <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Enter text + password → encrypt or decrypt instantly. Ideal for private notes & secure message sharing.
+                  Protect sensitive information from unauthorized access. Whether storing confidential notes, sharing passwords securely, or keeping personal data private—encryption keeps it safe.
                 </p>
               </div>
 
-              <div className="text-center space-y-4 mb-12 mt-16">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Lock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">For Students & Researchers</h3>
+                        <p className="text-sm text-muted-foreground">Secure exam notes, research data, or confidential project details before sharing or storing online.</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Lock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">For Professionals</h3>
+                        <p className="text-sm text-muted-foreground">Protect sensitive client information, API keys, API credentials, or confidential business communication.</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Lock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">For Developers</h3>
+                        <p className="text-sm text-muted-foreground">Encrypt database backups, secure configuration files, or temporarily lock down secrets before sharing with teammates.</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="max-w-4xl mx-auto mb-12 bg-primary/5 border-primary/10">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-primary" />
+                    Your Privacy is Guaranteed
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <Unlock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-1">No Server Uploads</h4>
+                        <p className="text-sm text-muted-foreground">All encryption happens locally in your browser. Your data never touches our servers or any external system.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <WifiOff className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-1">Works Offline</h4>
+                        <p className="text-sm text-muted-foreground">Once loaded, this tool runs completely offline. Perfect for secure environments or when internet isn't available.</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="text-center space-y-4 mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
               </div>
               <div className="max-w-3xl mx-auto space-y-6">

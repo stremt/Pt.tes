@@ -19,9 +19,9 @@ export default function PNGtoJPG() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free PNG to JPG Converter Online - Convert PNG to JPEG | Pixocraft Tools",
-    description: "Convert PNG to JPG format online for free. Transform PNG images to JPEG with quality control. Fast, secure, works offline in your browser.",
-    keywords: "png to jpg converter, png to jpeg, convert png to jpg free, image converter, png jpg converter online",
+    title: "PNG to JPG Converter - Convert PNG to JPEG Online Free",
+    description: "Convert PNG to JPG instantly—reduce file size by 70%. Quality slider, works offline in your browser. No servers. Free, fast, private.",
+    keywords: "png to jpg converter, png to jpeg, convert png to jpg free, image converter, png jpg converter online, compress image, reduce file size",
     canonicalUrl: "https://tools.pixocraft.in/tools/png-to-jpg",
   });
 
@@ -81,15 +81,27 @@ export default function PNGtoJPG() {
   const faqItems: FAQItem[] = [
     {
       question: "Why convert PNG to JPG?",
-      answer: "JPG files are typically much smaller than PNG files, making them better for web use, email attachments, and storage. JPG is ideal for photos and images without transparency."
+      answer: "JPG reduces file sizes by 70% compared to PNG, making it ideal for web use, email attachments, social media, and faster uploads. Perfect for photo sharing."
     },
     {
       question: "What happens to PNG transparency?",
-      answer: "Since JPG doesn't support transparency, transparent areas in your PNG will be converted to white background. The converter automatically fills transparent pixels with white before conversion."
+      answer: "JPG doesn't support transparency, so transparent areas automatically become white background. The converter fills all transparent pixels with white before conversion."
+    },
+    {
+      question: "How does the quality slider work?",
+      answer: "Higher quality (90-100%) = larger file size but sharper image. Lower quality (50-70%) = smaller files but more compression artifacts. For photos, 85-90% is usually the sweet spot."
+    },
+    {
+      question: "When should I use JPG vs PNG?",
+      answer: "Use JPG for: photos, realistic images, web optimization. Use PNG for: graphics, logos, images needing transparency, or archival quality. This tool converts from PNG to JPG."
+    },
+    {
+      question: "Can I adjust quality after conversion?",
+      answer: "Yes! The quality slider lets you adjust compression before downloading. Lower values create smaller files, higher values preserve more detail."
     },
     {
       question: "Is my image data secure?",
-      answer: "Yes! All conversion happens in your browser. Your images never leave your device, ensuring complete privacy."
+      answer: "Yes. All conversion happens in your browser. Your images never leave your device, ensuring complete privacy and no uploads to any server."
     }
   ];
 
@@ -107,7 +119,7 @@ export default function PNGtoJPG() {
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <ImageIcon className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold">PNG to JPG Converter</h1>
+            <h1 className="text-4xl font-bold">Convert PNG to JPG—Shrink File Sizes While Keeping Quality</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Convert PNG images to JPG format with quality control</p>
             <div className="flex gap-2 justify-center">
               <Badge>Free</Badge>

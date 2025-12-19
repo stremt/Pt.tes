@@ -11,9 +11,9 @@ export default function ExifRemover() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useSEO({
-    title: "Image EXIF Remover | Remove Photo Metadata | Pixocraft Tools",
-    description: "Remove EXIF metadata from images using offline canvas method.",
-    keywords: "exif remover, remove metadata image",
+    title: "Remove EXIF Data - Image Metadata Removal Tool | Free",
+    description: "Remove EXIF metadata from photos instantly. Strip GPS, camera settings, timestamps. Private, offline tool. Protect your location data safely.",
+    keywords: "exif remover, remove metadata image, exif stripper, remove gps from photo, photo privacy tool, metadata removal, image privacy",
     canonicalUrl: "https://tools.pixocraft.in/tools/exif-remover",
   });
 
@@ -57,24 +57,27 @@ export default function ExifRemover() {
 
   return (
     <ToolLayout
-      title="Image EXIF Remover"
-      description="Upload → remove metadata → download clean image."
+      title="Remove EXIF Data from Photos—Protect Your Location Privacy"
+      description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
       icon={<FileX className="h-10 w-10 text-primary" />}
       toolId="exif-remover"
       category="Privacy & Security"
       howItWorks={[
-        { step: 1, title: "Upload Image", description: "Select any photo with EXIF data." },
-        { step: 2, title: "Auto Remove", description: "EXIF metadata is stripped automatically." },
-        { step: 3, title: "Download Clean", description: "Get image without location or camera data." },
+        { step: 1, title: "Upload Image", description: "Select any photo with EXIF data from your device." },
+        { step: 2, title: "Auto Remove", description: "EXIF metadata (location, camera, date) is stripped automatically." },
+        { step: 3, title: "Download Clean", description: "Get image without any embedded metadata or location data." },
       ]}
       benefits={[
-        { icon: <Shield className="h-6 w-6 text-primary" />, title: "Privacy Protection", description: "Remove sensitive location data." },
-        { icon: <FileX className="h-6 w-6 text-primary" />, title: "Metadata Removal", description: "Strip all EXIF information." },
+        { icon: <Shield className="h-6 w-6 text-primary" />, title: "Location Privacy", description: "Remove GPS coordinates that reveal where photos were taken." },
+        { icon: <FileX className="h-6 w-6 text-primary" />, title: "Complete Metadata Removal", description: "Strip camera model, timestamps, and device information." },
       ]}
       faqs={[
-        { question: "What is EXIF data?", answer: "EXIF contains camera settings, date, time, and sometimes GPS location embedded in photos." },
-        { question: "Why remove EXIF?", answer: "For privacy - EXIF can reveal where and when photos were taken." },
-        { question: "Does it reduce image quality?", answer: "Minimal impact - the image is re-encoded as PNG without metadata." },
+        { question: "What information is in EXIF data?", answer: "EXIF contains GPS coordinates (exact location), camera model, settings, date & time taken, phone model, and drone flight data—essentially a complete history of when and where photos were taken." },
+        { question: "Why is EXIF privacy important?", answer: "EXIF data can reveal home locations in real estate photos, business facility locations, travel patterns, and even enable stalking. Removing it protects you when sharing photos online." },
+        { question: "When should I remove EXIF?", answer: "Always before selling items online, sharing travel photos, posting to social media, protecting business operations, or sharing professional photography. Privacy-conscious users remove it from all photos." },
+        { question: "Does removing EXIF reduce image quality?", answer: "No quality loss. The image is re-encoded as PNG with identical visual quality. Only the invisible metadata is removed." },
+        { question: "Is my photo data secure?", answer: "Yes. All processing happens locally in your browser. Your photos never leave your device or are uploaded to any server." },
+        { question: "Can I remove EXIF from multiple photos?", answer: "Currently this processes one photo at a time. Process multiple photos by uploading and downloading them individually." },
       ]}
     >
       <div className="max-w-4xl mx-auto space-y-6">

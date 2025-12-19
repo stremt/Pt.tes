@@ -27,9 +27,9 @@ export default function PasswordStrengthChecker() {
   const [showPassword, setShowPassword] = useState(false);
 
   useSEO({
-    title: "Free Password Strength Checker Online - Test If Your Password Is Strong | Pixocraft",
-    description: "Check password strength instantly and privately. Free online tool runs 100% in your browser—no data stored or sent. Get real-time results with time-to-crack estimates. Works offline.",
-    keywords: "password strength checker online, check password strength, is my password strong, password strength test free, password strength checker offline, test password security",
+    title: "Free Password Strength Checker - Test Password Security",
+    description: "Check your password strength for free. Private, offline analyzer shows real-time security scoring, entropy levels, and time-to-crack estimates.",
+    keywords: "password strength checker online, check password strength, is my password strong, password strength test free, password checker offline, password security test, strong password checker",
     canonicalUrl: "https://tools.pixocraft.in/tools/password-strength-checker",
   });
 

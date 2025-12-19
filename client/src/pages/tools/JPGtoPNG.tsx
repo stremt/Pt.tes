@@ -16,9 +16,9 @@ export default function JPGtoPNG() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free JPG to PNG Converter Online - Convert JPEG to PNG | Pixocraft Tools",
-    description: "Convert JPG to PNG format online for free. Transform JPEG images to PNG with transparency support. Fast, secure, works offline in your browser.",
-    keywords: "jpg to png converter, jpeg to png, convert jpg to png free, image converter, jpg png converter online",
+    title: "JPG to PNG Converter - Convert JPEG to PNG Online Free",
+    description: "Convert JPG to PNG instantly online for free. Add transparency, preserve quality. Works offline in your browser. No servers, no data uploads.",
+    keywords: "jpg to png converter, jpeg to png, convert jpg to png free, image converter, jpg png converter online, image format converter, transparent png",
     canonicalUrl: "https://tools.pixocraft.in/tools/jpg-to-png",
   });
 
@@ -76,15 +76,23 @@ export default function JPGtoPNG() {
   const faqItems: FAQItem[] = [
     {
       question: "What's the difference between JPG and PNG?",
-      answer: "JPG uses lossy compression for smaller file sizes but doesn't support transparency. PNG uses lossless compression, supports transparency, and is better for graphics, logos, and images requiring transparency."
+      answer: "JPG uses lossy compression (smaller files, quality loss). PNG uses lossless compression (larger files, no quality loss, supports transparency). PNG is better for graphics, logos, and when transparency is needed."
     },
     {
       question: "Will converting JPG to PNG improve quality?",
-      answer: "No, converting from JPG to PNG won't improve quality since JPG has already applied lossy compression. However, PNG is useful if you need transparency or want to preserve quality for further editing."
+      answer: "No. JPG has already applied lossy compression, so converting to PNG won't restore lost details. However, PNG is useful when you need transparency or plan to edit the image further."
+    },
+    {
+      question: "When should I convert JPG to PNG?",
+      answer: "Convert to PNG when you need: transparency for backgrounds, graphics/logos with clean edges, lossless quality for editing, or professional design work. JPG is better for photos and web optimization."
+    },
+    {
+      question: "Will the file size increase?",
+      answer: "Yes, PNG files are typically 2-3x larger than JPG. This is because PNG uses lossless compression. Use JPG for photos, PNG for graphics with transparency."
     },
     {
       question: "Is my image data secure?",
-      answer: "Yes! All conversion happens in your browser. Your images never leave your device, ensuring complete privacy."
+      answer: "Yes. All conversion happens in your browser. Your images never leave your device, ensuring complete privacy."
     }
   ];
 
@@ -102,7 +110,7 @@ export default function JPGtoPNG() {
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <ImageIcon className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold">JPG to PNG Converter</h1>
+            <h1 className="text-4xl font-bold">Convert JPG to PNG—Restore Quality with Transparency Support</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Convert JPG images to PNG format instantly</p>
             <div className="flex gap-2 justify-center">
               <Badge>Free</Badge>
