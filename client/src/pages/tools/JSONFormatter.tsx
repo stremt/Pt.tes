@@ -17,9 +17,9 @@ export default function JSONFormatter() {
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
-    title: "Free Online JSON Formatter - Beautify, Validate & Minify JSON | Pixocraft",
-    description: "Format, beautify, validate, and minify JSON instantly with our free online JSON formatter. 100% private—all processing happens in your browser. Fix JSON syntax errors easily. No signup required.",
-    keywords: "json formatter, json beautifier, json validator, json minifier, format json online, beautify json, validate json, json parser, json pretty print, json syntax checker",
+    title: "Free JSON Formatter - Beautify, Validate & Minify Online",
+    description: "Format, beautify, validate, and minify JSON instantly. 100% private—all processing happens in your browser. Fix JSON syntax errors easily.",
+    keywords: "json formatter, json beautifier, json validator, json minifier, format json online, beautify json, validate json, json parser, json pretty print, json syntax checker, free json tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/json-formatter",
   });
 

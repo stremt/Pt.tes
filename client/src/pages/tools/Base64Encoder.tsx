@@ -16,9 +16,9 @@ export default function Base64Encoder() {
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
-    title: "Base64 Encoder Decoder | Convert Text Instantly",
-    description: "Convert text to Base64 or decode Base64 to text instantly. 100% offline, secure & fast.",
-    keywords: "base64 encoder, base64 decoder online, encode text, decode base64",
+    title: "Free Base64 Encoder/Decoder - Encode Text Online",
+    description: "Convert text to Base64 or decode Base64 to text instantly. 100% offline, secure, private. Works in your browser, no server uploads.",
+    keywords: "base64 encoder, base64 decoder online, encode text, decode base64, base64 conversion, text to base64, online encoder",
     canonicalUrl: "https://tools.pixocraft.in/tools/base64-encoder",
   });
 

@@ -16,9 +16,9 @@ export default function URLEncoder() {
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
-    title: "URL Encoder/Decoder | Encode & Decode URLs Online | Pixocraft Tools",
-    description: "Free online URL encoder and decoder. Convert special characters for safe URL transmission. Encode and decode URLs instantly in your browser.",
-    keywords: "url encoder, url decoder, encode url, decode url, url escape, percent encoding, uri encoding",
+    title: "Free URL Encoder/Decoder - Encode URLs Online",
+    description: "Encode and decode URLs instantly. Convert special characters for safe URL transmission. 100% free, offline, private. Works in your browser.",
+    keywords: "url encoder, url decoder, encode url, decode url, url escape, percent encoding, uri encoding, url conversion",
     canonicalUrl: "https://tools.pixocraft.in/tools/url-encoder",
   });
 

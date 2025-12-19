@@ -24,9 +24,9 @@ export default function TextCaseConverter() {
   const { copyToClipboard } = useClipboard();
 
   useSEO({
-    title: "Text Case Converter | Convert Text to Any Case | Pixocraft Tools",
-    description: "Convert text to uppercase, lowercase, title case, camel case, snake case, and more. Free online text transformation tool with instant results.",
-    keywords: "text case converter, uppercase, lowercase, title case, camel case, snake case, kebab case, text transform",
+    title: "Free Text Case Converter - Convert Text to Any Case",
+    description: "Convert text to uppercase, lowercase, title case, camelCase, snake_case, and more. 100% free, instant, offline. Works in your browser.",
+    keywords: "text case converter, uppercase, lowercase, title case, camel case, snake case, kebab case, text transform, case converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-case-converter",
   });
 

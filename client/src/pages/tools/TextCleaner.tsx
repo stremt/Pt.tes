@@ -27,9 +27,9 @@ export default function TextCleaner() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Text Cleaner Online | Remove Extra Spaces, Symbols & Line Breaks | Pixocraft Tools",
-    description: "Clean messy text by removing extra spaces, duplicates, symbols, line breaks & formatting. Offline & fast.",
-    keywords: "text cleaner, remove spaces, clean text online, remove symbols, text formatter",
+    title: "Free Text Cleaner - Remove Spaces, Symbols & Duplicates",
+    description: "Clean messy text by removing extra spaces, symbols, line breaks, and duplicates. 100% free, offline, private. Works in your browser instantly.",
+    keywords: "text cleaner, remove spaces, clean text online, remove symbols, text formatter, duplicate remover, text cleanup tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-cleaner",
   });
 
@@ -106,6 +106,18 @@ export default function TextCleaner() {
     {
       question: "Can I combine multiple cleaning options?",
       answer: "Yes! You can select any combination of cleaning options to process your text exactly how you want it."
+    },
+    {
+      question: "What cleaning options are available?",
+      answer: "You can remove: extra spaces, line breaks, symbols, numbers, emojis, and convert to uppercase or lowercase. Mix and match options to clean your text exactly how you need it."
+    },
+    {
+      question: "When should I use text cleaning?",
+      answer: "Use it to clean data extracted from PDFs, remove formatting from copied text, prepare content for databases, clean social media posts, or organize messy text data."
+    },
+    {
+      question: "Does cleaning affect my original text?",
+      answer: "No! Your original text stays unchanged. The tool shows the cleaned version separately. You can copy the cleaned text or clear and start over."
     }
   ];
 

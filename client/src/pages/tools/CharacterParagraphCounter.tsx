@@ -10,9 +10,9 @@ export default function CharacterParagraphCounter() {
   const [text, setText] = useState("");
 
   useSEO({
-    title: "Character & Paragraph Counter | Instant Text Stats | Pixocraft Tools",
-    description: "Count characters, paragraphs, sentences & lines instantly.",
-    keywords: "paragraph counter, character counter, text stats tool",
+    title: "Free Character & Paragraph Counter - Text Statistics",
+    description: "Count characters, paragraphs, sentences, words & lines instantly. 100% free, offline, real-time analysis. Works in your browser.",
+    keywords: "paragraph counter, character counter, text stats tool, sentence counter, word counter, text analysis",
     canonicalUrl: "https://tools.pixocraft.in/tools/character-paragraph-counter",
   });
 
@@ -49,17 +49,29 @@ export default function CharacterParagraphCounter() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Real-time?",
-      answer: "Yes — updates instantly. As you type or paste text, all statistics update in real-time without any delay or button clicking."
+      question: "Does it update in real-time?",
+      answer: "Yes — updates instantly as you type or paste text. All statistics refresh without any delay or button clicking. Perfect for instant feedback."
     },
     {
-      question: "What stats are shown?",
-      answer: "We show: total characters (with/without spaces), words, lines, sentences, and paragraphs. Perfect for writers, students, and content creators."
+      question: "What statistics are provided?",
+      answer: "We count: characters (with/without spaces), words, lines, sentences, and paragraphs. Perfect for writers, students, journalists, and content creators."
     },
     {
-      question: "Is there a text limit?",
-      answer: "No limits! Count characters and paragraphs in documents of any size - from short tweets to entire books. The tool handles it all instantly."
+      question: "Is there a character limit?",
+      answer: "No limits! Count characters and paragraphs in any size document—from short tweets to entire books. The tool processes everything instantly in your browser."
     },
+    {
+      question: "When do I need paragraph counts?",
+      answer: "Useful for essays, dissertations, articles, and content formatting. Many publications require specific paragraph structures, and this tool helps you verify formatting."
+    },
+    {
+      question: "How is a paragraph defined?",
+      answer: "A paragraph is defined as text separated by blank lines. This matches standard document formatting used by Microsoft Word, Google Docs, and most publishing platforms."
+    },
+    {
+      question: "Is my text private?",
+      answer: "Yes, 100% private. All analysis happens in your browser. Your text is never uploaded to any server, stored, or shared. Complete privacy guaranteed."
+    }
   ];
 
   const faqSchema = generateFAQSchema(faqItems);

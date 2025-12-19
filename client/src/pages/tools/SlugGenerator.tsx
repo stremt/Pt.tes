@@ -12,9 +12,9 @@ export default function SlugGenerator() {
   const { copyToClipboard } = useClipboard();
 
   useSEO({
-    title: "Slug Generator | Create Clean SEO-Friendly URLs | Pixocraft Tools",
-    description: "Convert text into SEO-friendly URL slugs instantly. Free, fast, offline-safe.",
-    keywords: "slug generator, url slug generator, seo slug tool",
+    title: "Free Slug Generator - Create SEO-Friendly URLs",
+    description: "Convert text to SEO-friendly URL slugs instantly. Remove special characters, convert spaces to hyphens. 100% free, offline, private.",
+    keywords: "slug generator, url slug generator, seo slug tool, slug creator, url generator, permalink generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/slug-generator",
   });
 
@@ -47,9 +47,12 @@ export default function SlugGenerator() {
         { icon: <Globe className="h-6 w-6 text-primary" />, title: "SEO Friendly", description: "Creates clean, search engine optimized URLs." },
       ]}
       faqs={[
-        { question: "Does it remove symbols?", answer: "Yes — auto cleans special characters and creates hyphen-separated slugs." },
-        { question: "Is it SEO optimized?", answer: "Yes, the slug follows SEO best practices with lowercase and hyphens." },
-        { question: "Can I use this for blog URLs?", answer: "Absolutely! Perfect for blog posts, pages, and any web content." },
+        { question: "Does it remove symbols?", answer: "Yes — automatically removes special characters, spaces, and punctuation. Converts them to hyphens for clean, SEO-friendly slugs." },
+        { question: "Is it SEO optimized?", answer: "Yes, the slug follows SEO best practices: lowercase letters, hyphens instead of spaces, no special characters. Perfect for search engines and readability." },
+        { question: "Can I use this for blog URLs?", answer: "Absolutely! Perfect for blog posts, pages, landing pages, and any web content URL. Helps with SEO and makes URLs human-readable." },
+        { question: "Why use hyphens instead of underscores?", answer: "Search engines (like Google) treat hyphens as word separators, so slugs like 'my-blog-post' are better for SEO than 'my_blog_post'." },
+        { question: "Can I use this for product URLs?", answer: "Yes! Great for e-commerce product pages, portfolio items, or any content that needs a clean, readable URL." },
+        { question: "Does it work with non-English text?", answer: "Yes, it converts international characters to ASCII equivalents. For example, 'café' becomes 'cafe', ensuring compatibility with all web servers." },
       ]}
     >
       <div className="max-w-4xl mx-auto space-y-6">

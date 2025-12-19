@@ -16,9 +16,9 @@ export default function RegexTester() {
   const [error, setError] = useState("");
 
   useSEO({
-    title: "Regex Tester Online | Test & Debug Regular Expressions",
-    description: "Test and debug your regex patterns instantly with live results. Free, offline and secure.",
-    keywords: "regex tester, regular expression tester, test regex online",
+    title: "Free Regex Tester - Test Regular Expressions Online",
+    description: "Test and debug regex patterns instantly with live results and real-time matching. 100% free, offline, private. Works in your browser.",
+    keywords: "regex tester, regular expression tester, test regex online, pattern matching, regex debugger, regex validator",
     canonicalUrl: "https://tools.pixocraft.in/tools/regex-tester",
   });
 
