@@ -532,8 +532,8 @@ export default function QRMaker() {
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareAppSchema} />
       
-      {/* Floating Mobile Preview Button - Shows during steps 1-3 */}
-      {(step === 1 || step === 2 || step === 3) && selectedType && (
+      {/* Floating Mobile Preview Button - Shows during steps 1-2 only */}
+      {(step === 1 || step === 2) && selectedType && (
         <button
           onClick={() => setShowMobilePreview(!showMobilePreview)}
           className="fixed bottom-4 right-4 z-50 lg:hidden bg-primary text-primary-foreground p-3 rounded-full shadow-lg"
@@ -543,8 +543,8 @@ export default function QRMaker() {
         </button>
       )}
 
-      {/* Floating Mobile Preview - Live preview during customization */}
-      {showMobilePreview && (step === 1 || step === 2 || step === 3) && (
+      {/* Floating Mobile Preview - Live preview during steps 1-2 */}
+      {showMobilePreview && (step === 1 || step === 2) && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center lg:hidden p-4">
           <div className="relative w-full max-w-xs">
             <button
