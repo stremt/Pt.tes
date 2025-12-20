@@ -3,18 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Scissors, Upload, Download, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Scale, Calculator } from "lucide-react";
+import { Scissors, Upload, Download, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Scale, Calculator, Checkbox } from "lucide-react";
 import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PDFDocument } from "pdf-lib";
+
+type SplitMode = "range" | "pages" | "size";
 
 export default function PDFSplitter() {
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [ranges, setRanges] = useState("");
   const [splitting, setSplitting] = useState(false);
+  const [splitMode, setSplitMode] = useState<SplitMode>("range");
+  const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
+  const [maxFileSize, setMaxFileSize] = useState<number>(26);
+  const [fileSizeUnit, setFileSizeUnit] = useState<"KB" | "MB">("MB");
+  const [allowCompression, setAllowCompression] = useState(true);
+  const [pagePreviewList, setPagePreviewList] = useState<{ page: number; rendered: boolean }[]>([]);
+  const [extractMode, setExtractMode] = useState<"all" | "select">("all");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -39,11 +50,15 @@ export default function PDFSplitter() {
     }
 
     setFile(selectedFile);
+    setSelectedPages(new Set());
+    setExtractMode("all");
 
     try {
       const arrayBuffer = await selectedFile.arrayBuffer();
       const pdf = await PDFDocument.load(arrayBuffer);
-      setPageCount(pdf.getPageCount());
+      const count = pdf.getPageCount();
+      setPageCount(count);
+      setPagePreviewList(Array.from({ length: count }, (_, i) => ({ page: i + 1, rendered: false })));
     } catch (error) {
       console.error(error);
       toast({
@@ -52,6 +67,24 @@ export default function PDFSplitter() {
         variant: "destructive",
       });
     }
+  };
+
+  const togglePageSelection = (page: number) => {
+    const newSelected = new Set(selectedPages);
+    if (newSelected.has(page)) {
+      newSelected.delete(page);
+    } else {
+      newSelected.add(page);
+    }
+    setSelectedPages(newSelected);
+  };
+
+  const selectAllPages = () => {
+    setSelectedPages(new Set(Array.from({ length: pageCount }, (_, i) => i + 1)));
+  };
+
+  const deselectAllPages = () => {
+    setSelectedPages(new Set());
   };
 
   const parseRanges = (rangesStr: string): number[] => {
@@ -78,18 +111,61 @@ export default function PDFSplitter() {
     return Array.from(pages).sort((a, b) => a - b);
   };
 
+  const getPageIndicesToExtract = (): number[] => {
+    if (splitMode === "range") {
+      return parseRanges(ranges);
+    } else if (splitMode === "pages") {
+      return Array.from(selectedPages).sort((a, b) => a - b).map(p => p - 1);
+    }
+    return [];
+  };
+
+  const splitBySize = async (srcPdf: any, maxSizeBytes: number): Promise<Blob[]> => {
+    const blobs: Blob[] = [];
+    let currentPdf = await PDFDocument.create();
+    const srcPages = srcPdf.getPages();
+
+    for (let i = 0; i < srcPages.length; i++) {
+      const copiedPages = await currentPdf.copyPages(srcPdf, [i]);
+      currentPdf.addPage(copiedPages[0]);
+
+      const pdfBytes = await currentPdf.save();
+      const currentSize = pdfBytes.length;
+
+      if (currentSize > maxSizeBytes && i > 0) {
+        const prevBytes = await currentPdf.save();
+        blobs.push(new Blob([prevBytes], { type: 'application/pdf' }));
+        currentPdf = await PDFDocument.create();
+        const newPages = await currentPdf.copyPages(srcPdf, [i]);
+        currentPdf.addPage(newPages[0]);
+      }
+    }
+
+    if (currentPdf.getPageCount() > 0) {
+      const finalBytes = await currentPdf.save();
+      blobs.push(new Blob([finalBytes], { type: 'application/pdf' }));
+    }
+
+    return blobs;
+  };
+
   const splitPDF = async () => {
     if (!file) return;
 
-    const pageIndices = parseRanges(ranges);
+    let pagesToExtract: number[] = [];
 
-    if (pageIndices.length === 0) {
-      toast({
-        title: "Error",
-        description: "Please enter valid page ranges (e.g., 1-3, 5, 7-9)",
-        variant: "destructive",
-      });
-      return;
+    if (splitMode === "range" || splitMode === "pages") {
+      pagesToExtract = getPageIndicesToExtract();
+
+      if (pagesToExtract.length === 0) {
+        const msg = splitMode === "range" ? "Please enter valid page ranges (e.g., 1-3, 5, 7-9)" : "Please select pages";
+        toast({
+          title: "Error",
+          description: msg,
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     setSplitting(true);
@@ -97,24 +173,43 @@ export default function PDFSplitter() {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const srcPdf = await PDFDocument.load(arrayBuffer);
-      const newPdf = await PDFDocument.create();
 
-      const copiedPages = await newPdf.copyPages(srcPdf, pageIndices);
-      copiedPages.forEach((page) => newPdf.addPage(page));
+      if (splitMode === "size") {
+        const maxSizeBytes = fileSizeUnit === "MB" ? maxFileSize * 1024 * 1024 : maxFileSize * 1024;
+        const blobs = await splitBySize(srcPdf, maxSizeBytes);
 
-      const pdfBytes = await newPdf.save();
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'split.pdf';
-      a.click();
-      URL.revokeObjectURL(url);
+        blobs.forEach((blob, index) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `split_${index + 1}.pdf`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
 
-      toast({
-        title: "Success!",
-        description: `Extracted ${pageIndices.length} pages`,
-      });
+        toast({
+          title: "Success!",
+          description: `Split into ${blobs.length} files`,
+        });
+      } else {
+        const newPdf = await PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(srcPdf, pagesToExtract);
+        copiedPages.forEach((page) => newPdf.addPage(page));
+
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'split.pdf';
+        a.click();
+        URL.revokeObjectURL(url);
+
+        toast({
+          title: "Success!",
+          description: `Extracted ${pagesToExtract.length} pages`,
+        });
+      }
     } catch (error) {
       console.error(error);
       toast({
@@ -233,19 +328,21 @@ export default function PDFSplitter() {
                     />
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <Card className="bg-muted/50">
                       <CardContent className="py-4">
-                        <div className="space-y-2">
-                          <p className="text-sm font-medium">{file.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            Total pages: {pageCount}
-                          </p>
+                        <div className="space-y-3">
+                          <div>
+                            <p className="text-sm font-medium">{file.name}</p>
+                            <p className="text-sm text-muted-foreground">Original file size: {(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                            <p className="text-sm text-muted-foreground">Total pages: {pageCount}</p>
+                          </div>
                           <Button
                             onClick={() => {
                               setFile(null);
                               setPageCount(0);
                               setRanges("");
+                              setSelectedPages(new Set());
                             }}
                             variant="outline"
                             size="sm"
@@ -257,32 +354,134 @@ export default function PDFSplitter() {
                       </CardContent>
                     </Card>
 
+                    <Tabs value={splitMode} onValueChange={(v) => setSplitMode(v as SplitMode)}>
+                      <TabsList className="grid w-full grid-cols-3">
+                        <TabsTrigger value="range" data-testid="tab-range">Range</TabsTrigger>
+                        <TabsTrigger value="pages" data-testid="tab-pages">Pages</TabsTrigger>
+                        <TabsTrigger value="size" data-testid="tab-size">Size</TabsTrigger>
+                      </TabsList>
+
+                      <TabsContent value="range" className="space-y-4">
+                        <div className="space-y-2">
+                          <Label>Page Range</Label>
+                          <Input
+                            value={ranges}
+                            onChange={(e) => setRanges(e.target.value)}
+                            placeholder="e.g., 1-3, 5, 7-9"
+                            data-testid="input-ranges"
+                          />
+                          <p className="text-sm text-muted-foreground">
+                            Enter page numbers or ranges (e.g., 1-3, 5, 7-9)
+                          </p>
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="pages" className="space-y-4">
+                        <div className="space-y-3">
+                          <div className="flex gap-2">
+                            <Button size="sm" variant="outline" onClick={selectAllPages} data-testid="button-select-all">
+                              Select All
+                            </Button>
+                            <Button size="sm" variant="outline" onClick={deselectAllPages} data-testid="button-deselect-all">
+                              Deselect All
+                            </Button>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {selectedPages.size} of {pageCount} pages selected
+                          </p>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-96 overflow-y-auto border rounded-lg p-4">
+                          {pagePreviewList.map((item) => (
+                            <button
+                              key={item.page}
+                              onClick={() => togglePageSelection(item.page)}
+                              className={`p-3 border-2 rounded-lg transition-all ${
+                                selectedPages.has(item.page)
+                                  ? "border-primary bg-primary/10"
+                                  : "border-muted hover-elevate"
+                              }`}
+                              data-testid={`page-selector-${item.page}`}
+                            >
+                              <div className="text-center">
+                                {selectedPages.has(item.page) && (
+                                  <div className="mb-1 flex justify-center">
+                                    <div className="w-5 h-5 rounded bg-primary flex items-center justify-center">
+                                      <span className="text-xs text-primary-foreground">✓</span>
+                                    </div>
+                                  </div>
+                                )}
+                                <p className="text-sm font-medium">{item.page}</p>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="size" className="space-y-4">
+                        <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900">
+                          <CardContent className="pt-6">
+                            <p className="text-sm text-blue-900 dark:text-blue-100">
+                              This PDF will be split into files no larger than {maxFileSize} {fileSizeUnit} each.
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <div className="space-y-2">
+                          <Label>Maximum size per file:</Label>
+                          <div className="flex gap-2">
+                            <Input
+                              type="number"
+                              value={maxFileSize}
+                              onChange={(e) => setMaxFileSize(Math.max(1, parseInt(e.target.value) || 1))}
+                              placeholder="26"
+                              className="flex-1"
+                              data-testid="input-max-size"
+                            />
+                            <Select value={fileSizeUnit} onValueChange={(v) => setFileSizeUnit(v as "KB" | "MB")}>
+                              <SelectTrigger className="w-20" data-testid="select-size-unit">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="KB">KB</SelectItem>
+                                <SelectItem value="MB">MB</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+
                     <div className="space-y-2">
-                      <Label>Page Range</Label>
-                      <Input
-                        value={ranges}
-                        onChange={(e) => setRanges(e.target.value)}
-                        placeholder="e.g., 1-3, 5, 7-9"
-                        data-testid="input-ranges"
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Enter page numbers (e.g., 1-3, 5, 7-9) to extract
-                      </p>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={allowCompression}
+                          onChange={(e) => setAllowCompression(e.target.checked)}
+                          className="rounded border"
+                          data-testid="checkbox-compression"
+                        />
+                        <span className="text-sm">Allow compression</span>
+                      </label>
                     </div>
 
                     <Button
                       onClick={splitPDF}
-                      disabled={!ranges.trim() || splitting}
-                      className="w-full"
+                      disabled={
+                        splitting ||
+                        (splitMode === "range" && !ranges.trim()) ||
+                        (splitMode === "pages" && selectedPages.size === 0)
+                      }
+                      className="w-full bg-red-600 hover:bg-red-700"
                       size="lg"
                       data-testid="button-split"
                     >
                       {splitting ? (
-                        <>Extracting Pages...</>
+                        <>Processing...</>
                       ) : (
                         <>
                           <Download className="mr-2 h-4 w-4" />
-                          Extract & Download Pages
+                          Split PDF
                         </>
                       )}
                     </Button>
