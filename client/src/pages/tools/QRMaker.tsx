@@ -591,7 +591,7 @@ export default function QRMaker() {
           {/* TOOL INTERFACE STARTS HERE */}
 
           {/* Step Indicator */}
-          <div className="flex justify-between items-center mb-8 max-w-xl mx-auto">
+          <div className="flex items-center justify-center mb-8 max-w-xl mx-auto">
             {[1, 2, 3].map((s, i) => (
               <div key={s} className="flex items-center flex-1">
                 <div className={`h-9 w-9 rounded-full flex items-center justify-center text-white text-sm font-bold ${step >= s ? "bg-primary" : "bg-muted"}`}>
@@ -671,7 +671,7 @@ export default function QRMaker() {
 
           {step === 3 && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-              <div className="space-y-4">
+              <div className="lg:col-span-2 space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
                   <Card>
@@ -855,8 +855,8 @@ export default function QRMaker() {
                 </div>
               </div>
 
-              {/* Preview - Desktop & Mobile Floating */}
-              <Card className="sticky top-4 h-fit z-30">
+              {/* Preview - Desktop */}
+              <Card className="sticky top-4 h-fit hidden lg:block">
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3">
                   <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 340, border: "1px solid var(--border)" }}>
