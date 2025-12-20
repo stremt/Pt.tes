@@ -139,22 +139,9 @@ export default function QRMaker() {
     }
   }, []);
 
-  // Handle scroll detection for floating preview visibility
+  // Show floating preview only on step 3
   useEffect(() => {
-    const handleScroll = () => {
-      const previewSection = document.querySelector('[data-preview-section]');
-      if (!previewSection) {
-        setShowFloatingPreview(step !== 3);
-        return;
-      }
-      
-      const rect = previewSection.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-      setShowFloatingPreview(!isVisible && step !== 3);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    setShowFloatingPreview(step === 3);
   }, [step]);
 
   // Handle dragging
