@@ -10,18 +10,7 @@ import { SearchDialog } from "@/components/SearchDialog";
 import { FeedbackButton } from "@/components/FeedbackButton";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-
-// Loading fallback component
-function PageLoader() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    </div>
-  );
-}
+import { PageLoader } from "@/components/PageLoader";
 
 // Eagerly load pages (non-tool pages)
 import Home from "@/pages/Home";
