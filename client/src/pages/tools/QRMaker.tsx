@@ -119,8 +119,13 @@ export default function QRMaker() {
   const [overlayTextColor, setOverlayTextColor] = useState("#000000");
   const [templateName, setTemplateName] = useState("");
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [floatingPreviewPos, setFloatingPreviewPos] = useState({ x: window.innerWidth - 140, y: window.innerHeight - 200 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [showFloatingPreview, setShowFloatingPreview] = useState(true);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const floatingPreviewRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -133,6 +138,55 @@ export default function QRMaker() {
       }
     }
   }, []);
+
+  // Handle scroll detection for floating preview visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const previewSection = document.querySelector('[data-preview-section]');
+      if (!previewSection) {
+        setShowFloatingPreview(step !== 3);
+        return;
+      }
+      
+      const rect = previewSection.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      setShowFloatingPreview(!isVisible && step !== 3);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [step]);
+
+  // Handle dragging
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setFloatingPreviewPos({
+        x: Math.max(0, Math.min(e.clientX - dragOffset.x, window.innerWidth - 130)),
+        y: Math.max(0, Math.min(e.clientY - dragOffset.y, window.innerHeight - 180))
+      });
+    };
+
+    const handleMouseUp = () => setIsDragging(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
+
+  const handleDragStart = (e: React.MouseEvent) => {
+    if (!floatingPreviewRef.current) return;
+    const rect = floatingPreviewRef.current.getBoundingClientRect();
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+    setIsDragging(true);
+  };
 
   useEffect(() => {
     if (step === 3 && selectedType && canvasRef.current) {
@@ -532,36 +586,26 @@ export default function QRMaker() {
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareAppSchema} />
       
-      {/* Floating Mobile Preview Button - Shows on all steps on mobile */}
-      {selectedType && (
-        <button
-          onClick={() => setShowMobilePreview(!showMobilePreview)}
-          className="fixed bottom-4 right-4 z-40 lg:hidden bg-primary text-primary-foreground p-3 rounded-full shadow-lg pointer-events-auto"
-          data-testid="button-mobile-preview"
+      {/* Floating Mobile Preview - Draggable */}
+      {selectedType && showFloatingPreview && (
+        <div
+          ref={floatingPreviewRef}
+          onMouseDown={handleDragStart}
+          className="fixed z-40 lg:hidden bg-black rounded-2xl p-2 shadow-lg cursor-move touch-none"
+          style={{
+            left: `${floatingPreviewPos.x}px`,
+            top: `${floatingPreviewPos.y}px`,
+            width: '130px',
+            userSelect: 'none'
+          }}
+          data-testid="floating-preview-mobile"
         >
-          <Smartphone className="h-6 w-6" />
-        </button>
-      )}
-
-      {/* Floating Mobile Preview - Live preview modal */}
-      {showMobilePreview && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center lg:hidden p-4">
-          <div className="relative w-full max-w-xs">
-            <button
-              onClick={() => setShowMobilePreview(false)}
-              className="absolute -top-3 right-0 bg-white text-black rounded-full p-1.5 z-10"
-            >
-              <X className="h-4 w-4" />
-            </button>
-            <div className="bg-black rounded-[32px] p-3 shadow-2xl">
-              <div className="w-16 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
-              <div
-                className="rounded-[28px] overflow-hidden flex items-center justify-center p-3"
-                style={{ backgroundColor: lightColor, minHeight: 280 }}
-              >
-                <canvas ref={canvasRef} className="max-w-full max-h-full" />
-              </div>
-            </div>
+          <div className="w-12 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
+          <div
+            className="rounded-xl overflow-hidden flex items-center justify-center p-2"
+            style={{ backgroundColor: lightColor, height: '120px' }}
+          >
+            <canvas ref={canvasRef} className="max-w-full max-h-full" />
           </div>
         </div>
       )}
@@ -855,8 +899,8 @@ export default function QRMaker() {
                 </div>
               </div>
 
-              {/* Preview - Desktop */}
-              <Card className="sticky top-4 h-fit hidden lg:block">
+              {/* Preview - Desktop & Mobile Detection */}
+              <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3">
                   <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 340, border: "1px solid var(--border)" }}>
