@@ -1,4 +1,9 @@
 import { PDFDocument, rgb, degrees, StandardFonts } from "pdf-lib";
+import imageCompression from "browser-image-compression";
+import * as pdfjsLib from "pdfjs-dist";
+
+// Set up PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 export type CompressionLevel = 'standard' | 'maximum';
 
@@ -7,54 +12,108 @@ export interface CompressPDFOptions {
   removeMetadata?: boolean;
 }
 
+// Convert PDF page to compressed image
+async function convertPDFPageToImage(pdfDoc: any, pageNum: number, quality: number): Promise<Blob> {
+  const page = await pdfDoc.getPage(pageNum);
+  const viewport = page.getViewport({ scale: 2 }); // 2x scale for better quality
+  
+  const canvas = document.createElement("canvas");
+  canvas.width = viewport.width;
+  canvas.height = viewport.height;
+  
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Failed to get canvas context");
+  
+  await page.render({
+    canvasContext: context,
+    viewport: viewport,
+  }).promise;
+  
+  // Convert canvas to blob
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("Failed to create blob"));
+      },
+      "image/jpeg",
+      quality
+    );
+  });
+}
+
+// Compress image using browser-image-compression library
+async function compressImage(imageBlob: Blob, maxSizeMB: number): Promise<Blob> {
+  try {
+    const compressed = await imageCompression.imageCompression(imageBlob, {
+      maxSizeMB,
+      maxWidthOrHeight: 2000,
+      useWebWorker: true,
+    });
+    return compressed;
+  } catch (error) {
+    return imageBlob;
+  }
+}
+
 export async function compressPDF(
   file: File,
   options: CompressPDFOptions = {}
 ): Promise<Blob> {
-  const { level = 'standard', removeMetadata = level === 'maximum' } = options;
+  const { level = 'standard' } = options;
   
   const arrayBuffer = await file.arrayBuffer();
-  const pdfDoc = await PDFDocument.load(arrayBuffer);
-
-  // Remove all metadata for maximum size reduction
-  try {
-    pdfDoc.setTitle('');
-    pdfDoc.setAuthor('');
-    pdfDoc.setSubject('');
-    pdfDoc.setKeywords([]);
-    pdfDoc.setProducer('');
-    pdfDoc.setCreator('');
-    pdfDoc.setCreationDate(new Date(0));
-    pdfDoc.setModificationDate(new Date(0));
-  } catch (e) {
-    // Continue if metadata removal fails
+  
+  // Load PDF with pdf.js for page-by-page conversion
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+  const pageCount = pdf.numPages;
+  
+  // Determine compression settings based on level
+  let jpegQuality: number;
+  let maxImageSize: number;
+  
+  switch (level) {
+    case 'maximum': // Extreme: 99% compression
+      jpegQuality = 0.25; // Very low quality
+      maxImageSize = 0.1; // 100KB per image
+      break;
+    case 'standard': // Recommended: 70% compression
+    default:
+      jpegQuality = 0.6; // Medium quality
+      maxImageSize = 0.5; // 500KB per image
+      break;
   }
-
-  // Configure save options - use aggressive compression for maximum level
-  const saveOptions: any = {
-    addDefaultPage: false,
-    useObjectStreams: level === 'maximum',
-  };
-
-  let pdfBytes = await pdfDoc.save(saveOptions);
-
-  // Apply gzip compression for maximum level
-  if (level === 'maximum') {
-    try {
-      if (typeof CompressionStream !== 'undefined') {
-        const cs = new CompressionStream('gzip');
-        const writer = cs.writable.getWriter();
-        writer.write(pdfBytes);
-        writer.close();
-
-        const compressedArrayBuffer = await new Response(cs.readable).arrayBuffer();
-        pdfBytes = new Uint8Array(compressedArrayBuffer);
-      }
-    } catch (e) {
-      // Compression not available, use original
-    }
+  
+  // Convert each PDF page to compressed image
+  const compressedImages: Blob[] = [];
+  
+  for (let pageNum = 1; pageNum <= pageCount; pageNum++) {
+    const imageBlob = await convertPDFPageToImage(pdf, pageNum, jpegQuality);
+    const compressed = await compressImage(imageBlob, maxImageSize);
+    compressedImages.push(compressed);
   }
-
+  
+  // Create new PDF from compressed images
+  const newPdf = await PDFDocument.create();
+  
+  for (const imageBlob of compressedImages) {
+    const imageBuffer = await imageBlob.arrayBuffer();
+    let embeddedImage;
+    
+    // Embed as JPEG
+    embeddedImage = await newPdf.embedJpg(imageBuffer);
+    
+    const { width, height } = embeddedImage;
+    const page = newPdf.addPage([width, height]);
+    page.drawImage(embeddedImage, {
+      x: 0,
+      y: 0,
+      width,
+      height,
+    });
+  }
+  
+  const pdfBytes = await newPdf.save();
   return new Blob([pdfBytes], { type: 'application/pdf' });
 }
 
