@@ -532,19 +532,19 @@ export default function QRMaker() {
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareAppSchema} />
       
-      {/* Floating Mobile Preview Button - Shows during steps 1-2 only */}
-      {(step === 1 || step === 2) && selectedType && (
+      {/* Floating Mobile Preview Button - Shows on all steps on mobile */}
+      {selectedType && (
         <button
           onClick={() => setShowMobilePreview(!showMobilePreview)}
-          className="fixed bottom-4 right-4 z-50 lg:hidden bg-primary text-primary-foreground p-3 rounded-full shadow-lg"
+          className="fixed bottom-4 right-4 z-40 lg:hidden bg-primary text-primary-foreground p-3 rounded-full shadow-lg pointer-events-auto"
           data-testid="button-mobile-preview"
         >
           <Smartphone className="h-6 w-6" />
         </button>
       )}
 
-      {/* Floating Mobile Preview - Live preview during steps 1-2 */}
-      {showMobilePreview && (step === 1 || step === 2) && (
+      {/* Floating Mobile Preview - Live preview modal */}
+      {showMobilePreview && (
         <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center lg:hidden p-4">
           <div className="relative w-full max-w-xs">
             <button
@@ -670,7 +670,7 @@ export default function QRMaker() {
           )}
 
           {step === 3 && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 pb-20 lg:pb-0">
               <div className="lg:col-span-2 space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
@@ -855,8 +855,8 @@ export default function QRMaker() {
                 </div>
               </div>
 
-              {/* Preview - Desktop */}
-              <Card className="sticky top-4 h-fit hidden lg:block">
+              {/* Preview - Desktop & Mobile */}
+              <Card className="sticky top-4 h-fit lg:block">
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3">
                   <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 340, border: "1px solid var(--border)" }}>
