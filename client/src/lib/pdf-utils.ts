@@ -10,6 +10,8 @@ export type CompressionLevel = 'standard' | 'maximum';
 export interface CompressPDFOptions {
   level?: CompressionLevel;
   removeMetadata?: boolean;
+  jpegQuality?: number;
+  maxImageSize?: number;
 }
 
 // Convert PDF page to compressed image
@@ -60,7 +62,11 @@ export async function compressPDF(
   file: File,
   options: CompressPDFOptions = {}
 ): Promise<Blob> {
-  const { level = 'standard' } = options;
+  const { 
+    level = 'standard',
+    jpegQuality: customJpegQuality,
+    maxImageSize: customMaxImageSize
+  } = options;
   
   const arrayBuffer = await file.arrayBuffer();
   
@@ -72,16 +78,22 @@ export async function compressPDF(
   let jpegQuality: number;
   let maxImageSize: number;
   
-  switch (level) {
-    case 'maximum': // Extreme: 99% compression
-      jpegQuality = 0.25; // Very low quality
-      maxImageSize = 0.1; // 100KB per image
-      break;
-    case 'standard': // Recommended: 70% compression
-    default:
-      jpegQuality = 0.6; // Medium quality
-      maxImageSize = 0.5; // 500KB per image
-      break;
+  // Use custom settings if provided, otherwise use defaults
+  if (customJpegQuality !== undefined && customMaxImageSize !== undefined) {
+    jpegQuality = customJpegQuality;
+    maxImageSize = customMaxImageSize;
+  } else {
+    switch (level) {
+      case 'maximum': // Extreme: 99% compression
+        jpegQuality = 0.25; // Very low quality for max compression
+        maxImageSize = 0.1; // 100KB per image
+        break;
+      case 'standard': // Recommended: 60% compression with high quality for zoom
+      default:
+        jpegQuality = 0.75; // High quality - preserves details for zoom
+        maxImageSize = 1.5; // 1.5MB per image for good balance
+        break;
+    }
   }
   
   // Convert each PDF page to compressed image

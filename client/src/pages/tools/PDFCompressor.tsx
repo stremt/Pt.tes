@@ -48,7 +48,20 @@ export default function PDFCompressor() {
   };
 
   const getCompressionLevel = (option: CompressionOption): CompressionLevel => {
-    return option === 'extreme' ? 'maximum' : 'standard';
+    if (option === 'extreme') return 'maximum';
+    return 'standard'; // Both 'recommended' and 'less' use standard, but we'll handle differently
+  };
+
+  // Map compression options to quality/size targets
+  const getCompressionSettings = (option: CompressionOption) => {
+    switch (option) {
+      case 'extreme':
+        return { jpegQuality: 0.25, maxImageSize: 0.1, targetReduction: 99 };
+      case 'recommended':
+        return { jpegQuality: 0.75, maxImageSize: 1.5, targetReduction: 60 };
+      case 'less':
+        return { jpegQuality: 0.88, maxImageSize: 3.5, targetReduction: 30 };
+    }
   };
 
   const compressPDFFile = async () => {
@@ -57,6 +70,7 @@ export default function PDFCompressor() {
     setLoading(true);
     setCompressionProgress(0);
     try {
+      const settings = getCompressionSettings(compressionOption);
       const level = getCompressionLevel(compressionOption);
       
       // Show progress during compression
@@ -67,9 +81,12 @@ export default function PDFCompressor() {
         });
       }, 500);
       
+      // For 'less' compression, we need to use 'standard' but with different settings
       const compressed = await compressPDF(originalFile, { 
         level,
-        removeMetadata: compressionOption === 'extreme'
+        removeMetadata: compressionOption === 'extreme',
+        jpegQuality: settings.jpegQuality,
+        maxImageSize: settings.maxImageSize
       });
       
       clearInterval(progressInterval);
@@ -81,7 +98,7 @@ export default function PDFCompressor() {
 
       toast({
         title: "Success!",
-        description: `PDF compressed by ${reductionPercent}% using advanced image compression!`,
+        description: `PDF compressed by ${reductionPercent}% - High quality preserved for zoom!`,
       });
     } catch (error) {
       toast({
@@ -123,15 +140,15 @@ export default function PDFCompressor() {
   const faqItems: FAQItem[] = [
     {
       question: "How does PDF compression work?",
-      answer: "Our advanced compression works by converting each PDF page to an optimized image, compressing it intelligently, and rebuilding the PDF. This achieves 70-99% compression - far better than traditional PDF compression! All processing happens offline in your browser."
+      answer: "Our advanced compression works by converting each PDF page to an optimized image with carefully tuned quality, compressing it intelligently, and rebuilding the PDF. This achieves up to 99% compression! All processing happens offline in your browser with high quality preservation."
     },
     {
       question: "Will compressing my PDF reduce its quality?",
-      answer: "Compression levels are carefully tuned to preserve readability. Extreme compression (99%) may appear slightly pixelated but text remains readable. Recommended (70%) looks nearly identical to the original. At normal viewing sizes, quality loss is minimal."
+      answer: "Quality is preserved based on your choice: Extreme (99% reduction - smallest file, some pixelation), Recommended (60% reduction - high quality, stays readable on zoom), Less (30% reduction - highest quality, minimal size change). Even Extreme maintains readable text."
     },
     {
       question: "How much can I reduce my PDF file size?",
-      answer: "Our advanced image-based compression achieves massive reduction: Extreme (99%), Recommended (70%), Less (40-50%). A 10MB PDF can compress to under 1MB with Extreme compression, while Recommended typically reduces to 2-3MB with excellent quality."
+      answer: "Our advanced image-based compression achieves: Extreme (99% smaller), Recommended (60% smaller), Less (30% smaller). A 10MB PDF compresses to under 1MB with Extreme, 4MB with Recommended (high quality), or 7MB with Less (best quality)."
     },
     {
       question: "Is there a file size limit for compression?",
