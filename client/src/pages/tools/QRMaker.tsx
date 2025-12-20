@@ -622,13 +622,13 @@ export default function QRMaker() {
           {/* TOOL INTERFACE STARTS HERE */}
 
           {/* Step Indicator */}
-          <div className="flex items-center justify-center mb-8 max-w-xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-8 mx-auto w-fit">
             {[1, 2, 3].map((s, i) => (
-              <div key={s} className="flex items-center flex-1">
+              <div key={s} className="flex items-center">
                 <div className={`h-9 w-9 rounded-full flex items-center justify-center text-white text-sm font-bold ${step >= s ? "bg-primary" : "bg-muted"}`}>
                   {s}
                 </div>
-                {i < 2 && <div className={`flex-1 h-1 mx-1 ${step > s ? "bg-primary" : "bg-muted"}`} />}
+                {i < 2 && <div className={`h-1 w-12 mx-1 ${step > s ? "bg-primary" : "bg-muted"}`} />}
               </div>
             ))}
           </div>
