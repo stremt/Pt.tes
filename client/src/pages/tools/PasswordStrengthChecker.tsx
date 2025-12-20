@@ -27,9 +27,9 @@ export default function PasswordStrengthChecker() {
   const [showPassword, setShowPassword] = useState(false);
 
   useSEO({
-    title: "Free Password Strength Checker - Test Password Security",
-    description: "Check your password strength for free. Private, offline analyzer shows real-time security scoring, entropy levels, and time-to-crack estimates.",
-    keywords: "password strength checker online, check password strength, is my password strong, password strength test free, password checker offline, password security test, strong password checker",
+    title: "Free Password Strength Checker - Analyze Passwords Online",
+    description: "Check password strength and security level instantly. 100% private—analysis happens in your browser. Get tips to create stronger passwords.",
+    keywords: "password strength checker, check password strength, password strength test, password security checker, is my password strong, strong password generator, password entropy, password analyzer, secure password",
     canonicalUrl: "https://tools.pixocraft.in/tools/password-strength-checker",
   });
 
@@ -103,19 +103,35 @@ export default function PasswordStrengthChecker() {
   const faqItems: FAQItem[] = [
     {
       question: "Is it safe to check my password here?",
-      answer: "Yes. All password analysis happens locally in your browser. Your password is never sent to any server, stored, or logged. The tool works completely offline once loaded."
+      answer: "Yes, absolutely. All password analysis happens locally in your browser only. Your password is never sent to any server, stored, logged, or transmitted over the internet. The tool works completely offline once loaded—you can disconnect from the internet and continue checking passwords."
     },
     {
       question: "How is password strength calculated?",
-      answer: "The tool analyzes your password against common patterns, dictionary words, and known weak passwords. It estimates how long an attacker would need to crack it using realistic attack methods, giving you a practical strength score."
+      answer: "The tool analyzes your password against common patterns, dictionary words, keyboard patterns, and known weak passwords used in data breaches. It estimates how long an attacker would need to crack it using realistic attack methods, then converts that to a strength score and entropy rating."
     },
     {
-      question: "What makes a password strong enough?",
-      answer: "A strong password is at least 12 characters long, mixes uppercase, lowercase, numbers, and symbols, and avoids dictionary words or personal information. For banking and admin accounts, aim for 16+ characters."
+      question: "What makes a password truly strong?",
+      answer: "A strong password is at least 12 characters long, mixes uppercase letters, lowercase letters, numbers, and special symbols, and avoids dictionary words or personal information like names and birthdays. For banking and sensitive accounts, aim for 16+ characters with maximum variety."
     },
     {
       question: "What should I do if my password is weak?",
-      answer: "Use a password generator to create a strong, random password. Store it in a password manager so you don't need to memorize it. Never reuse passwords across accounts."
+      answer: "Use a password generator to create a strong, random password instantly. Store it in a password manager (like Bitwarden, 1Password, or your browser's built-in manager) so you don't need to memorize it. Never reuse passwords—each account should have a unique password."
+    },
+    {
+      question: "Does password entropy matter for real-world security?",
+      answer: "Yes, entropy is important. It measures how unpredictable and random your password is. Higher entropy (more bits) means stronger security because there are more possible combinations for attackers to try. Our tool calculates entropy based on character variety and length."
+    },
+    {
+      question: "Can I use this checker multiple times?",
+      answer: "Yes, you can check unlimited passwords, free of charge. There are no limits, no registration required, and no tracking. Each check happens instantly in your browser. You can test different password variations to find one that meets your security needs."
+    },
+    {
+      question: "Why should I care about password strength?",
+      answer: "Weak passwords can be cracked in seconds, putting your email, banking, social media, and professional accounts at risk. A strong password is your first line of defense against hackers. Using strong, unique passwords for each account prevents one breach from compromising all your accounts."
+    },
+    {
+      question: "Does this work on mobile phones?",
+      answer: "Yes, the password strength checker works on any device with a modern browser—Android, iPhone, iPad, Windows, Mac, or Linux. No app installation needed. Just open the page and start checking passwords. It works perfectly offline once loaded."
     }
   ];
 
@@ -298,6 +314,84 @@ export default function PasswordStrengthChecker() {
               )}
             </>
           )}
+
+          {/* On-Page Content Section */}
+          <section className="prose prose-sm dark:prose-invert max-w-none space-y-6">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">What is a Password Strength Checker and Why Does It Matter?</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  A password strength checker is a security tool that analyzes your passwords and tells you how resistant they are to being hacked. It works by examining the length, character variety, and patterns in your password, then estimates how long it would take an attacker to crack it using automated methods. Unlike generic guidelines that say "use 8+ characters," our checker provides real, actionable data about your password's actual security level.
+                </p>
+                <p>
+                  Weak passwords are one of the biggest security risks people face today. Hackers use sophisticated tools to guess passwords, and many people unknowingly create passwords that are vulnerable. A password strength checker removes the guesswork and gives you immediate feedback so you can improve your security before a breach happens.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-3">Who Should Use This Tool?</h3>
+              <div className="space-y-3 text-muted-foreground">
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-sm font-semibold text-primary">•</div>
+                  <div>
+                    <span className="font-semibold text-foreground">Students & Young Professionals:</span> Protect your email, cloud storage, and social media accounts from hacking. A single strong password can prevent identity theft that could affect your future.
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-sm font-semibold text-primary">•</div>
+                  <div>
+                    <span className="font-semibold text-foreground">Business Owners & Employees:</span> Your company's data depends on strong passwords. Checking password strength helps you comply with security policies and protects confidential business information.
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-sm font-semibold text-primary">•</div>
+                  <div>
+                    <span className="font-semibold text-foreground">Remote Workers & Freelancers:</span> You manage sensitive client data and access company systems from various locations. Strong passwords are your security foundation when working online.
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-sm font-semibold text-primary">•</div>
+                  <div>
+                    <span className="font-semibold text-foreground">Anyone with Financial or Personal Accounts:</span> If you have email, banking, investment, or social media accounts, strong passwords protect your money, privacy, and reputation.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-3">Real-Life Use Cases</h3>
+              <div className="space-y-3 text-muted-foreground">
+                <div>
+                  <span className="font-semibold text-foreground">Scenario 1: Creating Secure Passwords</span>
+                  <p className="text-sm mt-1">You want to create a new password for your bank account. Before using it, you check its strength here to ensure it will withstand real-world attacks. The tool shows you have a 16-character password with 120 bits of entropy—secure enough for banking.</p>
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">Scenario 2: Auditing Existing Passwords</span>
+                  <p className="text-sm mt-1">You realize you've been using the same simple password across multiple accounts. You check each one and discover they're weak. You then use a password generator to create strong, unique passwords for each account.</p>
+                </div>
+                <div>
+                  <span className="font-semibold text-foreground">Scenario 3: Workplace Security Compliance</span>
+                  <p className="text-sm mt-1">Your company requires strong passwords for employee accounts. You use this checker to verify that your work password meets the company's security standards before creating it in the system.</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-3">Privacy & Security Guarantee</h3>
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  Your privacy is sacred. This password strength checker runs 100% in your browser. Nothing is sent to servers, stored in databases, or logged by anyone. Your password never leaves your device.
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">How it works:</span> When you type a password, the analysis happens instantly using your device's processing power. The moment you close this page, everything is erased from memory. No traces remain. This is true offline processing—complete privacy and security.
+                </p>
+                <p>
+                  <span className="font-semibold text-foreground">Why this matters:</span> You can check passwords for your most sensitive accounts (banking, email, social media) without any risk. Unlike online password checkers that send data to servers, this tool never compromises your security for convenience.
+                </p>
+              </div>
+            </div>
+          </section>
 
           {/* Result Interpretation Section */}
           <section>
