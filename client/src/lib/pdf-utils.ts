@@ -16,46 +16,42 @@ export async function compressPDF(
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(arrayBuffer);
 
-  // Remove metadata - this provides size reduction
-  if (level === 'maximum' || removeMetadata) {
-    try {
-      pdfDoc.setTitle('');
-      pdfDoc.setAuthor('');
-      pdfDoc.setSubject('');
-      pdfDoc.setKeywords([]);
-      pdfDoc.setProducer('');
-      pdfDoc.setCreator('');
-      pdfDoc.setCreationDate(new Date(0));
-      pdfDoc.setModificationDate(new Date(0));
-    } catch (e) {
-      // Continue if metadata removal fails
-    }
+  // Remove all metadata for maximum size reduction
+  try {
+    pdfDoc.setTitle('');
+    pdfDoc.setAuthor('');
+    pdfDoc.setSubject('');
+    pdfDoc.setKeywords([]);
+    pdfDoc.setProducer('');
+    pdfDoc.setCreator('');
+    pdfDoc.setCreationDate(new Date(0));
+    pdfDoc.setModificationDate(new Date(0));
+  } catch (e) {
+    // Continue if metadata removal fails
   }
 
-  // Configure save options based on compression level
+  // Configure save options - use aggressive compression for maximum level
   const saveOptions: any = {
     addDefaultPage: false,
     useObjectStreams: level === 'maximum',
   };
 
-  // Use native browser compression if available
   let pdfBytes = await pdfDoc.save(saveOptions);
 
-  if (typeof CompressionStream !== 'undefined' && level === 'maximum') {
+  // Apply gzip compression for maximum level
+  if (level === 'maximum') {
     try {
-      const compressor = new CompressionStream('gzip');
-      const writer = compressor.writable.getWriter();
-      writer.write(pdfBytes);
-      writer.close();
+      if (typeof CompressionStream !== 'undefined') {
+        const cs = new CompressionStream('gzip');
+        const writer = cs.writable.getWriter();
+        writer.write(pdfBytes);
+        writer.close();
 
-      const compressed = await new Response(compressor.readable).arrayBuffer();
-      const compressedBytes = new Uint8Array(compressed);
-      
-      if (compressedBytes.length < pdfBytes.length) {
-        pdfBytes = compressedBytes;
+        const compressedArrayBuffer = await new Response(cs.readable).arrayBuffer();
+        pdfBytes = new Uint8Array(compressedArrayBuffer);
       }
     } catch (e) {
-      // Compression stream not available or failed
+      // Compression not available, use original
     }
   }
 
