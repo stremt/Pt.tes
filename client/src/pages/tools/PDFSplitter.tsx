@@ -26,6 +26,8 @@ export default function PDFSplitter() {
   const [selectedPages, setSelectedPages] = useState<Set<number>>(new Set());
   const [allowCompression, setAllowCompression] = useState(true);
   const [pagePreviews, setPagePreviews] = useState<Map<number, string>>(new Map());
+  const [loadingPreview, setLoadingPreview] = useState(false);
+  const [loadedPages, setLoadedPages] = useState<Set<number>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -79,16 +81,23 @@ export default function PDFSplitter() {
       const pdf = await PDFDocument.load(arrayBuffer);
       const count = pdf.getPageCount();
       setPageCount(count);
+      setLoadingPreview(true);
+      setLoadedPages(new Set());
 
       // Render thumbnails for all pages
       const previews = new Map<number, string>();
+      const loaded = new Set<number>();
       for (let i = 1; i <= count; i++) {
         const thumbnail = await renderPageThumbnail(selectedFile, i);
         previews.set(i, thumbnail);
+        loaded.add(i);
+        setLoadedPages(new Set(loaded));
       }
       setPagePreviews(previews);
+      setLoadingPreview(false);
     } catch (error) {
       console.error(error);
+      setLoadingPreview(false);
       toast({
         title: "Error",
         description: "Failed to load PDF",
@@ -372,20 +381,27 @@ export default function PDFSplitter() {
                             <button
                               key={pageNum}
                               onClick={() => togglePageSelection(pageNum)}
+                              disabled={loadingPreview}
                               className={`p-2 border-2 rounded-lg transition-all overflow-hidden ${
                                 selectedPages.has(pageNum)
                                   ? "border-green-500 bg-green-50 dark:bg-green-950/30"
                                   : "border-muted hover-elevate"
-                              }`}
+                              } ${loadingPreview ? "opacity-50 cursor-wait" : ""}`}
                               data-testid={`page-selector-${pageNum}`}
                             >
                               <div className="space-y-2">
-                                {pagePreviews.get(pageNum) && (
+                                {pagePreviews.get(pageNum) ? (
                                   <img
                                     src={pagePreviews.get(pageNum)}
                                     alt={`Page ${pageNum}`}
                                     className="w-full h-auto rounded"
                                   />
+                                ) : (
+                                  <div className="w-full aspect-[3/4] bg-muted rounded animate-pulse flex items-center justify-center">
+                                    <div className="text-center">
+                                      <div className="text-xs text-muted-foreground">Loading...</div>
+                                    </div>
+                                  </div>
                                 )}
                                 <div className="flex items-center justify-between px-1">
                                   <p className="text-xs font-medium">{pageNum}</p>

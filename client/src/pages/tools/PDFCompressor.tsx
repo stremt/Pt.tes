@@ -3,18 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileDown, Upload, Download, X, Shield, Lock, Zap, Globe, GraduationCap, Briefcase, Mail, HardDrive, Users, Building } from "lucide-react";
+import { FileDown, Upload, Download, X, Shield, Lock, Zap, Globe, GraduationCap, Briefcase, Mail, HardDrive, Users, Building, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { compressPDF, formatFileSize, getPDFInfo, type CompressionLevel } from "@/lib/pdf-utils";
+
+type CompressionOption = "less" | "recommended" | "extreme";
 
 export default function PDFCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [compressedFile, setCompressedFile] = useState<Blob | null>(null);
   const [originalInfo, setOriginalInfo] = useState<{ pageCount: number; fileSize: string } | null>(null);
-  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>('standard');
+  const [compressionOption, setCompressionOption] = useState<CompressionOption>('recommended');
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
@@ -45,14 +46,19 @@ export default function PDFCompressor() {
     }
   };
 
+  const getCompressionLevel = (option: CompressionOption): CompressionLevel => {
+    return option === 'extreme' ? 'maximum' : 'standard';
+  };
+
   const compressPDFFile = async () => {
     if (!originalFile) return;
 
     setLoading(true);
     try {
+      const level = getCompressionLevel(compressionOption);
       const compressed = await compressPDF(originalFile, { 
-        level: compressionLevel,
-        removeMetadata: compressionLevel === 'maximum'
+        level,
+        removeMetadata: compressionOption === 'extreme'
       });
       
       const reductionPercent = Math.round((1 - compressed.size / originalFile.size) * 100);
@@ -240,24 +246,36 @@ export default function PDFCompressor() {
                     )}
 
                     <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label>Compression Mode</Label>
-                        <Select 
-                          value={compressionLevel} 
-                          onValueChange={(v: CompressionLevel) => setCompressionLevel(v)}
-                        >
-                          <SelectTrigger data-testid="select-compression-level">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="standard">Standard (Recommended)</SelectItem>
-                            <SelectItem value="maximum">Maximum (Remove All Metadata)</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <p className="text-xs text-muted-foreground">
-                          {compressionLevel === 'standard' && 'Optimizes PDF structure while preserving document metadata. Works for most files.'}
-                          {compressionLevel === 'maximum' && 'Removes all metadata and timestamps for maximum file size reduction.'}
-                        </p>
+                      <Label className="text-base font-semibold">Compression Level</Label>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {[
+                          { id: 'extreme', title: 'EXTREME COMPRESSION', subtitle: 'Less quality, high compression' },
+                          { id: 'recommended', title: 'RECOMMENDED COMPRESSION', subtitle: 'Good quality, good compression' },
+                          { id: 'less', title: 'LESS COMPRESSION', subtitle: 'High quality, less compression' }
+                        ].map((option) => (
+                          <button
+                            key={option.id}
+                            onClick={() => setCompressionOption(option.id as CompressionOption)}
+                            className={`p-4 rounded-lg border-2 text-left transition-all ${
+                              compressionOption === option.id
+                                ? 'border-green-500 bg-green-50 dark:bg-green-950/30'
+                                : 'border-muted hover:border-muted-foreground/30'
+                            }`}
+                            data-testid={`compression-${option.id}`}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <p className={`font-semibold text-sm ${compressionOption === option.id ? 'text-green-700 dark:text-green-300' : ''}`}>
+                                  {option.title}
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1">{option.subtitle}</p>
+                              </div>
+                              {compressionOption === option.id && (
+                                <Check className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                              )}
+                            </div>
+                          </button>
+                        ))}
                       </div>
 
                       <div className="flex gap-2 flex-wrap">
