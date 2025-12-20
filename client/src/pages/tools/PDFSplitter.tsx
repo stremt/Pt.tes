@@ -19,9 +19,9 @@ export default function PDFSplitter() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Split PDF Online Free - Extract Pages Instantly | Pixocraft",
-    description: "Split PDF files and extract specific pages for free. 100% offline, no uploads, no sign-up. Works on any device. Trusted by students and professionals in India.",
-    keywords: "split pdf, pdf splitter, extract pdf pages, pdf page extractor, split pdf online free, pdf splitter free, extract pages from pdf, split pdf by page range, pdf cutter online",
+    title: "Free PDF Splitter - Split PDF by Pages Online, 100% Offline & Secure",
+    description: "Split PDFs instantly - extract specific pages for free. No upload needed, 100% offline, secure. Best PDF splitter for students, professionals & businesses in India.",
+    keywords: "split pdf, pdf splitter, extract pdf pages, free pdf splitter online, split pdf by page range, pdf page extractor, how to split pdf, best pdf splitter, offline pdf splitter, split pdf without software",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-splitter",
   });
 
@@ -129,36 +129,36 @@ export default function PDFSplitter() {
 
   const faqItems = [
     {
-      question: "How do I split a PDF into multiple files?",
-      answer: "Upload your PDF, then enter the page ranges you want to extract (for example: 1-5, 8, 10-15). Click the extract button, and your new PDF containing only those pages will download instantly. If you need multiple separate files, repeat the process with different page ranges."
+      question: "How do I use this PDF splitter to extract pages?",
+      answer: "It's simple: Upload your PDF, enter the pages you want (like 1-5, 8, 12-15), and click Extract. The pages are processed in your browser and downloaded instantly as a new PDF. No upload to servers, no waiting, no account needed."
     },
     {
-      question: "Can I extract just one page from a PDF?",
-      answer: "Absolutely. Simply enter a single page number in the range field (like \"7\") to extract only that page. The tool creates a new PDF containing just your selected page."
+      question: "Is my PDF upload really 100% safe and private?",
+      answer: "Yes. Your PDF never leaves your device. All processing happens in your browser using your computer's power. We don't store, access, track, or copy your documents. Even if you lose internet connection after the page loads, the tool keeps working offline."
     },
     {
-      question: "Is this PDF splitter really free?",
-      answer: "Yes, completely free with no hidden charges, watermarks, or page limits. Use it as many times as you need for personal or professional work."
+      question: "Can I split encrypted or password-protected PDFs?",
+      answer: "If your PDF is password-protected, you'll need to remove the password first using our free PDF Password Remover tool. Once unlocked, you can split it without any issues."
     },
     {
-      question: "Does my PDF get uploaded to your servers?",
-      answer: "No. All processing happens directly in your browser. Your PDF files never leave your device, ensuring complete privacy and security for sensitive documents."
+      question: "Will extracted pages have the same quality as the original?",
+      answer: "Absolutely. Pages are extracted without any quality loss, compression, or changes. Fonts, images, formatting, and resolution remain exactly the same. You get identical copies of your selected pages."
     },
     {
-      question: "What's the maximum file size I can split?",
-      answer: "The tool handles most standard PDF files efficiently. For extremely large files (100+ MB), processing time depends on your device's memory and browser capabilities."
+      question: "What's the maximum number of pages I can extract?",
+      answer: "You can extract as many pages as your PDF contains. The tool handles large PDFs effectively. For files over 100MB, processing depends on your device's memory, but most modern devices handle it smoothly."
     },
     {
-      question: "Can I use this tool on mobile devices?",
-      answer: "Yes. Our PDF splitter works on any modern browser—desktop, laptop, tablet, or smartphone. No app installation required."
+      question: "Can I extract multiple separate PDFs from one file?",
+      answer: "The selected pages combine into a single PDF. To create multiple separate files, run the tool again with different page selections. For example, first extract pages 1-5, then run again for pages 10-15."
     },
     {
-      question: "Will the extracted pages maintain original quality?",
-      answer: "Yes. The tool preserves the exact quality, formatting, images, and fonts from your original PDF. No compression or quality loss occurs during extraction."
+      question: "Does this tool work on my phone or tablet?",
+      answer: "Yes. Works on any device with a modern browser - Android phones, iPhones, tablets, laptops, or desktop computers. No app needed, no installation required. Just open and start splitting."
     },
     {
-      question: "What page range formats are supported?",
-      answer: "You can use individual pages (5, 8, 12), continuous ranges (1-10), or any combination (1-3, 5, 7-10). The tool understands all standard notation."
+      question: "Why is this better than using my PDF reader software?",
+      answer: "Our splitter is specifically designed for fast, easy extraction. No software installation, no learning curve, no watermarks or page limits. Cloud-safe since processing happens offline on your device. Perfect for students, professionals, and anyone who regularly works with PDFs."
     }
   ];
 
@@ -191,9 +191,9 @@ export default function PDFSplitter() {
                 <Scissors className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free PDF Splitter - Extract & Split PDF Pages Online</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Free PDF Splitter - Extract & Split Pages Instantly, Offline & Secure</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Extract specific pages or split any PDF by custom page ranges. No software to install, no account required, and your documents never leave your device.
+              Extract specific pages from any PDF in seconds. No upload, no account, no software needed. 100% offline processing keeps your documents completely private and secure.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">100% Free</Badge>
@@ -294,16 +294,19 @@ export default function PDFSplitter() {
 
           <section className="py-12 border-t">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">The Problem with Large PDF Files</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Why Use a PDF Splitter?</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
                 <p>
-                  PDFs are everywhere. From government forms and bank statements to academic papers and business contracts, this format dominates professional and personal document sharing. But PDFs come with a common challenge: they're often too large or contain more pages than you actually need.
+                  Working with PDFs is a daily task for millions - whether you're a student reviewing textbooks, a professional handling reports, or a business managing documents. The problem? PDFs often contain more pages than you need. A 50-page contract when you only need pages 5-10. A 200-page manual when you want specific chapters. Sending entire documents wastes bandwidth, creates confusion, and risks sharing sensitive information unintentionally.
                 </p>
                 <p>
-                  Imagine you receive a 50-page annual report, but your client only needs pages 12 to 18. Or perhaps you're a student who wants to print just the relevant chapters from a textbook. Sending the entire document wastes bandwidth, confuses recipients, and can even breach confidentiality if other pages contain sensitive information.
+                  Most online PDF tools require uploading your files to their servers, which raises serious privacy concerns - especially when handling bank statements, Aadhaar documents, legal contracts, or medical records. Traditional desktop software requires installation, subscriptions, and technical knowledge. That's where this free PDF splitter changes everything.
                 </p>
                 <p>
-                  Traditional solutions require expensive desktop software or online tools that upload your files to unknown servers—raising serious privacy concerns. For anyone handling financial statements, legal documents, or personal records, this is simply unacceptable. That's why we built this free, offline PDF splitter that keeps your documents exactly where they belong: on your device.
+                  Our tool processes PDFs entirely offline, right in your browser. Your documents never touch our servers or any external service. Whether you're extracting pages for a presentation, creating study materials, sharing specific sections with clients, or organizing document libraries, you can trust that your information stays completely private and secure.
+                </p>
+                <p>
+                  The best part? It's completely free, requires no account, no software installation, and works on any device - desktop, tablet, or smartphone. Just upload, select your pages, and download. That's it.
                 </p>
               </div>
             </div>
