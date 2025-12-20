@@ -670,8 +670,8 @@ export default function QRMaker() {
           )}
 
           {step === 3 && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 pb-20 lg:pb-0">
-              <div className="lg:col-span-2 space-y-4">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+              <div className="space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
                   <Card>
@@ -855,8 +855,8 @@ export default function QRMaker() {
                 </div>
               </div>
 
-              {/* Preview - Desktop & Mobile */}
-              <Card className="sticky top-4 h-fit lg:block">
+              {/* Preview - Desktop & Mobile Floating */}
+              <Card className="sticky top-4 h-fit z-30">
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3">
                   <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 340, border: "1px solid var(--border)" }}>
