@@ -16,40 +16,48 @@ export async function compressPDF(
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(arrayBuffer);
 
-  // Configure save options based on compression level
-  const saveOptions: any = {
-    addDefaultPage: false,
-  };
-
-  if (level === 'maximum') {
-    // Maximum compression with object streams
-    saveOptions.useObjectStreams = true;
-    
-    // Remove all metadata for maximum compression
-    pdfDoc.setTitle('');
-    pdfDoc.setAuthor('');
-    pdfDoc.setSubject('');
-    pdfDoc.setKeywords([]);
-    pdfDoc.setProducer('');
-    pdfDoc.setCreator('');
-    pdfDoc.setCreationDate(new Date(0));
-    pdfDoc.setModificationDate(new Date(0));
-  } else {
-    // Standard compression
-    saveOptions.useObjectStreams = true;
-    
-    // Only remove metadata if specified
-    if (removeMetadata) {
+  // Remove metadata - this provides size reduction
+  if (level === 'maximum' || removeMetadata) {
+    try {
       pdfDoc.setTitle('');
       pdfDoc.setAuthor('');
       pdfDoc.setSubject('');
       pdfDoc.setKeywords([]);
       pdfDoc.setProducer('');
       pdfDoc.setCreator('');
+      pdfDoc.setCreationDate(new Date(0));
+      pdfDoc.setModificationDate(new Date(0));
+    } catch (e) {
+      // Continue if metadata removal fails
     }
   }
 
-  const pdfBytes = await pdfDoc.save(saveOptions);
+  // Configure save options based on compression level
+  const saveOptions: any = {
+    addDefaultPage: false,
+    useObjectStreams: level === 'maximum',
+  };
+
+  // Use native browser compression if available
+  let pdfBytes = await pdfDoc.save(saveOptions);
+
+  if (typeof CompressionStream !== 'undefined' && level === 'maximum') {
+    try {
+      const compressor = new CompressionStream('gzip');
+      const writer = compressor.writable.getWriter();
+      writer.write(pdfBytes);
+      writer.close();
+
+      const compressed = await new Response(compressor.readable).arrayBuffer();
+      const compressedBytes = new Uint8Array(compressed);
+      
+      if (compressedBytes.length < pdfBytes.length) {
+        pdfBytes = compressedBytes;
+      }
+    } catch (e) {
+      // Compression stream not available or failed
+    }
+  }
 
   return new Blob([pdfBytes], { type: 'application/pdf' });
 }
