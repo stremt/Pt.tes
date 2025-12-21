@@ -181,11 +181,9 @@ export default function ImageResizer() {
         throw new Error("Failed to get canvas context");
       }
 
-      // Fill background if enabled
-      if (useBackfill) {
-        ctx.fillStyle = backfillColor;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
+      // Always fill background - either with specified color or white
+      ctx.fillStyle = useBackfill ? backfillColor : "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Calculate dimensions to fit image while maintaining aspect ratio
       const scale = Math.min(width / img.width, height / img.height);
@@ -325,20 +323,20 @@ export default function ImageResizer() {
             <span className="text-foreground">Image Resizer</span>
           </div>
 
-          <div className="text-center space-y-4 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Maximize2 className="h-8 w-8 text-primary" />
+          <div className="text-center space-y-3 mb-8 md:mb-12">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-12 w-12 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Maximize2 className="h-6 w-6 md:h-8 md:w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Resize Images Instantly—No Quality Loss, Works Offline</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Resize your images in one click. Custom sizes, social media presets, background fill, and percentage scaling. Fully offline, fast & easy-to-use.
+            <h1 className="text-2xl md:text-5xl font-bold">Resize Images Instantly</h1>
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
+              Custom sizes, social media presets, background fill. Fully offline, fast & easy-to-use.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">Offline Ready</Badge>
-              <Badge variant="secondary">Social Presets</Badge>
+              <Badge variant="secondary">Offline</Badge>
+              <Badge variant="secondary">Presets</Badge>
             </div>
           </div>
 
@@ -353,14 +351,14 @@ export default function ImageResizer() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate transition-colors"
                     onClick={() => fileInputRef.current?.click()}
                     data-testid="dropzone-upload"
                   >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload an image</p>
-                    <p className="text-sm text-muted-foreground">
-                      Supports JPG, PNG, and WebP formats
+                    <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-3 md:mb-4 text-muted-foreground" />
+                    <p className="font-medium mb-1 md:mb-2 text-sm md:text-base">Click to upload an image</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">
+                      JPG, PNG, WebP supported
                     </p>
                   </div>
                   <input
@@ -391,10 +389,10 @@ export default function ImageResizer() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <Tabs value={resizeMode} onValueChange={(v) => setResizeMode(v as ResizeMode)}>
-                      <TabsList className="grid w-full grid-cols-3" data-testid="tabs-resize-mode">
-                        <TabsTrigger value="size" data-testid="tab-by-size">By Size</TabsTrigger>
-                        <TabsTrigger value="percentage" data-testid="tab-as-percentage">As Percentage</TabsTrigger>
-                        <TabsTrigger value="social" data-testid="tab-social-media">Social Media</TabsTrigger>
+                      <TabsList className="grid w-full grid-cols-3 gap-1" data-testid="tabs-resize-mode">
+                        <TabsTrigger value="size" data-testid="tab-by-size" className="text-xs md:text-sm">By Size</TabsTrigger>
+                        <TabsTrigger value="percentage" data-testid="tab-as-percentage" className="text-xs md:text-sm">As %</TabsTrigger>
+                        <TabsTrigger value="social" data-testid="tab-social-media" className="text-xs md:text-sm">Social</TabsTrigger>
                       </TabsList>
 
                       <TabsContent value="size" className="space-y-4">
@@ -527,7 +525,7 @@ export default function ImageResizer() {
 
                       {useBackfill && (
                         <div className="space-y-2">
-                          <Label htmlFor="backfill-color">Background Color</Label>
+                          <Label htmlFor="backfill-color" className="text-sm">Background Color</Label>
                           <div className="flex gap-2">
                             <input
                               id="backfill-color"
@@ -535,24 +533,25 @@ export default function ImageResizer() {
                               value={backfillColor}
                               onChange={(e) => setBackfillColor(e.target.value)}
                               data-testid="input-backfill-color"
-                              className="h-10 w-20 rounded border"
+                              className="h-12 w-16 md:h-10 md:w-20 rounded border cursor-pointer"
                             />
                             <Input
                               value={backfillColor}
                               onChange={(e) => setBackfillColor(e.target.value)}
                               data-testid="input-backfill-hex"
                               placeholder="#ffffff"
+                              className="text-xs md:text-sm"
                             />
                           </div>
                         </div>
                       )}
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-col md:flex-row gap-2">
                       <Button
                         onClick={resizeImage}
                         disabled={loading}
-                        className="flex-1"
+                        className="flex-1 text-sm md:text-base"
                         data-testid="button-resize"
                       >
                         {loading ? "Resizing..." : "Resize Image"}
@@ -561,6 +560,7 @@ export default function ImageResizer() {
                         <Button
                           onClick={downloadResized}
                           variant="outline"
+                          className="text-sm md:text-base"
                           data-testid="button-download"
                         >
                           <Download className="h-4 w-4 mr-2" />
@@ -618,9 +618,9 @@ export default function ImageResizer() {
             )}
           </div>
 
-          <div className="max-w-4xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">How It Works</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               <Card>
                 <CardContent className="pt-6">
                   <div className="text-center space-y-3">
@@ -664,9 +664,9 @@ export default function ImageResizer() {
           </div>
 
           {relatedTools.length > 0 && (
-            <div className="max-w-4xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Related Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                 {relatedTools.map((tool) => {
                   const Icon = getToolIcon(tool.icon);
                   return (
@@ -694,7 +694,7 @@ export default function ImageResizer() {
           )}
 
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
