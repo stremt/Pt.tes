@@ -375,9 +375,9 @@ export default function ImageCompressor() {
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                       <CardTitle>Comparison</CardTitle>
-                      <CardDescription>Drag to compare original vs compressed</CardDescription>
+                      <CardDescription>Drag divider to compare original vs compressed</CardDescription>
                     </div>
-                    <div className="flex items-center gap-4 text-sm">
+                    <div className="flex items-center gap-4 text-sm flex-wrap">
                       <div>
                         <span className="text-muted-foreground">Original: </span>
                         <span className="font-medium">{formatFileSize(originalFile.size)}</span>
@@ -403,7 +403,8 @@ export default function ImageCompressor() {
                       ref={splitContainerRef}
                       className="relative w-full overflow-hidden rounded-lg bg-muted cursor-col-resize select-none"
                       style={{
-                        aspectRatio: "16 / 9",
+                        aspectRatio: "1",
+                        maxHeight: "500px",
                         touchAction: "none",
                       }}
                       onMouseMove={handleMouseMove}
@@ -413,78 +414,76 @@ export default function ImageCompressor() {
                       onTouchEnd={handleTouchEnd}
                       data-testid="split-comparison-container"
                     >
-                      {/* Compressed (Right Side - Visible) */}
-                      <div className="absolute inset-0 overflow-hidden">
-                        <div className="w-full h-full flex items-center justify-center bg-muted">
-                          {compressedPreview ? (
-                            <img
-                              src={compressedPreview}
-                              alt="Compressed"
-                              className="w-full h-full object-contain"
-                              data-testid="img-compressed-preview"
-                              draggable={false}
-                            />
-                          ) : (
-                            <div className="text-center text-muted-foreground">
-                              <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                              <p className="text-sm">Compressed</p>
-                            </div>
-                          )}
+                      {/* Compressed Image (Background - Right Side) */}
+                      {compressedPreview ? (
+                        <img
+                          src={compressedPreview}
+                          alt="Compressed"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          data-testid="img-compressed-preview"
+                          draggable={false}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                          <div className="text-center text-muted-foreground">
+                            <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
+                            <p className="text-sm">Compressed</p>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
-                      {/* Original (Left Side - Clipped) */}
+                      {/* Original Image (Foreground - Left Side - Clipped) */}
                       <div
                         className="absolute inset-0 overflow-hidden"
                         style={{
                           width: `${splitPosition}%`,
                         }}
                       >
-                        <div className="w-full h-full flex items-center justify-center bg-muted">
-                          {originalPreview ? (
-                            <img
-                              src={originalPreview}
-                              alt="Original"
-                              className="w-full h-full object-contain"
-                              data-testid="img-original-preview"
-                              draggable={false}
-                            />
-                          ) : (
+                        {originalPreview ? (
+                          <img
+                            src={originalPreview}
+                            alt="Original"
+                            className="absolute inset-0 w-full h-full object-cover"
+                            data-testid="img-original-preview"
+                            draggable={false}
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-muted">
                             <ImageIcon className="h-12 w-12 text-muted-foreground" />
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
 
-                      {/* Divider */}
+                      {/* Divider Handle */}
                       <div
-                        className={`absolute top-0 bottom-0 w-1 bg-white/80 dark:bg-white/20 transition-colors ${
-                          isDragging ? "bg-white dark:bg-white/40" : ""
+                        className={`absolute top-0 bottom-0 w-1 bg-white/80 dark:bg-white/30 transition-all ${
+                          isDragging ? "bg-white dark:bg-white/60 w-1.5" : ""
                         }`}
                         style={{
                           left: `${splitPosition}%`,
                           transform: "translateX(-50%)",
-                          cursor: isDragging ? "col-resize" : "col-resize",
+                          zIndex: 10,
                         }}
                         onMouseDown={handleMouseDown}
                         onTouchStart={handleTouchStart}
                         data-testid="split-divider"
                       >
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-white/90 rounded-full p-2 shadow-lg">
-                          <ChevronLeft className="h-3 w-3 text-gray-800 dark:text-gray-900 inline" />
-                          <ChevronRight className="h-3 w-3 text-gray-800 dark:text-gray-900 inline" />
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-white/90 rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow">
+                          <ChevronLeft className="h-4 w-4 text-gray-900 inline -mr-1" />
+                          <ChevronRight className="h-4 w-4 text-gray-900 inline -ml-1" />
                         </div>
                       </div>
 
                       {/* Labels */}
-                      <div className="absolute top-2 left-2 text-xs font-semibold text-white bg-black/50 px-2 py-1 rounded">
+                      <div className="absolute top-3 left-3 text-xs font-bold text-white bg-black/60 px-2 py-1 rounded pointer-events-none">
                         Original
                       </div>
-                      <div className="absolute top-2 right-2 text-xs font-semibold text-white bg-black/50 px-2 py-1 rounded">
+                      <div className="absolute top-3 right-3 text-xs font-bold text-white bg-black/60 px-2 py-1 rounded pointer-events-none">
                         Compressed
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "16 / 9" }}>
+                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "1", maxHeight: "500px" }}>
                       <div className="text-center text-muted-foreground">
                         <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
                         <p className="text-sm">Compress image to see comparison</p>
