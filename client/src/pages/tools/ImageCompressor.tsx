@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import { playCompletionSound } from "@/lib/sound-effects";
 
 export default function ImageCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -95,6 +96,7 @@ export default function ImageCompressor() {
         title: "Success!",
         description: `Image compressed successfully. Reduced by ${reductionPercent}%`,
       });
+      playCompletionSound();
     } catch (error) {
       toast({
         title: "Error",
@@ -119,6 +121,7 @@ export default function ImageCompressor() {
         title: "Downloaded!",
         description: "Compressed image saved to your downloads",
       });
+      playCompletionSound();
     }
   };
 

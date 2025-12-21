@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { PDFDocument } from "pdf-lib";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { playCompletionSound } from "@/lib/sound-effects";
 
 type PageOrientation = "portrait" | "landscape";
 type PageSize = "fit" | "a4" | "letter";
@@ -245,6 +246,7 @@ export default function ImageToPDF() {
         title: "Success!",
         description: `Converted ${files.length} image${files.length !== 1 ? 's' : ''} to PDF`,
       });
+      playCompletionSound();
     } catch (error) {
       console.error(error);
       toast({
