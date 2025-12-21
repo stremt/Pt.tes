@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2 } from "lucide-react";
+import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
@@ -19,6 +19,9 @@ export default function ImageCompressor() {
   const [compressedPreview, setCompressedPreview] = useState<string>("");
   const [quality, setQuality] = useState(80);
   const [loading, setLoading] = useState(false);
+  const [splitPosition, setSplitPosition] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+  const splitContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -126,9 +129,43 @@ export default function ImageCompressor() {
     setOriginalPreview("");
     setCompressedPreview("");
     setQuality(80);
+    setSplitPosition(50);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleTouchStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !splitContainerRef.current) return;
+    
+    const rect = splitContainerRef.current.getBoundingClientRect();
+    const newPosition = ((e.clientX - rect.left) / rect.width) * 100;
+    setSplitPosition(Math.max(10, Math.min(90, newPosition)));
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !splitContainerRef.current) return;
+    
+    const rect = splitContainerRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const newPosition = ((touch.clientX - rect.left) / rect.width) * 100;
+    setSplitPosition(Math.max(10, Math.min(90, newPosition)));
   };
 
   const formatFileSize = (bytes: number) => {
@@ -332,68 +369,130 @@ export default function ImageCompressor() {
                 </CardContent>
               </Card>
 
-              {/* Comparison Card */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Original */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Original</CardTitle>
-                    <CardDescription>
-                      {formatFileSize(originalFile.size)}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center">
-                      {originalPreview ? (
-                        <img
-                          src={originalPreview}
-                          alt="Original"
-                          className="w-full h-full object-contain"
-                          data-testid="img-original-preview"
-                        />
-                      ) : (
-                        <ImageIcon className="h-12 w-12 text-muted-foreground" />
-                      )}
+              {/* Split Comparison View */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between flex-wrap gap-4">
+                    <div>
+                      <CardTitle>Comparison</CardTitle>
+                      <CardDescription>Drag to compare original vs compressed</CardDescription>
                     </div>
-                  </CardContent>
-                </Card>
-
-                {/* Compressed */}
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-sm">
                       <div>
-                        <CardTitle className="text-lg">Compressed</CardTitle>
-                        <CardDescription>
-                          {compressedFile ? formatFileSize(compressedFile.size) : "Not compressed yet"}
-                        </CardDescription>
+                        <span className="text-muted-foreground">Original: </span>
+                        <span className="font-medium">{formatFileSize(originalFile.size)}</span>
                       </div>
-                      {compressedFile && originalFile && (
-                        <Badge variant="default">
-                          {Math.round((1 - compressedFile.size / originalFile.size) * 100)}% smaller
-                        </Badge>
+                      {compressedFile && (
+                        <>
+                          <span className="text-muted-foreground">|</span>
+                          <div>
+                            <span className="text-muted-foreground">Compressed: </span>
+                            <span className="font-medium text-primary">{formatFileSize(compressedFile.size)}</span>
+                            <Badge className="ml-2" variant="default">
+                              {Math.round((1 - compressedFile.size / originalFile.size) * 100)}% smaller
+                            </Badge>
+                          </div>
+                        </>
                       )}
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="aspect-square rounded-lg overflow-hidden bg-muted flex items-center justify-center">
-                      {compressedPreview ? (
-                        <img
-                          src={compressedPreview}
-                          alt="Compressed"
-                          className="w-full h-full object-contain"
-                          data-testid="img-compressed-preview"
-                        />
-                      ) : (
-                        <div className="text-center text-muted-foreground">
-                          <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                          <p className="text-sm">Compress to preview</p>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {compressedFile && originalFile ? (
+                    <div
+                      ref={splitContainerRef}
+                      className="relative w-full overflow-hidden rounded-lg bg-muted cursor-col-resize select-none"
+                      style={{
+                        aspectRatio: "16 / 9",
+                        touchAction: "none",
+                      }}
+                      onMouseMove={handleMouseMove}
+                      onMouseLeave={handleMouseUp}
+                      onMouseUp={handleMouseUp}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleTouchEnd}
+                      data-testid="split-comparison-container"
+                    >
+                      {/* Compressed (Right Side - Visible) */}
+                      <div className="absolute inset-0 overflow-hidden">
+                        <div className="w-full h-full flex items-center justify-center bg-muted">
+                          {compressedPreview ? (
+                            <img
+                              src={compressedPreview}
+                              alt="Compressed"
+                              className="w-full h-full object-contain"
+                              data-testid="img-compressed-preview"
+                              draggable={false}
+                            />
+                          ) : (
+                            <div className="text-center text-muted-foreground">
+                              <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
+                              <p className="text-sm">Compressed</p>
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
+
+                      {/* Original (Left Side - Clipped) */}
+                      <div
+                        className="absolute inset-0 overflow-hidden"
+                        style={{
+                          width: `${splitPosition}%`,
+                        }}
+                      >
+                        <div className="w-full h-full flex items-center justify-center bg-muted">
+                          {originalPreview ? (
+                            <img
+                              src={originalPreview}
+                              alt="Original"
+                              className="w-full h-full object-contain"
+                              data-testid="img-original-preview"
+                              draggable={false}
+                            />
+                          ) : (
+                            <ImageIcon className="h-12 w-12 text-muted-foreground" />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Divider */}
+                      <div
+                        className={`absolute top-0 bottom-0 w-1 bg-white/80 dark:bg-white/20 transition-colors ${
+                          isDragging ? "bg-white dark:bg-white/40" : ""
+                        }`}
+                        style={{
+                          left: `${splitPosition}%`,
+                          transform: "translateX(-50%)",
+                          cursor: isDragging ? "col-resize" : "col-resize",
+                        }}
+                        onMouseDown={handleMouseDown}
+                        onTouchStart={handleTouchStart}
+                        data-testid="split-divider"
+                      >
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-white/90 rounded-full p-2 shadow-lg">
+                          <ChevronLeft className="h-3 w-3 text-gray-800 dark:text-gray-900 inline" />
+                          <ChevronRight className="h-3 w-3 text-gray-800 dark:text-gray-900 inline" />
+                        </div>
+                      </div>
+
+                      {/* Labels */}
+                      <div className="absolute top-2 left-2 text-xs font-semibold text-white bg-black/50 px-2 py-1 rounded">
+                        Original
+                      </div>
+                      <div className="absolute top-2 right-2 text-xs font-semibold text-white bg-black/50 px-2 py-1 rounded">
+                        Compressed
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  ) : (
+                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "16 / 9" }}>
+                      <div className="text-center text-muted-foreground">
+                        <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
+                        <p className="text-sm">Compress image to see comparison</p>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
 
               {/* Compression Results Summary */}
               {compressedFile && originalFile && (
