@@ -20,6 +20,7 @@ export default function ImageCompressor() {
   const [compressedPreview, setCompressedPreview] = useState<string>("");
   const [quality, setQuality] = useState(80);
   const [loading, setLoading] = useState(false);
+  const [sliderEnabled, setSliderEnabled] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -127,6 +128,7 @@ export default function ImageCompressor() {
     setOriginalPreview("");
     setCompressedPreview("");
     setQuality(80);
+    setSliderEnabled(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -339,7 +341,11 @@ export default function ImageCompressor() {
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div>
                       <CardTitle>Comparison</CardTitle>
-                      <CardDescription>Drag divider to compare original vs compressed</CardDescription>
+                      <CardDescription>
+                        {sliderEnabled 
+                          ? "Drag the divider to compare. You can also scroll to explore other parts of the image." 
+                          : "Click the center button to enable comparison slider"}
+                      </CardDescription>
                     </div>
                     <div className="flex items-center gap-4 text-sm flex-wrap">
                       <div>
@@ -363,23 +369,48 @@ export default function ImageCompressor() {
                 </CardHeader>
                 <CardContent>
                   {compressedFile && originalFile && compressedPreview && originalPreview ? (
-                    <div className="rounded-lg overflow-hidden" style={{ maxHeight: "500px" }}>
-                      <ReactCompareSlider
-                        itemOne={
-                          <ReactCompareSliderImage
-                            src={originalPreview}
-                            alt="Original Image"
-                          />
-                        }
-                        itemTwo={
-                          <ReactCompareSliderImage
-                            src={compressedPreview}
-                            alt="Compressed Image"
-                          />
-                        }
-                        position={50}
-                        data-testid="split-comparison-container"
-                      />
+                    <div className="space-y-3">
+                      <div className="relative rounded-lg overflow-auto bg-muted border border-border" style={{ maxHeight: "500px" }}>
+                        {sliderEnabled ? (
+                          <div className="min-w-full min-h-full">
+                            <ReactCompareSlider
+                              itemOne={
+                                <ReactCompareSliderImage
+                                  src={originalPreview}
+                                  alt="Original Image"
+                                />
+                              }
+                              itemTwo={
+                                <ReactCompareSliderImage
+                                  src={compressedPreview}
+                                  alt="Compressed Image"
+                                />
+                              }
+                              position={50}
+                              data-testid="split-comparison-container"
+                            />
+                          </div>
+                        ) : (
+                          <div className="relative w-full" style={{ aspectRatio: "1" }}>
+                            <img
+                              src={compressedPreview}
+                              alt="Compressed"
+                              className="absolute inset-0 w-full h-full object-contain"
+                            />
+                            <button
+                              onClick={() => setSliderEnabled(true)}
+                              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center border-2 border-primary"
+                              data-testid="button-enable-slider"
+                              title="Click to enable comparison slider"
+                            >
+                              <span className="text-sm font-bold">Click to Compare</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <p>💡 <strong>Tip:</strong> {sliderEnabled ? "Drag the divider to compare. Scroll or drag the image to explore different areas." : "Click the center button to enable the comparison slider, then drag to compare both images."}</p>
+                      </div>
                     </div>
                   ) : (
                     <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "1", maxHeight: "500px" }}>
