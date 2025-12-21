@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PDFDocument } from "pdf-lib";
 import * as pdfjsLib from "pdfjs-dist";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 // Set up PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -70,6 +71,7 @@ export default function PDFSplitter() {
         description: "Please select a PDF file",
         variant: "destructive",
       });
+      playErrorSound();
       return;
     }
 
@@ -103,6 +105,7 @@ export default function PDFSplitter() {
         description: "Failed to load PDF",
         variant: "destructive",
       });
+      playErrorSound();
     }
   };
 
@@ -170,6 +173,7 @@ export default function PDFSplitter() {
         description: msg,
         variant: "destructive",
       });
+      playErrorSound();
       return;
     }
 
@@ -196,6 +200,7 @@ export default function PDFSplitter() {
         title: "Success!",
         description: `Extracted ${pagesToExtract.length} pages`,
       });
+      playCompletionSound();
     } catch (error) {
       console.error(error);
       toast({
@@ -203,6 +208,7 @@ export default function PDFSplitter() {
         description: "Failed to split PDF",
         variant: "destructive",
       });
+      playErrorSound();
     } finally {
       setSplitting(false);
     }

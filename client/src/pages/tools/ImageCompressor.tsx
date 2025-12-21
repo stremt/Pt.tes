@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
-import { playCompletionSound } from "@/lib/sound-effects";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 export default function ImageCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -42,6 +42,7 @@ export default function ImageCompressor() {
           description: "Please select an image file",
           variant: "destructive",
         });
+        playErrorSound();
         return;
       }
 
@@ -103,6 +104,7 @@ export default function ImageCompressor() {
         description: "Failed to compress image. Please try again.",
         variant: "destructive",
       });
+      playErrorSound();
     } finally {
       setLoading(false);
     }

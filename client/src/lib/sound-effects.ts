@@ -1,5 +1,5 @@
 import completionSoundUrl from "@assets/completion-sound.mp3";
-import errorSoundUrl from "@assets/sample_error_input03_kofi_by_miraclei-363641.mp3";
+import errorSoundUrl from "@assets/sample_error_input03_kofi_by_miraclei-363641_1766285632222.mp3";
 
 export const playCompletionSound = () => {
   try {
@@ -16,7 +16,7 @@ export const playCompletionSound = () => {
 export const playErrorSound = () => {
   try {
     const audio = new Audio(errorSoundUrl);
-    audio.volume = 0.7;
+    audio.volume = 0.6;
     audio.play().catch(err => {
       console.log("Sound playback not available:", err);
     });

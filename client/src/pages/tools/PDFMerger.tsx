@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { PDFDocument } from "pdf-lib";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { formatFileSize } from "@/lib/pdf-utils";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 interface PDFFileInfo {
   file: File;
@@ -68,9 +69,13 @@ export default function PDFMerger() {
         description: "Only PDF files are allowed. Non-PDF files were ignored.",
         variant: "destructive",
       });
+      playErrorSound();
     }
 
-    if (pdfFiles.length === 0) return;
+    if (pdfFiles.length === 0) {
+      playErrorSound();
+      return;
+    }
 
     setLoading(true);
     try {
@@ -83,6 +88,7 @@ export default function PDFMerger() {
           description: "Some files may be corrupted or password-protected.",
           variant: "destructive",
         });
+        playErrorSound();
       }
 
       setFiles(prev => [...prev, ...validFiles]);
@@ -100,6 +106,7 @@ export default function PDFMerger() {
         description: "Failed to load some PDF files.",
         variant: "destructive",
       });
+      playErrorSound();
     } finally {
       setLoading(false);
       if (e.target) e.target.value = '';
@@ -117,6 +124,7 @@ export default function PDFMerger() {
         description: "Please drop PDF files only.",
         variant: "destructive",
       });
+      playErrorSound();
       return;
     }
 
@@ -134,6 +142,7 @@ export default function PDFMerger() {
       }
     } catch (error) {
       console.error(error);
+      playErrorSound();
     } finally {
       setLoading(false);
     }
@@ -183,6 +192,7 @@ export default function PDFMerger() {
         description: "Please select at least 2 PDF files to merge",
         variant: "destructive",
       });
+      playErrorSound();
       return;
     }
 
@@ -213,6 +223,7 @@ export default function PDFMerger() {
         title: "PDFs Merged Successfully!",
         description: `Combined ${files.length} files into ${totalPages} pages`,
       });
+      playCompletionSound();
     } catch (error) {
       console.error(error);
       toast({
@@ -220,6 +231,7 @@ export default function PDFMerger() {
         description: "Some PDFs may be password-protected or corrupted. Try removing problem files.",
         variant: "destructive",
       });
+      playErrorSound();
     } finally {
       setMerging(false);
     }
