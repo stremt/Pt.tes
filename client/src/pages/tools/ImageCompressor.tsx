@@ -299,23 +299,25 @@ export default function ImageCompressor() {
                     </p>
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <Button
                       onClick={compressImage}
                       disabled={loading}
-                      className="flex-1"
+                      className="w-full"
                       size="lg"
                       data-testid="button-compress"
                     >
                       {loading ? (
                         <>
                           <ImageDown className="mr-2 h-4 w-4 animate-pulse" />
-                          Compressing...
+                          <span className="hidden sm:inline">Compressing...</span>
+                          <span className="sm:hidden">Compressing...</span>
                         </>
                       ) : (
                         <>
                           <ImageDown className="mr-2 h-4 w-4" />
-                          Compress Image
+                          <span className="hidden sm:inline">Compress Image</span>
+                          <span className="sm:hidden">Compress</span>
                         </>
                       )}
                     </Button>
@@ -323,12 +325,13 @@ export default function ImageCompressor() {
                       <Button
                         onClick={downloadCompressed}
                         variant="outline"
-                        className="flex-1"
+                        className="w-full"
                         size="lg"
                         data-testid="button-download-compressed"
                       >
                         <Download className="mr-2 h-4 w-4" />
-                        Download
+                        <span className="hidden sm:inline">Download</span>
+                        <span className="sm:hidden">Download</span>
                       </Button>
                     )}
                   </div>
@@ -372,7 +375,7 @@ export default function ImageCompressor() {
                     <div className="space-y-3">
                       <div className="relative rounded-lg overflow-auto bg-muted border border-border" style={{ maxHeight: "clamp(250px, 70vh, 500px)" }}>
                         {sliderEnabled ? (
-                          <div className="w-full h-full">
+                          <div className="w-full h-full relative">
                             <ReactCompareSlider
                               itemOne={
                                 <ReactCompareSliderImage
@@ -389,6 +392,8 @@ export default function ImageCompressor() {
                               position={50}
                               data-testid="split-comparison-container"
                             />
+                            <div className="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded text-xs sm:text-sm font-semibold">Original</div>
+                            <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs sm:text-sm font-semibold">Compressed</div>
                           </div>
                         ) : (
                           <div className="relative w-full bg-gray-100 dark:bg-gray-900" style={{ minHeight: "clamp(250px, 70vh, 500px)", aspectRatio: "auto" }}>
