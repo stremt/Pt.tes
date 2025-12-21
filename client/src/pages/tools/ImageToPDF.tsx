@@ -38,6 +38,8 @@ export default function ImageToPDF() {
   const [pageSize, setPageSize] = useState<PageSize>("a4");
   const [margin, setMargin] = useState<MarginSize>("none");
   const [mergeImages, setMergeImages] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -67,6 +69,41 @@ export default function ImageToPDF() {
 
   const removeFile = (index: number) => {
     setFiles(files.filter((_, i) => i !== index));
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (index: number, e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = (index: number, e: React.DragEvent) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) {
+      setDraggedIndex(null);
+      setDragOverIndex(null);
+      return;
+    }
+
+    const newFiles = [...files];
+    const draggedFile = newFiles[draggedIndex];
+    newFiles.splice(draggedIndex, 1);
+    newFiles.splice(index, 0, draggedFile);
+    setFiles(newFiles);
+    setDraggedIndex(null);
+    setDragOverIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    setDragOverIndex(null);
   };
 
   const convertToPDF = async () => {
@@ -328,17 +365,37 @@ export default function ImageToPDF() {
 
                 {files.length > 0 && (
                   <div className="space-y-2">
-                    <p className="text-sm font-medium">Selected Images ({files.length})</p>
+                    <p className="text-sm font-medium">Selected Images ({files.length}) - Drag to reorder</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {files.map((file, index) => (
-                        <Card key={index} className="relative group">
+                        <Card
+                          key={index}
+                          className={`relative group cursor-move transition-all ${
+                            draggedIndex === index ? "opacity-50 ring-2 ring-blue-500" : ""
+                          } ${
+                            dragOverIndex === index && draggedIndex !== index
+                              ? "ring-2 ring-blue-400 bg-blue-50/50 dark:bg-blue-950/30"
+                              : ""
+                          }`}
+                          draggable
+                          onDragStart={() => handleDragStart(index)}
+                          onDragOver={(e) => handleDragOver(index, e)}
+                          onDragLeave={handleDragLeave}
+                          onDrop={(e) => handleDrop(index, e)}
+                          onDragEnd={handleDragEnd}
+                          data-testid={`image-card-${index}`}
+                        >
                           <CardContent className="p-2">
                             <img
                               src={URL.createObjectURL(file)}
                               alt={file.name}
-                              className="w-full h-32 object-cover rounded"
+                              className="w-full h-32 object-cover rounded pointer-events-none"
+                              draggable={false}
                             />
                             <p className="text-xs truncate mt-1">{file.name}</p>
+                            <div className="absolute top-1 left-1 bg-gray-800/70 text-white text-xs font-semibold rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {index + 1}
+                            </div>
                             <Button
                               onClick={() => removeFile(index)}
                               variant="destructive"
