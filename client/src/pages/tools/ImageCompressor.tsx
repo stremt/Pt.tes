@@ -192,23 +192,23 @@ export default function ImageCompressor() {
         </div>
 
         {/* Page Header */}
-        <div className="text-center space-y-4 mb-12">
+        <div className="text-center space-y-4 mb-8 md:mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-              <ImageDown className="h-8 w-8 text-primary" />
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center">
+              <ImageDown className="h-6 w-6 md:h-8 md:w-8 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">Free Offline Image Compressor</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">Free Offline Image Compressor</h1>
+          <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
             Compress images instantly—no upload, no servers, no quality loss. 100% private and works offline.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
             <Badge variant="secondary">100% Free Forever</Badge>
             <Badge variant="secondary">No Quality Loss</Badge>
             <Badge variant="secondary">Works Offline</Badge>
             <Badge variant="secondary">No Upload Required</Badge>
           </div>
-          <h2 className="text-lg text-muted-foreground max-w-3xl mx-auto pt-2">
+          <h2 className="text-xs md:text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto pt-2">
             Reduce image size by up to 90% in seconds. Your images never leave your device—everything happens locally in your browser. Load once, compress unlimited images anytime, even without internet.
           </h2>
         </div>
@@ -225,13 +225,13 @@ export default function ImageCompressor() {
               </CardHeader>
               <CardContent>
                 <div
-                  className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                  className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate transition-colors"
                   onClick={() => fileInputRef.current?.click()}
                   data-testid="dropzone-upload"
                 >
-                  <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="font-medium mb-2">Click to upload an image</p>
-                  <p className="text-sm text-muted-foreground">
+                  <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-4 text-muted-foreground" />
+                  <p className="font-medium mb-2 text-sm md:text-base">Click to upload an image</p>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Supports JPG, PNG, and WebP formats
                   </p>
                   <input
@@ -243,14 +243,14 @@ export default function ImageCompressor() {
                     data-testid="input-file-upload"
                   />
                 </div>
-                <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
-                  <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <div className="mt-4 md:mt-6 p-3 md:p-4 rounded-lg bg-primary/5 border border-primary/10">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-3 md:gap-6 text-xs md:text-sm">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-primary" />
+                      <Shield className="h-4 w-4 text-primary flex-shrink-0" />
                       <span className="font-medium">No Upload — Images stay on your device</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <WifiOff className="h-4 w-4 text-primary" />
+                      <WifiOff className="h-4 w-4 text-primary flex-shrink-0" />
                       <span className="font-medium">Offline Image Compression — Works without internet</span>
                     </div>
                   </div>
@@ -261,11 +261,11 @@ export default function ImageCompressor() {
             <div className="space-y-6">
               {/* Controls Card */}
               <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
+                <CardHeader className="pb-3 md:pb-6">
+                  <div className="flex items-start md:items-center justify-between gap-2">
                     <div>
-                      <CardTitle>Compression Settings</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="text-lg md:text-xl">Compression Settings</CardTitle>
+                      <CardDescription className="text-xs md:text-sm">
                         Adjust quality and compress your image
                       </CardDescription>
                     </div>
@@ -279,7 +279,7 @@ export default function ImageCompressor() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-6 p-4 md:p-6">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <Label>Compression Quality</Label>
@@ -337,28 +337,28 @@ export default function ImageCompressor() {
 
               {/* Split Comparison View */}
               <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between flex-wrap gap-4">
+                <CardHeader className="pb-3 md:pb-6">
+                  <div className="flex flex-col gap-4">
                     <div>
                       <CardTitle>Comparison</CardTitle>
-                      <CardDescription>
+                      <CardDescription className="text-xs sm:text-sm">
                         {sliderEnabled 
                           ? "Drag the divider to compare. You can also scroll to explore other parts of the image." 
                           : "Click the center button to enable comparison slider"}
                       </CardDescription>
                     </div>
-                    <div className="flex items-center gap-4 text-sm flex-wrap">
-                      <div>
-                        <span className="text-muted-foreground">Original: </span>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm flex-wrap">
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Original:</span>
                         <span className="font-medium">{formatFileSize(originalFile.size)}</span>
                       </div>
                       {compressedFile && (
                         <>
-                          <span className="text-muted-foreground">|</span>
-                          <div>
-                            <span className="text-muted-foreground">Compressed: </span>
+                          <span className="text-muted-foreground hidden sm:inline">|</span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-muted-foreground">Compressed:</span>
                             <span className="font-medium text-primary">{formatFileSize(compressedFile.size)}</span>
-                            <Badge className="ml-2" variant="default">
+                            <Badge className="text-xs" variant="default">
                               {Math.round((1 - compressedFile.size / originalFile.size) * 100)}% smaller
                             </Badge>
                           </div>
@@ -367,12 +367,12 @@ export default function ImageCompressor() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-3 md:p-6">
                   {compressedFile && originalFile && compressedPreview && originalPreview ? (
                     <div className="space-y-3">
-                      <div className="relative rounded-lg overflow-auto bg-muted border border-border" style={{ maxHeight: "500px" }}>
+                      <div className="relative rounded-lg overflow-auto bg-muted border border-border" style={{ maxHeight: "clamp(250px, 70vh, 500px)" }}>
                         {sliderEnabled ? (
-                          <div className="min-w-full min-h-full">
+                          <div className="w-full h-full">
                             <ReactCompareSlider
                               itemOne={
                                 <ReactCompareSliderImage
@@ -391,32 +391,32 @@ export default function ImageCompressor() {
                             />
                           </div>
                         ) : (
-                          <div className="relative w-full" style={{ aspectRatio: "1" }}>
+                          <div className="relative w-full bg-gray-100 dark:bg-gray-900" style={{ minHeight: "clamp(250px, 70vh, 500px)", aspectRatio: "auto" }}>
                             <img
                               src={compressedPreview}
                               alt="Compressed"
-                              className="absolute inset-0 w-full h-full object-contain"
+                              className="w-full h-full object-contain"
                             />
                             <button
                               onClick={() => setSliderEnabled(true)}
-                              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-full p-3 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center border-2 border-primary"
+                              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-full px-4 py-2 sm:px-5 sm:py-3 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center border-2 border-primary"
                               data-testid="button-enable-slider"
                               title="Click to enable comparison slider"
                             >
-                              <span className="text-sm font-bold">Click to Compare</span>
+                              <span className="text-xs sm:text-sm font-bold whitespace-nowrap">Click to Compare</span>
                             </button>
                           </div>
                         )}
                       </div>
                       <div className="text-xs text-muted-foreground space-y-1">
-                        <p>💡 <strong>Tip:</strong> {sliderEnabled ? "Drag the divider to compare. Scroll or drag the image to explore different areas." : "Click the center button to enable the comparison slider, then drag to compare both images."}</p>
+                        <p><strong>Tip:</strong> {sliderEnabled ? "Drag the divider to compare. Scroll or drag the image to explore different areas." : "Click the center button to enable the comparison slider, then drag to compare both images."}</p>
                       </div>
                     </div>
                   ) : (
-                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "1", maxHeight: "500px" }}>
+                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ minHeight: "clamp(200px, 50vh, 400px)" }}>
                       <div className="text-center text-muted-foreground">
-                        <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                        <p className="text-sm">Compress image to see comparison</p>
+                        <ImageIcon className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-2 opacity-20" />
+                        <p className="text-xs sm:text-sm">Compress image to see comparison</p>
                       </div>
                     </div>
                   )}
