@@ -91,9 +91,9 @@ export default function ImageResizer() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Image Resizer Online - Resize JPG, PNG, WebP",
-    description: "Resize images instantly for free. Resize JPG, PNG, WebP with custom dimensions, social media presets, and background fill. Fast, offline, preserves quality.",
-    keywords: "image resizer, resize image online, image scaling tool, social media image resizer, facebook image size, instagram post size, image dimensions, free image resizer",
+    title: "Free Image Resizer - Resize JPG, PNG Online & Offline",
+    description: "Resize images free with custom dimensions, social media presets & background fill. 100% offline, no upload, no watermarks. Works on all devices.",
+    keywords: "image resizer, resize image online, resize jpg, resize png, image scaling tool, social media image resizer, facebook image size, instagram post size, bulk image resizer, free image resizer online, offline image resizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-resizer",
   });
 
@@ -275,36 +275,36 @@ export default function ImageResizer() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is this image resizer free?",
-      answer: "Yes! Our image resizer is 100% free with no limits, no login required, and no watermarks added to your images.",
+      question: "Is this image resizer completely free?",
+      answer: "Yes, 100% free with no hidden charges, no login required, no watermarks, and unlimited resizing. Use it as many times as you want.",
     },
     {
-      question: "Does it work offline?",
-      answer: "Yes, after the first load, the tool works completely offline. All resizing happens in your browser, so no internet connection is needed.",
+      question: "Does the image resizer work offline?",
+      answer: "Yes! After the page loads once, the tool works completely offline. All image processing happens in your browser with no internet connection needed after initial load.",
     },
     {
-      question: "Can I download resized images?",
-      answer: "Absolutely! You can download your resized images in high quality PNG or JPG format with a single click.",
+      question: "Are my images safe and private?",
+      answer: "Completely safe. Your images never leave your device or get uploaded anywhere. All resizing happens locally in your browser, ensuring 100% privacy.",
     },
     {
-      question: "Are my images uploaded to a server?",
-      answer: "No. All image processing happens locally in your browser. Your images never leave your device, ensuring complete privacy.",
+      question: "What image formats can I resize?",
+      answer: "You can resize JPG, PNG, and WebP images. These are the most common web formats used for photos, graphics, and social media.",
     },
     {
-      question: "What formats are supported?",
-      answer: "We support JPG, PNG, and WebP formats - the most commonly used image formats on the web.",
+      question: "How do I resize for Facebook, Instagram, or other social platforms?",
+      answer: "Use the 'Social Media' tab and select your platform (Facebook, Instagram, Twitter, LinkedIn, Pinterest, or YouTube). Pick the preset type, and the dimensions are applied automatically.",
     },
     {
-      question: "Can I maintain the aspect ratio?",
-      answer: "Yes! Toggle the aspect ratio lock to automatically adjust height when you change width, or vice versa.",
+      question: "Can I resize multiple images at once?",
+      answer: "Currently, the tool resizes one image at a time. However, you can quickly resize multiple images by repeating the process - just upload, resize, download, and repeat.",
     },
     {
-      question: "What are social media presets?",
-      answer: "Social media presets are pre-configured dimensions for popular platforms like Facebook, Instagram, Twitter, LinkedIn, Pinterest, and YouTube. Just select your platform and preset to get the perfect size instantly.",
+      question: "What's the maximum image size I can resize?",
+      answer: "You can resize images up to the browser's memory capacity, which is typically very large. Most devices can handle images several MB in size without issues.",
     },
     {
-      question: "What does background fill do?",
-      answer: "Background fill adds a colored background behind your image when resizing to a different aspect ratio. This prevents distortion and lets you choose the background color.",
+      question: "Does resizing reduce image quality?",
+      answer: "The resizer maintains high quality during the process. If you shrink a large image, quality stays sharp. If you enlarge an image significantly, some softness may occur, which is normal.",
     },
   ];
 
@@ -329,9 +329,9 @@ export default function ImageResizer() {
                 <Maximize2 className="h-6 w-6 md:h-8 md:w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-2xl md:text-5xl font-bold">Resize Images Instantly</h1>
+            <h1 className="text-2xl md:text-5xl font-bold">Free Image Resizer - Resize Photos in Seconds, Online and Offline</h1>
             <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-              Custom sizes, social media presets, background fill. Fully offline, fast & easy-to-use.
+              Resize JPG, PNG, and WebP images with custom dimensions, social media presets, and background fill. Works perfectly offline with no uploads or watermarks.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
@@ -616,6 +616,64 @@ export default function ImageResizer() {
                 </div>
               </div>
             )}
+          </div>
+
+          <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+            <Card>
+              <CardContent className="pt-8 space-y-6">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">What is an Image Resizer?</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    An image resizer is a tool that lets you change the dimensions of your photos and images without losing quality. Whether you need to shrink a large photo for email, resize an image for a website, or prepare pictures for social media, this tool makes it simple. You can manually set custom dimensions, use percentage-based scaling, or pick from pre-made social media sizes for platforms like Facebook, Instagram, Twitter, LinkedIn, Pinterest, and YouTube.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    This resizer works entirely in your browser. No files are uploaded to any server, no accounts needed, and no annoying watermarks. It processes images offline, meaning once you load the page, you can resize images without an internet connection.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Who Should Use This Tool?</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    This image resizer is perfect for:
+                  </p>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-muted-foreground"><strong>Students & Teachers:</strong> Resize photos for presentations, projects, and assignments.</li>
+                    <li className="text-muted-foreground"><strong>Small Business Owners:</strong> Prepare images for websites, social media posts, and online stores.</li>
+                    <li className="text-muted-foreground"><strong>Content Creators:</strong> Get the perfect image sizes for YouTube thumbnails, Instagram feeds, TikTok posts, and Pinterest pins.</li>
+                    <li className="text-muted-foreground"><strong>Photographers & Designers:</strong> Quickly resize bulk images or prepare them for different formats.</li>
+                    <li className="text-muted-foreground"><strong>Anyone with Photos:</strong> Reduce file sizes for email, messaging apps, cloud storage, or sharing online.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Common Use Cases</h2>
+                  <div className="space-y-3 ml-4">
+                    <p className="text-muted-foreground"><strong>Social Media Posts:</strong> Resize photos for Instagram squares (1080x1080), Facebook timeline posts (1200x628), or Twitter images (1024x512).</p>
+                    <p className="text-muted-foreground"><strong>Website Images:</strong> Optimize images for web pages to improve loading speed and reduce bandwidth.</p>
+                    <p className="text-muted-foreground"><strong>Email & Messaging:</strong> Compress and resize photos to send quickly through email or messaging apps.</p>
+                    <p className="text-muted-foreground"><strong>Document Preparation:</strong> Resize images for PDFs, presentations, or office documents.</p>
+                    <p className="text-muted-foreground"><strong>Batch Processing:</strong> Quickly resize multiple images one by one for consistent dimensions.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Privacy & Security</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    Your privacy is our priority. When you use this tool:
+                  </p>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-muted-foreground">✓ Images never leave your device or go to any server</li>
+                    <li className="text-muted-foreground">✓ No accounts, logins, or registrations required</li>
+                    <li className="text-muted-foreground">✓ Works 100% offline after the initial page load</li>
+                    <li className="text-muted-foreground">✓ No tracking, ads, or cookies collecting your data</li>
+                    <li className="text-muted-foreground">✓ Safe for personal photos, business images, and sensitive content</li>
+                  </ul>
+                  <p className="text-muted-foreground leading-relaxed mt-4">
+                    All image processing happens locally on your computer using your browser. This means the tool is completely private, fast, and works even without an internet connection after loading.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <div className="max-w-4xl mx-auto mb-12 md:mb-16">
