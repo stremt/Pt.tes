@@ -7,10 +7,11 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2, ChevronLeft, ChevronRight } from "lucide-react";
+import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 export default function ImageCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -19,9 +20,6 @@ export default function ImageCompressor() {
   const [compressedPreview, setCompressedPreview] = useState<string>("");
   const [quality, setQuality] = useState(80);
   const [loading, setLoading] = useState(false);
-  const [splitPosition, setSplitPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
-  const splitContainerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -129,43 +127,9 @@ export default function ImageCompressor() {
     setOriginalPreview("");
     setCompressedPreview("");
     setQuality(80);
-    setSplitPosition(50);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  };
-
-  const handleMouseDown = () => {
-    setIsDragging(true);
-  };
-
-  const handleTouchStart = () => {
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !splitContainerRef.current) return;
-    
-    const rect = splitContainerRef.current.getBoundingClientRect();
-    const newPosition = ((e.clientX - rect.left) / rect.width) * 100;
-    setSplitPosition(Math.max(10, Math.min(90, newPosition)));
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || !splitContainerRef.current) return;
-    
-    const rect = splitContainerRef.current.getBoundingClientRect();
-    const touch = e.touches[0];
-    const newPosition = ((touch.clientX - rect.left) / rect.width) * 100;
-    setSplitPosition(Math.max(10, Math.min(90, newPosition)));
   };
 
   const formatFileSize = (bytes: number) => {
@@ -398,78 +362,24 @@ export default function ImageCompressor() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  {compressedFile && originalFile ? (
-                    <div
-                      ref={splitContainerRef}
-                      className="relative w-full overflow-hidden rounded-lg bg-muted cursor-col-resize select-none"
-                      style={{
-                        aspectRatio: "1",
-                        maxHeight: "500px",
-                        touchAction: "none",
-                      }}
-                      onMouseMove={handleMouseMove}
-                      onMouseLeave={handleMouseUp}
-                      onMouseUp={handleMouseUp}
-                      onTouchMove={handleTouchMove}
-                      onTouchEnd={handleTouchEnd}
-                      data-testid="split-comparison-container"
-                    >
-                      {/* Compressed Image (Background) */}
-                      {compressedPreview && (
-                        <img
-                          src={compressedPreview}
-                          alt="Compressed"
-                          className="absolute inset-0 w-full h-full object-contain"
-                          data-testid="img-compressed-preview"
-                          draggable={false}
-                        />
-                      )}
-
-                      {/* Original Image Clipped Container */}
-                      <div
-                        className="absolute inset-0 overflow-hidden"
-                        style={{
-                          width: `${splitPosition}%`,
-                        }}
-                      >
-                        {originalPreview && (
-                          <img
+                  {compressedFile && originalFile && compressedPreview && originalPreview ? (
+                    <div className="rounded-lg overflow-hidden" style={{ maxHeight: "500px" }}>
+                      <ReactCompareSlider
+                        itemOne={
+                          <ReactCompareSliderImage
                             src={originalPreview}
-                            alt="Original"
-                            className="absolute inset-0 w-full h-full object-contain"
-                            data-testid="img-original-preview"
-                            draggable={false}
+                            alt="Original Image"
                           />
-                        )}
-                      </div>
-
-                      {/* Divider Handle */}
-                      <div
-                        className={`absolute top-0 bottom-0 w-1 bg-white/80 dark:bg-white/30 transition-all ${
-                          isDragging ? "bg-white dark:bg-white/60 w-1.5" : ""
-                        }`}
-                        style={{
-                          left: `${splitPosition}%`,
-                          transform: "translateX(-50%)",
-                          zIndex: 10,
-                        }}
-                        onMouseDown={handleMouseDown}
-                        onTouchStart={handleTouchStart}
-                        data-testid="split-divider"
-                      >
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-white/90 rounded-full p-2 shadow-lg hover:shadow-xl transition-shadow">
-                          <ChevronLeft className="h-4 w-4 text-gray-900 inline -mr-1" />
-                          <ChevronRight className="h-4 w-4 text-gray-900 inline -ml-1" />
-                        </div>
-                      </div>
-
-                      {/* Labels */}
-                      <div className="absolute top-3 left-3 text-xs font-bold text-white bg-black/60 px-2 py-1 rounded pointer-events-none">
-                        Original
-                      </div>
-                      <div className="absolute top-3 right-3 text-xs font-bold text-white bg-black/60 px-2 py-1 rounded pointer-events-none">
-                        Compressed
-                      </div>
+                        }
+                        itemTwo={
+                          <ReactCompareSliderImage
+                            src={compressedPreview}
+                            alt="Compressed Image"
+                          />
+                        }
+                        position={50}
+                        data-testid="split-comparison-container"
+                      />
                     </div>
                   ) : (
                     <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ aspectRatio: "1", maxHeight: "500px" }}>
