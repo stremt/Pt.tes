@@ -16,9 +16,9 @@ export default function JPGtoPNG() {
   const { toast } = useToast();
 
   useSEO({
-    title: "JPG to PNG Converter - Convert JPEG to PNG Online Free",
-    description: "Convert JPG to PNG instantly online for free. Add transparency, preserve quality. Works offline in your browser. No servers, no data uploads.",
-    keywords: "jpg to png converter, jpeg to png, convert jpg to png free, image converter, jpg png converter online, image format converter, transparent png",
+    title: "Free JPG to PNG Converter - Convert JPEG Online & Offline",
+    description: "Convert JPG to PNG online for free with transparent backgrounds. Works offline, no uploads, no watermarks. Instant conversion in your browser.",
+    keywords: "jpg to png converter, convert jpg to png free, jpeg to png, convert jpg to png online, jpg to png converter online, image format converter, convert jpeg to png, transparent png, png converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/jpg-to-png",
   });
 
@@ -75,24 +75,36 @@ export default function JPGtoPNG() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "What's the difference between JPG and PNG?",
-      answer: "JPG uses lossy compression (smaller files, quality loss). PNG uses lossless compression (larger files, no quality loss, supports transparency). PNG is better for graphics, logos, and when transparency is needed."
+      question: "Is this JPG to PNG converter completely free?",
+      answer: "Yes, 100% free with no hidden charges, no login required, no watermarks, and unlimited conversions. Use it as many times as you want at no cost."
     },
     {
-      question: "Will converting JPG to PNG improve quality?",
-      answer: "No. JPG has already applied lossy compression, so converting to PNG won't restore lost details. However, PNG is useful when you need transparency or plan to edit the image further."
+      question: "What's the difference between JPG and PNG formats?",
+      answer: "JPG uses lossy compression (smaller files, slight quality loss). PNG uses lossless compression (larger files, no quality loss, supports transparency). PNG is better for graphics, logos, and designs."
     },
     {
-      question: "When should I convert JPG to PNG?",
-      answer: "Convert to PNG when you need: transparency for backgrounds, graphics/logos with clean edges, lossless quality for editing, or professional design work. JPG is better for photos and web optimization."
+      question: "Does converting JPG to PNG improve image quality?",
+      answer: "No. JPG already applied compression, so converting to PNG won't restore lost details. However, PNG is ideal if you need transparency or plan to edit the image further."
     },
     {
-      question: "Will the file size increase?",
-      answer: "Yes, PNG files are typically 2-3x larger than JPG. This is because PNG uses lossless compression. Use JPG for photos, PNG for graphics with transparency."
+      question: "When should I convert images from JPG to PNG?",
+      answer: "Convert to PNG when you need: transparent backgrounds, graphics/logos with clean edges, lossless quality for editing, professional design work, or web graphics. Keep JPG for photos."
     },
     {
-      question: "Is my image data secure?",
-      answer: "Yes. All conversion happens in your browser. Your images never leave your device, ensuring complete privacy."
+      question: "Will the file size be larger as PNG?",
+      answer: "Yes, PNG files are typically 2-3x larger than JPG because PNG uses lossless compression. This is normal and necessary for transparency support and quality preservation."
+    },
+    {
+      question: "Are my images completely secure and private?",
+      answer: "Completely safe. All conversion happens offline in your browser. Your images never leave your device, ensuring 100% privacy with no server uploads."
+    },
+    {
+      question: "Does this tool work offline?",
+      answer: "Yes! After the page loads once, the converter works completely offline. All processing happens in your browser with no internet connection needed after initial load."
+    },
+    {
+      question: "Can PNG support transparency like GIF?",
+      answer: "Yes, PNG supports full transparency including partial transparency (alpha channel). This makes PNG perfect for logos, icons, and graphics with transparent backgrounds."
     }
   ];
 
@@ -110,22 +122,80 @@ export default function JPGtoPNG() {
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <ImageIcon className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="text-4xl font-bold">Convert JPG to PNG—Restore Quality with Transparency Support</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Convert JPG images to PNG format instantly</p>
+            <h1 className="text-2xl md:text-5xl font-bold">Free JPG to PNG Converter - Convert Images Online, Works Offline</h1>
+            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">Convert JPG to PNG instantly with transparent backgrounds. 100% offline, no uploads, no watermarks. Works on all devices.</p>
             <div className="flex gap-2 justify-center">
               <Badge>Free</Badge>
               <Badge>Offline</Badge>
             </div>
           </div>
+          <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+            <Card>
+              <CardContent className="pt-8 space-y-6">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">What is a JPG to PNG Converter?</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    A JPG to PNG converter is a tool that instantly changes image files from JPEG format to PNG format. JPG and PNG are both image formats, but they work differently. JPG is optimized for photographs and uses compression that makes files smaller, while PNG is better for graphics, logos, and images that need transparent backgrounds. This converter makes the switch easy—just upload your JPG file and download the PNG version in seconds.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    The best part? Everything happens in your browser. No files go to any server, no internet connection needed after the page loads, and complete privacy for your images.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Who Should Use This Tool?</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    This JPG to PNG converter is perfect for:
+                  </p>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-muted-foreground"><strong>Graphic Designers:</strong> Convert product images, logos, and design assets to PNG for transparency and editing.</li>
+                    <li className="text-muted-foreground"><strong>Web Developers:</strong> Prepare images for websites, apps, and digital projects requiring transparency.</li>
+                    <li className="text-muted-foreground"><strong>Small Business Owners:</strong> Convert product photos to PNG for websites, social media, or e-commerce platforms.</li>
+                    <li className="text-muted-foreground"><strong>Content Creators:</strong> Convert images for YouTube, Instagram, blogs, and digital marketing materials.</li>
+                    <li className="text-muted-foreground"><strong>Anyone Needing Transparency:</strong> Add transparent backgrounds to images for various creative projects.</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Common Use Cases</h2>
+                  <div className="space-y-3 ml-4">
+                    <p className="text-muted-foreground"><strong>Logo & Icon Conversion:</strong> Convert company logos from JPG to PNG to add transparent backgrounds for web use.</p>
+                    <p className="text-muted-foreground"><strong>Design Projects:</strong> Convert images for layering in graphics editors like Photoshop or GIMP with transparency support.</p>
+                    <p className="text-muted-foreground"><strong>E-Commerce Product Images:</strong> Convert product photos to PNG for transparent backgrounds on online stores.</p>
+                    <p className="text-muted-foreground"><strong>Web & App Development:</strong> Prepare images with transparency for responsive websites and mobile apps.</p>
+                    <p className="text-muted-foreground"><strong>Print & Marketing Materials:</strong> Convert digital images to PNG for transparent backgrounds in print design software.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold mb-4">Privacy & Offline Safety</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-3">
+                    Your privacy is guaranteed with this converter:
+                  </p>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-muted-foreground">✓ Images never leave your device or reach any server</li>
+                    <li className="text-muted-foreground">✓ No accounts, logins, or registrations required</li>
+                    <li className="text-muted-foreground">✓ Works 100% offline after the initial page load</li>
+                    <li className="text-muted-foreground">✓ No tracking, ads, or data collection</li>
+                    <li className="text-muted-foreground">✓ Safe for confidential or sensitive images</li>
+                  </ul>
+                  <p className="text-muted-foreground leading-relaxed mt-4">
+                    All image conversion happens on your computer using your browser. This means complete privacy, fast processing, and the ability to work offline anytime.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           <div className="max-w-4xl mx-auto">
             {!file ? (
               <Card>
                 <CardHeader><CardTitle>Upload JPG File</CardTitle></CardHeader>
                 <CardContent>
-                  <div className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate" onClick={() => fileInputRef.current?.click()}>
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p>Click to upload JPG file</p>
-                    <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg" onChange={handleFileSelect} className="hidden" />
+                  <div className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate" onClick={() => fileInputRef.current?.click()}>
+                    <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-3 md:mb-4 text-muted-foreground" />
+                    <p className="text-sm md:text-base">Click to upload JPG file</p>
+                    <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg" onChange={handleFileSelect} className="hidden" data-testid="input-file-jpg-to-png" />
                   </div>
                 </CardContent>
               </Card>
