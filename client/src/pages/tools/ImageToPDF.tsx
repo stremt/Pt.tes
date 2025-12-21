@@ -1,16 +1,43 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileImage, Upload, Download, X, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Camera, Smartphone } from "lucide-react";
+import { FileImage, Upload, Download, X, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Camera, Smartphone, ArrowRight } from "lucide-react";
 import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { PDFDocument } from "pdf-lib";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+type PageOrientation = "portrait" | "landscape";
+type PageSize = "fit" | "a4" | "letter";
+type MarginSize = "none" | "small" | "big";
+
+interface PageDimensions {
+  width: number;
+  height: number;
+}
+
+const pageSizes: Record<PageSize, PageDimensions> = {
+  fit: { width: 0, height: 0 }, // Dynamic based on image
+  a4: { width: 595.28, height: 841.89 }, // 210x297mm in points
+  letter: { width: 612, height: 792 }, // 8.5x11in in points
+};
+
+const margins: Record<MarginSize, number> = {
+  none: 0,
+  small: 20,
+  big: 50,
+};
 
 export default function ImageToPDF() {
   const [files, setFiles] = useState<File[]>([]);
   const [converting, setConverting] = useState(false);
+  const [orientation, setOrientation] = useState<PageOrientation>("portrait");
+  const [pageSize, setPageSize] = useState<PageSize>("a4");
+  const [margin, setMargin] = useState<MarginSize>("none");
+  const [mergeImages, setMergeImages] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -56,26 +83,116 @@ export default function ImageToPDF() {
 
     try {
       const pdfDoc = await PDFDocument.create();
+      const marginValue = margins[margin];
 
-      for (const file of files) {
-        const arrayBuffer = await file.arrayBuffer();
-        let image;
+      if (mergeImages) {
+        // Merge all images into one PDF with multiple pages
+        for (const file of files) {
+          const arrayBuffer = await file.arrayBuffer();
+          let image;
 
-        if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
-          image = await pdfDoc.embedJpg(arrayBuffer);
-        } else if (file.type === 'image/png') {
-          image = await pdfDoc.embedPng(arrayBuffer);
-        } else {
-          continue;
+          if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+            image = await pdfDoc.embedJpg(arrayBuffer);
+          } else if (file.type === 'image/png') {
+            image = await pdfDoc.embedPng(arrayBuffer);
+          } else {
+            continue;
+          }
+
+          // Determine page size
+          let pageWidth = pageSizes[pageSize].width;
+          let pageHeight = pageSizes[pageSize].height;
+
+          if (pageSize === 'fit') {
+            pageWidth = image.width;
+            pageHeight = image.height;
+          } else {
+            // Apply orientation
+            if (orientation === 'landscape') {
+              [pageWidth, pageHeight] = [pageHeight, pageWidth];
+            }
+          }
+
+          const page = pdfDoc.addPage([pageWidth, pageHeight]);
+
+          // Calculate image dimensions with margins
+          const availableWidth = pageWidth - 2 * marginValue;
+          const availableHeight = pageHeight - 2 * marginValue;
+
+          // Scale image to fit with aspect ratio
+          let drawWidth = availableWidth;
+          let drawHeight = (image.height / image.width) * drawWidth;
+
+          if (drawHeight > availableHeight) {
+            drawHeight = availableHeight;
+            drawWidth = (image.width / image.height) * drawHeight;
+          }
+
+          // Center the image
+          const x = marginValue + (availableWidth - drawWidth) / 2;
+          const y = marginValue + (availableHeight - drawHeight) / 2;
+
+          page.drawImage(image, {
+            x,
+            y,
+            width: drawWidth,
+            height: drawHeight,
+          });
         }
+      } else {
+        // Create separate PDFs for each image (or one page per image logic)
+        for (const file of files) {
+          const arrayBuffer = await file.arrayBuffer();
+          let image;
 
-        const page = pdfDoc.addPage([image.width, image.height]);
-        page.drawImage(image, {
-          x: 0,
-          y: 0,
-          width: image.width,
-          height: image.height,
-        });
+          if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+            image = await pdfDoc.embedJpg(arrayBuffer);
+          } else if (file.type === 'image/png') {
+            image = await pdfDoc.embedPng(arrayBuffer);
+          } else {
+            continue;
+          }
+
+          // Determine page size
+          let pageWidth = pageSizes[pageSize].width;
+          let pageHeight = pageSizes[pageSize].height;
+
+          if (pageSize === 'fit') {
+            pageWidth = image.width;
+            pageHeight = image.height;
+          } else {
+            // Apply orientation
+            if (orientation === 'landscape') {
+              [pageWidth, pageHeight] = [pageHeight, pageWidth];
+            }
+          }
+
+          const page = pdfDoc.addPage([pageWidth, pageHeight]);
+
+          // Calculate image dimensions with margins
+          const availableWidth = pageWidth - 2 * marginValue;
+          const availableHeight = pageHeight - 2 * marginValue;
+
+          // Scale image to fit with aspect ratio
+          let drawWidth = availableWidth;
+          let drawHeight = (image.height / image.width) * drawWidth;
+
+          if (drawHeight > availableHeight) {
+            drawHeight = availableHeight;
+            drawWidth = (image.width / image.height) * drawHeight;
+          }
+
+          // Center the image
+          const x = marginValue + (availableWidth - drawWidth) / 2;
+          const y = marginValue + (availableHeight - drawHeight) / 2;
+
+          page.drawImage(image, {
+            x,
+            y,
+            width: drawWidth,
+            height: drawHeight,
+          });
+        }
       }
 
       const pdfBytes = await pdfDoc.save();
@@ -89,7 +206,7 @@ export default function ImageToPDF() {
 
       toast({
         title: "Success!",
-        description: `Converted ${files.length} images to PDF`,
+        description: `Converted ${files.length} image${files.length !== 1 ? 's' : ''} to PDF`,
       });
     } catch (error) {
       console.error(error);
@@ -238,10 +355,121 @@ export default function ImageToPDF() {
                   </div>
                 )}
 
+                <div className="space-y-6 border-t pt-6">
+                  <h3 className="font-semibold text-base">Image to PDF Options</h3>
+
+                  {/* Page Orientation */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Page Orientation</label>
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => setOrientation("portrait")}
+                        className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
+                          orientation === "portrait"
+                            ? "border-red-500 bg-red-50 dark:bg-red-950"
+                            : "border-border bg-background hover-elevate"
+                        }`}
+                        data-testid="button-orientation-portrait"
+                      >
+                        <div className="w-8 h-12 border-2 border-current rounded" />
+                        <span className="text-sm font-medium">Portrait</span>
+                      </button>
+                      <button
+                        onClick={() => setOrientation("landscape")}
+                        className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
+                          orientation === "landscape"
+                            ? "border-red-500 bg-red-50 dark:bg-red-950"
+                            : "border-border bg-background hover-elevate"
+                        }`}
+                        data-testid="button-orientation-landscape"
+                      >
+                        <div className="w-12 h-8 border-2 border-current rounded" />
+                        <span className="text-sm font-medium">Landscape</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Page Size */}
+                  <div className="space-y-3">
+                    <label htmlFor="page-size" className="text-sm font-medium">
+                      Page Size
+                    </label>
+                    <Select value={pageSize} onValueChange={(value) => setPageSize(value as PageSize)}>
+                      <SelectTrigger id="page-size" data-testid="select-page-size">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="fit">Fit (Same page size as image)</SelectItem>
+                        <SelectItem value="a4">A4 (297x210 mm)</SelectItem>
+                        <SelectItem value="letter">US Letter (215x279.4 mm)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Margin Size */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium">Margin</label>
+                    <div className="flex gap-4">
+                      <button
+                        onClick={() => setMargin("none")}
+                        className={`flex-1 p-4 rounded-lg border-2 transition-all ${
+                          margin === "none"
+                            ? "border-red-500 bg-red-50 dark:bg-red-950"
+                            : "border-border bg-background hover-elevate"
+                        }`}
+                        data-testid="button-margin-none"
+                      >
+                        <div className="text-sm font-medium text-center">No margin</div>
+                      </button>
+                      <button
+                        onClick={() => setMargin("small")}
+                        className={`flex-1 p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                          margin === "small"
+                            ? "border-red-500 bg-red-50 dark:bg-red-950"
+                            : "border-border bg-background hover-elevate"
+                        }`}
+                        data-testid="button-margin-small"
+                      >
+                        <div className="w-16 h-12 border border-current rounded flex items-center justify-center">
+                          <div className="w-12 h-8 border border-current" />
+                        </div>
+                        <span className="text-xs font-medium">Small</span>
+                      </button>
+                      <button
+                        onClick={() => setMargin("big")}
+                        className={`flex-1 p-4 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                          margin === "big"
+                            ? "border-red-500 bg-red-50 dark:bg-red-950"
+                            : "border-border bg-background hover-elevate"
+                        }`}
+                        data-testid="button-margin-big"
+                      >
+                        <div className="w-16 h-12 border border-current rounded flex items-center justify-center">
+                          <div className="w-8 h-4 border border-current" />
+                        </div>
+                        <span className="text-xs font-medium">Big</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Merge checkbox */}
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="merge-images"
+                      checked={mergeImages}
+                      onCheckedChange={(checked) => setMergeImages(checked as boolean)}
+                      data-testid="checkbox-merge-images"
+                    />
+                    <label htmlFor="merge-images" className="text-sm font-medium cursor-pointer">
+                      Merge all images in one PDF file
+                    </label>
+                  </div>
+                </div>
+
                 <Button
                   onClick={convertToPDF}
                   disabled={files.length === 0 || converting}
-                  className="w-full"
+                  className="w-full bg-red-500 hover:bg-red-600 text-white"
                   size="lg"
                   data-testid="button-convert"
                 >
@@ -249,8 +477,8 @@ export default function ImageToPDF() {
                     <>Converting to PDF...</>
                   ) : (
                     <>
-                      <Download className="mr-2 h-4 w-4" />
-                      Convert & Download PDF
+                      Convert to PDF
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </>
                   )}
                 </Button>
