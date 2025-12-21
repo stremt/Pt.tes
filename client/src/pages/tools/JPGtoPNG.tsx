@@ -2,10 +2,12 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { Image as ImageIcon, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { getRelatedTools, getToolIcon } from "@/lib/tools";
 
 export default function JPGtoPNG() {
   const [file, setFile] = useState<File | null>(null);
@@ -109,6 +111,7 @@ export default function JPGtoPNG() {
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
+  const relatedTools = getRelatedTools("jpg-to-png");
 
   return (
     <>
@@ -118,17 +121,60 @@ export default function JPGtoPNG() {
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / JPG to PNG
           </div>
-          <div className="text-center space-y-4 mb-12">
-            <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
-              <ImageIcon className="h-8 w-8 text-primary" />
+          
+          <div className="text-center space-y-3 mb-8 md:mb-12">
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
+              <ImageIcon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
             </div>
             <h1 className="text-2xl md:text-5xl font-bold">Free JPG to PNG Converter - Convert Images Online, Works Offline</h1>
             <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">Convert JPG to PNG instantly with transparent backgrounds. 100% offline, no uploads, no watermarks. Works on all devices.</p>
-            <div className="flex gap-2 justify-center">
+            <div className="flex flex-wrap gap-2 justify-center">
               <Badge>Free</Badge>
               <Badge>Offline</Badge>
+              <Badge>No Login</Badge>
             </div>
           </div>
+
+          <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+            {!file ? (
+              <Card>
+                <CardHeader><CardTitle>Upload JPG File</CardTitle></CardHeader>
+                <CardContent>
+                  <div className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate" onClick={() => fileInputRef.current?.click()}>
+                    <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-3 md:mb-4 text-muted-foreground" />
+                    <p className="font-medium mb-1 md:mb-2 text-sm md:text-base">Click to upload JPG file</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Only JPEG/JPG files supported</p>
+                    <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg" onChange={handleFileSelect} className="hidden" data-testid="input-file-jpg-to-png" />
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card>
+                <CardHeader>
+                  <div className="flex justify-between">
+                    <CardTitle className="text-sm md:text-base">{file.name}</CardTitle>
+                    <Button variant="ghost" size="icon" onClick={() => { setFile(null); setConvertedBlob(null); setPreview(""); }}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {preview && <img src={preview} alt="Preview" className="w-full rounded-lg max-h-96 object-contain" />}
+                  <div className="flex flex-col md:flex-row gap-2">
+                    <Button onClick={convertToPNG} disabled={converting} className="flex-1 text-sm md:text-base">
+                      {converting ? "Converting..." : "Convert to PNG"}
+                    </Button>
+                    {convertedBlob && (
+                      <Button onClick={downloadPNG} variant="outline" className="flex-1 text-sm md:text-base">
+                        <Download className="mr-2 h-4 w-4" />Download PNG
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
           <div className="max-w-4xl mx-auto mb-12 md:mb-16">
             <Card>
               <CardContent className="pt-8 space-y-6">
@@ -187,43 +233,50 @@ export default function JPGtoPNG() {
             </Card>
           </div>
 
+          {relatedTools.length > 0 && (
+            <div className="max-w-4xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Related Tools</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                {relatedTools.map((tool) => {
+                  const Icon = getToolIcon(tool.icon);
+                  return (
+                    <Link key={tool.id} href={tool.path}>
+                      <Card className="hover-elevate cursor-pointer h-full">
+                        <CardContent className="pt-6">
+                          <div className="flex items-start gap-4">
+                            <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <Icon className="h-5 w-5 text-primary" />
+                            </div>
+                            <div className="space-y-1">
+                              <h3 className="font-semibold text-sm leading-tight">{tool.name}</h3>
+                              <p className="text-xs text-muted-foreground line-clamp-2">
+                                {tool.description}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           <div className="max-w-4xl mx-auto">
-            {!file ? (
-              <Card>
-                <CardHeader><CardTitle>Upload JPG File</CardTitle></CardHeader>
-                <CardContent>
-                  <div className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate" onClick={() => fileInputRef.current?.click()}>
-                    <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-3 md:mb-4 text-muted-foreground" />
-                    <p className="text-sm md:text-base">Click to upload JPG file</p>
-                    <input ref={fileInputRef} type="file" accept="image/jpeg,image/jpg" onChange={handleFileSelect} className="hidden" data-testid="input-file-jpg-to-png" />
-                  </div>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card>
-                <CardHeader>
-                  <div className="flex justify-between">
-                    <CardTitle>{file.name}</CardTitle>
-                    <Button variant="ghost" size="icon" onClick={() => { setFile(null); setConvertedBlob(null); setPreview(""); }}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {preview && <img src={preview} alt="Preview" className="w-full rounded-lg" />}
-                  <div className="flex gap-2">
-                    <Button onClick={convertToPNG} disabled={converting} className="flex-1">
-                      {converting ? "Converting..." : "Convert to PNG"}
-                    </Button>
-                    {convertedBlob && (
-                      <Button onClick={downloadPNG} variant="outline" className="flex-1">
-                        <Download className="mr-2 h-4 w-4" />Download PNG
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">Frequently Asked Questions</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left text-sm md:text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-xs md:text-sm text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </div>
