@@ -414,43 +414,32 @@ export default function ImageCompressor() {
                       onTouchEnd={handleTouchEnd}
                       data-testid="split-comparison-container"
                     >
-                      {/* Compressed Image (Background - Right Side) */}
-                      {compressedPreview ? (
+                      {/* Compressed Image (Background) */}
+                      {compressedPreview && (
                         <img
                           src={compressedPreview}
                           alt="Compressed"
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-contain"
                           data-testid="img-compressed-preview"
                           draggable={false}
                         />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                          <div className="text-center text-muted-foreground">
-                            <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-20" />
-                            <p className="text-sm">Compressed</p>
-                          </div>
-                        </div>
                       )}
 
-                      {/* Original Image (Foreground - Left Side - Clipped) */}
+                      {/* Original Image Clipped Container */}
                       <div
                         className="absolute inset-0 overflow-hidden"
                         style={{
                           width: `${splitPosition}%`,
                         }}
                       >
-                        {originalPreview ? (
+                        {originalPreview && (
                           <img
                             src={originalPreview}
                             alt="Original"
-                            className="absolute inset-0 w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-contain"
                             data-testid="img-original-preview"
                             draggable={false}
                           />
-                        ) : (
-                          <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                            <ImageIcon className="h-12 w-12 text-muted-foreground" />
-                          </div>
                         )}
                       </div>
 
