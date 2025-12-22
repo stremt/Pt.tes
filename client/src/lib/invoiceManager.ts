@@ -16,10 +16,14 @@ export interface InvoiceData {
   businessEmail: string;
   businessPhone: string;
   businessAddress: string;
+  businessWebsite?: string;
+  businessOwner?: string;
   clientName: string;
   clientEmail: string;
   clientPhone: string;
   clientAddress: string;
+  clientMobile?: string;
+  clientFax?: string;
   items: InvoiceItem[];
   invoiceDate: string;
   dueDate: string;
@@ -35,6 +39,9 @@ export interface InvoiceData {
   fontFamily: string;
   backgroundColor: string;
   logoRadius: number;
+  signature?: string;
+  photos?: string[];
+  type: 'invoice' | 'receipt';
 }
 
 export interface InvoiceTemplate {
@@ -44,6 +51,8 @@ export interface InvoiceTemplate {
   businessEmail: string;
   businessPhone: string;
   businessAddress: string;
+  businessWebsite?: string;
+  businessOwner?: string;
   currency: string;
   taxRate: number;
   theme?: string;
@@ -51,6 +60,7 @@ export interface InvoiceTemplate {
   fontFamily?: string;
   backgroundColor?: string;
   terms?: string;
+  type: 'invoice' | 'receipt';
 }
 
 const STORAGE_KEY = 'pixocraft_invoices';
@@ -198,6 +208,7 @@ export function createNewInvoice(): InvoiceData {
     fontFamily: 'Inter',
     backgroundColor: '#ffffff',
     logoRadius: 0,
+    type: 'invoice',
   };
 }
 

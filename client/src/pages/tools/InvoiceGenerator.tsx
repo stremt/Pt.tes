@@ -135,12 +135,15 @@ export default function InvoiceGenerator() {
       businessEmail: invoice.businessEmail,
       businessPhone: invoice.businessPhone,
       businessAddress: invoice.businessAddress,
+      businessWebsite: invoice.businessWebsite,
+      businessOwner: invoice.businessOwner,
       currency: invoice.currency,
       taxRate: invoice.taxRate,
       theme: invoice.theme,
       primaryColor: invoice.primaryColor,
       fontFamily: invoice.fontFamily,
       backgroundColor: invoice.backgroundColor,
+      type: invoice.type,
     };
     saveTemplate(template);
     setAllTemplates([...allTemplates, template]);
@@ -157,12 +160,15 @@ export default function InvoiceGenerator() {
       businessEmail: template.businessEmail,
       businessPhone: template.businessPhone,
       businessAddress: template.businessAddress,
+      businessWebsite: template.businessWebsite,
+      businessOwner: template.businessOwner,
       currency: template.currency,
       taxRate: template.taxRate,
       theme: template.theme || invoice.theme,
       primaryColor: template.primaryColor || invoice.primaryColor,
       fontFamily: template.fontFamily || invoice.fontFamily,
       backgroundColor: template.backgroundColor || invoice.backgroundColor,
+      type: template.type || invoice.type,
     });
     setShowTemplates(false);
   };
