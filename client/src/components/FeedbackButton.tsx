@@ -57,7 +57,7 @@ export function FeedbackButton() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover-elevate flex items-center justify-center z-40 feedback-float-btn"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover-elevate flex items-center justify-center z-[9999] feedback-float-btn"
         title="Send feedback"
         data-testid="button-feedback-float"
       >
