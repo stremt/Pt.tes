@@ -33,14 +33,14 @@ import {
 } from "@/lib/invoiceManager";
 import { CURRENCIES, searchCurrencies, getCurrencyById } from "@/lib/currencies";
 
-const THEMES = ["Classic", "Modern", "Professional"];
+const THEMES = ["Classic", "Modern", "Professional", "Minimal"];
+const FONTS = ["Inter", "JetBrains Mono", "Serif", "Sans-serif"];
 
 export default function InvoiceGenerator() {
   const [invoice, setInvoice] = useState<InvoiceData | null>(null);
   const [logoPreview, setLogoPreview] = useState<string>("");
   const [allInvoices, setAllInvoices] = useState<InvoiceData[]>([]);
   const [allTemplates, setAllTemplates] = useState<InvoiceTemplate[]>([]);
-  const [theme, setTheme] = useState("Classic");
   const [downloading, setDownloading] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
@@ -83,7 +83,6 @@ export default function InvoiceGenerator() {
   if (!invoice) return <div>Loading...</div>;
 
   const totals = calculateInvoiceTotals(invoice);
-  const balanceDue = totals.total - (parseFloat(invoice.items[0]?.id || "0") as any);
 
   const updateInvoice = (field: string, value: any) => {
     setInvoice({ ...invoice, [field]: value });
@@ -138,6 +137,10 @@ export default function InvoiceGenerator() {
       businessAddress: invoice.businessAddress,
       currency: invoice.currency,
       taxRate: invoice.taxRate,
+      theme: invoice.theme,
+      primaryColor: invoice.primaryColor,
+      fontFamily: invoice.fontFamily,
+      backgroundColor: invoice.backgroundColor,
     };
     saveTemplate(template);
     setAllTemplates([...allTemplates, template]);
@@ -156,6 +159,10 @@ export default function InvoiceGenerator() {
       businessAddress: template.businessAddress,
       currency: template.currency,
       taxRate: template.taxRate,
+      theme: template.theme || invoice.theme,
+      primaryColor: template.primaryColor || invoice.primaryColor,
+      fontFamily: template.fontFamily || invoice.fontFamily,
+      backgroundColor: template.backgroundColor || invoice.backgroundColor,
     });
     setShowTemplates(false);
   };
@@ -348,17 +355,56 @@ export default function InvoiceGenerator() {
             Save as Template
           </Button>
 
-          <div className="ml-auto flex gap-2">
-            <Select value={theme} onValueChange={setTheme}>
-              <SelectTrigger className="w-32" data-testid="select-theme">
-                <SelectValue placeholder="Theme" />
-              </SelectTrigger>
-              <SelectContent>
-                {THEMES.map(t => (
-                  <SelectItem key={t} value={t}>{t}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className="ml-auto flex flex-wrap gap-2">
+            <div className="flex flex-col gap-1">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">Theme</Label>
+              <Select value={invoice.theme} onValueChange={(v) => updateInvoice('theme', v)}>
+                <SelectTrigger className="w-28 h-8" data-testid="select-theme">
+                  <SelectValue placeholder="Theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  {THEMES.map(t => (
+                    <SelectItem key={t} value={t}>{t}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">Font</Label>
+              <Select value={invoice.fontFamily} onValueChange={(v) => updateInvoice('fontFamily', v)}>
+                <SelectTrigger className="w-32 h-8" data-testid="select-font">
+                  <SelectValue placeholder="Font" />
+                </SelectTrigger>
+                <SelectContent>
+                  {FONTS.map(f => (
+                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">Color</Label>
+              <Input
+                type="color"
+                value={invoice.primaryColor}
+                onChange={(e) => updateInvoice('primaryColor', e.target.value)}
+                className="w-12 h-8 p-1 cursor-pointer"
+                data-testid="input-primary-color"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">BG</Label>
+              <Input
+                type="color"
+                value={invoice.backgroundColor}
+                onChange={(e) => updateInvoice('backgroundColor', e.target.value)}
+                className="w-12 h-8 p-1 cursor-pointer"
+                data-testid="input-bg-color"
+              />
+            </div>
 
             <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
               <PopoverTrigger asChild>
@@ -701,68 +747,107 @@ export default function InvoiceGenerator() {
         </div>
 
         {/* Invoice Preview */}
-        <Card ref={invoiceRef} className="bg-white">
-          <CardContent className="p-8 space-y-6">
+        <Card 
+          ref={invoiceRef} 
+          style={{ 
+            backgroundColor: invoice.backgroundColor,
+            fontFamily: invoice.fontFamily === 'Serif' ? 'serif' : 
+                        invoice.fontFamily === 'Sans-serif' ? 'sans-serif' : 
+                        invoice.fontFamily === 'JetBrains Mono' ? '"JetBrains Mono", monospace' : 
+                        '"Inter", sans-serif'
+          }}
+          className="bg-white border-0 shadow-lg"
+        >
+          <CardContent className={`p-8 space-y-6 ${invoice.theme === 'Minimal' ? 'px-12' : ''}`}>
             {/* Header */}
-            <div className="flex justify-between items-start border-b pb-6">
+            <div className={`flex justify-between items-start border-b pb-6 ${
+              invoice.theme === 'Modern' ? 'flex-row-reverse border-primary' : 
+              invoice.theme === 'Professional' ? 'bg-muted/30 -mx-8 px-8 py-6 border-b-0 mb-6' : ''
+            }`} style={{ borderColor: invoice.primaryColor }}>
               <div>
                 {logoPreview && <img src={logoPreview} alt="Logo" className="h-12 mb-2" />}
-                <h1 className="text-3xl font-bold">INVOICE</h1>
+                <h1 className="text-3xl font-bold" style={{ color: invoice.primaryColor }}>INVOICE</h1>
+                {invoice.theme === 'Minimal' && (
+                  <p className="text-sm text-muted-foreground mt-1">#{invoice.invoiceNumber}</p>
+                )}
               </div>
               <div className="text-right">
-                <p className="text-sm text-gray-600">Invoice #: <span className="font-semibold">{invoice.invoiceNumber}</span></p>
-                <p className="text-sm text-gray-600 mt-1">Date: <span className="font-semibold">{invoice.invoiceDate}</span></p>
-                <p className="text-sm text-gray-600 mt-1">Due Date: <span className="font-semibold">{invoice.dueDate}</span></p>
+                {invoice.theme !== 'Minimal' && (
+                  <>
+                    <p className="text-sm text-gray-600">Invoice #: <span className="font-semibold">{invoice.invoiceNumber}</span></p>
+                    <p className="text-sm text-gray-600 mt-1">Date: <span className="font-semibold">{invoice.invoiceDate}</span></p>
+                    <p className="text-sm text-gray-600 mt-1">Due Date: <span className="font-semibold">{invoice.dueDate}</span></p>
+                  </>
+                )}
+                {invoice.theme === 'Minimal' && (
+                  <p className="text-sm text-muted-foreground">{invoice.invoiceDate}</p>
+                )}
               </div>
             </div>
 
             {/* Business Info */}
-            <div>
-              <h3 className="font-semibold text-gray-900">{invoice.businessName || "Your Company"}</h3>
+            <div className={`${invoice.theme === 'Modern' ? 'text-right' : ''}`}>
+              <h3 className="font-semibold text-gray-900" style={{ color: invoice.theme === 'Professional' ? invoice.primaryColor : undefined }}>
+                {invoice.businessName || "Your Company"}
+              </h3>
               {invoice.businessEmail && <p className="text-sm text-gray-600">{invoice.businessEmail}</p>}
               {invoice.businessPhone && <p className="text-sm text-gray-600">{invoice.businessPhone}</p>}
               {invoice.businessAddress && <p className="text-sm text-gray-600 whitespace-pre-line">{invoice.businessAddress}</p>}
             </div>
 
             {/* Bill To */}
-            <div className="grid grid-cols-2 gap-6">
+            <div className={`grid grid-cols-2 gap-6 ${invoice.theme === 'Minimal' ? 'border-y py-6' : ''}`}>
               <div>
-                <p className="font-semibold text-gray-900 mb-2">Bill To:</p>
+                <p className="font-semibold text-gray-900 mb-2" style={{ color: invoice.primaryColor }}>Bill To:</p>
                 <p className="text-gray-800">{invoice.clientName || "Client Name"}</p>
                 {invoice.clientEmail && <p className="text-sm text-gray-600">{invoice.clientEmail}</p>}
                 {invoice.clientPhone && <p className="text-sm text-gray-600">{invoice.clientPhone}</p>}
                 {invoice.clientAddress && <p className="text-sm text-gray-600 whitespace-pre-line">{invoice.clientAddress}</p>}
               </div>
+              {invoice.theme === 'Minimal' && (
+                <div className="text-right flex flex-col justify-center">
+                  <p className="text-sm text-muted-foreground">Amount Due</p>
+                  <p className="text-2xl font-bold" style={{ color: invoice.primaryColor }}>
+                    {getCurrencyById(invoice.currency)?.symbol}{totals.total.toFixed(2)}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Line Items Table */}
-            <table className="w-full">
-              <thead className="bg-gray-100 border-y">
-                <tr>
-                  <th className="text-left py-3 px-4 font-semibold text-gray-900">Description</th>
-                  <th className="text-center py-3 px-4 font-semibold text-gray-900">Qty</th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-900">Rate</th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-900">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                {invoice.items.map((item) => (
-                  <tr key={item.id} className="border-b border-gray-200">
-                    <td className="py-3 px-4 text-gray-800">{item.desc || "---"}</td>
-                    <td className="py-3 px-4 text-center text-gray-800">{item.qty}</td>
-                    <td className="py-3 px-4 text-right text-gray-800">{getCurrencyById(invoice.currency)?.symbol}{item.rate.toFixed(2)}</td>
-                    <td className="py-3 px-4 text-right text-gray-800">{getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}</td>
+            <div className="overflow-hidden rounded-sm">
+              <table className="w-full">
+                <thead className={`${
+                  invoice.theme === 'Modern' ? 'bg-primary text-white' : 
+                  invoice.theme === 'Professional' ? 'bg-gray-800 text-white' : 
+                  'bg-gray-100 border-y'
+                }`} style={{ backgroundColor: (invoice.theme === 'Modern' || invoice.theme === 'Professional') ? invoice.primaryColor : undefined }}>
+                  <tr>
+                    <th className="text-left py-3 px-4 font-semibold">Description</th>
+                    <th className="text-center py-3 px-4 font-semibold">Qty</th>
+                    <th className="text-right py-3 px-4 font-semibold">Rate</th>
+                    <th className="text-right py-3 px-4 font-semibold">Amount</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {invoice.items.map((item, idx) => (
+                    <tr key={item.id} className={`border-b border-gray-100 ${idx % 2 === 0 && invoice.theme === 'Professional' ? 'bg-muted/10' : ''}`}>
+                      <td className="py-3 px-4 text-gray-800">{item.desc || "---"}</td>
+                      <td className="py-3 px-4 text-center text-gray-800">{item.qty}</td>
+                      <td className="py-3 px-4 text-right text-gray-800">{getCurrencyById(invoice.currency)?.symbol}{item.rate.toFixed(2)}</td>
+                      <td className="py-3 px-4 text-right text-gray-800 font-medium">{getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {/* Totals */}
-            <div className="flex justify-end">
+            <div className="flex justify-end pt-4">
               <div className="w-80 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Subtotal:</span>
-                  <span>{getCurrencyById(invoice.currency)?.symbol}{totals.subtotal.toFixed(2)}</span>
+                  <span className="text-muted-foreground">Subtotal:</span>
+                  <span className="font-medium">{getCurrencyById(invoice.currency)?.symbol}{totals.subtotal.toFixed(2)}</span>
                 </div>
                 {invoice.discountRate > 0 && (
                   <div className="flex justify-between text-sm text-orange-600">
@@ -776,7 +861,7 @@ export default function InvoiceGenerator() {
                     <span>{getCurrencyById(invoice.currency)?.symbol}{totals.taxAmount.toFixed(2)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-lg font-bold border-t-2 pt-2">
+                <div className="flex justify-between text-xl font-bold border-t-2 pt-2" style={{ borderColor: invoice.primaryColor, color: invoice.primaryColor }}>
                   <span>Total:</span>
                   <span>{getCurrencyById(invoice.currency)?.symbol}{totals.total.toFixed(2)}</span>
                 </div>
