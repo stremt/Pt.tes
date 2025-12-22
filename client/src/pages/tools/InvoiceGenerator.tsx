@@ -53,7 +53,7 @@ export default function InvoiceGenerator() {
   const searchResults = currencySearch ? searchCurrencies(currencySearch) : CURRENCIES;
 
   useSEO({
-    title: "Free Invoice Generator Online | Create & Download PDF Instantly | Pixocraft Tools",
+    title: "Free Invoice Generator Online | Create & Download PDF Instantly",
     description: "Generate professional invoices with tax, discount, shipping calculations. Auto-save drafts, manage templates. No login, 100% offline.",
     keywords: "invoice generator, create invoice pdf, billing tool, invoice maker, free invoice template, gst calculator",
     canonicalUrl: "https://tools.pixocraft.in/tools/invoice-generator",
@@ -229,15 +229,27 @@ export default function InvoiceGenerator() {
   ];
 
   const faqs = [
-    { question: "Can I save invoice drafts?", answer: "Yes! Drafts auto-save every 3 seconds to your browser's local storage. Access them anytime." },
-    { question: "How do I manage multiple invoices?", answer: "View all your invoice drafts in the History section. Create new invoices and manage templates." },
-    { question: "Can I add tax and discount?", answer: "Absolutely! Set tax percentage, discount percentage, and shipping costs. All calculated automatically." },
-    { question: "Is it really offline?", answer: "100% offline! Everything runs in your browser. No data is uploaded or stored on servers." },
+    { question: "Is this invoice generator free to use?", answer: "Yes, this is a completely free online invoice generator. You can create, customize, and download unlimited invoices as PDFs without any hidden costs or subscriptions." },
+    { question: "Do I need to sign up or create an account?", answer: "No registration is required. You can start generating invoices immediately. We value your time and privacy, so we've kept the tool accessible without any login barriers." },
+    { question: "Is my business data safe and private?", answer: "Absolutely. This tool runs entirely in your web browser. None of your business or client data is ever uploaded to our servers. Everything stays on your device." },
+    { question: "Can I save my invoices for later editing?", answer: "Yes! The tool automatically saves your work as a draft in your browser's local storage. You can come back later and pick up exactly where you left off." },
+    { question: "Can I customize the invoice with my company logo?", answer: "Yes, you can easily upload your company logo. You can also customize the theme, fonts, and primary colors to match your brand identity." },
+    { question: "Does it support different currencies?", answer: "Yes, we support a wide range of global currencies. You can search and select your preferred currency from the picker at the top of the generator." },
+    { question: "Can I calculate taxes and discounts automatically?", answer: "Yes, the generator includes built-in fields for tax (GST/VAT) and discounts. It automatically calculates the subtotal and grand total for you." },
+    { question: "Does this tool work offline?", answer: "Yes, once the page is loaded, the entire generation process happens locally. You don't need an active internet connection to fill out or download your invoice." },
+  ];
+
+  const relatedTools = [
+    { name: "GST Calculator", url: "/tools/gst-calculator" },
+    { name: "QR Code Generator", url: "/tools/qr-code-generator" },
+    { name: "Text Summarizer", url: "/tools/text-summarizer" },
+    { name: "Image Compressor", url: "/tools/image-compressor" },
+    { name: "PDF Merger", url: "/tools/pdf-merger" },
   ];
 
   return (
     <ToolLayout
-      title="Invoice Generator"
+      title="Free Online Invoice Generator"
       description="Create professional invoices with tax, discount, and payment tracking. Auto-save drafts, manage templates, download as PDF."
       icon={<FileText className="h-8 w-8" />}
       toolId="invoice-generator"
@@ -247,6 +259,34 @@ export default function InvoiceGenerator() {
       faqs={faqs}
     >
       <div className="space-y-6">
+        {/* SEO Content Section */}
+        <div className="prose prose-sm dark:prose-invert max-w-none mb-8">
+          <p>
+            In today's fast-paced business environment, creating professional invoices quickly and accurately is essential. 
+            Our <strong>Free Online Invoice Generator</strong> is designed to solve the common headache of manual billing. 
+            Whether you are a freelancer, a small business owner, or a student working on a project, this tool provides a 
+            seamless way to generate high-quality invoices without the need for expensive software or complex spreadsheets.
+          </p>
+          <p>
+            This tool is built for a wide range of users. Professionals can use it to bill clients for consulting services, 
+            developers can generate invoices for software projects, and small businesses can manage their daily transactions. 
+            The intuitive interface allows you to add business details, client information, and line items with just a few clicks. 
+            Automatic calculations for taxes, discounts, and subtotals ensure that your final document is error-free.
+          </p>
+          <p>
+            One of the standout features of Pixocraft's Invoice Generator is its <strong>Privacy-First</strong> approach. 
+            We understand that financial data is sensitive. That's why our tool runs entirely client-side. 
+            This means that none of the information you enter—your business name, client details, or pricing—is ever sent 
+            to or stored on our servers. It stays completely within your browser. Additionally, the tool supports 
+            offline usage; once the page is loaded, you can continue working even without an internet connection.
+          </p>
+          <p>
+            Real-life use cases include generating monthly service bills, creating one-time receipts for sales, or 
+            drafting proforma invoices for project proposals. With the ability to save drafts locally and manage templates, 
+            you can streamline your entire billing process and focus more on your core work.
+          </p>
+        </div>
+
         {/* Top Controls */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 items-stretch sm:items-center">
           <div className="flex flex-wrap gap-2">
@@ -959,6 +999,18 @@ export default function InvoiceGenerator() {
             <Download className="mr-2 h-5 w-5" />
             {downloading ? "Generating PDF..." : "Download PDF"}
           </Button>
+        </div>
+
+        {/* Related Tools */}
+        <div className="border-t pt-8 mt-12">
+          <h3 className="text-xl font-bold mb-4">Related Tools</h3>
+          <div className="flex flex-wrap gap-3">
+            {relatedTools.map((tool) => (
+              <Button key={tool.url} variant="outline" size="sm" asChild>
+                <a href={tool.url}>{tool.name}</a>
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
     </ToolLayout>
