@@ -358,7 +358,7 @@ export default function QRMaker() {
 
       const modules = qrMatrix.modules;
       const moduleCount = modules.size;
-      const moduleSize = 10;
+      const moduleSize = 15;
       const qrSize = moduleCount * moduleSize;
       const padding = 40;
       const extraHeight = overlayText ? 40 : 0;
@@ -474,13 +474,34 @@ export default function QRMaker() {
     setStep(3);
   };
 
-  const downloadQR = () => {
+  const downloadQR = (quality?: "normal" | "high" | "ultra") => {
+    const finalQuality = quality || "high";
     if (!canvasRef.current) return;
+
+    const qualityMultipliers = {
+      normal: 1,
+      high: 2,
+      ultra: 4,
+    };
+
+    const multiplier = qualityMultipliers[finalQuality];
+    const originalCanvas = canvasRef.current;
+    const highQualityCanvas = document.createElement("canvas");
+
+    highQualityCanvas.width = originalCanvas.width * multiplier;
+    highQualityCanvas.height = originalCanvas.height * multiplier;
+
+    const ctx = highQualityCanvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.scale(multiplier, multiplier);
+    ctx.drawImage(originalCanvas, 0, 0);
+
     const link = document.createElement("a");
-    link.download = `qr-code-${Date.now()}.png`;
-    link.href = canvasRef.current.toDataURL();
+    link.download = `qr-code-${finalQuality}-${Date.now()}.png`;
+    link.href = highQualityCanvas.toDataURL("image/png", 1);
     link.click();
-    toast({ title: "Downloaded!", description: "QR code saved as PNG" });
+    toast({ title: "Downloaded!", description: `QR code saved as PNG (${finalQuality} quality)` });
   };
 
   const saveTemplate = () => {
@@ -879,10 +900,20 @@ export default function QRMaker() {
                   </CardContent>
                 </Card>
 
-                <div className="flex gap-2">
-                  <Button variant="outline" onClick={() => setStep(2)} className="flex-1" size="sm">Back</Button>
-                  <Button onClick={() => setShowTemplateModal(true)} variant="outline" size="sm" className="flex-1"><Save className="h-4 w-4 mr-1" />Save</Button>
-                  <Button onClick={downloadQR} size="sm" className="flex-1"><Download className="h-4 w-4 mr-1" />Download</Button>
+                <div className="flex gap-2 flex-wrap">
+                  <Button variant="outline" onClick={() => setStep(2)} className="flex-1 min-w-20" size="sm">Back</Button>
+                  <Button onClick={() => setShowTemplateModal(true)} variant="outline" size="sm" className="flex-1 min-w-20"><Save className="h-4 w-4 mr-1" />Save</Button>
+                  <div className="flex-1 min-w-20 flex gap-1">
+                    <Button onClick={() => downloadQR("normal")} size="sm" className="flex-1 text-xs" title="Standard quality" variant="outline">
+                      <Download className="h-3 w-3" />
+                    </Button>
+                    <Button onClick={() => downloadQR("high")} size="sm" className="flex-1" title="2x quality">
+                      <Download className="h-4 w-4 mr-1" />HD
+                    </Button>
+                    <Button onClick={() => downloadQR("ultra")} size="sm" className="flex-1 text-xs" title="4x ultra quality">
+                      4K
+                    </Button>
+                  </div>
                 </div>
               </div>
 
@@ -890,8 +921,8 @@ export default function QRMaker() {
               <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
-                  <div className="rounded-lg p-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: lightColor, minHeight: 340, maxHeight: 500, border: "1px solid var(--border)" }}>
-                    <canvas ref={canvasRef} className="max-w-full max-h-full object-contain" style={{ maxWidth: "100%", maxHeight: "100%" }} />
+                  <div className="rounded-lg p-4 flex items-center justify-center overflow-auto" style={{ backgroundColor: lightColor, minHeight: 380, maxHeight: 600, border: "1px solid var(--border)" }}>
+                    <canvas ref={canvasRef} className="w-auto h-auto" style={{ display: 'block', margin: 'auto' }} />
                   </div>
                   <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
                     <Shield className="h-3 w-3" />Offline & Private
