@@ -3,19 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/lib/seo";
-import { Download, AlertCircle, Check, Zap, Instagram } from "lucide-react";
+import { Download, AlertCircle, Check, Zap, Instagram, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function InstagramProfilePictureDownloader() {
   const [username, setUsername] = useState("");
-  const [profileData, setProfileData] = useState<{
-    username: string;
-    profilePicUrl: string;
-  } | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [manualUrl, setManualUrl] = useState("");
+  const [displayMode, setDisplayMode] = useState<"input" | "manual">("input");
   const [downloading, setDownloading] = useState(false);
   const { toast } = useToast();
 
@@ -25,108 +20,68 @@ export default function InstagramProfilePictureDownloader() {
     canonicalUrl: "https://pixocraft.in/tools/instagram-profile-picture-downloader",
   });
 
-  const fetchInstagramProfile = async (user: string) => {
-    setError("");
-    setProfileData(null);
-
-    if (!user.trim()) {
-      setError("Please enter an Instagram username");
-      return;
-    }
-
-    const cleanUsername = user.trim().replace("@", "").toLowerCase();
-    setLoading(true);
-
+  const extractUsernameFromUrl = (url: string): string | null => {
     try {
-      // Try multiple API endpoints for better compatibility
-      const endpoints = [
-        `https://www.instagram.com/api/v1/users/web_profile_info/?username=${cleanUsername}`,
-        `https://instagram.com/${cleanUsername}/?__a=1`,
-      ];
-
-      let success = false;
-      let profileUrl = "";
-      let displayUsername = cleanUsername;
-
-      for (const endpoint of endpoints) {
-        try {
-          const response = await fetch(endpoint, {
-            headers: {
-              "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            
-            // Handle different response formats
-            if (data.data?.user) {
-              profileUrl = data.data.user.profile_pic_url_hd || data.data.user.profile_pic_url || "";
-              displayUsername = data.data.user.username || cleanUsername;
-              success = true;
-              break;
-            } else if (data.graphql?.user) {
-              profileUrl = data.graphql.user.profile_pic_url_hd || data.graphql.user.profile_pic_url || "";
-              displayUsername = data.graphql.user.username || cleanUsername;
-              success = true;
-              break;
-            }
-          }
-        } catch (e) {
-          // Try next endpoint
-          continue;
-        }
-      }
-
-      if (!success) {
-        // If API fails, try direct image URL construction (fallback method)
-        profileUrl = `https://www.instagram.com/${cleanUsername}/media/?__a=1`;
-        setError(
-          "Could not fetch via API. This may be due to Instagram's restrictions. Try entering the URL manually or ensure the profile is public."
-        );
-        setLoading(false);
-        return;
-      }
-
-      if (!profileUrl) {
-        throw new Error("Profile picture URL not found");
-      }
-
-      setProfileData({
-        username: displayUsername,
-        profilePicUrl: profileUrl,
-      });
-
-      toast({
-        title: "Profile Loaded",
-        description: `Found @${displayUsername}'s profile!`,
-      });
-    } catch (err) {
-      setError(
-        "Unable to find profile. Make sure the username is correct and the profile is public. Instagram may also be blocking automated requests."
-      );
-      toast({
-        title: "Error",
-        description: "Could not load profile. Check the username and try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
+      const match = url.match(/instagram\.com\/([a-zA-Z0-9_.]+)/);
+      return match ? match[1] : null;
+    } catch {
+      return null;
     }
   };
 
-  const handleDownload = async () => {
-    if (!profileData?.profilePicUrl) return;
+  const handleUrlInput = (url: string) => {
+    const extractedUsername = extractUsernameFromUrl(url);
+    if (extractedUsername) {
+      setUsername(extractedUsername);
+      setDisplayMode("input");
+    }
+  };
+
+  const generateInstructions = () => {
+    if (!username.trim()) {
+      return null;
+    }
+
+    const cleanUsername = username.trim().replace("@", "");
+    return `https://www.instagram.com/${cleanUsername}/`;
+  };
+
+  const handleCopyInstructions = () => {
+    const instructions = `To download ${username}'s profile picture:
+
+1. Visit: https://www.instagram.com/${username.replace("@", "")}/
+2. Right-click on the profile picture
+3. Select "Copy image link" or "Save image as"
+4. The highest quality version will download
+
+Or use this direct image URL:
+https://www.instagram.com/${username.replace("@", "")}/media/?__a=1 (then inspect the profile_pic_url_hd field)`;
+
+    navigator.clipboard.writeText(instructions);
+    toast({
+      title: "Instructions Copied",
+      description: "Step-by-step guide copied to clipboard",
+    });
+  };
+
+  const handleDownloadDirect = async () => {
+    if (!manualUrl.trim()) {
+      toast({
+        title: "Error",
+        description: "Please paste the image URL",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setDownloading(true);
     try {
-      const response = await fetch(profileData.profilePicUrl);
+      const response = await fetch(manualUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Pixocraft_tools_xyz_${profileData.username}_profile.jpg`;
+      link.download = `Pixocraft_tools_xyz_instagram_profile.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -134,12 +89,13 @@ export default function InstagramProfilePictureDownloader() {
 
       toast({
         title: "Downloaded",
-        description: `${profileData.username}'s profile picture saved.`,
+        description: "Profile picture saved successfully.",
       });
+      setManualUrl("");
     } catch {
       toast({
         title: "Download Failed",
-        description: "Could not download the image. Try again.",
+        description: "Could not download from this URL. Make sure it's a direct image link.",
         variant: "destructive",
       });
     } finally {
@@ -167,99 +123,112 @@ export default function InstagramProfilePictureDownloader() {
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-8">
-        {/* Tool Card */}
+        {/* Method 1: Username */}
         <Card className="border-2 shadow-lg">
           <CardHeader className="space-y-2">
             <CardTitle className="flex items-center gap-2 text-2xl">
               <Instagram className="w-6 h-6" />
               Download Profile Picture
             </CardTitle>
-            <CardDescription>Enter any public Instagram username to download their profile picture</CardDescription>
+            <CardDescription>Enter Instagram username or profile URL</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              <Label htmlFor="ig-username" className="text-base font-semibold">
-                Instagram Username
+              <Label htmlFor="ig-input" className="text-base font-semibold">
+                Instagram Username or Profile URL
               </Label>
               <Input
-                id="ig-username"
-                placeholder="@username (with or without @)"
+                id="ig-input"
+                placeholder="simranjit_15029 or https://www.instagram.com/simranjit_15029/"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && fetchInstagramProfile(username)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.includes("instagram.com")) {
+                    handleUrlInput(value);
+                  } else {
+                    setUsername(value);
+                  }
+                }}
                 data-testid="input-instagram-username"
                 className="text-base h-12 px-4"
               />
               <p className="text-xs sm:text-sm text-muted-foreground">
-                Works with public profiles only. Enter username with or without @
+                Enter @username, username, or full Instagram profile link
               </p>
             </div>
 
-            {error && (
-              <div className="flex items-start gap-3 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
-                <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-destructive">{error}</p>
+            {username && (
+              <div className="space-y-3 p-4 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
+                <p className="text-sm font-semibold text-blue-900 dark:text-blue-100">How to Download:</p>
+                <ol className="text-sm space-y-2 text-blue-800 dark:text-blue-200">
+                  <li>1. Click the button below to open their profile</li>
+                  <li>2. Right-click on their profile picture</li>
+                  <li>3. Select "Copy image link" (Chrome) or "Copy Image" (Safari)</li>
+                  <li>4. Paste it in the URL field below</li>
+                  <li>5. Click Download</li>
+                </ol>
+                <Button
+                  onClick={() => {
+                    window.open(`https://www.instagram.com/${username.replace("@", "")}/`, "_blank");
+                    toast({
+                      title: "Profile Opened",
+                      description: "Right-click the profile picture and copy the image link",
+                    });
+                  }}
+                  className="w-full mt-3"
+                  size="sm"
+                  data-testid="button-open-instagram"
+                >
+                  Open Profile on Instagram
+                </Button>
               </div>
-            )}
-
-            <Button
-              onClick={() => fetchInstagramProfile(username)}
-              disabled={loading}
-              size="lg"
-              className="w-full h-12 text-base font-semibold"
-              data-testid="button-search-profile"
-            >
-              {loading ? "Loading Profile..." : "Search & Load"}
-            </Button>
-
-            {!profileData && !loading && !error && (
-              <p className="text-center text-sm text-muted-foreground py-4">
-                Enter an Instagram username to get started
-              </p>
             )}
           </CardContent>
         </Card>
 
-        {/* Profile Preview */}
-        {profileData && (
-          <Card className="border-2 shadow-lg">
-            <CardContent className="pt-6">
-              <div className="space-y-6">
-                {/* Profile Picture */}
-                <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 flex-shrink-0 mx-auto sm:mx-0">
-                    <img
-                      src={profileData.profilePicUrl}
-                      alt={profileData.username}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 space-y-4">
-                    <div>
-                      <h2 className="text-2xl font-bold text-foreground">@{profileData.username}</h2>
-                    </div>
-                  </div>
-                </div>
+        {/* Method 2: Direct URL Download */}
+        <Card className="border-2 shadow-lg">
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-2xl">Paste Image URL & Download</CardTitle>
+            <CardDescription>Paste the direct image link from Instagram</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-3">
+              <Label htmlFor="image-url" className="text-base font-semibold">
+                Direct Image URL
+              </Label>
+              <Input
+                id="image-url"
+                placeholder="Paste the image URL here (copied from profile picture)"
+                value={manualUrl}
+                onChange={(e) => setManualUrl(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleDownloadDirect()}
+                data-testid="input-image-url"
+                className="text-base h-12 px-4"
+              />
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Paste any direct image URL (JPG, PNG, etc.)
+              </p>
+            </div>
 
-                {/* Download Button */}
-                <Button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  size="lg"
-                  className="w-full h-12 text-base font-semibold"
-                  data-testid="button-download-profile-pic"
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  {downloading ? "Downloading..." : "Download Profile Picture"}
-                </Button>
+            <Button
+              onClick={handleDownloadDirect}
+              disabled={downloading || !manualUrl.trim()}
+              size="lg"
+              className="w-full h-12 text-base font-semibold"
+              data-testid="button-download-from-url"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              {downloading ? "Downloading..." : "Download Image"}
+            </Button>
 
-                <p className="text-center text-xs text-muted-foreground">
-                  Downloads as: Pixocraft_tools_xyz_{profileData.username}_profile.jpg
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+            <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+              <p className="text-sm text-amber-900 dark:text-amber-100">
+                <strong>💡 Tip:</strong> Instagram profile pictures are stored on Instagram's CDN. Right-click the profile picture → "Copy image link" → Paste here to download.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Content Sections */}
         <div className="space-y-12 py-8">
@@ -271,7 +240,7 @@ export default function InstagramProfilePictureDownloader() {
                 Instagram Profile Picture Downloader is a free online tool that lets you quickly download profile pictures from any public Instagram account. Whether you're a designer looking for inspiration, a marketer analyzing competitors, or someone wanting to save a high-quality profile image, this tool makes it effortless.
               </p>
               <p>
-                Simply enter any Instagram username, and the tool instantly loads the profile picture in the highest available resolution. You can download it immediately without any watermarks, compression, or quality loss. The entire process happens right in your browser—no sign-up required, no tracking, no data collection.
+                This tool helps you extract the highest quality profile picture available from any public Instagram profile. You can download it immediately without any watermarks, compression, or quality loss. The entire process happens right in your browser—no sign-up required, no tracking, no data collection.
               </p>
               <p>
                 Perfect for creating mood boards, analyzing visual branding, comparing profile aesthetics, or simply saving a favorite creator's profile picture. Works instantly with any public Instagram profile—your privacy is completely protected because everything runs locally on your device.
@@ -383,35 +352,35 @@ export default function InstagramProfilePictureDownloader() {
               {[
                 {
                   q: "Does this work with private accounts?",
-                  a: "No, this tool only works with public Instagram profiles. Private accounts hide profile pictures from public access, so we cannot retrieve them.",
+                  a: "No, this tool only works with public Instagram profiles. Private accounts hide profile pictures from public access.",
                 },
                 {
                   q: "Is it legal to download profile pictures?",
-                  a: "Yes. Profile pictures are public metadata that Instagram displays to anyone. Downloading them for personal, educational, or commercial use is legal.",
+                  a: "Yes. Profile pictures are public metadata displayed by Instagram. Downloading them for personal, educational, or commercial use is legal.",
                 },
                 {
                   q: "Do I need an Instagram account to use this?",
-                  a: "No. This tool works completely offline in your browser. You don't need to log in or create any account.",
+                  a: "No. This tool works completely in your browser without requiring login or an Instagram account.",
                 },
                 {
                   q: "What image quality will I get?",
-                  a: "You'll get the highest quality profile picture available from Instagram's servers, usually at full HD resolution (1080×1080 pixels).",
+                  a: "You'll get the highest quality profile picture available, typically at 1080×1080 pixels (HD resolution).",
                 },
                 {
                   q: "Does this tool track or store data?",
-                  a: "No. This is a 100% browser-based tool. No searches are logged, no data is stored on servers, and your privacy is completely protected.",
+                  a: "No. This is 100% browser-based. No searches are logged, no data is stored, and your privacy is completely protected.",
                 },
                 {
-                  q: "Why doesn't it work for reels, stories, or posts?",
-                  a: "This tool is designed specifically for profile pictures. It doesn't download reels, stories, or posts—only the account's profile picture.",
+                  q: "Why doesn't it download automatically?",
+                  a: "Instagram blocks direct API access from browsers for security. Our method lets you download by copying the image link directly from Instagram.",
                 },
                 {
                   q: "Can I download multiple profile pictures at once?",
-                  a: "Yes. Search for one profile, download the picture, then search for another username and repeat as needed.",
+                  a: "Yes. Repeat the process for each profile - open the profile, copy the image link, and paste it to download.",
                 },
                 {
-                  q: "What if the profile has recently changed their picture?",
-                  a: "This tool downloads the current profile picture. If someone recently updated theirs, you'll get the latest version.",
+                  q: "What if the download fails?",
+                  a: "Make sure you copied the direct image link (it should start with 'https://...' and end with an image file). Re-copy and try again.",
                 },
               ].map((faq, index) => (
                 <Card key={index} className="p-4 hover-elevate">
