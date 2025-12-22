@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
-import { FileText, Download, Plus, Trash2, Save, History, Copy, Search } from "lucide-react";
+import { FileText, Download, Plus, Trash2, Save, History, Copy, Search, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -426,7 +426,7 @@ export default function InvoiceGenerator() {
               />
             </div>
 
-            <div className="flex flex-col gap-1 flex-1 min-w-[60px]">
+            <div className="flex flex-col gap-1 w-20">
               <Label className="text-[10px] uppercase text-muted-foreground ml-1">Radius</Label>
               <Input
                 type="number"
@@ -434,59 +434,63 @@ export default function InvoiceGenerator() {
                 max="50"
                 value={invoice.logoRadius || 0}
                 onChange={(e) => updateInvoice('logoRadius', parseInt(e.target.value) || 0)}
-                className="h-8 w-full"
+                className="h-8 px-2 py-0 text-xs"
                 data-testid="input-logo-radius"
               />
             </div>
 
-            <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="h-8 px-2 text-xs" data-testid="button-currency-picker">
-                  {getCurrencyById(invoice.currency)?.symbol} {invoice.currency}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[90vw] sm:w-80 p-2" align="end" data-testid="popover-currency">
-                <div className="space-y-2">
-                  <div className="flex gap-2">
-                    <Search className="h-4 w-4 text-gray-500 mt-2.5" />
-                    <Input
-                      placeholder="Search currency..."
-                      value={currencySearch}
-                      onChange={(e) => setCurrencySearch(e.target.value)}
-                      className="h-9"
-                      data-testid="input-currency-search"
-                      autoFocus
-                    />
+            <div className="flex flex-col gap-1 flex-1 min-w-[80px]">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">Currency</Label>
+              <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="h-8 px-2 text-xs w-full justify-between" data-testid="button-currency-picker">
+                    <span className="truncate">{getCurrencyById(invoice.currency)?.symbol} {invoice.currency}</span>
+                    <ChevronDown className="h-3 w-3 opacity-50 ml-1 shrink-0" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[90vw] sm:w-80 p-2" align="end" data-testid="popover-currency">
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <Search className="h-4 w-4 text-gray-500 mt-2.5" />
+                      <Input
+                        placeholder="Search currency..."
+                        value={currencySearch}
+                        onChange={(e) => setCurrencySearch(e.target.value)}
+                        className="h-9"
+                        data-testid="input-currency-search"
+                        autoFocus
+                      />
+                    </div>
+                    <div className="max-h-[50vh] overflow-y-auto space-y-1">
+                      {searchResults.length === 0 ? (
+                        <p className="text-sm text-gray-500 p-2">No currencies found</p>
+                      ) : (
+                        searchResults.map((curr) => (
+                          <button
+                            key={curr.id}
+                            onClick={() => {
+                              updateInvoice('currency', curr.id);
+                              setShowCurrencyPicker(false);
+                              setCurrencySearch("");
+                            }}
+                            className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors"
+                            data-testid={`button-currency-${curr.id}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="font-semibold text-lg shrink-0 w-8">{curr.symbol}</span>
+                              <span className="flex-1 truncate">
+                                {curr.country}
+                                <span className="block text-xs text-gray-500">{curr.currency}</span>
+                              </span>
+                            </div>
+                          </button>
+                        ))
+                      )}
+                    </div>
                   </div>
-                  <div className="max-h-[50vh] overflow-y-auto space-y-1">
-                    {searchResults.length === 0 ? (
-                      <p className="text-sm text-gray-500 p-2">No currencies found</p>
-                    ) : (
-                      searchResults.map((curr) => (
-                        <button
-                          key={curr.id}
-                          onClick={() => {
-                            updateInvoice('currency', curr.id);
-                            setShowCurrencyPicker(false);
-                            setCurrencySearch("");
-                          }}
-                          className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors"
-                          data-testid={`button-currency-${curr.id}`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="font-semibold text-lg shrink-0 w-8">{curr.symbol}</span>
-                            <span className="flex-1 truncate">
-                              {curr.country}
-                              <span className="block text-xs text-gray-500">{curr.currency}</span>
-                            </span>
-                          </div>
-                        </button>
-                      ))
-                    )}
-                  </div>
-                </div>
-              </PopoverContent>
-            </Popover>
+                </PopoverContent>
+              </Popover>
+            </div>
           </div>
         </div>
 
