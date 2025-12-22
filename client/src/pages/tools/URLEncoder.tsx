@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { Link2, Copy, RotateCcw, Zap, Lock, Sparkles, Globe } from "lucide-react";
+import { Link2, Copy, RotateCcw, Zap, Lock, Sparkles, Globe, ArrowRight } from "lucide-react";
 
 export default function URLEncoder() {
   const [input, setInput] = useState("");
@@ -16,9 +17,9 @@ export default function URLEncoder() {
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
-    title: "Free URL Encoder/Decoder - Encode URLs Online",
-    description: "Encode and decode URLs instantly. Convert special characters for safe URL transmission. 100% free, offline, private. Works in your browser.",
-    keywords: "url encoder, url decoder, encode url, decode url, url escape, percent encoding, uri encoding, url conversion",
+    title: "Free URL Encoder Decoder Tool - Encode & Decode Online",
+    description: "Easily encode and decode URLs with special characters instantly. 100% free, offline, and completely private. No signup needed. Works in your browser.",
+    keywords: "url encoder, url decoder, encode url, decode url, url escape, percent encoding, uri encoding, url conversion, special characters, free url encoder online",
     canonicalUrl: "https://tools.pixocraft.in/tools/url-encoder",
   });
 
@@ -60,8 +61,8 @@ export default function URLEncoder() {
 
   return (
     <ToolLayout
-      title="URL Encoder/Decoder"
-      description="Encode and decode URLs instantly. Convert special characters for safe URL transmission and decode percent-encoded URLs back to readable text."
+      title="Free URL Encoder & Decoder Tool - Encode and Decode URLs Online"
+      description="Instantly encode and decode URLs with special characters for safe transmission. 100% free, completely private, and works offline. Perfect for developers, students, and anyone working with URLs."
       icon={<Link2 className="h-10 w-10 text-primary" />}
       toolId="url-encoder"
       category="Developer Tool"
@@ -77,11 +78,14 @@ export default function URLEncoder() {
         { icon: <Globe className="h-6 w-6 text-primary" />, title: "Free to Use", description: "No limits, no registration, completely free forever." },
       ]}
       faqs={[
-        { question: "What is URL encoding?", answer: "URL encoding (also called percent encoding) converts special characters into a format that can be safely transmitted over the internet. Characters like spaces become %20, and special characters are represented as %XX where XX is their hexadecimal value." },
-        { question: "When do I need to encode URLs?", answer: "You should encode URLs when passing parameters with special characters (spaces, &, ?, =, etc.), building API requests, or creating shareable links with query parameters." },
-        { question: "What's the difference between encodeURI and encodeURIComponent?", answer: "This tool uses encodeURIComponent, which encodes all special characters including /, ?, &, and =. This is ideal for encoding query parameters and form data." },
-        { question: "Can I decode multiple times?", answer: "Yes! You can decode URLs that have been encoded multiple times. The tool handles standard percent encoding and will decode one level at a time." },
-        { question: "Is my URL data safe?", answer: "Yes, all encoding and decoding happens entirely in your browser using JavaScript. No URLs are sent to our servers or stored anywhere." },
+        { question: "What is URL encoding and how does it work?", answer: "URL encoding (percent encoding) converts special characters into a safe format for internet transmission. Spaces become %20, and other special characters become %XX where XX is their hexadecimal code. This allows URLs to safely carry spaces, ampersands, and other characters." },
+        { question: "When do I need to URL encode text or parameters?", answer: "Encode URLs when building API requests with parameters, creating shareable links with special characters, encoding form data, passing data in query strings, or when special characters (like spaces, &, ?, =, #) need safe transmission over HTTP." },
+        { question: "How do I encode special characters in URLs?", answer: "Simply paste your URL or text into this tool, select 'Encode', and click the button. All special characters including spaces, punctuation, and symbols are automatically converted to their percent-encoded format (%XX representation)." },
+        { question: "Which characters need to be encoded in URLs?", answer: "Characters that need encoding include: spaces (%20), & (%26), ? (%3F), = (%3D), # (%23), and other special symbols. Letters (A-Z, a-z) and numbers (0-9) generally don't need encoding, but this tool safely encodes everything for maximum compatibility." },
+        { question: "Can I decode URL-encoded text back to readable format?", answer: "Yes, absolutely. Switch to 'Decode' mode, paste your percent-encoded URL (with %20, %26, etc.), click decode, and the tool converts it back to readable plain text instantly. You can also decode multiple times if a URL was encoded multiple times." },
+        { question: "Is my URL data safe and private when using this tool?", answer: "Completely safe. All encoding and decoding happens 100% in your browser using JavaScript. No URLs are sent to servers, logged, stored, or tracked. Your privacy is fully guaranteed with zero data collection." },
+        { question: "Can I use this URL encoder tool on my phone?", answer: "Yes, this tool works perfectly on any device—iPhone, Android, tablets, or computers. It's responsive and works in any modern browser. Once loaded, it also works completely offline without needing internet." },
+        { question: "What's the difference between encoding and escaping URLs?", answer: "URL encoding and URL escaping are essentially the same thing. Both convert unsafe characters into percent-encoded format for safe transmission. This tool handles both encode and decode operations for complete URL management." },
       ]}
     >
       <div className="max-w-4xl mx-auto space-y-6">
@@ -168,6 +172,50 @@ export default function URLEncoder() {
                   <li>• Decoding URLs from web analytics or logs</li>
                 </ul>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Related Tools */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              Related Tools
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Link href="/tools/base64-encoder">
+                <Button variant="outline" className="w-full justify-between" data-testid="link-base64-encoder">
+                  Base64 Encoder/Decoder
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/tools/html-encoder">
+                <Button variant="outline" className="w-full justify-between" data-testid="link-html-encoder">
+                  HTML Encoder/Decoder
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/tools/url-parser">
+                <Button variant="outline" className="w-full justify-between" data-testid="link-url-parser">
+                  URL Parser
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/tools/hash-generator">
+                <Button variant="outline" className="w-full justify-between" data-testid="link-hash-generator">
+                  Hash Generator
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/tools/qr-maker">
+                <Button variant="outline" className="w-full justify-between" data-testid="link-qr-maker">
+                  QR Code Maker
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
