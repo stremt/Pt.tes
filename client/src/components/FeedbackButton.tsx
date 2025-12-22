@@ -16,6 +16,7 @@ export function FeedbackButton() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -30,11 +31,13 @@ export function FeedbackButton() {
 
     setIsSubmitting(true);
     try {
-      const mailtoLink = `mailto:support@pixocraft.in?subject=${encodeURIComponent(`${subject} (from ${currentToolName})`)}`;
+      const body = message.trim() ? encodeURIComponent(`${message}\n\n--- Sent from ${currentToolName}`) : `--- Sent from ${currentToolName}`;
+      const mailtoLink = `mailto:support@pixocraft.in?subject=${encodeURIComponent(subject)}&body=${body}`;
       window.location.href = mailtoLink;
       
       toast({ title: "Thank you!", description: "Opening your email client..." });
       setSubject("");
+      setMessage("");
       setIsOpen(false);
     } catch (error) {
       toast({ title: "Error", description: "Failed to open email client", variant: "destructive" });
@@ -79,6 +82,11 @@ export function FeedbackButton() {
               <div>
                 <label className="text-sm font-medium mb-1 block">Subject</label>
                 <Input type="text" placeholder="What's your feedback about?" value={subject} onChange={(e) => setSubject(e.target.value)} data-testid="input-feedback-subject" />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-1 block">Feedback</label>
+                <Textarea placeholder="Tell us your thoughts..." value={message} onChange={(e) => setMessage(e.target.value)} className="resize-none h-20" data-testid="textarea-feedback-message" />
               </div>
 
               <div className="flex gap-2">
