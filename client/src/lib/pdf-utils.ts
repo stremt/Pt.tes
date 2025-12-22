@@ -1,9 +1,10 @@
 import { PDFDocument, rgb, degrees, StandardFonts } from "pdf-lib";
 import imageCompression from "browser-image-compression";
 import * as pdfjsLib from "pdfjs-dist";
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 // Set up PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 export type CompressionLevel = 'standard' | 'maximum';
 
@@ -47,7 +48,7 @@ async function convertPDFPageToImage(pdfDoc: any, pageNum: number, quality: numb
 // Compress image using browser-image-compression library
 async function compressImage(imageBlob: Blob, maxSizeMB: number): Promise<Blob> {
   try {
-    const compressed = await imageCompression.imageCompression(imageBlob, {
+    const compressed = await imageCompression(imageBlob, {
       maxSizeMB,
       maxWidthOrHeight: 2000,
       useWebWorker: true,

@@ -131,7 +131,7 @@ export default function PDFWatermarkAdder() {
     }
   };
 
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       if (!selectedFile.type.startsWith('image/')) {
@@ -143,15 +143,42 @@ export default function PDFWatermarkAdder() {
         return;
       }
       
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          setWatermarkImage(e.target.result as ArrayBuffer);
-          setWatermarkImagePreview(URL.createObjectURL(selectedFile));
-          setImageMimeType(selectedFile.type === 'image/jpeg' ? 'image/jpeg' : 'image/png');
-        }
-      };
-      reader.readAsArrayBuffer(selectedFile);
+      try {
+        // Import compression dynamically
+        const imageCompression = await import('browser-image-compression');
+        
+        // Compress the image to ~200KB for faster processing
+        const compressedFile = await imageCompression.default(selectedFile, {
+          maxSizeMB: 0.2,
+          maxWidthOrHeight: 800,
+          useWebWorker: true,
+        });
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result) {
+            setWatermarkImage(e.target.result as ArrayBuffer);
+            setWatermarkImagePreview(URL.createObjectURL(compressedFile));
+            setImageMimeType(compressedFile.type === 'image/jpeg' ? 'image/jpeg' : 'image/png');
+            toast({
+              title: "Image Compressed",
+              description: `Reduced from ${(selectedFile.size / 1024 / 1024).toFixed(2)}MB to ${(compressedFile.size / 1024 / 1024).toFixed(2)}MB`,
+            });
+          }
+        };
+        reader.readAsArrayBuffer(compressedFile);
+      } catch (error) {
+        // Fallback: use uncompressed image
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result) {
+            setWatermarkImage(e.target.result as ArrayBuffer);
+            setWatermarkImagePreview(URL.createObjectURL(selectedFile));
+            setImageMimeType(selectedFile.type === 'image/jpeg' ? 'image/jpeg' : 'image/png');
+          }
+        };
+        reader.readAsArrayBuffer(selectedFile);
+      }
     }
   };
 
