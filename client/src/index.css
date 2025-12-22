@@ -316,4 +316,36 @@
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--primary) / 0.6) hsl(var(--muted));
   }
+
+  /* Feedback Button Animation */
+  .feedback-float-btn {
+    transition: transform 0.2s ease;
+  }
+
+  .feedback-float-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .feedback-pulse {
+    border-color: hsl(var(--primary-foreground) / 0.6);
+    animation: feedback-pulse-ring 2s infinite;
+  }
+
+  @keyframes feedback-pulse-ring {
+    0% {
+      border-width: 2px;
+      border-color: hsl(var(--primary-foreground) / 0.6);
+      opacity: 1;
+    }
+    50% {
+      border-width: 2px;
+      border-color: hsl(var(--primary-foreground) / 0.4);
+      opacity: 0.8;
+    }
+    100% {
+      border-width: 2px;
+      border-color: hsl(var(--primary-foreground) / 0.2);
+      opacity: 0.6;
+    }
+  }
 }

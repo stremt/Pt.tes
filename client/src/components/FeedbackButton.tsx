@@ -1,129 +1,108 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Send, X } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
+import { MessageSquare, Send, X } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
-interface FeedbackButtonProps {
-  toolName?: string;
-}
+const TOOL_NAMES: Record<string, string> = {
+  "/": "Home", "/tools": "Tools Directory", "/tools/qr-maker": "QR Code Generator",
+  "/tools/password-generator": "Password Generator", "/tools/image-compressor": "Image Compressor",
+  "/tools/slug-generator": "Slug Generator", "/tools/regex-tester": "Regex Tester",
+};
 
-export function FeedbackButton({ toolName }: FeedbackButtonProps) {
-  const [open, setOpen] = useState(false);
-  const [subject, setSubject] = useState(
-    toolName ? `Feedback for ${toolName}` : "Feedback for Pixocraft Tools"
-  );
+export function FeedbackButton() {
+  const [location] = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleSendEmail = () => {
-    const emailSubject = encodeURIComponent(subject);
-    const emailBody = encodeURIComponent(message);
-    const mailtoLink = `mailto:support@pixocraft.in?subject=${emailSubject}&body=${emailBody}`;
-    
-    window.location.href = mailtoLink;
-    setOpen(false);
-    
-    // Reset form
-    setTimeout(() => {
-      setSubject(toolName ? `Feedback for ${toolName}` : "Feedback for Pixocraft Tools");
+  const currentToolName = TOOL_NAMES[location] || location;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) {
+      toast({ title: "Error", description: "Please enter your feedback", variant: "destructive" });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const feedbackData = {
+        email: email || "anonymous",
+        message,
+        page: location,
+        pageName: currentToolName,
+        timestamp: new Date().toISOString(),
+      };
+      const feedbackList = JSON.parse(localStorage.getItem("pixocraft_feedback") || "[]");
+      feedbackList.push(feedbackData);
+      localStorage.setItem("pixocraft_feedback", JSON.stringify(feedbackList));
+
+      toast({ title: "Thank you!", description: `Feedback from "${currentToolName}" received!` });
+      setEmail("");
       setMessage("");
-    }, 300);
+      setIsOpen(false);
+    } catch (error) {
+      toast({ title: "Error", description: "Failed to submit feedback", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button
-            size="icon"
-            className="!fixed !bottom-6 !right-6 left-auto rounded-full shadow-lg !z-[9999]"
-            data-testid="button-feedback-floating"
-            aria-label="Send Feedback"
-          >
-            <MessageCircle className="h-5 w-5" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]" data-testid="dialog-feedback">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-primary" />
-              Send Feedback
-            </DialogTitle>
-            <DialogDescription>
-              Found an issue or have a suggestion? We'd love to hear from you!
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="feedback-subject">Subject</Label>
-              <Input
-                id="feedback-subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                placeholder="What's this about?"
-                data-testid="input-feedback-subject"
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="feedback-message">Message</Label>
-              <Textarea
-                id="feedback-message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Tell us your feedback, report a bug, or share your ideas..."
-                rows={6}
-                data-testid="textarea-feedback-message"
-              />
-              <p className="text-xs text-muted-foreground">
-                Your default email app will open to send this message to{" "}
-                <span className="font-semibold text-foreground">support@pixocraft.in</span>
-              </p>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover-elevate flex items-center justify-center z-40 feedback-float-btn"
+        title="Send feedback"
+        data-testid="button-feedback-float"
+      >
+        <div className="absolute inset-0 rounded-full feedback-pulse" />
+        <MessageSquare className="w-6 h-6 relative z-10" />
+      </button>
+
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg shadow-lg max-w-sm w-full p-6 space-y-4 border border-border">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Feedback</h3>
+              <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-muted rounded" data-testid="button-feedback-close">
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            <div className="bg-muted/50 rounded-lg p-3 space-y-2">
-              <p className="text-sm font-semibold">💡 Quick Tips:</p>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Be specific about the tool or feature</li>
-                <li>• Include screenshots if reporting a bug</li>
-                <li>• Suggestions are always welcome!</li>
-              </ul>
+            <div className="bg-muted/50 p-3 rounded text-sm">
+              <p className="text-muted-foreground"><span className="font-semibold">Page:</span> {currentToolName}</p>
             </div>
-          </div>
 
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => setOpen(false)}
-              className="flex-1"
-              data-testid="button-feedback-cancel"
-            >
-              <X className="h-4 w-4 mr-2" />
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSendEmail}
-              disabled={!message.trim()}
-              className="flex-1"
-              data-testid="button-feedback-send"
-            >
-              <Send className="h-4 w-4 mr-2" />
-              Send via Email
-            </Button>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Email (optional)</label>
+                <Input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="input-feedback-email" />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium mb-1 block">Feedback</label>
+                <Textarea placeholder="Tell us what you think..." value={message} onChange={(e) => setMessage(e.target.value)} className="resize-none h-20" data-testid="textarea-feedback-message" />
+              </div>
+
+              <div className="flex gap-2">
+                <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex-1" data-testid="button-feedback-cancel">Cancel</Button>
+                <Button type="submit" disabled={isSubmitting} className="flex-1" data-testid="button-feedback-submit">
+                  <Send className="w-4 h-4 mr-1" />
+                  {isSubmitting ? "Sending..." : "Send"}
+                </Button>
+              </div>
+            </form>
+
+            <p className="text-xs text-muted-foreground text-center">No data is sent. Feedback is stored locally.</p>
           </div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      )}
     </>
   );
 }
