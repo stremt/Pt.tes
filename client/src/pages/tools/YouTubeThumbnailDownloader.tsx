@@ -121,7 +121,7 @@ export default function YouTubeThumbnailDownloader() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Pixocraft_tools_xyz_${thumbnail.name.toLowerCase().replace(/ /g, "_")}.jpg`;
+      link.download = `Pixocraft_tools_${thumbnail.name.toLowerCase().replace(/ /g, "_")}.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

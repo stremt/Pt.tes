@@ -96,7 +96,8 @@ import {
   PartyPopper,
   Heart,
   CheckSquare,
-  FileDown
+  FileDown,
+  Instagram
 } from "lucide-react";
 
 export const tools: ToolMetadata[] = [
@@ -1684,6 +1685,15 @@ export const tools: ToolMetadata[] = [
     category: "media",
     keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "yt thumbnail", "youtube video preview", "thumbnail extractor", "youtube thumbnail download"],
   },
+  {
+    id: "instagram-profile-picture-downloader",
+    name: "Instagram Profile Picture Downloader",
+    description: "Download Instagram profile pictures in high quality. Works for any public profile. Free, fast, and 100% browser-based.",
+    icon: "Instagram",
+    path: "/tools/instagram-profile-picture-downloader",
+    category: "media",
+    keywords: ["instagram profile picture downloader", "download instagram dp", "instagram profile photo", "ig dp downloader", "instagram avatar downloader"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
@@ -1785,6 +1795,7 @@ export const getToolIcon = (iconName: string) => {
     Heart,
     CheckSquare,
     FileDown,
+    Instagram,
   };
   return icons[iconName] || Mail;
 };

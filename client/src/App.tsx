@@ -214,6 +214,7 @@ const AudioNoiseRemover = lazy(() => import("@/pages/tools/AudioNoiseRemover"));
 const GIFtoMP4 = lazy(() => import("@/pages/tools/GIFtoMP4"));
 const MP4toMP3 = lazy(() => import("@/pages/tools/MP4toMP3"));
 const YouTubeThumbnailDownloader = lazy(() => import("@/pages/tools/YouTubeThumbnailDownloader"));
+const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
 const Blogs = lazy(() => import("@/pages/Blogs"));
@@ -452,6 +453,7 @@ function Router() {
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
         <Route path="/tools/youtube-thumbnail-downloader" component={YouTubeThumbnailDownloader} />
+        <Route path="/tools/instagram-profile-picture-downloader" component={InstagramProfilePictureDownloader} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blog-editor" component={BlogEditor} />
         <Route path="/sitemap-generator" component={Sitemap} />
