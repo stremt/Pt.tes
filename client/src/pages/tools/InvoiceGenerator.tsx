@@ -248,118 +248,126 @@ export default function InvoiceGenerator() {
     >
       <div className="space-y-6">
         {/* Top Controls */}
-        <div className="flex flex-wrap gap-2">
-          <Dialog open={showDrafts} onOpenChange={setShowDrafts}>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="sm" data-testid="button-view-drafts">
-                <History className="mr-2 h-4 w-4" />
-                Drafts ({allInvoices.length})
-              </Button>
-            </DialogTrigger>
-            <DialogContent data-testid="dialog-drafts">
-              <DialogHeader>
-                <DialogTitle>Invoice Drafts</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-2 max-h-96 overflow-y-auto">
-                {allInvoices.length === 0 ? (
-                  <p className="text-sm text-gray-500">No drafts saved yet</p>
-                ) : (
-                  allInvoices.map((inv) => (
-                    <div key={inv.id} className="flex items-center justify-between p-3 border rounded-md">
-                      <div className="flex-1">
-                        <p className="font-medium">{inv.invoiceNumber}</p>
-                        <p className="text-sm text-gray-500">{inv.clientName}</p>
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 items-stretch sm:items-center">
+          <div className="flex flex-wrap gap-2">
+            <Dialog open={showDrafts} onOpenChange={setShowDrafts}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" className="flex-1 sm:flex-none" data-testid="button-view-drafts">
+                  <History className="mr-2 h-4 w-4" />
+                  Drafts ({allInvoices.length})
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md" data-testid="dialog-drafts">
+                <DialogHeader>
+                  <DialogTitle>Invoice Drafts</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2">
+                  {allInvoices.length === 0 ? (
+                    <p className="text-sm text-gray-500">No drafts saved yet</p>
+                  ) : (
+                    allInvoices.map((inv) => (
+                      <div key={inv.id} className="flex items-center justify-between p-3 border rounded-md gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{inv.invoiceNumber}</p>
+                          <p className="text-sm text-gray-500 truncate">{inv.clientName}</p>
+                        </div>
+                        <div className="flex gap-1 shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setInvoice(inv);
+                              setShowDrafts(false);
+                            }}
+                            data-testid={`button-load-draft-${inv.id}`}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              deleteInvoice(inv.id);
+                              setAllInvoices(getAllInvoices());
+                            }}
+                            data-testid={`button-delete-draft-${inv.id}`}
+                          >
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setInvoice(inv);
-                          setShowDrafts(false);
-                        }}
-                        data-testid={`button-load-draft-${inv.id}`}
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          deleteInvoice(inv.id);
-                          setAllInvoices(getAllInvoices());
-                        }}
-                        data-testid={`button-delete-draft-${inv.id}`}
-                      >
-                        <Trash2 className="h-4 w-4 text-red-500" />
-                      </Button>
-                    </div>
-                  ))
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
+                    ))
+                  )}
+                </div>
+              </DialogContent>
+            </Dialog>
 
-          <Dialog open={showTemplates} onOpenChange={setShowTemplates}>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="sm" data-testid="button-view-templates">
-                <FileText className="mr-2 h-4 w-4" />
-                Templates ({allTemplates.length})
-              </Button>
-            </DialogTrigger>
-            <DialogContent data-testid="dialog-templates">
-              <DialogHeader>
-                <DialogTitle>Invoice Templates</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-2 max-h-96 overflow-y-auto">
-                {allTemplates.length === 0 ? (
-                  <p className="text-sm text-gray-500">No templates saved yet</p>
-                ) : (
-                  allTemplates.map((template) => (
-                    <div key={template.id} className="flex items-center justify-between p-3 border rounded-md">
-                      <div className="flex-1">
-                        <p className="font-medium">{template.name}</p>
-                        <p className="text-sm text-gray-500">{template.businessName}</p>
+            <Dialog open={showTemplates} onOpenChange={setShowTemplates}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" className="flex-1 sm:flex-none" data-testid="button-view-templates">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Templates ({allTemplates.length})
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md" data-testid="dialog-templates">
+                <DialogHeader>
+                  <DialogTitle>Invoice Templates</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-2">
+                  {allTemplates.length === 0 ? (
+                    <p className="text-sm text-gray-500">No templates saved yet</p>
+                  ) : (
+                    allTemplates.map((template) => (
+                      <div key={template.id} className="flex items-center justify-between p-3 border rounded-md gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{template.name}</p>
+                          <p className="text-sm text-gray-500 truncate">{template.businessName}</p>
+                        </div>
+                        <div className="flex gap-1 shrink-0">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => loadTemplate(template)}
+                            data-testid={`button-load-template-${template.id}`}
+                          >
+                            <Copy className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              deleteTemplate(template.id);
+                              setAllTemplates(getAllTemplates());
+                            }}
+                            data-testid={`button-delete-template-${template.id}`}
+                          >
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => loadTemplate(template)}
-                        data-testid={`button-load-template-${template.id}`}
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          deleteTemplate(template.id);
-                          setAllTemplates(getAllTemplates());
-                        }}
-                        data-testid={`button-delete-template-${template.id}`}
-                      >
-                        <Trash2 className="h-4 w-4 text-red-500" />
-                      </Button>
-                    </div>
-                  ))
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
+                    ))
+                  )}
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
 
-          <Button onClick={createNewInv} variant="outline" size="sm" data-testid="button-new-invoice">
-            + New Invoice
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={createNewInv} variant="outline" size="sm" className="flex-1 sm:flex-none" data-testid="button-new-invoice">
+              + New Invoice
+            </Button>
 
-          <Button onClick={saveAsTemplate} variant="outline" size="sm" data-testid="button-save-template">
-            <Save className="mr-2 h-4 w-4" />
-            Save as Template
-          </Button>
+            <Button onClick={saveAsTemplate} variant="outline" size="sm" className="flex-1 sm:flex-none" data-testid="button-save-template">
+              <Save className="mr-2 h-4 w-4" />
+              Save Template
+            </Button>
+          </div>
 
-          <div className="ml-auto flex flex-wrap gap-2">
-            <div className="flex flex-col gap-1">
+          <div className="flex flex-wrap gap-2 pt-2 sm:pt-0 sm:ml-auto items-end">
+            <div className="flex flex-col gap-1 flex-1 min-w-[70px]">
               <Label className="text-[10px] uppercase text-muted-foreground ml-1">Theme</Label>
               <Select value={invoice.theme} onValueChange={(v) => updateInvoice('theme', v)}>
-                <SelectTrigger className="w-28 h-8" data-testid="select-theme">
+                <SelectTrigger className="h-8 w-full" data-testid="select-theme">
                   <SelectValue placeholder="Theme" />
                 </SelectTrigger>
                 <SelectContent>
@@ -370,10 +378,10 @@ export default function InvoiceGenerator() {
               </Select>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 flex-1 min-w-[90px]">
               <Label className="text-[10px] uppercase text-muted-foreground ml-1">Font</Label>
               <Select value={invoice.fontFamily} onValueChange={(v) => updateInvoice('fontFamily', v)}>
-                <SelectTrigger className="w-32 h-8" data-testid="select-font">
+                <SelectTrigger className="h-8 w-full" data-testid="select-font">
                   <SelectValue placeholder="Font" />
                 </SelectTrigger>
                 <SelectContent>
@@ -390,7 +398,7 @@ export default function InvoiceGenerator() {
                 type="color"
                 value={invoice.primaryColor}
                 onChange={(e) => updateInvoice('primaryColor', e.target.value)}
-                className="w-12 h-8 p-1 cursor-pointer"
+                className="w-10 h-8 p-1 cursor-pointer"
                 data-testid="input-primary-color"
               />
             </div>
@@ -401,23 +409,23 @@ export default function InvoiceGenerator() {
                 type="color"
                 value={invoice.backgroundColor}
                 onChange={(e) => updateInvoice('backgroundColor', e.target.value)}
-                className="w-12 h-8 p-1 cursor-pointer"
+                className="w-10 h-8 p-1 cursor-pointer"
                 data-testid="input-bg-color"
               />
             </div>
 
             <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="w-48" data-testid="button-currency-picker">
+                <Button variant="outline" className="h-8 px-2 text-xs" data-testid="button-currency-picker">
                   {getCurrencyById(invoice.currency)?.symbol} {invoice.currency}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80 p-2" align="end" data-testid="popover-currency">
+              <PopoverContent className="w-[90vw] sm:w-80 p-2" align="end" data-testid="popover-currency">
                 <div className="space-y-2">
                   <div className="flex gap-2">
                     <Search className="h-4 w-4 text-gray-500 mt-2.5" />
                     <Input
-                      placeholder="Search country, currency, or symbol..."
+                      placeholder="Search currency..."
                       value={currencySearch}
                       onChange={(e) => setCurrencySearch(e.target.value)}
                       className="h-9"
@@ -425,7 +433,7 @@ export default function InvoiceGenerator() {
                       autoFocus
                     />
                   </div>
-                  <div className="max-h-96 overflow-y-auto space-y-1">
+                  <div className="max-h-[50vh] overflow-y-auto space-y-1">
                     {searchResults.length === 0 ? (
                       <p className="text-sm text-gray-500 p-2">No currencies found</p>
                     ) : (
@@ -441,8 +449,8 @@ export default function InvoiceGenerator() {
                           data-testid={`button-currency-${curr.id}`}
                         >
                           <div className="flex items-center gap-2">
-                            <span className="font-semibold text-lg">{curr.symbol}</span>
-                            <span className="flex-1">
+                            <span className="font-semibold text-lg shrink-0 w-8">{curr.symbol}</span>
+                            <span className="flex-1 truncate">
                               {curr.country}
                               <span className="block text-xs text-gray-500">{curr.currency}</span>
                             </span>
@@ -622,8 +630,8 @@ export default function InvoiceGenerator() {
             </div>
 
             {/* Tax & Shipping */}
-            <div className="space-y-3 bg-gray-50 p-4 rounded-md">
-              <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-3 bg-gray-50 dark:bg-muted/20 p-4 rounded-md">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <Label htmlFor="tax-rate">Tax/GST (%)</Label>
                   <Input
@@ -632,6 +640,7 @@ export default function InvoiceGenerator() {
                     value={invoice.taxRate}
                     onChange={(e) => updateInvoice('taxRate', parseFloat(e.target.value) || 0)}
                     placeholder="0"
+                    className="h-9"
                     data-testid="input-tax-rate"
                   />
                 </div>
@@ -643,6 +652,7 @@ export default function InvoiceGenerator() {
                     value={invoice.discountRate}
                     onChange={(e) => updateInvoice('discountRate', parseFloat(e.target.value) || 0)}
                     placeholder="0"
+                    className="h-9"
                     data-testid="input-discount-rate"
                   />
                 </div>
@@ -654,61 +664,122 @@ export default function InvoiceGenerator() {
         {/* Line Items */}
         <div className="space-y-3">
           <h3 className="font-semibold text-lg">Line Items</h3>
-          <div className="overflow-x-auto">
+          
+          {/* Mobile Items View */}
+          <div className="md:hidden space-y-4">
+            {invoice.items.map((item, idx) => (
+              <Card key={item.id} className="p-4 relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-2 right-2 h-8 w-8"
+                  onClick={() => removeItem(idx)}
+                  data-testid={`button-remove-item-mobile-${idx}`}
+                >
+                  <Trash2 className="h-4 w-4 text-red-500" />
+                </Button>
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <Label className="text-[10px] uppercase text-muted-foreground">Description</Label>
+                    <Input
+                      value={item.desc}
+                      onChange={(e) => updateItem(idx, 'desc', e.target.value)}
+                      placeholder="Item description..."
+                      data-testid={`input-item-desc-mobile-${idx}`}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <Label className="text-[10px] uppercase text-muted-foreground">Quantity</Label>
+                      <Input
+                        type="number"
+                        value={item.qty}
+                        onChange={(e) => updateItem(idx, 'qty', parseInt(e.target.value) || 1)}
+                        data-testid={`input-item-qty-mobile-${idx}`}
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label className="text-[10px] uppercase text-muted-foreground">Rate</Label>
+                      <div className="flex items-center gap-1 border rounded-md px-2 bg-background">
+                        <span className="text-gray-500 text-sm">{getCurrencyById(invoice.currency)?.symbol}</span>
+                        <Input
+                          type="number"
+                          value={item.rate}
+                          onChange={(e) => updateItem(idx, 'rate', parseFloat(e.target.value) || 0)}
+                          className="border-0 p-0 h-9"
+                          data-testid={`input-item-rate-mobile-${idx}`}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="text-sm font-medium">Amount:</span>
+                    <span className="font-bold">
+                      {getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto border rounded-md">
             <table className="w-full text-sm">
-              <thead className="bg-gray-800 text-white">
+              <thead className="bg-muted/50 text-muted-foreground">
                 <tr>
                   <th className="text-left py-2 px-3">Description</th>
-                  <th className="text-center py-2 px-3 w-20">Quantity</th>
-                  <th className="text-right py-2 px-3 w-24">Rate</th>
-                  <th className="text-right py-2 px-3 w-24">Amount</th>
+                  <th className="text-center py-2 px-3 w-20">Qty</th>
+                  <th className="text-right py-2 px-3 w-32">Rate</th>
+                  <th className="text-right py-2 px-3 w-32">Amount</th>
                   <th className="text-center py-2 px-3 w-10"></th>
                 </tr>
               </thead>
               <tbody>
                 {invoice.items.map((item, idx) => (
-                  <tr key={item.id} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-3">
+                  <tr key={item.id} className="border-b hover:bg-muted/30 transition-colors">
+                    <td className="py-2 px-3">
                       <Input
                         value={item.desc}
                         onChange={(e) => updateItem(idx, 'desc', e.target.value)}
-                        placeholder="Description of item/service..."
-                        className="border-0"
+                        placeholder="Description..."
+                        className="border-0 focus-visible:ring-0 bg-transparent px-0"
                         data-testid={`input-item-desc-${idx}`}
                       />
                     </td>
-                    <td className="py-3 px-3">
+                    <td className="py-2 px-3">
                       <Input
                         type="number"
                         value={item.qty}
                         onChange={(e) => updateItem(idx, 'qty', parseInt(e.target.value) || 1)}
-                        className="border-0 text-center"
+                        className="border-0 focus-visible:ring-0 bg-transparent text-center px-0"
                         data-testid={`input-item-qty-${idx}`}
                       />
                     </td>
-                    <td className="py-3 px-3">
-                      <div className="flex">
+                    <td className="py-2 px-3">
+                      <div className="flex items-center justify-end gap-1">
                         <span className="text-gray-500">{getCurrencyById(invoice.currency)?.symbol}</span>
                         <Input
                           type="number"
                           value={item.rate}
                           onChange={(e) => updateItem(idx, 'rate', parseFloat(e.target.value) || 0)}
-                          className="border-0 text-right"
+                          className="border-0 focus-visible:ring-0 bg-transparent text-right px-0 w-24"
                           data-testid={`input-item-rate-${idx}`}
                         />
                       </div>
                     </td>
-                    <td className="py-3 px-3 text-right font-medium">
+                    <td className="py-2 px-3 text-right font-medium">
                       {getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}
                     </td>
-                    <td className="py-3 px-3 text-center">
+                    <td className="py-2 px-3 text-center">
                       <Button
                         variant="ghost"
-                        size="sm"
+                        size="icon"
+                        className="h-8 w-8 hover:text-red-500"
                         onClick={() => removeItem(idx)}
                         data-testid={`button-remove-item-${idx}`}
                       >
-                        <Trash2 className="h-4 w-4 text-red-500" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </td>
                   </tr>
@@ -716,7 +787,7 @@ export default function InvoiceGenerator() {
               </tbody>
             </table>
           </div>
-          <Button onClick={addItem} variant="outline" size="sm" data-testid="button-add-item">
+          <Button onClick={addItem} variant="outline" size="sm" className="w-full sm:w-auto" data-testid="button-add-item">
             <Plus className="mr-2 h-4 w-4" />
             Add Line Item
           </Button>
@@ -747,17 +818,19 @@ export default function InvoiceGenerator() {
         </div>
 
         {/* Invoice Preview */}
-        <Card 
-          ref={invoiceRef} 
-          style={{ 
-            backgroundColor: invoice.backgroundColor,
-            fontFamily: invoice.fontFamily === 'Serif' ? 'serif' : 
-                        invoice.fontFamily === 'Sans-serif' ? 'sans-serif' : 
-                        invoice.fontFamily === 'JetBrains Mono' ? '"JetBrains Mono", monospace' : 
-                        '"Inter", sans-serif'
-          }}
-          className="bg-white border-0 shadow-lg"
-        >
+        <div className="overflow-x-auto -mx-4 sm:mx-0 pb-4">
+          <div className="min-w-[700px] p-4 sm:p-0">
+            <Card 
+              ref={invoiceRef} 
+              style={{ 
+                backgroundColor: invoice.backgroundColor,
+                fontFamily: invoice.fontFamily === 'Serif' ? 'serif' : 
+                            invoice.fontFamily === 'Sans-serif' ? 'sans-serif' : 
+                            invoice.fontFamily === 'JetBrains Mono' ? '"JetBrains Mono", monospace' : 
+                            '"Inter", sans-serif'
+              }}
+              className="bg-white border-0 shadow-lg"
+            >
           <CardContent className={`p-8 space-y-6 ${invoice.theme === 'Minimal' ? 'px-12' : ''}`}>
             {/* Header */}
             <div className={`flex justify-between items-start border-b pb-6 ${
@@ -877,9 +950,11 @@ export default function InvoiceGenerator() {
             )}
           </CardContent>
         </Card>
+      </div>
+    </div>
 
-        {/* Download Button */}
-        <div className="flex justify-center">
+    {/* Download Button */}
+    <div className="flex justify-center">
           <Button onClick={generatePDF} size="lg" disabled={downloading} data-testid="button-download-pdf">
             <Download className="mr-2 h-5 w-5" />
             {downloading ? "Generating PDF..." : "Download PDF"}
