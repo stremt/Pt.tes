@@ -24,16 +24,18 @@ export default function Base64Encoder() {
 
   const handleEncode = () => {
     try {
-      const encoded = btoa(input);
+      // Convert text to UTF-8 then to Base64
+      const encoded = btoa(unescape(encodeURIComponent(input)));
       setOutput(encoded);
     } catch (error) {
-      setOutput("Error encoding text - contains invalid characters for Base64");
+      setOutput("Error encoding text - please try again");
     }
   };
 
   const handleDecode = () => {
     try {
-      const decoded = atob(input);
+      // Decode Base64 then convert from UTF-8
+      const decoded = decodeURIComponent(escape(atob(input)));
       setOutput(decoded);
     } catch (error) {
       setOutput("Error decoding Base64 - invalid Base64 string");
