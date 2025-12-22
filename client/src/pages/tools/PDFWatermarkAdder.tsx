@@ -99,6 +99,7 @@ export default function PDFWatermarkAdder() {
     description: "Add custom text watermarks to PDF files online for free. Protect documents, mark as confidential, add branding. Secure, offline processing in your browser.",
     keywords: "add watermark to pdf, pdf watermark online, watermark pdf free, protect pdf, pdf security, add text to pdf, pdf watermarking tool, stamp pdf, pdf branding",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-watermark-adder",
+    ogImage: "https://tools.pixocraft.in/og-images/pdf-watermark.jpg",
   });
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {

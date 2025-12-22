@@ -26,6 +26,7 @@ export default function PDFCompressor() {
     description: "Compress PDF files for free without losing quality. Reduce PDF size by up to 90% for email, uploads, and storage. 100% offline, no uploads. Trusted in India.",
     keywords: "pdf compressor, compress pdf, reduce pdf size, shrink pdf, pdf size reducer, compress pdf online free, pdf compressor without quality loss, pdf optimizer, make pdf smaller",
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-compressor",
+    ogImage: "https://tools.pixocraft.in/og-images/pdf-compressor.jpg",
   });
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
