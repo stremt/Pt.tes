@@ -12,10 +12,7 @@ export default function InstagramProfilePictureDownloader() {
   const [username, setUsername] = useState("");
   const [profileData, setProfileData] = useState<{
     username: string;
-    fullName: string;
     profilePicUrl: string;
-    bio: string;
-    followerCount: number;
   } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -41,40 +38,77 @@ export default function InstagramProfilePictureDownloader() {
     setLoading(true);
 
     try {
-      const response = await fetch(
+      // Try multiple API endpoints for better compatibility
+      const endpoints = [
         `https://www.instagram.com/api/v1/users/web_profile_info/?username=${cleanUsername}`,
-        {
-          headers: {
-            "User-Agent":
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-          },
-        }
-      );
+        `https://instagram.com/${cleanUsername}/?__a=1`,
+      ];
 
-      if (!response.ok) {
-        throw new Error("Profile not found or is private");
+      let success = false;
+      let profileUrl = "";
+      let displayUsername = cleanUsername;
+
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint, {
+            headers: {
+              "User-Agent":
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            
+            // Handle different response formats
+            if (data.data?.user) {
+              profileUrl = data.data.user.profile_pic_url_hd || data.data.user.profile_pic_url || "";
+              displayUsername = data.data.user.username || cleanUsername;
+              success = true;
+              break;
+            } else if (data.graphql?.user) {
+              profileUrl = data.graphql.user.profile_pic_url_hd || data.graphql.user.profile_pic_url || "";
+              displayUsername = data.graphql.user.username || cleanUsername;
+              success = true;
+              break;
+            }
+          }
+        } catch (e) {
+          // Try next endpoint
+          continue;
+        }
       }
 
-      const data = await response.json();
-      const user_obj = data.data.user;
+      if (!success) {
+        // If API fails, try direct image URL construction (fallback method)
+        profileUrl = `https://www.instagram.com/${cleanUsername}/media/?__a=1`;
+        setError(
+          "Could not fetch via API. This may be due to Instagram's restrictions. Try entering the URL manually or ensure the profile is public."
+        );
+        setLoading(false);
+        return;
+      }
+
+      if (!profileUrl) {
+        throw new Error("Profile picture URL not found");
+      }
 
       setProfileData({
-        username: user_obj.username,
-        fullName: user_obj.full_name || user_obj.username,
-        profilePicUrl: user_obj.profile_pic_url_hd || user_obj.profile_pic_url || "",
-        bio: user_obj.biography || "",
-        followerCount: user_obj.edge_followed_by?.count || 0,
+        username: displayUsername,
+        profilePicUrl: profileUrl,
       });
 
       toast({
         title: "Profile Loaded",
-        description: `Found ${user_obj.username}'s profile!`,
+        description: `Found @${displayUsername}'s profile!`,
       });
     } catch (err) {
-      setError("Unable to find profile. Check the username and try again.");
+      setError(
+        "Unable to find profile. Make sure the username is correct and the profile is public. Instagram may also be blocking automated requests."
+      );
       toast({
         title: "Error",
-        description: "Could not load profile. Make sure it's a public account.",
+        description: "Could not load profile. Check the username and try again.",
         variant: "destructive",
       });
     } finally {
@@ -203,18 +237,7 @@ export default function InstagramProfilePictureDownloader() {
                   <div className="flex-1 space-y-4">
                     <div>
                       <h2 className="text-2xl font-bold text-foreground">@{profileData.username}</h2>
-                      <p className="text-muted-foreground">{profileData.fullName}</p>
                     </div>
-                    {profileData.bio && (
-                      <p className="text-sm text-muted-foreground">{profileData.bio}</p>
-                    )}
-                    {profileData.followerCount > 0 && (
-                      <div className="flex gap-4">
-                        <Badge variant="secondary">
-                          {(profileData.followerCount / 1000000).toFixed(1)}M Followers
-                        </Badge>
-                      </div>
-                    )}
                   </div>
                 </div>
 
