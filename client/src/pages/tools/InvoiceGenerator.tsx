@@ -53,9 +53,9 @@ export default function InvoiceGenerator() {
   const searchResults = currencySearch ? searchCurrencies(currencySearch) : CURRENCIES;
 
   useSEO({
-    title: "Free Invoice Generator Online | Create & Download PDF Instantly",
-    description: "Generate professional invoices with tax, discount, shipping calculations. Auto-save drafts, manage templates. No login, 100% offline.",
-    keywords: "invoice generator, create invoice pdf, billing tool, invoice maker, free invoice template, gst calculator",
+    title: "Free Invoice Generator Online | Professional GST & Tax Billing Tool",
+    description: "Create professional invoices instantly with our free online generator. Features GST/Tax calculation, auto-save drafts, custom themes, and PDF download. 100% private and offline-capable.",
+    keywords: "invoice generator, free invoice maker, gst billing software online, professional invoice template, create pdf invoice, online billing tool india, free billing generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/invoice-generator",
   });
 
@@ -90,7 +90,7 @@ export default function InvoiceGenerator() {
 
   const addItem = () => {
     const newItem = {
-      id: crypto.randomUUID ? crypto.randomUUID() : `item-${Date.now()}`,
+      id: crypto.randomUUID ? crypto.randomUUID() : `item-${Date.now()}-${Math.random()}`,
       desc: "",
       qty: 1,
       rate: 0
@@ -426,6 +426,19 @@ export default function InvoiceGenerator() {
               />
             </div>
 
+            <div className="flex flex-col gap-1 flex-1 min-w-[60px]">
+              <Label className="text-[10px] uppercase text-muted-foreground ml-1">Radius</Label>
+              <Input
+                type="number"
+                min="0"
+                max="50"
+                value={invoice.logoRadius || 0}
+                onChange={(e) => updateInvoice('logoRadius', parseInt(e.target.value) || 0)}
+                className="h-8 w-full"
+                data-testid="input-logo-radius"
+              />
+            </div>
+
             <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="h-8 px-2 text-xs" data-testid="button-currency-picker">
@@ -482,13 +495,18 @@ export default function InvoiceGenerator() {
           {/* Left Column */}
           <div className="space-y-4">
             {/* Logo */}
-            <div className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-gray-50"
+            <div className="border-2 border-dashed rounded-md p-6 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               onClick={() => logoInputRef.current?.click()}
               data-testid="div-logo-upload">
               {logoPreview ? (
-                <img src={logoPreview} alt="Logo" className="h-16 mx-auto" />
+                <img 
+                  src={logoPreview} 
+                  alt="Logo" 
+                  className="h-16 mx-auto object-contain" 
+                  style={{ borderRadius: `${invoice.logoRadius || 0}px` }}
+                />
               ) : (
-                <p className="text-gray-400">+ Add Your Logo</p>
+                <p className="text-gray-400 dark:text-gray-500">+ Add Your Logo</p>
               )}
               <input
                 ref={logoInputRef}
@@ -852,7 +870,14 @@ export default function InvoiceGenerator() {
               invoice.theme === 'Professional' ? 'bg-muted/30 -mx-8 px-8 py-6 border-b-0 mb-6' : ''
             }`} style={{ borderColor: invoice.primaryColor }}>
               <div>
-                {logoPreview && <img src={logoPreview} alt="Logo" className="h-12 mb-2" />}
+                {logoPreview && (
+                  <img 
+                    src={logoPreview} 
+                    alt="Logo" 
+                    className="h-16 object-contain mb-4" 
+                    style={{ borderRadius: `${invoice.logoRadius || 0}px` }}
+                  />
+                )}
                 <h1 className="text-3xl font-bold" style={{ color: invoice.primaryColor }}>INVOICE</h1>
                 {invoice.theme === 'Minimal' && (
                   <p className="text-sm text-muted-foreground mt-1">#{invoice.invoiceNumber}</p>
@@ -983,6 +1008,37 @@ export default function InvoiceGenerator() {
             <Download className="mr-2 h-5 w-5" />
             {downloading ? "Generating PDF..." : "Download PDF"}
           </Button>
+        </div>
+
+        {/* Features of Our Tool */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              Professional Branding
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Customize your invoices with professional themes, custom fonts, and brand colors. Add your company logo with adjustable corner radius for a polished look.
+            </p>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold flex items-center gap-2">
+              <Download className="h-5 w-5 text-primary" />
+              Instant PDF Generation
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Generate high-quality PDF invoices instantly in your browser. Our tool ensures perfect layout and typography for professional printing or digital sharing.
+            </p>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-lg font-bold flex items-center gap-2">
+              <Plus className="h-5 w-5 text-primary" />
+              Smart Calculations
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Built-in support for GST/Tax, discounts, and shipping. Our generator handles all the math automatically, ensuring 100% accuracy in your totals.
+            </p>
+          </div>
         </div>
 
         {/* Related Tools */}

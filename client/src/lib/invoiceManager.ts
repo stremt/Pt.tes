@@ -34,6 +34,7 @@ export interface InvoiceData {
   primaryColor: string;
   fontFamily: string;
   backgroundColor: string;
+  logoRadius: number;
 }
 
 export interface InvoiceTemplate {
@@ -196,6 +197,7 @@ export function createNewInvoice(): InvoiceData {
     primaryColor: '#2563eb',
     fontFamily: 'Inter',
     backgroundColor: '#ffffff',
+    logoRadius: 0,
   };
 }
 
