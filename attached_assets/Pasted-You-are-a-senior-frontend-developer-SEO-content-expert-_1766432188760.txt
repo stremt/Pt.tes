@@ -1,0 +1,98 @@
+You are a senior frontend developer + SEO content expert.
+
+Create a NEW static browser-based tool page for Pixocraft Tools.
+
+Tool Name: {{TOOL_NAME}}
+
+Allowed Tool Names (use ONE at a time):
+- YouTube Thumbnail Downloader
+- Instagram Profile Picture Downloader
+
+Primary Goal:
+Create a FAST, SIMPLE, 100% CLIENT-SIDE tool that works without login, tracking, or data storage.
+
+STRICT RULES (DO NOT BREAK):
+- NO backend
+- NO external APIs that require keys
+- NO signup, ads, analytics, cookies, or tracking
+- NO watermark
+- NO copyright claims or illegal messaging
+- Do NOT mention any technologies or libraries by name
+- Everything must run inside the browser only
+- Clean, minimal UI consistent with Pixocraft Tools
+- Desktop + mobile responsive
+
+-------------------------
+FUNCTIONAL REQUIREMENTS
+-------------------------
+
+IF Tool = YouTube Thumbnail Downloader:
+- Input: YouTube video URL
+- Extract video ID from all valid YouTube URL formats
+- Show ALL available thumbnail sizes:
+  - Default
+  - Medium
+  - High
+  - Standard (if available)
+  - Max Resolution (if available)
+- Display thumbnails in a clean grid
+- Each thumbnail must have:
+  - Preview
+  - Download button
+- No watermark
+- No external redirects
+
+IF Tool = Instagram Profile Picture Downloader:
+- Input: Instagram username or profile URL
+- Fetch and display ONLY the public profile picture
+- Show image in high resolution
+- Allow one-click download
+- NO reels, NO videos, NO stories
+- Clear note: works only for public profiles
+
+-------------------------
+CONTENT + SEO REQUIREMENTS
+-------------------------
+
+Generate the following SEO content INSIDE the page (not code blocks):
+
+1. SEO Title (≤60 characters)
+2. Meta Description (≤155 characters)
+3. ONE clear H1 heading
+
+4. Main content section (400–600 words) covering:
+   - What problem this tool solves
+   - Who should use it (creators, students, marketers, designers)
+   - Real-world usage scenarios
+   - Privacy & offline explanation (trust-focused)
+
+5. FAQ section:
+   - 6–8 REAL user questions
+   - Simple, honest answers (2–4 lines each)
+   - Include safety, privacy, legality, and limitations
+
+6. Related Tools section:
+   - List ONLY 4–5 relevant Pixocraft tools
+   - Names only, no descriptions
+
+-------------------------
+TONE & STYLE
+-------------------------
+- Clear
+- Trustworthy
+- Human-written (not robotic)
+- India + global audience
+- Helpful, not promotional
+
+-------------------------
+FINAL OUTPUT FORMAT
+-------------------------
+- Full tool page structure
+- Working UI
+- Functional logic
+- SEO content included
+- Ready to deploy
+
+Do NOT explain your steps.
+Do NOT add anything extra.
+Just deliver the final result.
