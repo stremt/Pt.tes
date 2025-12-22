@@ -15,8 +15,7 @@ const TOOL_NAMES: Record<string, string> = {
 export function FeedbackButton() {
   const [location] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [subject, setSubject] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -24,30 +23,21 @@ export function FeedbackButton() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim()) {
-      toast({ title: "Error", description: "Please enter your feedback", variant: "destructive" });
+    if (!subject.trim()) {
+      toast({ title: "Error", description: "Please enter a subject", variant: "destructive" });
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const feedbackData = {
-        email: email || "anonymous",
-        message,
-        page: location,
-        pageName: currentToolName,
-        timestamp: new Date().toISOString(),
-      };
-      const feedbackList = JSON.parse(localStorage.getItem("pixocraft_feedback") || "[]");
-      feedbackList.push(feedbackData);
-      localStorage.setItem("pixocraft_feedback", JSON.stringify(feedbackList));
-
-      toast({ title: "Thank you!", description: `Feedback from "${currentToolName}" received!` });
-      setEmail("");
-      setMessage("");
+      const mailtoLink = `mailto:support@pixocraft.in?subject=${encodeURIComponent(`${subject} (from ${currentToolName})`)}`;
+      window.location.href = mailtoLink;
+      
+      toast({ title: "Thank you!", description: "Opening your email client..." });
+      setSubject("");
       setIsOpen(false);
     } catch (error) {
-      toast({ title: "Error", description: "Failed to submit feedback", variant: "destructive" });
+      toast({ title: "Error", description: "Failed to open email client", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
@@ -87,13 +77,8 @@ export function FeedbackButton() {
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <label className="text-sm font-medium mb-1 block">Email (optional)</label>
-                <Input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} data-testid="input-feedback-email" />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium mb-1 block">Feedback</label>
-                <Textarea placeholder="Tell us what you think..." value={message} onChange={(e) => setMessage(e.target.value)} className="resize-none h-20" data-testid="textarea-feedback-message" />
+                <label className="text-sm font-medium mb-1 block">Subject</label>
+                <Input type="text" placeholder="What's your feedback about?" value={subject} onChange={(e) => setSubject(e.target.value)} data-testid="input-feedback-subject" />
               </div>
 
               <div className="flex gap-2">
@@ -105,7 +90,7 @@ export function FeedbackButton() {
               </div>
             </form>
 
-            <p className="text-xs text-muted-foreground text-center">No data is sent. Feedback is stored locally.</p>
+            <p className="text-xs text-muted-foreground text-center">We'll open your email client to send feedback directly.</p>
           </div>
         </div>
       )}
