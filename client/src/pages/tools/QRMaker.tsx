@@ -889,12 +889,12 @@ export default function QRMaker() {
               {/* Preview - Desktop & Mobile Detection */}
               <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
-                <CardContent className="pb-3">
-                  <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 340, border: "1px solid var(--border)" }}>
-                    <canvas ref={canvasRef} className="max-w-full" />
+                <CardContent className="pb-3 space-y-3">
+                  <div className="rounded-lg p-4 flex items-center justify-center overflow-hidden" style={{ backgroundColor: lightColor, minHeight: 340, maxHeight: 500, border: "1px solid var(--border)" }}>
+                    <canvas ref={canvasRef} className="max-w-full max-h-full object-contain" style={{ maxWidth: "100%", maxHeight: "100%" }} />
                   </div>
-                  <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center mt-2">
-                    <Shield className="h-3 w-3" />Offline
+                  <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
+                    <Shield className="h-3 w-3" />Offline & Private
                   </div>
                 </CardContent>
               </Card>
