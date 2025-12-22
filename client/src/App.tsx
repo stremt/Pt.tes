@@ -11,6 +11,7 @@ import { FeedbackButton } from "@/components/FeedbackButton";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageLoader } from "@/components/PageLoader";
+import { checkAndHandleVersionChange } from "@/lib/versionManager";
 
 // Eagerly load pages (non-tool pages)
 import Home from "@/pages/Home";
@@ -228,6 +229,14 @@ const Privacy = lazy(() => import("@/pages/Privacy"));
 const QADashboard = lazy(() => import("@/pages/QADashboard"));
 const LongTailToolPage = lazy(() => import("@/pages/LongTailToolPage"));
 
+function VersionCheck() {
+  useEffect(() => {
+    checkAndHandleVersionChange();
+  }, []);
+  
+  return null;
+}
+
 function ScrollToTop() {
   const [location] = useLocation();
   
@@ -241,6 +250,7 @@ function ScrollToTop() {
 function Router() {
   return (
     <Suspense fallback={<PageLoader />}>
+      <VersionCheck />
       <ScrollToTop />
       <Switch>
         <Route path="/" component={Home} />
