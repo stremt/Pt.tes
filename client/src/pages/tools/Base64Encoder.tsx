@@ -16,9 +16,9 @@ export default function Base64Encoder() {
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
-    title: "Free Base64 Encoder/Decoder - Encode Text Online",
-    description: "Convert text to Base64 or decode Base64 to text instantly. 100% offline, secure, private. Works in your browser, no server uploads.",
-    keywords: "base64 encoder, base64 decoder online, encode text, decode base64, base64 conversion, text to base64, online encoder",
+    title: "Free Base64 Encoder Decoder - Encode Text Online",
+    description: "Convert text to Base64 or decode Base64 strings instantly. 100% free, offline, and private. No server uploads. Works completely in your browser.",
+    keywords: "base64 encoder, base64 decoder online, encode text, decode base64, base64 conversion, text to base64, online encoder, base64 encode decode, free base64 tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/base64-encoder",
   });
 
@@ -60,8 +60,8 @@ export default function Base64Encoder() {
 
   return (
     <ToolLayout
-      title="Base64 Encoder/Decoder"
-      description="Convert Base64 ↔ Text instantly. No server, no data collection — full privacy guaranteed."
+      title="Free Base64 Encoder/Decoder - Encode and Decode Online"
+      description="Instantly convert text to Base64 or decode Base64 strings back to plain text. 100% offline, completely private, and free. No server uploads or data collection."
       icon={<Binary className="h-10 w-10 text-primary" />}
       toolId="base64-encoder"
       category="Developer Tool"
@@ -77,11 +77,14 @@ export default function Base64Encoder() {
         { icon: <Globe className="h-6 w-6 text-primary" />, title: "Works Offline", description: "After first load, works completely offline. No internet needed." },
       ]}
       faqs={[
-        { question: "What is Base64 encoding?", answer: "Base64 is a binary-to-text encoding scheme that converts binary data into an ASCII string format. It's commonly used to encode data in email systems, URLs, and to embed images in HTML/CSS." },
-        { question: "When do I need Base64 encoding?", answer: "Use Base64 when you need to encode binary data for transmission over text-based protocols, embed images in CSS/HTML, encode data in JSON/XML, or store binary data in databases that only support text." },
-        { question: "Is Base64 encryption?", answer: "No, Base64 is NOT encryption. It's an encoding method that converts data to a different format. Anyone can easily decode Base64 - it provides no security or privacy. Never use it to protect sensitive information." },
-        { question: "Can I encode any text?", answer: "You can encode most text, but be aware that standard Base64 works with ASCII characters. For special characters or emojis, they'll first be converted to UTF-8 bytes before encoding." },
-        { question: "Is my data safe?", answer: "Yes, all encoding and decoding happens entirely in your browser using JavaScript. No data is sent to our servers or stored anywhere." },
+        { question: "What is Base64 encoding and why is it used?", answer: "Base64 is a binary-to-text encoding scheme that converts binary data into an ASCII string using 64 safe characters. It's essential for transmitting binary data over text-only protocols like email, JSON, and HTTP headers." },
+        { question: "How do I encode text to Base64 online?", answer: "Simply paste your text into the input field, select 'Encode to Base64', click the Encode button, and copy the result. It's instant and works completely offline in your browser." },
+        { question: "How do I decode Base64 back to plain text?", answer: "Paste your Base64 string into the input field, select 'Decode from Base64', click the Decode button, and copy the result. The tool automatically detects valid Base64 and converts it back to readable text." },
+        { question: "Is Base64 encryption or just encoding?", answer: "Base64 is encoding, NOT encryption. Anyone can easily decode Base64—it provides zero security. Use it for data transmission, not for protecting sensitive information. For security, use proper encryption algorithms." },
+        { question: "What characters can I encode with Base64?", answer: "You can encode any text, but Base64 uses 64 safe characters (A-Z, a-z, 0-9, +, /). Special characters and emojis are first converted to UTF-8 bytes before Base64 encoding, so they work fine." },
+        { question: "Is my data safe and private when using this tool?", answer: "Absolutely. All encoding and decoding happens entirely in your browser using JavaScript. No data is sent to servers, stored, or tracked. Complete offline privacy guaranteed." },
+        { question: "What are real-world uses for Base64 encoding?", answer: "Common uses include embedding images in CSS/HTML (data URLs), encoding authentication credentials, transmitting binary data in JSON/XML, email attachment encoding, and API request/response encoding." },
+        { question: "Can I use this tool on mobile phones?", answer: "Yes, this Base64 encoder/decoder works on any device with a modern browser—iPhone, Android, Windows, Mac, or Linux. It works offline once loaded, so no internet required." },
       ]}
     >
       <div className="max-w-4xl mx-auto space-y-6">
