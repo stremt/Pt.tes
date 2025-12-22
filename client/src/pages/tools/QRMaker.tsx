@@ -363,12 +363,14 @@ export default function QRMaker() {
       const padding = 40;
       const extraHeight = overlayText ? 40 : 0;
 
-      const ctx = canvasRef.current.getContext("2d");
+      const ctx = canvasRef.current.getContext("2d", { willReadFrequently: true });
       if (!ctx) return;
 
+      // Set canvas size
       canvasRef.current.width = qrSize + padding * 2;
       canvasRef.current.height = qrSize + padding * 2 + extraHeight;
 
+      // Fill background
       ctx.fillStyle = lightColor;
       ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
@@ -921,8 +923,8 @@ export default function QRMaker() {
               <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
-                  <div className="rounded-lg p-4 flex items-center justify-center overflow-auto" style={{ backgroundColor: lightColor, minHeight: 380, maxHeight: 600, border: "1px solid var(--border)" }}>
-                    <canvas ref={canvasRef} className="w-auto h-auto" style={{ display: 'block', margin: 'auto' }} />
+                  <div className="rounded-lg p-4 flex items-center justify-center overflow-auto bg-muted/30" style={{ backgroundColor: lightColor, minHeight: 380, maxHeight: 600, border: "1px solid var(--border)" }}>
+                    <canvas ref={canvasRef} className="max-w-full max-h-full" style={{ display: 'block', margin: 'auto', maxWidth: '100%', maxHeight: '100%', imageRendering: 'crisp-edges' }} />
                   </div>
                   <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
                     <Shield className="h-3 w-3" />Offline & Private
