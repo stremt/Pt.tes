@@ -19,7 +19,7 @@ interface CustomTemplate {
   frameStyle: string;
   overlayText: string;
   overlayTextColor: string;
-  logoPreset: string | null;
+  logoData: string | null;
   logoSize: number;
   logoBorderRadius: number;
   logoBackground: boolean;
@@ -107,7 +107,7 @@ export default function QRMaker() {
   const [darkColor, setDarkColor] = useState("#000000");
   const [lightColor, setLightColor] = useState("#FFFFFF");
   const [frameStyle, setFrameStyle] = useState("none");
-  const [logoPreset, setLogoPreset] = useState<string | null>(null);
+  const [logoData, setLogoData] = useState<string | null>(null);
   const [logoSize, setLogoSize] = useState(70);
   const [logoBorderRadius, setLogoBorderRadius] = useState(0);
   const [logoBackground, setLogoBackground] = useState(true);
@@ -181,7 +181,7 @@ export default function QRMaker() {
       const timer = setTimeout(() => renderQR(), 100);
       return () => clearTimeout(timer);
     }
-  }, [darkColor, lightColor, frameStyle, logoPreset, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
+  }, [darkColor, lightColor, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
 
   useSEO({
     title: "Free QR Code Generator | Custom Patterns & Logos",
@@ -206,17 +206,14 @@ export default function QRMaker() {
     }
   };
 
-  const getSocialLogoSvg = (presetId: string): string => {
-    const logoPresets: Record<string, string> = {
-      youtube: '<circle cx="50" cy="50" r="45" fill="#FF0000"/><polygon points="35,30 35,70 70,50" fill="white"/>',
-      facebook: '<circle cx="50" cy="50" r="45" fill="#1877F2"/><text x="50" y="65" font-size="50" fill="white" text-anchor="middle" font-weight="bold">f</text>',
-      whatsapp: '<circle cx="50" cy="50" r="45" fill="#25D366"/><text x="50" y="65" font-size="40" fill="white" text-anchor="middle" font-weight="bold">W</text>',
-      instagram: '<circle cx="50" cy="50" r="45" fill="#E4405F"/><rect x="25" y="25" width="50" height="50" rx="10" fill="none" stroke="white" stroke-width="3"/><circle cx="50" cy="50" r="12" fill="none" stroke="white" stroke-width="3"/><circle cx="62" cy="38" r="3" fill="white"/>',
-      linkedin: '<circle cx="50" cy="50" r="45" fill="#0A66C2"/><text x="50" y="65" font-size="40" fill="white" text-anchor="middle" font-weight="bold">in</text>',
-      telegram: '<circle cx="50" cy="50" r="45" fill="#0088cc"/><text x="50" y="65" font-size="40" fill="white" text-anchor="middle">T</text>',
-      twitter: '<circle cx="50" cy="50" r="45" fill="#000000"/><text x="50" y="65" font-size="40" fill="white" text-anchor="middle" font-weight="bold">X</text>',
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setLogoData(event.target?.result as string);
     };
-    return `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">${logoPresets[presetId] || ""}</svg>`;
+    reader.readAsDataURL(file);
   };
 
   const drawModule = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: string) => {
@@ -435,7 +432,7 @@ export default function QRMaker() {
           drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, darkColor);
         });
 
-        if (logoPreset) {
+        if (logoData) {
           const logoX = (canvas.width - logoSize) / 2;
           const logoY = padding + (qrSize - logoSize) / 2;
 
@@ -447,9 +444,8 @@ export default function QRMaker() {
           }
 
           try {
-            const svg = getSocialLogoSvg(logoPreset);
             const img = new Image();
-            img.src = `data:image/svg+xml;base64,${btoa(svg)}`;
+            img.src = logoData;
             img.onload = () => {
               ctx.save();
               ctx.beginPath();
@@ -519,7 +515,7 @@ export default function QRMaker() {
       id: Date.now().toString(),
       name: templateName,
       darkColor, lightColor, frameStyle, overlayText, overlayTextColor,
-      logoPreset, logoSize, logoBorderRadius, logoBackground,
+      logoData, logoSize, logoBorderRadius, logoBackground,
       bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel,
     };
     const updated = [newTemplate, ...customTemplates].slice(0, 10);
@@ -536,7 +532,7 @@ export default function QRMaker() {
     setFrameStyle(template.frameStyle);
     setOverlayText(template.overlayText);
     setOverlayTextColor(template.overlayTextColor);
-    setLogoPreset(template.logoPreset);
+    setLogoData(template.logoData);
     setLogoSize(template.logoSize);
     setLogoBorderRadius(template.logoBorderRadius);
     setLogoBackground(template.logoBackground);
@@ -843,39 +839,30 @@ export default function QRMaker() {
                 <Card>
                   <CardHeader className="py-3"><CardTitle className="text-base">Logo</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
-                    <div className="grid grid-cols-7 gap-2">
-                      {SOCIAL_LOGOS.map(logo => (
-                        <button
-                          key={logo.id}
-                          onClick={() => setLogoPreset(logo.id)}
-                          className={`aspect-square rounded-full border-2 text-white text-sm font-bold flex items-center justify-center ${logoPreset === logo.id ? "border-primary ring-2 ring-primary" : "border-transparent"}`}
-                          style={{ backgroundColor: logo.color }}
-                          title={logo.name}
-                        >
-                          {logo.id.charAt(0).toUpperCase()}
-                        </button>
-                      ))}
+                    <div className="flex gap-2">
+                      <Input type="file" accept="image/*" onChange={handleLogoUpload} className="text-sm" placeholder="Upload logo..." data-testid="input-logo-upload" />
+                      {logoData && <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs" data-testid="button-remove-logo">Remove</Button>}
                     </div>
-                    {logoPreset && (
-                      <>
+                    {logoData && (
+                      <div className="flex flex-col gap-3">
+                        <div className="rounded-lg p-3 bg-muted flex items-center justify-center h-24 w-24 mx-auto">
+                          <img src={logoData} alt="Logo preview" className="max-h-20 max-w-20 object-contain" />
+                        </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <Label className="text-xs">Size: {logoSize}px</Label>
-                            <input type="range" min="40" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" />
+                            <input type="range" min="40" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
                           </div>
                           <div>
                             <Label className="text-xs">Radius: {logoBorderRadius}px</Label>
-                            <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" />
+                            <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
                           </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <label className="flex items-center gap-2 text-xs cursor-pointer">
-                            <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} />
-                            Background
-                          </label>
-                          <Button variant="outline" size="sm" onClick={() => setLogoPreset(null)} className="text-xs h-7">Remove</Button>
-                        </div>
-                      </>
+                        <label className="flex items-center gap-2 text-xs cursor-pointer">
+                          <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} data-testid="checkbox-logo-background" />
+                          Background
+                        </label>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
@@ -906,17 +893,17 @@ export default function QRMaker() {
                   </CardContent>
                 </Card>
 
-                <div className="flex gap-2 flex-wrap">
-                  <Button variant="outline" onClick={() => setStep(2)} className="flex-1 min-w-20" size="sm">Back</Button>
-                  <Button onClick={() => setShowTemplateModal(true)} variant="outline" size="sm" className="flex-1 min-w-20"><Save className="h-4 w-4 mr-1" />Save</Button>
-                  <div className="flex-1 min-w-20 flex gap-1">
-                    <Button onClick={() => downloadQR("normal")} size="sm" className="flex-1 text-xs" title="Standard quality" variant="outline">
+                <div className="flex gap-2 flex-col sm:flex-row sm:flex-wrap">
+                  <Button variant="outline" onClick={() => setStep(2)} className="w-full sm:flex-1 sm:min-w-20" size="sm" data-testid="button-back">Back</Button>
+                  <Button onClick={() => setShowTemplateModal(true)} variant="outline" size="sm" className="w-full sm:flex-1 sm:min-w-20" data-testid="button-save-template"><Save className="h-4 w-4 mr-1" />Save</Button>
+                  <div className="w-full sm:flex-1 sm:min-w-20 flex gap-1">
+                    <Button onClick={() => downloadQR("normal")} size="sm" className="flex-1 text-xs" title="Standard quality" variant="outline" data-testid="button-download-normal">
                       <Download className="h-3 w-3" />
                     </Button>
-                    <Button onClick={() => downloadQR("high")} size="sm" className="flex-1" title="2x quality">
+                    <Button onClick={() => downloadQR("high")} size="sm" className="flex-1 text-xs sm:text-base" title="2x quality" data-testid="button-download-hd">
                       <Download className="h-4 w-4 mr-1" />HD
                     </Button>
-                    <Button onClick={() => downloadQR("ultra")} size="sm" className="flex-1 text-xs" title="4x ultra quality">
+                    <Button onClick={() => downloadQR("ultra")} size="sm" className="flex-1 text-xs" title="4x ultra quality" data-testid="button-download-4k">
                       4K
                     </Button>
                   </div>
@@ -927,8 +914,8 @@ export default function QRMaker() {
               <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
-                  <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 400, maxHeight: 650, border: "1px solid var(--border)", overflow: 'auto' }}>
-                    <canvas ref={canvasRef} style={{ display: 'block', margin: 'auto', imageRendering: 'crisp-edges' }} />
+                  <div className="rounded-lg p-4 flex items-center justify-center overflow-x-auto" style={{ backgroundColor: lightColor, minHeight: 400, maxHeight: 650, border: "1px solid var(--border)" }}>
+                    <canvas ref={canvasRef} style={{ display: 'block', margin: 'auto', imageRendering: 'crisp-edges', minWidth: 'fit-content' }} />
                   </div>
                   <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
                     <Shield className="h-3 w-3" />Offline & Private
@@ -1041,7 +1028,7 @@ export default function QRMaker() {
                   <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">8 Body Patterns</span> - Square, dots, rounded, classy, vertical</p></div>
                   <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">10 Eye Patterns</span> - External + internal customization</p></div>
                   <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Custom Colors</span> - 8 templates + unlimited colors</p></div>
-                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Social Logos</span> - YouTube, WhatsApp, Instagram, Facebook</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Custom Logo Upload</span> - Add your own logo with radius control</p></div>
                   <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Text Overlay</span> - Add labels below QR code</p></div>
                   <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-1.5 flex-shrink-0" /><p><span className="font-semibold">Frames & Effects</span> - Borders and Scan Me text</p></div>
                 </div>
