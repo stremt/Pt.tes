@@ -126,6 +126,7 @@ export default function QRMaker() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
+  const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -348,7 +349,9 @@ export default function QRMaker() {
 
   const renderQR = async () => {
     try {
-      if (!canvasRef.current) return;
+      const canvases = [canvasRef.current, floatingCanvasRef.current].filter(Boolean);
+      if (canvases.length === 0) return;
+      
       const qrData = generateQRData();
       if (!qrData.trim()) return;
 
@@ -363,88 +366,90 @@ export default function QRMaker() {
       const padding = 40;
       const extraHeight = overlayText ? 40 : 0;
 
-      const ctx = canvasRef.current.getContext("2d", { willReadFrequently: true });
-      if (!ctx) return;
+      // Draw to both canvases
+      canvases.forEach(canvas => {
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return;
 
-      // Set canvas size
-      canvasRef.current.width = qrSize + padding * 2;
-      canvasRef.current.height = qrSize + padding * 2 + extraHeight;
+        // Set canvas size
+        canvas.width = qrSize + padding * 2;
+        canvas.height = qrSize + padding * 2 + extraHeight;
 
-      // Fill background
-      ctx.fillStyle = lightColor;
-      ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        // Fill background
+        ctx.fillStyle = lightColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      if (frameStyle === "border") {
-        ctx.strokeStyle = darkColor;
-        ctx.lineWidth = 4;
-        ctx.strokeRect(10, 10, canvasRef.current.width - 20, canvasRef.current.height - 20 - extraHeight);
-      } else if (frameStyle === "rounded-border") {
-        ctx.strokeStyle = darkColor;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.roundRect(10, 10, canvasRef.current.width - 20, canvasRef.current.height - 20 - extraHeight, 15);
-        ctx.stroke();
-      }
+        if (frameStyle === "border") {
+          ctx.strokeStyle = darkColor;
+          ctx.lineWidth = 4;
+          ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20 - extraHeight);
+        } else if (frameStyle === "rounded-border") {
+          ctx.strokeStyle = darkColor;
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.roundRect(10, 10, canvas.width - 20, canvas.height - 20 - extraHeight, 15);
+          ctx.stroke();
+        }
 
-      if (frameStyle === "scanme-top") {
-        ctx.font = "bold 16px Arial";
-        ctx.fillStyle = darkColor;
-        ctx.textAlign = "center";
-        ctx.fillText("SCAN ME", canvasRef.current.width / 2, 25);
-      } else if (frameStyle === "scanme-bottom") {
-        ctx.font = "bold 16px Arial";
-        ctx.fillStyle = darkColor;
-        ctx.textAlign = "center";
-        ctx.fillText("SCAN ME", canvasRef.current.width / 2, canvasRef.current.height - 10);
-      }
+        if (frameStyle === "scanme-top") {
+          ctx.font = "bold 16px Arial";
+          ctx.fillStyle = darkColor;
+          ctx.textAlign = "center";
+          ctx.fillText("SCAN ME", canvas.width / 2, 25);
+        } else if (frameStyle === "scanme-bottom") {
+          ctx.font = "bold 16px Arial";
+          ctx.fillStyle = darkColor;
+          ctx.textAlign = "center";
+          ctx.fillText("SCAN ME", canvas.width / 2, canvas.height - 10);
+        }
 
-      const eyePositions = [
-        { row: 0, col: 0 },
-        { row: 0, col: moduleCount - 7 },
-        { row: moduleCount - 7, col: 0 },
-      ];
+        const eyePositions = [
+          { row: 0, col: 0 },
+          { row: 0, col: moduleCount - 7 },
+          { row: moduleCount - 7, col: 0 },
+        ];
 
-      const isInEyeArea = (row: number, col: number) => {
-        return eyePositions.some(pos =>
-          row >= pos.row && row < pos.row + 7 &&
-          col >= pos.col && col < pos.col + 7
-        );
-      };
+        const isInEyeArea = (row: number, col: number) => {
+          return eyePositions.some(pos =>
+            row >= pos.row && row < pos.row + 7 &&
+            col >= pos.col && col < pos.col + 7
+          );
+        };
 
-      for (let row = 0; row < moduleCount; row++) {
-        for (let col = 0; col < moduleCount; col++) {
-          if (isInEyeArea(row, col)) continue;
-          if (modules.get(row, col)) {
-            const x = padding + col * moduleSize;
-            const y = padding + row * moduleSize;
-            drawModule(ctx, x, y, moduleSize, bodyPattern, darkColor);
+        for (let row = 0; row < moduleCount; row++) {
+          for (let col = 0; col < moduleCount; col++) {
+            if (isInEyeArea(row, col)) continue;
+            if (modules.get(row, col)) {
+              const x = padding + col * moduleSize;
+              const y = padding + row * moduleSize;
+              drawModule(ctx, x, y, moduleSize, bodyPattern, darkColor);
+            }
           }
         }
-      }
 
-      eyePositions.forEach(pos => {
-        const x = padding + pos.col * moduleSize;
-        const y = padding + pos.row * moduleSize;
-        drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, darkColor, lightColor);
-        drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, darkColor);
-      });
+        eyePositions.forEach(pos => {
+          const x = padding + pos.col * moduleSize;
+          const y = padding + pos.row * moduleSize;
+          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, darkColor, lightColor);
+          drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, darkColor);
+        });
 
-      if (logoPreset) {
-        const logoX = (canvasRef.current.width - logoSize) / 2;
-        const logoY = padding + (qrSize - logoSize) / 2;
+        if (logoPreset) {
+          const logoX = (canvas.width - logoSize) / 2;
+          const logoY = padding + (qrSize - logoSize) / 2;
 
-        if (logoBackground) {
-          ctx.fillStyle = lightColor;
-          ctx.beginPath();
-          ctx.roundRect(logoX - 5, logoY - 5, logoSize + 10, logoSize + 10, logoBorderRadius);
-          ctx.fill();
-        }
+          if (logoBackground) {
+            ctx.fillStyle = lightColor;
+            ctx.beginPath();
+            ctx.roundRect(logoX - 5, logoY - 5, logoSize + 10, logoSize + 10, logoBorderRadius);
+            ctx.fill();
+          }
 
-        try {
-          const svg = getSocialLogoSvg(logoPreset);
-          const img = new Image();
-          img.src = `data:image/svg+xml;base64,${btoa(svg)}`;
-          await new Promise((resolve) => {
+          try {
+            const svg = getSocialLogoSvg(logoPreset);
+            const img = new Image();
+            img.src = `data:image/svg+xml;base64,${btoa(svg)}`;
             img.onload = () => {
               ctx.save();
               ctx.beginPath();
@@ -452,18 +457,17 @@ export default function QRMaker() {
               ctx.clip();
               ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
               ctx.restore();
-              resolve(null);
             };
-          });
-        } catch (e) {}
-      }
+          } catch (e) {}
+        }
 
-      if (overlayText) {
-        ctx.font = "bold 14px Arial";
-        ctx.fillStyle = overlayTextColor;
-        ctx.textAlign = "center";
-        ctx.fillText(overlayText, canvasRef.current.width / 2, canvasRef.current.height - 15);
-      }
+        if (overlayText) {
+          ctx.font = "bold 14px Arial";
+          ctx.fillStyle = overlayTextColor;
+          ctx.textAlign = "center";
+          ctx.fillText(overlayText, canvas.width / 2, canvas.height - 15);
+        }
+      });
     } catch (error) {}
   };
 
@@ -615,7 +619,7 @@ export default function QRMaker() {
             className="rounded-xl overflow-hidden flex items-center justify-center p-2"
             style={{ backgroundColor: lightColor, height: '120px' }}
           >
-            <canvas ref={canvasRef} className="max-w-full max-h-full" />
+            <canvas ref={floatingCanvasRef} className="max-w-full max-h-full" style={{ imageRendering: 'crisp-edges' }} />
           </div>
         </div>
       )}
@@ -923,8 +927,8 @@ export default function QRMaker() {
               <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
-                  <div className="rounded-lg p-4 flex items-center justify-center overflow-auto bg-muted/30" style={{ backgroundColor: lightColor, minHeight: 380, maxHeight: 600, border: "1px solid var(--border)" }}>
-                    <canvas ref={canvasRef} className="max-w-full max-h-full" style={{ display: 'block', margin: 'auto', maxWidth: '100%', maxHeight: '100%', imageRendering: 'crisp-edges' }} />
+                  <div className="rounded-lg p-4 flex items-center justify-center" style={{ backgroundColor: lightColor, minHeight: 400, maxHeight: 650, border: "1px solid var(--border)", overflow: 'auto' }}>
+                    <canvas ref={canvasRef} style={{ display: 'block', margin: 'auto', imageRendering: 'crisp-edges' }} />
                   </div>
                   <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
                     <Shield className="h-3 w-3" />Offline & Private
