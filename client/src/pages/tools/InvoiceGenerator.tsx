@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
-import { FileText, Download, Plus, Trash2, Save, History, Copy } from "lucide-react";
+import { FileText, Download, Plus, Trash2, Save, History, Copy, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import html2pdf from "html2pdf.js";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -30,14 +31,7 @@ import {
   deleteTemplate,
   calculateInvoiceTotals,
 } from "@/lib/invoiceManager";
-
-const CURRENCY_SYMBOLS: Record<string, string> = {
-  INR: "₹",
-  USD: "$",
-  EUR: "€",
-  GBP: "£",
-  AED: "د.إ"
-};
+import { CURRENCIES, searchCurrencies, getCurrencyById } from "@/lib/currencies";
 
 const THEMES = ["Classic", "Modern", "Professional"];
 
@@ -50,9 +44,13 @@ export default function InvoiceGenerator() {
   const [downloading, setDownloading] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
+  const [currencySearch, setCurrencySearch] = useState("");
+  const [showCurrencyPicker, setShowCurrencyPicker] = useState(false);
   const logoInputRef = useRef<HTMLInputElement>(null);
   const invoiceRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const searchResults = currencySearch ? searchCurrencies(currencySearch) : CURRENCIES;
 
   useSEO({
     title: "Free Invoice Generator Online | Create & Download PDF Instantly | Pixocraft Tools",
@@ -362,18 +360,54 @@ export default function InvoiceGenerator() {
               </SelectContent>
             </Select>
 
-            <Select value={invoice.currency} onValueChange={(val) => updateInvoice('currency', val)}>
-              <SelectTrigger className="w-32" data-testid="select-currency">
-                <SelectValue placeholder="Currency" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="USD">USD ($)</SelectItem>
-                <SelectItem value="EUR">EUR (€)</SelectItem>
-                <SelectItem value="GBP">GBP (£)</SelectItem>
-                <SelectItem value="INR">INR (₹)</SelectItem>
-                <SelectItem value="AED">AED (د.إ)</SelectItem>
-              </SelectContent>
-            </Select>
+            <Popover open={showCurrencyPicker} onOpenChange={setShowCurrencyPicker}>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="w-48" data-testid="button-currency-picker">
+                  {getCurrencyById(invoice.currency)?.symbol} {invoice.currency}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-2" align="end" data-testid="popover-currency">
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Search className="h-4 w-4 text-gray-500 mt-2.5" />
+                    <Input
+                      placeholder="Search country, currency, or symbol..."
+                      value={currencySearch}
+                      onChange={(e) => setCurrencySearch(e.target.value)}
+                      className="h-9"
+                      data-testid="input-currency-search"
+                      autoFocus
+                    />
+                  </div>
+                  <div className="max-h-96 overflow-y-auto space-y-1">
+                    {searchResults.length === 0 ? (
+                      <p className="text-sm text-gray-500 p-2">No currencies found</p>
+                    ) : (
+                      searchResults.map((curr) => (
+                        <button
+                          key={curr.id}
+                          onClick={() => {
+                            updateInvoice('currency', curr.id);
+                            setShowCurrencyPicker(false);
+                            setCurrencySearch("");
+                          }}
+                          className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-sm transition-colors"
+                          data-testid={`button-currency-${curr.id}`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-lg">{curr.symbol}</span>
+                            <span className="flex-1">
+                              {curr.country}
+                              <span className="block text-xs text-gray-500">{curr.currency}</span>
+                            </span>
+                          </div>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
 
@@ -608,7 +642,7 @@ export default function InvoiceGenerator() {
                     </td>
                     <td className="py-3 px-3">
                       <div className="flex">
-                        <span className="text-gray-500">{CURRENCY_SYMBOLS[invoice.currency]}</span>
+                        <span className="text-gray-500">{getCurrencyById(invoice.currency)?.symbol}</span>
                         <Input
                           type="number"
                           value={item.rate}
@@ -619,7 +653,7 @@ export default function InvoiceGenerator() {
                       </div>
                     </td>
                     <td className="py-3 px-3 text-right font-medium">
-                      {CURRENCY_SYMBOLS[invoice.currency]}{(item.qty * item.rate).toFixed(2)}
+                      {getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}
                     </td>
                     <td className="py-3 px-3 text-center">
                       <Button
@@ -728,23 +762,23 @@ export default function InvoiceGenerator() {
               <div className="w-80 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>Subtotal:</span>
-                  <span>{CURRENCY_SYMBOLS[invoice.currency]}{totals.subtotal.toFixed(2)}</span>
+                  <span>{getCurrencyById(invoice.currency)?.symbol}{totals.subtotal.toFixed(2)}</span>
                 </div>
                 {invoice.discountRate > 0 && (
                   <div className="flex justify-between text-sm text-orange-600">
                     <span>Discount ({invoice.discountRate}%):</span>
-                    <span>-{CURRENCY_SYMBOLS[invoice.currency]}{totals.discountAmount.toFixed(2)}</span>
+                    <span>-{getCurrencyById(invoice.currency)?.symbol}{totals.discountAmount.toFixed(2)}</span>
                   </div>
                 )}
                 {invoice.taxRate > 0 && (
                   <div className="flex justify-between text-sm text-blue-600">
                     <span>Tax ({invoice.taxRate}%):</span>
-                    <span>{CURRENCY_SYMBOLS[invoice.currency]}{totals.taxAmount.toFixed(2)}</span>
+                    <span>{getCurrencyById(invoice.currency)?.symbol}{totals.taxAmount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-lg font-bold border-t-2 pt-2">
                   <span>Total:</span>
-                  <span>{CURRENCY_SYMBOLS[invoice.currency]}{totals.total.toFixed(2)}</span>
+                  <span>{getCurrencyById(invoice.currency)?.symbol}{totals.total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
