@@ -1,0 +1,73 @@
+You are a senior SEO-focused frontend developer.
+
+Task:
+Add an SEO-friendly breadcrumb navigation system to Pixocraft Tools.
+
+Scope:
+1) Category pages (example: /tools/privacy)
+2) Individual tool pages under that category (example: /tools/password-generator)
+
+STRICT RULES (follow exactly):
+- Do NOT change URLs
+- Do NOT redesign UI
+- Do NOT add ads, signup, tracking, or analytics
+- Do NOT mention any technology names in visible text
+- Breadcrumb must be clean, minimal, and human-readable
+- Must be crawlable and SEO-friendly
+- Must support structured data for search engines
+
+--------------------------------
+BREADCRUMB STRUCTURE
+--------------------------------
+
+For CATEGORY pages:
+Home > Tools > {Category Name}
+
+Example:
+Home > Tools > Privacy Tools
+
+For TOOL pages:
+Home > Tools > {Category Name} > {Tool Name}
+
+Example:
+Home > Tools > Privacy Tools > Password Generator
+
+--------------------------------
+IMPLEMENTATION REQUIREMENTS
+--------------------------------
+
+1) Display breadcrumbs at the TOP of the page (above H1)
+2) Use plain text links (no icons, no emojis)
+3) Each breadcrumb level must be clickable EXCEPT the last item
+4) Use semantic markup suitable for breadcrumb structured data
+5) Ensure breadcrumbs reflect the correct category for each tool
+6) Keep styling simple and consistent across all pages
+
+--------------------------------
+STRUCTURED DATA REQUIREMENT
+--------------------------------
+
+- Add breadcrumb structured data so search engines can understand hierarchy
+- Ensure each breadcrumb item has:
+  - Position
+  - Name
+  - URL (except current page)
+
+--------------------------------
+CATEGORY MAPPING
+--------------------------------
+
+Ensure correct mapping like:
+- Privacy Tools → Temp Mail, Password Generator, Password Strength Checker, Hash Generator, Text Encrypt/Decrypt, etc.
+- PDF Tools → PDF Merger, PDF Splitter, PDF Compressor, etc.
+- Image Tools → Image Compressor, Image Resizer, JPG to PNG, etc.
+
+--------------------------------
+OUTPUT
+--------------------------------
+
+- Add breadcrumb navigation to ALL category pages
+- Add breadcrumb navigation to ALL individual tool pages
+- Do NOT output explanations
+- Do NOT output code comments
+- Only implement the breadcrumb system as described

@@ -4,6 +4,7 @@ import { Shield, Mail, Lock, Hash, Unlock, FileX, Link2, Code } from "lucide-rea
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function PrivacyCategory() {
   useSEO({
@@ -82,14 +83,13 @@ export default function PrivacyCategory() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <div className="container mx-auto px-4 max-w-4xl py-12 md:py-16">
-        {/* Breadcrumb */}
-        <div className="mb-8 text-sm text-muted-foreground">
-          <a href="/" className="hover:text-foreground transition-colors">Home</a>
-          {" / "}
-          <a href="/tools" className="hover:text-foreground transition-colors">Tools</a>
-          {" / "}
-          <span className="text-foreground font-medium">Privacy</span>
-        </div>
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools" },
+          ]}
+        />
 
         {/* Header */}
         <div className="text-center space-y-6 mb-16">
