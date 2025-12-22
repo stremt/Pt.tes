@@ -1,6 +1,9 @@
 import { useSEO } from "@/lib/seo";
 import { Badge } from "@/components/ui/badge";
-import { Shield } from "lucide-react";
+import { Shield, Mail, Lock, Hash, Unlock, FileX, Link2, Code } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export default function PrivacyCategory() {
   useSEO({
@@ -11,14 +14,69 @@ export default function PrivacyCategory() {
   });
 
   const privacyTools = [
-    "Password Generator",
-    "Password Strength Checker",
-    "Text Encrypt/Decrypt",
-    "Hash Generator",
-    "PDF Password Remover",
-    "Exif Remover",
-    "URL Encoder",
-    "HTML Encoder/Decoder",
+    {
+      id: "temp-mail",
+      name: "Temp Mail Generator",
+      description: "Generate temporary disposable emails instantly. Protect your privacy and avoid spam with free temporary email addresses.",
+      icon: Mail,
+      path: "/tools/temp-mail",
+    },
+    {
+      id: "password-generator",
+      name: "Password Generator",
+      description: "Create strong, secure passwords instantly. Customize length and complexity for maximum security.",
+      icon: Lock,
+      path: "/tools/password-generator",
+    },
+    {
+      id: "password-strength-checker",
+      name: "Password Strength Checker",
+      description: "Check how strong your password is. Get instant feedback and security recommendations.",
+      icon: Shield,
+      path: "/tools/password-strength-checker",
+    },
+    {
+      id: "text-encrypt-decrypt",
+      name: "Text Encrypt & Decrypt",
+      description: "Encrypt or decrypt text with a password using offline browser crypto. Zero data storage. AES encryption.",
+      icon: Lock,
+      path: "/tools/text-encrypt-decrypt",
+    },
+    {
+      id: "hash-generator",
+      name: "Hash Generator",
+      description: "Generate MD5, SHA1 & SHA256 hashes instantly. Developer-friendly, offline & secure.",
+      icon: Hash,
+      path: "/tools/hash-generator",
+    },
+    {
+      id: "pdf-password-remover",
+      name: "PDF Password Remover",
+      description: "Remove password protection from PDF files instantly. Unlock encrypted PDFs securely in your browser without uploading.",
+      icon: Unlock,
+      path: "/tools/pdf-password-remover",
+    },
+    {
+      id: "exif-remover",
+      name: "Image EXIF Remover",
+      description: "Remove EXIF metadata from images using offline canvas method.",
+      icon: FileX,
+      path: "/tools/exif-remover",
+    },
+    {
+      id: "url-encoder",
+      name: "URL Encoder/Decoder",
+      description: "Encode or decode URLs instantly. Convert special characters for safe URL transmission.",
+      icon: Link2,
+      path: "/tools/url-encoder",
+    },
+    {
+      id: "html-encoder-decoder",
+      name: "HTML Encoder/Decoder",
+      description: "Encode or decode HTML characters instantly. Perfect for developers, SEO and editors.",
+      icon: Code,
+      path: "/tools/html-encoder-decoder",
+    },
   ];
 
   return (
@@ -108,34 +166,32 @@ export default function PrivacyCategory() {
           </section>
         </article>
 
-        {/* Popular Tools Section */}
+        {/* All Privacy Tools Section */}
         <section className="space-y-6 border-t pt-12">
-          <h2 className="text-2xl font-bold">Popular Tools in Privacy Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <a href="/tools/password-generator" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">Password Generator</p>
-            </a>
-            <a href="/tools/password-strength-checker" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">Password Strength Checker</p>
-            </a>
-            <a href="/tools/text-encrypt-decrypt" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">Text Encrypt/Decrypt</p>
-            </a>
-            <a href="/tools/hash-generator" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">Hash Generator</p>
-            </a>
-            <a href="/tools/pdf-password-remover" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">PDF Password Remover</p>
-            </a>
-            <a href="/tools/exif-remover" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">Exif Remover</p>
-            </a>
-            <a href="/tools/url-encoder" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">URL Encoder</p>
-            </a>
-            <a href="/tools/html-encoder-decoder" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-              <p className="font-medium text-foreground">HTML Encoder/Decoder</p>
-            </a>
+          <h2 className="text-2xl font-bold">All Privacy Tools</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {privacyTools.map((tool) => {
+              const IconComponent = tool.icon;
+              return (
+                <Card key={tool.id} className="hover-elevate flex flex-col">
+                  <CardHeader>
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
+                      <IconComponent className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{tool.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col">
+                    <CardDescription className="mb-4 flex-1">{tool.description}</CardDescription>
+                    <a href={tool.path}>
+                      <Button variant="outline" className="w-full" data-testid={`button-privacy-tool-${tool.id}`}>
+                        Use Tool
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </a>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </section>
       </div>

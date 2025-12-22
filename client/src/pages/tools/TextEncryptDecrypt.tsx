@@ -698,6 +698,11 @@ export default function TextEncryptDecrypt() {
               </div>
             </section>
           )}
+
+          {/* Category Footer */}
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/privacy" className="text-primary hover:text-primary/80 transition-colors">Privacy Tools</Link>
+          </p>
         </div>
       </div>
     </>
