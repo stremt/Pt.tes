@@ -27,6 +27,7 @@ export interface InvoiceData {
   taxRate: number;
   discountRate: number;
   notes: string;
+  terms: string;
   createdAt: number;
   updatedAt: number;
   theme: string;
@@ -48,6 +49,7 @@ export interface InvoiceTemplate {
   primaryColor?: string;
   fontFamily?: string;
   backgroundColor?: string;
+  terms?: string;
 }
 
 const STORAGE_KEY = 'pixocraft_invoices';
@@ -187,6 +189,7 @@ export function createNewInvoice(): InvoiceData {
     taxRate: 0,
     discountRate: 0,
     notes: '',
+    terms: '',
     createdAt: Date.now(),
     updatedAt: Date.now(),
     theme: 'Classic',

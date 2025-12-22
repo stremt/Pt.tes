@@ -259,34 +259,6 @@ export default function InvoiceGenerator() {
       faqs={faqs}
     >
       <div className="space-y-6">
-        {/* SEO Content Section */}
-        <div className="prose prose-sm dark:prose-invert max-w-none mb-8">
-          <p>
-            In today's fast-paced business environment, creating professional invoices quickly and accurately is essential. 
-            Our <strong>Free Online Invoice Generator</strong> is designed to solve the common headache of manual billing. 
-            Whether you are a freelancer, a small business owner, or a student working on a project, this tool provides a 
-            seamless way to generate high-quality invoices without the need for expensive software or complex spreadsheets.
-          </p>
-          <p>
-            This tool is built for a wide range of users. Professionals can use it to bill clients for consulting services, 
-            developers can generate invoices for software projects, and small businesses can manage their daily transactions. 
-            The intuitive interface allows you to add business details, client information, and line items with just a few clicks. 
-            Automatic calculations for taxes, discounts, and subtotals ensure that your final document is error-free.
-          </p>
-          <p>
-            One of the standout features of Pixocraft's Invoice Generator is its <strong>Privacy-First</strong> approach. 
-            We understand that financial data is sensitive. That's why our tool runs entirely client-side. 
-            This means that none of the information you enter—your business name, client details, or pricing—is ever sent 
-            to or stored on our servers. It stays completely within your browser. Additionally, the tool supports 
-            offline usage; once the page is loaded, you can continue working even without an internet connection.
-          </p>
-          <p>
-            Real-life use cases include generating monthly service bills, creating one-time receipts for sales, or 
-            drafting proforma invoices for project proposals. With the ability to save drafts locally and manage templates, 
-            you can streamline your entire billing process and focus more on your core work.
-          </p>
-        </div>
-
         {/* Top Controls */}
         <div className="flex flex-col sm:flex-row flex-wrap gap-2 items-stretch sm:items-center">
           <div className="flex flex-wrap gap-2">
@@ -846,15 +818,17 @@ export default function InvoiceGenerator() {
               data-testid="textarea-notes"
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="terms">Terms</Label>
-            <Textarea
-              id="terms"
-              placeholder="Terms and conditions - late fees, payment methods, delivery schedule"
-              className="min-h-[100px]"
-              data-testid="textarea-terms"
-            />
-          </div>
+              <div className="space-y-2">
+                <Label htmlFor="terms">Terms</Label>
+                <Textarea
+                  id="terms"
+                  value={invoice.terms}
+                  onChange={(e) => updateInvoice('terms', e.target.value)}
+                  placeholder="Terms and conditions - late fees, payment methods, delivery schedule"
+                  className="min-h-[100px]"
+                  data-testid="textarea-terms"
+                />
+              </div>
         </div>
 
         {/* Invoice Preview */}
@@ -981,11 +955,21 @@ export default function InvoiceGenerator() {
               </div>
             </div>
 
-            {/* Notes */}
-            {invoice.notes && (
-              <div className="border-t pt-4">
-                <p className="font-semibold text-gray-900 mb-2">Notes:</p>
-                <p className="text-sm text-gray-600 whitespace-pre-line">{invoice.notes}</p>
+            {/* Notes & Terms */}
+            {(invoice.notes || invoice.terms) && (
+              <div className="border-t pt-4 space-y-4">
+                {invoice.notes && (
+                  <div>
+                    <p className="font-semibold text-gray-900 mb-2">Notes:</p>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">{invoice.notes}</p>
+                  </div>
+                )}
+                {invoice.terms && (
+                  <div>
+                    <p className="font-semibold text-gray-900 mb-2">Terms & Conditions:</p>
+                    <p className="text-sm text-gray-600 whitespace-pre-line">{invoice.terms}</p>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>
@@ -1011,6 +995,34 @@ export default function InvoiceGenerator() {
               </Button>
             ))}
           </div>
+        </div>
+
+        {/* SEO Content Section */}
+        <div className="prose prose-sm dark:prose-invert max-w-none pt-8 border-t">
+          <p>
+            In today's fast-paced business environment, creating professional invoices quickly and accurately is essential. 
+            Our <strong>Free Online Invoice Generator</strong> is designed to solve the common headache of manual billing. 
+            Whether you are a freelancer, a small business owner, or a student working on a project, this tool provides a 
+            seamless way to generate high-quality invoices without the need for expensive software or complex spreadsheets.
+          </p>
+          <p>
+            This tool is built for a wide range of users. Professionals can use it to bill clients for consulting services, 
+            developers can generate invoices for software projects, and small businesses can manage their daily transactions. 
+            The intuitive interface allows you to add business details, client information, and line items with just a few clicks. 
+            Automatic calculations for taxes, discounts, and subtotals ensure that your final document is error-free.
+          </p>
+          <p>
+            One of the standout features of Pixocraft's Invoice Generator is its <strong>Privacy-First</strong> approach. 
+            We understand that financial data is sensitive. That's why our tool runs entirely client-side. 
+            This means that none of the information you enter—your business name, client details, or pricing—is ever sent 
+            to or stored on our servers. It stays completely within your browser. Additionally, the tool supports 
+            offline usage; once the page is loaded, you can continue working even without an internet connection.
+          </p>
+          <p>
+            Real-life use cases include generating monthly service bills, creating one-time receipts for sales, or 
+            drafting proforma invoices for project proposals. With the ability to save drafts locally and manage templates, 
+            you can streamline your entire billing process and focus more on your core work.
+          </p>
         </div>
       </div>
     </ToolLayout>
