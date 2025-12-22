@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { useSEO, generateFAQSchema, generateSoftwareApplicationSchema } from "@/lib/seo";
-import { Download, Play, AlertCircle, Check } from "lucide-react";
+import { useSEO } from "@/lib/seo";
+import { Download, AlertCircle, Check, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Thumbnail {
@@ -14,6 +14,7 @@ interface Thumbnail {
   url: string;
   width: number;
   height: number;
+  isHighestQuality?: boolean;
 }
 
 export default function YouTubeThumbnailDownloader() {
@@ -21,6 +22,7 @@ export default function YouTubeThumbnailDownloader() {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
   const { toast } = useToast();
 
   useSEO({
@@ -63,6 +65,28 @@ export default function YouTubeThumbnailDownloader() {
     setTimeout(() => {
       const thumbnailSizes: Thumbnail[] = [
         {
+          name: "Max Resolution",
+          quality: "1280×720",
+          url: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+          width: 1280,
+          height: 720,
+          isHighestQuality: true,
+        },
+        {
+          name: "Standard",
+          quality: "640×480",
+          url: `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,
+          width: 640,
+          height: 480,
+        },
+        {
+          name: "High",
+          quality: "480×360",
+          url: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+          width: 480,
+          height: 360,
+        },
+        {
           name: "Default",
           quality: "480×360",
           url: `https://img.youtube.com/vi/${videoId}/default.jpg`,
@@ -76,92 +100,96 @@ export default function YouTubeThumbnailDownloader() {
           width: 320,
           height: 180,
         },
-        {
-          name: "High",
-          quality: "480×360",
-          url: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
-          width: 480,
-          height: 360,
-        },
-        {
-          name: "Standard",
-          quality: "640×480",
-          url: `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,
-          width: 640,
-          height: 480,
-        },
-        {
-          name: "Max Resolution",
-          quality: "1280×720",
-          url: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
-          width: 1280,
-          height: 720,
-        },
       ];
 
       setThumbnails(thumbnailSizes);
       setLoading(false);
       toast({
-        title: "Thumbnails loaded",
-        description: `Found 5 thumbnail sizes for this video. Click download to save any of them.`,
+        title: "Thumbnails Ready",
+        description: "Click any download button to save the thumbnail instantly.",
       });
     }, 500);
   };
 
-  const handleDownload = (thumbnail: Thumbnail) => {
-    const link = document.createElement("a");
-    link.href = thumbnail.url;
-    link.download = `youtube-thumbnail-${thumbnail.name.toLowerCase().replace(/ /g, "-")}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast({
-      title: "Downloaded",
-      description: `${thumbnail.name} thumbnail downloaded successfully.`,
-    });
+  const handleDownload = async (thumbnail: Thumbnail) => {
+    const downloadId = `${thumbnail.name}-${Date.now()}`;
+    setDownloadingId(downloadId);
+
+    try {
+      const response = await fetch(thumbnail.url);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Pixocraft_tools_xyz_${thumbnail.name.toLowerCase().replace(/ /g, "_")}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast({
+        title: "Downloaded Successfully",
+        description: `${thumbnail.name} thumbnail saved to your device.`,
+      });
+    } catch {
+      toast({
+        title: "Download Failed",
+        description: "Unable to download. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setDownloadingId(null);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-background/50 py-8 px-4">
-      <div className="max-w-6xl mx-auto space-y-8">
-        {/* Hero Section */}
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      {/* Hero Section */}
+      <div className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent py-12 md:py-16 px-4">
+        <div className="max-w-6xl mx-auto space-y-4 text-center">
+          <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+            <Zap className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Fast • Free • No Signup</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">
             YouTube Thumbnail Downloader
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Download YouTube video thumbnails in all available resolutions. Fast, free, and completely private.
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Extract and download any YouTube video thumbnail in seconds. All sizes available, no watermarks.
           </p>
         </div>
+      </div>
 
-        {/* Main Tool */}
-        <Card className="border-2">
-          <CardHeader>
-            <CardTitle>Extract Thumbnails</CardTitle>
-            <CardDescription>Paste a YouTube URL and download any thumbnail size</CardDescription>
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-8">
+        {/* Tool Card */}
+        <Card className="border-2 shadow-lg">
+          <CardHeader className="space-y-2">
+            <CardTitle className="text-2xl">Extract Thumbnails</CardTitle>
+            <CardDescription>Paste a YouTube video URL to get all available thumbnail resolutions</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              <Label htmlFor="youtube-url" className="text-base font-medium">
+              <Label htmlFor="youtube-url" className="text-base font-semibold">
                 YouTube Video URL
               </Label>
               <Input
                 id="youtube-url"
-                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                placeholder="Paste YouTube link: https://www.youtube.com/watch?v=..."
                 value={youtubeUrl}
                 onChange={(e) => setYoutubeUrl(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleExtractThumbnails()}
                 data-testid="input-youtube-url"
-                className="text-base h-11"
+                className="text-base h-12 px-4"
               />
-              <p className="text-sm text-muted-foreground">
-                Works with: youtube.com/watch?v=, youtu.be/, and youtube.com/embed/ URLs
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Supports: youtube.com/watch?v=... • youtu.be/... • youtube.com/embed/...
               </p>
             </div>
 
             {error && (
-              <div className="flex items-center gap-2 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-                <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0" />
+              <div className="flex items-start gap-3 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+                <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
                 <p className="text-sm text-destructive">{error}</p>
               </div>
             )}
@@ -170,10 +198,10 @@ export default function YouTubeThumbnailDownloader() {
               onClick={handleExtractThumbnails}
               disabled={loading}
               size="lg"
-              className="w-full"
+              className="w-full h-12 text-base font-semibold"
               data-testid="button-extract-thumbnails"
             >
-              {loading ? "Loading..." : "Extract Thumbnails"}
+              {loading ? "Extracting..." : "Extract Thumbnails"}
             </Button>
           </CardContent>
         </Card>
@@ -181,59 +209,80 @@ export default function YouTubeThumbnailDownloader() {
         {/* Thumbnails Grid */}
         {thumbnails.length > 0 && (
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">Available Sizes</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Available Sizes</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {thumbnails.map((thumbnail, index) => (
                 <Card
                   key={index}
-                  className="overflow-hidden hover-elevate flex flex-col"
+                  className={`overflow-hidden hover-elevate flex flex-col transition-all ${
+                    thumbnail.isHighestQuality ? "ring-2 ring-primary lg:col-span-2 lg:flex-row" : ""
+                  }`}
                   data-testid={`card-thumbnail-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
                 >
-                  <div className="relative w-full bg-muted">
+                  {/* Image Container */}
+                  <div className={`relative bg-muted ${thumbnail.isHighestQuality ? "lg:w-1/2" : "w-full"}`}>
                     <img
                       src={thumbnail.url}
                       alt={thumbnail.name}
-                      className="w-full h-40 object-cover"
+                      className={`w-full ${thumbnail.isHighestQuality ? "h-56 lg:h-full" : "h-48"} object-cover`}
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.backgroundColor = "#e5e7eb";
                       }}
                     />
-                    <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
-                    </div>
+                    {thumbnail.isHighestQuality && (
+                      <div className="absolute top-2 right-2">
+                        <Badge className="bg-primary text-primary-foreground">Highest Quality</Badge>
+                      </div>
+                    )}
                   </div>
-                  <CardContent className="flex-1 p-4 space-y-3 flex flex-col">
-                    <div>
-                      <p className="font-semibold text-foreground">{thumbnail.name}</p>
-                      <p className="text-sm text-muted-foreground">{thumbnail.quality}</p>
+
+                  {/* Content Container */}
+                  <CardContent
+                    className={`flex-1 p-4 md:p-5 space-y-4 flex flex-col justify-between ${
+                      thumbnail.isHighestQuality ? "lg:w-1/2 lg:justify-center" : ""
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      <p className="font-bold text-lg text-foreground">{thumbnail.name}</p>
+                      <p className="text-sm text-muted-foreground font-medium">{thumbnail.quality}</p>
                     </div>
-                    <div className="flex gap-2 flex-wrap">
-                      <Badge variant="outline">{thumbnail.width}px</Badge>
-                      <Badge variant="outline">{thumbnail.height}px</Badge>
+
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {thumbnail.width}px
+                      </Badge>
+                      <Badge variant="secondary" className="text-xs">
+                        {thumbnail.height}px
+                      </Badge>
                     </div>
+
                     <Button
                       onClick={() => handleDownload(thumbnail)}
-                      variant="default"
+                      disabled={downloadingId === `${thumbnail.name}-${Date.now()}`}
+                      variant={thumbnail.isHighestQuality ? "default" : "outline"}
                       size="sm"
-                      className="w-full mt-auto"
+                      className="w-full h-10 font-semibold mt-auto"
                       data-testid={`button-download-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
                     >
                       <Download className="w-4 h-4 mr-2" />
-                      Download
+                      {downloadingId === `${thumbnail.name}-${Date.now()}` ? "Downloading..." : "Download"}
                     </Button>
                   </CardContent>
                 </Card>
               ))}
             </div>
+            <p className="text-center text-sm text-muted-foreground pt-2">
+              Click download to save immediately to your device
+            </p>
           </div>
         )}
 
         {/* Content Sections */}
-        <div className="space-y-8 mt-12 pt-8 border-t">
+        <div className="space-y-12 py-8">
           {/* About Section */}
           <section className="space-y-4">
             <h2 className="text-3xl font-bold text-foreground">What is YouTube Thumbnail Downloader?</h2>
-            <div className="prose prose-sm dark:prose-invert max-w-none space-y-4 text-muted-foreground">
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
                 YouTube Thumbnail Downloader is a free online tool that lets you quickly extract and download thumbnails from any YouTube video. Whether you're a content creator, digital marketer, or student, this tool makes it easy to grab high-quality preview images without any watermarks or limitations.
               </p>
@@ -248,8 +297,8 @@ export default function YouTubeThumbnailDownloader() {
 
           {/* Who Should Use Section */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">Who Should Use This Tool?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h2 className="text-3xl font-bold text-foreground">Who Should Use This Tool?</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
                 {
                   title: "Content Creators",
@@ -276,7 +325,7 @@ export default function YouTubeThumbnailDownloader() {
                   description: "Download thumbnails to reuse across different social platforms and posts.",
                 },
               ].map((item, index) => (
-                <Card key={index} className="p-4">
+                <Card key={index} className="p-4 hover-elevate">
                   <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
                 </Card>
@@ -286,61 +335,59 @@ export default function YouTubeThumbnailDownloader() {
 
           {/* Real-World Usage Section */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">Real-World Usage Examples</h2>
-            <div className="space-y-3 text-muted-foreground">
-              <div className="flex gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p>
-                  <strong>Video Course Creation:</strong> Download thumbnails from educational videos to understand visual hierarchy and attention-grabbing design patterns.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p>
-                  <strong>Competitive Analysis:</strong> Study competitor thumbnails to see trending colors, fonts, and layouts in your industry.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p>
-                  <strong>Blog Posts & Articles:</strong> Include video preview images in your blog to increase visual appeal and click-through rates.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p>
-                  <strong>Email Newsletters:</strong> Add professional video thumbnails to your email campaigns without needing to screenshot videos manually.
-                </p>
-              </div>
-              <div className="flex gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <p>
-                  <strong>Portfolio Projects:</strong> Use real video thumbnails in your designer or marketer portfolio to showcase your understanding of visual design.
-                </p>
-              </div>
+            <h2 className="text-3xl font-bold text-foreground">Real-World Usage Examples</h2>
+            <div className="space-y-3">
+              {[
+                {
+                  title: "Video Course Creation",
+                  desc: "Download thumbnails from educational videos to understand visual hierarchy and attention-grabbing design patterns.",
+                },
+                {
+                  title: "Competitive Analysis",
+                  desc: "Study competitor thumbnails to see trending colors, fonts, and layouts in your industry.",
+                },
+                {
+                  title: "Blog Posts & Articles",
+                  desc: "Include video preview images in your blog to increase visual appeal and click-through rates.",
+                },
+                {
+                  title: "Email Newsletters",
+                  desc: "Add professional video thumbnails to your email campaigns without needing to screenshot videos manually.",
+                },
+                {
+                  title: "Portfolio Projects",
+                  desc: "Use real video thumbnails in your designer or marketer portfolio to showcase your understanding of visual design.",
+                },
+              ].map((item, index) => (
+                <div key={index} className="flex gap-3 p-4 rounded-lg border bg-card/50 hover-elevate">
+                  <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">{item.title}</p>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 
           {/* Privacy & Security Section */}
-          <section className="space-y-4 p-6 bg-muted/30 rounded-lg border">
-            <h2 className="text-2xl font-bold text-foreground">Your Privacy is Protected</h2>
-            <div className="space-y-3 text-muted-foreground">
-              <p>
-                This tool is 100% browser-based and offline-capable. Nothing you download or process is stored on our servers. Your YouTube URLs and downloaded images remain private and never leave your device.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-                <div className="space-y-2">
-                  <p className="font-semibold text-foreground">No Tracking</p>
-                  <p className="text-sm">We don't track your activity or collect personal data.</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="font-semibold text-foreground">No Sign-Up</p>
-                  <p className="text-sm">Use the tool instantly without creating an account.</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="font-semibold text-foreground">No Watermarks</p>
-                  <p className="text-sm">Download clean, original thumbnails without any marks.</p>
-                </div>
+          <section className="space-y-4 p-6 bg-muted/40 rounded-xl border-2">
+            <h2 className="text-3xl font-bold text-foreground">Your Privacy is Protected</h2>
+            <p className="text-muted-foreground">
+              This tool is 100% browser-based and offline-capable. Nothing you download or process is stored on our servers. Your YouTube URLs and downloaded images remain private and never leave your device.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div className="space-y-2">
+                <p className="font-semibold text-foreground text-lg">No Tracking</p>
+                <p className="text-sm text-muted-foreground">We don't track your activity or collect personal data.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-semibold text-foreground text-lg">No Sign-Up</p>
+                <p className="text-sm text-muted-foreground">Use the tool instantly without creating an account.</p>
+              </div>
+              <div className="space-y-2">
+                <p className="font-semibold text-foreground text-lg">No Watermarks</p>
+                <p className="text-sm text-muted-foreground">Download clean, original thumbnails without any marks.</p>
               </div>
             </div>
           </section>
@@ -383,7 +430,7 @@ export default function YouTubeThumbnailDownloader() {
                   a: "Yes, you can use downloaded thumbnails for commercial purposes, though it's recommended to create your own original content whenever possible.",
                 },
               ].map((faq, index) => (
-                <Card key={index} className="p-4">
+                <Card key={index} className="p-4 hover-elevate">
                   <p className="font-semibold text-foreground mb-2">{faq.q}</p>
                   <p className="text-sm text-muted-foreground">{faq.a}</p>
                 </Card>
@@ -393,8 +440,8 @@ export default function YouTubeThumbnailDownloader() {
 
           {/* Related Tools Section */}
           <section className="space-y-4 pt-8 border-t">
-            <h2 className="text-2xl font-bold text-foreground">Related Pixocraft Tools</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <h2 className="text-3xl font-bold text-foreground">More Pixocraft Tools</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
               {[
                 "QR Code Maker",
                 "Image Compressor",
@@ -404,9 +451,9 @@ export default function YouTubeThumbnailDownloader() {
               ].map((tool, index) => (
                 <div
                   key={index}
-                  className="p-3 bg-muted/30 rounded-lg border text-center hover:bg-muted/50 transition-colors"
+                  className="p-3 sm:p-4 bg-muted/30 rounded-lg border text-center hover-elevate hover:bg-muted/50 transition-colors"
                 >
-                  <p className="text-sm font-medium text-foreground">{tool}</p>
+                  <p className="text-xs sm:text-sm font-medium text-foreground">{tool}</p>
                 </div>
               ))}
             </div>
