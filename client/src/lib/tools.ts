@@ -1675,6 +1675,15 @@ export const tools: ToolMetadata[] = [
     category: "media",
     keywords: ["mp4 to mp3", "video to audio converter", "extract audio from video", "mp4 audio extractor", "convert mp4 to mp3"],
   },
+  {
+    id: "youtube-thumbnail-downloader",
+    name: "YouTube Thumbnail Downloader",
+    description: "Download YouTube video thumbnails in all available sizes. Fast, free, and 100% browser-based. No signup or API keys needed.",
+    icon: "Image",
+    path: "/tools/youtube-thumbnail-downloader",
+    category: "media",
+    keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "yt thumbnail", "youtube video preview", "thumbnail extractor", "youtube thumbnail download"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
