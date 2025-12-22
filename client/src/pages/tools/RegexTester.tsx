@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
-import { Search, RotateCcw, Zap, Lock, Check } from "lucide-react";
+import { Search, RotateCcw, Zap, Lock, Check, Sparkles, ArrowRight } from "lucide-react";
 
 export default function RegexTester() {
   const [pattern, setPattern] = useState("");
@@ -16,9 +17,9 @@ export default function RegexTester() {
   const [error, setError] = useState("");
 
   useSEO({
-    title: "Free Regex Tester - Test Regular Expressions Online",
-    description: "Test and debug regex patterns instantly with live results and real-time matching. 100% free, offline, private. Works in your browser.",
-    keywords: "regex tester, regular expression tester, test regex online, pattern matching, regex debugger, regex validator",
+    title: "Free Regex Tester Tool - Test Regular Expressions Online",
+    description: "Test and debug regular expressions with live real-time results. 100% free, offline, and completely private. No signup needed. Works in your browser.",
+    keywords: "regex tester, regular expression tester, test regex online, pattern matching, regex debugger, regex validator, free regex tool, regex pattern tester, test regular expressions",
     canonicalUrl: "https://tools.pixocraft.in/tools/regex-tester",
   });
 
@@ -50,8 +51,8 @@ export default function RegexTester() {
 
   return (
     <ToolLayout
-      title="Regex Tester"
-      description="Test your regular expressions in real-time. Instant highlighting, offline supported."
+      title="Free Regex Tester - Test & Debug Regular Expressions Online"
+      description="Test and debug regular expressions with instant live results and real-time pattern matching. 100% free, completely private, and works offline. Perfect for developers and students."
       icon={<Search className="h-10 w-10 text-primary" />}
       toolId="regex-tester"
       category="Developer Tool"
@@ -66,9 +67,14 @@ export default function RegexTester() {
         { icon: <Check className="h-6 w-6 text-primary" />, title: "Flag Support", description: "Test with g, i, m, s, u, y flags." },
       ]}
       faqs={[
-        { question: "What are regex flags?", answer: "Flags modify how the pattern matches: g (global), i (case-insensitive), m (multiline), s (dotall), u (unicode), y (sticky)." },
-        { question: "How do I test for email validation?", answer: "Try a pattern like: [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}" },
-        { question: "Can I test multiline patterns?", answer: "Yes! Use the 'm' flag and patterns like ^, $ will match line starts/ends." },
+        { question: "What are regular expressions and how do they work?", answer: "Regular expressions (regex) are patterns used to match text strings. They use special characters like . (any character), * (zero or more), + (one or more), and ? (optional) to define flexible search patterns. This tool helps you test patterns against text instantly." },
+        { question: "What are regex flags and when do I use them?", answer: "Flags modify pattern behavior: g (global - find all matches), i (case-insensitive - ignore uppercase/lowercase), m (multiline - ^ and $ match line breaks), s (dotall - . matches newlines), u (unicode - handle special characters), y (sticky - match at last index)." },
+        { question: "How do I test email validation with regex?", answer: "Try this pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$ This matches email format with letters, numbers, dots, and domain extensions. Use the i flag to allow any case." },
+        { question: "How do I validate phone numbers with regex?", answer: "For US format: ^\\\\d{3}-\\\\d{3}-\\\\d{4}$ matches 123-456-7890. Or ^\\\\(?\\\\d{3}\\\\)?[-.\\\\s]?\\\\d{3}[-.\\\\s]?\\\\d{4}$ for flexible formatting with parentheses, dashes, or spaces." },
+        { question: "Can I test multiline patterns and match line starts/ends?", answer: "Yes! Use the 'm' flag and patterns like ^ (line start) and $ (line end) will match at the beginning and end of each line, not just the entire string. Very useful for processing text with multiple lines." },
+        { question: "Is my regex pattern data safe and private?", answer: "Absolutely. All pattern testing happens 100% in your browser using JavaScript. Your regex patterns and test strings are never sent to servers, logged, or stored anywhere. Complete privacy guaranteed." },
+        { question: "What are common regex patterns I should know?", answer: "Common patterns include: \\\\d for digits, \\\\w for word characters, \\\\s for whitespace, [a-z] for character ranges, . for any character, * for zero or more, + for one or more, ? for optional. Combine them to build complex patterns." },
+        { question: "Can I use this regex tester on mobile devices?", answer: "Yes, this tool works perfectly on all devices—iPhone, Android, tablets, and computers. It's fully responsive and works in any modern browser. Once loaded, it also works completely offline without internet connection." },
       ]}
     >
       <div className="max-w-6xl mx-auto space-y-6">
