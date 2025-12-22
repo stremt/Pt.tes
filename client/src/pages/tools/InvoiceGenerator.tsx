@@ -750,8 +750,8 @@ export default function InvoiceGenerator() {
                   <tr key={item.id} className="border-b border-gray-200">
                     <td className="py-3 px-4 text-gray-800">{item.desc || "---"}</td>
                     <td className="py-3 px-4 text-center text-gray-800">{item.qty}</td>
-                    <td className="py-3 px-4 text-right text-gray-800">{CURRENCY_SYMBOLS[invoice.currency]}{item.rate.toFixed(2)}</td>
-                    <td className="py-3 px-4 text-right text-gray-800">{CURRENCY_SYMBOLS[invoice.currency]}{(item.qty * item.rate).toFixed(2)}</td>
+                    <td className="py-3 px-4 text-right text-gray-800">{getCurrencyById(invoice.currency)?.symbol}{item.rate.toFixed(2)}</td>
+                    <td className="py-3 px-4 text-right text-gray-800">{getCurrencyById(invoice.currency)?.symbol}{(item.qty * item.rate).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
