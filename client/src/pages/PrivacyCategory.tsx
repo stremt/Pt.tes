@@ -112,11 +112,30 @@ export default function PrivacyCategory() {
         <section className="space-y-6 border-t pt-12">
           <h2 className="text-2xl font-bold">Popular Tools in Privacy Category</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {privacyTools.map((tool) => (
-              <div key={tool} className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
-                <p className="font-medium text-foreground">{tool}</p>
-              </div>
-            ))}
+            <a href="/tools/password-generator" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">Password Generator</p>
+            </a>
+            <a href="/tools/password-strength-checker" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">Password Strength Checker</p>
+            </a>
+            <a href="/tools/text-encrypt-decrypt" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">Text Encrypt/Decrypt</p>
+            </a>
+            <a href="/tools/hash-generator" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">Hash Generator</p>
+            </a>
+            <a href="/tools/pdf-password-remover" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">PDF Password Remover</p>
+            </a>
+            <a href="/tools/exif-remover" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">Exif Remover</p>
+            </a>
+            <a href="/tools/url-encoder" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">URL Encoder</p>
+            </a>
+            <a href="/tools/html-encoder-decoder" className="p-3 rounded-lg bg-muted/50 border border-border hover:border-primary transition-colors">
+              <p className="font-medium text-foreground">HTML Encoder/Decoder</p>
+            </a>
           </div>
         </section>
       </div>

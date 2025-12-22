@@ -15,6 +15,18 @@ import { Link } from "wouter";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
 
 export default function PasswordGenerator() {
+  const Breadcrumb = () => (
+    <div className="mb-6 text-sm text-muted-foreground">
+      <a href="/" className="hover:text-foreground transition-colors">Home</a>
+      {" / "}
+      <a href="/tools" className="hover:text-foreground transition-colors">Tools</a>
+      {" / "}
+      <a href="/tools/privacy" className="hover:text-foreground transition-colors">Privacy</a>
+      {" / "}
+      <span className="text-foreground font-medium">Password Generator</span>
+    </div>
+  );
+
   const [password, setPassword] = useState("");
   const [length, setLength] = useState(16);
   const [includeUppercase, setIncludeUppercase] = useState(true);
