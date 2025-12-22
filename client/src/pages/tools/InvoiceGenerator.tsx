@@ -1014,6 +1014,57 @@ export default function InvoiceGenerator() {
           </Button>
         </div>
 
+        {/* Why Use This Tool? */}
+        <div className="pt-12 border-t">
+          <h2 className="text-2xl font-bold mb-6 text-center">Why Use This Tool?</h2>
+          <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
+            Powerful features designed with you in mind to make your billing process as smooth as possible.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center gap-4 space-y-0">
+                <div className="p-2 bg-primary/10 rounded-md">
+                  <FileText className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-lg">Professional Templates</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Choose from multiple professional invoice themes like Classic, Modern, Professional, and Minimal. Customize fonts and brand colors to match your business identity perfectly.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center gap-4 space-y-0">
+                <div className="p-2 bg-primary/10 rounded-md">
+                  <Save className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-lg">Auto-Save Drafts</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Never lose your progress. Your work saves automatically as you type using local storage. Come back anytime to pick up exactly where you left off, even without an account.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate">
+              <CardHeader className="flex flex-row items-center gap-4 space-y-0">
+                <div className="p-2 bg-primary/10 rounded-md">
+                  <Plus className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-lg">Advanced Calculations</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Automatically calculate subtotals, GST/Tax rates, discounts, and shipping costs. Our smart engine ensures your totals are 100% accurate every single time.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Features of Our Tool */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
           <div className="space-y-3">
