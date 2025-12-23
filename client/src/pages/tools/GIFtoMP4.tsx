@@ -63,7 +63,7 @@ export default function GIFtoMP4() {
       <StructuredData data={generateFAQSchema([{question: "Why convert GIF to MP4?", answer: "MP4 videos are typically much smaller than GIFs while offering better quality and compatibility across devices and platforms. MP4 is also better supported for web use and social media."}])} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "GIFtoMP4" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "GIF to MP4" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / GIF to MP4
           </div>
