@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
