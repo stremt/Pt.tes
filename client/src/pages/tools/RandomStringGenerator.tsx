@@ -9,7 +9,6 @@ import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
-import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function RandomStringGenerator() {
   const [length, setLength] = useState(16);
