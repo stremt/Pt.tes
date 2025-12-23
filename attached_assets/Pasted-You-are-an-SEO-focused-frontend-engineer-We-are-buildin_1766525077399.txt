@@ -1,0 +1,125 @@
+You are an SEO-focused frontend engineer.
+
+We are building a NEW category page on Pixocraft Tools and correctly connecting all its tools with SEO-friendly breadcrumbs, internal linking, and schema.
+
+=====================================
+CATEGORY DETAILS
+=====================================
+
+Category Name: {{CATEGORY_NAME}}
+Category Slug: {{CATEGORY_SLUG}}
+Category URL: /tools/{{CATEGORY_SLUG}}
+
+Tools in this category:
+{{TOOL_LIST}}
+
+(Note: Each tool ALREADY exists at /tools/{tool-slug}. DO NOT change tool URLs.)
+
+=====================================
+PART 1: CATEGORY PAGE CREATION
+=====================================
+
+Create a new category page at:
+→ /tools/{{CATEGORY_SLUG}}
+
+This page must:
+
+1. Have a clear H1:
+   "{{CATEGORY_NAME}} Tools – Free, Private & Offline"
+
+2. Add a short SEO intro (120–150 words) explaining:
+   - What this category helps with
+   - Who should use these tools (students, professionals, developers, businesses)
+   - Emphasize privacy, offline usage, no signup, no tracking
+   - Simple, trustworthy, non-promotional tone
+
+3. Display ALL tools in this category as cards:
+   - Tool Name
+   - One-line description
+   - “Use Tool” button
+   - Button links to existing tool URL (example: /tools/password-generator)
+
+4. Do NOT change tool logic or UI behavior.
+
+=====================================
+PART 2: CATEGORY PAGE BREADCRUMB
+=====================================
+
+Add a visible breadcrumb at the TOP of the category page:
+
+Home / Tools / {{CATEGORY_NAME}}
+
+Rules:
+- Home → /
+- Tools → /tools
+- {{CATEGORY_NAME}} → plain text (current page)
+
+Use semantic HTML:
+<nav aria-label="Breadcrumb">
+<ol>...</ol>
+
+=====================================
+PART 3: CATEGORY PAGE SCHEMA (JSON-LD)
+=====================================
+
+Add BreadcrumbList schema to the category page:
+
+Positions:
+1. Home → /
+2. Tools → /tools
+3. {{CATEGORY_NAME}} → /tools/{{CATEGORY_SLUG}}
+
+Use absolute URLs.
+Inject schema once per page.
+
+=====================================
+PART 4: TOOL PAGE UPDATES (VERY IMPORTANT)
+=====================================
+
+For EVERY tool listed in {{TOOL_LIST}}:
+
+1. ADD visible breadcrumb at top of tool page:
+
+Format:
+Home / Tools / {{CATEGORY_NAME}} / {Tool Name}
+
+Rules:
+- Home → /
+- Tools → /tools
+- {{CATEGORY_NAME}} → /tools/{{CATEGORY_SLUG}}
+- Tool Name → plain text (not clickable)
+
+2. ADD JSON-LD Breadcrumb schema on tool page:
+
+Positions:
+1. Home
+2. Tools
+3. {{CATEGORY_NAME}}
+4. Tool Name (current tool URL)
+
+3. ADD a small text link near footer:
+"Category: {{CATEGORY_NAME}} Tools"
+→ links to /tools/{{CATEGORY_SLUG}}
+
+=====================================
+PART 5: STRICT SEO RULES (DO NOT BREAK)
+=====================================
+
+- ❌ DO NOT move tools into /tools/{{CATEGORY_SLUG}}/tool-name
+- ❌ DO NOT change existing tool URLs
+- ❌ DO NOT add tracking, ads, signup, or popups
+- ❌ DO NOT mention any technologies or libraries
+- ✅ Keep everything human, simple, and clean
+- ✅ Internal links must be crawlable
+
+=====================================
+EXPECTED RESULT
+=====================================
+
+- Category page becomes a ranking pillar
+- Tools inherit category authority
+- Breadcrumbs improve crawl depth & SERP display
+- Existing indexed tools stay SAFE
+- No reindexing disasters
+
+Execute cleanly.

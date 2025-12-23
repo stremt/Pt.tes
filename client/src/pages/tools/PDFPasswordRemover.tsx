@@ -143,6 +143,7 @@ export default function PDFPasswordRemover() {
           />
 
           <div className="text-center space-y-4 mb-12">
+            
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Unlock className="h-8 w-8 text-primary" />

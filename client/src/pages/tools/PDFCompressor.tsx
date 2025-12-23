@@ -193,6 +193,8 @@ export default function PDFCompressor() {
             {" / "}
             <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
             {" / "}
+            <Link href="/tools/pdf" className="hover:text-foreground">PDF Tools</Link>
+            {" / "}
             <span className="text-foreground">PDF Compressor</span>
           </div>
 

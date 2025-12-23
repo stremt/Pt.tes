@@ -126,6 +126,8 @@ export default function PDFWatermarkRemover() {
             {" / "}
             <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
             {" / "}
+            <Link href="/tools/pdf" className="hover:text-foreground">PDF Tools</Link>
+            {" / "}
             <span className="text-foreground">PDF Watermark Remover</span>
           </div>
 
@@ -426,6 +428,10 @@ export default function PDFWatermarkRemover() {
               ))}
             </div>
           </section>
+
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/pdf" className="text-primary hover:text-primary/80 transition-colors">PDF Tools</Link>
+          </p>
         </div>
       </div>
     </>
