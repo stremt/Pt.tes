@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,15 @@ export default function TextRotator() {
   const reversed = reverseText(text);
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="Text Rotator"
       description="Flip text upside-down or reverse it instantly."

@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -295,6 +296,15 @@ export default function TextSummarizer() {
   };
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="AI Text Summarizer (Offline + 100% Private)"
       description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."

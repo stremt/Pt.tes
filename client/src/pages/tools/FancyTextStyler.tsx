@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -55,6 +56,15 @@ export default function FancyTextStyler() {
   });
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="Fancy Text Styler"
       description="Convert text to fancy Unicode styles instantly."

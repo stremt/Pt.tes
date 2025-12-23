@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,15 @@ export default function TextSpacer() {
   const output = addSpaces(input, spacing[0]);
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="Text Spacer"
       description="Generate spaced-out text for design and emphasis."

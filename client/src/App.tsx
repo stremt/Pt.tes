@@ -18,6 +18,7 @@ import Home from "@/pages/Home";
 import Tools from "@/pages/Tools";
 import NotFound from "@/pages/not-found";
 import PrivacyCategory from "@/pages/PrivacyCategory";
+import TextCategory from "@/pages/TextCategory";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -259,6 +260,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/tools" component={Tools} />
         <Route path="/tools/privacy" component={PrivacyCategory} />
+        <Route path="/tools/text" component={TextCategory} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />

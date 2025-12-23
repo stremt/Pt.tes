@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -78,6 +79,15 @@ export default function TextRepeater() {
   ];
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="Text Repeater"
       description="Repeat any text multiple times instantly. Fast, free, offline and perfect for creators."

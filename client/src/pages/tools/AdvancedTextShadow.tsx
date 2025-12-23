@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,15 @@ export default function AdvancedTextShadow() {
   const cssCode = `text-shadow: ${offsetX[0]}px ${offsetY[0]}px ${blurRadius[0]}px ${shadowColor};`;
 
   return (
+      <Breadcrumb
+        items={[
+          { label: "Home", url: "/" },
+          { label: "Tools", url: "/tools" },
+          { label: "Text Tools", url: "/tools/text" },
+          { label: tool.name || "Tool" },
+        ]}
+      />
+      <div className="mb-6">/
     <ToolLayout
       title="Advanced Text Shadow Generator"
       description="Design beautiful text shadows with live preview."
