@@ -1,4 +1,4 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -152,7 +152,6 @@ export default function GradientGenerator() {
             </CardContent>
           </Card>
         </div>
-          {/* Category Footer */}\n          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">\n            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>\n          </p>
       </div>
     </div>
   );

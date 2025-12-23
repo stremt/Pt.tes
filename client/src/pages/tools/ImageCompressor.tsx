@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -704,7 +703,6 @@ export default function ImageCompressor() {
             })}
           </div>
         </section>
-          {/* Category Footer */}\n          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">\n            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>\n          </p>
       </div>
     </div>
     </>

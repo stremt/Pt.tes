@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -152,6 +151,10 @@ export default function HexColorPickerTool() {
             </CardContent>
           </Card>
         </div>
+        {/* Category Footer */}
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+        </p>
       </ToolLayout>
     </>
   );
