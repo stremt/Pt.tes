@@ -3,9 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { Download, AlertCircle, Check, Zap, Instagram, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Media Tools", "item": "https://tools.pixocraft.in/tools/media" },
+    { "@type": "ListItem", "position": 4, "name": "Instagram Profile Picture Downloader", "item": "https://tools.pixocraft.in/tools/instagram-profile-picture-downloader" }
+  ]
+});
 
 export default function InstagramProfilePictureDownloader() {
   const [username, setUsername] = useState("");
@@ -104,7 +117,15 @@ https://www.instagram.com/${username.replace("@", "")}/media/?__a=1 (then inspec
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <div className="max-w-6xl mx-auto px-4 pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "Instagram Profile Picture Downloader" }]} />
+        <div className="mb-6 text-sm text-muted-foreground">
+          <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / Instagram Profile Picture Downloader
+        </div>
+      </div>
       {/* Hero Section */}
       <div className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent py-12 md:py-16 px-4">
         <div className="max-w-6xl mx-auto space-y-4 text-center">
@@ -412,7 +433,11 @@ https://www.instagram.com/${username.replace("@", "")}/media/?__a=1 (then inspec
             </div>
           </section>
         </div>
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/media" className="text-primary hover:text-primary/80 transition-colors">Media Tools</Link>
+        </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
