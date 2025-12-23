@@ -43,22 +43,24 @@ export default function TextRotator() {
   const reversed = reverseText(text);
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Text Rotator"
-      description="Flip text upside-down or reverse it instantly."
-      icon={<RotateCw className="h-10 w-10 text-primary" />}
-      toolId="text-rotator"
-      category="Text & Writing"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Rotator" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Text Rotator"
+        description="Flip text upside-down or reverse it instantly."
+        icon={<RotateCw className="h-10 w-10 text-primary" />}
+        toolId="text-rotator"
+        category="Text & Writing"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text you want to rotate." },
         { step: 2, title: "Choose Style", description: "See upside-down and reversed versions." },
         { step: 3, title: "Copy & Share", description: "Use rotated text anywhere!" },
@@ -129,6 +131,7 @@ export default function TextRotator() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }

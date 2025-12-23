@@ -29,22 +29,24 @@ export default function GradientTextGenerator() {
 background-clip: text;`;
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Gradient Text Generator"
-      description="Create beautiful gradient text with custom colors."
-      icon={<Rainbow className="h-10 w-10 text-primary" />}
-      toolId="gradient-text-generator"
-      category="CSS & Design"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Gradient Text Generator" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Gradient Text Generator"
+        description="Create beautiful gradient text with custom colors."
+        icon={<Rainbow className="h-10 w-10 text-primary" />}
+        toolId="gradient-text-generator"
+        category="CSS & Design"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text you want to stylize." },
         { step: 2, title: "Pick Colors", description: "Choose two colors for the gradient." },
         { step: 3, title: "Copy CSS", description: "Use the generated CSS in your project." },
@@ -161,6 +163,7 @@ background-clip: text;`;
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }

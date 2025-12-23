@@ -76,15 +76,16 @@ export default function TextReverser() {
   return (
     <>
       <StructuredData data={faqSchema} />
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Reverser" },
+          ]}
+        />
+      </div>
       <ToolLayout
         title="Text Reverser"
         description="Paste text → reverse → copy output instantly."

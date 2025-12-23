@@ -72,15 +72,16 @@ export default function SilentText() {
   return (
     <>
       <StructuredData data={faqSchema} />
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Silent Text Generator" },
+          ]}
+        />
+      </div>
       <ToolLayout
         title="Silent Text Generator"
         description="Paste text → remove vowels → generate silent puzzle-style text."

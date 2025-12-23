@@ -29,22 +29,24 @@ export default function AdvancedTextShadow() {
   const cssCode = `text-shadow: ${offsetX[0]}px ${offsetY[0]}px ${blurRadius[0]}px ${shadowColor};`;
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Advanced Text Shadow Generator"
-      description="Design beautiful text shadows with live preview."
-      icon={<Plus className="h-10 w-10 text-primary" />}
-      toolId="advanced-text-shadow"
-      category="CSS & Design"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Advanced Text Shadow" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Advanced Text Shadow Generator"
+        description="Design beautiful text shadows with live preview."
+        icon={<Plus className="h-10 w-10 text-primary" />}
+        toolId="advanced-text-shadow"
+        category="CSS & Design"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text to apply shadow to." },
         { step: 2, title: "Adjust Shadow", description: "Control offset, blur, and color." },
         { step: 3, title: "Copy CSS", description: "Use the generated shadow code." },
@@ -171,6 +173,7 @@ export default function AdvancedTextShadow() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }

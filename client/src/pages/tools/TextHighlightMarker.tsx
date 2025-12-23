@@ -30,22 +30,24 @@ export default function TextHighlightMarker() {
   const htmlCode = `<mark class="highlighted">${text}</mark>`;
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Text Highlight Marker"
-      description="Create highlighted text with custom background colors."
-      icon={<Highlighter className="h-10 w-10 text-primary" />}
-      toolId="text-highlight-marker"
-      category="Text & Writing"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Highlight Marker" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Text Highlight Marker"
+        description="Create highlighted text with custom background colors."
+        icon={<Highlighter className="h-10 w-10 text-primary" />}
+        toolId="text-highlight-marker"
+        category="Text & Writing"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text you want to highlight." },
         { step: 2, title: "Pick Color", description: "Choose a highlight background color." },
         { step: 3, title: "Copy Code", description: "Get CSS and HTML code." },
@@ -164,6 +166,7 @@ export default function TextHighlightMarker() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }
