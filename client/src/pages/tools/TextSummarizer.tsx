@@ -297,22 +297,24 @@ export default function TextSummarizer() {
   };
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="AI Text Summarizer (Offline + 100% Private)"
-      description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."
-      icon={<Brain className="h-10 w-10 text-primary" />}
-      toolId="text-summarizer"
-      category="Text Tool"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "AI Text Summarizer" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="AI Text Summarizer (Offline + 100% Private)"
+        description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."
+        icon={<Brain className="h-10 w-10 text-primary" />}
+        toolId="text-summarizer"
+        category="Text Tool"
+        howItWorks={[
         { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
         { step: 2, title: "Choose Length", description: "Select how many key sentences you want in the summary" },
         { step: 3, title: "Summarize", description: "Get an instant AI-powered summary with the most important points" },
@@ -564,6 +566,7 @@ export default function TextSummarizer() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }
