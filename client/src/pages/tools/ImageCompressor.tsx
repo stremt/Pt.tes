@@ -189,14 +189,6 @@ export default function ImageCompressor() {
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-7xl">
         <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageCompressor" }]} />
-        {/* Breadcrumb */}
-        <div className="mb-8 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Image Compressor</span>
-        </div>
 
         {/* Page Header */}
         <div className="text-center space-y-4 mb-8 md:mb-12">

@@ -145,13 +145,6 @@ export default function PDFToImage() {
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
         <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "PDFToImage" }]} />
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">PDF to Image</span>
-          </div>
 
           <div className="text-center space-y-4 mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
