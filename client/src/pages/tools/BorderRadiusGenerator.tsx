@@ -169,7 +169,7 @@ export default function BorderRadiusGenerator() {
         </Card>
         <p className="text-center text-sm text-muted-foreground mt-8 pt-8 border-t"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>
       </div>
-      </div>
+      </ToolLayout>
     </>
   );
 }
