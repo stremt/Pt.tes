@@ -8,7 +8,19 @@ import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { Scissors, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { cutAudio, formatFileSize } from "@/lib/ffmpeg-client";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Media Tools", "item": "https://tools.pixocraft.in/tools/media" },
+    { "@type": "ListItem", "position": 4, "name": "MP3 Cutter", "item": "https://tools.pixocraft.in/tools/mp3-cutter" }
+  ]
+});
 
 export default function MP3Cutter() {
   const [file, setFile] = useState<File | null>(null);
@@ -64,10 +76,12 @@ export default function MP3Cutter() {
   return (
     <>
       <StructuredData data={generateFAQSchema([{question: "How do I cut an MP3 file?", answer: "Upload your audio file, set the start and end times in seconds, then click Cut Audio. The tool will extract that portion and let you download it."}])} />
+      <StructuredData data={generateBreadcrumbSchema()} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+          <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "MP3 Cutter" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / MP3 Cutter
+            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / MP3 Cutter
           </div>
           <div className="text-center space-y-4 mb-12">
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
@@ -114,6 +128,9 @@ export default function MP3Cutter() {
               </Card>
             )}
           </div>
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/media" className="text-primary hover:text-primary/80 transition-colors">Media Tools</Link>
+          </p>
         </div>
       </div>
     </>

@@ -11,6 +11,17 @@ import { Link } from "wouter";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { compressVideo, formatFileSize } from "@/lib/ffmpeg-client";
 
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Media Tools", "item": "https://tools.pixocraft.in/tools/media" },
+    { "@type": "ListItem", "position": 4, "name": "Video Compressor", "item": "https://tools.pixocraft.in/tools/video-compressor" }
+  ]
+});
+
 export default function VideoCompressor() {
   const [file, setFile] = useState<File | null>(null);
   const [compressedBlob, setCompressedBlob] = useState<Blob | null>(null);
@@ -64,11 +75,12 @@ export default function VideoCompressor() {
   return (
     <>
       <StructuredData data={generateFAQSchema([{question: "How does video compression work?", answer: "The tool reduces video file size by optimizing encoding settings while maintaining visual quality. Lower quality values mean smaller file sizes. All processing happens in your browser."}])} />
+      <StructuredData data={generateBreadcrumbSchema()} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "VideoCompressor" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "Video Compressor" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / Video Compressor
+            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / Video Compressor
           </div>
           <div className="text-center space-y-4 mb-12">
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
@@ -114,11 +126,11 @@ export default function VideoCompressor() {
               </Card>
             )}
           </div>
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/media" className="text-primary hover:text-primary/80 transition-colors">Media Tools</Link>
+          </p>
         </div>
       </div>
     </>
   );
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
 }

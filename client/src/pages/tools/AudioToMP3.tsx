@@ -6,7 +6,19 @@ import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { Music, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { convertAudioToMP3, formatFileSize } from "@/lib/ffmpeg-client";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Media Tools", "item": "https://tools.pixocraft.in/tools/media" },
+    { "@type": "ListItem", "position": 4, "name": "Audio to MP3", "item": "https://tools.pixocraft.in/tools/audio-to-mp3" }
+  ]
+});
 
 export default function AudioToMP3() {
   const [file, setFile] = useState<File | null>(null);
@@ -60,10 +72,12 @@ export default function AudioToMP3() {
   return (
     <>
       <StructuredData data={generateFAQSchema([{question: "What audio formats can be converted to MP3?", answer: "The tool supports most audio formats including WAV, OGG, FLAC, M4A, and more. All conversion happens in your browser for complete privacy."}])} />
+      <StructuredData data={generateBreadcrumbSchema()} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+          <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "Audio to MP3" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / Audio to MP3
+            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / Audio to MP3
           </div>
           <div className="text-center space-y-4 mb-12">
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
@@ -108,6 +122,9 @@ export default function AudioToMP3() {
               </Card>
             )}
           </div>
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/media" className="text-primary hover:text-primary/80 transition-colors">Media Tools</Link>
+          </p>
         </div>
       </div>
     </>

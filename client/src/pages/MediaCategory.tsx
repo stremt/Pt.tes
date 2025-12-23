@@ -1,4 +1,4 @@
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { Badge } from "@/components/ui/badge";
 import { Video, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +13,31 @@ export default function MediaCategory() {
     canonicalUrl: "https://tools.pixocraft.in/tools/media",
   });
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://tools.pixocraft.in"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tools",
+        "item": "https://tools.pixocraft.in/tools"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Media Tools",
+        "item": "https://tools.pixocraft.in/tools/media"
+      }
+    ]
+  };
+
   const mediaTools = [
     { id: "video-to-gif", name: "Video to GIF", description: "Convert video files to animated GIFs with custom frame selection and quality control.", path: "/tools/video-to-gif" },
     { id: "gif-to-mp4", name: "GIF to MP4", description: "Convert animated GIFs to MP4 video format for smaller file sizes and better compatibility.", path: "/tools/gif-to-mp4" },
@@ -25,7 +50,9 @@ export default function MediaCategory() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+    <>
+      <StructuredData data={breadcrumbSchema} />
+      <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <div className="container mx-auto px-4 max-w-4xl py-12 md:py-16">
         <Breadcrumb
           items={[
@@ -142,5 +169,6 @@ export default function MediaCategory() {
         </section>
       </div>
     </div>
+    </>
   );
 }
