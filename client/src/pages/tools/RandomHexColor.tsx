@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Palette, Copy, Shuffle } from "lucide-react";
 
 export default function RandomHexColor() {
