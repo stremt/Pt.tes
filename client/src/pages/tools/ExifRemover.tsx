@@ -57,12 +57,23 @@ export default function ExifRemover() {
   };
 
   return (
-    <ToolLayout
-      title="Remove EXIF Data from Photos—Protect Your Location Privacy"
-      description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
-      icon={<FileX className="h-10 w-10 text-primary" />}
-      toolId="exif-remover"
-      category="Privacy & Security"
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "EXIF Remover" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Remove EXIF Data from Photos—Protect Your Location Privacy"
+        description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
+        icon={<FileX className="h-10 w-10 text-primary" />}
+        toolId="exif-remover"
+        category="Privacy & Security"
       howItWorks={[
         { step: 1, title: "Upload Image", description: "Select any photo with EXIF data from your device." },
         { step: 2, title: "Auto Remove", description: "EXIF metadata (location, camera, date) is stripped automatically." },
@@ -137,5 +148,6 @@ export default function ExifRemover() {
         </p>
       </div>
     </ToolLayout>
+    </>
   );
 }
