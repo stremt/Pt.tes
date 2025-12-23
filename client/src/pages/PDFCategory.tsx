@@ -34,7 +34,7 @@ export default function PDFCategory() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "PDF Tools" },
+            { label: "PDF Tools", url: "/tools/pdf" },
           ]}
         />
 

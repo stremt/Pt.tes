@@ -58,7 +58,7 @@ export default function MediaCategory() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Media Tools" },
+            { label: "Media Tools", url: "/tools/media" },
           ]}
         />
 

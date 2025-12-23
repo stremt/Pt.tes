@@ -56,7 +56,7 @@ export default function ImageCategory() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Image Tools" },
+            { label: "Image Tools", url: "/tools/image" },
           ]}
         />
 
