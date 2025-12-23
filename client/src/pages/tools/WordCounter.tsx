@@ -159,7 +159,7 @@ export default function WordCounter() {
         description="Count words, characters, sentences, and paragraphs instantly. Get accurate reading time estimates in real-time—all statistics update as you type."
         icon={<FileText className="h-10 w-10 text-primary" />}
         toolId="word-counter"
-        category="Writing Tool"
+        category="text"
         howItWorks={[
           { step: 1, title: "Enter or Upload Text", description: "Type, paste your text, or upload a document (TXT, PDF, DOCX, MD)." },
           { step: 2, title: "Get Live Statistics", description: "Word count, characters, sentences, and reading time update instantly as you type." },

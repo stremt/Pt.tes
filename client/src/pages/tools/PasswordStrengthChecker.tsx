@@ -155,7 +155,7 @@ export default function PasswordStrengthChecker() {
         description="Test if your password is strong enough. Get instant results with time-to-crack estimates—100% private, runs in your browser."
         icon={<ShieldCheck className="h-10 w-10 text-primary" />}
         toolId="password-strength-checker"
-        category="Security Tool"
+        category="privacy"
         howItWorks={[
           { step: 1, title: "Enter Password", description: "Type your password into the secure input field." },
           { step: 2, title: "View Analysis", description: "See real-time strength score and detailed feedback." },
