@@ -137,7 +137,7 @@ export default function PDFPasswordRemover() {
             items={[
               { label: "Home", url: "/" },
               { label: "Tools", url: "/tools" },
-              { label: "Privacy Tools", url: "/tools/privacy" },
+              { label: "PDF Tools", url: "/tools/pdf" },
               { label: "PDF Password Remover" },
             ]}
           />
