@@ -54,22 +54,24 @@ export default function GlitchTextGenerator() {
   const output = generateGlitch(input, intensity[0]);
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Glitch Text Generator (Zalgo)"
-      description="Enter text → glitchify it instantly."
-      icon={<Zap className="h-10 w-10 text-primary" />}
-      toolId="glitch-text-generator"
-      category="Text & Writing"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Glitch Text Generator" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Glitch Text Generator (Zalgo)"
+        description="Enter text → glitchify it instantly."
+        icon={<Zap className="h-10 w-10 text-primary" />}
+        toolId="glitch-text-generator"
+        category="Text & Writing"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text you want to glitchify." },
         { step: 2, title: "Adjust Intensity", description: "Use the slider to control glitch level." },
         { step: 3, title: "Copy & Share", description: "Use your glitchy text anywhere!" },
@@ -140,6 +142,7 @@ export default function GlitchTextGenerator() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }
