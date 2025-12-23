@@ -5,9 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { Wand2, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import beautify from "js-beautify";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "Code Beautifier", "item": "https://tools.pixocraft.in/tools/code-beautifier" }
+  ]
+});
 
 export default function CodeBeautifier() {
   const [input, setInput] = useState("");
@@ -44,7 +57,12 @@ export default function CodeBeautifier() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Code Beautifier" }]} />
+      </div>
+      <ToolLayout
       title="Code Beautifier"
       description="Beautify your code instantly. Perfect for developers who want clean, readable HTML, CSS & JavaScript."
       icon={<Wand2 className="h-10 w-10 text-primary" />}
@@ -65,6 +83,7 @@ export default function CodeBeautifier() {
         { question: "Can I beautify minified code?", answer: "Yes! This tool is perfect for making minified code readable again." },
         { question: "Is there a file size limit?", answer: "No hard limit, but very large files may slow down processing." },
       ]}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
@@ -137,5 +156,6 @@ export default function CodeBeautifier() {
         </div>
       </div>
     </ToolLayout>
+    </>
   );
 }

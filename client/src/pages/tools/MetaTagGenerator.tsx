@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Tags, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,19 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "Meta Tag Generator", "item": "https://tools.pixocraft.in/tools/meta-tag-generator" }
+  ]
+});
 
 export default function MetaTagGenerator() {
   const [title, setTitle] = useState<string>("");
@@ -96,7 +109,12 @@ ${ogImage ? `<meta property="twitter:image" content="${ogImage}">` : ''}`;
   ];
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Meta Tag Generator" }]} />
+      </div>
+      <ToolLayout
       title="Meta Tag Generator"
       description="Generate SEO-friendly meta tags for websites. Free, fast & offline."
       icon={<Tags className="h-8 w-8" />}
@@ -105,6 +123,7 @@ ${ogImage ? `<meta property="twitter:image" content="${ogImage}">` : ''}`;
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="space-y-6">
         <div className="space-y-4">
@@ -215,5 +234,6 @@ ${ogImage ? `<meta property="twitter:image" content="${ogImage}">` : ''}`;
         )}
       </div>
     </ToolLayout>
+    </>
   );
 }

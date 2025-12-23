@@ -5,9 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { FileCode, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import yaml from "js-yaml";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "JSON YAML Converter", "item": "https://tools.pixocraft.in/tools/json-yaml-converter" }
+  ]
+});
 
 export default function JSONYAMLConverter() {
   const [input, setInput] = useState("");
@@ -55,7 +68,12 @@ export default function JSONYAMLConverter() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "JSON YAML Converter" }]} />
+      </div>
+      <ToolLayout
       title="JSON to YAML Converter"
       description="Convert JSON and YAML with one click. Secure, offline and perfect for developers & DevOps."
       icon={<FileCode className="h-10 w-10 text-primary" />}
@@ -76,6 +94,7 @@ export default function JSONYAMLConverter() {
         { question: "What's the difference between JSON and YAML?", answer: "YAML is more human-readable with less syntax, while JSON is more strict and widely supported in APIs." },
         { question: "Can it handle large files?", answer: "Yes, it can handle files up to your browser's memory limit." },
       ]}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
@@ -160,5 +179,6 @@ export default function JSONYAMLConverter() {
         </div>
       </div>
     </ToolLayout>
+    </>
   );
 }

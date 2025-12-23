@@ -4,9 +4,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { FileEdit, Copy, RotateCcw, Zap, Eye, Lock } from "lucide-react";
 import { marked } from "marked";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "Markdown Editor", "item": "https://tools.pixocraft.in/tools/markdown-editor" }
+  ]
+});
 
 export default function MarkdownEditor() {
   const [markdown, setMarkdown] = useState("");
@@ -42,7 +55,12 @@ export default function MarkdownEditor() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Markdown Editor" }]} />
+      </div>
+      <ToolLayout
       title="Markdown Editor"
       description="Write Markdown on the left, get instant preview on the right. Simple, fast and distraction-free editor."
       icon={<FileEdit className="h-10 w-10 text-primary" />}
@@ -63,6 +81,7 @@ export default function MarkdownEditor() {
         { question: "What Markdown features are supported?", answer: "All standard Markdown: headings, bold, italic, links, images, lists, code blocks, blockquotes, and tables." },
         { question: "Can I export the HTML?", answer: "Yes, use the copy button to copy the generated HTML to your clipboard." },
       ]}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="max-w-7xl mx-auto space-y-6">
         <Card>
@@ -122,5 +141,6 @@ export default function MarkdownEditor() {
         </div>
       </div>
     </ToolLayout>
+    </>
   );
 }

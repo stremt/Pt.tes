@@ -7,8 +7,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { Code2, Copy, Zap, Lock, Globe } from "lucide-react";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "API Snippet Builder", "item": "https://tools.pixocraft.in/tools/api-snippet-builder" }
+  ]
+});
 
 export default function APISnippetBuilder() {
   const [url, setUrl] = useState("");
@@ -68,7 +81,12 @@ export default function APISnippetBuilder() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "API Snippet Builder" }]} />
+      </div>
+      <ToolLayout
       title="API Snippet Builder"
       description="Enter API URL, method, headers & body and instantly generate cURL or Fetch code. Perfect for backend, frontend & API developers."
       icon={<Code2 className="h-10 w-10 text-primary" />}
@@ -89,6 +107,7 @@ export default function APISnippetBuilder() {
         { question: "What is Fetch?", answer: "Fetch is a modern JavaScript API for making HTTP requests in web browsers and Node.js." },
         { question: "How do I add multiple headers?", answer: "Enter each header on a new line in the format: Header-Name: value" },
       ]}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
@@ -198,5 +217,6 @@ export default function APISnippetBuilder() {
         </Card>
       </div>
     </ToolLayout>
+    </>
   );
 }

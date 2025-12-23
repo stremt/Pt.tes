@@ -1,11 +1,24 @@
 import { useState } from "react";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { FileCode, Upload, Copy, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "File to Base64", "item": "https://tools.pixocraft.in/tools/file-to-base64" }
+  ]
+});
 
 export default function FileToBase64() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -82,7 +95,12 @@ export default function FileToBase64() {
   ];
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "File to Base64" }]} />
+      </div>
+      <ToolLayout
       title="File to Base64 Converter"
       description="Convert documents, images & files to Base64 instantly. Secure, offline and lightning fast."
       icon={<FileCode className="h-8 w-8" />}
@@ -91,6 +109,7 @@ export default function FileToBase64() {
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="space-y-6">
         <div className="space-y-4">
@@ -157,5 +176,6 @@ export default function FileToBase64() {
         )}
       </div>
     </ToolLayout>
+    </>
   );
 }

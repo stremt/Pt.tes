@@ -2,8 +2,21 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { CodePreviewCard } from "@/components/tools/CodePreviewCard";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "Border Radius Generator", "item": "https://tools.pixocraft.in/tools/border-radius-generator" }
+  ]
+});
 
 export default function BorderRadiusGenerator() {
   useSEO({
@@ -27,7 +40,12 @@ export default function BorderRadiusGenerator() {
   };
 
   return (
-    <div className="min-h-screen py-20">
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="min-h-screen py-20">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Border Radius Generator" }]} />
+      </div>
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Border Radius Generator</h1>
@@ -131,7 +149,9 @@ export default function BorderRadiusGenerator() {
             </div>
           </CardContent>
         </Card>
+        <p className="text-center text-sm text-muted-foreground mt-8 pt-8 border-t"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

@@ -5,9 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { ArrowRightLeft, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import Papa from "papaparse";
+import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 4, "name": "JSON CSV Converter", "item": "https://tools.pixocraft.in/tools/json-csv-converter" }
+  ]
+});
 
 export default function JSONCSVConverter() {
   const [input, setInput] = useState("");
@@ -56,7 +69,12 @@ export default function JSONCSVConverter() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <StructuredData data={generateBreadcrumbSchema()} />
+      <div className="container mx-auto px-4 max-w-7xl pt-8">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "JSON CSV Converter" }]} />
+      </div>
+      <ToolLayout
       title="JSON to CSV Converter"
       description="Convert JSON to CSV or CSV to JSON instantly without internet. Paste or upload your file and get clean, formatted data in one click."
       icon={<ArrowRightLeft className="h-10 w-10 text-primary" />}
@@ -77,6 +95,7 @@ export default function JSONCSVConverter() {
         { question: "Can I convert large JSON files?", answer: "Yes, up to your browser memory limit. Very large files may slow down the conversion." },
         { question: "What JSON formats are supported?", answer: "Both single objects and arrays of objects. For CSV conversion, array format works best." },
       ]}
+      footer={<p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>}
     >
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Mode Toggle */}
@@ -166,5 +185,6 @@ export default function JSONCSVConverter() {
         </div>
       </div>
     </ToolLayout>
+    </>
   );
 }
