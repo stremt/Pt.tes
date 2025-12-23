@@ -80,25 +80,27 @@ export default function TextRepeater() {
   ];
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Text Repeater"
-      description="Repeat any text multiple times instantly. Fast, free, offline and perfect for creators."
-      icon={<Repeat className="h-8 w-8" />}
-      toolId="text-repeater"
-      category="utility"
-      howItWorks={howItWorks}
-      benefits={benefits}
-      faqs={faqs}
-    >
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Repeater" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Text Repeater"
+        description="Repeat any text multiple times instantly. Fast, free, offline and perfect for creators."
+        icon={<Repeat className="h-8 w-8" />}
+        toolId="text-repeater"
+        category="utility"
+        howItWorks={howItWorks}
+        benefits={benefits}
+        faqs={faqs}
+      >
       <div className="space-y-6">
         <div className="space-y-4">
           <div className="space-y-2">
@@ -184,6 +186,7 @@ export default function TextRepeater() {
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }
