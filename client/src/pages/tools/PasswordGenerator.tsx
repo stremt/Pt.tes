@@ -155,16 +155,18 @@ export default function PasswordGenerator() {
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Password Generator" },
+          ]}
+        />
+      </div>
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Breadcrumb */}
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Password Generator</span>
-          </div>
 
           {/* Page Header */}
           <div className="text-center space-y-4 mb-6">
