@@ -22,6 +22,7 @@ import TextCategory from "@/pages/TextCategory";
 import ImageCategory from "@/pages/ImageCategory";
 import PDFCategory from "@/pages/PDFCategory";
 import MediaCategory from "@/pages/MediaCategory";
+import DeveloperCategory from "@/pages/DeveloperCategory";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -267,6 +268,7 @@ function Router() {
         <Route path="/tools/image" component={ImageCategory} />
         <Route path="/tools/pdf" component={PDFCategory} />
         <Route path="/tools/media" component={MediaCategory} />
+        <Route path="/tools/developer" component={DeveloperCategory} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
