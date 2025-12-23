@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState, useMemo } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -81,16 +80,6 @@ export default function CharacterParagraphCounter() {
   return (
     <>
       <StructuredData data={faqSchema} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Character & Paragraph Counter" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Character & Paragraph Counter"
         description="Paste text → get character, paragraph, line & sentence count instantly."

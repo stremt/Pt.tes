@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function HTMLEncoderDecoder() {
   const [inputText, setInputText] = useState<string>("");
@@ -93,16 +92,6 @@ export default function HTMLEncoderDecoder() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
-            { label: "HTML Encoder/Decoder" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="HTML Encoder/Decoder"
         description="Encode or decode HTML characters instantly. Perfect for developers, SEO and editors."

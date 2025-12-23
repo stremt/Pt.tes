@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -76,16 +75,6 @@ export default function TextReverser() {
   return (
     <>
       <StructuredData data={faqSchema} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Text Reverser" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Text Reverser"
         description="Paste text → reverse → copy output instantly."
@@ -96,14 +85,6 @@ export default function TextReverser() {
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Text Reverser</span>
-        </div>
-
         <div className="space-y-6 max-w-3xl mx-auto">
           <div className="space-y-2">
             <Textarea
