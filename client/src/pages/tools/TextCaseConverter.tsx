@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   toUpperCase,
   toLowerCase,
@@ -43,13 +44,24 @@ export default function TextCaseConverter() {
   ];
 
   return (
-    <ToolLayout
-      title="Text Case Converter"
-      description="Transform your text into any case format instantly. Perfect for developers, writers, and content creators."
-      icon={<Type className="h-10 w-10 text-primary" />}
-      toolId="text-case-converter"
-      category="Writing & Utility"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Case Converter" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Text Case Converter"
+        description="Transform your text into any case format instantly. Perfect for developers, writers, and content creators."
+        icon={<Type className="h-10 w-10 text-primary" />}
+        toolId="text-case-converter"
+        category="Writing & Utility"
+        howItWorks={[
         { step: 1, title: "Enter Text", description: "Type or paste your text into the input box." },
         { step: 2, title: "View Conversions", description: "All case formats are generated instantly as you type." },
         { step: 3, title: "Copy Result", description: "Click any conversion to copy it to your clipboard." },
@@ -143,15 +155,12 @@ export default function TextCaseConverter() {
             </div>
           </CardContent>
         </Card>
-          {/* Category Footer */}
-          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-            Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
-          </p>
-      </div>
         {/* Category Footer */}
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </div>
+      </ToolLayout>
+    </>
   );
 }

@@ -231,15 +231,18 @@ export default function SpeechToText() {
   return (
     <>
       <StructuredData data={faqSchema} />
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Speech to Text" },
+          ]}
+        />
+      </div>
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Speech to Text</span>
-          </div>
 
           <div className="text-center space-y-4 mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
