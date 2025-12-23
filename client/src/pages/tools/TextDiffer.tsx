@@ -166,6 +166,10 @@ export default function TextDiffer() {
             </CardContent>
           </Card>
         )}
+          {/* Category Footer */}
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
+          </p>
       </div>
     </ToolLayout>
   );

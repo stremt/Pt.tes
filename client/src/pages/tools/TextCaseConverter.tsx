@@ -43,15 +43,6 @@ export default function TextCaseConverter() {
   ];
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
     <ToolLayout
       title="Text Case Converter"
       description="Transform your text into any case format instantly. Perfect for developers, writers, and content creators."
@@ -152,6 +143,10 @@ export default function TextCaseConverter() {
             </div>
           </CardContent>
         </Card>
+          {/* Category Footer */}
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
+          </p>
       </div>
     </ToolLayout>
   );
