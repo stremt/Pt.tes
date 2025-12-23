@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 
 interface ToolLayoutProps {
@@ -19,6 +19,17 @@ interface ToolLayoutProps {
   faqs: { question: string; answer: string }[];
 }
 
+const categoryMap: Record<string, { name: string; path: string }> = {
+  "text": { name: "Text Tools", path: "/tools/text" },
+  "image": { name: "Image Tools", path: "/tools/image" },
+  "pdf": { name: "PDF Tools", path: "/tools/pdf" },
+  "privacy": { name: "Privacy & Security", path: "/tools/privacy" },
+  "developer": { name: "Developer Tools", path: "/tools/developer" },
+  "converter": { name: "Converters", path: "/tools/converter" },
+  "calculator": { name: "Calculators", path: "/tools/calculator" },
+  "utility": { name: "Utilities", path: "/tools/utility" },
+};
+
 export function ToolLayout({
   title,
   description,
@@ -31,9 +42,25 @@ export function ToolLayout({
   faqs,
 }: ToolLayoutProps) {
   const relatedTools = getRelatedTools(toolId, 3);
+  const categoryInfo = categoryMap[category] || { name: category, path: `/tools/${category}` };
 
   return (
     <div className="min-h-screen">
+      {/* Breadcrumb */}
+      <div className="bg-background border-b sticky top-0 z-40">
+        <div className="container mx-auto px-4 max-w-7xl py-3">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="h-4 w-4" />
+            <Link href="/tools" className="hover:text-foreground transition-colors">Tools</Link>
+            <ChevronRight className="h-4 w-4" />
+            <Link href={categoryInfo.path} className="hover:text-foreground transition-colors">{categoryInfo.name}</Link>
+            <ChevronRight className="h-4 w-4" />
+            <span className="text-foreground font-medium">{title}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
@@ -216,6 +243,24 @@ export function ToolLayout({
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Footer Category Links */}
+      <section className="py-12 border-t bg-muted/30">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center space-y-6">
+            <h3 className="text-2xl font-bold">More {categoryInfo.name}</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Explore other tools in the {categoryInfo.name} category
+            </p>
+            <Link href={categoryInfo.path}>
+              <Button variant="default" size="lg" data-testid="button-category-link">
+                View All {categoryInfo.name}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

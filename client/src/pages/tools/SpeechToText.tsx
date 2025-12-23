@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Mic, MicOff, Copy, Trash2, Download, Zap, Lock, Languages, ExternalLink, AlertCircle } from "lucide-react";
+import { Mic, MicOff, Copy, Trash2, Download, Zap, Lock, Languages, ExternalLink, AlertCircle, ArrowRight } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -536,6 +536,24 @@ export default function SpeechToText() {
                     </p>
                   </CardContent>
                 </Card>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer Category Links */}
+          <section className="py-16 border-t bg-muted/30">
+            <div className="container mx-auto px-4 max-w-7xl">
+              <div className="text-center space-y-6">
+                <h3 className="text-2xl font-bold">More Text Tools</h3>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Explore other tools in the Text Tools category
+                </p>
+                <Link href="/tools/text">
+                  <Button variant="default" size="lg" data-testid="button-category-link">
+                    View All Text Tools
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </section>

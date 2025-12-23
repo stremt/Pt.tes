@@ -142,10 +142,6 @@ export default function ExifRemover() {
           </Card>
         )}
 
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-8 pt-6 border-t">
-          Category: <a href="/tools/privacy" className="text-primary hover:text-primary/80 transition-colors">Privacy Tools</a>
-        </p>
       </div>
     </ToolLayout>
     </>

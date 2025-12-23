@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { Volume2, Play, Pause, Square, RotateCcw, Zap, Lock, Globe, ExternalLink, Loader2 } from "lucide-react";
+import { Volume2, Play, Pause, Square, RotateCcw, Zap, Lock, Globe, ExternalLink, Loader2, ArrowRight } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -640,6 +640,24 @@ export default function TextToSpeech() {
                     </p>
                   </CardContent>
                 </Card>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer Category Links */}
+          <section className="py-16 border-t bg-muted/30">
+            <div className="container mx-auto px-4 max-w-7xl">
+              <div className="text-center space-y-6">
+                <h3 className="text-2xl font-bold">More Text Tools</h3>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Explore other tools in the Text Tools category
+                </p>
+                <Link href="/tools/text">
+                  <Button variant="default" size="lg" data-testid="button-category-link">
+                    View All Text Tools
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </section>
