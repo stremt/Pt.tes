@@ -1,6 +1,6 @@
 import { useSEO } from "@/lib/seo";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Mail, Lock, Hash, Unlock, FileX, Link2, Code } from "lucide-react";
+import { Shield, Mail, Lock, Hash, Unlock, FileX, Link2, Code, Shuffle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -77,6 +77,13 @@ export default function PrivacyCategory() {
       description: "Encode or decode HTML characters instantly. Perfect for developers, SEO and editors.",
       icon: Code,
       path: "/tools/html-encoder-decoder",
+    },
+    {
+      id: "random-string-generator",
+      name: "Random String Generator",
+      description: "Generate secure random strings for IDs, passwords, and testing. Uses cryptographically secure randomness.",
+      icon: Shuffle,
+      path: "/tools/random-string-generator",
     },
   ];
 
