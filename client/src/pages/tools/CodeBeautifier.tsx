@@ -8,7 +8,6 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { Wand2, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import beautify from "js-beautify";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -59,9 +58,6 @@ export default function CodeBeautifier() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Code Beautifier" }]} />
-      </div>
       <ToolLayout
       title="Code Beautifier"
       description="Beautify your code instantly. Perfect for developers who want clean, readable HTML, CSS & JavaScript."

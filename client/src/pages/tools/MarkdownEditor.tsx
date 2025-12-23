@@ -7,7 +7,6 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { FileEdit, Copy, RotateCcw, Zap, Eye, Lock } from "lucide-react";
 import { marked } from "marked";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -57,9 +56,6 @@ export default function MarkdownEditor() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Markdown Editor" }]} />
-      </div>
       <ToolLayout
       title="Markdown Editor"
       description="Write Markdown on the left, get instant preview on the right. Simple, fast and distraction-free editor."

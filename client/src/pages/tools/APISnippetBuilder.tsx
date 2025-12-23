@@ -9,7 +9,6 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { Code2, Copy, Zap, Lock, Globe } from "lucide-react";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -83,9 +82,6 @@ export default function APISnippetBuilder() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "API Snippet Builder" }]} />
-      </div>
       <ToolLayout
       title="API Snippet Builder"
       description="Enter API URL, method, headers & body and instantly generate cURL or Fetch code. Perfect for backend, frontend & API developers."

@@ -8,7 +8,6 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { FileCode, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import yaml from "js-yaml";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -70,9 +69,6 @@ export default function JSONYAMLConverter() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "JSON YAML Converter" }]} />
-      </div>
       <ToolLayout
       title="JSON to YAML Converter"
       description="Convert JSON and YAML with one click. Secure, offline and perfect for developers & DevOps."

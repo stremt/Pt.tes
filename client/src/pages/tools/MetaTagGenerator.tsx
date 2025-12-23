@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -111,9 +110,6 @@ ${ogImage ? `<meta property="twitter:image" content="${ogImage}">` : ''}`;
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Meta Tag Generator" }]} />
-      </div>
       <ToolLayout
       title="Meta Tag Generator"
       description="Generate SEO-friendly meta tags for websites. Free, fast & offline."

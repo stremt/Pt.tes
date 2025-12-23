@@ -5,8 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { CodePreviewCard } from "@/components/tools/CodePreviewCard";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
+import { ToolLayout } from "@/components/layout/ToolLayout";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",
@@ -52,11 +52,29 @@ export default function BoxShadowGenerator() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="min-h-screen py-20">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Box Shadow Generator" }]} />
-      </div>
-      <div className="container mx-auto px-4 max-w-6xl">
+      <ToolLayout
+        title="Box Shadow Generator"
+        description="Customize shadows visually and copy CSS instantly. Perfect for modern UI design."
+        icon={<span className="h-10 w-10 text-primary">⬚</span>}
+        toolId="box-shadow-generator"
+        category="developer"
+        howItWorks={[
+          { step: 1, title: "Adjust Sliders", description: "Configure offset, blur, spread and color" },
+          { step: 2, title: "See Preview", description: "Watch the shadow update in real-time" },
+          { step: 3, title: "Copy CSS", description: "Copy the generated CSS code instantly" },
+        ]}
+        benefits={[
+          { icon: <span className="h-6 w-6">⚡</span>, title: "Real-Time Preview", description: "See changes instantly" },
+          { icon: <span className="h-6 w-6">🔒</span>, title: "100% Offline", description: "Works completely offline" },
+          { icon: <span className="h-6 w-6">📋</span>, title: "Easy Copy", description: "Copy CSS with one click" },
+        ]}
+        faqs={[
+          { question: "What is box-shadow?", answer: "Box-shadow is a CSS property that adds shadow effects around elements." },
+          { question: "Can I use multiple shadows?", answer: "Yes, you can add multiple shadows by separating values with commas." },
+          { question: "Is it mobile friendly?", answer: "Yes, all changes work perfectly on mobile devices." },
+        ]}
+      >
+      <div className="max-w-6xl mx-auto space-y-6">
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Box Shadow Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

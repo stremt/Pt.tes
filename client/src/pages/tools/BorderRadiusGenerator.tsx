@@ -4,8 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { CodePreviewCard } from "@/components/tools/CodePreviewCard";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
+import { ToolLayout } from "@/components/layout/ToolLayout";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",
@@ -42,11 +42,29 @@ export default function BorderRadiusGenerator() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="min-h-screen py-20">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "Border Radius Generator" }]} />
-      </div>
-      <div className="container mx-auto px-4 max-w-6xl">
+      <ToolLayout
+        title="Border Radius Generator"
+        description="Create rounded corners visually and copy CSS instantly. Offline & beginner friendly."
+        icon={<span className="h-10 w-10 text-primary">⬚</span>}
+        toolId="border-radius-generator"
+        category="developer"
+        howItWorks={[
+          { step: 1, title: "Adjust Corners", description: "Set radius for each corner independently" },
+          { step: 2, title: "See Preview", description: "Watch the border-radius update in real-time" },
+          { step: 3, title: "Copy CSS", description: "Copy the CSS code with one click" },
+        ]}
+        benefits={[
+          { icon: <span className="h-6 w-6">⚡</span>, title: "Real-Time Preview", description: "See changes instantly" },
+          { icon: <span className="h-6 w-6">🔒</span>, title: "100% Offline", description: "Works completely offline" },
+          { icon: <span className="h-6 w-6">📋</span>, title: "Easy Copy", description: "Copy CSS with one click" },
+        ]}
+        faqs={[
+          { question: "What is border-radius?", answer: "Border-radius creates rounded corners on HTML elements." },
+          { question: "Can I use percentages?", answer: "Yes, you can use pixels or percentages for border-radius values." },
+          { question: "Does it work on images?", answer: "Yes, border-radius works on images and all other elements." },
+        ]}
+      >
+      <div className="max-w-6xl mx-auto space-y-6">
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Border Radius Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

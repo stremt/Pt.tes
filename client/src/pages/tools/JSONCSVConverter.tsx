@@ -8,7 +8,6 @@ import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { ArrowRightLeft, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import Papa from "papaparse";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
@@ -71,9 +70,6 @@ export default function JSONCSVConverter() {
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="container mx-auto px-4 max-w-7xl pt-8">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Developer Tools", url: "/tools/developer" }, { label: "JSON CSV Converter" }]} />
-      </div>
       <ToolLayout
       title="JSON to CSV Converter"
       description="Convert JSON to CSV or CSV to JSON instantly without internet. Paste or upload your file and get clean, formatted data in one click."
