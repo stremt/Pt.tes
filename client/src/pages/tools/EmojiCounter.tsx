@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -129,15 +130,29 @@ export default function EmojiCounter() {
   );
 
   return (
-    <ToolLayout
-      title="Emoji Counter"
-      description="Count how many emojis your text contains. Offline emoji detection."
-      icon={<Smile className="h-6 w-6" />}
-      howItWorks={howItWorks}
-      benefits={benefits}
-      faqs={faqs}
-    >
-      {toolContent}
-    </ToolLayout>
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Emoji Counter" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Emoji Counter"
+        description="Count how many emojis your text contains. Offline emoji detection."
+        icon={<Smile className="h-6 w-6" />}
+        toolId="emoji-counter"
+        category="Text & Writing"
+        howItWorks={howItWorks}
+        benefits={benefits}
+        faqs={faqs}
+      >
+        {toolContent}
+      </ToolLayout>
+    </>
   );
 }

@@ -34,22 +34,24 @@ export default function TextDiffer() {
   };
 
   return (
-      <Breadcrumb
-        items={[
-          { label: "Home", url: "/" },
-          { label: "Tools", url: "/tools" },
-          { label: "Text Tools", url: "/tools/text" },
-          { label: tool.name || "Tool" },
-        ]}
-      />
-      <div className="mb-6">/
-    <ToolLayout
-      title="Text Differ"
-      description="Paste text/code in both boxes and instantly see differences highlighted. Perfect for developers, editors & students."
-      icon={<Diff className="h-10 w-10 text-primary" />}
-      toolId="text-differ"
-      category="Developer Tool"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Text Differ" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Text Differ"
+        description="Paste text/code in both boxes and instantly see differences highlighted. Perfect for developers, editors & students."
+        icon={<Diff className="h-10 w-10 text-primary" />}
+        toolId="text-differ"
+        category="Developer Tool"
+        howItWorks={[
         { step: 1, title: "Paste Texts", description: "Enter original text in left box, modified text in right box." },
         { step: 2, title: "Choose Mode", description: "Select line-by-line or word-by-word comparison." },
         { step: 3, title: "Compare", description: "See highlighted additions, deletions, and unchanged parts." },
@@ -167,15 +169,12 @@ export default function TextDiffer() {
             </CardContent>
           </Card>
         )}
-          {/* Category Footer */}
-          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-            Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
-          </p>
-      </div>
         {/* Category Footer */}
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
           Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
         </p>
-    </ToolLayout>
+      </div>
+      </ToolLayout>
+    </>
   );
 }

@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,13 +39,24 @@ export default function WordFrequencyCounter() {
   const wordFrequency = getWordFrequency(input);
 
   return (
-    <ToolLayout
-      title="Word Frequency Counter"
-      description="Paste text → see frequency of each word immediately."
-      icon={<BarChart3 className="h-10 w-10 text-primary" />}
-      toolId="word-frequency-counter"
-      category="Text & Writing"
-      howItWorks={[
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Text Tools", url: "/tools/text" },
+            { label: "Word Frequency Counter" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Word Frequency Counter"
+        description="Paste text → see frequency of each word immediately."
+        icon={<BarChart3 className="h-10 w-10 text-primary" />}
+        toolId="word-frequency-counter"
+        category="Text & Writing"
+        howItWorks={[
         { step: 1, title: "Paste Text", description: "Enter any text or article." },
         { step: 2, title: "Auto Analyze", description: "Words are counted automatically." },
         { step: 3, title: "View Results", description: "See frequency sorted by most common." },
@@ -106,6 +118,7 @@ export default function WordFrequencyCounter() {
           </Card>
         )}
       </div>
-    </ToolLayout>
+      </ToolLayout>
+    </>
   );
 }
