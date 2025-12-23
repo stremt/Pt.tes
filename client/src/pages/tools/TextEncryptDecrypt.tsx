@@ -12,6 +12,7 @@ import { Lock, Unlock, Copy, Check, ArrowRight, Eye, EyeOff, Shield, WifiOff } f
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT } from "@/lib/ui-constants";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const encoder = new TextEncoder();

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, type FAQItem } from "@/lib/seo";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
@@ -150,6 +151,16 @@ export default function PasswordStrengthChecker() {
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Password Strength Checker" },
+          ]}
+        />
+      </div>
       <ToolLayout
         title="Free Password Strength Checker"
         description="Test if your password is strong enough. Get instant results with time-to-crack estimates—100% private, runs in your browser."

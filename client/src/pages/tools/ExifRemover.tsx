@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
 import { FileX, Upload, Download, Shield } from "lucide-react";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function ExifRemover() {
   const [image, setImage] = useState<string | null>(null);

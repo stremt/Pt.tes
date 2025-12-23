@@ -9,6 +9,7 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Hash, Copy, Check, Shield, WifiOff, Lock, Key, FileCheck, Server, GraduationCap, AlertTriangle, Copy as CopyIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 async function generateHash(text: string, algorithm: string): Promise<string> {
   const encoder = new TextEncoder();

@@ -9,6 +9,7 @@ import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, Gra
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { removePasswordFromPDF } from "@/lib/pdf-utils";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function PDFPasswordRemover() {
   const [file, setFile] = useState<File | null>(null);
@@ -132,13 +133,14 @@ export default function PDFPasswordRemover() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">PDF Password Remover</span>
-          </div>
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Privacy Tools", url: "/tools/privacy" },
+              { label: "PDF Password Remover" },
+            ]}
+          />
 
           <div className="text-center space-y-4 mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">

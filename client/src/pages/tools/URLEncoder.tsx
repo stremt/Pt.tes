@@ -9,6 +9,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
 import { Link2, Copy, RotateCcw, Zap, Lock, Sparkles, Globe, ArrowRight } from "lucide-react";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function URLEncoder() {
   const [input, setInput] = useState("");
