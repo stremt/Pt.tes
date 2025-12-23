@@ -39,7 +39,7 @@ export default function TextDiffer() {
         description="Paste text/code in both boxes and instantly see differences highlighted. Perfect for developers, editors & students."
         icon={<Diff className="h-10 w-10 text-primary" />}
         toolId="text-differ"
-        category="Developer Tool"
+        category="text"
         howItWorks={[
         { step: 1, title: "Paste Texts", description: "Enter original text in left box, modified text in right box." },
         { step: 2, title: "Choose Mode", description: "Select line-by-line or word-by-word comparison." },
