@@ -146,7 +146,7 @@ export default function ImageRotateTool() {
       description="Rotate images left or right using canvas."
       icon={<RotateCw className="h-8 w-8" />}
       toolId="image-rotate-tool"
-      category="utility"
+      category="image"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
@@ -226,14 +226,6 @@ export default function ImageRotateTool() {
           </div>
         )}
       </div>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
     </ToolLayout>
   );
 }

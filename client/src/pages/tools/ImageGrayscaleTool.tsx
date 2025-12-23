@@ -116,7 +116,7 @@ export default function ImageGrayscaleTool() {
       description="Convert images to grayscale (black & white)."
       icon={<ImageIcon className="h-8 w-8" />}
       toolId="image-grayscale-tool"
-      category="utility"
+      category="image"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
@@ -179,11 +179,6 @@ export default function ImageGrayscaleTool() {
           </div>
         )}
       </div>
-          </p>
-      {/* Category Footer */}
-      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-      </p>
     </ToolLayout>
   );
 }

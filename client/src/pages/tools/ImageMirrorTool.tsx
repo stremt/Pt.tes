@@ -117,7 +117,7 @@ export default function ImageMirrorTool() {
       description="Flip any image horizontally. Perfect for selfies and edits."
       icon={<FlipHorizontal className="h-8 w-8" />}
       toolId="image-mirror-tool"
-      category="utility"
+      category="image"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
@@ -180,14 +180,6 @@ export default function ImageMirrorTool() {
           </div>
         )}
       </div>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
     </ToolLayout>
   );
 }

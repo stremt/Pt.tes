@@ -126,7 +126,7 @@ export default function ImageLightenTool() {
       description="Increase brightness of images using canvas."
       icon={<Sun className="h-8 w-8" />}
       toolId="image-lighten-tool"
-      category="utility"
+      category="image"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
@@ -204,14 +204,6 @@ export default function ImageLightenTool() {
           </div>
         )}
       </div>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
     </ToolLayout>
   );
 }
