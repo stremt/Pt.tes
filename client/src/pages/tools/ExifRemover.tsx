@@ -64,7 +64,7 @@ export default function ExifRemover() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Image Tools", url: "/tools/image" },
             { label: "EXIF Remover" },
           ]}
         />

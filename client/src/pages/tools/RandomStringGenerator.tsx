@@ -91,7 +91,7 @@ export default function RandomStringGenerator() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Developer Tools", url: "/tools/developer" },
             { label: "Random String Generator" },
           ]}
         />

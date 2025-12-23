@@ -67,7 +67,7 @@ export default function URLEncoder() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Developer Tools", url: "/tools/developer" },
             { label: "URL Encoder/Decoder" },
           ]}
         />

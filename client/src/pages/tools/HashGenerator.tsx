@@ -232,7 +232,7 @@ export default function HashGenerator() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Developer Tools", url: "/tools/developer" },
             { label: "Hash Generator" },
           ]}
         />
