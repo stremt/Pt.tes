@@ -766,6 +766,11 @@ export default function ImageResizer() {
               ))}
             </Accordion>
           </div>
+
+          {/* Category Footer */}
+          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+          </p>
         </div>
       </div>
     </>
