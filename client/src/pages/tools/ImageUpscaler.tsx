@@ -8,6 +8,7 @@ import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { Maximize2, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function ImageUpscaler() {
   const [file, setFile] = useState<File | null>(null);
@@ -80,6 +81,8 @@ export default function ImageUpscaler() {
       <StructuredData data={generateFAQSchema([{question: "How does image upscaling work?", answer: "The tool increases image resolution by multiplying pixel dimensions using high-quality smoothing. While this simple method doesn't add real detail like AI upscalers, it's useful for enlarging images for print or display."}])} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageUpscaler" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageUpscaler" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / Image Upscaler
           </div>

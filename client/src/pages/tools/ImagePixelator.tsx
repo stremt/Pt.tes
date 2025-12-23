@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Grid3x3, Upload, Download } from "lucide-react";
 
 export default function ImagePixelator() {

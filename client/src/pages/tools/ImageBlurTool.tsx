@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Image as ImageIcon, Upload, Download } from "lucide-react";
 
 export default function ImageBlurTool() {
@@ -144,6 +145,11 @@ export default function ImageBlurTool() {
           </Card>
         )}
       </div>
+          </p>
+      {/* Category Footer */}
+      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+      </p>
     </ToolLayout>
   );
 }

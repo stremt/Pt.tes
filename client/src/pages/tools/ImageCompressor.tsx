@@ -6,6 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -187,6 +188,7 @@ export default function ImageCompressor() {
       <StructuredData data={faqSchema} />
     <div className="min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageCompressor" }]} />
         {/* Breadcrumb */}
         <div className="mb-8 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">Home</Link>

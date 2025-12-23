@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Palette, Copy, Shuffle } from "lucide-react";
 
 export default function ColorPaletteShuffler() {
@@ -93,6 +94,11 @@ export default function ColorPaletteShuffler() {
           </CardContent>
         </Card>
       </div>
+          </p>
+      {/* Category Footer */}
+      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+      </p>
     </ToolLayout>
   );
 }

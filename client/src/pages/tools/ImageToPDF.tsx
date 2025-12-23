@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileImage, Upload, Download, X, Zap, Lock, Users, FileText, Shield, Globe, GraduationCap, Briefcase, Camera, Smartphone, ArrowRight } from "lucide-react";
 import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
@@ -312,6 +313,7 @@ export default function ImageToPDF() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageToPDF" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
             {" / "}

@@ -67,6 +67,7 @@ export default function GIFCompressor() {
       <StructuredData data={generateFAQSchema([{question: "How does GIF compression work?", answer: "The tool reduces GIF file size by optimizing frame rate and dimensions while maintaining visual quality. All processing happens in your browser."}])} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "GIFCompressor" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / GIF Compressor
           </div>

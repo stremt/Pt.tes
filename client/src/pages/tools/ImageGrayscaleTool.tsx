@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { useState, useRef } from "react";
 import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Image as ImageIcon, Upload, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -178,6 +179,11 @@ export default function ImageGrayscaleTool() {
           </div>
         )}
       </div>
+          </p>
+      {/* Category Footer */}
+      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+      </p>
     </ToolLayout>
   );
 }

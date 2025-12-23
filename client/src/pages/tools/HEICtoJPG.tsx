@@ -115,6 +115,7 @@ export default function HEICtoJPG() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "HEICtoJPG" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground">Home</Link> / <Link href="/tools" className="hover:text-foreground">Tools</Link> / <span className="text-foreground">HEIC to JPG</span>
           </div>

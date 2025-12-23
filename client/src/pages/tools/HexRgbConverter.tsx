@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Copy, Check, ArrowRightLeft } from "lucide-react";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function HexRgbConverter() {
   useSEO({
@@ -74,6 +75,7 @@ export default function HexRgbConverter() {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-4xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "HexRgbConverter" }]} />
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">HEX to RGB Converter</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

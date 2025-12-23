@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Maximize2, Upload, Download, Image as ImageIcon, ArrowRight, X, Lock, HelpCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -315,6 +316,7 @@ export default function ImageResizer() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageResizer" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
             {" / "}

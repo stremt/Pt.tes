@@ -66,6 +66,7 @@ export default function VideoCompressor() {
       <StructuredData data={generateFAQSchema([{question: "How does video compression work?", answer: "The tool reduces video file size by optimizing encoding settings while maintaining visual quality. Lower quality values mean smaller file sizes. All processing happens in your browser."}])} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "VideoCompressor" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / Video Compressor
           </div>
