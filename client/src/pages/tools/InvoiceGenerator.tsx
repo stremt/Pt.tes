@@ -253,7 +253,7 @@ export default function InvoiceGenerator() {
       description="Create professional invoices with tax, discount, and payment tracking. Auto-save drafts, manage templates, download as PDF."
       icon={<FileText className="h-8 w-8" />}
       toolId="invoice-generator"
-      category="generator"
+      category="PDF Tools"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

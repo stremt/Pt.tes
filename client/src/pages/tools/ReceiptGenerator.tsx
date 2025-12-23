@@ -103,7 +103,7 @@ export default function ReceiptGenerator() {
       description="Create payment receipts instantly and download as PDF. Fully offline, private and free."
       icon={<Receipt className="h-8 w-8" />}
       toolId="receipt-generator"
-      category="generator"
+      category="PDF Tools"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
