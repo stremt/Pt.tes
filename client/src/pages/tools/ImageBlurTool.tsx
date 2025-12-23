@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,6 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Image as ImageIcon, Upload, Download } from "lucide-react";
 
 export default function ImageBlurTool() {

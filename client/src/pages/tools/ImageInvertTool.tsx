@@ -1,7 +1,5 @@
-import { Link } from "wouter";
 import { useState, useRef } from "react";
 import { useSEO } from "@/lib/seo";
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Contrast, Upload, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
