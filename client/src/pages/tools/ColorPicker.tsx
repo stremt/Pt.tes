@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -200,7 +201,11 @@ export default function ColorPicker() {
             </div>
           </CardContent>
         </Card>
-          {/* Category Footer */}\n          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">\n            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>\n          </p>
+
+        {/* Category Footer */}
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+        </p>
       </div>
     </ToolLayout>
   );
