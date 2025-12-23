@@ -134,6 +134,8 @@ export default function CaseMixer() {
       title="Uppercase Lowercase Mixer"
       description="Randomly mix uppercase and lowercase letters in your text. Fun, fast and fully offline."
       icon={<Shuffle className="h-6 w-6" />}
+      toolId="case-mixer"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

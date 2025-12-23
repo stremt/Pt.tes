@@ -80,7 +80,7 @@ export default function ASCIIArtGenerator() {
       description="Turn text into retro ASCII banners."
       icon={<Type className="h-10 w-10 text-primary" />}
       toolId="ascii-art-generator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Type a short word or phrase." },
         { step: 2, title: "Generate Art", description: "ASCII art is created instantly." },

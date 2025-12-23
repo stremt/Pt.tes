@@ -6,8 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Smile, Copy, Search } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "wouter";
-import { Badge } from "@/components/ui/badge";
+import { ToolLayout } from "@/components/layout/ToolLayout";
 
 const symbolCategories = {
   arrows: ['←', '↑', '→', '↓', '↔', '↕', '⇐', '⇑', '⇒', '⇓', '⇔', '⇕', '⟵', '⟶', '⟷', '⤴', '⤵', '↩', '↪', '↺', '↻', '⇄', '⇅', '⇆'],
@@ -44,152 +43,103 @@ export default function CharacterMap() {
 
   const filterSymbols = (symbols: string[]) => {
     if (!searchQuery) return symbols;
-    return symbols.filter(symbol => 
-      symbol.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    return symbols.filter(symbol => symbol.toLowerCase().includes(searchQuery.toLowerCase()));
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Does it support emojis?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, emojis + 1000+ Unicode symbols."
-        }
-      }
-    ]
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Does it support emojis?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, emojis + 1000+ Unicode symbols." }
+    }]
   };
+
+  const howItWorks = [
+    { step: 1, title: "Browse", description: "Explore symbols, arrows, math, currency & emojis" },
+    { step: 2, title: "Click", description: "Click any character to copy it instantly" },
+    { step: 3, title: "Paste", description: "Paste anywhere you need it" },
+  ];
+
+  const benefits = [
+    { icon: <Smile className="h-5 w-5" />, title: "1000+ Symbols", description: "Browse thousands of Unicode characters" },
+    { icon: <Copy className="h-5 w-5" />, title: "One-Click Copy", description: "Copy instantly with a single click" },
+    { icon: <Search className="h-5 w-5" />, title: "Search", description: "Find symbols quickly" },
+  ];
+
+  const faqs = [
+    { question: "Does it support emojis?", answer: "Yes, emojis + 1000+ Unicode symbols." },
+    { question: "How do I use the characters?", answer: "Simply click on any character and it will be automatically copied to your clipboard." },
+    { question: "What symbols are available?", answer: "Arrows, math, currency, punctuation, shapes, emojis, technical symbols and more." },
+  ];
 
   return (
     <>
-      <StructuredData data={faqSchema} />
-      <div className="min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Character Map</span>
-          </div>
-
-          <div className="text-center space-y-4 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Smile className="h-8 w-8 text-primary" />
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      <ToolLayout
+        title="Character Map"
+        description="Click any symbol → copied instantly. Arrows, math, emojis, currency & more"
+        icon={<Smile className="h-8 w-8" />}
+        toolId="character-map"
+        category="text"
+        howItWorks={howItWorks}
+        benefits={benefits}
+        faqs={faqs}
+      >
+        <div className="max-w-6xl mx-auto mb-16">
+          <Card>
+            <CardHeader>
+              <CardTitle>Browse Symbols</CardTitle>
+              <CardDescription>Click any character to copy it to your clipboard</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search symbols..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                  data-testid="input-search"
+                />
               </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Character Map</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Click any symbol → copied instantly. Arrows, math, emojis, currency & more
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">1000+ Symbols</Badge>
-              <Badge variant="secondary">One-Click Copy</Badge>
-            </div>
-          </div>
 
-          <div className="max-w-6xl mx-auto mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Browse Symbols</CardTitle>
-                <CardDescription>
-                  Click any character to copy it to your clipboard
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="text"
-                    placeholder="Search symbols..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
-                    data-testid="input-search"
-                  />
-                </div>
+              <Tabs defaultValue="arrows" className="w-full">
+                <TabsList className="grid grid-cols-4 md:grid-cols-8 gap-1">
+                  <TabsTrigger value="arrows" data-testid="tab-arrows">Arrows</TabsTrigger>
+                  <TabsTrigger value="math" data-testid="tab-math">Math</TabsTrigger>
+                  <TabsTrigger value="currency" data-testid="tab-currency">Currency</TabsTrigger>
+                  <TabsTrigger value="punctuation" data-testid="tab-punctuation">Punct</TabsTrigger>
+                  <TabsTrigger value="symbols" data-testid="tab-symbols">Symbols</TabsTrigger>
+                  <TabsTrigger value="shapes" data-testid="tab-shapes">Shapes</TabsTrigger>
+                  <TabsTrigger value="emojis" data-testid="tab-emojis">Emojis</TabsTrigger>
+                  <TabsTrigger value="technical" data-testid="tab-technical">Tech</TabsTrigger>
+                </TabsList>
 
-                <Tabs defaultValue="arrows" className="w-full">
-                  <TabsList className="grid grid-cols-4 md:grid-cols-8 gap-1">
-                    <TabsTrigger value="arrows" data-testid="tab-arrows">Arrows</TabsTrigger>
-                    <TabsTrigger value="math" data-testid="tab-math">Math</TabsTrigger>
-                    <TabsTrigger value="currency" data-testid="tab-currency">Currency</TabsTrigger>
-                    <TabsTrigger value="punctuation" data-testid="tab-punctuation">Punct</TabsTrigger>
-                    <TabsTrigger value="symbols" data-testid="tab-symbols">Symbols</TabsTrigger>
-                    <TabsTrigger value="shapes" data-testid="tab-shapes">Shapes</TabsTrigger>
-                    <TabsTrigger value="emojis" data-testid="tab-emojis">Emojis</TabsTrigger>
-                    <TabsTrigger value="technical" data-testid="tab-technical">Tech</TabsTrigger>
-                  </TabsList>
-
-                  {Object.entries(symbolCategories).map(([category, symbols]) => (
-                    <TabsContent key={category} value={category} className="mt-6">
-                      <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-2">
-                        {filterSymbols(symbols).map((char, index) => (
-                          <Button
-                            key={index}
-                            onClick={() => copyCharacter(char)}
-                            variant={copiedChar === char ? "default" : "outline"}
-                            className="h-12 w-12 p-0 text-2xl"
-                            data-testid={`button-char-${char}`}
-                          >
-                            {char}
-                          </Button>
-                        ))}
-                      </div>
-                    </TabsContent>
-                  ))}
-                </Tabs>
-              </CardContent>
-            </Card>
-          </div>
-
-          <section className="py-16 border-t bg-muted/30">
-            <div className="container mx-auto px-4 max-w-7xl">
-              <div className="text-center space-y-4 mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
-              </div>
-              <div className="max-w-3xl mx-auto space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Does it support emojis?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Yes! We include emojis plus 1000+ Unicode symbols including arrows, math symbols, currency signs, shapes, and technical symbols.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">How do I use the characters?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Simply click on any character and it will be automatically copied to your clipboard. You can then paste it anywhere you need.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-lg">Can I search for specific symbols?</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Yes! Use the search box at the top to quickly find the symbols you need. The search works across all categories.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </section>
+                {Object.entries(symbolCategories).map(([category, symbols]) => (
+                  <TabsContent key={category} value={category} className="mt-6">
+                    <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-2">
+                      {filterSymbols(symbols).map((char, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => copyCharacter(char)}
+                          variant={copiedChar === char ? "default" : "outline"}
+                          className="h-12 w-12 p-0 text-2xl"
+                          data-testid={`button-char-${char}`}
+                        >
+                          {char}
+                        </Button>
+                      ))}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </CardContent>
+          </Card>
         </div>
-      </div>
+      </ToolLayout>
     </>
   );
 }
