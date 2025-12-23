@@ -161,9 +161,6 @@ export default function YouTubeThumbnailDownloader() {
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "YouTube Thumbnail Downloader" }]} />
-        <div className="mb-6 text-sm text-muted-foreground">
-          <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / YouTube Thumbnail Downloader
-        </div>
       </div>
       {/* Hero Section */}
       <div className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent py-12 md:py-16 px-4">

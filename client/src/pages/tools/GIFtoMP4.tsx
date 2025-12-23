@@ -76,9 +76,6 @@ export default function GIFtoMP4() {
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
         <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "GIF to MP4" }]} />
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / GIF to MP4
-          </div>
           <div className="text-center space-y-4 mb-12">
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <Film className="h-8 w-8 text-primary" />

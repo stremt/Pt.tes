@@ -122,9 +122,6 @@ https://www.instagram.com/${username.replace("@", "")}/media/?__a=1 (then inspec
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Media Tools", url: "/tools/media" }, { label: "Instagram Profile Picture Downloader" }]} />
-        <div className="mb-6 text-sm text-muted-foreground">
-          <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/media">Media Tools</Link> / Instagram Profile Picture Downloader
-        </div>
       </div>
       {/* Hero Section */}
       <div className="w-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent py-12 md:py-16 px-4">
