@@ -146,7 +146,7 @@ export default function EmojiCounter() {
         description="Count how many emojis your text contains. Offline emoji detection."
         icon={<Smile className="h-6 w-6" />}
         toolId="emoji-counter"
-        category="Text & Writing"
+        category="text"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}

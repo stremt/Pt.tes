@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,22 +57,12 @@ export default function FancyTextStyler() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Fancy Text Styler" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Fancy Text Styler"
         description="Convert text to fancy Unicode styles instantly."
         icon={<Sparkles className="h-10 w-10 text-primary" />}
         toolId="fancy-text-styler"
-        category="Text & Writing"
+        category="text"
         howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text you want to stylize." },
         { step: 2, title: "Pick Style", description: "Choose from bold, italic, monospace, and more." },

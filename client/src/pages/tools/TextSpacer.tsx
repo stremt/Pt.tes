@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,22 +30,12 @@ export default function TextSpacer() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Text Spacer" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Text Spacer"
         description="Generate spaced-out text for design and emphasis."
         icon={<Space className="h-10 w-10 text-primary" />}
         toolId="text-spacer"
-        category="Text & Writing"
+        category="text"
         howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text you want to space out." },
         { step: 2, title: "Adjust Spacing", description: "Use slider to control space between letters." },

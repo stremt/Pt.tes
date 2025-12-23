@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,16 +29,6 @@ export default function AdvancedTextShadow() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Advanced Text Shadow" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Advanced Text Shadow Generator"
         description="Design beautiful text shadows with live preview."

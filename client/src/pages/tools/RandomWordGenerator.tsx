@@ -49,7 +49,7 @@ export default function RandomWordGenerator() {
       description="Generate random words for brainstorming and inspiration."
       icon={<Shuffle className="h-10 w-10 text-primary" />}
       toolId="random-word-generator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Choose Count", description: "Select how many words to generate." },
         { step: 2, title: "Generate", description: "Click to get random words instantly." },

@@ -44,7 +44,7 @@ export default function NATOPhoneticConverter() {
       description="Enter text → get phonetic alphabet instantly."
       icon={<Radio className="h-10 w-10 text-primary" />}
       toolId="nato-phonetic-converter"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text, letters, or numbers." },
         { step: 2, title: "Auto Convert", description: "Instantly converts to NATO phonetic alphabet." },

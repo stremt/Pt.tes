@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -298,22 +297,12 @@ export default function TextSummarizer() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "AI Text Summarizer" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="AI Text Summarizer (Offline + 100% Private)"
         description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."
         icon={<Brain className="h-10 w-10 text-primary" />}
         toolId="text-summarizer"
-        category="Text Tool"
+        category="text"
         howItWorks={[
         { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
         { step: 2, title: "Choose Length", description: "Select how many key sentences you want in the summary" },

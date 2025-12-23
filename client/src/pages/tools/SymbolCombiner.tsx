@@ -31,7 +31,7 @@ export default function SymbolCombiner() {
       description="Add decorative symbols to your text easily."
       icon={<Plus className="h-10 w-10 text-primary" />}
       toolId="symbol-combiner"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Type any text you want to decorate." },
         { step: 2, title: "Pick Symbol", description: "Choose from common symbols." },

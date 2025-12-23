@@ -55,7 +55,7 @@ export default function WordFrequencyCounter() {
         description="Paste text → see frequency of each word immediately."
         icon={<BarChart3 className="h-10 w-10 text-primary" />}
         toolId="word-frequency-counter"
-        category="Text & Writing"
+        category="text"
         howItWorks={[
         { step: 1, title: "Paste Text", description: "Enter any text or article." },
         { step: 2, title: "Auto Analyze", description: "Words are counted automatically." },

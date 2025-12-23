@@ -37,7 +37,7 @@ export default function SuperscriptGenerator() {
       description="Type text → convert to superscript instantly."
       icon={<Superscript className="h-10 w-10 text-primary" />}
       toolId="superscript-generator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Type numbers, letters, or symbols." },
         { step: 2, title: "Auto Convert", description: "Instantly converts to superscript Unicode." },

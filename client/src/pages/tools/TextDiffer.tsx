@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,16 +34,6 @@ export default function TextDiffer() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Text Differ" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Text Differ"
         description="Paste text/code in both boxes and instantly see differences highlighted. Perfect for developers, editors & students."

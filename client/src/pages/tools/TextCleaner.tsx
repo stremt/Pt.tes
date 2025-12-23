@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -125,16 +124,6 @@ export default function TextCleaner() {
   return (
     <>
       <StructuredData data={generateFAQSchema(faqItems)} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Text Cleaner" },
-          ]}
-        />
-      </div>
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
 

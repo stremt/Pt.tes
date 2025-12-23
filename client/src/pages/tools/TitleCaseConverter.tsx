@@ -40,7 +40,7 @@ export default function TitleCaseConverter() {
       description="Paste text → convert to perfect Title Case instantly for headings & captions."
       icon={<ALargeSmall className="h-10 w-10 text-primary" />}
       toolId="title-case-converter"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Paste or type your text into the input box." },
         { step: 2, title: "Instant Conversion", description: "Text is automatically converted to Title Case." },

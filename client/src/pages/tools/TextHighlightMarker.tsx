@@ -1,4 +1,3 @@
-import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,22 +30,12 @@ export default function TextHighlightMarker() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Text Highlight Marker" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Text Highlight Marker"
         description="Create highlighted text with custom background colors."
         icon={<Highlighter className="h-10 w-10 text-primary" />}
         toolId="text-highlight-marker"
-        category="Text & Writing"
+        category="text"
         howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text you want to highlight." },
         { step: 2, title: "Pick Color", description: "Choose a highlight background color." },

@@ -12,7 +12,6 @@ import { Lock, Unlock, Copy, Check, ArrowRight, Eye, EyeOff, Shield, WifiOff } f
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { TEXTAREA_HEIGHTS, SCROLLABLE_OUTPUT } from "@/lib/ui-constants";
-import { Breadcrumb } from "@/components/Breadcrumb";
 
 async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const encoder = new TextEncoder();
@@ -248,16 +247,6 @@ export default function TextEncryptDecrypt() {
   return (
     <>
       <StructuredData data={generateFAQSchema(faqItems)} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
-            { label: "Text Encrypt/Decrypt" },
-          ]}
-        />
-      </div>
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
 

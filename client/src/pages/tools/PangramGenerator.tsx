@@ -49,7 +49,7 @@ export default function PangramGenerator() {
       description="Explore famous pangrams and sentences using all alphabet letters."
       icon={<CheckCircle className="h-10 w-10 text-primary" />}
       toolId="pangram-generator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Click Shuffle", description: "Get a random pangram from the collection." },
         { step: 2, title: "View Pangram", description: "See sentences that use all 26 letters." },

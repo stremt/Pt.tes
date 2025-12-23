@@ -83,7 +83,7 @@ export default function MorseCodeTranslator() {
       description="Write text → convert to Morse code instantly with optional beeps."
       icon={<Radio className="h-10 w-10 text-primary" />}
       toolId="morse-code-translator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Choose Mode", description: "Select encode (text to Morse) or decode (Morse to text)." },
         { step: 2, title: "Enter Input", description: "Type your text or Morse code." },

@@ -37,7 +37,7 @@ export default function SubscriptGenerator() {
       description="Enter text → convert to subscript instantly."
       icon={<Subscript className="h-10 w-10 text-primary" />}
       toolId="subscript-generator"
-      category="Text & Writing"
+      category="text"
       howItWorks={[
         { step: 1, title: "Enter Text", description: "Type numbers, letters, or symbols." },
         { step: 2, title: "Auto Convert", description: "Instantly converts to subscript Unicode." },
