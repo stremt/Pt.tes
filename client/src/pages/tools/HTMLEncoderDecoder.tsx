@@ -92,16 +92,27 @@ export default function HTMLEncoderDecoder() {
   ];
 
   return (
-    <ToolLayout
-      title="HTML Encoder/Decoder"
-      description="Encode or decode HTML characters instantly. Perfect for developers, SEO and editors."
-      icon={<Code className="h-8 w-8" />}
-      toolId="html-encoder-decoder"
-      category="utility"
-      howItWorks={howItWorks}
-      benefits={benefits}
-      faqs={faqs}
-    >
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "HTML Encoder/Decoder" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="HTML Encoder/Decoder"
+        description="Encode or decode HTML characters instantly. Perfect for developers, SEO and editors."
+        icon={<Code className="h-8 w-8" />}
+        toolId="html-encoder-decoder"
+        category="utility"
+        howItWorks={howItWorks}
+        benefits={benefits}
+        faqs={faqs}
+      >
       <div className="space-y-6">
         <div className="space-y-4">
           <Label htmlFor="input-text" className="text-base font-semibold">
@@ -166,5 +177,6 @@ export default function HTMLEncoderDecoder() {
         </p>
       </div>
     </ToolLayout>
+    </>
   );
 }

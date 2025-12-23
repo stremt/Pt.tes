@@ -61,7 +61,18 @@ export default function URLEncoder() {
   };
 
   return (
-    <ToolLayout
+    <>
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "URL Encoder/Decoder" },
+          ]}
+        />
+      </div>
+      <ToolLayout
       title="Free URL Encoder & Decoder Tool - Encode and Decode URLs Online"
       description="Instantly encode and decode URLs with special characters for safe transmission. 100% free, completely private, and works offline. Perfect for developers, students, and anyone working with URLs."
       icon={<Link2 className="h-10 w-10 text-primary" />}
@@ -227,5 +238,6 @@ export default function URLEncoder() {
         </p>
       </div>
     </ToolLayout>
+    </>
   );
 }

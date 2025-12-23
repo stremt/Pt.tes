@@ -227,15 +227,18 @@ export default function HashGenerator() {
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Privacy Tools", url: "/tools/privacy" },
+            { label: "Hash Generator" },
+          ]}
+        />
+      </div>
       <div className="min-h-screen py-12 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Hash Generator</span>
-          </div>
 
           <div className="text-center space-y-4 mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
