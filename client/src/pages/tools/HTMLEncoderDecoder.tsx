@@ -108,7 +108,7 @@ export default function HTMLEncoderDecoder() {
         description="Encode or decode HTML characters instantly. Perfect for developers, SEO and editors."
         icon={<Code className="h-8 w-8" />}
         toolId="html-encoder-decoder"
-        category="utility"
+        category="text"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}

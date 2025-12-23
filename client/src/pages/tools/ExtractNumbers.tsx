@@ -80,7 +80,7 @@ export default function ExtractNumbers() {
       description="Extract all numbers from a block of text using static JS."
       icon={<Hash className="h-8 w-8" />}
       toolId="extract-numbers"
-      category="utility"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

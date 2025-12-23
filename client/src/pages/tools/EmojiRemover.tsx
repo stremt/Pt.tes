@@ -77,7 +77,7 @@ export default function EmojiRemover() {
       description="Paste or type text and remove all emojis instantly. Perfect for professionals & writers."
       icon={<Smile className="h-8 w-8" />}
       toolId="emoji-remover"
-      category="utility"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

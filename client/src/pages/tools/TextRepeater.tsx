@@ -96,7 +96,7 @@ export default function TextRepeater() {
         description="Repeat any text multiple times instantly. Fast, free, offline and perfect for creators."
         icon={<Repeat className="h-8 w-8" />}
         toolId="text-repeater"
-        category="utility"
+        category="text"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}

@@ -80,7 +80,7 @@ export default function RemoveNumbers() {
       description="Remove all numbers (0-9) from text instantly."
       icon={<Eraser className="h-8 w-8" />}
       toolId="remove-numbers"
-      category="utility"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

@@ -81,7 +81,7 @@ export default function SentenceCaseConverter() {
       description="Convert long paragraphs into proper sentence case in one click. Offline supported and free."
       icon={<Type className="h-8 w-8" />}
       toolId="sentence-case-converter"
-      category="utility"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

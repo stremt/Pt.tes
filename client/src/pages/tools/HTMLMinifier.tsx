@@ -90,7 +90,7 @@ export default function HTMLMinifier() {
       description="Minify HTML by removing whitespace, tabs and blank lines."
       icon={<Minimize2 className="h-8 w-8" />}
       toolId="html-minifier"
-      category="utility"
+      category="text"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
