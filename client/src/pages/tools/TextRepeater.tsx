@@ -1,4 +1,5 @@
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 import { useState } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -179,6 +180,10 @@ export default function TextRepeater() {
           </div>
         )}
       </div>
+        {/* Category Footer */}
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
+        </p>
     </ToolLayout>
   );
 }
