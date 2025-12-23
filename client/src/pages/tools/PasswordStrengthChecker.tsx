@@ -150,16 +150,6 @@ export default function PasswordStrengthChecker() {
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
-            { label: "Password Strength Checker" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Free Password Strength Checker"
         description="Test if your password is strong enough. Get instant results with time-to-crack estimates—100% private, runs in your browser."

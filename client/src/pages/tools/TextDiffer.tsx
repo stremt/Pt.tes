@@ -5,8 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
-import { Diff, RotateCcw, Zap, Lock, Eye } from "lucide-react";
+import { Diff, RotateCcw, Zap, Lock, Eye, ArrowRight } from "lucide-react";
 import { diffLines, diffWords, Change } from "diff";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function TextDiffer() {
   const [text1, setText1] = useState("");
@@ -56,7 +57,7 @@ export default function TextDiffer() {
         { question: "What do the colors mean?", answer: "Green shows additions, red shows deletions, and gray shows unchanged content." },
       ]}
     >
-      <div className="max-w-7xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6 pb-16">
         <Card>
           <CardContent className="pt-6">
             <div className="flex flex-wrap gap-3 items-center">
@@ -158,10 +159,34 @@ export default function TextDiffer() {
             </CardContent>
           </Card>
         )}
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
-        </p>
+      </div>
+
+      {/* Footer Breadcrumb and Category */}
+      <div className="border-t bg-muted/30 py-8 mt-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="mb-8">
+            <Breadcrumb
+              items={[
+                { label: "Home", url: "/" },
+                { label: "Tools", url: "/tools" },
+                { label: "Text Tools", url: "/tools/text" },
+                { label: "Text Differ" },
+              ]}
+            />
+          </div>
+          <div className="text-center space-y-6">
+            <h3 className="text-2xl font-bold">More Text Tools</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Explore other tools in the Text Tools category
+            </p>
+            <Link href="/tools/text">
+              <Button variant="default" size="lg" data-testid="button-category-link">
+                View All Text Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
       </ToolLayout>
     </>

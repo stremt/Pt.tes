@@ -154,16 +154,6 @@ export default function WordCounter() {
   return (
     <>
       <StructuredData data={faqSchema} />
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
-            { label: "Word Counter" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="Free Online Word Counter"
         description="Count words, characters, sentences, and paragraphs instantly. Get accurate reading time estimates in real-time—all statistics update as you type."

@@ -10,6 +10,7 @@ import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Eraser, Copy, Check, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function TextCleaner() {
   const [inputText, setInputText] = useState("");
@@ -383,9 +384,19 @@ export default function TextCleaner() {
             </section>
           )}
 
-          {/* Footer Category Links */}
-          <section className="py-16 border-t bg-muted/30">
+          {/* Footer Breadcrumb and Category */}
+          <section className="py-8 border-t">
             <div className="container mx-auto px-4 max-w-7xl">
+              <div className="mb-8">
+                <Breadcrumb
+                  items={[
+                    { label: "Home", url: "/" },
+                    { label: "Tools", url: "/tools" },
+                    { label: "Text Tools", url: "/tools/text" },
+                    { label: "Text Cleaner" },
+                  ]}
+                />
+              </div>
               <div className="text-center space-y-6">
                 <h3 className="text-2xl font-bold">More Text Tools</h3>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
