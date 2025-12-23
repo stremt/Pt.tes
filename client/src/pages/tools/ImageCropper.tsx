@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Upload, Download, X, Crop as CropIcon } from "lucide-react";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function ImageCropper() {
   useSEO({
@@ -133,6 +134,14 @@ export default function ImageCropper() {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-6xl">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Image Tools", url: "/tools/image" },
+            { label: "Image Cropper" },
+          ]}
+        />
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Image Cropper</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -296,8 +305,11 @@ export default function ImageCropper() {
             </div>
           </CardContent>
         </Card>
-      </div>
 
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+        </p>
+      </div>
     </div>
   );
 }

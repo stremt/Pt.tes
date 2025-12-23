@@ -6,6 +6,7 @@ import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/s
 import { Scissors, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function BackgroundRemover() {
   const [file, setFile] = useState<File | null>(null);

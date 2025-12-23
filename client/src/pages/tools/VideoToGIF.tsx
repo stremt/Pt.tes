@@ -8,6 +8,7 @@ import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/s
 import { Film, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { convertVideoToGIF, formatFileSize } from "@/lib/ffmpeg-client";
 
 export default function VideoToGIF() {

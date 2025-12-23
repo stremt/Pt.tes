@@ -8,6 +8,7 @@ import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
 import { Film, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { compressVideo, formatFileSize } from "@/lib/ffmpeg-client";
 
 export default function VideoCompressor() {

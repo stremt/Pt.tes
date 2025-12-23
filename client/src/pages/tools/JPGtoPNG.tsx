@@ -7,6 +7,7 @@ import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/s
 import { Image as ImageIcon, Upload, Download, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 
 export default function JPGtoPNG() {
