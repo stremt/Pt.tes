@@ -38,7 +38,7 @@ export default function ColorPaletteShuffler() {
       description="Generate 5-color palettes instantly for your designs."
       icon={<Palette className="h-10 w-10 text-primary" />}
       toolId="color-palette-shuffler"
-      category="Color & Design"
+      category="color"
       howItWorks={[
         { step: 1, title: "Click Shuffle", description: "Generate a new 5-color palette." },
         { step: 2, title: "Preview Colors", description: "See all colors at once." },
@@ -94,11 +94,25 @@ export default function ColorPaletteShuffler() {
           </CardContent>
         </Card>
       </div>
-          </p>
-      {/* Category Footer */}
-      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-      </p>
+
+      <div className="mb-8 max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Color Palette Shuffler" },
+          ]}
+        />
+      </div>
+
+      <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+        <p>
+          <Link href="/tools/color" className="text-primary hover:text-primary/80 transition-colors">
+            Category: Color Tools
+          </Link>
+        </p>
+      </div>
     </ToolLayout>
   );
 }

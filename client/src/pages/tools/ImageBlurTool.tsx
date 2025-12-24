@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO } from "@/lib/seo";
 import { Image as ImageIcon, Upload, Download } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ImageBlurTool() {
   const [image, setImage] = useState<string | null>(null);
@@ -70,12 +72,23 @@ export default function ImageBlurTool() {
   };
 
   return (
-    <ToolLayout
-      title="Image Blur Tool"
-      description="Upload → blur → download."
-      icon={<ImageIcon className="h-10 w-10 text-primary" />}
-      toolId="image-blur-tool"
-      category="Image & Design"
+    <>
+      <div className="mb-8 max-w-4xl mx-auto px-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Image Blur Tool" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Image Blur Tool"
+        description="Upload → blur → download."
+        icon={<ImageIcon className="h-10 w-10 text-primary" />}
+        toolId="image-blur-tool"
+        category="color"
       howItWorks={[
         { step: 1, title: "Upload Image", description: "Choose any image file." },
         { step: 2, title: "Adjust Blur", description: "Use slider to control blur intensity." },

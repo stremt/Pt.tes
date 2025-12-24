@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
 import { Plus, Copy, Minus } from "lucide-react";
@@ -34,7 +35,7 @@ export default function AdvancedTextShadow() {
         description="Design beautiful text shadows with live preview."
         icon={<Plus className="h-10 w-10 text-primary" />}
         toolId="advanced-text-shadow"
-        category="CSS & Design"
+        category="color"
         howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text to apply shadow to." },
         { step: 2, title: "Adjust Shadow", description: "Control offset, blur, and color." },
@@ -48,6 +49,16 @@ export default function AdvancedTextShadow() {
         { question: "Does it work in all browsers?", answer: "Yes, text-shadow is widely supported across all modern browsers." },
       ]}
     >
+      <div className="mb-8 max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Advanced Text Shadow" },
+          ]}
+        />
+      </div>
       <div className="max-w-4xl mx-auto space-y-6">
         <Card>
           <CardHeader>
@@ -157,6 +168,14 @@ export default function AdvancedTextShadow() {
             </pre>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+        <p>
+          <Link href="/tools/color" className="text-primary hover:text-primary/80 transition-colors">
+            Category: Color Tools
+          </Link>
+        </p>
       </div>
       </ToolLayout>
     </>

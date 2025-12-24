@@ -45,7 +45,7 @@ export default function ColorPicker() {
       description="Select colors and instantly get HEX, RGB, and HSL values. Perfect for web design, development, and creative projects."
       icon={<Palette className="h-10 w-10 text-primary" />}
       toolId="color-picker"
-      category="Design Tool"
+      category="color"
       howItWorks={[
         { step: 1, title: "Pick Color", description: "Use the color picker or choose from presets." },
         { step: 2, title: "View Formats", description: "See HEX, RGB, and HSL values instantly." },
@@ -65,6 +65,16 @@ export default function ColorPicker() {
         { question: "What are the preset colors?", answer: "These are popular colors from modern design systems, including primary colors, grays, and commonly used accent colors for quick selection." },
       ]}
     >
+      <div className="mb-8 max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Color Picker" },
+          ]}
+        />
+      </div>
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Color Preview & Picker */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

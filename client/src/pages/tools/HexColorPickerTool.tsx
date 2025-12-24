@@ -79,17 +79,20 @@ export default function HexColorPickerTool() {
         description="Pick a color → copy HEX/RGB → use in your design or code."
         icon={<Pipette className="h-8 w-8" />}
         toolId="hex-color-picker-tool"
-        category="design"
+        category="color"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Hex Color Picker</span>
+        <div className="mb-8 max-w-4xl mx-auto">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Color Tools", url: "/tools/color" },
+              { label: "Hex Color Picker" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">
@@ -152,12 +155,15 @@ export default function HexColorPickerTool() {
             </CardContent>
           </Card>
         </div>
-            </p>
-      {/* Category Footer */}
-      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-      </p>
-    </ToolLayout>
+
+        <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p>
+            <Link href="/tools/color" className="text-primary hover:text-primary/80 transition-colors">
+              Category: Color Tools
+            </Link>
+          </p>
+        </div>
+      </ToolLayout>
     </>
   );
 }

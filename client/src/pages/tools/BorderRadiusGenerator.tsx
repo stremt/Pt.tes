@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useSEO, StructuredData } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { CodePreviewCard } from "@/components/tools/CodePreviewCard";
 import { Link } from "wouter";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -13,7 +14,7 @@ const generateBreadcrumbSchema = () => ({
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
     { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
-    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 3, "name": "Color Tools", "item": "https://tools.pixocraft.in/tools/color" },
     { "@type": "ListItem", "position": 4, "name": "Border Radius Generator", "item": "https://tools.pixocraft.in/tools/border-radius-generator" }
   ]
 });
@@ -47,7 +48,7 @@ export default function BorderRadiusGenerator() {
         description="Create rounded corners visually and copy CSS instantly. Offline & beginner friendly."
         icon={<span className="h-10 w-10 text-primary">⬚</span>}
         toolId="border-radius-generator"
-        category="developer"
+        category="color"
         howItWorks={[
           { step: 1, title: "Adjust Corners", description: "Set radius for each corner independently" },
           { step: 2, title: "See Preview", description: "Watch the border-radius update in real-time" },
@@ -167,7 +168,7 @@ export default function BorderRadiusGenerator() {
             </div>
           </CardContent>
         </Card>
-        <p className="text-center text-sm text-muted-foreground mt-8 pt-8 border-t"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>
+        <p className="text-center text-sm text-muted-foreground mt-8 pt-8 border-t"><Link href="/tools/color" className="text-primary hover:text-primary/80 transition-colors">Category: Color Tools</Link></p>
       </div>
       </ToolLayout>
     </>

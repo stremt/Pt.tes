@@ -35,7 +35,7 @@ background-clip: text;`;
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Text Tools", url: "/tools/text" },
+            { label: "Color Tools", url: "/tools/color" },
             { label: "Gradient Text Generator" },
           ]}
         />
@@ -45,7 +45,7 @@ background-clip: text;`;
         description="Create beautiful gradient text with custom colors."
         icon={<Rainbow className="h-10 w-10 text-primary" />}
         toolId="gradient-text-generator"
-        category="CSS & Design"
+        category="color"
         howItWorks={[
         { step: 1, title: "Enter Text", description: "Type the text you want to stylize." },
         { step: 2, title: "Pick Colors", description: "Choose two colors for the gradient." },

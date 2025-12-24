@@ -46,7 +46,7 @@ export default function ColorPaletteGenerator() {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-6xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ColorPaletteGenerator" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Color Tools", url: "/tools/color" }, { label: "Color Palette Generator" }]} />
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Color Palette Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

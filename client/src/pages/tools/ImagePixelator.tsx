@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO } from "@/lib/seo";
 import { Grid3x3, Upload, Download } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ImagePixelator() {
   const [image, setImage] = useState<string | null>(null);
@@ -78,12 +80,23 @@ export default function ImagePixelator() {
   };
 
   return (
-    <ToolLayout
-      title="Image Pixelator"
-      description="Upload image → apply pixel effect → download."
-      icon={<Grid3x3 className="h-10 w-10 text-primary" />}
-      toolId="image-pixelator"
-      category="Image & Design"
+    <>
+      <div className="mb-8 max-w-4xl mx-auto px-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Image Pixelator" },
+          ]}
+        />
+      </div>
+      <ToolLayout
+        title="Image Pixelator"
+        description="Upload image → apply pixel effect → download."
+        icon={<Grid3x3 className="h-10 w-10 text-primary" />}
+        toolId="image-pixelator"
+        category="color"
       howItWorks={[
         { step: 1, title: "Upload Image", description: "Select any image from your device." },
         { step: 2, title: "Adjust Pixels", description: "Use slider to control pixelation level." },

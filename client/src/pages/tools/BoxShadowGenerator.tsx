@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { CodePreviewCard } from "@/components/tools/CodePreviewCard";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 
@@ -14,7 +15,7 @@ const generateBreadcrumbSchema = () => ({
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
     { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
-    { "@type": "ListItem", "position": 3, "name": "Developer Tools", "item": "https://tools.pixocraft.in/tools/developer" },
+    { "@type": "ListItem", "position": 3, "name": "Color Tools", "item": "https://tools.pixocraft.in/tools/color" },
     { "@type": "ListItem", "position": 4, "name": "Box Shadow Generator", "item": "https://tools.pixocraft.in/tools/box-shadow-generator" }
   ]
 });
@@ -57,7 +58,7 @@ export default function BoxShadowGenerator() {
         description="Customize shadows visually and copy CSS instantly. Perfect for modern UI design."
         icon={<span className="h-10 w-10 text-primary">⬚</span>}
         toolId="box-shadow-generator"
-        category="developer"
+        category="color"
         howItWorks={[
           { step: 1, title: "Adjust Sliders", description: "Configure offset, blur, spread and color" },
           { step: 2, title: "See Preview", description: "Watch the shadow update in real-time" },
@@ -74,6 +75,16 @@ export default function BoxShadowGenerator() {
           { question: "Is it mobile friendly?", answer: "Yes, all changes work perfectly on mobile devices." },
         ]}
       >
+      <div className="mb-8 max-w-6xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Color Tools", url: "/tools/color" },
+            { label: "Box Shadow Generator" },
+          ]}
+        />
+      </div>
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Box Shadow Generator</h1>
