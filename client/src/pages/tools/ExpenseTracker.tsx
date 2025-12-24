@@ -94,7 +94,7 @@ export default function ExpenseTracker() {
       description="Track expenses daily with a clean, offline tool. No signup, no cloud — your data stays private."
       icon={<Wallet className="h-8 w-8" />}
       toolId="expense-tracker"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

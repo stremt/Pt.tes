@@ -92,7 +92,7 @@ export default function CalorieCalculator() {
         description="Enter details → get calories needed for weight gain, loss or maintenance."
         icon={<Flame className="h-8 w-8" />}
         toolId="calorie-calculator"
-        category="health"
+        category="math"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}

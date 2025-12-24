@@ -151,7 +151,7 @@ export default function TimerStopwatch() {
       description="Use a simple timer or stopwatch offline. Perfect for study, workouts, cooking and productivity."
       icon={<Clock className="h-8 w-8" />}
       toolId="timer-stopwatch"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

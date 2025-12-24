@@ -81,7 +81,7 @@ export default function BMICalculator() {
         description="Enter height & weight → get BMI instantly. Perfect for fitness, health tracking & diet planning."
         icon={<Activity className="h-8 w-8" />}
         toolId="bmi-calculator"
-        category="health"
+        category="math"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
