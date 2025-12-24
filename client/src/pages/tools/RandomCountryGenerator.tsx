@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Globe, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 
 const countries = [
   { name: "United States", capital: "Washington D.C.", continent: "North America", flag: "🇺🇸" },
@@ -88,12 +88,15 @@ export default function RandomCountryGenerator() {
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Country Generator</span>
+        <div className="mb-6 px-4 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Random Tools", url: "/tools/random" },
+              { label: "Random Country Generator" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">

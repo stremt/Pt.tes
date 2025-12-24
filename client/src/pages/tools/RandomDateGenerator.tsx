@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Calendar, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 
 export default function RandomDateGenerator() {
   const [startDate, setStartDate] = useState("");
@@ -80,12 +80,15 @@ export default function RandomDateGenerator() {
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Date Generator</span>
+        <div className="mb-6 px-4 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Random Tools", url: "/tools/random" },
+              { label: "Random Date Generator" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">

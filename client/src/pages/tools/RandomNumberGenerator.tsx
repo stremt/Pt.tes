@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shuffle, Copy, Check } from "lucide-react";
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
-
-import { Link } from "wouter";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function RandomNumberGenerator() {
   useSEO({
@@ -52,18 +51,29 @@ export default function RandomNumberGenerator() {
     }
   };
 
+  const generateBreadcrumbSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+      { "@type": "ListItem", "position": 3, "name": "Random Tools", "item": "https://tools.pixocraft.in/tools/random" },
+      { "@type": "ListItem", "position": 4, "name": "Random Number Generator", "item": "https://tools.pixocraft.in/tools/random-number-generator" }
+    ]
+  });
+
   return (
     <div className="min-h-screen py-20">
+      <StructuredData data={generateBreadcrumbSchema()} />
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="mb-8 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Number Generator</span>
-        </div>
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Random Tools", url: "/tools/random" },
+            { label: "Random Number Generator" },
+          ]}
+        />
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Random Number Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
