@@ -7,6 +7,8 @@ import { Shuffle, Copy, Check } from "lucide-react";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 
+import { Link } from "wouter";
+
 export default function RandomNumberGenerator() {
   useSEO({
     title: "Random Number Generator | Fast, Secure & Offline",
@@ -51,6 +53,15 @@ export default function RandomNumberGenerator() {
   };
 
   return (
+          <div className="mb-8 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-foreground">Home</Link>
+            {" / "}
+            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            {" / "}
+            <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
+            {" / "}
+            <span className="text-foreground"> Random Number Generator</span>
+          </div>
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center space-y-4 mb-12">
