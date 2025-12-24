@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { HelpCircle, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 import { riddles } from "@/lib/random-data";
 
 export default function RandomRiddle() {
@@ -55,17 +55,20 @@ export default function RandomRiddle() {
         description="Click → get a riddle"
         icon={<HelpCircle className="h-8 w-8" />}
         toolId="random-riddle"
-        category="generator"
+        category="random"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Riddle</span>
+        <div className="mb-6 px-4 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Random Tools", url: "/tools/random" },
+              { label: "Random Riddle" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">

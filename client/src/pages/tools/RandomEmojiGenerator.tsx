@@ -79,7 +79,7 @@ export default function RandomEmojiGenerator() {
       description="Click button → get a random emoji instantly."
       icon={<Smile className="h-10 w-10 text-primary" />}
       toolId="random-emoji-generator"
-      category="Fun & Games"
+      category="random"
       howItWorks={[
         { step: 1, title: "Click Generate", description: "Click the button to get a random emoji." },
         { step: 2, title: "View Emoji", description: "See your randomly selected emoji." },

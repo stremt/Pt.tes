@@ -38,7 +38,7 @@ export default function RandomHexColor() {
       description="Generate beautiful random HEX colors with one click."
       icon={<Palette className="h-10 w-10 text-primary" />}
       toolId="random-hex-color"
-      category="Color & Design"
+      category="random"
       howItWorks={[
         { step: 1, title: "Click Generate", description: "Get a random HEX color instantly." },
         { step: 2, title: "See Preview", description: "View the color in a large preview box." },
@@ -99,14 +99,6 @@ export default function RandomHexColor() {
           </CardContent>
         </Card>
       </div>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
-        {/* Category Footer */}
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
     </ToolLayout>
   );
 }

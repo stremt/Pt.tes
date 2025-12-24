@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Code, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { techStacks } from "@/lib/random-data";
 
@@ -54,17 +54,20 @@ export default function RandomTechStack() {
         description="Click → get a random tech stack"
         icon={<Code className="h-8 w-8" />}
         toolId="random-tech-stack"
-        category="generator"
+        category="random"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Tech Stack</span>
+        <div className="mb-6 px-4 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Random Tools", url: "/tools/random" },
+              { label: "Random Tech Stack" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">

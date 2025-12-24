@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { PartyPopper, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
 import { truthQuestions, dareActions } from "@/lib/random-data";
 
 export default function RandomTruthDare() {
@@ -58,17 +58,20 @@ export default function RandomTruthDare() {
         description="Click Truth → get question. Click Dare → get challenge"
         icon={<PartyPopper className="h-8 w-8" />}
         toolId="random-truth-dare"
-        category="generator"
+        category="random"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Random Truth or Dare</span>
+        <div className="mb-6 px-4 pt-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Random Tools", url: "/tools/random" },
+              { label: "Random Truth or Dare" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-2xl mx-auto">
