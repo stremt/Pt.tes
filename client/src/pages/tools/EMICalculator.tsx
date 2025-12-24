@@ -72,7 +72,7 @@ export default function EMICalculator() {
       description="Calculate how much interest you save by prepaying your loan EMIs. Offline, free and accurate."
       icon={<TrendingDown className="h-8 w-8" />}
       toolId="emi-calculator"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

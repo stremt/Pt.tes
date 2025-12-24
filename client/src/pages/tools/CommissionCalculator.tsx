@@ -47,7 +47,7 @@ export default function CommissionCalculator() {
       description="Calculate real estate commission for deals instantly. Works offline and 100% accurate."
       icon={<Calculator className="h-8 w-8" />}
       toolId="commission-calculator"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

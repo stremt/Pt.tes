@@ -75,7 +75,7 @@ export default function AgeCalculator() {
       description="Calculate your exact age in years, months, days and next birthday. 100% free & offline."
       icon={<Calendar className="h-8 w-8" />}
       toolId="age-calculator"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

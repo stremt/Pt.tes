@@ -65,7 +65,7 @@ export default function PercentageCalculator() {
       description="Calculate percentages easily — increase, decrease, % of number, difference & more."
       icon={<Percent className="h-8 w-8" />}
       toolId="percentage-calculator"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

@@ -61,7 +61,7 @@ export default function AreaConverter() {
       description="Convert land and plot measurement units instantly. Perfect for property dealers & buyers."
       icon={<Ruler className="h-8 w-8" />}
       toolId="area-converter"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}

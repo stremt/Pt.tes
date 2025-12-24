@@ -25,6 +25,7 @@ const categoryMap: Record<string, { name: string; path: string }> = {
   "pdf": { name: "PDF Tools", path: "/tools/pdf" },
   "privacy": { name: "Privacy & Security", path: "/tools/privacy" },
   "developer": { name: "Developer Tools", path: "/tools/developer" },
+  "math": { name: "Math Tools", path: "/tools/math" },
   "converter": { name: "Converters", path: "/tools/converter" },
   "calculator": { name: "Calculators", path: "/tools/calculator" },
   "utility": { name: "Utilities", path: "/tools/utility" },

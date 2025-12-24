@@ -59,7 +59,7 @@ export default function TimeDifferenceCalculator() {
       description="Calculate time difference between two dates/times instantly. Offline and fast."
       icon={<CalendarClock className="h-8 w-8" />}
       toolId="time-difference-calculator"
-      category="utility"
+      category="math"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
