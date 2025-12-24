@@ -63,6 +63,8 @@ export default function PrimeNumberChecker() {
             {" / "}
             <Link href="/tools" className="hover:text-foreground">Tools</Link>
             {" / "}
+            <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
+            {" / "}
             <span className="text-foreground">Prime Number Checker</span>
           </div>
 

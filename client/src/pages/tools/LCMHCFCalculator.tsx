@@ -58,6 +58,8 @@ export default function LCMHCFCalculator() {
             {" / "}
             <Link href="/tools" className="hover:text-foreground">Tools</Link>
             {" / "}
+            <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
+            {" / "}
             <span className="text-foreground">LCM HCF Calculator</span>
           </div>
 

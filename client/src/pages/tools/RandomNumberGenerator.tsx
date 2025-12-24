@@ -53,17 +53,17 @@ export default function RandomNumberGenerator() {
   };
 
   return (
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground">Tools</Link>
-            {" / "}
-            <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
-            {" / "}
-            <span className="text-foreground"> Random Number Generator</span>
-          </div>
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4 max-w-4xl">
+        <div className="mb-8 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground">Home</Link>
+          {" / "}
+          <Link href="/tools" className="hover:text-foreground">Tools</Link>
+          {" / "}
+          <Link href="/tools/math" className="hover:text-foreground">Math Tools</Link>
+          {" / "}
+          <span className="text-foreground">Random Number Generator</span>
+        </div>
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold">Random Number Generator</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
