@@ -27,6 +27,7 @@ import MathCategory from "@/pages/MathCategory";
 import RandomCategory from "@/pages/RandomCategory";
 import ProductivityCategory from "@/pages/ProductivityCategory";
 import ColorCategory from "@/pages/ColorCategory";
+import AICategory from "@/pages/AICategory";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -277,6 +278,7 @@ function Router() {
         <Route path="/tools/random" component={RandomCategory} />
         <Route path="/tools/productivity" component={ProductivityCategory} />
         <Route path="/tools/color" component={ColorCategory} />
+        <Route path="/tools/ai" component={AICategory} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
