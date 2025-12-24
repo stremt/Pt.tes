@@ -1,9 +1,19 @@
-import { useSEO } from "@/lib/seo";
+import { useSEO, StructuredData } from "@/lib/seo";
 import { Badge } from "@/components/ui/badge";
 import { Dices, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
+
+const generateBreadcrumbSchema = () => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
+    { "@type": "ListItem", "position": 3, "name": "Random Tools", "item": "https://tools.pixocraft.in/tools/random" }
+  ]
+});
 
 export default function RandomCategory() {
   useSEO({
@@ -132,6 +142,7 @@ export default function RandomCategory() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      <StructuredData data={generateBreadcrumbSchema()} />
       <div className="container mx-auto px-4 max-w-4xl py-12 md:py-16">
         <Breadcrumb
           items={[
