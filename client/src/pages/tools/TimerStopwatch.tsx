@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Clock, Play, Pause, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "wouter";
 
 export default function TimerStopwatch() {
   // Stopwatch state
@@ -151,11 +153,21 @@ export default function TimerStopwatch() {
       description="Use a simple timer or stopwatch offline. Perfect for study, workouts, cooking and productivity."
       icon={<Clock className="h-8 w-8" />}
       toolId="timer-stopwatch"
-      category="math"
+      category="productivity"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
     >
+      <div className="mb-8 max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Productivity Tools", url: "/tools/productivity" },
+            { label: "Timer & Stopwatch" },
+          ]}
+        />
+      </div>
       <Tabs defaultValue="stopwatch" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-6">
           <TabsTrigger value="stopwatch" data-testid="tab-stopwatch">Stopwatch</TabsTrigger>
@@ -277,6 +289,14 @@ export default function TimerStopwatch() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+        <p>
+          <Link href="/tools/productivity" className="text-primary hover:text-primary/80 transition-colors">
+            Category: Productivity Tools
+          </Link>
+        </p>
+      </div>
     </ToolLayout>
   );
 }

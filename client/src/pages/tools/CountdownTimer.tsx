@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Clock, Play, Pause, RotateCcw } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 
@@ -106,12 +107,15 @@ export default function CountdownTimer() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Countdown Timer</span>
+          <div className="mb-8">
+            <Breadcrumb
+              items={[
+                { label: "Home", url: "/" },
+                { label: "Tools", url: "/tools" },
+                { label: "Productivity Tools", url: "/tools/productivity" },
+                { label: "Countdown Timer" },
+              ]}
+            />
           </div>
 
           <div className="text-center space-y-4 mb-12">
@@ -264,6 +268,14 @@ export default function CountdownTimer() {
               </div>
             </div>
           </section>
+
+          <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-7xl mx-auto">
+            <p>
+              <Link href="/tools/productivity" className="text-primary hover:text-primary/80 transition-colors">
+                Category: Productivity Tools
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </>

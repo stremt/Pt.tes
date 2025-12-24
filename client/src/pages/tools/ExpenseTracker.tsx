@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Wallet, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "wouter";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Expense {
@@ -94,11 +96,21 @@ export default function ExpenseTracker() {
       description="Track expenses daily with a clean, offline tool. No signup, no cloud — your data stays private."
       icon={<Wallet className="h-8 w-8" />}
       toolId="expense-tracker"
-      category="math"
+      category="productivity"
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
     >
+      <div className="mb-8 max-w-4xl mx-auto">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Productivity Tools", url: "/tools/productivity" },
+            { label: "Expense Tracker" },
+          ]}
+        />
+      </div>
       <div className="space-y-6">
         <Card>
           <CardContent className="p-6 space-y-4">
@@ -189,6 +201,14 @@ export default function ExpenseTracker() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+        <p>
+          <Link href="/tools/productivity" className="text-primary hover:text-primary/80 transition-colors">
+            Category: Productivity Tools
+          </Link>
+        </p>
       </div>
     </ToolLayout>
   );

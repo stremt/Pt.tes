@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { CheckSquare, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -92,15 +93,18 @@ export default function TodoList() {
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">To-Do List</span>
+        <div className="mb-8 max-w-4xl mx-auto">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Productivity Tools", url: "/tools/productivity" },
+              { label: "To-Do List" },
+            ]}
+          />
         </div>
 
-        <div className="space-y-6 max-w-2xl mx-auto">
+        <div className="space-y-6 max-w-2xl mx-auto mb-16">
           <Card>
             <CardContent className="p-6 space-y-4">
               <div className="flex gap-2">
@@ -159,6 +163,14 @@ export default function TodoList() {
               )}
             </CardContent>
           </Card>
+        </div>
+
+        <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p>
+            <Link href="/tools/productivity" className="text-primary hover:text-primary/80 transition-colors">
+              Category: Productivity Tools
+            </Link>
+          </p>
         </div>
       </ToolLayout>
     </>

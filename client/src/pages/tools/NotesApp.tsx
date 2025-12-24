@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { FileText, Save, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -84,12 +85,15 @@ export default function NotesApp() {
         benefits={benefits}
         faqs={faqs}
       >
-        <div className="mb-8 text-sm text-muted-foreground max-w-4xl mx-auto">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          {" / "}
-          <Link href="/tools" className="hover:text-foreground">Tools</Link>
-          {" / "}
-          <span className="text-foreground">Notes App</span>
+        <div className="mb-8 max-w-4xl mx-auto">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Productivity Tools", url: "/tools/productivity" },
+              { label: "Notes App" },
+            ]}
+          />
         </div>
 
         <div className="space-y-6 max-w-4xl mx-auto">
@@ -125,6 +129,14 @@ export default function NotesApp() {
               </Button>
             </div>
           </div>
+        </div>
+
+        <div className="mt-16 pt-8 border-t text-center text-sm text-muted-foreground max-w-4xl mx-auto">
+          <p>
+            <Link href="/tools/productivity" className="text-primary hover:text-primary/80 transition-colors">
+              Category: Productivity Tools
+            </Link>
+          </p>
         </div>
       </ToolLayout>
     </>
