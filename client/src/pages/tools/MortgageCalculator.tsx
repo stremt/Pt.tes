@@ -54,7 +54,7 @@ export default function MortgageCalculator() {
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
             {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
+            <Link href="/tools/math" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
             {" / "}
             <span className="text-foreground">Mortgage Calculator</span>
           </div>
