@@ -114,7 +114,7 @@ export default function BackgroundRemover() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "BackgroundRemover" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "AI Tools", url: "/tools/ai" }, { label: "Background Remover" }]} />
           <div className="mb-8 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / Background Remover
           </div>
@@ -172,10 +172,11 @@ export default function BackgroundRemover() {
             )}
           </div>
         </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/ai" className="text-primary hover:text-primary/80 transition-colors">AI Tools</Link>
+        </p>
       </div>
     </>
   );
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
 }

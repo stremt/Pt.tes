@@ -81,7 +81,7 @@ export default function ImageUpscaler() {
       <StructuredData data={generateFAQSchema([{question: "How does image upscaling work?", answer: "The tool increases image resolution by multiplying pixel dimensions using high-quality smoothing. While this simple method doesn't add real detail like AI upscalers, it's useful for enlarging images for print or display."}])} />
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "ImageUpscaler" }]} />
+        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "AI Tools", url: "/tools/ai" }, { label: "Image Upscaler" }]} />
           <div className="text-center space-y-4 mb-12">
             <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
               <Maximize2 className="h-8 w-8 text-primary" />
@@ -128,6 +128,10 @@ export default function ImageUpscaler() {
             )}
           </div>
         </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+          Category: <Link href="/tools/ai" className="text-primary hover:text-primary/80 transition-colors">AI Tools</Link>
+        </p>
       </div>
     </>
   );

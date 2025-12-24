@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { FileText, Upload, Sparkles, Zap, Lock, Globe, Brain } from "lucide-react";
@@ -297,12 +298,22 @@ export default function TextSummarizer() {
 
   return (
     <>
+      <div className="mb-8 max-w-6xl mx-auto px-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "AI Tools", url: "/tools/ai" },
+            { label: "Text Summarizer" },
+          ]}
+        />
+      </div>
       <ToolLayout
         title="AI Text Summarizer (Offline + 100% Private)"
         description="Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly using advanced AI."
         icon={<Brain className="h-10 w-10 text-primary" />}
         toolId="text-summarizer"
-        category="text"
+        category="ai"
         howItWorks={[
         { step: 1, title: "Upload or Paste", description: "Upload a PDF/document or paste your text" },
         { step: 2, title: "Choose Length", description: "Select how many key sentences you want in the summary" },
@@ -553,7 +564,7 @@ export default function TextSummarizer() {
       </div>
         {/* Category Footer */}
         <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/text" className="text-primary hover:text-primary/80 transition-colors">Text Tools</Link>
+          Category: <Link href="/tools/ai" className="text-primary hover:text-primary/80 transition-colors">AI Tools</Link>
         </p>
       </ToolLayout>
     </>
