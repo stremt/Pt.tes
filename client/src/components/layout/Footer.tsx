@@ -6,6 +6,17 @@ import { Separator } from "@/components/ui/separator";
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const categoryLinks = [
+    { href: "/tools/text", label: "Text Tools" },
+    { href: "/tools/image", label: "Image Tools" },
+    { href: "/tools/pdf", label: "PDF Tools" },
+    { href: "/tools/media", label: "Media Tools" },
+    { href: "/tools/developer", label: "Developer Tools" },
+    { href: "/tools/math", label: "Math Tools" },
+    { href: "/tools/random", label: "Random Generators" },
+    { href: "/tools/productivity", label: "Productivity Tools" },
+  ];
+
   const toolLinks = [
     { href: "/tools/temp-mail", label: "Temp Mail" },
     { href: "/tools/password-generator", label: "Password Generator" },
@@ -29,7 +40,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-muted/20">
       <div className="container mx-auto px-3 sm:px-4 md:px-6 py-8 sm:py-12 md:py-16 max-w-7xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="space-y-3 sm:space-y-4">
             <div className="flex items-center gap-2">
@@ -72,7 +83,21 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Tools Column */}
+          {/* Categories Column */}
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="font-semibold text-xs sm:text-sm uppercase tracking-wider">Categories</h3>
+            <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+              {categoryLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors" data-testid={`link-category-${link.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Popular Tools Column */}
           <div className="space-y-3 sm:space-y-4">
             <h3 className="font-semibold text-xs sm:text-sm uppercase tracking-wider">Popular Tools</h3>
             <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
