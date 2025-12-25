@@ -4,6 +4,7 @@ import { Video, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 
 export default function MediaCategory() {
   useSEO({
@@ -76,6 +77,14 @@ export default function MediaCategory() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Convert, compress, and edit audio and video files instantly without downloads or uploads
           </p>
+          <div className="pt-4">
+            <Link href="/tools">
+              <Button variant="outline" data-testid="button-browse-all-tools">
+                Browse All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Content */}

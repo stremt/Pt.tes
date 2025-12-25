@@ -81,6 +81,12 @@ export function ToolLayout({
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               {description}
             </p>
+            <Link href={categoryInfo.path} data-testid={`button-view-all-${category}`}>
+              <Button variant="outline" className="mt-4">
+                View All {categoryInfo.name}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

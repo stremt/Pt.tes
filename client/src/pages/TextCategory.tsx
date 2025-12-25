@@ -4,6 +4,7 @@ import { Type, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 
 export default function TextCategory() {
   useSEO({
@@ -149,6 +150,14 @@ export default function TextCategory() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Free, offline text processing tools for conversion, transformation, and analysis
           </p>
+          <div className="pt-4">
+            <Link href="/tools">
+              <Button variant="outline" data-testid="button-browse-all-tools">
+                Browse All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Content */}

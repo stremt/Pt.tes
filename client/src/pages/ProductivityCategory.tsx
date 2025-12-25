@@ -4,6 +4,7 @@ import { CheckSquare2, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 
 export default function ProductivityCategory() {
   useSEO({
@@ -77,6 +78,14 @@ export default function ProductivityCategory() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Stay organized, focused, and productive with free offline tools for task management, note-taking, time tracking, and expense management—completely private, no signup required.
           </p>
+          <div className="pt-4">
+            <Link href="/tools">
+              <Button variant="outline" data-testid="button-browse-all-tools">
+                Browse All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Content */}

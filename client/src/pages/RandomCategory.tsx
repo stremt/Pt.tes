@@ -4,6 +4,7 @@ import { Dices, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Link } from "wouter";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",

@@ -103,6 +103,15 @@ export default function DeveloperCategory() {
       <StructuredData data={generateOrganizationSchema()} />
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
         <div className="container mx-auto px-4 max-w-6xl py-12">
+          <div className="text-center mb-8">
+            <Link href="/tools">
+              <Button variant="outline" data-testid="button-browse-all-tools">
+                Browse All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+
           {/* Breadcrumbs */}
           <Breadcrumb items={[
             { label: "Home", url: "/" },
