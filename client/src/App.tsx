@@ -28,6 +28,10 @@ import RandomCategory from "@/pages/RandomCategory";
 import ProductivityCategory from "@/pages/ProductivityCategory";
 import ColorCategory from "@/pages/ColorCategory";
 import AICategory from "@/pages/AICategory";
+import TempMailFacebookSignup from "@/pages/TempMailFacebookSignup";
+import TempMailInstagramVerification from "@/pages/TempMailInstagramVerification";
+import TempMailOnlineShopping from "@/pages/TempMailOnlineShopping";
+import TempMailTestingAccounts from "@/pages/TempMailTestingAccounts";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -279,6 +283,10 @@ function Router() {
         <Route path="/tools/productivity" component={ProductivityCategory} />
         <Route path="/tools/color" component={ColorCategory} />
         <Route path="/tools/ai" component={AICategory} />
+        <Route path="/tools/temp-mail/facebook-signup" component={TempMailFacebookSignup} />
+        <Route path="/tools/temp-mail/instagram-verification" component={TempMailInstagramVerification} />
+        <Route path="/tools/temp-mail/online-shopping" component={TempMailOnlineShopping} />
+        <Route path="/tools/temp-mail/testing-accounts" component={TempMailTestingAccounts} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
