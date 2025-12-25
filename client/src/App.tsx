@@ -32,6 +32,10 @@ import TempMailFacebookSignup from "@/pages/TempMailFacebookSignup";
 import TempMailInstagramVerification from "@/pages/TempMailInstagramVerification";
 import TempMailOnlineShopping from "@/pages/TempMailOnlineShopping";
 import TempMailTestingAccounts from "@/pages/TempMailTestingAccounts";
+import PasswordGeneratorOnlineAccounts from "@/pages/PasswordGeneratorOnlineAccounts";
+import PasswordGeneratorSecurity from "@/pages/PasswordGeneratorSecurity";
+import PasswordGeneratorBusiness from "@/pages/PasswordGeneratorBusiness";
+import PasswordGeneratorTesting from "@/pages/PasswordGeneratorTesting";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -287,6 +291,10 @@ function Router() {
         <Route path="/tools/temp-mail/instagram-verification" component={TempMailInstagramVerification} />
         <Route path="/tools/temp-mail/online-shopping" component={TempMailOnlineShopping} />
         <Route path="/tools/temp-mail/testing-accounts" component={TempMailTestingAccounts} />
+        <Route path="/tools/password-generator/online-accounts" component={PasswordGeneratorOnlineAccounts} />
+        <Route path="/tools/password-generator/security" component={PasswordGeneratorSecurity} />
+        <Route path="/tools/password-generator/business" component={PasswordGeneratorBusiness} />
+        <Route path="/tools/password-generator/testing" component={PasswordGeneratorTesting} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
