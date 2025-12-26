@@ -48,6 +48,10 @@ import TextEncryptPrivateMessages from "@/pages/TextEncryptPrivateMessages";
 import TextEncryptionOnline from "@/pages/TextEncryptionOnline";
 import SecureMessageEncryption from "@/pages/SecureMessageEncryption";
 import TextEncryptionStorage from "@/pages/TextEncryptionStorage";
+import RemoveExifPhotoPrivacy from "@/pages/RemoveExifPhotoPrivacy";
+import RemoveExifOnline from "@/pages/RemoveExifOnline";
+import RemoveExifBeforeSharing from "@/pages/RemoveExifBeforeSharing";
+import RemoveExifSocialMedia from "@/pages/RemoveExifSocialMedia";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -319,6 +323,10 @@ function Router() {
         <Route path="/tools/text-encrypt-decrypt/online" component={TextEncryptionOnline} />
         <Route path="/tools/text-encrypt-decrypt/secure" component={SecureMessageEncryption} />
         <Route path="/tools/text-encrypt-decrypt/storage" component={TextEncryptionStorage} />
+        <Route path="/tools/image-exif-remover/privacy" component={RemoveExifPhotoPrivacy} />
+        <Route path="/tools/image-exif-remover/online" component={RemoveExifOnline} />
+        <Route path="/tools/image-exif-remover/before-sharing" component={RemoveExifBeforeSharing} />
+        <Route path="/tools/image-exif-remover/social-media" component={RemoveExifSocialMedia} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
