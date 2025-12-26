@@ -44,6 +44,10 @@ import RandomStringGeneratorApiKeys from "@/pages/RandomStringGeneratorApiKeys";
 import RandomStringGeneratorOnline from "@/pages/RandomStringGeneratorOnline";
 import SecureRandomStringGenerator from "@/pages/SecureRandomStringGenerator";
 import RandomStringGeneratorTesting from "@/pages/RandomStringGeneratorTesting";
+import TextEncryptPrivateMessages from "@/pages/TextEncryptPrivateMessages";
+import TextEncryptionOnline from "@/pages/TextEncryptionOnline";
+import SecureMessageEncryption from "@/pages/SecureMessageEncryption";
+import TextEncryptionStorage from "@/pages/TextEncryptionStorage";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -311,6 +315,10 @@ function Router() {
         <Route path="/tools/random-string-generator/online" component={RandomStringGeneratorOnline} />
         <Route path="/tools/random-string-generator/secure" component={SecureRandomStringGenerator} />
         <Route path="/tools/random-string-generator/testing" component={RandomStringGeneratorTesting} />
+        <Route path="/tools/text-encrypt-decrypt/private-messages" component={TextEncryptPrivateMessages} />
+        <Route path="/tools/text-encrypt-decrypt/online" component={TextEncryptionOnline} />
+        <Route path="/tools/text-encrypt-decrypt/secure" component={SecureMessageEncryption} />
+        <Route path="/tools/text-encrypt-decrypt/storage" component={TextEncryptionStorage} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
