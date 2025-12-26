@@ -40,6 +40,10 @@ import PasswordStrengthCheckOnline from "@/pages/PasswordStrengthCheckOnline";
 import PasswordSecurityChecker from "@/pages/PasswordSecurityChecker";
 import IsMyPasswordStrong from "@/pages/IsMyPasswordStrong";
 import PasswordStrengthValidation from "@/pages/PasswordStrengthValidation";
+import RandomStringGeneratorApiKeys from "@/pages/RandomStringGeneratorApiKeys";
+import RandomStringGeneratorOnline from "@/pages/RandomStringGeneratorOnline";
+import SecureRandomStringGenerator from "@/pages/SecureRandomStringGenerator";
+import RandomStringGeneratorTesting from "@/pages/RandomStringGeneratorTesting";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -303,6 +307,10 @@ function Router() {
         <Route path="/tools/password-strength-checker/security" component={PasswordSecurityChecker} />
         <Route path="/tools/password-strength-checker/is-strong" component={IsMyPasswordStrong} />
         <Route path="/tools/password-strength-checker/validation" component={PasswordStrengthValidation} />
+        <Route path="/tools/random-string-generator/api-keys" component={RandomStringGeneratorApiKeys} />
+        <Route path="/tools/random-string-generator/online" component={RandomStringGeneratorOnline} />
+        <Route path="/tools/random-string-generator/secure" component={SecureRandomStringGenerator} />
+        <Route path="/tools/random-string-generator/testing" component={RandomStringGeneratorTesting} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
