@@ -1,10 +1,21 @@
 import { Link } from "wouter";
-import { Mail, Github, Twitter, Linkedin } from "lucide-react";
+import { Mail, Github, Twitter, Linkedin, RotateCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { toast } = useToast();
+
+  const handleClearLocalStorage = () => {
+    localStorage.clear();
+    toast({
+      title: "Storage Cleared",
+      description: "Local storage has been cleared. Please refresh the page to see new features.",
+    });
+  };
 
   const categoryLinks = [
     { href: "/tools/text", label: "Text Tools" },
@@ -174,6 +185,40 @@ export function Footer() {
             </a>
             <span>•</span>
             <span>Made in India</span>
+            <span>•</span>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="h-auto p-0 text-[10px] sm:text-xs flex items-center gap-1 text-muted-foreground hover:text-foreground"
+                  data-testid="button-update-storage"
+                >
+                  <RotateCw className="h-3 w-3" />
+                  Update
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Clear Local Storage?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will delete all cached data and local storage. You'll be able to enjoy new features after refresh. Are you sure you want to continue?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="bg-destructive/10 border border-destructive/30 rounded p-3 text-xs text-destructive">
+                  <strong>Warning:</strong> This action cannot be undone. All saved preferences and cached data will be permanently deleted.
+                </div>
+                <div className="flex gap-2 justify-end">
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction 
+                    onClick={handleClearLocalStorage}
+                    className="bg-destructive hover:bg-destructive/90"
+                  >
+                    Clear Storage
+                  </AlertDialogAction>
+                </div>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </div>
