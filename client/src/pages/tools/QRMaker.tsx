@@ -1064,6 +1064,8 @@ export default function QRMaker() {
           )}
         </div>
       </div>
+
+      <LongTailPagesSection toolId="qr-code-maker" />
     </>
   );
 }
