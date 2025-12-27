@@ -76,6 +76,10 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "WiFi QR Codes", slug: "wifi-network", path: "/tools/qr-code-maker/wifi-network" },
     { title: "For Business Cards", slug: "business-cards", path: "/tools/qr-code-maker/business-cards" },
     { title: "With Logo", slug: "with-logo", path: "/tools/qr-code-maker/with-logo" },
+    { title: "For Events & Ticketing", slug: "event-ticketing", path: "/tools/qr-code-maker/event-ticketing" },
+    { title: "For Social Media", slug: "social-media", path: "/tools/qr-code-maker/social-media" },
+    { title: "For Product Links", slug: "product-links", path: "/tools/qr-code-maker/product-links" },
+    { title: "Dynamic QR Codes", slug: "dynamic", path: "/tools/qr-code-maker/dynamic" },
   ],
 };
 
