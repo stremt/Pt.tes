@@ -83,6 +83,11 @@ import ConvertPngToJpgOnline from "@/pages/ConvertPngToJpgOnline";
 import ConvertPngToJpgHighQuality from "@/pages/ConvertPngToJpgHighQuality";
 import BatchConvertPngToJpg from "@/pages/BatchConvertPngToJpg";
 
+import DownloadInstagramDpFullSize from "@/pages/DownloadInstagramDpFullSize";
+import InstagramProfilePictureViewerOnline from "@/pages/InstagramProfilePictureViewerOnline";
+import ViewPrivateInstagramProfilePicture from "@/pages/ViewPrivateInstagramProfilePicture";
+import AnonymousInstagramProfilePictureDownloader from "@/pages/AnonymousInstagramProfilePictureDownloader";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -592,6 +597,10 @@ function Router() {
         <Route path="/tools/png-to-jpg/online" component={ConvertPngToJpgOnline} />
         <Route path="/tools/png-to-jpg/high-quality" component={ConvertPngToJpgHighQuality} />
         <Route path="/tools/png-to-jpg/batch" component={BatchConvertPngToJpg} />
+        <Route path="/tools/instagram-downloader/dp-full-size" component={DownloadInstagramDpFullSize} />
+        <Route path="/tools/instagram-downloader/online-viewer" component={InstagramProfilePictureViewerOnline} />
+        <Route path="/tools/instagram-downloader/private-profile" component={ViewPrivateInstagramProfilePicture} />
+        <Route path="/tools/instagram-downloader/anonymous" component={AnonymousInstagramProfilePictureDownloader} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
