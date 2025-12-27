@@ -1,0 +1,50 @@
+2025-12-27T06:16:59.000188632Z   npm audit fix --force
+2025-12-27T06:16:59.000190632Z 
+2025-12-27T06:16:59.000192902Z Some issues need review, and may require choosing
+2025-12-27T06:16:59.000195052Z a different dependency.
+2025-12-27T06:16:59.000197012Z 
+2025-12-27T06:16:59.000199972Z Run `npm audit` for details.
+2025-12-27T06:16:59.145177597Z 
+2025-12-27T06:16:59.145198418Z > rest-express@1.0.0 build
+2025-12-27T06:16:59.145204019Z > vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+2025-12-27T06:16:59.145207919Z 
+2025-12-27T06:16:59.338265833Z vite v5.4.20 building for production...
+2025-12-27T06:16:59.389983695Z transforming...
+2025-12-27T06:17:01.592531905Z 
+2025-12-27T06:17:01.592563247Z A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+2025-12-27T06:17:02.190015933Z ✓ 124 modules transformed.
+2025-12-27T06:17:02.190845204Z x Build failed in 2.83s
+2025-12-27T06:17:02.190913178Z error during build:
+2025-12-27T06:17:02.190922059Z [vite:esbuild] Transform failed with 2 errors:
+2025-12-27T06:17:02.190925979Z /opt/render/project/src/client/src/pages/tools/ColorPicker.tsx:217:12: ERROR: Unexpected closing "p" tag does not match opening "ToolLayout" tag
+2025-12-27T06:17:02.190929649Z /opt/render/project/src/client/src/pages/tools/ColorPicker.tsx:218:6: ERROR: Expected ")" but found "{"
+2025-12-27T06:17:02.19093328Z file: /opt/render/project/src/client/src/pages/tools/ColorPicker.tsx:217:12
+2025-12-27T06:17:02.190936Z 
+2025-12-27T06:17:02.19093892Z Unexpected closing "p" tag does not match opening "ToolLayout" tag
+2025-12-27T06:17:02.19094172Z 215|  
+2025-12-27T06:17:02.19094452Z 216|        </div>
+2025-12-27T06:17:02.19094735Z 217|            </p>
+2025-12-27T06:17:02.190950121Z    |              ^
+2025-12-27T06:17:02.190953391Z 218|        {/* Category Footer */}
+2025-12-27T06:17:02.190956841Z 219|        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+2025-12-27T06:17:02.190959501Z 
+2025-12-27T06:17:02.190962301Z Expected ")" but found "{"
+2025-12-27T06:17:02.190965082Z 216|        </div>
+2025-12-27T06:17:02.190967852Z 217|            </p>
+2025-12-27T06:17:02.190970762Z 218|        {/* Category Footer */}
+2025-12-27T06:17:02.190973552Z    |        ^
+2025-12-27T06:17:02.190976492Z 219|        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
+2025-12-27T06:17:02.190979402Z 220|          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+2025-12-27T06:17:02.190983393Z 
+2025-12-27T06:17:02.190988163Z     at failureErrorWithLog (/opt/render/project/src/node_modules/vite/node_modules/esbuild/lib/main.js:1472:15)
+2025-12-27T06:17:02.190993013Z     at /opt/render/project/src/node_modules/vite/node_modules/esbuild/lib/main.js:755:50
+2025-12-27T06:17:02.191001764Z     at responseCallbacks.<computed> (/opt/render/project/src/node_modules/vite/node_modules/esbuild/lib/main.js:622:9)
+2025-12-27T06:17:02.191006354Z     at handleIncomingPacket (/opt/render/project/src/node_modules/vite/node_modules/esbuild/lib/main.js:677:12)
+2025-12-27T06:17:02.191009174Z     at Socket.readFromStdout (/opt/render/project/src/node_modules/vite/node_modules/esbuild/lib/main.js:600:7)
+2025-12-27T06:17:02.191017225Z     at Socket.emit (node:events:518:28)
+2025-12-27T06:17:02.191019575Z     at addChunk (node:internal/streams/readable:561:12)
+2025-12-27T06:17:02.191021345Z     at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+2025-12-27T06:17:02.191023065Z     at Readable.push (node:internal/streams/readable:392:5)
+2025-12-27T06:17:02.191024745Z     at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)
+2025-12-27T06:17:02.319698484Z ==> Build failed 😞
+2025-12-27T06:17:02.319721335Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
