@@ -97,7 +97,7 @@ export default function ImagePixelator() {
         icon={<Grid3x3 className="h-10 w-10 text-primary" />}
         toolId="image-pixelator"
         category="color"
-      howItWorks={[
+        howItWorks={[
         { step: 1, title: "Upload Image", description: "Select any image from your device." },
         { step: 2, title: "Adjust Pixels", description: "Use slider to control pixelation level." },
         { step: 3, title: "Download", description: "Save your pixelated image." },
@@ -165,5 +165,6 @@ export default function ImagePixelator() {
         )}
       </div>
     </ToolLayout>
+    </>
   );
 }
