@@ -60,6 +60,10 @@ import CompressImagesWeb from "@/pages/CompressImagesWeb";
 import CompressJpgImages from "@/pages/CompressJpgImages";
 import ReduceImageFileSize from "@/pages/ReduceImageFileSize";
 import CompressPhotosEmail from "@/pages/CompressPhotosEmail";
+import ResizeImagesSocialMedia from "@/pages/ResizeImagesSocialMedia";
+import ResizeImagesOnline from "@/pages/ResizeImagesOnline";
+import BulkResizeImages from "@/pages/BulkResizeImages";
+import ResizeImageDimensions from "@/pages/ResizeImageDimensions";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -343,6 +347,10 @@ function Router() {
         <Route path="/tools/image-compressor/jpg" component={CompressJpgImages} />
         <Route path="/tools/image-compressor/reduce-file-size" component={ReduceImageFileSize} />
         <Route path="/tools/image-compressor/email" component={CompressPhotosEmail} />
+        <Route path="/tools/image-resizer/social-media" component={ResizeImagesSocialMedia} />
+        <Route path="/tools/image-resizer/online" component={ResizeImagesOnline} />
+        <Route path="/tools/image-resizer/bulk" component={BulkResizeImages} />
+        <Route path="/tools/image-resizer/dimensions" component={ResizeImageDimensions} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
