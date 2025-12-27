@@ -1,3 +1,9 @@
+PIXOCRAFT TOOLS - MISSING INDEXING URLS
+Total missing: 159
+Generated on: Sat Dec 27 07:53:56 PM UTC 2025
+
+COPY AND PASTE THESE URLS INTO BING WEBMASTER TOOLS (INDEXNOW):
+------------------------------------------------------------
 https://tools.pixocraft.in/tools/ai
 https://tools.pixocraft.in/tools/color
 https://tools.pixocraft.in/tools/hex-rgb-converter
