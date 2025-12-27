@@ -113,6 +113,11 @@ import ProtectPdfWithWatermark from "@/pages/ProtectPdfWithWatermark";
 import CustomPdfWatermarkCreator from "@/pages/CustomPdfWatermarkCreator";
 import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarkingTool";
 
+import ConvertExcelToPdfOnline from "@/pages/ConvertExcelToPdfOnline";
+import ExportExcelToPdfHighQuality from "@/pages/ExportExcelToPdfHighQuality";
+import SimpleSpreadsheetToPdfConverter from "@/pages/SimpleSpreadsheetToPdfConverter";
+import SecureExcelToPdfTransformation from "@/pages/SecureExcelToPdfTransformation";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -646,6 +651,10 @@ function Router() {
         <Route path="/tools/pdf-watermark-adder/protect" component={ProtectPdfWithWatermark} />
         <Route path="/tools/pdf-watermark-adder/custom" component={CustomPdfWatermarkCreator} />
         <Route path="/tools/pdf-watermark-adder/professional" component={ProfessionalPdfWatermarkingTool} />
+        <Route path="/tools/excel-to-pdf/online" component={ConvertExcelToPdfOnline} />
+        <Route path="/tools/excel-to-pdf/high-quality" component={ExportExcelToPdfHighQuality} />
+        <Route path="/tools/excel-to-pdf/simple" component={SimpleSpreadsheetToPdfConverter} />
+        <Route path="/tools/excel-to-pdf/secure" component={SecureExcelToPdfTransformation} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
