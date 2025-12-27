@@ -1,15 +1,15 @@
 import { useSEO } from "@/lib/seo";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Breadcrumb } from "@/components/layout/Breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield, Zap, Target, Lightbulb, Users } from "lucide-react";
 
 export default function ConvertPdfToImage() {
   useSEO({
-    title: "Convert PDF to Image – Easy PDF Conversion | Pixocraft",
-    description: "Convert PDF to image instantly. Transform PDF files to image format for sharing, editing, and viewing.",
-    keywords: "convert pdf to image, pdf to image converter, pdf to image online, pdf conversion to image, transform pdf to image"
+    title: "Convert PDF to Image - High Quality PDF Conversion | Pixocraft",
+    description: "Transform your PDF documents into high-quality images effortlessly. Our tool preserves layout and clarity while providing fast, secure, and offline conversion.",
+    keywords: "convert pdf to image, pdf to image converter, high quality pdf conversion, offline pdf converter, secure document conversion"
   });
 
   return (
@@ -20,154 +20,124 @@ export default function ConvertPdfToImage() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "PDF to Image", url: "/tools/pdf-to-image" },
-            { label: "Convert PDF" },
+            { label: "Convert PDF to Image" },
           ]}
         />
 
         <article className="space-y-8 mt-8">
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Convert PDF to Image – Instant PDF Conversion
+              Convert PDF to Image - High Quality PDF Conversion
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              PDF documents are powerful for preserving formatting, but images are universal and shareable. Converting PDF to image format enables easy sharing across platforms, embedding in documents, and editing without PDF software. Image conversion unlocks PDF content for any use case where image format is preferred.
+              Managing digital documents often requires flexibility that static PDF files can't provide. Whether you're a designer needing to incorporate a document page into a layout or a professional sharing data on social media, converting PDF to image format is the ultimate solution. Our tool ensures that every pixel is preserved, giving you crystal-clear images from your complex PDF files.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="border-primary/20 bg-primary/5">
+              <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Target className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle className="text-xl">Precise Extraction</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  We don't just "take a picture" of your PDF. Our engine renders the internal vector data into raster images with incredible precision. This means your text stays sharp and your colors stay true to the original document.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-secondary/20 bg-secondary/5">
+              <CardHeader>
+                <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-secondary" />
+                </div>
+                <CardTitle className="text-xl">Lightning Fast</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  Speed matters in a professional environment. Our client-side processing technology ensures that conversion happens almost instantly, without the lag of uploading and downloading from a remote server.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold">Why Convert PDF to Image?</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              PDFs are great for printing, but images are the language of the web. By converting your documents into image files, you unlock them for use in PowerPoint presentations, WordPress blogs, and Instagram stories. It removes the need for specialized PDF viewers and makes your content accessible on any device, anywhere.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Why People Convert PDF to Image</h2>
+            <h2 className="text-2xl font-bold">How Pixocraft Helps Your Workflow</h2>
             <p className="text-muted-foreground leading-relaxed">
-              PDFs are document containers, but many situations require image format. Sharing PDFs via messaging apps results in viewing inconvenience. Images display instantly without requiring PDF readers. Embedding PDFs in documents is difficult, while images embed seamlessly. Image conversion solves all these use cases.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Image format enables editing, sharing, and display flexibility impossible with PDFs. You can edit converted images with standard image tools. Share converted images across social media, messaging, and document platforms. Quick preview of PDF content becomes possible with image format.
+              Pixocraft provides a streamlined experience tailored for modern users. Simply drag and drop your file, and our tool handles the rest. We support batch processing, meaning you can convert hundreds of pages into individual image files in a single click, perfectly organized and ready for use.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">How PDF to Image Conversion Works</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              PDF to image conversion reads PDF content and renders it as image files. Each PDF page becomes a separate image, preserving formatting, text, and graphics. The conversion maintains visual fidelity—converted images look identical to PDF originals. High-quality conversion ensures readable text and clear graphics.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Conversion output format matters. JPG format works well for photographs and mixed content. PNG format handles graphics and text with transparency support. Different conversion tools offer format options. Choose formats matching your intended use.
-            </p>
+            <h2 className="text-2xl font-bold">Common Mistakes to Avoid</h2>
+            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+              <li>Using low-resolution screenshots instead of a proper conversion tool.</li>
+              <li>Neglecting the aspect ratio, leading to stretched or distorted images.</li>
+              <li>Uploading sensitive documents to cloud-based converters that store your data.</li>
+            </ul>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Common PDF to Image Conversion Mistakes</h2>
+            <h2 className="text-2xl font-bold">Privacy & Security First</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Many users assume all conversion tools produce equal quality. Different converters vary significantly in output quality and formatting preservation. Some produce blurry text or unclear graphics. Test converters on sample PDFs before converting important documents. Quality matters for readability.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Another mistake is converting entire PDF books to single images. Multi-page PDFs should convert with each page as separate image. Otherwise, resulting images are too large and difficult to view. Proper conversion treats multi-page PDFs correctly.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Privacy & Secure Conversion</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              PDF to image conversion should never expose your documents to third parties. Pixocraft's converter runs entirely offline in your browser—your PDFs are converted locally. No PDFs are transmitted, stored, or analyzed on external servers. Your documents remain completely private.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Offline conversion ensures maximum security for confidential documents. PDFs never reach cloud services. You maintain complete control throughout conversion. This privacy protection is essential for sensitive PDF content.
+              Your privacy is our top priority. Unlike other converters, Pixocraft works entirely in your browser. This means your files never leave your computer. We don't see your data, we don't store it, and we certainly don't share it. It's the most secure way to convert confidential documents.
             </p>
           </div>
 
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
             <div className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">How long does PDF to image conversion take?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Conversion is nearly instant for most PDFs. Small documents convert in seconds. Large multi-page documents take slightly longer depending on page count and image resolution. Offline conversion is fastest without network latency.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">What happens to text in converted images?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Text in converted images remains readable if original PDF text was clear. Text is preserved as image content, not as selectable text. You can read converted text but cannot copy it without OCR tools.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Can I convert multi-page PDFs?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Yes, convert entire multi-page PDFs with each page becoming separate image. Download all page images at once. Quality converters handle any PDF size properly.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">What image quality settings should I use?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Higher quality settings produce clearer images but larger file sizes. Use high quality for documents requiring sharp text. Use standard quality for general sharing. Balance quality and file size for your needs.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Are converted image files smaller than original PDFs?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Converted images may be larger or smaller than originals depending on PDF content and compression settings. PDFs with many fonts are often larger as images. Graphics-heavy PDFs may be smaller as compressed images.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Can I edit converted PDF images?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Yes, converted images can be edited with any image editing software. Make annotations, crop, resize, or apply filters. Editing flexibility is a major advantage of image format over PDFs.
-                </CardContent>
-              </Card>
+              {[
+                { q: "Is the conversion quality good enough for printing?", a: "Yes! Our tool renders images at high resolution, making them suitable for both digital display and physical printing." },
+                { q: "Can I convert a 100-page PDF?", a: "Absolutely. Our engine is optimized for large documents, though processing time may vary based on your device's power." },
+                { q: "Does it work on mobile?", a: "Yes, our web-based tool is fully responsive and works seamlessly on smartphones and tablets." },
+                { q: "What formats can I export to?", a: "Currently, we support the most popular image formats like JPG and PNG to ensure maximum compatibility." },
+                { q: "Is there a file size limit?", a: "Since the conversion happens on your device, the only limit is your browser's memory capacity." }
+              ].map((faq, i) => (
+                <Card key={i} className="hover-elevate">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{faq.q}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-muted-foreground">
+                    {faq.a}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Convert Your PDF Now</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Transform PDF documents to shareable image format instantly. Enable sharing, editing, and viewing across all platforms. Try Pixocraft's PDF to image converter now—no signup required, completely offline, and entirely private.
+          <div className="space-y-4 text-center py-8">
+            <h2 className="text-3xl font-bold">Start Converting Your Documents</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Experience the fastest and most secure PDF to image conversion available online today.
             </p>
-            <Link href="/tools/pdf-to-image">
-              <Button className="gap-2">
-                Convert PDF Now
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+            <div className="flex justify-center pt-4">
+              <Link href="/tools/pdf-to-image">
+                <Button size="lg" className="gap-2">
+                  Use the PDF to Image Tool
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
 
           <div className="space-y-4 pt-8 border-t">
-            <h3 className="font-semibold">Related Tools</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>
-                <Link href="/tools/pdf-to-image" className="hover:text-foreground transition-colors underline">
-                  PDF to Image
-                </Link>
-                {" "} – Convert PDF to image format
-              </li>
-              <li>
-                <Link href="/tools/image-to-pdf" className="hover:text-foreground transition-colors underline">
-                  Image to PDF
-                </Link>
-                {" "} – Convert images to PDF
-              </li>
-              <li>
-                <Link href="/tools/pdf-compressor" className="hover:text-foreground transition-colors underline">
-                  PDF Compressor
-                </Link>
-                {" "} – Reduce PDF file sizes
-              </li>
-            </ul>
+            <h3 className="font-semibold text-xl">Internal Links</h3>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/tools/pdf-to-image" className="text-primary hover:underline">Main PDF to Image Tool</Link>
+              <Link href="/tools/image-to-pdf" className="text-primary hover:underline">Image to PDF</Link>
+              <Link href="/tools/pdf-merger" className="text-primary hover:underline">PDF Merger</Link>
+            </div>
           </div>
         </article>
       </div>

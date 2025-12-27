@@ -1,15 +1,15 @@
 import { useSEO } from "@/lib/seo";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Breadcrumb } from "@/components/layout/Breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe, Shield, Zap, CheckCircle2, Laptop } from "lucide-react";
 
 export default function ConvertPdfToImageOnline() {
   useSEO({
-    title: "Convert PDF to Image Online – Free Online Converter | Pixocraft",
-    description: "Convert PDF to image online instantly. No downloads needed, free online PDF to image conversion tool.",
-    keywords: "convert pdf to image online, pdf to image converter online, free pdf to image, online pdf converter, web pdf to image"
+    title: "Convert PDF to Image Online - Fast & Free Web Tool | Pixocraft",
+    description: "Convert your PDF files to images online without installing any software. Enjoy a seamless, browser-based experience with high-speed processing and total privacy.",
+    keywords: "convert pdf to image online, free online pdf converter, web based pdf to image, browser pdf conversion, no download pdf tool"
   });
 
   return (
@@ -20,154 +20,115 @@ export default function ConvertPdfToImageOnline() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "PDF to Image", url: "/tools/pdf-to-image" },
-            { label: "Online Converter" },
+            { label: "Online PDF to Image Converter" },
           ]}
         />
 
         <article className="space-y-8 mt-8">
-          <div className="space-y-4">
+          <div className="space-y-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Convert PDF to Image Online – Instant Free Conversion
+              Convert PDF to Image Online - Fast & Free Web Tool
             </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Online PDF to image conversion eliminates software installation and compatibility concerns. Access conversion from any device—computer, tablet, or phone—whenever needed. Free online tools make PDF transformation accessible to everyone without technical barriers or cost.
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              In a world that moves at lightning speed, you shouldn't be slowed down by heavy software. Our online PDF to image converter provides a professional-grade solution directly in your browser. No registration, no downloads, just pure efficiency.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="text-center p-4">
+              <div className="mx-auto h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <Globe className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="font-bold mb-2">Access Anywhere</h3>
+              <p className="text-sm text-muted-foreground">Work from any device with an internet connection.</p>
+            </Card>
+            <Card className="text-center p-4">
+              <div className="mx-auto h-12 w-12 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                <Shield className="h-6 w-6 text-secondary" />
+              </div>
+              <h3 className="font-bold mb-2">Total Privacy</h3>
+              <p className="text-sm text-muted-foreground">Your files stay on your machine. We never see them.</p>
+            </Card>
+            <Card className="text-center p-4">
+              <div className="mx-auto h-12 w-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                <Zap className="h-6 w-6 text-accent" />
+              </div>
+              <h3 className="font-bold mb-2">Instant Results</h3>
+              <p className="text-sm text-muted-foreground">Fast processing for even the largest PDF files.</p>
+            </Card>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold">Why Search for Online Solutions?</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              People specifically look for online PDF converters because they need a tool that "just works." Whether you're on a library computer, a mobile device, or a locked-down office laptop, an online tool bypasses the need for administrative privileges. It's the most democratic way to handle document management.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Why Online PDF Conversion Is Convenient</h2>
+            <h2 className="text-2xl font-bold">The Pixocraft Online Advantage</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Online converters eliminate setup barriers. No software installation, no compatibility issues, no updates to manage. Access from any device whenever needed. This convenience means you can convert PDFs immediately, right when you need image format.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Convenience drives adoption of file conversion. If conversion required technical setup, most people would struggle with incompatible formats. Online tools make conversion as simple as uploading and downloading. This accessibility ensures everyone can convert PDFs regardless of technical expertise.
+              Pixocraft stands out by combining the power of a desktop application with the accessibility of a website. Our tool uses modern web technologies to perform the conversion on your local machine, giving you the security of offline software with the ease of a URL.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">How Online PDF to Image Conversion Works</h2>
+            <h2 className="text-2xl font-bold">Common Online Conversion Pitfalls</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Online converters work through simple interfaces. Upload your PDF, select output format, and download converted images. No special knowledge required—the tool handles all technical complexity. Quality online converters preserve PDF formatting and content clarity in converted images.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Advanced online converters offer additional features. Quality settings adjust output clarity and file size. Format options include JPG for photos and PNG for graphics. Multi-page PDF handling creates separate images for each page. These features combine convenience with powerful functionality.
+              Not all online tools are created equal. Many free converters are "data harvesters" that collect your documents to sell insights or train AI. Others force you to watch dozens of ads before giving you your file. Pixocraft is built for users, not advertisers, providing a clean and safe environment.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Common Online Conversion Mistakes</h2>
+            <h2 className="text-2xl font-bold">Is My Data Safe Online?</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Many users assume all online converters produce equal quality. Different tools vary significantly in output quality and features. Some produce low-resolution images unsuitable for reading. Others don't handle multi-page PDFs correctly. Always test converters on sample PDFs first.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Another mistake is trusting online tools without verifying privacy practices. Some tools store uploads or use them for analytics. Always use tools that explicitly guarantee no storage. Offline converters like Pixocraft's ensure complete privacy for sensitive PDFs.
+              Yes, when you use Pixocraft. While we are an "online" tool, the magic happens in your browser's memory. Your files are never transmitted to our servers. This client-side approach eliminates the risk of data breaches or accidental exposure of your sensitive documents.
             </p>
           </div>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Privacy & Trust of Online Tools</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Online PDF conversion should never expose your documents to third parties. Pixocraft's converter runs entirely offline in your browser—your PDFs are converted locally. No PDFs are transmitted, stored, or analyzed on external servers. Your documents remain completely private.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Offline conversion is the highest privacy standard for online tools. Everything happens on your device under your control. You can trust your PDFs are never accessed externally because no intermediary could access them even if they wanted to.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold">FAQ: Everything You Need to Know</h2>
             <div className="space-y-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Is online PDF to image conversion safe?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Yes, if the tool is offline and doesn't transmit PDFs to servers. Pixocraft's converter runs entirely in your browser—PDFs never leave your device. Online tools that send PDFs to servers add privacy risks. Verify privacy practices before using online converters.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">How fast is online PDF to image conversion?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Online conversion is nearly instant for most PDFs. Upload and download complete within seconds. Processing time depends on PDF size and complexity. Offline tools complete conversion immediately on your device.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Can I convert encrypted or password-protected PDFs?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Conversion of encrypted PDFs requires providing the password. Most online converters can handle password-protected PDFs if you provide the correct password. Unprotected PDFs convert without additional requirements.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Do online converters work on mobile devices?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Yes, responsive online converters work on phones and tablets. Upload PDFs from your device and download converted images. Mobile-friendly conversion makes PDF transformation convenient everywhere.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">What image format should I choose for conversion?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  JPG works well for mixed PDF content and reduces file size. PNG handles text and graphics with transparency support. Choose formats matching your intended use. Test different formats to find optimal quality and size.
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Are converted images searchable?</CardTitle>
-                </CardHeader>
-                <CardContent className="text-muted-foreground">
-                  Converted images contain text as visual content, not as selectable text. Text is readable but not searchable or copyable without additional OCR processing. If searchability matters, consider keeping PDF format or using OCR tools.
-                </CardContent>
-              </Card>
+              {[
+                { q: "Do I need to create an account?", a: "No, we believe in frictionless tools. You can use our converter immediately without sharing any personal information." },
+                { q: "What browser works best?", a: "Our tool is compatible with all modern browsers including Chrome, Firefox, Safari, and Edge." },
+                { q: "Are there any hidden costs?", a: "None. Pixocraft is free to use for everyone, forever." },
+                { q: "Can I convert protected PDFs?", a: "If the PDF is password-protected, you will be prompted to enter the password on your device before conversion can begin." },
+                { q: "Does it support high resolution?", a: "Yes, we maintain the document's original quality to ensure professional-looking images." },
+                { q: "How many files can I convert?", a: "There are no arbitrary limits on our side. You can convert as many files as you need." }
+              ].map((faq, i) => (
+                <Card key={i} className="hover-elevate">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{faq.q}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-muted-foreground">
+                    {faq.a}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold">Convert Your PDF Online Now</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Transform PDF documents to image format instantly with online conversion. No downloads needed, completely offline, and available from any device. Try Pixocraft's online PDF to image converter now—completely free and entirely private.
-            </p>
-            <Link href="/tools/pdf-to-image">
-              <Button className="gap-2">
-                Convert PDF Online Now
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+          <div className="space-y-4 text-center py-8">
+            <h2 className="text-3xl font-bold">Try the Best Online PDF Converter</h2>
+            <p className="text-muted-foreground">Fast, free, and completely private. The way tools should be.</p>
+            <div className="flex justify-center pt-4">
+              <Link href="/tools/pdf-to-image">
+                <Button size="lg" className="gap-2">
+                  Access Online Converter
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
 
           <div className="space-y-4 pt-8 border-t">
-            <h3 className="font-semibold">Related Tools</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>
-                <Link href="/tools/pdf-to-image" className="hover:text-foreground transition-colors underline">
-                  PDF to Image
-                </Link>
-                {" "} – Convert PDF online
-              </li>
-              <li>
-                <Link href="/tools/image-to-pdf" className="hover:text-foreground transition-colors underline">
-                  Image to PDF
-                </Link>
-                {" "} – Convert images online
-              </li>
-              <li>
-                <Link href="/tools/pdf-splitter" className="hover:text-foreground transition-colors underline">
-                  PDF Splitter
-                </Link>
-                {" "} – Split PDF pages
-              </li>
-            </ul>
+            <h3 className="font-semibold text-xl">Internal Links</h3>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/tools/pdf-to-image" className="text-primary hover:underline">Main PDF to Image Tool</Link>
+              <Link href="/tools/pdf-splitter" className="text-primary hover:underline">PDF Splitter</Link>
+              <Link href="/tools/pdf-compressor" className="text-primary hover:underline">PDF Compressor</Link>
+            </div>
           </div>
         </article>
       </div>
