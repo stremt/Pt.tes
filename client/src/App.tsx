@@ -78,6 +78,11 @@ import ConvertJpgToPngOnline from "@/pages/ConvertJpgToPngOnline";
 import ConvertJpgToPngTransparent from "@/pages/ConvertJpgToPngTransparent";
 import BatchConvertJpgToPng from "@/pages/BatchConvertJpgToPng";
 
+import ConvertPngToJpg from "@/pages/ConvertPngToJpg";
+import ConvertPngToJpgOnline from "@/pages/ConvertPngToJpgOnline";
+import ConvertPngToJpgHighQuality from "@/pages/ConvertPngToJpgHighQuality";
+import BatchConvertPngToJpg from "@/pages/BatchConvertPngToJpg";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -583,6 +588,10 @@ function Router() {
         <Route path="/tools/jpg-to-png/online" component={ConvertJpgToPngOnline} />
         <Route path="/tools/jpg-to-png/transparent" component={ConvertJpgToPngTransparent} />
         <Route path="/tools/jpg-to-png/batch" component={BatchConvertJpgToPng} />
+        <Route path="/tools/png-to-jpg/convert" component={ConvertPngToJpg} />
+        <Route path="/tools/png-to-jpg/online" component={ConvertPngToJpgOnline} />
+        <Route path="/tools/png-to-jpg/high-quality" component={ConvertPngToJpgHighQuality} />
+        <Route path="/tools/png-to-jpg/batch" component={BatchConvertPngToJpg} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
