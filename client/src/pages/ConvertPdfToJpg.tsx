@@ -1,9 +1,9 @@
 import { useSEO } from "@/lib/seo";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Breadcrumb } from "@/components/layout/Breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
 export default function ConvertPdfToJpg() {
   useSEO({
@@ -20,7 +20,7 @@ export default function ConvertPdfToJpg() {
             { name: "Home", url: "/" },
             { name: "Tools", url: "/tools" },
             { name: "PDF to Image", url: "/tools/pdf-to-image" },
-            { name: "Convert PDF to JPG" },
+            { name: "Convert PDF to JPG", url: "/tools/pdf-to-image/convert-to-jpg" },
           ]}
         />
 
@@ -147,7 +147,7 @@ export default function ConvertPdfToJpg() {
           </div>
 
           <div className="space-y-4 pt-8 border-t">
-            <h3 className="font-semibold">Related Tools</h3>
+            <h3 className="font-semibold text-xl">Related Tools</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/tools/pdf-to-image" className="hover:text-foreground transition-colors underline">

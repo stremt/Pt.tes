@@ -20,7 +20,7 @@ export default function ExtractImagesFromPdf() {
             { name: "Home", url: "/" },
             { name: "Tools", url: "/tools" },
             { name: "PDF to Image", url: "/tools/pdf-to-image" },
-            { name: "Extract Images from PDF" },
+            { name: "Extract Images from PDF", url: "/tools/pdf-to-image/extract" },
           ]}
         />
 

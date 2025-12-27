@@ -20,7 +20,7 @@ export default function ConvertPdfToImage() {
             { name: "Home", url: "/" },
             { name: "Tools", url: "/tools" },
             { name: "PDF to Image", url: "/tools/pdf-to-image" },
-            { name: "Convert PDF to Image" },
+            { name: "Convert PDF to Image", url: "/tools/pdf-to-image/convert" },
           ]}
         />
 

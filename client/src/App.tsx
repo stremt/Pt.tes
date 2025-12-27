@@ -68,6 +68,10 @@ import ConvertPdfToImage from "@/pages/ConvertPdfToImage";
 import ConvertPdfToImageOnline from "@/pages/ConvertPdfToImageOnline";
 import ConvertPdfToJpg from "@/pages/ConvertPdfToJpg";
 import ExtractImagesFromPdf from "@/pages/ExtractImagesFromPdf";
+import ConvertImageToPdf from "@/pages/ConvertImageToPdf";
+import ConvertImageToPdfOnline from "@/pages/ConvertImageToPdfOnline";
+import ConvertJpgToPdf from "@/pages/ConvertJpgToPdf";
+import CombineImagesToPdf from "@/pages/CombineImagesToPdf";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -566,6 +570,10 @@ function Router() {
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/tools/:toolId/:useCaseSlug" component={LongTailToolPage} />
+        <Route path="/tools/image-to-pdf/convert" component={ConvertImageToPdf} />
+        <Route path="/tools/image-to-pdf/online" component={ConvertImageToPdfOnline} />
+        <Route path="/tools/image-to-pdf/jpg-to-pdf" component={ConvertJpgToPdf} />
+        <Route path="/tools/image-to-pdf/combine" component={CombineImagesToPdf} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
