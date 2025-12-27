@@ -103,6 +103,11 @@ import ExtractPagesFromPdf from "@/pages/ExtractPagesFromPdf";
 import SeparatePdfPagesOnline from "@/pages/SeparatePdfPagesOnline";
 import ProfessionalPdfDividerTool from "@/pages/ProfessionalPdfDividerTool";
 
+import CompressPdfOnlineFree from "@/pages/CompressPdfOnlineFree";
+import ReducePdfFileSize from "@/pages/ReducePdfFileSize";
+import CompressPdfTo100kb from "@/pages/CompressPdfTo100kb";
+import OptimizePdfForEmail from "@/pages/OptimizePdfForEmail";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -628,6 +633,10 @@ function Router() {
         <Route path="/tools/pdf-splitter/extract" component={ExtractPagesFromPdf} />
         <Route path="/tools/pdf-splitter/separate" component={SeparatePdfPagesOnline} />
         <Route path="/tools/pdf-splitter/professional" component={ProfessionalPdfDividerTool} />
+        <Route path="/tools/pdf-compressor/online" component={CompressPdfOnlineFree} />
+        <Route path="/tools/pdf-compressor/reduce-size" component={ReducePdfFileSize} />
+        <Route path="/tools/pdf-compressor/100kb" component={CompressPdfTo100kb} />
+        <Route path="/tools/pdf-compressor/email" component={OptimizePdfForEmail} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
