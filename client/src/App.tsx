@@ -309,6 +309,10 @@ const AudioNoiseRemover = lazy(() => import("@/pages/tools/AudioNoiseRemover"));
 const GIFtoMP4 = lazy(() => import("@/pages/tools/GIFtoMP4"));
 const MP4toMP3 = lazy(() => import("@/pages/tools/MP4toMP3"));
 const YouTubeThumbnailDownloader = lazy(() => import("@/pages/tools/YouTubeThumbnailDownloader"));
+const YouTubeThumbnailDownloaderFree = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderFree"));
+const YouTubeThumbnailDownloaderOnline = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderOnline"));
+const YouTubeThumbnailDownloaderChannels = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderChannels"));
+const YouTubeThumbnailDownloaderBest = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderBest"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
@@ -598,6 +602,10 @@ function Router() {
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
+        <Route path="/tools/youtube-thumbnail-downloader/free-no-login" component={YouTubeThumbnailDownloaderFree} />
+        <Route path="/tools/youtube-thumbnail-downloader/online" component={YouTubeThumbnailDownloaderOnline} />
+        <Route path="/tools/youtube-thumbnail-downloader/channel-thumbnails" component={YouTubeThumbnailDownloaderChannels} />
+        <Route path="/tools/youtube-thumbnail-downloader/best" component={YouTubeThumbnailDownloaderBest} />
         <Route path="/tools/youtube-thumbnail-downloader" component={YouTubeThumbnailDownloader} />
         <Route path="/tools/instagram-profile-picture-downloader" component={InstagramProfilePictureDownloader} />
         <Route path="/blogs" component={Blogs} />

@@ -9,6 +9,7 @@ import { Download, AlertCircle, Check, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",
@@ -455,6 +456,9 @@ export default function YouTubeThumbnailDownloader() {
               ))}
             </div>
           </section>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="youtube-thumbnail-downloader" />
 
           {/* Related Tools Section */}
           <section className="space-y-4 pt-8 border-t">

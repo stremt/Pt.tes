@@ -65,6 +65,12 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "Convert to JPG", slug: "jpg", path: "/tools/pdf-to-image/jpg" },
     { title: "Extract Images", slug: "extract", path: "/tools/pdf-to-image/extract" },
   ],
+  "youtube-thumbnail-downloader": [
+    { title: "Free - No Login", slug: "free-no-login", path: "/tools/youtube-thumbnail-downloader/free-no-login" },
+    { title: "Download Online", slug: "online", path: "/tools/youtube-thumbnail-downloader/online" },
+    { title: "Channel Thumbnails", slug: "channel-thumbnails", path: "/tools/youtube-thumbnail-downloader/channel-thumbnails" },
+    { title: "Best Tool Comparison", slug: "best", path: "/tools/youtube-thumbnail-downloader/best" },
+  ],
 };
 
 export function getLongTailPages(toolId: string): LongTailPage[] {
