@@ -88,6 +88,11 @@ import InstagramProfilePictureViewerOnline from "@/pages/InstagramProfilePicture
 import ViewPrivateInstagramProfilePicture from "@/pages/ViewPrivateInstagramProfilePicture";
 import AnonymousInstagramProfilePictureDownloader from "@/pages/AnonymousInstagramProfilePictureDownloader";
 
+import FreeInvoiceGeneratorFreelancers from "@/pages/FreeInvoiceGeneratorFreelancers";
+import ProfessionalOnlineInvoiceCreator from "@/pages/ProfessionalOnlineInvoiceCreator";
+import SmallBusinessInvoiceMaker from "@/pages/SmallBusinessInvoiceMaker";
+import SimpleBillingGeneratorNonTechnicalUsers from "@/pages/SimpleBillingGeneratorNonTechnicalUsers";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -601,6 +606,10 @@ function Router() {
         <Route path="/tools/instagram-downloader/online-viewer" component={InstagramProfilePictureViewerOnline} />
         <Route path="/tools/instagram-downloader/private-profile" component={ViewPrivateInstagramProfilePicture} />
         <Route path="/tools/instagram-downloader/anonymous" component={AnonymousInstagramProfilePictureDownloader} />
+        <Route path="/tools/invoice-generator/freelancers" component={FreeInvoiceGeneratorFreelancers} />
+        <Route path="/tools/invoice-generator/online-creator" component={ProfessionalOnlineInvoiceCreator} />
+        <Route path="/tools/invoice-generator/small-business" component={SmallBusinessInvoiceMaker} />
+        <Route path="/tools/invoice-generator/simple-billing" component={SimpleBillingGeneratorNonTechnicalUsers} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
