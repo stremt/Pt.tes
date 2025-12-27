@@ -108,6 +108,11 @@ import ReducePdfFileSize from "@/pages/ReducePdfFileSize";
 import CompressPdfTo100kb from "@/pages/CompressPdfTo100kb";
 import OptimizePdfForEmail from "@/pages/OptimizePdfForEmail";
 
+import AddWatermarkToPdfOnline from "@/pages/AddWatermarkToPdfOnline";
+import ProtectPdfWithWatermark from "@/pages/ProtectPdfWithWatermark";
+import CustomPdfWatermarkCreator from "@/pages/CustomPdfWatermarkCreator";
+import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarkingTool";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -637,6 +642,10 @@ function Router() {
         <Route path="/tools/pdf-compressor/reduce-size" component={ReducePdfFileSize} />
         <Route path="/tools/pdf-compressor/100kb" component={CompressPdfTo100kb} />
         <Route path="/tools/pdf-compressor/email" component={OptimizePdfForEmail} />
+        <Route path="/tools/pdf-watermark-adder/online" component={AddWatermarkToPdfOnline} />
+        <Route path="/tools/pdf-watermark-adder/protect" component={ProtectPdfWithWatermark} />
+        <Route path="/tools/pdf-watermark-adder/custom" component={CustomPdfWatermarkCreator} />
+        <Route path="/tools/pdf-watermark-adder/professional" component={ProfessionalPdfWatermarkingTool} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
