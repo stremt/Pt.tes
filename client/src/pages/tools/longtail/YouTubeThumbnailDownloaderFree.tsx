@@ -168,31 +168,18 @@ export default function YouTubeThumbnailDownloaderFree() {
           </div>
 
           <div className="mt-12 pt-8 border-t">
-            <h3 className="text-xl font-semibold mb-4">Related Tools</h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <Link href="/tools/youtube-thumbnail-downloader" className="block">
-                <Card className="hover-elevate cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <p className="font-semibold mb-2">Main Thumbnail Downloader</p>
-                    <p className="text-sm text-muted-foreground mb-4">Full-featured downloader with batch processing</p>
-                    <Button variant="ghost" size="sm" className="w-full">
-                      View Tool <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-              <Link href="/tools/image-downloader" className="block">
-                <Card className="hover-elevate cursor-pointer h-full">
-                  <CardContent className="pt-6">
-                    <p className="font-semibold mb-2">Image Downloader</p>
-                    <p className="text-sm text-muted-foreground mb-4">Bulk download images from any website</p>
-                    <Button variant="ghost" size="sm" className="w-full">
-                      View Tool <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
+            <h3 className="text-xl font-semibold mb-4">Back to Main Tool</h3>
+            <Link href="/tools/youtube-thumbnail-downloader" className="block">
+              <Card className="hover-elevate cursor-pointer">
+                <CardContent className="pt-6">
+                  <p className="font-semibold mb-2">YouTube Thumbnail Downloader</p>
+                  <p className="text-sm text-muted-foreground mb-4">Access the full-featured thumbnail downloader tool</p>
+                  <Button variant="ghost" size="sm" className="w-full">
+                    Go to Tool <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">

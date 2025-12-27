@@ -208,19 +208,18 @@ export default function YouTubeThumbnailDownloaderBest() {
           </div>
 
           <div className="mt-12 pt-8 border-t">
-            <h3 className="text-xl font-semibold mb-4">Try Our YouTube Thumbnail Downloader</h3>
-            <Card className="mb-6">
-              <CardContent className="pt-6">
-                <p className="text-muted-foreground mb-4">
-                  We've built what we believe is the best YouTube thumbnail downloader—fast, high-quality, completely free, no signup, no tracking. Try it yourself:
-                </p>
-                <Link href="/tools/youtube-thumbnail-downloader">
-                  <Button className="w-full">
-                    Open YouTube Thumbnail Downloader <ArrowRight className="h-4 w-4 ml-2" />
+            <h3 className="text-xl font-semibold mb-4">Back to Main Tool</h3>
+            <Link href="/tools/youtube-thumbnail-downloader" className="block">
+              <Card className="hover-elevate cursor-pointer">
+                <CardContent className="pt-6">
+                  <p className="font-semibold mb-2">YouTube Thumbnail Downloader</p>
+                  <p className="text-sm text-muted-foreground mb-4">Access the full-featured thumbnail downloader tool</p>
+                  <Button variant="ghost" size="sm" className="w-full">
+                    Go to Tool <ArrowRight className="h-4 w-4 ml-2" />
                   </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
