@@ -98,6 +98,11 @@ import MergePdfDocumentsFree from "@/pages/MergePdfDocumentsFree";
 import JoinMultiplePdfFiles from "@/pages/JoinMultiplePdfFiles";
 import ProfessionalPdfBinderTool from "@/pages/ProfessionalPdfBinderTool";
 
+import SplitPdfOnlineFree from "@/pages/SplitPdfOnlineFree";
+import ExtractPagesFromPdf from "@/pages/ExtractPagesFromPdf";
+import SeparatePdfPagesOnline from "@/pages/SeparatePdfPagesOnline";
+import ProfessionalPdfDividerTool from "@/pages/ProfessionalPdfDividerTool";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -619,6 +624,10 @@ function Router() {
         <Route path="/tools/pdf-merger/free" component={MergePdfDocumentsFree} />
         <Route path="/tools/pdf-merger/join" component={JoinMultiplePdfFiles} />
         <Route path="/tools/pdf-merger/professional" component={ProfessionalPdfBinderTool} />
+        <Route path="/tools/pdf-splitter/online" component={SplitPdfOnlineFree} />
+        <Route path="/tools/pdf-splitter/extract" component={ExtractPagesFromPdf} />
+        <Route path="/tools/pdf-splitter/separate" component={SeparatePdfPagesOnline} />
+        <Route path="/tools/pdf-splitter/professional" component={ProfessionalPdfDividerTool} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
