@@ -15,6 +15,7 @@ import { Maximize2, Upload, Download, Image as ImageIcon, ArrowRight, X, Lock, H
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 type ResizeMode = "size" | "percentage" | "social";
 type Unit = "px" | "%";
@@ -715,6 +716,9 @@ export default function ImageResizer() {
               </Card>
             </div>
           </div>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="image-resizer" />
 
           {relatedTools.length > 0 && (
             <div className="max-w-4xl mx-auto mb-12 md:mb-16">

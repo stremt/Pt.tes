@@ -14,6 +14,7 @@ import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function ImageCompressor() {
   const [originalFile, setOriginalFile] = useState<File | null>(null);
@@ -644,6 +645,9 @@ export default function ImageCompressor() {
             </Accordion>
           </div>
         </section>
+
+        {/* Long-Tail SEO Pages */}
+        <LongTailPagesSection toolId="image-compressor" />
 
         {/* Authority & Freshness Signals */}
         <section className="mb-16">

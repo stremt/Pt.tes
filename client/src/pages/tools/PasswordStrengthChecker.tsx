@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, type FAQItem } from "@/lib/seo";
 import { Link } from "wouter";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
@@ -498,6 +499,9 @@ export default function PasswordStrengthChecker() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="password-strength-checker" />
 
           {/* Internal Linking Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

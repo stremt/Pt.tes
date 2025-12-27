@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { renderPDFToImages, downloadPageImage, downloadAllPageImages, type PDFPageImage } from "@/lib/pdf-rendering-utils";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function PDFToImage() {
   const [file, setFile] = useState<File | null>(null);
@@ -505,6 +506,9 @@ export default function PDFToImage() {
               </div>
             </div>
           </section>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="pdf-to-image" />
 
           <section className="py-12 border-t">
             <div className="max-w-4xl mx-auto">
