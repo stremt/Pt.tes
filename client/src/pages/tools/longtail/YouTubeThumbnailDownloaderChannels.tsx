@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Users, Image, CheckCircle } from "lucide-react";
-import { Breadcrumb } from "@/components/Breadcrumb";
-
 export default function YouTubeThumbnailDownloaderChannels() {
   useSEO({
     title: "Download YouTube Channel Thumbnails - Creator Profile Images | Pixocraft",
@@ -14,7 +12,6 @@ export default function YouTubeThumbnailDownloaderChannels() {
 
   return (
     <>
-      <Breadcrumb />
       <div className="min-h-screen bg-background">
         <div className="container max-w-4xl mx-auto px-4 py-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Download YouTube Channel Thumbnails & Profile Images</h1>

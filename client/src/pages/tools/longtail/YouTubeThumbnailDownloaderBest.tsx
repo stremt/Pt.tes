@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Star, Zap, Shield, Lock } from "lucide-react";
-import { Breadcrumb } from "@/components/Breadcrumb";
-
 export default function YouTubeThumbnailDownloaderBest() {
   useSEO({
     title: "Best YouTube Thumbnail Downloader Online - Compare Tools | Pixocraft",
@@ -14,7 +12,6 @@ export default function YouTubeThumbnailDownloaderBest() {
 
   return (
     <>
-      <Breadcrumb />
       <div className="min-h-screen bg-background">
         <div className="container max-w-4xl mx-auto px-4 py-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Best YouTube Thumbnail Downloader - Compare Features & Find the Right Tool</h1>
