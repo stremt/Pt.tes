@@ -56,6 +56,10 @@ import WordCounterEssays from "@/pages/WordCounterEssays";
 import WordCounterOnline from "@/pages/WordCounterOnline";
 import WordCounterContentMarketing from "@/pages/WordCounterContentMarketing";
 import WordCounterSocialMedia from "@/pages/WordCounterSocialMedia";
+import CompressImagesWeb from "@/pages/CompressImagesWeb";
+import CompressJpgImages from "@/pages/CompressJpgImages";
+import ReduceImageFileSize from "@/pages/ReduceImageFileSize";
+import CompressPhotosEmail from "@/pages/CompressPhotosEmail";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -335,6 +339,10 @@ function Router() {
         <Route path="/tools/word-counter/online" component={WordCounterOnline} />
         <Route path="/tools/word-counter/content-marketing" component={WordCounterContentMarketing} />
         <Route path="/tools/word-counter/social-media" component={WordCounterSocialMedia} />
+        <Route path="/tools/image-compressor/web" component={CompressImagesWeb} />
+        <Route path="/tools/image-compressor/jpg" component={CompressJpgImages} />
+        <Route path="/tools/image-compressor/reduce-file-size" component={ReduceImageFileSize} />
+        <Route path="/tools/image-compressor/email" component={CompressPhotosEmail} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
