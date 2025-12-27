@@ -64,6 +64,10 @@ import ResizeImagesSocialMedia from "@/pages/ResizeImagesSocialMedia";
 import ResizeImagesOnline from "@/pages/ResizeImagesOnline";
 import BulkResizeImages from "@/pages/BulkResizeImages";
 import ResizeImageDimensions from "@/pages/ResizeImageDimensions";
+import ConvertPdfToImage from "@/pages/ConvertPdfToImage";
+import ConvertPdfToImageOnline from "@/pages/ConvertPdfToImageOnline";
+import ConvertPdfToJpg from "@/pages/ConvertPdfToJpg";
+import ExtractImagesFromPdf from "@/pages/ExtractImagesFromPdf";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -351,6 +355,10 @@ function Router() {
         <Route path="/tools/image-resizer/online" component={ResizeImagesOnline} />
         <Route path="/tools/image-resizer/bulk" component={BulkResizeImages} />
         <Route path="/tools/image-resizer/dimensions" component={ResizeImageDimensions} />
+        <Route path="/tools/pdf-to-image/convert" component={ConvertPdfToImage} />
+        <Route path="/tools/pdf-to-image/online" component={ConvertPdfToImageOnline} />
+        <Route path="/tools/pdf-to-image/jpg" component={ConvertPdfToJpg} />
+        <Route path="/tools/pdf-to-image/extract" component={ExtractImagesFromPdf} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
