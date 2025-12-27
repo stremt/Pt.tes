@@ -954,6 +954,8 @@ export default function TempMail() {
         )}
       </DialogContent>
     </Dialog>
+
+    <LongTailPagesSection toolId="temp-mail" />
     </>
   );
 }
