@@ -93,6 +93,11 @@ import ProfessionalOnlineInvoiceCreator from "@/pages/ProfessionalOnlineInvoiceC
 import SmallBusinessInvoiceMaker from "@/pages/SmallBusinessInvoiceMaker";
 import SimpleBillingGeneratorNonTechnicalUsers from "@/pages/SimpleBillingGeneratorNonTechnicalUsers";
 
+import CombinePdfFilesOnline from "@/pages/CombinePdfFilesOnline";
+import MergePdfDocumentsFree from "@/pages/MergePdfDocumentsFree";
+import JoinMultiplePdfFiles from "@/pages/JoinMultiplePdfFiles";
+import ProfessionalPdfBinderTool from "@/pages/ProfessionalPdfBinderTool";
+
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -610,6 +615,10 @@ function Router() {
         <Route path="/tools/invoice-generator/online-creator" component={ProfessionalOnlineInvoiceCreator} />
         <Route path="/tools/invoice-generator/small-business" component={SmallBusinessInvoiceMaker} />
         <Route path="/tools/invoice-generator/simple-billing" component={SimpleBillingGeneratorNonTechnicalUsers} />
+        <Route path="/tools/pdf-merger/combine" component={CombinePdfFilesOnline} />
+        <Route path="/tools/pdf-merger/free" component={MergePdfDocumentsFree} />
+        <Route path="/tools/pdf-merger/join" component={JoinMultiplePdfFiles} />
+        <Route path="/tools/pdf-merger/professional" component={ProfessionalPdfBinderTool} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
