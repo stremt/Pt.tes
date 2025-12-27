@@ -89,7 +89,7 @@ export default function ImageBlurTool() {
         icon={<ImageIcon className="h-10 w-10 text-primary" />}
         toolId="image-blur-tool"
         category="color"
-      howItWorks={[
+        howItWorks={[
         { step: 1, title: "Upload Image", description: "Choose any image file." },
         { step: 2, title: "Adjust Blur", description: "Use slider to control blur intensity." },
         { step: 3, title: "Download", description: "Save your blurred image." },
@@ -158,5 +158,6 @@ export default function ImageBlurTool() {
       </div>
 
     </ToolLayout>
+    </>
   );
 }
