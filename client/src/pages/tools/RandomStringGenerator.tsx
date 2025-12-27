@@ -9,6 +9,7 @@ import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function RandomStringGenerator() {
   const [length, setLength] = useState(16);
@@ -257,6 +258,9 @@ export default function RandomStringGenerator() {
               </div>
             </div>
           </section>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="random-string-generator" />
 
           <section className="py-16 border-t">
             <div className="container mx-auto px-4 max-w-7xl">

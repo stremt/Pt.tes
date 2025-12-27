@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 const MAIL_TM_API = "https://api.mail.tm";
 
@@ -829,6 +830,9 @@ export default function TempMail() {
 
         {/* Related Use Cases */}
         <RelatedUseCases toolId="temp-mail" toolName="Temp Mail Generator" />
+
+        {/* Long-Tail SEO Pages */}
+        <LongTailPagesSection toolId="temp-mail" />
 
         {/* Brand Authority Signal */}
         <section className="mb-16">

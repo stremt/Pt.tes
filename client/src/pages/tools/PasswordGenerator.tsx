@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function PasswordGenerator() {
 
@@ -661,6 +662,9 @@ export default function PasswordGenerator() {
               </Accordion>
             </div>
           </section>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="password-generator" />
 
           {/* Freshness & Authority Indicator */}
           <div className="text-center mb-12 space-y-2">

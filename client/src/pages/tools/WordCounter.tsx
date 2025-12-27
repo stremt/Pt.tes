@@ -7,6 +7,7 @@ import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 import {
   countWords,
   countCharacters,
@@ -396,6 +397,9 @@ export default function WordCounter() {
               </Card>
             </div>
           </section>
+
+          {/* Long-Tail SEO Pages */}
+          <LongTailPagesSection toolId="word-counter" />
 
           {/* Brand Authority Section */}
           <Card className="bg-muted/30">

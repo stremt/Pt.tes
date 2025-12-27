@@ -1,0 +1,72 @@
+export interface LongTailPage {
+  title: string;
+  slug: string;
+  path: string;
+}
+
+export const longTailPagesMap: Record<string, LongTailPage[]> = {
+  "temp-mail": [
+    { title: "For Facebook Signup", slug: "facebook-signup", path: "/tools/temp-mail/facebook-signup" },
+    { title: "For Instagram Verification", slug: "instagram-verification", path: "/tools/temp-mail/instagram-verification" },
+    { title: "For Online Shopping", slug: "online-shopping", path: "/tools/temp-mail/online-shopping" },
+    { title: "For Testing Accounts", slug: "testing-accounts", path: "/tools/temp-mail/testing-accounts" },
+  ],
+  "password-generator": [
+    { title: "For Online Accounts", slug: "online-accounts", path: "/tools/password-generator/online-accounts" },
+    { title: "For Security", slug: "security", path: "/tools/password-generator/security" },
+    { title: "For Business", slug: "business", path: "/tools/password-generator/business" },
+    { title: "For Testing", slug: "testing", path: "/tools/password-generator/testing" },
+  ],
+  "password-strength-checker": [
+    { title: "Check Online", slug: "check-online", path: "/tools/password-strength-checker/check-online" },
+    { title: "Security Guide", slug: "security", path: "/tools/password-strength-checker/security" },
+    { title: "Is My Password Strong", slug: "is-strong", path: "/tools/password-strength-checker/is-strong" },
+    { title: "Password Validation", slug: "validation", path: "/tools/password-strength-checker/validation" },
+  ],
+  "random-string-generator": [
+    { title: "For API Keys", slug: "api-keys", path: "/tools/random-string-generator/api-keys" },
+    { title: "Online Generator", slug: "online", path: "/tools/random-string-generator/online" },
+    { title: "Secure Generator", slug: "secure", path: "/tools/random-string-generator/secure" },
+    { title: "For Testing", slug: "testing", path: "/tools/random-string-generator/testing" },
+  ],
+  "text-encrypt-decrypt": [
+    { title: "For Private Messages", slug: "private-messages", path: "/tools/text-encrypt-decrypt/private-messages" },
+    { title: "Online Encryption", slug: "online", path: "/tools/text-encrypt-decrypt/online" },
+    { title: "Secure Encryption", slug: "secure", path: "/tools/text-encrypt-decrypt/secure" },
+    { title: "For Storage", slug: "storage", path: "/tools/text-encrypt-decrypt/storage" },
+  ],
+  "image-exif-remover": [
+    { title: "For Photo Privacy", slug: "privacy", path: "/tools/image-exif-remover/privacy" },
+    { title: "Remove EXIF Online", slug: "online", path: "/tools/image-exif-remover/online" },
+    { title: "Before Sharing", slug: "before-sharing", path: "/tools/image-exif-remover/before-sharing" },
+    { title: "For Social Media", slug: "social-media", path: "/tools/image-exif-remover/social-media" },
+  ],
+  "word-counter": [
+    { title: "For Essays", slug: "essays", path: "/tools/word-counter/essays" },
+    { title: "Online Counter", slug: "online", path: "/tools/word-counter/online" },
+    { title: "For Content Marketing", slug: "content-marketing", path: "/tools/word-counter/content-marketing" },
+    { title: "For Social Media", slug: "social-media", path: "/tools/word-counter/social-media" },
+  ],
+  "image-compressor": [
+    { title: "For Web", slug: "web", path: "/tools/image-compressor/web" },
+    { title: "Compress JPG", slug: "jpg", path: "/tools/image-compressor/jpg" },
+    { title: "Reduce File Size", slug: "reduce-file-size", path: "/tools/image-compressor/reduce-file-size" },
+    { title: "For Email", slug: "email", path: "/tools/image-compressor/email" },
+  ],
+  "image-resizer": [
+    { title: "For Social Media", slug: "social-media", path: "/tools/image-resizer/social-media" },
+    { title: "Online Resizer", slug: "online", path: "/tools/image-resizer/online" },
+    { title: "Bulk Resize", slug: "bulk", path: "/tools/image-resizer/bulk" },
+    { title: "By Dimensions", slug: "dimensions", path: "/tools/image-resizer/dimensions" },
+  ],
+  "pdf-to-image": [
+    { title: "Convert PDF to Image", slug: "convert", path: "/tools/pdf-to-image/convert" },
+    { title: "Online Conversion", slug: "online", path: "/tools/pdf-to-image/online" },
+    { title: "Convert to JPG", slug: "jpg", path: "/tools/pdf-to-image/jpg" },
+    { title: "Extract Images", slug: "extract", path: "/tools/pdf-to-image/extract" },
+  ],
+};
+
+export function getLongTailPages(toolId: string): LongTailPage[] {
+  return longTailPagesMap[toolId] || [];
+}

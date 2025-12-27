@@ -6,6 +6,7 @@ import { useSEO } from "@/lib/seo";
 import { FileX, Upload, Download, Shield } from "lucide-react";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function ExifRemover() {
   const [image, setImage] = useState<string | null>(null);
@@ -142,6 +143,8 @@ export default function ExifRemover() {
             </CardContent>
           </Card>
         )}
+
+        <LongTailPagesSection toolId="image-exif-remover" />
 
       </div>
       {/* Category Footer */}
