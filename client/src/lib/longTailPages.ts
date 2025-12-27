@@ -71,6 +71,12 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "Channel Thumbnails", slug: "channel-thumbnails", path: "/tools/youtube-thumbnail-downloader/channel-thumbnails" },
     { title: "Best Tool Comparison", slug: "best", path: "/tools/youtube-thumbnail-downloader/best" },
   ],
+  "qr-code-maker": [
+    { title: "Free Online Generator", slug: "free-online", path: "/tools/qr-code-maker/free-online" },
+    { title: "WiFi QR Codes", slug: "wifi-network", path: "/tools/qr-code-maker/wifi-network" },
+    { title: "For Business Cards", slug: "business-cards", path: "/tools/qr-code-maker/business-cards" },
+    { title: "With Logo", slug: "with-logo", path: "/tools/qr-code-maker/with-logo" },
+  ],
 };
 
 export function getLongTailPages(toolId: string): LongTailPage[] {

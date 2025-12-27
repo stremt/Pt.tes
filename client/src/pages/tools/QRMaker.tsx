@@ -10,6 +10,7 @@ import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield,
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 interface CustomTemplate {
   id: string;

@@ -117,6 +117,10 @@ import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarking
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
+const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
+const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));
+const QRMakerBusinessCards = lazy(() => import("@/pages/tools/longtail/QRMakerBusinessCards"));
+const QRMakerLogo = lazy(() => import("@/pages/tools/longtail/QRMakerLogo"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -410,6 +414,10 @@ function Router() {
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
+        <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
+        <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
+        <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />
+        <Route path="/tools/qr-code-maker/with-logo" component={QRMakerLogo} />
         <Route path="/tools/qr-maker" component={QRMaker} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
