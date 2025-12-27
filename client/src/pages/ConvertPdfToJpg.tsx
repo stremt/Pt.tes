@@ -17,10 +17,10 @@ export default function ConvertPdfToJpg() {
       <div className="container mx-auto px-4 max-w-4xl py-12 md:py-16">
         <Breadcrumb
           items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "PDF to Image", url: "/tools/pdf-to-image" },
-            { label: "Convert to JPG" },
+            { name: "Home", url: "/" },
+            { name: "Tools", url: "/tools" },
+            { name: "PDF to Image", url: "/tools/pdf-to-image" },
+            { name: "Convert PDF to JPG" },
           ]}
         />
 
