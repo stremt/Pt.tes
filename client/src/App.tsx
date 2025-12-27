@@ -52,6 +52,10 @@ import RemoveExifPhotoPrivacy from "@/pages/RemoveExifPhotoPrivacy";
 import RemoveExifOnline from "@/pages/RemoveExifOnline";
 import RemoveExifBeforeSharing from "@/pages/RemoveExifBeforeSharing";
 import RemoveExifSocialMedia from "@/pages/RemoveExifSocialMedia";
+import WordCounterEssays from "@/pages/WordCounterEssays";
+import WordCounterOnline from "@/pages/WordCounterOnline";
+import WordCounterContentMarketing from "@/pages/WordCounterContentMarketing";
+import WordCounterSocialMedia from "@/pages/WordCounterSocialMedia";
 
 // Lazily load all tool components
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
@@ -327,6 +331,10 @@ function Router() {
         <Route path="/tools/image-exif-remover/online" component={RemoveExifOnline} />
         <Route path="/tools/image-exif-remover/before-sharing" component={RemoveExifBeforeSharing} />
         <Route path="/tools/image-exif-remover/social-media" component={RemoveExifSocialMedia} />
+        <Route path="/tools/word-counter/essays" component={WordCounterEssays} />
+        <Route path="/tools/word-counter/online" component={WordCounterOnline} />
+        <Route path="/tools/word-counter/content-marketing" component={WordCounterContentMarketing} />
+        <Route path="/tools/word-counter/social-media" component={WordCounterSocialMedia} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
