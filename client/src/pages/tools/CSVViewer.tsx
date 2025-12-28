@@ -1,11 +1,12 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
+import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2, ClipboardPaste } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2, ClipboardPaste, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -645,6 +646,76 @@ export default function CSVViewer() {
             </Card>
           </div>
         )}
+
+        {/* Related CSV Tools Section */}
+        <div className="mt-12 border-t pt-12">
+          <h2 className="text-3xl font-bold mb-8 text-center">More CSV Tools & Guides</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href="/tools/csv-viewer/edit-without-excel">
+              <Card className="cursor-pointer hover-elevate h-full transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-start justify-between gap-2">
+                    <span>Edit Without Excel</span>
+                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Edit spreadsheets in your browser without needing Microsoft Excel installed.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/tools/csv-viewer/view-large-files">
+              <Card className="cursor-pointer hover-elevate h-full transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-start justify-between gap-2">
+                    <span>View Large Files</span>
+                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Efficiently view and search massive CSV files with thousands of rows.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/tools/csv-viewer/convert-and-edit">
+              <Card className="cursor-pointer hover-elevate h-full transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-start justify-between gap-2">
+                    <span>Convert & Edit</span>
+                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Convert between Excel, JSON, and CSV formats with full editing capabilities.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/tools/csv-viewer/view-in-browser">
+              <Card className="cursor-pointer hover-elevate h-full transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-start justify-between gap-2">
+                    <span>View in Browser</span>
+                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    View any CSV file directly in your browser without downloading or installing anything.
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </div>
       </div>
     </ToolLayout>
   );
