@@ -440,22 +440,34 @@ export default function XLSXViewer() {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        onClick={addRow} 
+                        onClick={() => {
+                          addRow();
+                          toast({
+                            title: "Success",
+                            description: "New row added",
+                          });
+                        }}
                         title="Add Row"
                         className="flex-1 sm:flex-none"
                       >
-                        <Copy className="h-4 w-4 mr-1" />
-                        <span className="hidden sm:inline">Row</span>
+                        <Copy className="h-4 w-4 sm:mr-1" />
+                        <span>Add Row</span>
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        onClick={addColumn} 
+                        onClick={() => {
+                          addColumn();
+                          toast({
+                            title: "Success",
+                            description: "New column added",
+                          });
+                        }}
                         title="Add Column"
                         className="flex-1 sm:flex-none"
                       >
-                        <Columns3 className="h-4 w-4 mr-1" />
-                        <span className="hidden sm:inline">Col</span>
+                        <Columns3 className="h-4 w-4 sm:mr-1" />
+                        <span>Add Col</span>
                       </Button>
                     </>
                   )}
@@ -489,8 +501,8 @@ export default function XLSXViewer() {
                     title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
                     className="hidden sm:flex flex-1 sm:flex-none"
                   >
-                    {isFullScreen ? <Minimize2 className="h-4 w-4 mr-1" /> : <Maximize2 className="h-4 w-4 mr-1" />}
-                    <span>Full</span>
+                    {isFullScreen ? <Minimize2 className="h-4 w-4 sm:mr-1" /> : <Maximize2 className="h-4 w-4 sm:mr-1" />}
+                    <span>{isFullScreen ? "Min" : "Full"}</span>
                   </Button>
                   
                   <Button 
@@ -507,7 +519,10 @@ export default function XLSXViewer() {
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    onClick={reset} 
+                    onClick={() => {
+                      const confirmed = window.confirm("Are you sure you want to close? Any unsaved changes will be lost.");
+                      if (confirmed) reset();
+                    }}
                     title="Close"
                     className="flex-1 sm:flex-none"
                   >
