@@ -52,9 +52,22 @@ export default function CSVViewer() {
   // Save to localStorage whenever data changes
   useEffect(() => {
     if (data.length > 0) {
-      localStorage.setItem("csv_viewer_data", JSON.stringify(data));
-      localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
-      localStorage.setItem("csv_viewer_filename", fileName);
+      try {
+        localStorage.setItem("csv_viewer_data", JSON.stringify(data));
+        localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
+        localStorage.setItem("csv_viewer_filename", fileName);
+      } catch (e) {
+        console.warn("Storage quota exceeded, could not save data locally", e);
+        // If it's a quota error, we might want to warn the user once, 
+        // but we don't want to crash the app.
+        if (e instanceof DOMException && e.name === 'QuotaExceededError') {
+          toast({
+            variant: "destructive",
+            title: "Storage limit reached",
+            description: "Your file is too large to save in the browser. Changes won't persist across page reloads.",
+          });
+        }
+      }
     } else {
       localStorage.removeItem("csv_viewer_data");
       localStorage.removeItem("csv_viewer_headers");
