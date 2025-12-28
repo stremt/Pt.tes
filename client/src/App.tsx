@@ -332,6 +332,7 @@ const XLSXEditWithoutExcel = lazy(() => import("@/pages/tools/longtail/XLSXEditW
 const XLSXViewLargeFiles = lazy(() => import("@/pages/tools/longtail/XLSXViewLargeFiles"));
 const XLSXConvertAndEdit = lazy(() => import("@/pages/tools/longtail/XLSXConvertAndEdit"));
 const XLSXViewInBrowser = lazy(() => import("@/pages/tools/longtail/XLSXViewInBrowser"));
+const XLSXToCSVConverter = lazy(() => import("@/pages/tools/XLSXToCSVConverter"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
@@ -451,6 +452,7 @@ function Router() {
         <Route path="/tools/base64-encoder" component={Base64Encoder} />
         <Route path="/tools/barcode-generator" component={BarcodeGenerator} />
         <Route path="/tools/json-csv-converter" component={JSONCSVConverter} />
+        <Route path="/tools/xlsx-to-csv-converter" component={XLSXToCSVConverter} />
         <Route path="/tools/json-yaml-converter" component={JSONYAMLConverter} />
         <Route path="/tools/code-beautifier" component={CodeBeautifier} />
         <Route path="/tools/css-minifier" component={CSSMinifier} />

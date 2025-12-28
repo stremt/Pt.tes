@@ -35,7 +35,8 @@ const generateOrganizationSchema = () => ({
       { "@type": "SoftwareApplication", "name": "File to Base64", "url": "https://tools.pixocraft.in/tools/file-to-base64" },
       { "@type": "SoftwareApplication", "name": "Meta Tag Generator", "url": "https://tools.pixocraft.in/tools/meta-tag-generator" },
       { "@type": "SoftwareApplication", "name": "CSV Viewer & Editor", "url": "https://tools.pixocraft.in/tools/csv-viewer" },
-      { "@type": "SoftwareApplication", "name": "XLSX Viewer & Editor", "url": "https://tools.pixocraft.in/tools/xlsx-viewer" }
+      { "@type": "SoftwareApplication", "name": "XLSX Viewer & Editor", "url": "https://tools.pixocraft.in/tools/xlsx-viewer" },
+      { "@type": "SoftwareApplication", "name": "XLSX to CSV Converter", "url": "https://tools.pixocraft.in/tools/xlsx-to-csv-converter" }
     ]
   }
 });
@@ -100,6 +101,11 @@ const developerTools = [
     name: "XLSX Viewer & Editor",
     slug: "xlsx-viewer",
     description: "View, edit, and manage Excel files (.xlsx, .xls) directly in your browser without Microsoft Office"
+  },
+  {
+    name: "XLSX to CSV Converter",
+    slug: "xlsx-to-csv-converter",
+    description: "Convert Excel XLSX files to CSV format instantly with preview and download"
   }
 ];
 
