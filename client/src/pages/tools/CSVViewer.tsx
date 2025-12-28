@@ -5,11 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
 import { cn } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function CSVViewer() {
   const [data, setData] = useState<any[]>([]);
@@ -19,8 +20,78 @@ export default function CSVViewer() {
   const [displayCount, setDisplayCount] = useState(100);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [highlightEnabled, setHighlightEnabled] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editCell, setEditCell] = useState<{ rowIndex: number; colKey: string } | null>(null);
+  const [history, setHistory] = useState<any[][]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const pushToHistory = useCallback((newData: any[]) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push([...newData]);
+    if (newHistory.length > 50) newHistory.shift();
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [history, historyIndex]);
+
+  const undo = () => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      setData([...history[newIndex]]);
+    }
+  };
+
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      setData([...history[newIndex]]);
+    }
+  };
+
+  const addRow = () => {
+    const newRow = headers.reduce((acc, header) => ({ ...acc, [header]: "" }), {});
+    const newData = [...data, newRow];
+    setData(newData);
+    pushToHistory(newData);
+  };
+
+  const deleteRow = (index: number) => {
+    const newData = data.filter((_, i) => i !== index);
+    setData(newData);
+    pushToHistory(newData);
+  };
+
+  const addColumn = () => {
+    const newHeader = `Column ${headers.length + 1}`;
+    setHeaders([...headers, newHeader]);
+    const newData = data.map(row => ({ ...row, [newHeader]: "" }));
+    setData(newData);
+    pushToHistory(newData);
+  };
+
+  const deleteColumn = (colKey: string) => {
+    setHeaders(headers.filter(h => h !== colKey));
+    const newData = data.map(row => {
+      const { [colKey]: _, ...rest } = row;
+      return rest;
+    });
+    setData(newData);
+    pushToHistory(newData);
+  };
+
+  const renameColumn = (oldKey: string, newKey: string) => {
+    if (!newKey || headers.includes(newKey)) return;
+    setHeaders(headers.map(h => h === oldKey ? newKey : h));
+    const newData = data.map(row => {
+      const { [oldKey]: val, ...rest } = row;
+      return { ...rest, [newKey]: val };
+    });
+    setData(newData);
+    pushToHistory(newData);
+  };
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
@@ -28,6 +99,77 @@ export default function CSVViewer() {
 
   const toggleHighlight = () => {
     setHighlightEnabled(!highlightEnabled);
+  };
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+    setEditCell(null);
+    if (!isEditing && history.length === 0) {
+      setHistory([[...data]]);
+      setHistoryIndex(0);
+    }
+  };
+
+  const handleCellClick = (rowIndex: number, colKey: string) => {
+    if (isEditing) {
+      setEditCell({ rowIndex, colKey });
+    }
+  };
+
+  const handleCellChange = (rowIndex: number, colKey: string, value: string) => {
+    const newData = [...data];
+    newData[rowIndex] = { ...newData[rowIndex], [colKey]: value };
+    setData(newData);
+  };
+
+  const handleBlur = () => {
+    setEditCell(null);
+    pushToHistory(data);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, rowIndex: number, colIndex: number) => {
+    if (!isEditing) return;
+
+    const colKey = headers[colIndex];
+
+    if (e.key === "Enter" || e.key === "Tab") {
+      if (editCell) {
+        e.preventDefault();
+        setEditCell(null);
+        pushToHistory(data);
+        
+        let nextRow = rowIndex;
+        let nextCol = colIndex;
+
+        if (e.key === "Enter") {
+          nextRow = e.shiftKey ? rowIndex - 1 : rowIndex + 1;
+        } else {
+          nextCol = e.shiftKey ? colIndex - 1 : colIndex + 1;
+        }
+
+        if (nextRow >= 0 && nextRow < data.length && nextCol >= 0 && nextCol < headers.length) {
+          setTimeout(() => setEditCell({ rowIndex: nextRow, colKey: headers[nextCol] }), 0);
+        }
+      } else {
+        e.preventDefault();
+        setEditCell({ rowIndex, colKey });
+      }
+    } else if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key) && !editCell) {
+      e.preventDefault();
+      let nextRow = rowIndex;
+      let nextCol = colIndex;
+
+      if (e.key === "ArrowUp") nextRow = Math.max(0, rowIndex - 1);
+      if (e.key === "ArrowDown") nextRow = Math.min(data.length - 1, rowIndex + 1);
+      if (e.key === "ArrowLeft") nextCol = Math.max(0, colIndex - 1);
+      if (e.key === "ArrowRight") nextCol = Math.min(headers.length - 1, colIndex + 1);
+
+      const nextCellElement = document.querySelector(`[data-row="${nextRow}"][data-col="${nextCol}"]`) as HTMLElement;
+      if (nextCellElement) nextCellElement.focus();
+    } else if (e.key.length === 1 && !editCell && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      // Start typing directly
+      setEditCell({ rowIndex, colKey });
+    }
   };
 
   const HighlightText = ({ text, highlight }: { text: string; highlight: string }) => {
@@ -105,7 +247,10 @@ export default function CSVViewer() {
   });
 
   const downloadCSV = () => {
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse({
+      fields: headers,
+      data: data
+    });
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
@@ -215,6 +360,16 @@ export default function CSVViewer() {
                   <p className="font-medium truncate">{fileName}</p>
                   <p className="text-xs text-muted-foreground">{data.length} rows detected</p>
                 </div>
+                {isEditing && (
+                  <div className="flex items-center gap-1 ml-2">
+                    <Button variant="outline" size="sm" onClick={undo} disabled={historyIndex <= 0} title="Undo">
+                      Undo
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={redo} disabled={historyIndex >= history.length - 1} title="Redo">
+                      Redo
+                    </Button>
+                  </div>
+                )}
               </div>
               
               <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -227,6 +382,24 @@ export default function CSVViewer() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
+                {isEditing && (
+                  <>
+                    <Button variant="outline" size="sm" onClick={addRow} title="Add Row">
+                      <Plus className="h-4 w-4 mr-1" /> Row
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={addColumn} title="Add Column">
+                      <Plus className="h-4 w-4 mr-1" /> Col
+                    </Button>
+                  </>
+                )}
+                <Button 
+                  variant={isEditing ? "default" : "outline"} 
+                  size="icon" 
+                  onClick={toggleEditing} 
+                  title={isEditing ? "Disable Editing" : "Enable Editing"}
+                >
+                  <Edit2 className="h-4 w-4" />
+                </Button>
                 <Button 
                   variant={highlightEnabled ? "default" : "outline"} 
                   size="icon" 
@@ -264,9 +437,32 @@ export default function CSVViewer() {
                 <Table>
                   <TableHeader className="bg-muted/50 sticky top-0 z-10 shadow-sm">
                     <TableRow>
+                      {isEditing && <TableHead className="w-10"></TableHead>}
                       {headers.map((header) => (
-                        <TableHead key={header} className="whitespace-nowrap font-bold text-foreground">
-                          {header}
+                        <TableHead key={header} className="whitespace-nowrap font-bold text-foreground group relative">
+                          <div className="flex items-center gap-2">
+                            {header}
+                            {isEditing && (
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ChevronDown className="h-3 w-3" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                  <DropdownMenuItem onClick={() => {
+                                    const newName = prompt("Enter new column name:", header);
+                                    if (newName) renameColumn(header, newName);
+                                  }}>
+                                    <Type className="h-4 w-4 mr-2" /> Rename
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem className="text-destructive" onClick={() => deleteColumn(header)}>
+                                    <Trash2 className="h-4 w-4 mr-2" /> Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            )}
+                          </div>
                         </TableHead>
                       ))}
                     </TableRow>
@@ -275,9 +471,45 @@ export default function CSVViewer() {
                     {filteredData.length > 0 ? (
                       filteredData.slice(0, displayCount).map((row, idx) => (
                         <TableRow key={idx}>
-                          {headers.map((header) => (
-                            <TableCell key={`${idx}-${header}`} className="whitespace-nowrap">
-                              <HighlightText text={String(row[header])} highlight={searchTerm} />
+                          {isEditing && (
+                            <TableCell className="p-2">
+                              <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => deleteRow(idx)}>
+                                <Trash2 className="h-3 w-3" />
+                              </Button>
+                            </TableCell>
+                          )}
+                          {headers.map((header, colIdx) => (
+                            <TableCell 
+                              key={`${idx}-${header}`} 
+                              tabIndex={isEditing ? 0 : -1}
+                              data-row={idx}
+                              data-col={colIdx}
+                              className={cn(
+                                "whitespace-nowrap cursor-pointer border outline-none focus:ring-2 focus:ring-primary focus:ring-inset",
+                                isEditing && "hover:bg-accent/50",
+                                editCell?.rowIndex === idx && editCell?.colKey === header && "p-0 ring-2 ring-primary"
+                              )}
+                              onClick={() => handleCellClick(idx, header)}
+                              onKeyDown={(e) => handleKeyDown(e, idx, colIdx)}
+                            >
+                              {editCell?.rowIndex === idx && editCell?.colKey === header ? (
+                                <Input
+                                  autoFocus
+                                  className="h-9 border-0 rounded-none shadow-none focus-visible:ring-0 px-2 min-w-[150px]"
+                                  value={String(row[header])}
+                                  onChange={(e) => handleCellChange(idx, header, e.target.value)}
+                                  onBlur={handleBlur}
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === "Tab") {
+                                      handleKeyDown(e, idx, colIdx);
+                                    }
+                                  }}
+                                />
+                              ) : (
+                                <div className="px-2 py-2 min-w-[150px]">
+                                  <HighlightText text={String(row[header])} highlight={searchTerm} />
+                                </div>
+                              )}
                             </TableCell>
                           ))}
                         </TableRow>
