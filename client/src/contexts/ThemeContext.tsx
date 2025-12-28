@@ -19,13 +19,17 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (root) {
-      if (theme === "dark") {
-        root.classList.add("dark");
-      } else {
-        root.classList.remove("dark");
+    try {
+      const root = document.documentElement;
+      if (root && root.classList) {
+        if (theme === "dark") {
+          root.classList.add("dark");
+        } else {
+          root.classList.remove("dark");
+        }
       }
+    } catch (e) {
+      console.error("Failed to update theme class", e);
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
