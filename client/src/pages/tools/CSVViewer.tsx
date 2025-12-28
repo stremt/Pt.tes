@@ -460,78 +460,136 @@ export default function CSVViewer() {
               isFullScreen && "fixed inset-0 z-[100] bg-background p-4 sm:p-8 overflow-hidden h-screen w-screen m-0"
             )}
           >
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card p-4 rounded-lg border shadow-sm">
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <div className="bg-primary/10 p-2 rounded-md">
+            <div className="bg-card rounded-lg border shadow-sm">
+              {/* Top Row: File Info */}
+              <div className="flex items-center gap-3 p-4 border-b">
+                <div className="bg-primary/10 p-2 rounded-md flex-shrink-0">
                   <FileText className="h-5 w-5 text-primary" />
                 </div>
-                <div className="truncate max-w-[200px] sm:max-w-xs">
-                  <p className="font-medium truncate">{fileName}</p>
+                <div className="truncate flex-1">
+                  <p className="font-medium truncate text-sm sm:text-base">{fileName}</p>
                   <p className="text-xs text-muted-foreground">{data.length} rows detected</p>
                 </div>
                 {isEditing && (
-                  <div className="flex items-center gap-1 ml-2">
-                    <Button variant="outline" size="sm" onClick={undo} disabled={historyIndex <= 0} title="Undo">
-                      <Undo2 className="h-4 w-4 mr-1" /> Undo
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      onClick={undo} 
+                      disabled={historyIndex <= 0} 
+                      title="Undo"
+                      className="h-9 w-9"
+                    >
+                      <Undo2 className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="sm" onClick={redo} disabled={historyIndex >= history.length - 1} title="Redo">
-                      <Redo2 className="h-4 w-4 mr-1" /> Redo
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      onClick={redo} 
+                      disabled={historyIndex >= history.length - 1} 
+                      title="Redo"
+                      className="h-9 w-9"
+                    >
+                      <Redo2 className="h-4 w-4" />
                     </Button>
                   </div>
                 )}
               </div>
-              
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <div className="relative flex-1 sm:w-64">
+
+              {/* Bottom Row: Search & Actions */}
+              <div className="p-4 space-y-3">
+                <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search in table..."
-                    className="pl-9"
+                    className="pl-9 w-full"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
-                {isEditing && (
-                  <>
-                    <Button variant="outline" size="sm" onClick={addRow} title="Add Row">
-                      <Plus className="h-4 w-4 mr-1" /> Row
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={addColumn} title="Add Column">
-                      <Plus className="h-4 w-4 mr-1" /> Col
-                    </Button>
-                  </>
-                )}
-                <Button 
-                  variant={isEditing ? "default" : "outline"} 
-                  size="icon" 
-                  onClick={toggleEditing} 
-                  title={isEditing ? "Disable Editing" : "Enable Editing"}
-                >
-                  <Edit2 className="h-4 w-4" />
-                </Button>
-                <Button 
-                  variant={highlightEnabled ? "default" : "outline"} 
-                  size="icon" 
-                  onClick={toggleHighlight} 
-                  title={highlightEnabled ? "Disable Highlight" : "Enable Highlight"}
-                >
-                  <Highlighter className="h-4 w-4" />
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="icon" 
-                  onClick={toggleFullScreen} 
-                  title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
-                  className="hidden sm:inline-flex"
-                >
-                  {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
-                </Button>
-                <Button variant="outline" size="icon" onClick={downloadCSV} title="Download Original">
-                  <Download className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" onClick={reset} title="Close">
-                  <X className="h-4 w-4" />
-                </Button>
+                
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-2">
+                  {isEditing && (
+                    <>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={addRow} 
+                        title="Add Row"
+                        className="flex-1 sm:flex-none"
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        <span className="hidden sm:inline">Row</span>
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={addColumn} 
+                        title="Add Column"
+                        className="flex-1 sm:flex-none"
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        <span className="hidden sm:inline">Col</span>
+                      </Button>
+                    </>
+                  )}
+                  
+                  <Button 
+                    variant={isEditing ? "default" : "outline"} 
+                    size="sm"
+                    onClick={toggleEditing} 
+                    title={isEditing ? "Disable Editing" : "Enable Editing"}
+                    className="flex-1 sm:flex-none"
+                  >
+                    <Edit2 className="h-4 w-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Edit</span>
+                  </Button>
+                  
+                  <Button 
+                    variant={highlightEnabled ? "default" : "outline"} 
+                    size="sm"
+                    onClick={toggleHighlight} 
+                    title={highlightEnabled ? "Disable Highlight" : "Enable Highlight"}
+                    className="flex-1 sm:flex-none"
+                  >
+                    <Highlighter className="h-4 w-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Find</span>
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={toggleFullScreen} 
+                    title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                    className="hidden sm:flex flex-1 sm:flex-none"
+                  >
+                    {isFullScreen ? <Minimize2 className="h-4 w-4 mr-1" /> : <Maximize2 className="h-4 w-4 mr-1" />}
+                    <span>Full</span>
+                  </Button>
+                  
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={downloadCSV} 
+                    title="Download"
+                    className="flex-1 sm:flex-none"
+                  >
+                    <Download className="h-4 w-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Download</span>
+                  </Button>
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={reset} 
+                    title="Close"
+                    className="flex-1 sm:flex-none"
+                  >
+                    <X className="h-4 w-4 sm:mr-1" />
+                    <span className="hidden sm:inline">Close</span>
+                  </Button>
+                </div>
               </div>
             </div>
 
