@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2 } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -18,11 +18,35 @@ export default function CSVViewer() {
   const [searchTerm, setSearchTerm] = useState("");
   const [displayCount, setDisplayCount] = useState(100);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [highlightEnabled, setHighlightEnabled] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
+  };
+
+  const toggleHighlight = () => {
+    setHighlightEnabled(!highlightEnabled);
+  };
+
+  const HighlightText = ({ text, highlight }: { text: string; highlight: string }) => {
+    if (!highlight.trim() || !highlightEnabled) return <>{text}</>;
+    
+    const parts = text.split(new RegExp(`(${highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi"));
+    return (
+      <>
+        {parts.map((part, i) => 
+          part.toLowerCase() === highlight.toLowerCase() ? (
+            <mark key={i} className="bg-yellow-200 dark:bg-yellow-800 rounded-sm px-0.5">
+              {part}
+            </mark>
+          ) : (
+            part
+          )
+        )}
+      </>
+    );
   };
 
   useEffect(() => {
@@ -204,6 +228,14 @@ export default function CSVViewer() {
                   />
                 </div>
                 <Button 
+                  variant={highlightEnabled ? "default" : "outline"} 
+                  size="icon" 
+                  onClick={toggleHighlight} 
+                  title={highlightEnabled ? "Disable Highlight" : "Enable Highlight"}
+                >
+                  <Highlighter className="h-4 w-4" />
+                </Button>
+                <Button 
                   variant="outline" 
                   size="icon" 
                   onClick={toggleFullScreen} 
@@ -245,7 +277,7 @@ export default function CSVViewer() {
                         <TableRow key={idx}>
                           {headers.map((header) => (
                             <TableCell key={`${idx}-${header}`} className="whitespace-nowrap">
-                              {String(row[header])}
+                              <HighlightText text={String(row[header])} highlight={searchTerm} />
                             </TableCell>
                           ))}
                         </TableRow>
