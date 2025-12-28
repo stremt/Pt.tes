@@ -1,14 +1,15 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
+import { cn } from "@/lib/utils";
 
 export default function CSVViewer() {
   const [data, setData] = useState<any[]>([]);
@@ -16,7 +17,13 @@ export default function CSVViewer() {
   const [fileName, setFileName] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
   const [displayCount, setDisplayCount] = useState(100);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const toggleFullScreen = () => {
+    setIsFullScreen(!isFullScreen);
+  };
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -157,7 +164,13 @@ export default function CSVViewer() {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-4">
+          <div 
+            ref={containerRef}
+            className={cn(
+              "space-y-4 transition-all duration-300",
+              isFullScreen && "fixed inset-0 z-[100] bg-background p-4 sm:p-8 overflow-hidden h-screen w-screen m-0"
+            )}
+          >
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card p-4 rounded-lg border shadow-sm">
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <div className="bg-primary/10 p-2 rounded-md">
@@ -179,6 +192,15 @@ export default function CSVViewer() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  onClick={toggleFullScreen} 
+                  title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                  className="hidden sm:inline-flex"
+                >
+                  {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                </Button>
                 <Button variant="outline" size="icon" onClick={downloadCSV} title="Download Original">
                   <Download className="h-4 w-4" />
                 </Button>
@@ -188,8 +210,14 @@ export default function CSVViewer() {
               </div>
             </div>
 
-            <Card className="overflow-hidden">
-              <div className="max-h-[600px] overflow-auto border rounded-md" onScroll={handleScroll}>
+            <Card className={cn("overflow-hidden flex flex-col", isFullScreen && "flex-1 min-h-0")}>
+              <div 
+                className={cn(
+                  "overflow-auto border rounded-md",
+                  isFullScreen ? "flex-1" : "max-h-[600px]"
+                )} 
+                onScroll={handleScroll}
+              >
                 <Table>
                   <TableHeader className="bg-muted/50 sticky top-0 z-10 shadow-sm">
                     <TableRow>
