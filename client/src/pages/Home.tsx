@@ -252,7 +252,7 @@ export default function Home() {
       {
         id: "productivity",
         name: "Productivity Tools",
-        description: "Boost your efficiency with todo lists, timers, stopwatches, expense trackers, invoice generators, receipt makers, and workflow automation tools. Streamline your daily tasks with India's best productivity suite.",
+        description: "Boost your efficiency with todo lists, timers, stopwatches, expense trackers, invoice generators, receipt makers, CSV viewers and workflow automation tools. Streamline your daily tasks with India's best productivity suite.",
         icon: TrendingUp,
         toolCount: getToolsByCategory("productivity").length
       },

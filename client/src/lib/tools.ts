@@ -102,6 +102,15 @@ import {
 
 export const tools: ToolMetadata[] = [
   {
+    id: "csv-viewer",
+    name: "CSV Viewer",
+    description: "Open and view CSV files online instantly with full privacy. No upload required, works 100% in your browser. Search, filter and explore your data securely.",
+    icon: "FileSpreadsheet",
+    path: "/tools/csv-viewer",
+    category: "utility",
+    keywords: ["csv viewer", "open csv online", "view csv file", "csv reader", "privacy-focused", "browser csv viewer"],
+  },
+  {
     id: "temp-mail",
     name: "Temp Mail Generator",
     description: "Generate temporary disposable emails instantly. Protect your privacy and avoid spam with free temporary email addresses.",

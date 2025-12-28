@@ -310,6 +310,7 @@ const AudioToMP3 = lazy(() => import("@/pages/tools/AudioToMP3"));
 const VideoCompressor = lazy(() => import("@/pages/tools/VideoCompressor"));
 const BackgroundRemover = lazy(() => import("@/pages/tools/BackgroundRemover"));
 const ImageUpscaler = lazy(() => import("@/pages/tools/ImageUpscaler"));
+const CSVViewer = lazy(() => import("@/pages/tools/CSVViewer"));
 const ExcelToPDF = lazy(() => import("@/pages/tools/ExcelToPDF"));
 const ExcelViewer = lazy(() => import("@/pages/tools/ExcelViewer"));
 const HTMLtoPDF = lazy(() => import("@/pages/tools/HTMLtoPDF"));
@@ -612,6 +613,7 @@ function Router() {
         <Route path="/tools/video-compressor" component={VideoCompressor} />
         <Route path="/tools/background-remover" component={BackgroundRemover} />
         <Route path="/tools/image-upscaler" component={ImageUpscaler} />
+        <Route path="/tools/csv-viewer" component={CSVViewer} />
         <Route path="/tools/excel-to-pdf" component={ExcelToPDF} />
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
