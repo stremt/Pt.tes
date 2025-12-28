@@ -5,12 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2 } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2, ClipboardPaste } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
 import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function CSVViewer() {
   const [data, setData] = useState<any[]>([]);
@@ -24,8 +25,39 @@ export default function CSVViewer() {
   const [editCell, setEditCell] = useState<{ rowIndex: number; colKey: string } | null>(null);
   const [history, setHistory] = useState<any[][]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [pastedContent, setPastedContent] = useState("");
+  const [showPaste, setShowPaste] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const handleCsvContent = useCallback((content: string, name: string = "pasted_data.csv") => {
+    Papa.parse(content, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (results) => {
+        if (results.data && results.data.length > 0) {
+          const newHeaders = Object.keys(results.data[0] as object);
+          setHeaders(newHeaders);
+          setData(results.data);
+          setFileName(name);
+          setDisplayCount(100);
+          setHistory([results.data]);
+          setHistoryIndex(0);
+          toast({
+            title: "Success",
+            description: `Loaded ${results.data.length} rows`,
+          });
+        }
+      },
+      error: (error: Error) => {
+        toast({
+          variant: "destructive",
+          title: "Parsing error",
+          description: error.message,
+        });
+      },
+    });
+  }, [toast]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -58,8 +90,6 @@ export default function CSVViewer() {
         localStorage.setItem("csv_viewer_filename", fileName);
       } catch (e) {
         console.warn("Storage quota exceeded, could not save data locally", e);
-        // If it's a quota error, we might want to warn the user once, 
-        // but we don't want to crash the app.
         if (e instanceof DOMException && e.name === 'QuotaExceededError') {
           toast({
             variant: "destructive",
@@ -73,7 +103,7 @@ export default function CSVViewer() {
       localStorage.removeItem("csv_viewer_headers");
       localStorage.removeItem("csv_viewer_filename");
     }
-  }, [data, headers, fileName]);
+  }, [data, headers, fileName, toast]);
 
   const pushToHistory = useCallback((newData: any[]) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -263,30 +293,13 @@ export default function CSVViewer() {
       return;
     }
 
-    setFileName(file.name);
-    setDisplayCount(100);
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        if (results.data && results.data.length > 0) {
-          setHeaders(Object.keys(results.data[0] as object));
-          setData(results.data);
-          toast({
-            title: "Success",
-            description: `Loaded ${results.data.length} rows from ${file.name}`,
-          });
-        }
-      },
-      error: (error) => {
-        toast({
-          variant: "destructive",
-          title: "Parsing error",
-          description: error.message,
-        });
-      },
-    });
-  }, [toast]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      handleCsvContent(content, file.name);
+    };
+    reader.readAsText(file);
+  }, [toast, handleCsvContent]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -322,6 +335,8 @@ export default function CSVViewer() {
     setFileName("");
     setSearchTerm("");
     setDisplayCount(100);
+    setShowPaste(false);
+    setPastedContent("");
   };
 
   const loadMore = useCallback(() => {
@@ -338,28 +353,28 @@ export default function CSVViewer() {
   };
 
   const howItWorks = [
-    { step: 1, title: "Upload CSV", description: "Drag and drop your CSV file or click to browse and select it from your device." },
-    { step: 2, title: "View Data", description: "The tool automatically detects headers and displays your data in a clean, scrollable table." },
-    { step: 3, title: "Search & Export", description: "Use the search bar to find specific entries and export the viewed data if needed." }
+    { step: 1, title: "Upload or Paste CSV", description: "Drag and drop your CSV file or paste raw CSV text directly into the tool." },
+    { step: 2, title: "Edit & Manage", description: "Click any cell to edit. Use keyboard shortcuts, add/remove rows and columns, and rename headers." },
+    { step: 3, title: "Export & Save", description: "Your changes are saved locally in your browser. Download the updated file whenever you're ready." }
   ];
 
   const benefits = [
     { icon: <Shield className="h-6 w-6 text-primary" />, title: "Privacy First", description: "Your data stays in your browser. No files are uploaded to our servers." },
-    { icon: <Zap className="h-6 w-6 text-primary" />, title: "Lightning Fast", description: "Built for speed, handling large datasets without performance lag." },
-    { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Auto-Header Detection", description: "Automatically identifies and maps your CSV headers." },
+    { icon: <Zap className="h-6 w-6 text-primary" />, title: "Full Spreadsheet", description: "Editable cells, keyboard navigation, undo/redo, and row/col management." },
+    { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Local Persistence", description: "Changes are automatically saved in your browser for next time." },
     { icon: <Monitor className="h-6 w-6 text-primary" />, title: "Large File Support", description: "View thousands of rows smoothly with optimized rendering." }
   ];
 
   const faqs = [
     { question: "Is my data safe?", answer: "Yes, this is a client-side tool. Your CSV file is processed entirely in your web browser and is never uploaded to any server." },
-    { question: "Can it handle large CSV files?", answer: "Yes, the tool is optimized to load and scroll through large CSV files smoothly." },
-    { question: "Does it support nested headers?", answer: "Standard CSV files with a single header row are supported best. It auto-detects the first row as headers." }
+    { question: "Can I use keyboard shortcuts?", answer: "Yes! Use Enter/Tab to navigate and edit, Arrow keys to move between cells, and typing to start editing directly." },
+    { question: "Will I lose my work if I close the tab?", answer: "No, the tool automatically saves your progress in your browser's local storage." }
   ];
 
   return (
     <ToolLayout
-      title="CSV Viewer"
-      description="View and explore your CSV files directly in your browser with privacy. No data leaves your machine."
+      title="CSV Viewer & Editor"
+      description="View, edit, and explore your CSV files directly in your browser with full spreadsheet capabilities."
       toolId="csv-viewer"
       category="utility"
       icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
@@ -368,29 +383,75 @@ export default function CSVViewer() {
       faqs={faqs}
     >
       <Helmet>
-        <title>CSV Viewer - View CSV Files Online Privately | Pixocraft Tools</title>
-        <meta name="description" content="Free online CSV viewer. Open, view, and search CSV files directly in your browser. Privacy-focused, fast, and handles large files. No upload needed." />
+        <title>CSV Viewer & Editor - Editable Spreadsheet Tool Online | Pixocraft Tools</title>
+        <meta name="description" content="Free online CSV viewer and editor. Edit cells, manage rows/columns, and search CSV files directly in your browser. Privacy-focused with local autosave." />
       </Helmet>
 
       <div className="space-y-6">
         {!data.length ? (
-          <Card className="border-dashed border-2">
-            <CardContent
-              {...getRootProps()}
-              className="flex flex-col items-center justify-center p-12 cursor-pointer hover:bg-accent/50 transition-colors"
-            >
-              <input {...getInputProps()} />
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Upload className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                {isDragActive ? "Drop your CSV here" : "Upload your CSV file"}
-              </h3>
-              <p className="text-muted-foreground text-center max-w-sm">
-                Drag and drop your file here, or click to browse. Supported formats: .csv
-              </p>
-            </CardContent>
-          </Card>
+          <div className={cn("grid gap-6 transition-all duration-300", showPaste ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1")}>
+            <Card className={cn("border-dashed border-2 transition-all", showPaste && "md:h-[400px]")}>
+              <CardContent
+                {...getRootProps()}
+                className="flex flex-col items-center justify-center p-12 h-full cursor-pointer hover:bg-accent/50 transition-colors"
+              >
+                <input {...getInputProps()} />
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Upload className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {isDragActive ? "Drop your CSV here" : "Upload your CSV file"}
+                </h3>
+                <p className="text-muted-foreground text-center max-w-sm mb-6">
+                  Drag and drop your file here, or click to browse.
+                </p>
+                
+                {!showPaste && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPaste(true);
+                    }}
+                    className="mt-4 gap-2 text-primary hover:text-primary hover:bg-primary/5"
+                  >
+                    <ClipboardPaste className="h-4 w-4" />
+                    Or Paste CSV Data
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+
+            {showPaste && (
+              <Card className="flex flex-col md:h-[400px]">
+                <CardHeader className="pb-3 flex-row items-center justify-between space-y-0">
+                  <div className="flex items-center gap-2">
+                    <ClipboardPaste className="h-5 w-5 text-primary" />
+                    <CardTitle className="text-lg">Paste CSV Content</CardTitle>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setShowPaste(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col gap-4">
+                  <Textarea
+                    placeholder="name,email,city\nJohn Doe,john@example.com,New York\nJane Smith,jane@example.com,London"
+                    className="flex-1 font-mono text-sm resize-none"
+                    value={pastedContent}
+                    onChange={(e) => setPastedContent(e.target.value)}
+                  />
+                  <Button 
+                    className="w-full" 
+                    disabled={!pastedContent.trim()}
+                    onClick={() => handleCsvContent(pastedContent)}
+                  >
+                    View Data
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         ) : (
           <div 
             ref={containerRef}
