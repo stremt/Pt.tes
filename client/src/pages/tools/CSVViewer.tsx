@@ -210,11 +210,11 @@ export default function CSVViewer() {
               </div>
             </div>
 
-            <Card className={cn("overflow-hidden flex flex-col", isFullScreen && "flex-1 min-h-0")}>
+            <Card className={cn("overflow-hidden flex flex-col", isFullScreen && "flex-1 min-h-0 h-full")}>
               <div 
                 className={cn(
-                  "overflow-auto border rounded-md",
-                  isFullScreen ? "flex-1" : "max-h-[600px]"
+                  "overflow-auto border rounded-md custom-scrollbar",
+                  isFullScreen ? "flex-1 h-full" : "max-h-[600px]"
                 )} 
                 onScroll={handleScroll}
               >
