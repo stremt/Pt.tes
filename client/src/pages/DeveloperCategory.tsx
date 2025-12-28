@@ -33,7 +33,8 @@ const generateOrganizationSchema = () => ({
       { "@type": "SoftwareApplication", "name": "Box Shadow Generator", "url": "https://tools.pixocraft.in/tools/box-shadow-generator" },
       { "@type": "SoftwareApplication", "name": "Border Radius Generator", "url": "https://tools.pixocraft.in/tools/border-radius-generator" },
       { "@type": "SoftwareApplication", "name": "File to Base64", "url": "https://tools.pixocraft.in/tools/file-to-base64" },
-      { "@type": "SoftwareApplication", "name": "Meta Tag Generator", "url": "https://tools.pixocraft.in/tools/meta-tag-generator" }
+      { "@type": "SoftwareApplication", "name": "Meta Tag Generator", "url": "https://tools.pixocraft.in/tools/meta-tag-generator" },
+      { "@type": "SoftwareApplication", "name": "CSV Viewer & Editor", "url": "https://tools.pixocraft.in/tools/csv-viewer" }
     ]
   }
 });
@@ -88,6 +89,11 @@ const developerTools = [
     name: "Meta Tag Generator",
     slug: "meta-tag-generator",
     description: "Generate SEO meta tags and Open Graph tags for web pages"
+  },
+  {
+    name: "CSV Viewer & Editor",
+    slug: "csv-viewer",
+    description: "View, edit, and explore CSV files directly in your browser with full spreadsheet capabilities"
   }
 ];
 
