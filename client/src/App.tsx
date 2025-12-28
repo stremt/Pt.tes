@@ -323,6 +323,10 @@ const YouTubeThumbnailDownloaderFree = lazy(() => import("@/pages/tools/longtail
 const YouTubeThumbnailDownloaderOnline = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderOnline"));
 const YouTubeThumbnailDownloaderChannels = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderChannels"));
 const YouTubeThumbnailDownloaderBest = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderBest"));
+const CSVEditWithoutExcel = lazy(() => import("@/pages/tools/longtail/CSVEditWithoutExcel"));
+const CSVViewLargeFiles = lazy(() => import("@/pages/tools/longtail/CSVViewLargeFiles"));
+const CSVConvertAndEdit = lazy(() => import("@/pages/tools/longtail/CSVConvertAndEdit"));
+const CSVViewInBrowser = lazy(() => import("@/pages/tools/longtail/CSVViewInBrowser"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
@@ -673,6 +677,10 @@ function Router() {
         <Route path="/tools/pdf-watermark-adder/protect" component={ProtectPdfWithWatermark} />
         <Route path="/tools/pdf-watermark-adder/custom" component={CustomPdfWatermarkCreator} />
         <Route path="/tools/pdf-watermark-adder/professional" component={ProfessionalPdfWatermarkingTool} />
+        <Route path="/tools/csv-viewer/edit-without-excel" component={CSVEditWithoutExcel} />
+        <Route path="/tools/csv-viewer/view-large-files" component={CSVViewLargeFiles} />
+        <Route path="/tools/csv-viewer/convert-and-edit" component={CSVConvertAndEdit} />
+        <Route path="/tools/csv-viewer/view-in-browser" component={CSVViewInBrowser} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
