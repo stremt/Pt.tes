@@ -360,9 +360,14 @@ export default function CSVViewer() {
   ];
 
   const faqs = [
-    { question: "Is my data safe?", answer: "Yes, this is a client-side tool. Your CSV file is processed entirely in your web browser and is never uploaded to any server." },
-    { question: "Can I use keyboard shortcuts?", answer: "Yes! Use Enter/Tab to navigate and edit, Arrow keys to move between cells, and typing to start editing directly." },
-    { question: "Will I lose my work if I close the tab?", answer: "No, the tool automatically saves your progress in your browser's local storage." }
+    { question: "Is my CSV data safe when I use this tool?", answer: "Yes, completely. Your CSV file is processed entirely in your web browser and never sent to any server. We have no access to your data, and it's not stored on our servers. Your privacy is fully protected." },
+    { question: "Can I edit CSV files and save my changes?", answer: "Yes. Enable editing mode and click any cell to make changes. You can add/remove rows and columns, rename headers, and use undo/redo. Changes are automatically saved to your browser's local storage and can be downloaded as a new CSV file." },
+    { question: "What keyboard shortcuts are available for editing?", answer: "Use Enter to move down and Tab to move right between cells. Arrow keys navigate without editing. Start typing to edit a cell instantly. Shift+Enter goes up; Shift+Tab goes left. Use Undo/Redo buttons to revert changes." },
+    { question: "Will my data be lost if I close the browser or refresh the page?", answer: "No. The tool automatically saves your progress to your browser's local storage. Your data will be there when you return, as long as you don't clear your browser's local storage or use private/incognito mode." },
+    { question: "Can this tool handle large CSV files with thousands of rows?", answer: "Yes. The tool is optimized to handle large datasets smoothly. It uses lazy loading to display data efficiently, so thousands of rows load without slowdown. Scroll through massive files without performance issues." },
+    { question: "Can I use this tool on my phone or tablet?", answer: "Yes. The tool works on any device with a web browser—phones, tablets, laptops, and desktops. The interface adapts to smaller screens, and you can upload files, paste data, and edit on the go." },
+    { question: "Does this tool work without an internet connection?", answer: "Once the page is loaded, yes. All editing, viewing, and searching functions work offline. You only need internet to initially load the page or to access this link again later." },
+    { question: "What file formats can this tool handle?", answer: "This tool specializes in CSV (comma-separated values) files. You can upload a CSV file, paste CSV data directly, or paste data from Excel/spreadsheets and convert it. Download your edited data as a CSV file." }
   ];
 
   return (
@@ -377,8 +382,8 @@ export default function CSVViewer() {
       faqs={faqs}
     >
       <Helmet>
-        <title>CSV Viewer & Editor - Editable Spreadsheet Tool Online | Pixocraft Tools</title>
-        <meta name="description" content="Free online CSV viewer and editor. Edit cells, manage rows/columns, and search CSV files directly in your browser. Privacy-focused with local autosave." />
+        <title>Free CSV Viewer & Editor - Edit Online Instantly</title>
+        <meta name="description" content="Edit CSV files online instantly. View, search, and modify data directly in your browser with full spreadsheet features. Works offline, saves locally—no uploads." />
       </Helmet>
 
       <div className="space-y-6">
