@@ -618,6 +618,10 @@ function Router() {
         <Route path="/tools/video-compressor" component={VideoCompressor} />
         <Route path="/tools/background-remover" component={BackgroundRemover} />
         <Route path="/tools/image-upscaler" component={ImageUpscaler} />
+        <Route path="/tools/csv-viewer/edit-without-excel" component={CSVEditWithoutExcel} />
+        <Route path="/tools/csv-viewer/view-large-files" component={CSVViewLargeFiles} />
+        <Route path="/tools/csv-viewer/convert-and-edit" component={CSVConvertAndEdit} />
+        <Route path="/tools/csv-viewer/view-in-browser" component={CSVViewInBrowser} />
         <Route path="/tools/csv-viewer" component={CSVViewer} />
         <Route path="/tools/excel-to-pdf" component={ExcelToPDF} />
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
@@ -677,10 +681,6 @@ function Router() {
         <Route path="/tools/pdf-watermark-adder/protect" component={ProtectPdfWithWatermark} />
         <Route path="/tools/pdf-watermark-adder/custom" component={CustomPdfWatermarkCreator} />
         <Route path="/tools/pdf-watermark-adder/professional" component={ProfessionalPdfWatermarkingTool} />
-        <Route path="/tools/csv-viewer/edit-without-excel" component={CSVEditWithoutExcel} />
-        <Route path="/tools/csv-viewer/view-large-files" component={CSVViewLargeFiles} />
-        <Route path="/tools/csv-viewer/convert-and-edit" component={CSVConvertAndEdit} />
-        <Route path="/tools/csv-viewer/view-in-browser" component={CSVViewInBrowser} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
