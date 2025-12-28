@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2, ClipboardPaste, ArrowRight } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2, ClipboardPaste, ArrowRight, Copy, Columns3 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -519,7 +519,7 @@ export default function CSVViewer() {
                         title="Add Row"
                         className="flex-1 sm:flex-none"
                       >
-                        <Plus className="h-4 w-4 mr-1" />
+                        <Copy className="h-4 w-4 mr-1" />
                         <span className="hidden sm:inline">Row</span>
                       </Button>
                       <Button 
@@ -529,7 +529,7 @@ export default function CSVViewer() {
                         title="Add Column"
                         className="flex-1 sm:flex-none"
                       >
-                        <Plus className="h-4 w-4 mr-1" />
+                        <Columns3 className="h-4 w-4 mr-1" />
                         <span className="hidden sm:inline">Col</span>
                       </Button>
                     </>
