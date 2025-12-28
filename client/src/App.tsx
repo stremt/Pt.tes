@@ -333,6 +333,10 @@ const XLSXViewLargeFiles = lazy(() => import("@/pages/tools/longtail/XLSXViewLar
 const XLSXConvertAndEdit = lazy(() => import("@/pages/tools/longtail/XLSXConvertAndEdit"));
 const XLSXViewInBrowser = lazy(() => import("@/pages/tools/longtail/XLSXViewInBrowser"));
 const XLSXToCSVConverter = lazy(() => import("@/pages/tools/XLSXToCSVConverter"));
+const XLSXToCSVFreeOnline = lazy(() => import("@/pages/tools/longtail/XLSXToCSVFreeOnline"));
+const XLSXToCSVNoExcel = lazy(() => import("@/pages/tools/longtail/XLSXToCSVNoExcel"));
+const XLSXToCSVBulk = lazy(() => import("@/pages/tools/longtail/XLSXToCSVBulk"));
+const XLSXToCSVWithPreview = lazy(() => import("@/pages/tools/longtail/XLSXToCSVWithPreview"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
@@ -453,6 +457,10 @@ function Router() {
         <Route path="/tools/barcode-generator" component={BarcodeGenerator} />
         <Route path="/tools/json-csv-converter" component={JSONCSVConverter} />
         <Route path="/tools/xlsx-to-csv-converter" component={XLSXToCSVConverter} />
+        <Route path="/tools/xlsx-to-csv-converter/free-online" component={XLSXToCSVFreeOnline} />
+        <Route path="/tools/xlsx-to-csv-converter/no-excel" component={XLSXToCSVNoExcel} />
+        <Route path="/tools/xlsx-to-csv-converter/bulk-convert" component={XLSXToCSVBulk} />
+        <Route path="/tools/xlsx-to-csv-converter/with-preview" component={XLSXToCSVWithPreview} />
         <Route path="/tools/json-yaml-converter" component={JSONYAMLConverter} />
         <Route path="/tools/code-beautifier" component={CodeBeautifier} />
         <Route path="/tools/css-minifier" component={CSSMinifier} />
