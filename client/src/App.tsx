@@ -327,6 +327,11 @@ const CSVEditWithoutExcel = lazy(() => import("@/pages/tools/longtail/CSVEditWit
 const CSVViewLargeFiles = lazy(() => import("@/pages/tools/longtail/CSVViewLargeFiles"));
 const CSVConvertAndEdit = lazy(() => import("@/pages/tools/longtail/CSVConvertAndEdit"));
 const CSVViewInBrowser = lazy(() => import("@/pages/tools/longtail/CSVViewInBrowser"));
+const XLSXViewer = lazy(() => import("@/pages/tools/XLSXViewer"));
+const XLSXEditWithoutExcel = lazy(() => import("@/pages/tools/longtail/XLSXEditWithoutExcel"));
+const XLSXViewLargeFiles = lazy(() => import("@/pages/tools/longtail/XLSXViewLargeFiles"));
+const XLSXConvertAndEdit = lazy(() => import("@/pages/tools/longtail/XLSXConvertAndEdit"));
+const XLSXViewInBrowser = lazy(() => import("@/pages/tools/longtail/XLSXViewInBrowser"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 
 // Lazily load blog pages
@@ -623,6 +628,11 @@ function Router() {
         <Route path="/tools/csv-viewer/convert-and-edit" component={CSVConvertAndEdit} />
         <Route path="/tools/csv-viewer/view-in-browser" component={CSVViewInBrowser} />
         <Route path="/tools/csv-viewer" component={CSVViewer} />
+        <Route path="/tools/xlsx-viewer/edit-without-excel" component={XLSXEditWithoutExcel} />
+        <Route path="/tools/xlsx-viewer/view-large-files" component={XLSXViewLargeFiles} />
+        <Route path="/tools/xlsx-viewer/convert-and-edit" component={XLSXConvertAndEdit} />
+        <Route path="/tools/xlsx-viewer/view-in-browser" component={XLSXViewInBrowser} />
+        <Route path="/tools/xlsx-viewer" component={XLSXViewer} />
         <Route path="/tools/excel-to-pdf" component={ExcelToPDF} />
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />

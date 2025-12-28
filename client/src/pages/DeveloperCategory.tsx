@@ -34,7 +34,8 @@ const generateOrganizationSchema = () => ({
       { "@type": "SoftwareApplication", "name": "Border Radius Generator", "url": "https://tools.pixocraft.in/tools/border-radius-generator" },
       { "@type": "SoftwareApplication", "name": "File to Base64", "url": "https://tools.pixocraft.in/tools/file-to-base64" },
       { "@type": "SoftwareApplication", "name": "Meta Tag Generator", "url": "https://tools.pixocraft.in/tools/meta-tag-generator" },
-      { "@type": "SoftwareApplication", "name": "CSV Viewer & Editor", "url": "https://tools.pixocraft.in/tools/csv-viewer" }
+      { "@type": "SoftwareApplication", "name": "CSV Viewer & Editor", "url": "https://tools.pixocraft.in/tools/csv-viewer" },
+      { "@type": "SoftwareApplication", "name": "XLSX Viewer & Editor", "url": "https://tools.pixocraft.in/tools/xlsx-viewer" }
     ]
   }
 });
@@ -94,6 +95,11 @@ const developerTools = [
     name: "CSV Viewer & Editor",
     slug: "csv-viewer",
     description: "View, edit, and explore CSV files directly in your browser with full spreadsheet capabilities"
+  },
+  {
+    name: "XLSX Viewer & Editor",
+    slug: "xlsx-viewer",
+    description: "View, edit, and manage Excel files (.xlsx, .xls) directly in your browser without Microsoft Office"
   }
 ];
 
