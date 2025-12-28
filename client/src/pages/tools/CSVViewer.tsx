@@ -15,6 +15,7 @@ export default function CSVViewer() {
   const [headers, setHeaders] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [displayCount, setDisplayCount] = useState(100);
   const { toast } = useToast();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -31,6 +32,7 @@ export default function CSVViewer() {
     }
 
     setFileName(file.name);
+    setDisplayCount(100);
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -84,6 +86,20 @@ export default function CSVViewer() {
     setHeaders([]);
     setFileName("");
     setSearchTerm("");
+    setDisplayCount(100);
+  };
+
+  const loadMore = useCallback(() => {
+    if (displayCount < filteredData.length) {
+      setDisplayCount(prev => prev + 100);
+    }
+  }, [displayCount, filteredData.length]);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      loadMore();
+    }
   };
 
   const howItWorks = [
@@ -173,7 +189,7 @@ export default function CSVViewer() {
             </div>
 
             <Card className="overflow-hidden">
-              <div className="max-h-[600px] overflow-auto border rounded-md">
+              <div className="max-h-[600px] overflow-auto border rounded-md" onScroll={handleScroll}>
                 <Table>
                   <TableHeader className="bg-muted/50 sticky top-0 z-10 shadow-sm">
                     <TableRow>
@@ -186,7 +202,7 @@ export default function CSVViewer() {
                   </TableHeader>
                   <TableBody>
                     {filteredData.length > 0 ? (
-                      filteredData.slice(0, 100).map((row, idx) => (
+                      filteredData.slice(0, displayCount).map((row, idx) => (
                         <TableRow key={idx}>
                           {headers.map((header) => (
                             <TableCell key={`${idx}-${header}`} className="whitespace-nowrap">
@@ -205,9 +221,14 @@ export default function CSVViewer() {
                   </TableBody>
                 </Table>
               </div>
-              {filteredData.length > 100 && (
+              {filteredData.length > displayCount && (
                 <div className="p-4 bg-muted/20 text-center text-sm text-muted-foreground border-t">
-                  Showing first 100 rows. Use search to find specific data.
+                  Loading more rows... ({displayCount} of {filteredData.length} shown)
+                </div>
+              )}
+              {filteredData.length <= displayCount && data.length > 0 && (
+                <div className="p-4 bg-muted/20 text-center text-sm text-muted-foreground border-t">
+                  All {filteredData.length} rows shown.
                 </div>
               )}
             </Card>
