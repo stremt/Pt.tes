@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type } from "lucide-react";
+import { Upload, FileText, Download, Search, X, Shield, Zap, FileSpreadsheet, Monitor, Maximize2, Minimize2, Highlighter, Edit2, Plus, Trash2, ChevronDown, Type, Undo2, Redo2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -26,6 +26,41 @@ export default function CSVViewer() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem("csv_viewer_data");
+    const savedHeaders = localStorage.getItem("csv_viewer_headers");
+    const savedFileName = localStorage.getItem("csv_viewer_filename");
+
+    if (savedData && savedHeaders && savedFileName) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        const parsedHeaders = JSON.parse(savedHeaders);
+        setData(parsedData);
+        setHeaders(parsedHeaders);
+        setFileName(savedFileName);
+        // Initialize history with loaded data
+        setHistory([parsedData]);
+        setHistoryIndex(0);
+      } catch (e) {
+        console.error("Failed to parse saved CSV data", e);
+      }
+    }
+  }, []);
+
+  // Save to localStorage whenever data changes
+  useEffect(() => {
+    if (data.length > 0) {
+      localStorage.setItem("csv_viewer_data", JSON.stringify(data));
+      localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
+      localStorage.setItem("csv_viewer_filename", fileName);
+    } else {
+      localStorage.removeItem("csv_viewer_data");
+      localStorage.removeItem("csv_viewer_headers");
+      localStorage.removeItem("csv_viewer_filename");
+    }
+  }, [data, headers, fileName]);
 
   const pushToHistory = useCallback((newData: any[]) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -363,10 +398,10 @@ export default function CSVViewer() {
                 {isEditing && (
                   <div className="flex items-center gap-1 ml-2">
                     <Button variant="outline" size="sm" onClick={undo} disabled={historyIndex <= 0} title="Undo">
-                      Undo
+                      <Undo2 className="h-4 w-4 mr-1" /> Undo
                     </Button>
                     <Button variant="outline" size="sm" onClick={redo} disabled={historyIndex >= history.length - 1} title="Redo">
-                      Redo
+                      <Redo2 className="h-4 w-4 mr-1" /> Redo
                     </Button>
                   </div>
                 )}
