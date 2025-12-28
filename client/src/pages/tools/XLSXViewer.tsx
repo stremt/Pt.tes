@@ -377,8 +377,81 @@ export default function XLSXViewer() {
                 <p className="text-muted-foreground text-center max-w-sm mb-6">
                   Drag and drop .xlsx or .xls file here, or click to browse.
                 </p>
+                
+                {!showPaste && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPaste(true);
+                    }}
+                    className="mt-4 gap-2 text-primary hover:text-primary hover:bg-primary/5"
+                  >
+                    <ClipboardPaste className="h-4 w-4" />
+                    Or Paste Data
+                  </Button>
+                )}
               </CardContent>
             </Card>
+
+            {showPaste && (
+              <Card className="flex flex-col md:h-[400px]">
+                <CardHeader className="pb-3 flex-row items-center justify-between space-y-0">
+                  <div className="flex items-center gap-2">
+                    <ClipboardPaste className="h-5 w-5 text-primary" />
+                    <CardTitle className="text-lg">Paste Data</CardTitle>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setShowPaste(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col gap-4">
+                  <Textarea
+                    placeholder="Paste CSV or tab-separated data here&#10;name,email,city&#10;John Doe,john@example.com,New York&#10;Jane Smith,jane@example.com,London"
+                    className="flex-1 font-mono text-sm resize-none"
+                    value={pastedContent}
+                    onChange={(e) => setPastedContent(e.target.value)}
+                  />
+                  <Button 
+                    className="w-full" 
+                    disabled={!pastedContent.trim()}
+                    onClick={() => {
+                      Papa.parse(pastedContent, {
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: (results) => {
+                          if (results.data && results.data.length > 0) {
+                            const newHeaders = Object.keys(results.data[0] as object);
+                            setHeaders(newHeaders);
+                            setData(results.data);
+                            setFileName("pasted_data");
+                            setDisplayCount(100);
+                            setHistory([results.data]);
+                            setHistoryIndex(0);
+                            setShowPaste(false);
+                            setPastedContent("");
+                            toast({
+                              title: "Success",
+                              description: `Loaded ${results.data.length} rows`,
+                            });
+                          }
+                        },
+                        error: (error: Error) => {
+                          toast({
+                            variant: "destructive",
+                            title: "Parsing error",
+                            description: error.message,
+                          });
+                        },
+                      });
+                    }}
+                  >
+                    View Data
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         ) : (
           <div 
