@@ -89,21 +89,15 @@ export default function CSVViewer() {
         localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
         localStorage.setItem("csv_viewer_filename", fileName);
       } catch (e) {
-        console.warn("Storage quota exceeded, could not save data locally", e);
-        if (e instanceof DOMException && e.name === 'QuotaExceededError') {
-          toast({
-            variant: "destructive",
-            title: "Storage limit reached",
-            description: "Your file is too large to save in the browser. Changes won't persist across page reloads.",
-          });
-        }
+        // Silently fail if quota exceeded as requested
+        console.warn("Storage quota exceeded, data not saved locally");
       }
     } else {
       localStorage.removeItem("csv_viewer_data");
       localStorage.removeItem("csv_viewer_headers");
       localStorage.removeItem("csv_viewer_filename");
     }
-  }, [data, headers, fileName, toast]);
+  }, [data, headers, fileName]);
 
   const pushToHistory = useCallback((newData: any[]) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -376,7 +370,7 @@ export default function CSVViewer() {
       title="CSV Viewer & Editor"
       description="View, edit, and explore your CSV files directly in your browser with full spreadsheet capabilities."
       toolId="csv-viewer"
-      category="utility"
+      category="developer"
       icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
       howItWorks={howItWorks}
       benefits={benefits}
@@ -635,7 +629,7 @@ export default function CSVViewer() {
               </div>
               {filteredData.length > displayCount && (
                 <div className="p-4 bg-muted/20 text-center text-sm text-muted-foreground border-t">
-                  Loading more rows... ({displayCount} of {filteredData.length} shown)
+                  Scroll more to load more... ({displayCount} of {filteredData.length} shown)
                 </div>
               )}
               {filteredData.length <= displayCount && data.length > 0 && (
