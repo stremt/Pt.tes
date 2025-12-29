@@ -14,7 +14,27 @@ export default function BulkConvertTextFilesToPdf() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Convert Multiple Text Files to PDF Efficiently - Save Hours of Work</h1>
+        <div className="mb-8 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground" data-testid="breadcrumb-home">Home</Link>
+          {" / "}
+          <Link href="/tools" className="hover:text-foreground" data-testid="breadcrumb-tools">Tools</Link>
+          {" / "}
+          <Link href="/tools/text-to-pdf" className="hover:text-foreground" data-testid="breadcrumb-tool">Text to PDF</Link>
+          {" / "}
+          <span className="text-foreground">Bulk Conversion</span>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+          <div className="flex-1">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Convert Multiple Text Files to PDF Efficiently - Save Hours of Work</h1>
+          </div>
+          <Link href="/tools/text-to-pdf">
+            <Button size="lg" className="whitespace-nowrap" data-testid="button-use-tool">
+              <ArrowRight className="mr-2 h-4 w-4" />
+              Use Tool
+            </Button>
+          </Link>
+        </div>
         
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           When you have dozens of text files to convert, doing them one-by-one wastes time. Learn efficient bulk conversion workflows that process hundreds of files systematically—maintaining quality consistency while saving you hours of repetitive work.

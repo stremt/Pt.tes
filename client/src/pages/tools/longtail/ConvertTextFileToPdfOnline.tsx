@@ -14,7 +14,27 @@ export default function ConvertTextFileToPdfOnline() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Convert Text File to PDF Online Free in Seconds</h1>
+        <div className="mb-8 text-sm text-muted-foreground">
+          <Link href="/" className="hover:text-foreground" data-testid="breadcrumb-home">Home</Link>
+          {" / "}
+          <Link href="/tools" className="hover:text-foreground" data-testid="breadcrumb-tools">Tools</Link>
+          {" / "}
+          <Link href="/tools/text-to-pdf" className="hover:text-foreground" data-testid="breadcrumb-tool">Text to PDF</Link>
+          {" / "}
+          <span className="text-foreground">Convert Online Free</span>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+          <div className="flex-1">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Convert Text File to PDF Online Free in Seconds</h1>
+          </div>
+          <Link href="/tools/text-to-pdf">
+            <Button size="lg" className="whitespace-nowrap" data-testid="button-use-tool">
+              <ArrowRight className="mr-2 h-4 w-4" />
+              Use Tool
+            </Button>
+          </Link>
+        </div>
         
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Transform plain text files into professional PDF documents instantly. No expensive software, no complicated steps. Simply upload or paste your text, and download a perfectly formatted PDF in seconds—completely free, no signup required.
