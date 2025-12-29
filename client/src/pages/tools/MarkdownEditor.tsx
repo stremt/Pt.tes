@@ -61,7 +61,7 @@ export default function MarkdownEditor() {
       description="Write Markdown on the left, get instant preview on the right. Simple, fast and distraction-free editor."
       icon={<FileEdit className="h-10 w-10 text-primary" />}
       toolId="markdown-editor"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Write Markdown", description: "Type or paste your markdown in the editor." },
         { step: 2, title: "Live Preview", description: "See instant HTML preview as you type." },

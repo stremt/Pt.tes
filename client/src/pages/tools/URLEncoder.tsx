@@ -77,7 +77,7 @@ export default function URLEncoder() {
       description="Instantly encode and decode URLs with special characters for safe transmission. 100% free, completely private, and works offline. Perfect for developers, students, and anyone working with URLs."
       icon={<Link2 className="h-10 w-10 text-primary" />}
       toolId="url-encoder"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Choose Mode", description: "Select whether you want to encode or decode a URL." },
         { step: 2, title: "Enter URL", description: "Paste your URL or text into the input field." },

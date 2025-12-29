@@ -116,7 +116,7 @@ export default function JSONFormatter() {
         description="Beautify, validate, and minify JSON data instantly. Format messy JSON, fix syntax errors, and ensure your JSON is valid—all in your browser."
         icon={<Code className="h-10 w-10 text-primary" />}
         toolId="json-formatter"
-        category="Developer Tool"
+        category="developer"
         howItWorks={[
           { step: 1, title: "Paste JSON", description: "Copy your JSON data into the input field—API responses, config files, or any JSON." },
           { step: 2, title: "Choose Action", description: "Format (beautify), minify, or validate your JSON with one click." },

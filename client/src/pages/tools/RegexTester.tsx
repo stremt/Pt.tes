@@ -123,7 +123,7 @@ export default function RegexTester() {
       description="Test and debug regular expressions with instant live results, replace functionality, and capture groups. 100% free, completely private, and works offline. Perfect for developers and students."
       icon={<Search className="h-10 w-10 text-primary" />}
       toolId="regex-tester"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Enter Pattern", description: "Type your regex pattern or select a preset from the dropdown." },
         { step: 2, title: "Add Test String", description: "Enter the text you want to test against." },

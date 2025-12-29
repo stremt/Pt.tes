@@ -75,7 +75,7 @@ export default function JSONCSVConverter() {
       description="Convert JSON to CSV or CSV to JSON instantly without internet. Paste or upload your file and get clean, formatted data in one click."
       icon={<ArrowRightLeft className="h-10 w-10 text-primary" />}
       toolId="json-csv-converter"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Select Mode", description: "Choose between JSON to CSV or CSV to JSON conversion." },
         { step: 2, title: "Paste Data", description: "Copy your data into the input field." },

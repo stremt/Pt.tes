@@ -74,7 +74,7 @@ export default function JSONYAMLConverter() {
       description="Convert JSON and YAML with one click. Secure, offline and perfect for developers & DevOps."
       icon={<FileCode className="h-10 w-10 text-primary" />}
       toolId="json-yaml-converter"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Select Mode", description: "Choose between JSON to YAML or YAML to JSON." },
         { step: 2, title: "Paste Data", description: "Enter your JSON or YAML data." },

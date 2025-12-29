@@ -87,7 +87,7 @@ export default function APISnippetBuilder() {
       description="Enter API URL, method, headers & body and instantly generate cURL or Fetch code. Perfect for backend, frontend & API developers."
       icon={<Code2 className="h-10 w-10 text-primary" />}
       toolId="api-snippet-builder"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Enter Details", description: "Fill in URL, HTTP method, headers, and request body." },
         { step: 2, title: "Choose Format", description: "Select cURL or JavaScript Fetch output." },

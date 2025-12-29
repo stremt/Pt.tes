@@ -68,7 +68,7 @@ export default function CSSMinifier() {
       description="Paste CSS and minify it instantly. Offline, fast and perfect for web developers."
       icon={<Minimize2 className="h-10 w-10 text-primary" />}
       toolId="css-minifier"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Paste CSS", description: "Enter your CSS code in the input field." },
         { step: 2, title: "Minify", description: "Click the minify button to compress your CSS." },

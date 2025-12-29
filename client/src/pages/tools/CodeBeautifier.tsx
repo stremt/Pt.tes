@@ -63,7 +63,7 @@ export default function CodeBeautifier() {
       description="Beautify your code instantly. Perfect for developers who want clean, readable HTML, CSS & JavaScript."
       icon={<Wand2 className="h-10 w-10 text-primary" />}
       toolId="code-beautifier"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Select Code Type", description: "Choose between HTML, CSS, or JavaScript." },
         { step: 2, title: "Paste Code", description: "Enter your messy or minified code." },

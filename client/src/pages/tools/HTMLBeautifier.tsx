@@ -54,7 +54,7 @@ export default function HTMLBeautifier() {
       description="Format and beautify your HTML with one click. Offline and developer-friendly."
       icon={<FileCode className="h-10 w-10 text-primary" />}
       toolId="html-beautifier"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Paste HTML", description: "Enter your messy or minified HTML code." },
         { step: 2, title: "Beautify", description: "Click beautify to format with proper indentation." },

@@ -135,7 +135,7 @@ export default function XLSXToCSVConverter() {
         description="Transform Excel spreadsheets into CSV format with one click. Upload XLSX, paste CSV, and download instantly. No signup required, completely offline, 100% free."
         icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
         toolId="xlsx-to-csv-converter"
-        category="Developer Tool"
+        category="developer"
         howItWorks={[
           { step: 1, title: "Upload or Paste", description: "Select your Excel file or paste CSV content directly." },
           { step: 2, title: "Convert or View", description: "XLSX files are automatically converted to CSV format." },

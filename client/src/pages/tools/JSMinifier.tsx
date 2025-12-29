@@ -62,7 +62,7 @@ export default function JSMinifier() {
       description="Paste your JavaScript and compress it instantly. Improves performance, reduces file size."
       icon={<Minimize2 className="h-10 w-10 text-primary" />}
       toolId="js-minifier"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Paste JavaScript", description: "Enter your JS code in the input field." },
         { step: 2, title: "Minify", description: "Click minify to compress your code." },

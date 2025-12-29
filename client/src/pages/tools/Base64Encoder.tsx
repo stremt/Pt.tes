@@ -66,7 +66,7 @@ export default function Base64Encoder() {
       description="Instantly convert text to Base64 or decode Base64 strings back to plain text. 100% offline, completely private, and free. No server uploads or data collection."
       icon={<Binary className="h-10 w-10 text-primary" />}
       toolId="base64-encoder"
-      category="Developer Tool"
+      category="developer"
       howItWorks={[
         { step: 1, title: "Choose Mode", description: "Select whether you want to encode or decode Base64." },
         { step: 2, title: "Enter Text", description: "Paste your text or Base64 string into the input field." },
