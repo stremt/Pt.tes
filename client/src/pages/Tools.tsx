@@ -71,7 +71,9 @@ export default function Tools() {
           return keywords.includes("json") || keywords.includes("code") || keywords.includes("html") ||
                  keywords.includes("css") || keywords.includes("javascript") || keywords.includes("beautifier") ||
                  keywords.includes("minifier") || keywords.includes("base64") || keywords.includes("encoder") ||
-                 keywords.includes("regex") || keywords.includes("api");
+                 keywords.includes("regex") || keywords.includes("api") || keywords.includes("csv") ||
+                 keywords.includes("xlsx") || keywords.includes("excel") || keywords.includes("converter") ||
+                 keywords.includes("yaml") || name.includes("converter") || name.includes("viewer");
         case "math":
           return keywords.includes("calculator") || name.includes("calculator") || keywords.includes("math") ||
                  name.includes("emi") || name.includes("loan") || name.includes("percentage") || 
