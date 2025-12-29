@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO, StructuredData } from "@/lib/seo";
-import { Upload, Download, Eye, RotateCcw, FileSpreadsheet } from "lucide-react";
+import { Upload, Download, Eye, RotateCcw, FileSpreadsheet, Copy, Trash2, ClipboardPaste } from "lucide-react";
 import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 import * as XLSX from "xlsx";
 
 const generateBreadcrumbSchema = () => ({
@@ -24,6 +26,9 @@ export default function XLSXToCSVConverter() {
   const [fileName, setFileName] = useState("");
   const [error, setError] = useState("");
   const [sheetName, setSheetName] = useState("");
+  const [pastedCSV, setPastedCSV] = useState("");
+  const [viewMode, setViewMode] = useState<"upload" | "paste">("upload");
+  const { toast } = useToast();
 
   useSEO({
     title: "Excel to CSV Converter Online | Free XLSX Conversion",
@@ -50,7 +55,6 @@ export default function XLSXToCSVConverter() {
         const data = event.target?.result;
         const workbook = XLSX.read(data, { type: "array" });
         
-        // Get first sheet
         const firstSheetName = workbook.SheetNames[0];
         if (!firstSheetName) {
           setError("No sheets found in the workbook");
@@ -58,18 +62,35 @@ export default function XLSXToCSVConverter() {
         }
         
         const worksheet = workbook.Sheets[firstSheetName];
-        
-        // Convert to CSV
         const csv = XLSX.utils.sheet_to_csv(worksheet);
         setCSVData(csv);
         setFileName(`${file.name.replace(/\.[^/.]+$/, "")}.csv`);
         setSheetName(firstSheetName);
+        toast({
+          title: "Success",
+          description: "File converted successfully!",
+        });
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to convert file");
       }
     };
 
     reader.readAsArrayBuffer(file);
+  };
+
+  const handlePasteCSV = () => {
+    if (!pastedCSV.trim()) {
+      setError("Please paste some CSV content");
+      return;
+    }
+    setCSVData(pastedCSV);
+    setFileName("pasted_data.csv");
+    setSheetName("Pasted Data");
+    setError("");
+    toast({
+      title: "Success",
+      description: "CSV data loaded successfully!",
+    });
   };
 
   const downloadCSV = () => {
@@ -82,6 +103,18 @@ export default function XLSXToCSVConverter() {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+    toast({
+      title: "Success",
+      description: "CSV file downloaded!",
+    });
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(csvData);
+    toast({
+      title: "Copied",
+      description: "CSV content copied to clipboard!",
+    });
   };
 
   const handleClear = () => {
@@ -89,27 +122,28 @@ export default function XLSXToCSVConverter() {
     setFileName("");
     setError("");
     setSheetName("");
+    setPastedCSV("");
   };
 
-  const previewRows = csvData.split("\n").slice(0, 10);
+  const previewRows = csvData.split("\n").slice(0, 15);
 
   return (
     <>
       <StructuredData data={generateBreadcrumbSchema()} />
       <ToolLayout
         title="Convert Excel Files to CSV Format Instantly"
-        description="Transform Excel spreadsheets into CSV format with one click. Upload XLSX, preview the data, and download instantly. No signup required, completely offline, 100% free."
+        description="Transform Excel spreadsheets into CSV format with one click. Upload XLSX, paste CSV, and download instantly. No signup required, completely offline, 100% free."
         icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
         toolId="xlsx-to-csv-converter"
         category="Developer Tool"
         howItWorks={[
-          { step: 1, title: "Upload XLSX", description: "Select your Excel file (.xlsx, .xls, or .xlsm) from your device." },
-          { step: 2, title: "Convert", description: "The first sheet is automatically converted to CSV format." },
-          { step: 3, title: "Preview & Download", description: "Preview the CSV data and download the file with one click." },
+          { step: 1, title: "Upload or Paste", description: "Select your Excel file or paste CSV content directly." },
+          { step: 2, title: "Convert or View", description: "XLSX files are automatically converted to CSV format." },
+          { step: 3, title: "Download or Edit", description: "Download your CSV file or copy the content to edit." },
         ]}
         benefits={[
           { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Quick Conversion", description: "Convert Excel files to CSV instantly without any waiting." },
-          { icon: <Eye className="h-6 w-6 text-primary" />, title: "Preview Data", description: "See the first 10 rows before downloading to verify the conversion." },
+          { icon: <Eye className="h-6 w-6 text-primary" />, title: "Preview Data", description: "See the first 15 rows before downloading to verify the conversion." },
           { icon: <RotateCcw className="h-6 w-6 text-primary" />, title: "100% Offline", description: "All processing happens locally. Your files never leave your browser." },
         ]}
         faqs={[
@@ -122,129 +156,161 @@ export default function XLSXToCSVConverter() {
           { question: "Can I use this tool on my phone?", answer: "Yes, the converter works on smartphones, tablets, and computers. Just open it in any web browser and use the same way." },
           { question: "Do I need to create an account or sign in?", answer: "No account needed. The tool is free and works immediately without any signup, registration, or login." },
         ]}
-        footer={
-          <div className="space-y-4">
-            <p className="text-center text-sm text-muted-foreground"><Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link></p>
-            <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
-              <p className="text-sm font-semibold text-center mb-3">More XLSX to CSV Tools:</p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                <Link href="/tools/xlsx-to-csv-converter/free-online" asChild>
-                  <Button variant="outline" size="sm" className="text-xs" data-testid="link-free-online">Free Online Converter</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/no-excel" asChild>
-                  <Button variant="outline" size="sm" className="text-xs" data-testid="link-no-excel">Without Excel</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/with-preview" asChild>
-                  <Button variant="outline" size="sm" className="text-xs" data-testid="link-preview">With Preview</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/bulk-convert" asChild>
-                  <Button variant="outline" size="sm" className="text-xs" data-testid="link-bulk">Bulk Convert</Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        }
       >
         <div className="max-w-4xl mx-auto space-y-6">
-          {/* Upload Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Upload className="h-5 w-5" />
-                Upload Excel File
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <input
-                  type="file"
-                  accept=".xlsx,.xls,.xlsm"
-                  onChange={handleFileUpload}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:opacity-80 cursor-pointer"
-                  data-testid="input-file-upload"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Supported formats: .xlsx, .xls, .xlsm
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Tab Switcher */}
+          <div className="flex gap-2 border-b">
+            <Button
+              variant={viewMode === "upload" ? "default" : "ghost"}
+              onClick={() => { setViewMode("upload"); setError(""); }}
+              className="rounded-b-none"
+              data-testid="button-tab-upload"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              Upload XLSX
+            </Button>
+            <Button
+              variant={viewMode === "paste" ? "default" : "ghost"}
+              onClick={() => { setViewMode("paste"); setError(""); }}
+              className="rounded-b-none"
+              data-testid="button-tab-paste"
+            >
+              <ClipboardPaste className="h-4 w-4 mr-2" />
+              Paste CSV
+            </Button>
+          </div>
 
-          {/* Error Display */}
+          {/* Upload Section */}
+          {viewMode === "upload" && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload className="h-5 w-5" />
+                  Upload Excel File
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <input
+                    type="file"
+                    accept=".xlsx,.xls,.xlsm"
+                    onChange={handleFileUpload}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:opacity-80 cursor-pointer"
+                    data-testid="input-file-upload"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Supported formats: .xlsx, .xls, .xlsm
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Paste Section */}
+          {viewMode === "paste" && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ClipboardPaste className="h-5 w-5" />
+                  Paste CSV Content
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <Textarea
+                    placeholder="Paste your CSV content here... (headers,values&#10;data1,value1&#10;data2,value2)"
+                    value={pastedCSV}
+                    onChange={(e) => setPastedCSV(e.target.value)}
+                    className="font-mono text-sm min-h-32"
+                    data-testid="textarea-csv-input"
+                  />
+                  <Button onClick={handlePasteCSV} className="w-full" data-testid="button-paste-load">
+                    <ClipboardPaste className="h-4 w-4 mr-2" />
+                    Load CSV Content
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {error && (
             <div className="p-4 bg-destructive/10 border border-destructive rounded-lg" data-testid="status-error-convert">
               <p className="text-sm font-semibold text-destructive">Error: {error}</p>
             </div>
           )}
 
-          {/* File Info */}
           {csvData && (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">File Name:</span>
-                    <span className="font-medium">{fileName}</span>
+            <>
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">File Name:</span>
+                      <span className="font-medium">{fileName}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Source:</span>
+                      <Badge variant="secondary">{sheetName}</Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Total Rows:</span>
+                      <span className="font-medium">{csvData.split("\n").length - 1}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Sheet:</span>
-                    <Badge variant="secondary">{sheetName}</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Rows:</span>
-                    <span className="font-medium">{previewRows.length - 1}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
 
-          {/* Preview Section */}
-          {csvData && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5" />
-                  Preview (First 10 Rows)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <pre className="p-4 bg-muted rounded-lg text-sm font-mono max-h-96 overflow-auto" data-testid="text-preview">
-                    {previewRows.map((row, idx) => (
-                      <div key={idx}>{row}</div>
-                    ))}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Eye className="h-5 w-5" />
+                    Preview (First 15 Rows)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <pre className="p-4 bg-muted rounded-lg text-xs font-mono max-h-96 overflow-auto whitespace-pre-wrap break-words" data-testid="text-preview">
+                      {previewRows.map((row, idx) => (
+                        <div key={idx}>{row}</div>
+                      ))}
+                    </pre>
+                  </div>
+                </CardContent>
+              </Card>
 
-          {/* Actions */}
-          {csvData && (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    onClick={downloadCSV}
-                    className="flex-1"
-                    data-testid="button-download"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download CSV
-                  </Button>
-                  <Button
-                    onClick={handleClear}
-                    variant="outline"
-                    className="flex-1"
-                    data-testid="button-clear"
-                  >
-                    <RotateCcw className="h-4 w-4 mr-2" />
-                    Clear
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>CSV Content</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Textarea
+                    value={csvData}
+                    onChange={(e) => setCSVData(e.target.value)}
+                    className="font-mono text-xs min-h-40"
+                    data-testid="textarea-csv-output"
+                  />
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button onClick={downloadCSV} className="flex-1" data-testid="button-download">
+                      <Download className="h-4 w-4 mr-2" />
+                      Download CSV
+                    </Button>
+                    <Button onClick={copyToClipboard} variant="outline" className="flex-1" data-testid="button-copy">
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy to Clipboard
+                    </Button>
+                    <Button onClick={handleClear} variant="outline" className="flex-1" data-testid="button-clear">
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Clear
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
           )}
 
           {/* About This Tool */}
@@ -293,6 +359,34 @@ export default function XLSXToCSVConverter() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Long-tail SEO Pages */}
+          <Card className="border-primary/20 bg-primary/5">
+            <CardHeader>
+              <CardTitle>More XLSX to CSV Converter Variants</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Link href="/tools/xlsx-to-csv-converter/free-online" asChild>
+                  <Button variant="outline" className="justify-center" data-testid="link-free-online">Free Online Converter</Button>
+                </Link>
+                <Link href="/tools/xlsx-to-csv-converter/no-excel" asChild>
+                  <Button variant="outline" className="justify-center" data-testid="link-no-excel">Without Excel Required</Button>
+                </Link>
+                <Link href="/tools/xlsx-to-csv-converter/with-preview" asChild>
+                  <Button variant="outline" className="justify-center" data-testid="link-preview">With Preview Feature</Button>
+                </Link>
+                <Link href="/tools/xlsx-to-csv-converter/bulk-convert" asChild>
+                  <Button variant="outline" className="justify-center" data-testid="link-bulk">Bulk Conversion</Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Back Link */}
+          <p className="text-center text-sm text-muted-foreground">
+            <Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link>
+          </p>
         </div>
       </ToolLayout>
     </>
