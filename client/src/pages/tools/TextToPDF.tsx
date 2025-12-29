@@ -25,9 +25,9 @@ export default function TextToPDF() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Text to PDF Converter Online - Convert Text to PDF | Pixocraft Tools",
-    description: "Convert plain text to PDF documents instantly with formatting options. Customize font, size, title, and more. Free, offline, no signup required.",
-    keywords: "text to pdf converter, convert text to pdf free, text pdf generator, online text to pdf, text document to pdf",
+    title: "Free Text to PDF Converter - No Signup, Offline & Secure",
+    description: "Convert text files to PDF instantly, offline. Customize fonts, sizes, and formatting. 100% free, no signup, no tracking. Works on all devices.",
+    keywords: "text to pdf converter, convert text to pdf free, text pdf generator, online text to pdf, text document to pdf, offline text to pdf, free pdf converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-to-pdf",
   });
 
@@ -110,32 +110,36 @@ export default function TextToPDF() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Can I customize the appearance of my PDF?",
-      answer: "Yes! You can change the font family, font size, add a title, and choose between portrait and landscape orientation. All formatting options are applied before converting to PDF."
+      question: "Is my text secure when I convert it to PDF?",
+      answer: "Yes. All conversion happens in your browser on your device. Your text never leaves your computer and isn't stored anywhere. Once you close the page, there's no record of what you converted."
     },
     {
-      question: "What fonts are available?",
-      answer: "You can choose from Arial, Times New Roman, Courier New, Georgia, Verdana, and more. These are standard web fonts that work reliably across all PDF viewers."
+      question: "Can I use this tool offline?",
+      answer: "The page loads online, but once loaded, conversion happens offline. You don't need internet to convert text after the page is loaded."
     },
     {
-      question: "Is there a size limit for text content?",
-      answer: "The limit depends on your browser's available memory. Most modern browsers can handle large text files. The more text you add, the larger the resulting PDF will be."
+      question: "Why is there no signup or login required?",
+      answer: "Because we don't need to track you or store anything. Your conversion happens locally, so there's no need for accounts, emails, or passwords."
     },
     {
-      question: "Can I add line breaks and formatting to my text?",
-      answer: "Yes! Line breaks in your text will be preserved in the PDF. You can also add a title to your document. For advanced formatting like bold or italic, use HTML tags."
+      question: "What's the file size limit for conversion?",
+      answer: "There's no strict limit. Your browser's memory is the limit. Most modern browsers handle very large text files without issues. A 100MB file should work fine on most devices."
     },
     {
-      question: "Is my text content secure?",
-      answer: "Absolutely! All conversion happens entirely in your browser using JavaScript. Your text is never uploaded to our servers or transmitted over the internet. Once you close the page, all data is completely removed."
+      question: "Will the PDF look the same on someone else's computer?",
+      answer: "Yes. PDFs are designed to look identical everywhere. The fonts, spacing, and layout you set will appear the same on any device that opens the PDF."
     },
     {
-      question: "What is the Markdown mode?",
-      answer: "Markdown mode interprets your text as Markdown formatting. This means you can use # for headings, **bold** for bold text, *italic* for italics, - for bullet points, and more. The PDF will render with proper formatting."
+      question: "What happens if I include special characters or non-English text?",
+      answer: "Special characters and non-English languages work fine. The converter handles Unicode text perfectly, so any language or symbol converts correctly."
     },
     {
-      question: "Can I mix plain text and Markdown?",
-      answer: "When Markdown mode is enabled, your entire document is treated as Markdown. If you want some plain text sections, simply type them without any Markdown formatting symbols."
+      question: "Can I edit the PDF after converting it?",
+      answer: "Text-to-PDF creates read-only PDFs. If you need to edit, modify the text first, then convert again. For more advanced editing, use a PDF editor tool."
+    },
+    {
+      question: "Can I convert multiple files at once?",
+      answer: "Currently, you convert one file at a time. For batch conversions, use the tool repeatedly or explore our bulk conversion guides for large batches."
     }
   ];
 
@@ -198,9 +202,9 @@ Click "Convert to PDF" to download your document!`;
                 <FileText className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Text to PDF Converter</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">Convert Text to Professional PDF Documents</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Convert plain text to beautifully formatted PDF documents. Customize fonts, sizes, titles, and page orientation.
+              Transform plain text into professionally formatted PDFs instantly. Offline, secure, and completely free. No signup, no tracking, no limits.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
@@ -384,6 +388,36 @@ Click "Convert to PDF" to download your document!`;
           </div>
 
           <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Why Convert Text to PDF?</h2>
+            <div className="prose prose-sm dark:prose-invert max-w-4xl mx-auto text-muted-foreground space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">The Problem with Plain Text</h3>
+                <p>Text files are everywhere—in your email, notes apps, documents, and more. But when you need to share them professionally, archive them long-term, or print them nicely formatted, plain text falls short. PDF is the universal standard for documents that need to look consistent across devices, remain un-editable, and feel professional. Converting text to PDF solves this instantly.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Who Benefits Most</h3>
+                <p><strong>Students</strong> converting essays and assignments to PDF for submission. <strong>Professionals</strong> archiving important correspondence and documentation. <strong>Business owners</strong> creating formal documents without expensive software. <strong>Developers and writers</strong> who work primarily in plain text but need portable formats. Anyone who wants to preserve text documents as permanent, shareable records that look professional everywhere.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Real-Life Examples</h3>
+                <p>A student has notes in plain text and needs to submit an essay in PDF format—five minutes of formatting, then download. A freelancer receives a contract via email as plain text and converts it to PDF to archive as legal documentation. A researcher collects data in text format and converts it to PDF for backup and sharing with colleagues. A small business owner creates invoices or receipts in text and converts them to professional-looking PDFs. A writer exports their manuscript from a text editor and converts to PDF for agent submission. A journalist archives email interviews as timestamped PDFs for record-keeping.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Privacy & Offline Guarantee</h3>
+                <p>Here's what makes this tool different: the entire conversion happens on your computer using your browser. Your text is processed locally, not sent anywhere. Once you close the page, nothing is stored or logged. This matters for students protecting academic work, professionals keeping contracts private, and anyone handling sensitive information. You can use this tool offline after the page loads—no internet required for conversion, and no data transmission at any point.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">Customization & Control</h3>
+                <p>You're not locked into a single format. Choose your font from standard options, adjust the size, set page orientation (portrait or landscape), and add a title to your document. Want to preview before downloading? You can. Working with structured content? Optional Markdown mode lets you use formatting like headings, bold, lists, and more. Your preferences are applied before conversion, giving you complete control over the final PDF without needing complex software.</p>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Common Use Cases</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card>
@@ -414,6 +448,60 @@ Click "Convert to PDF" to download your document!`;
                   <p className="text-muted-foreground">
                     Export text content from web pages, editors, or applications as PDF. Preserve your work in a portable, shareable format.
                   </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Other PDF Tools You Might Need</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">HTML to PDF Converter</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Convert web pages and HTML code directly to PDF format with full styling preserved.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">PDF Merger</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Combine multiple PDF files into a single document for easier sharing and organization.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Image to PDF Converter</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Convert JPG, PNG, and other image formats into professional PDF documents.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">PDF Splitter</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Extract specific pages or divide large PDFs into smaller, manageable files.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">PDF Compressor</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Reduce PDF file size for easier sharing and storage without losing quality.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">PDF Rotator</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Rotate PDF pages and adjust orientation for correct viewing and printing.</p>
                 </CardContent>
               </Card>
             </div>
