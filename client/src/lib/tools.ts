@@ -103,12 +103,12 @@ import {
 export const tools: ToolMetadata[] = [
   {
     id: "csv-viewer",
-    name: "CSV Viewer",
-    description: "Open and view CSV files online instantly with full privacy. No upload required, works 100% in your browser. Search, filter and explore your data securely.",
+    name: "CSV Viewer & Editor",
+    description: "Open, view and edit CSV files online instantly with full privacy. No upload required, works 100% in your browser. Search, filter and explore your data securely.",
     icon: "FileSpreadsheet",
     path: "/tools/csv-viewer",
     category: "utility",
-    keywords: ["csv viewer", "open csv online", "view csv file", "csv reader", "privacy-focused", "browser csv viewer"],
+    keywords: ["csv viewer", "open csv online", "view csv file", "csv reader", "privacy-focused", "browser csv viewer", "csv editor"],
   },
   {
     id: "temp-mail",
@@ -1642,12 +1642,12 @@ export const tools: ToolMetadata[] = [
   },
   {
     id: "excel-viewer",
-    name: "Excel Viewer",
-    description: "View and read Excel files online free. Open XLSX and XLS spreadsheets without Microsoft Excel. 100% offline viewer.",
+    name: "XLSX Viewer & Editor",
+    description: "View and edit Excel files online free. Open XLSX and XLS spreadsheets without Microsoft Excel. 100% offline viewer and editor.",
     icon: "Eye",
     path: "/tools/excel-viewer",
     category: "productivity",
-    keywords: ["excel viewer", "view xlsx online", "open excel file", "spreadsheet viewer", "xls reader"],
+    keywords: ["xlsx viewer", "excel viewer", "view xlsx online", "open excel file", "spreadsheet viewer", "xls reader", "xlsx editor", "excel editor"],
   },
   {
     id: "html-to-pdf",
