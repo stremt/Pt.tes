@@ -48,26 +48,29 @@ export default function TextToPDF() {
       element.style.fontSize = fontSize + "pt";
       element.style.lineHeight = "1.6";
       element.style.padding = "20px";
+      element.style.backgroundColor = "#ffffff";
+      element.style.color = "#000000";
 
       let htmlContent = "";
       
       if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
+        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt; font-weight: bold; color: #000000;">${escapeHtml(titleText)}</h1>`;
       }
       
       if (isMarkdown) {
         const markdownHtml = await marked(textContent);
-        htmlContent += `<div style="font-family: ${fontFamily}; font-size: ${fontSize}pt;">${markdownHtml}</div>`;
+        htmlContent += `<div style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${markdownHtml}</div>`;
       } else {
-        htmlContent += `<p style="white-space: pre-wrap; word-wrap: break-word;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</p>`;
+        htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       }
       
       element.innerHTML = htmlContent;
+      document.body.appendChild(element);
       
       const opt = {
         margin: 10,
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, backgroundColor: '#ffffff' },
         jsPDF: { 
           unit: 'mm', 
           format: 'a4', 
@@ -76,12 +79,14 @@ export default function TextToPDF() {
       };
 
       await html2pdf().set(opt).from(element).save();
+      document.body.removeChild(element);
 
       toast({
         title: "Success!",
         description: "Text converted to PDF successfully",
       });
     } catch (error) {
+      console.error("PDF conversion error:", error);
       toast({
         title: "Error",
         description: "Failed to convert text to PDF",
@@ -165,8 +170,9 @@ Click "Convert to PDF" to download your document!`;
         dangerouslySetInnerHTML={{ __html: htmlContent }}
         style={{
           fontSize: fontSize + "pt",
+          color: "#000000",
         }}
-        className="prose prose-sm max-w-none dark:prose-invert"
+        className="prose prose-sm max-w-none prose-h1:text-black prose-h2:text-black prose-h3:text-black prose-h4:text-black prose-h5:text-black prose-h6:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-em:text-black"
       />
     );
   };
@@ -270,14 +276,14 @@ Click "Convert to PDF" to download your document!`;
                     </Select>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 pt-2">
                     <Checkbox
                       id="markdown-toggle"
                       checked={isMarkdown}
                       onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
                       data-testid="checkbox-markdown"
                     />
-                    <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer">
+                    <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer text-foreground">
                       Treat as Markdown
                     </label>
                   </div>
