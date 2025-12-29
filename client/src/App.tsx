@@ -339,6 +339,10 @@ const XLSXToCSVNoExcel = lazy(() => import("@/pages/tools/longtail/XLSXToCSVNoEx
 const XLSXToCSVBulk = lazy(() => import("@/pages/tools/longtail/XLSXToCSVBulk"));
 const XLSXToCSVWithPreview = lazy(() => import("@/pages/tools/longtail/XLSXToCSVWithPreview"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
+const ConvertTextFileToPdfOnline = lazy(() => import("@/pages/tools/longtail/ConvertTextFileToPdfOnline"));
+const ConvertDocumentTextToPdfFormatting = lazy(() => import("@/pages/tools/longtail/ConvertDocumentTextToPdfFormatting"));
+const TextToPdfEmailConverter = lazy(() => import("@/pages/tools/longtail/TextToPdfEmailConverter"));
+const BulkConvertTextFilesToPdf = lazy(() => import("@/pages/tools/longtail/BulkConvertTextFilesToPdf"));
 
 // Lazily load blog pages
 const Blogs = lazy(() => import("@/pages/Blogs"));
@@ -648,6 +652,10 @@ function Router() {
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
         <Route path="/tools/text-to-pdf" component={TextToPDF} />
+        <Route path="/tools/text-to-pdf/convert-online" component={ConvertTextFileToPdfOnline} />
+        <Route path="/tools/text-to-pdf/formatting-guide" component={ConvertDocumentTextToPdfFormatting} />
+        <Route path="/tools/text-to-pdf/email-converter" component={TextToPdfEmailConverter} />
+        <Route path="/tools/text-to-pdf/bulk-conversion" component={BulkConvertTextFilesToPdf} />
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
