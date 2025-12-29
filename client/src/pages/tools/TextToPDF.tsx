@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { FileText, Download, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
+import { marked } from "marked";
 
 export default function TextToPDF() {
   const [textContent, setTextContent] = useState("");
@@ -19,6 +21,7 @@ export default function TextToPDF() {
   const [fontFamily, setFontFamily] = useState("Arial");
   const [titleText, setTitleText] = useState("");
   const [pageOrientation, setPageOrientation] = useState("portrait");
+  const [isMarkdown, setIsMarkdown] = useState(false);
   const { toast } = useToast();
 
   useSEO({
@@ -45,16 +48,19 @@ export default function TextToPDF() {
       element.style.fontSize = fontSize + "pt";
       element.style.lineHeight = "1.6";
       element.style.padding = "20px";
-      element.style.whiteSpace = "pre-wrap";
-      element.style.wordWrap = "break-word";
 
       let htmlContent = "";
       
       if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt;">${escapeHtml(titleText)}</h1>`;
+        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
       }
       
-      htmlContent += `<p>${escapeHtml(textContent).replace(/\n/g, '<br>')}</p>`;
+      if (isMarkdown) {
+        const markdownHtml = await marked(textContent);
+        htmlContent += `<div style="font-family: ${fontFamily}; font-size: ${fontSize}pt;">${markdownHtml}</div>`;
+      } else {
+        htmlContent += `<p style="white-space: pre-wrap; word-wrap: break-word;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</p>`;
+      }
       
       element.innerHTML = htmlContent;
       
@@ -117,6 +123,14 @@ export default function TextToPDF() {
     {
       question: "Is my text content secure?",
       answer: "Absolutely! All conversion happens entirely in your browser using JavaScript. Your text is never uploaded to our servers or transmitted over the internet. Once you close the page, all data is completely removed."
+    },
+    {
+      question: "What is the Markdown mode?",
+      answer: "Markdown mode interprets your text as Markdown formatting. This means you can use # for headings, **bold** for bold text, *italic* for italics, - for bullet points, and more. The PDF will render with proper formatting."
+    },
+    {
+      question: "Can I mix plain text and Markdown?",
+      answer: "When Markdown mode is enabled, your entire document is treated as Markdown. If you want some plain text sections, simply type them without any Markdown formatting symbols."
     }
   ];
 
@@ -133,6 +147,29 @@ Features include:
 - Portrait or landscape orientation
 
 Click "Convert to PDF" to download your document!`;
+
+  const MarkdownPreview = ({ content }: { content: string }) => {
+    const [htmlContent, setHtmlContent] = useState("");
+
+    const renderMarkdown = async () => {
+      const html = await marked(content);
+      setHtmlContent(html);
+    };
+
+    useEffect(() => {
+      renderMarkdown();
+    }, [content]);
+
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+        style={{
+          fontSize: fontSize + "pt",
+        }}
+        className="prose prose-sm max-w-none dark:prose-invert"
+      />
+    );
+  };
 
   return (
     <>
@@ -233,6 +270,18 @@ Click "Convert to PDF" to download your document!`;
                     </Select>
                   </div>
 
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="markdown-toggle"
+                      checked={isMarkdown}
+                      onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
+                      data-testid="checkbox-markdown"
+                    />
+                    <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer">
+                      Treat as Markdown
+                    </label>
+                  </div>
+
                   <Button
                     variant="outline"
                     className="w-full"
@@ -293,11 +342,11 @@ Click "Convert to PDF" to download your document!`;
             {showPreview && textContent && (
               <Card className="mt-6">
                 <CardHeader>
-                  <CardTitle>Preview</CardTitle>
+                  <CardTitle>Preview {isMarkdown && "( Markdown )"}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div 
-                    className="border rounded-lg p-8 bg-white text-black overflow-auto max-h-96"
+                    className="border rounded-lg p-8 bg-white text-black overflow-auto max-h-96 prose prose-sm dark:prose-invert"
                     style={{
                       fontFamily: fontFamily,
                       fontSize: fontSize + "pt",
@@ -315,9 +364,13 @@ Click "Convert to PDF" to download your document!`;
                         {titleText}
                       </h1>
                     )}
-                    <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                      {textContent}
-                    </div>
+                    {isMarkdown ? (
+                      <MarkdownPreview content={textContent} />
+                    ) : (
+                      <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                        {textContent}
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
