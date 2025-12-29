@@ -419,6 +419,52 @@ Click "Convert to PDF" to download your document!`;
             </div>
           </section>
 
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">More Text-to-PDF Solutions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Link href="/tools/text-to-pdf/convert-online">
+                <Card className="h-full hover-elevate cursor-pointer transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Convert Text File to PDF Online Free</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Instant conversion with no signup required. Free and secure document conversion in seconds.</p>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools/text-to-pdf/formatting-guide">
+                <Card className="h-full hover-elevate cursor-pointer transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Convert Document Text with Formatting</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Preserve indentation, spacing, and structure. Complete guide for formatting-aware conversion.</p>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools/text-to-pdf/email-converter">
+                <Card className="h-full hover-elevate cursor-pointer transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Convert Email Content to PDF</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Archive important emails permanently. Save messages and threads as timestamped PDF records.</p>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools/text-to-pdf/bulk-conversion">
+                <Card className="h-full hover-elevate cursor-pointer transition-all">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Bulk Convert Text Files to PDF</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">Process hundreds of files efficiently. Fast, organized bulk conversion for large batches.</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
+          </section>
+
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Category: <Link href="/tools/pdf" className="text-primary hover:text-primary/80 transition-colors">PDF Tools</Link>
           </p>
