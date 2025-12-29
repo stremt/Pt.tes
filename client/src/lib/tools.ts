@@ -1703,6 +1703,15 @@ export const tools: ToolMetadata[] = [
     category: "media",
     keywords: ["instagram profile picture downloader", "download instagram dp", "instagram profile photo", "ig dp downloader", "instagram avatar downloader"],
   },
+  {
+    id: "xlsx-to-csv-converter",
+    name: "XLSX to CSV Converter",
+    description: "Convert Excel XLSX files to CSV format instantly with preview and download. No signup required, 100% offline processing.",
+    icon: "ArrowRightLeft",
+    path: "/tools/xlsx-to-csv-converter",
+    category: "developer",
+    keywords: ["xlsx to csv converter", "excel to csv converter", "convert xlsx to csv", "csv converter", "xlsx converter", "excel converter"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
