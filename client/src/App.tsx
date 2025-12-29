@@ -315,6 +315,7 @@ const CSVViewer = lazy(() => import("@/pages/tools/CSVViewer"));
 const ExcelToPDF = lazy(() => import("@/pages/tools/ExcelToPDF"));
 const ExcelViewer = lazy(() => import("@/pages/tools/ExcelViewer"));
 const HTMLtoPDF = lazy(() => import("@/pages/tools/HTMLtoPDF"));
+const TextToPDF = lazy(() => import("@/pages/tools/TextToPDF"));
 const AudioNoiseRemover = lazy(() => import("@/pages/tools/AudioNoiseRemover"));
 const GIFtoMP4 = lazy(() => import("@/pages/tools/GIFtoMP4"));
 const MP4toMP3 = lazy(() => import("@/pages/tools/MP4toMP3"));
@@ -646,6 +647,7 @@ function Router() {
         <Route path="/tools/excel-to-pdf" component={ExcelToPDF} />
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
+        <Route path="/tools/text-to-pdf" component={TextToPDF} />
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />

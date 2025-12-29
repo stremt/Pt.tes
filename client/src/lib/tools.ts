@@ -1659,6 +1659,15 @@ export const tools: ToolMetadata[] = [
     keywords: ["html to pdf", "convert html to pdf", "html pdf converter", "webpage to pdf", "html2pdf"],
   },
   {
+    id: "text-to-pdf",
+    name: "Text to PDF Converter",
+    description: "Convert plain text to PDF documents with custom formatting. Choose fonts, sizes, add titles, and select page orientation. Free, offline, no signup.",
+    icon: "FileText",
+    path: "/tools/text-to-pdf",
+    category: "pdf",
+    keywords: ["text to pdf converter", "convert text to pdf", "text to pdf online", "plain text to pdf", "text document to pdf"],
+  },
+  {
     id: "audio-noise-remover",
     name: "Audio Noise Remover",
     description: "Remove background noise from audio files free. Clean audio recordings with advanced noise reduction. Offline audio filter.",
