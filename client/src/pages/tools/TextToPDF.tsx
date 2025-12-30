@@ -508,6 +508,22 @@ Click "Convert to PDF" to download your document!`;
           </section>
 
           <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              {faqItems.map((item, index) => (
+                <Card key={index}>
+                  <CardHeader>
+                    <CardTitle className="text-base">{item.question}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{item.answer}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          <section className="mb-16">
             <h2 className="text-3xl font-bold mb-8 text-center">More Text-to-PDF Solutions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Link href="/tools/text-to-pdf/convert-online">
