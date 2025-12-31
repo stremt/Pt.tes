@@ -260,7 +260,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": item.url
+      "item": item.url.startsWith("http") ? item.url : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`
     }))
   };
 }
