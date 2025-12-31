@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
+import { Breadcrumb } from "./Breadcrumb";
 
 interface ToolLayoutProps {
   title: string;
@@ -50,15 +51,14 @@ export function ToolLayout({
       {/* Breadcrumb */}
       <div className="bg-background border-b sticky top-0 z-40">
         <div className="container mx-auto px-4 max-w-7xl py-3">
-          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-            <ChevronRight className="h-4 w-4" />
-            <Link href="/tools" className="hover:text-foreground transition-colors">Tools</Link>
-            <ChevronRight className="h-4 w-4" />
-            <Link href={categoryInfo.path} className="hover:text-foreground transition-colors">{categoryInfo.name}</Link>
-            <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground font-medium">{title}</span>
-          </div>
+          <Breadcrumb 
+            items={[
+              { name: "Home", url: "/" },
+              { name: "Tools", url: "/tools" },
+              { name: categoryInfo.name, url: categoryInfo.path },
+              { name: title, url: window.location.pathname }
+            ]} 
+          />
         </div>
       </div>
 
