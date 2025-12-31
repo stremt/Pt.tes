@@ -343,6 +343,11 @@ const ConvertTextFileToPdfOnline = lazy(() => import("@/pages/tools/longtail/Con
 const ConvertDocumentTextToPdfFormatting = lazy(() => import("@/pages/tools/longtail/ConvertDocumentTextToPdfFormatting"));
 const TextToPdfEmailConverter = lazy(() => import("@/pages/tools/longtail/TextToPdfEmailConverter"));
 const BulkConvertTextFilesToPdf = lazy(() => import("@/pages/tools/longtail/BulkConvertTextFilesToPdf"));
+const RobotsTextGenerator = lazy(() => import("@/pages/tools/RobotsTextGenerator"));
+const SitemapXmlGenerator = lazy(() => import("@/pages/tools/SitemapXmlGenerator"));
+const MetaRobotsTagGenerator = lazy(() => import("@/pages/tools/MetaRobotsTagGenerator"));
+const CanonicalUrlGenerator = lazy(() => import("@/pages/tools/CanonicalUrlGenerator"));
+const OpenGraphTagGenerator = lazy(() => import("@/pages/tools/OpenGraphTagGenerator"));
 
 // Lazily load blog pages
 const Blogs = lazy(() => import("@/pages/Blogs"));
@@ -656,6 +661,11 @@ function Router() {
         <Route path="/tools/text-to-pdf/formatting-guide" component={ConvertDocumentTextToPdfFormatting} />
         <Route path="/tools/text-to-pdf/email-converter" component={TextToPdfEmailConverter} />
         <Route path="/tools/text-to-pdf/bulk-conversion" component={BulkConvertTextFilesToPdf} />
+        <Route path="/tools/robots-txt-generator" component={RobotsTextGenerator} />
+        <Route path="/tools/sitemap-xml-generator" component={SitemapXmlGenerator} />
+        <Route path="/tools/meta-robots-tag-generator" component={MetaRobotsTagGenerator} />
+        <Route path="/tools/canonical-url-generator" component={CanonicalUrlGenerator} />
+        <Route path="/tools/open-graph-tag-generator" component={OpenGraphTagGenerator} />
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
