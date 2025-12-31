@@ -393,15 +393,17 @@ export default function QRMaker() {
         }
 
         if (frameStyle === "scanme-top") {
-          ctx.font = "bold 16px Arial";
+          const fontSize = Math.max(14, Math.floor(qrSize * 0.08));
+          ctx.font = `bold ${fontSize}px Arial`;
           ctx.fillStyle = darkColor;
           ctx.textAlign = "center";
-          ctx.fillText("SCAN ME", canvas.width / 2, 25);
+          ctx.fillText("SCAN ME", canvas.width / 2, padding / 2 + fontSize / 2);
         } else if (frameStyle === "scanme-bottom") {
-          ctx.font = "bold 16px Arial";
+          const fontSize = Math.max(14, Math.floor(qrSize * 0.08));
+          ctx.font = `bold ${fontSize}px Arial`;
           ctx.fillStyle = darkColor;
           ctx.textAlign = "center";
-          ctx.fillText("SCAN ME", canvas.width / 2, canvas.height - 10);
+          ctx.fillText("SCAN ME", canvas.width / 2, canvas.height - 12);
         }
 
         const eyePositions = [
@@ -436,13 +438,14 @@ export default function QRMaker() {
         });
 
         if (logoData) {
-          const logoX = (canvas.width - logoSize) / 2;
-          const logoY = padding + (qrSize - logoSize) / 2;
+          const scaledLogoSize = Math.max(40, Math.floor(qrSize * (logoSize / 100)));
+          const logoX = (canvas.width - scaledLogoSize) / 2;
+          const logoY = padding + (qrSize - scaledLogoSize) / 2;
 
           if (logoBackground) {
             ctx.fillStyle = lightColor;
             ctx.beginPath();
-            ctx.roundRect(logoX - 5, logoY - 5, logoSize + 10, logoSize + 10, logoBorderRadius);
+            ctx.roundRect(logoX - 5, logoY - 5, scaledLogoSize + 10, scaledLogoSize + 10, logoBorderRadius);
             ctx.fill();
           }
 
@@ -452,19 +455,20 @@ export default function QRMaker() {
             img.onload = () => {
               ctx.save();
               ctx.beginPath();
-              ctx.roundRect(logoX, logoY, logoSize, logoSize, logoBorderRadius);
+              ctx.roundRect(logoX, logoY, scaledLogoSize, scaledLogoSize, logoBorderRadius);
               ctx.clip();
-              ctx.drawImage(img, logoX, logoY, logoSize, logoSize);
+              ctx.drawImage(img, logoX, logoY, scaledLogoSize, scaledLogoSize);
               ctx.restore();
             };
           } catch (e) {}
         }
 
         if (overlayText) {
-          ctx.font = "bold 14px Arial";
+          const fontSize = Math.max(12, Math.floor(qrSize * 0.06));
+          ctx.font = `bold ${fontSize}px Arial`;
           ctx.fillStyle = overlayTextColor;
           ctx.textAlign = "center";
-          ctx.fillText(overlayText, canvas.width / 2, canvas.height - 15);
+          ctx.fillText(overlayText, canvas.width / 2, canvas.height - padding / 3);
         }
       });
     } catch (error) {}
