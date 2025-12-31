@@ -1,0 +1,714 @@
+================================================================================
+PIXOCRAFT TOOLS - COMPLETE WEBSITE PAGES LIST
+================================================================================
+Total Pages: 348
+Last Updated: December 31, 2025
+
+================================================================================
+SECTION 1: CORE & MAIN PAGES (6 pages)
+================================================================================
+
+1. Home Page
+   URL: /
+   File: client/src/pages/Home.tsx
+   Description: Landing page with hero, tool grid, featured tools, blog preview
+
+2. Tools Directory
+   URL: /tools
+   File: client/src/pages/Tools.tsx
+   Description: Master directory of all 247+ tools with search and filtering
+
+3. About Page
+   URL: /about
+   File: client/src/pages/About.tsx
+   Description: About Pixocraft Tools, mission, features, team info
+
+4. Contact Page
+   URL: /contact
+   File: client/src/pages/Contact.tsx
+   Description: User contact and inquiry form
+
+5. Privacy Policy
+   URL: /privacy
+   File: client/src/pages/Privacy.tsx
+   Description: Privacy policy and data handling information
+
+6. 404 Not Found
+   URL: /404
+   File: client/src/pages/not-found.tsx
+   Description: Error page for invalid routes
+
+================================================================================
+SECTION 2: CATEGORY PAGES (13 pages)
+================================================================================
+
+1. Text Tools Category
+   URL: /tools/text
+   File: client/src/pages/TextCategory.tsx
+   Tools: 35+ text manipulation tools
+
+2. Image Tools Category
+   URL: /tools/image
+   File: client/src/pages/ImageCategory.tsx
+   Tools: 25+ image processing tools
+
+3. PDF Tools Category
+   URL: /tools/pdf
+   File: client/src/pages/PDFCategory.tsx
+   Tools: 12+ PDF manipulation tools
+
+4. Media & Video Category
+   URL: /tools/media
+   File: client/src/pages/MediaCategory.tsx
+   Tools: 8+ video/audio processing tools
+
+5. Developer Tools Category
+   URL: /tools/developer
+   File: client/src/pages/DeveloperCategory.tsx
+   Tools: 25+ developer utilities (includes QR Maker)
+
+6. Math & Calculation Category
+   URL: /tools/math
+   File: client/src/pages/MathCategory.tsx
+   Tools: 20+ mathematical calculators
+
+7. Random Generators Category
+   URL: /tools/random
+   File: client/src/pages/RandomCategory.tsx
+   Tools: 10+ random generators
+
+8. Productivity Tools Category
+   URL: /tools/productivity
+   File: client/src/pages/ProductivityCategory.tsx
+   Tools: 8+ productivity tools (notes, todos, timers)
+
+9. Color Tools Category
+   URL: /tools/color
+   File: client/src/pages/ColorCategory.tsx
+   Tools: 8+ color manipulation tools
+
+10. AI Tools Category
+    URL: /tools/ai
+    File: client/src/pages/AICategory.tsx
+    Tools: 3+ AI-powered tools
+
+11. Privacy & Security Category
+    URL: /tools/privacy
+    File: client/src/pages/PrivacyCategory.tsx
+    Tools: 8+ privacy/security tools
+
+================================================================================
+SECTION 3: TEXT TOOLS (35+ pages)
+================================================================================
+
+TEXT TOOL MAIN PAGES:
+
+1. /tools/text-case-converter (TextCaseConverter.tsx)
+2. /tools/word-counter (WordCounter.tsx)
+3. /tools/text-diff (TextDiff.tsx)
+4. /tools/text-cleaner (TextCleaner.tsx)
+5. /tools/text-reverser (TextReverser.tsx)
+6. /tools/text-highlight-marker (TextHighlightMarker.tsx)
+7. /tools/text-repeater (TextRepeater.tsx)
+8. /tools/text-rotator (TextRotator.tsx)
+9. /tools/text-spacer (TextSpacer.tsx)
+10. /tools/text-encrypt-decrypt (TextEncryptDecrypt.tsx)
+11. /tools/morse-code-translator (MorseCodeTranslator.tsx)
+12. /tools/nato-phonetic-converter (NATOPhoneticConverter.tsx)
+13. /tools/keyword-density-checker (KeywordDensityChecker.tsx)
+14. /tools/character-paragraph-counter (CharacterParagraphCounter.tsx)
+15. /tools/word-frequency-counter (WordFrequencyCounter.tsx)
+16. /tools/palindrome-checker (PalindromeChecker.tsx)
+17. /tools/remove-duplicate-words (RemoveDuplicateWords.tsx)
+18. /tools/remove-duplicate-lines (RemoveDuplicateLines.tsx)
+19. /tools/line-break-remover (LineBreakRemover.tsx)
+20. /tools/fancy-text-styler (FancyTextStyler.tsx)
+21. /tools/glitch-text-generator (GlitchTextGenerator.tsx)
+22. /tools/superscript-generator (SuperscriptGenerator.tsx)
+23. /tools/subscript-generator (SubscriptGenerator.tsx)
+24. /tools/pangram-generator (PangramGenerator.tsx)
+25. /tools/title-case-converter (TitleCaseConverter.tsx)
+26. /tools/case-randomizer (CaseRandomizer.tsx)
+27. /tools/ascii-art-generator (ASCIIArtGenerator.tsx)
+28. /tools/ascii-converter (ASCIIConverter.tsx)
+29. /tools/slug-generator (SlugGenerator.tsx)
+30. /tools/extract-numbers (ExtractNumbers.tsx)
+31. /tools/remove-numbers (RemoveNumbers.tsx)
+32. /tools/symbol-combiner (SymbolCombiner.tsx)
+33. /tools/silent-text (SilentText.tsx)
+34. /tools/text-differ (TextDiffer.tsx)
+35. /tools/sentence-case-converter (SentenceCaseConverter.tsx)
+36. /tools/prefix-suffix-tool (PrefixSuffixTool.tsx)
+
+TEXT TOOL VARIANTS:
+
+Word Counter Variants:
+- /tools/word-counter/essays (WordCounterEssays.tsx)
+- /tools/word-counter/online (WordCounterOnline.tsx)
+- /tools/word-counter/content-marketing (WordCounterContentMarketing.tsx)
+- /tools/word-counter/social-media (WordCounterSocialMedia.tsx)
+
+Text Encrypt/Decrypt Variants:
+- /tools/text-encrypt-decrypt/private-messages (TextEncryptPrivateMessages.tsx)
+- /tools/text-encrypt-decrypt/online (TextEncryptionOnline.tsx)
+- /tools/text-encrypt-decrypt/secure (SecureMessageEncryption.tsx)
+- /tools/text-encrypt-decrypt/storage (TextEncryptionStorage.tsx)
+
+================================================================================
+SECTION 4: IMAGE TOOLS (25+ pages)
+================================================================================
+
+IMAGE TOOL MAIN PAGES:
+
+1. /tools/image-compressor (ImageCompressor.tsx)
+2. /tools/image-resizer (ImageResizer.tsx)
+3. /tools/image-cropper (ImageCropper.tsx)
+4. /tools/background-remover (BackgroundRemover.tsx)
+5. /tools/image-to-base64 (ImageToBase64.tsx)
+6. /tools/image-upscaler (ImageUpscaler.tsx)
+7. /tools/exif-remover (ExifRemover.tsx)
+8. /tools/image-blur-tool (ImageBlurTool.tsx)
+9. /tools/image-pixelator (ImagePixelator.tsx)
+10. /tools/image-grayscale-tool (ImageGrayscaleTool.tsx)
+11. /tools/image-invert-tool (ImageInvertTool.tsx)
+12. /tools/image-lighten-tool (ImageLightenTool.tsx)
+13. /tools/image-darken-tool (ImageDarkenTool.tsx)
+14. /tools/image-mirror-tool (ImageMirrorTool.tsx)
+15. /tools/image-rotate-tool (ImageRotateTool.tsx)
+16. /tools/dominant-color-finder (DominantColorFinder.tsx)
+17. /tools/jpg-to-png (JPGtoPNG.tsx)
+18. /tools/png-to-jpg (PNGtoJPG.tsx)
+19. /tools/heic-to-jpg (HEICtoJPG.tsx)
+20. /tools/base64-to-image (Base64ToImage.tsx)
+21. /tools/favicon-generator (FaviconGenerator.tsx)
+
+IMAGE TOOL VARIANTS:
+
+Image Compressor Variants:
+- /tools/image-compressor/web (CompressImagesWeb.tsx)
+- /tools/image-compressor/jpg (CompressJpgImages.tsx)
+- /tools/image-compressor/reduce-file-size (ReduceImageFileSize.tsx)
+- /tools/image-compressor/email (CompressPhotosEmail.tsx)
+
+Image Resizer Variants:
+- /tools/image-resizer/social-media (ResizeImagesSocialMedia.tsx)
+- /tools/image-resizer/online (ResizeImagesOnline.tsx)
+- /tools/image-resizer/bulk (BulkResizeImages.tsx)
+- /tools/image-resizer/dimensions (ResizeImageDimensions.tsx)
+
+JPG to PNG Variants:
+- /tools/jpg-to-png/convert (ConvertJpgToPng.tsx)
+- /tools/jpg-to-png/online (ConvertJpgToPngOnline.tsx)
+- /tools/jpg-to-png/transparent (ConvertJpgToPngTransparent.tsx)
+- /tools/jpg-to-png/batch (BatchConvertJpgToPng.tsx)
+
+PNG to JPG Variants:
+- /tools/png-to-jpg/convert (ConvertPngToJpg.tsx)
+- /tools/png-to-jpg/online (ConvertPngToJpgOnline.tsx)
+- /tools/png-to-jpg/high-quality (ConvertPngToJpgHighQuality.tsx)
+- /tools/png-to-jpg/batch (BatchConvertPngToJpg.tsx)
+
+EXIF Remover Variants:
+- /tools/image-exif-remover/privacy (RemoveExifPhotoPrivacy.tsx)
+- /tools/image-exif-remover/online (RemoveExifOnline.tsx)
+- /tools/image-exif-remover/before-sharing (RemoveExifBeforeSharing.tsx)
+- /tools/image-exif-remover/social-media (RemoveExifSocialMedia.tsx)
+
+================================================================================
+SECTION 5: PDF TOOLS (12+ pages)
+================================================================================
+
+PDF TOOL MAIN PAGES:
+
+1. /tools/pdf-merger (PDFMerger.tsx)
+2. /tools/pdf-splitter (PDFSplitter.tsx)
+3. /tools/pdf-compressor (PDFCompressor.tsx)
+4. /tools/pdf-rotator (PDFRotator.tsx)
+5. /tools/pdf-to-image (PDFToImage.tsx)
+6. /tools/image-to-pdf (ImageToPDF.tsx)
+7. /tools/text-to-pdf (TextToPDF.tsx)
+8. /tools/html-to-pdf (HTMLtoPDF.tsx)
+9. /tools/pdf-password-remover (PDFPasswordRemover.tsx)
+10. /tools/pdf-watermark-adder (PDFWatermarkAdder.tsx)
+11. /tools/pdf-watermark-remover (PDFWatermarkRemover.tsx)
+12. /tools/excel-to-pdf (ExcelToPDF.tsx)
+
+PDF TOOL VARIANTS:
+
+PDF Merger Variants:
+- /tools/pdf-merger/combine (CombinePdfFilesOnline.tsx)
+- /tools/pdf-merger/merge (MergePdfDocumentsFree.tsx)
+- /tools/pdf-merger/join (JoinMultiplePdfFiles.tsx)
+- /tools/pdf-merger/professional (ProfessionalPdfBinderTool.tsx)
+
+PDF Splitter Variants:
+- /tools/pdf-splitter/split (SplitPdfOnlineFree.tsx)
+- /tools/pdf-splitter/extract (ExtractPagesFromPdf.tsx)
+- /tools/pdf-splitter/separate (SeparatePdfPagesOnline.tsx)
+- /tools/pdf-splitter/professional (ProfessionalPdfDividerTool.tsx)
+
+PDF Compressor Variants:
+- /tools/pdf-compressor/reduce (ReducePdfFileSize.tsx)
+- /tools/pdf-compressor/compress (CompressPdfOnlineFree.tsx)
+- /tools/pdf-compressor/email (OptimizePdfForEmail.tsx)
+- /tools/pdf-compressor/size (CompressPdfTo100kb.tsx)
+
+PDF to Image Variants:
+- /tools/pdf-to-image/convert (ConvertPdfToImage.tsx)
+- /tools/pdf-to-image/online (ConvertPdfToImageOnline.tsx)
+- /tools/pdf-to-image/jpg (ConvertPdfToJpg.tsx)
+- /tools/pdf-to-image/extract (ExtractImagesFromPdf.tsx)
+
+Image to PDF Variants:
+- /tools/image-to-pdf/convert (ConvertImageToPdf.tsx)
+- /tools/image-to-pdf/online (ConvertImageToPdfOnline.tsx)
+- /tools/image-to-pdf/jpg-to-pdf (ConvertJpgToPdf.tsx)
+- /tools/image-to-pdf/combine (CombineImagesToPdf.tsx)
+
+Text to PDF Variants:
+- /tools/text-to-pdf/convert-online (ConvertTextFileToPdfOnline.tsx)
+- /tools/text-to-pdf/formatting-guide (ConvertDocumentTextToPdfFormatting.tsx)
+- /tools/text-to-pdf/email-converter (TextToPdfEmailConverter.tsx)
+- /tools/text-to-pdf/bulk-conversion (BulkConvertTextFilesToPdf.tsx)
+
+PDF Watermark Variants:
+- /tools/pdf-watermark-adder/custom (CustomPdfWatermarkCreator.tsx)
+- /tools/pdf-watermark-adder/professional (ProfessionalPdfWatermarkingTool.tsx)
+- /tools/pdf-watermark-adder/protect (ProtectPdfWithWatermark.tsx)
+- /tools/pdf-watermark-adder/add (AddWatermarkToPdfOnline.tsx)
+
+Invoice Generator Variants:
+- /tools/invoice-generator/freelancers (FreeInvoiceGeneratorFreelancers.tsx)
+- /tools/invoice-generator/professional (ProfessionalOnlineInvoiceCreator.tsx)
+- /tools/invoice-generator/small-business (SmallBusinessInvoiceMaker.tsx)
+- /tools/invoice-generator/simple (SimpleBillingGeneratorNonTechnicalUsers.tsx)
+
+================================================================================
+SECTION 6: DEVELOPER TOOLS (45+ pages)
+================================================================================
+
+QR CODE TOOLS:
+
+1. /tools/qr-maker (QRMaker.tsx) - Advanced QR with WhatsApp
+2. /tools/qr-code-maker/free-online (QRMakerFreeOnline.tsx)
+3. /tools/qr-code-maker/wifi-network (QRMakerWiFi.tsx)
+4. /tools/qr-code-maker/business-cards (QRMakerBusinessCards.tsx)
+5. /tools/qr-code-maker/with-logo (QRMakerLogo.tsx)
+6. /tools/qr-code-maker/event-ticketing (QRMakerEvents.tsx)
+7. /tools/qr-code-maker/social-media (QRMakerSocialMedia.tsx)
+8. /tools/qr-code-maker/product-links (QRMakerProductLinks.tsx)
+9. /tools/qr-code-maker/dynamic (QRMakerDynamic.tsx)
+
+URL & WEB TOOLS:
+
+10. /tools/url-encoder (URLEncoder.tsx)
+11. /tools/url-parser (URLParser.tsx)
+12. /tools/canonical-url-generator (CanonicalUrlGenerator.tsx)
+13. /tools/utm-builder (UTMBuilder.tsx)
+
+BASE64 TOOLS:
+
+14. /tools/base64-encoder (Base64Encoder.tsx)
+15. /tools/file-to-base64 (FileToBase64.tsx)
+
+OTHER DEVELOPER TOOLS:
+
+16. /tools/barcode-generator (BarcodeGenerator.tsx)
+17. /tools/hash-generator (HashGenerator.tsx)
+18. /tools/uuid-generator (UUIDGenerator.tsx)
+19. /tools/meta-tag-generator (MetaTagGenerator.tsx)
+20. /tools/meta-robots-tag-generator (MetaRobotsTagGenerator.tsx)
+21. /tools/open-graph-tag-generator (OpenGraphTagGenerator.tsx)
+22. /tools/og-preview (OGPreview.tsx)
+23. /tools/robots-txt-generator (RobotsTextGenerator.tsx)
+24. /tools/sitemap-xml-generator (SitemapXmlGenerator.tsx)
+25. /tools/api-snippet-builder (APISnippetBuilder.tsx)
+26. /tools/code-beautifier (CodeBeautifier.tsx)
+27. /tools/css-minifier (CSSMinifier.tsx)
+28. /tools/js-minifier (JSMinifier.tsx)
+29. /tools/html-minifier (HTMLMinifier.tsx)
+30. /tools/html-beautifier (HTMLBeautifier.tsx)
+31. /tools/html-encoder-decoder (HTMLEncoderDecoder.tsx)
+32. /tools/html-table-generator (HTMLTableGenerator.tsx)
+33. /tools/json-formatter (JSONFormatter.tsx)
+34. /tools/json-csv-converter (JSONCSVConverter.tsx)
+35. /tools/json-yaml-converter (JSONYAMLConverter.tsx)
+36. /tools/json-tree-viewer (JSONTreeViewer.tsx)
+37. /tools/flexbox-playground (FlexboxPlayground.tsx)
+38. /tools/css-grid-generator (CSSGridGenerator.tsx)
+39. /tools/css-clamp-generator (CSSClampGenerator.tsx)
+40. /tools/css-animation-generator (CSSAnimationGenerator.tsx)
+41. /tools/box-shadow-generator (BoxShadowGenerator.tsx)
+42. /tools/border-radius-generator (BorderRadiusGenerator.tsx)
+43. /tools/button-css-generator (ButtonCSSGenerator.tsx)
+44. /tools/advanced-text-shadow (AdvancedTextShadow.tsx)
+45. /tools/outline-css-generator (OutlineCSSGenerator.tsx)
+46. /tools/variable-font-viewer (VariableFontViewer.tsx)
+
+================================================================================
+SECTION 7: MATH TOOLS (35+ pages)
+================================================================================
+
+BASIC CALCULATORS:
+
+1. /tools/percentage-calculator (PercentageCalculator.tsx)
+2. /tools/percentage-change-calculator (PercentageChangeCalculator.tsx)
+3. /tools/average-calculator (AverageCalculator.tsx)
+4. /tools/commission-calculator (CommissionCalculator.tsx)
+5. /tools/tip-calculator (TipCalculator.tsx)
+
+FINANCIAL CALCULATORS:
+
+6. /tools/emi-calculator (EMICalculator.tsx)
+7. /tools/loan-calculator (LoanCalculator.tsx)
+8. /tools/mortgage-calculator (MortgageCalculator.tsx)
+9. /tools/simple-interest-calculator (SimpleInterestCalculator.tsx)
+10. /tools/compound-interest-calculator (CompoundInterestCalculator.tsx)
+
+NUMBER & PRIME TOOLS:
+
+11. /tools/prime-number-checker (PrimeNumberChecker.tsx)
+12. /tools/prime-number-generator (PrimeNumberGenerator.tsx)
+13. /tools/prime-factorization (PrimeFactorization.tsx)
+14. /tools/fibonacci-generator (FibonacciGenerator.tsx)
+15. /tools/number-sorter (NumberSorter.tsx)
+
+STATISTICAL TOOLS:
+
+16. /tools/mean-median-mode-calculator (MeanMedianModeCalculator.tsx)
+17. /tools/lcm-hcf-calculator (LCMHCFCalculator.tsx)
+18. /tools/modulo-calculator (ModuloCalculator.tsx)
+
+GEOMETRY & AREA:
+
+19. /tools/circle-calculator (CircleCalculator.tsx)
+20. /tools/triangle-area-calculator (TriangleAreaCalculator.tsx)
+21. /tools/area-converter (AreaConverter.tsx)
+
+ADVANCED MATH:
+
+22. /tools/exponent-calculator (ExponentCalculator.tsx)
+23. /tools/fraction-calculator (FractionCalculator.tsx)
+24. /tools/matrix-calculator (MatrixCalculator.tsx)
+25. /tools/ratio-simplifier (RatioSimplifier.tsx)
+26. /tools/quadratic-solver (QuadraticSolver.tsx)
+
+HEALTH & PERSONAL:
+
+27. /tools/bmi-calculator (BMICalculator.tsx)
+28. /tools/calorie-calculator (CalorieCalculator.tsx)
+29. /tools/age-calculator (AgeCalculator.tsx)
+30. /tools/age-gap-calculator (AgeGapCalculator.tsx)
+31. /tools/height-converter (HeightConverter.tsx)
+32. /tools/days-calculator (DaysCalculator.tsx)
+33. /tools/time-difference-calculator (TimeDifferenceCalculator.tsx)
+
+UNIT CONVERSION:
+
+34. /tools/unit-converter (UnitConverter.tsx)
+35. /tools/currency-formatter (CurrencyFormatter.tsx)
+
+================================================================================
+SECTION 8: RANDOM GENERATORS (18+ pages)
+================================================================================
+
+TEXT GENERATORS:
+
+1. /tools/random-string-generator (RandomStringGenerator.tsx)
+2. /tools/random-word-generator (RandomWordGenerator.tsx)
+3. /tools/random-hindi-name (RandomHindiName.tsx)
+4. /tools/random-tech-stack (RandomTechStack.tsx)
+5. /tools/random-startup-idea (RandomStartupIdea.tsx)
+6. /tools/random-movie-suggestion (RandomMovieSuggestion.tsx)
+7. /tools/random-superhero-name (RandomSuperheroName.tsx)
+8. /tools/random-riddle (RandomRiddle.tsx)
+
+NUMBER & DATA GENERATORS:
+
+9. /tools/random-emoji-generator (RandomEmojiGenerator.tsx)
+10. /tools/random-hex-color (RandomHexColor.tsx)
+11. /tools/random-date-generator (RandomDateGenerator.tsx)
+12. /tools/random-country-generator (RandomCountryGenerator.tsx)
+13. /tools/random-animal-generator (RandomAnimalGenerator.tsx)
+14. /tools/random-object-generator (RandomObjectGenerator.tsx)
+15. /tools/random-fake-address (RandomFakeAddress.tsx)
+16. /tools/random-truth-dare (RandomTruthDare.tsx)
+17. /tools/random-task (RandomTask.tsx)
+18. /tools/random-motivational-quote (RandomMotivationalQuote.tsx)
+19. /tools/random-number-generator (RandomNumberGenerator.tsx)
+
+RANDOM GENERATOR VARIANTS:
+
+Random String Generator Variants:
+- /tools/random-string-generator/api-keys (RandomStringGeneratorApiKeys.tsx)
+- /tools/random-string-generator/online (RandomStringGeneratorOnline.tsx)
+- /tools/random-string-generator/secure (SecureRandomStringGenerator.tsx)
+- /tools/random-string-generator/testing (RandomStringGeneratorTesting.tsx)
+
+================================================================================
+SECTION 9: COLOR TOOLS (9+ pages)
+================================================================================
+
+1. /tools/color-picker (ColorPicker.tsx)
+2. /tools/hex-rgb-converter (HexRgbConverter.tsx)
+3. /tools/hex-color-picker-tool (HexColorPickerTool.tsx)
+4. /tools/color-palette-generator (ColorPaletteGenerator.tsx)
+5. /tools/color-palette-shuffler (ColorPaletteShuffler.tsx)
+6. /tools/gradient-generator (GradientGenerator.tsx)
+7. /tools/gradient-text-generator (GradientTextGenerator.tsx)
+8. /tools/random-hex-color (RandomHexColor.tsx)
+9. /tools/dominant-color-finder (DominantColorFinder.tsx)
+
+================================================================================
+SECTION 10: PRODUCTIVITY TOOLS (9+ pages)
+================================================================================
+
+1. /tools/todo-list (TodoList.tsx)
+2. /tools/notes-app (NotesApp.tsx)
+3. /tools/expense-tracker (ExpenseTracker.tsx)
+4. /tools/invoice-generator (InvoiceGenerator.tsx)
+5. /tools/quotation-generator (QuotationGenerator.tsx)
+6. /tools/receipt-generator (ReceiptGenerator.tsx)
+7. /tools/countdown-timer (CountdownTimer.tsx)
+8. /tools/timer-stopwatch (TimerStopwatch.tsx)
+9. /tools/stopwatch (Stopwatch.tsx)
+
+================================================================================
+SECTION 11: MEDIA TOOLS (18+ pages)
+================================================================================
+
+VIDEO TOOLS:
+
+1. /tools/video-compressor (VideoCompressor.tsx)
+2. /tools/video-to-gif (VideoToGIF.tsx)
+3. /tools/gif-to-mp4 (GIFtoMP4.tsx)
+4. /tools/gif-compressor (GIFCompressor.tsx)
+5. /tools/mp4-to-mp3 (MP4toMP3.tsx)
+
+AUDIO TOOLS:
+
+6. /tools/audio-to-mp3 (AudioToMP3.tsx)
+7. /tools/mp3-cutter (MP3Cutter.tsx)
+8. /tools/audio-noise-remover (AudioNoiseRemover.tsx)
+
+YOUTUBE TOOLS:
+
+9. /tools/youtube-thumbnail-downloader (YouTubeThumbnailDownloader.tsx)
+10. /tools/youtube-thumbnail-downloader/free-no-login (YouTubeThumbnailDownloaderFree.tsx)
+11. /tools/youtube-thumbnail-downloader/online (YouTubeThumbnailDownloaderOnline.tsx)
+12. /tools/youtube-thumbnail-downloader/channel-thumbnails (YouTubeThumbnailDownloaderChannels.tsx)
+13. /tools/youtube-thumbnail-downloader/best (YouTubeThumbnailDownloaderBest.tsx)
+
+INSTAGRAM TOOLS:
+
+14. /tools/instagram-profile-picture-downloader (InstagramProfilePictureDownloader.tsx)
+15. /tools/instagram-profile-picture-downloader/full-size (DownloadInstagramDpFullSize.tsx)
+16. /tools/instagram-profile-picture-downloader/viewer (InstagramProfilePictureViewerOnline.tsx)
+17. /tools/instagram-profile-picture-downloader/private (ViewPrivateInstagramProfilePicture.tsx)
+18. /tools/instagram-profile-picture-downloader/anonymous (AnonymousInstagramProfilePictureDownloader.tsx)
+
+================================================================================
+SECTION 12: PRIVACY & SECURITY TOOLS (12+ pages)
+================================================================================
+
+1. /tools/exif-remover (ExifRemover.tsx)
+2. /tools/password-generator (PasswordGenerator.tsx)
+3. /tools/password-strength-checker (PasswordStrengthChecker.tsx)
+4. /tools/text-encrypt-decrypt (TextEncryptDecrypt.tsx)
+5. /tools/temp-mail (TempMail.tsx)
+6. /tools/screen-resolution-checker (ScreenResolutionChecker.tsx)
+
+PASSWORD GENERATOR VARIANTS:
+
+- /tools/password-generator/online-accounts (PasswordGeneratorOnlineAccounts.tsx)
+- /tools/password-generator/security (PasswordGeneratorSecurity.tsx)
+- /tools/password-generator/business (PasswordGeneratorBusiness.tsx)
+- /tools/password-generator/testing (PasswordGeneratorTesting.tsx)
+
+PASSWORD STRENGTH CHECKER VARIANTS:
+
+- /tools/password-strength-checker/check-online (PasswordStrengthCheckOnline.tsx)
+- /tools/password-strength-checker/security (PasswordSecurityChecker.tsx)
+- /tools/password-strength-checker/is-strong (IsMyPasswordStrong.tsx)
+- /tools/password-strength-checker/validation (PasswordStrengthValidation.tsx)
+
+TEMP MAIL VARIANTS:
+
+- /tools/temp-mail/facebook-signup (TempMailFacebookSignup.tsx)
+- /tools/temp-mail/instagram-verification (TempMailInstagramVerification.tsx)
+- /tools/temp-mail/online-shopping (TempMailOnlineShopping.tsx)
+- /tools/temp-mail/testing-accounts (TempMailTestingAccounts.tsx)
+
+================================================================================
+SECTION 13: AI & SMART TOOLS (5+ pages)
+================================================================================
+
+1. /tools/text-summarizer (TextSummarizer.tsx)
+2. /tools/instagram-caption-generator (InstagramCaptionGenerator.tsx)
+3. /tools/funny-roast-generator (FunnyRoastGenerator.tsx)
+4. /tools/text-to-speech (TextToSpeech.tsx)
+5. /tools/speech-to-text (SpeechToText.tsx)
+
+================================================================================
+SECTION 14: DATA & CONVERSION TOOLS (30+ pages)
+================================================================================
+
+CSV TOOLS:
+
+1. /tools/csv-viewer (CSVViewer.tsx)
+2. /tools/csv-viewer/edit-without-excel (CSVEditWithoutExcel.tsx)
+3. /tools/csv-viewer/view-large-files (CSVViewLargeFiles.tsx)
+4. /tools/csv-viewer/convert-and-edit (CSVConvertAndEdit.tsx)
+5. /tools/csv-viewer/view-in-browser (CSVViewInBrowser.tsx)
+
+EXCEL TOOLS:
+
+6. /tools/xlsx-viewer (XLSXViewer.tsx)
+7. /tools/xlsx-viewer/edit-without-excel (XLSXEditWithoutExcel.tsx)
+8. /tools/xlsx-viewer/view-large-files (XLSXViewLargeFiles.tsx)
+9. /tools/xlsx-viewer/convert-and-edit (XLSXConvertAndEdit.tsx)
+10. /tools/xlsx-viewer/view-in-browser (XLSXViewInBrowser.tsx)
+
+XLSX TO CSV CONVERTERS:
+
+11. /tools/xlsx-to-csv-converter (XLSXToCSVConverter.tsx)
+12. /tools/xlsx-to-csv-converter/free-online (XLSXToCSVFreeOnline.tsx)
+13. /tools/xlsx-to-csv-converter/no-excel (XLSXToCSVNoExcel.tsx)
+14. /tools/xlsx-to-csv-converter/bulk-convert (XLSXToCSVBulk.tsx)
+15. /tools/xlsx-to-csv-converter/with-preview (XLSXToCSVWithPreview.tsx)
+
+FORMAT CONVERTERS:
+
+16. /tools/json-csv-converter (JSONCSVConverter.tsx)
+17. /tools/json-yaml-converter (JSONYAMLConverter.tsx)
+18. /tools/excel-to-pdf (ExcelToPDF.tsx)
+19. /tools/excel-viewer (ExcelViewer.tsx)
+
+================================================================================
+SECTION 15: MISCELLANEOUS TOOLS (15+ pages)
+================================================================================
+
+1. /tools/character-map (CharacterMap.tsx)
+2. /tools/emoji-counter (EmojiCounter.tsx)
+3. /tools/emoji-remover (EmojiRemover.tsx)
+4. /tools/signature-pad-tool (SignaturePadTool.tsx)
+5. /tools/markdown-editor (MarkdownEditor.tsx)
+6. /tools/regex-tester (RegexTester.tsx)
+7. /tools/roman-numeral-converter (RomanNumeralConverter.tsx)
+8. /tools/pay-split-calculator (PaySplitCalculator.tsx)
+9. /tools/case-mixer (CaseMixer.tsx)
+10. /tools/sentence-case-converter (SentenceCaseConverter.tsx)
+
+================================================================================
+SECTION 16: BLOG & CONTENT PAGES (5 pages)
+================================================================================
+
+1. /blogs
+   File: client/src/pages/Blogs.tsx
+   Description: All blog posts listing page
+
+2. /blogs/:slug
+   File: client/src/pages/BlogPost.tsx
+   Description: Individual blog post pages (dynamic)
+
+3. /blogs/category/:category
+   File: client/src/pages/BlogCategory.tsx
+   Description: Posts filtered by category
+
+4. /blogs/tag/:tag
+   File: client/src/pages/BlogTag.tsx
+   Description: Posts filtered by tag
+
+5. /blog-editor
+   File: client/src/pages/BlogEditor.tsx
+   Description: Blog content management interface
+
+================================================================================
+SECTION 17: SPECIAL & UTILITY PAGES (3 pages)
+================================================================================
+
+1. /qa-dashboard
+   File: client/src/pages/QADashboard.tsx
+   Description: Quality assurance and testing dashboard
+
+2. /sitemap-generator
+   File: client/src/pages/Sitemap.tsx
+   Description: XML sitemap visualization
+
+3. /tools/:toolId/:useCaseSlug
+   File: client/src/pages/LongTailToolPage.tsx
+   Description: Dynamic variant pages for SEO optimization
+
+================================================================================
+PAGES SUMMARY
+================================================================================
+
+TOTAL PAGES: 348
+
+By Type:
+- Core/Main Pages: 6
+- Category Pages: 13
+- Tool Pages: 247
+- Tool Variant Pages: 101
+- Blog Pages: 5
+- Special Pages: 3
+- Miscellaneous: 8
+
+By Category Distribution:
+1. Text Tools: 40+ pages
+2. Image Tools: 29+ pages
+3. PDF Tools: 20+ pages
+4. Developer Tools: 46+ pages
+5. Math Tools: 35+ pages
+6. Random Generators: 19+ pages
+7. Color Tools: 9+ pages
+8. Productivity Tools: 9+ pages
+9. Media Tools: 18+ pages
+10. Privacy Tools: 12+ pages
+11. AI Tools: 5+ pages
+12. Data/Conversion Tools: 19+ pages
+13. Misc Tools: 10+ pages
+14. Blog & Content: 5 pages
+15. Special/Utility: 3 pages
+
+================================================================================
+KEY STATISTICS
+================================================================================
+
+Total Tool Pages: 247
+Total Routes: 400+
+Total Categories: 13
+Total Variant Pages: 101
+Core Pages: 6
+Blog Pages: 5
+Special Pages: 3
+
+Largest Categories:
+1. Text Tools: 40+ pages
+2. PDF Tools: 20+ pages
+3. Image Tools: 29+ pages
+4. Developer Tools: 46+ pages
+5. Math Tools: 35+ pages
+
+Most Visited (High Traffic):
+- /tools/qr-maker
+- /tools/image-compressor
+- /tools/pdf-merger
+- /tools/password-generator
+- /tools/text-case-converter
+- /tools/word-counter
+- /tools/image-resizer
+
+================================================================================
+ROUTING PATTERNS
+================================================================================
+
+Main Tool Routes: /tools/[tool-slug]
+Variant Routes: /tools/[tool-slug]/[variant-slug]
+Dynamic Blog Routes: /blogs/:slug, /blogs/category/:category, /blogs/tag/:tag
+Long-tail Pages: /tools/:toolId/:useCaseSlug
+Category Routes: /tools/[category-name]
+
+================================================================================
+LAST UPDATED: December 31, 2025
+================================================================================
