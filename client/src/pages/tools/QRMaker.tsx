@@ -34,6 +34,7 @@ const TEMPLATES_KEY = "pixocraft_qr_templates_v2";
 
 const QR_TYPES = [
   { id: "url", label: "URL / Website", icon: LinkIcon, description: "Link to website" },
+  { id: "whatsapp", label: "WhatsApp", icon: User, description: "Message on WhatsApp" },
   { id: "vcard", label: "vCard / Contact", icon: User, description: "Save contact info" },
   { id: "text", label: "Plain Text", icon: FileText, description: "Any text message" },
   { id: "email", label: "Email Address", icon: User, description: "Send email" },
@@ -185,9 +186,9 @@ export default function QRMaker() {
   }, [darkColor, lightColor, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
 
   useSEO({
-    title: "Free QR Code Generator | Custom Patterns & Logos",
-    description: "Create professional QR codes with custom patterns, colors & logos. No signup needed. 100% offline & private. Perfect for businesses & marketing.",
-    keywords: "qr code generator, free qr code maker, custom qr codes, qr code designer, qr code with logo",
+    title: "Free QR Code Generator | WhatsApp, URL, WiFi, Bitcoin & More",
+    description: "Create custom QR codes for WhatsApp, URLs, WiFi, Bitcoin, vCards, SMS & more. No signup needed. 100% offline & private. Professional patterns & logos.",
+    keywords: "qr code generator, whatsapp qr code maker, free qr code maker, custom qr codes, url qr code, bitcoin qr code, contact qr code",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
     ogImage: OG_IMAGES.qrMaker,
   });
@@ -199,6 +200,7 @@ export default function QRMaker() {
       case "text": return data.text || "";
       case "email": return data.email ? `mailto:${data.email}` : "";
       case "sms": return data.phone ? `smsto:${data.phone}${data.smsText ? ":" + data.smsText : ""}` : "";
+      case "whatsapp": return data.whatsappPhone ? `https://wa.me/${data.whatsappPhone.replace(/\D/g, '')}${data.whatsappMessage ? "?text=" + encodeURIComponent(data.whatsappMessage) : ""}` : "";
       case "wifi": return data.wifiSsid ? `WIFI:T:${data.wifiSecurity};S:${data.wifiSsid};P:${data.wifiPassword};;` : "";
       case "bitcoin": return data.bitcoinAddress ? `bitcoin:${data.bitcoinAddress}` : "";
       case "vcard": return data.vcardName || data.vcardEmail || data.vcardPhone
@@ -697,6 +699,12 @@ export default function QRMaker() {
                   <>
                     <div><Label>Phone</Label><Input placeholder="+1234567890" value={formData.phone || ""} onChange={(e) => handleInputChange("phone", e.target.value)} /></div>
                     <div><Label>Message</Label><Textarea placeholder="Message..." value={formData.smsText || ""} onChange={(e) => handleInputChange("smsText", e.target.value)} rows={2} /></div>
+                  </>
+                )}
+                {selectedType === "whatsapp" && (
+                  <>
+                    <div><Label>Phone Number</Label><Input placeholder="+1234567890 or 1234567890" value={formData.whatsappPhone || ""} onChange={(e) => handleInputChange("whatsappPhone", e.target.value)} /></div>
+                    <div><Label>Message (Optional)</Label><Textarea placeholder="Premade message..." value={formData.whatsappMessage || ""} onChange={(e) => handleInputChange("whatsappMessage", e.target.value)} rows={3} /></div>
                   </>
                 )}
                 {selectedType === "wifi" && (
