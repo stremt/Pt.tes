@@ -106,6 +106,31 @@ const developerTools = [
     name: "XLSX to CSV Converter",
     slug: "xlsx-to-csv-converter",
     description: "Convert Excel XLSX files to CSV format instantly with preview and download"
+  },
+  {
+    name: "Robots.txt Generator",
+    slug: "robots-txt-generator",
+    description: "Create SEO-friendly robots.txt files to control crawler access and improve SEO"
+  },
+  {
+    name: "Sitemap.xml Generator",
+    slug: "sitemap-xml-generator",
+    description: "Generate XML sitemaps instantly and submit to search engines for better indexing"
+  },
+  {
+    name: "Meta Robots Tag Generator",
+    slug: "meta-robots-tag-generator",
+    description: "Create meta robots tags to control indexing, snippets, and crawler behavior"
+  },
+  {
+    name: "Canonical URL Generator",
+    slug: "canonical-url-generator",
+    description: "Create canonical tags to prevent duplicate content and SEO issues"
+  },
+  {
+    name: "Open Graph Tag Generator",
+    slug: "open-graph-tag-generator",
+    description: "Generate Open Graph tags for better social media sharing and link previews"
   }
 ];
 
