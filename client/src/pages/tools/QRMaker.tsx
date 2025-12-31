@@ -630,7 +630,7 @@ export default function QRMaker() {
       <div className="min-h-screen py-8">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="mb-6 text-sm text-muted-foreground">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <span>QR Code Generator</span>
+            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/developer">Developer Tools</Link> / <span>QR Code Generator</span>
           </div>
 
           <div className="text-center space-y-3 mb-8">
