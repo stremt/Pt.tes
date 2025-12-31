@@ -34,14 +34,21 @@ export default function WordCounter() {
     canonicalUrl: "https://tools.pixocraft.in/tools/word-counter",
   });
 
-  const stats = useMemo(() => ({
-    words: countWords(text),
-    charactersWithSpaces: countCharacters(text, true),
-    charactersWithoutSpaces: countCharacters(text, false),
-    sentences: countSentences(text),
-    paragraphs: countParagraphs(text),
-    readingTime: estimateReadingTime(text),
-  }), [text]);
+  const stats = useMemo(() => {
+    const lines = text.split(/\r?\n/).filter(line => line.length > 0).length;
+    const charactersWithoutSpaces = countCharacters(text, false);
+    const pages = Math.ceil(stats?.words / 250) || 0; // Average 250 words per page
+
+    return {
+      words: countWords(text),
+      charactersWithSpaces: countCharacters(text, true),
+      charactersWithoutSpaces,
+      sentences: countSentences(text),
+      paragraphs: countParagraphs(text),
+      lines,
+      readingTime: estimateReadingTime(text),
+    };
+  }, [text]);
 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
@@ -112,6 +119,7 @@ export default function WordCounter() {
     { icon: <Hash className="h-6 w-6" />, label: "Characters (no spaces)", value: stats.charactersWithoutSpaces, color: "text-green-600" },
     { icon: <FileType className="h-6 w-6" />, label: "Sentences", value: stats.sentences, color: "text-orange-600" },
     { icon: <FileText className="h-6 w-6" />, label: "Paragraphs", value: stats.paragraphs, color: "text-pink-600" },
+    { icon: <Hash className="h-6 w-6" />, label: "Lines", value: stats.lines, color: "text-indigo-600" },
     { icon: <Clock className="h-6 w-6" />, label: "Reading Time", value: `${stats.readingTime} min`, color: "text-cyan-600" },
   ];
 
