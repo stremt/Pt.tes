@@ -36,16 +36,17 @@ export default function WordCounter() {
 
   const stats = useMemo(() => {
     const lines = text.split(/\r?\n/).filter(line => line.length > 0).length;
-    const charactersWithoutSpaces = countCharacters(text, false);
-    const pages = Math.ceil(stats?.words / 250) || 0; // Average 250 words per page
+    const words = countWords(text);
+    const pages = Math.ceil(words / 250) || 0; // Average 250 words per page
 
     return {
-      words: countWords(text),
+      words,
       charactersWithSpaces: countCharacters(text, true),
-      charactersWithoutSpaces,
+      charactersWithoutSpaces: countCharacters(text, false),
       sentences: countSentences(text),
       paragraphs: countParagraphs(text),
       lines,
+      pages,
       readingTime: estimateReadingTime(text),
     };
   }, [text]);
@@ -120,6 +121,7 @@ export default function WordCounter() {
     { icon: <FileType className="h-6 w-6" />, label: "Sentences", value: stats.sentences, color: "text-orange-600" },
     { icon: <FileText className="h-6 w-6" />, label: "Paragraphs", value: stats.paragraphs, color: "text-pink-600" },
     { icon: <Hash className="h-6 w-6" />, label: "Lines", value: stats.lines, color: "text-indigo-600" },
+    { icon: <FileText className="h-6 w-6" />, label: "Est. Pages", value: stats.pages, color: "text-emerald-600" },
     { icon: <Clock className="h-6 w-6" />, label: "Reading Time", value: `${stats.readingTime} min`, color: "text-cyan-600" },
   ];
 
