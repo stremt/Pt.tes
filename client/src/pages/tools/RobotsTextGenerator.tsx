@@ -13,9 +13,9 @@ export default function RobotsTextGenerator() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Robots.txt Generator - Create SEO-Friendly Robots Files",
-    description: "Generate robots.txt files instantly. Control crawler access to your website. Free, no signup, offline tool.",
-    keywords: "robots.txt generator, robots file maker, SEO robots.txt, google crawl directives",
+    title: "Robots.txt Generator – Free SEO Tool for Crawler Control",
+    description: "Create SEO-friendly robots.txt files instantly. Control search engine crawler access and improve indexing. Free online generator, no signup.",
+    keywords: "robots.txt generator, robots file generator, SEO robots.txt, google crawl directives, crawler control",
     canonicalUrl: "https://tools.pixocraft.in/tools/robots-txt-generator",
   });
 
@@ -78,9 +78,9 @@ Sitemap: https://example.com/sitemap.xml`;
               <FileText className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold">Robots.txt Generator</h1>
+          <h1 className="text-4xl md:text-5xl font-bold">Free Robots.txt Generator – Control Search Engine Crawlers</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Create SEO-friendly robots.txt files to control search engine crawler access to your website.
+            Create SEO-friendly robots.txt files instantly. Control search engine crawler access and improve indexing. Free online generator, no signup.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             <Badge variant="secondary">Free</Badge>
@@ -132,31 +132,89 @@ Sitemap: https://example.com/sitemap.xml`;
         </div>
 
         <section className="space-y-6 mb-12">
-          <h2 className="text-3xl font-bold">What is Robots.txt?</h2>
-          <p className="text-muted-foreground">
-            A robots.txt file is a text file placed in your website's root directory that tells search engine crawlers which pages they can and cannot access. It's a crucial SEO tool that helps you control how search engines index your site.
-          </p>
+          <h2 className="text-3xl font-bold">What Problem Does Robots.txt Solve?</h2>
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>A robots.txt file is one of the most important yet overlooked SEO tools available. It acts as a set of instructions for search engine crawlers like Google, Bing, and other bots that visit your website. By creating the right robots.txt file, you tell these crawlers which pages they can visit, which ones to skip, and how frequently they should crawl your site. This simple text file can dramatically improve your website's crawl budget efficiency and SEO performance.</p>
+            
+            <p>Many webmasters don't realize that crawlers have limited resources for visiting your site – especially if you have thousands of pages. Without proper crawler directives, Google might waste precious crawl budget on duplicate pages, staging environments, admin areas, or low-value pages. This means important pages might get crawled less frequently. A well-configured robots.txt file ensures that search engines spend their crawl budget wisely, focusing on the pages that matter most for your business.</p>
+            
+            <p>This free robots.txt generator helps you create proper crawler directives without any technical knowledge. Whether you want to block user-agent bots, set crawl delays, or define your sitemap location, this tool provides templates and a simple interface to generate the perfect robots.txt for your needs. You can also specify which directories or file types crawlers should avoid, protecting your server resources and keeping private areas hidden from search engines.</p>
+            
+            <p>The generator works completely offline in your browser – no servers, no data transmission, 100% private. Create your robots.txt file, download it, and upload it to your website's root directory. It's that simple. Whether you're running a small blog, an e-commerce site, or a large corporate website, proper crawler control is essential for SEO success. This tool gives you professional-grade robot.txt configuration at no cost.</p>
+          </div>
           
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Common Use Cases</h3>
+          <div className="space-y-4 mt-8">
+            <h3 className="text-xl font-semibold">Who Should Use This Tool?</h3>
             <ul className="space-y-2 text-muted-foreground">
               <li className="flex gap-3">
                 <span className="text-primary">•</span>
-                <span>Prevent crawling of duplicate content or test pages</span>
+                <span><strong>Bloggers:</strong> Control crawling of category pages and tag archives to improve crawl efficiency</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-primary">•</span>
-                <span>Block access to admin areas and login pages</span>
+                <span><strong>E-commerce Sites:</strong> Prevent crawling of filter pages and duplicate product URLs</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-primary">•</span>
-                <span>Control crawler bandwidth consumption</span>
+                <span><strong>Corporate Websites:</strong> Protect admin areas, staging environments, and private sections</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-primary">•</span>
-                <span>Direct search engines to your sitemap</span>
+                <span><strong>Web Developers:</strong> Implement SEO best practices during site setup</span>
               </li>
             </ul>
+          </div>
+        </section>
+
+        <section className="space-y-6 mb-12">
+          <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold mb-2">What is a robots.txt file and why do I need it?</h3>
+              <p className="text-muted-foreground">A robots.txt file is a text file placed in your website's root directory that tells search engine crawlers which pages they can and cannot access. It helps you control crawl budget, protect private pages, and improve SEO efficiency.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Will blocking bots in robots.txt prevent my pages from appearing in search results?</h3>
+              <p className="text-muted-foreground">Yes, if you use "Disallow" for a page in robots.txt, Google won't crawl or index it. Use this carefully – only block pages you truly don't want indexed. Use meta robots tags instead if you want pages crawled but not indexed.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Can I use robots.txt to block user-agent bots like scrapers or bad bots?</h3>
+              <p className="text-muted-foreground">Yes, you can block specific user-agents. However, robots.txt is a request-based standard, and malicious bots might ignore it. Use server-level blocking or firewall rules for security threats.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Is it safe to use an online generator for my robots.txt?</h3>
+              <p className="text-muted-foreground">Yes, this generator works 100% offline in your browser. Your data never leaves your device – it's completely private and secure. You have full control before uploading to your site.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">Where should I place the robots.txt file on my website?</h3>
+              <p className="text-muted-foreground">Always place robots.txt in your website's root directory (example.com/robots.txt). Search engines look for it there first. Never put it in subdirectories.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2">How long does it take for robots.txt changes to take effect?</h3>
+              <p className="text-muted-foreground">Google typically recrawls robots.txt within a few days, but major changes can take 1-2 weeks to fully propagate. Monitor crawl stats in Google Search Console.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4 mb-12">
+          <h2 className="text-2xl font-bold">Related Tools You Might Need</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <span className="text-primary">→</span>
+              <a href="/tools/sitemap-xml-generator" className="hover:text-foreground underline">Sitemap.xml Generator</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-primary">→</span>
+              <a href="/tools/meta-robots-tag-generator" className="hover:text-foreground underline">Meta Robots Tag Generator</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-primary">→</span>
+              <a href="/tools/canonical-url-generator" className="hover:text-foreground underline">Canonical URL Generator</a>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-primary">→</span>
+              <a href="/tools/open-graph-tag-generator" className="hover:text-foreground underline">Open Graph Tag Generator</a>
+            </div>
           </div>
         </section>
 
