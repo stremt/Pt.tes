@@ -438,7 +438,7 @@ export default function QRMaker() {
         });
 
         if (logoData) {
-          const scaledLogoSize = Math.max(40, Math.floor(qrSize * (logoSize / 100)));
+          const scaledLogoSize = Math.max(10, Math.floor(qrSize * (logoSize / 100)));
           const logoX = (canvas.width - scaledLogoSize) / 2;
           const logoY = padding + (qrSize - scaledLogoSize) / 2;
 
@@ -864,7 +864,7 @@ export default function QRMaker() {
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <Label className="text-xs">Size: {logoSize}px</Label>
-                            <input type="range" min="40" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
+                            <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
                           </div>
                           <div>
                             <Label className="text-xs">Radius: {logoBorderRadius}px</Label>
