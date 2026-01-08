@@ -7,7 +7,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Edit2, FileSpreadsheet, Maximize2, Minimize2, Redo2, Search, Undo2, Upload, X, Shield, Zap, Copy, Columns3, Trash2, ChevronDown, Type, Monitor } from "lucide-react";
+import { 
+  Download, Edit2, FileSpreadsheet, Maximize2, Minimize2, Redo2, Search, Undo2, Upload, X, Shield, Zap, 
+  Copy, Columns3, Trash2, ChevronDown, Type, Monitor 
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -71,7 +74,6 @@ export default function ExcelViewer() {
 
   const pushToHistory = useCallback((newSheets: SheetData[]) => {
     const newHistory = history.slice(0, historyIndex + 1);
-    // Deep copy sheets to prevent mutation issues in history
     const historyEntry = newSheets.map(s => ({
       ...s,
       headers: [...s.headers],
@@ -158,12 +160,20 @@ export default function ExcelViewer() {
     });
   };
 
-  const deleteColumn = (colIndex: number) => {
-    updateCurrentSheet(sheet => ({
-      ...sheet,
-      headers: sheet.headers.filter((_, i) => i !== colIndex),
-      data: sheet.data.map(row => row.filter((_, i) => i !== colIndex))
-    }));
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+    setEditCell(null);
+    if (!isEditing && history.length === 0) {
+      const initialHistory = sheets.map(s => ({
+        ...s,
+        headers: [...s.headers],
+        data: s.data.map(r => [...r])
+      }));
+      setHistory([initialHistory]);
+      setHistoryIndex(0);
+    }
   };
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
@@ -184,6 +194,11 @@ export default function ExcelViewer() {
     setSheets(newSheets);
   };
 
+  const handleBlur = () => {
+    setEditCell(null);
+    pushToHistory(sheets);
+  };
+
   useEffect(() => {
     document.body.style.overflow = isFullScreen ? "hidden" : "unset";
     return () => { document.body.style.overflow = "unset"; };
@@ -199,7 +214,7 @@ export default function ExcelViewer() {
       setSheets(sheetData);
       setFileName(file.name);
       setActiveSheetIndex(0);
-      setDisplayCount(100);
+      setDisplayCount(200);
       
       const initialHistory = sheetData.map(s => ({
         ...s,
@@ -225,7 +240,6 @@ export default function ExcelViewer() {
   }, [toast]);
 
   const handleExcelPaste = useCallback(async (content: string) => {
-    // Basic CSV/TSV parser for pasted Excel-style data
     const rows = content.trim().split("\n").map(row => row.split(/\t|,/));
     if (rows.length === 0) return;
 
@@ -241,7 +255,7 @@ export default function ExcelViewer() {
     setSheets([sheetData]);
     setFileName("pasted_data.xlsx");
     setActiveSheetIndex(0);
-    setDisplayCount(100);
+    setDisplayCount(200);
     setHistory([[sheetData]]);
     setHistoryIndex(0);
     setShowPaste(false);
@@ -263,7 +277,6 @@ export default function ExcelViewer() {
 
   const downloadExcel = () => {
     const currentSheet = sheets[activeSheetIndex];
-    // Combine headers and data for the AOF format
     const fullData = [currentSheet.headers, ...currentSheet.data];
     const blob = createExcelFromData(fullData, currentSheet.name);
     const url = URL.createObjectURL(blob);
