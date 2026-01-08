@@ -33,6 +33,9 @@ export default function ExcelViewer() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [loading, setLoading] = useState(false);
   
+  const [pastedContent, setPastedContent] = useState("");
+  const [showPaste, setShowPaste] = useState(false);
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -204,6 +207,34 @@ export default function ExcelViewer() {
     }
   }, [toast]);
 
+  const handleExcelPaste = useCallback(async (content: string) => {
+    // Basic CSV/TSV parser for pasted Excel-style data
+    const rows = content.trim().split("\n").map(row => row.split(/\t|,/));
+    if (rows.length === 0) return;
+
+    const headers = rows[0].map((h, i) => h || `Column ${i + 1}`);
+    const data = rows.slice(1);
+
+    const sheetData: SheetData = {
+      name: "Pasted Data",
+      headers,
+      data
+    };
+
+    setSheets([sheetData]);
+    setFileName("pasted_data.xlsx");
+    setActiveSheetIndex(0);
+    setDisplayCount(100);
+    setHistory([[sheetData]]);
+    setHistoryIndex(0);
+    setShowPaste(false);
+    
+    toast({
+      title: "Success",
+      description: "Data pasted successfully",
+    });
+  }, [toast]);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 
@@ -287,23 +318,71 @@ export default function ExcelViewer() {
 
       <div className="space-y-6">
         {!sheets.length ? (
-          <Card className="border-dashed border-2">
-            <CardContent
-              {...getRootProps()}
-              className="flex flex-col items-center justify-center p-12 h-64 cursor-pointer hover:bg-accent/50 transition-colors"
-            >
-              <input {...getInputProps()} />
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                {loading ? <Zap className="h-8 w-8 text-primary animate-pulse" /> : <Upload className="h-8 w-8 text-primary" />}
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                {isDragActive ? "Drop your Excel file here" : "Upload Excel File"}
-              </h3>
-              <p className="text-muted-foreground text-center max-w-sm">
-                Supports XLSX and XLS formats. All processing is local.
-              </p>
-            </CardContent>
-          </Card>
+          <div className={cn("grid gap-6 transition-all duration-300", showPaste ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1")}>
+            <Card className={cn("border-dashed border-2 transition-all", showPaste && "md:h-[400px]")}>
+              <CardContent
+                {...getRootProps()}
+                className="flex flex-col items-center justify-center p-12 h-full cursor-pointer hover:bg-accent/50 transition-colors"
+              >
+                <input {...getInputProps()} />
+                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  {loading ? <Zap className="h-8 w-8 text-primary animate-pulse" /> : <Upload className="h-8 w-8 text-primary" />}
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {isDragActive ? "Drop your Excel file here" : "Upload Excel File"}
+                </h3>
+                <p className="text-muted-foreground text-center max-w-sm mb-6">
+                  Supports XLSX and XLS formats. All processing is local.
+                </p>
+
+                {!showPaste && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPaste(true);
+                    }}
+                    className="mt-4 gap-2 text-primary hover:text-primary hover:bg-primary/5"
+                  >
+                    <Copy className="h-4 w-4" />
+                    Or Paste Data
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+
+            {showPaste && (
+              <Card className="flex flex-col md:h-[400px]">
+                <CardHeader className="pb-3 flex-row items-center justify-between space-y-0">
+                  <div className="flex items-center gap-2">
+                    <Copy className="h-5 w-5 text-primary" />
+                    <CardTitle className="text-lg">Paste Data from Excel/CSV</CardTitle>
+                  </div>
+                  <Button variant="ghost" size="icon" onClick={() => setShowPaste(false)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col gap-4 overflow-hidden">
+                  <div className="flex-1 relative">
+                    <textarea
+                      placeholder="Paste your data here (tab or comma separated)..."
+                      className="w-full h-full p-4 bg-muted/30 rounded-md font-mono text-sm resize-none focus:outline-none focus:ring-1 focus:ring-primary"
+                      value={pastedContent}
+                      onChange={(e) => setPastedContent(e.target.value)}
+                    />
+                  </div>
+                  <Button 
+                    className="w-full" 
+                    disabled={!pastedContent.trim()}
+                    onClick={() => handleExcelPaste(pastedContent)}
+                  >
+                    View Data
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         ) : (
           <div 
             ref={containerRef}
@@ -423,14 +502,14 @@ export default function ExcelViewer() {
                                   <TableCell 
                                     key={cIdx} 
                                     className={cn(
-                                      "border-r p-0 min-w-[120px]",
+                                      "border-r p-0 min-w-[120px] relative group/cell",
                                       isEditing && "cursor-text hover:bg-primary/5"
                                     )}
                                     onClick={() => handleCellClick(rIdx, cIdx)}
                                   >
                                     {isEditing && editCell?.rowIndex === rIdx && editCell?.colIndex === cIdx ? (
                                       <Input
-                                        className="h-9 border-0 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 px-3"
+                                        className="h-9 border-0 rounded-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 px-3 font-medium"
                                         autoFocus
                                         defaultValue={String(cell || "")}
                                         onBlur={(e) => {
@@ -441,12 +520,20 @@ export default function ExcelViewer() {
                                           if (e.key === "Enter") {
                                             handleCellChange(rIdx, cIdx, (e.target as HTMLInputElement).value);
                                             handleBlur();
+                                          } else if (e.key === "Escape") {
+                                            setEditCell(null);
                                           }
                                         }}
                                       />
                                     ) : (
-                                      <div className="px-3 py-2 truncate h-9 leading-5">
-                                        {String(cell || "")}
+                                      <div className={cn(
+                                        "px-3 py-2 truncate h-9 leading-5 flex items-center justify-between",
+                                        isEditing && !cell && "text-muted-foreground italic text-[10px]"
+                                      )}>
+                                        <span className="truncate flex-1">{String(cell || (isEditing ? "empty" : ""))}</span>
+                                        {isEditing && (
+                                          <Edit2 className="h-2.5 w-2.5 opacity-0 group-hover/cell:opacity-30 flex-shrink-0 ml-1" />
+                                        )}
                                       </div>
                                     )}
                                   </TableCell>
