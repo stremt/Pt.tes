@@ -585,10 +585,12 @@ export default function ExcelViewer() {
                                       />
                                     ) : (
                                       <div className={cn(
-                                        "px-3 py-2 truncate h-9 leading-5 flex items-center justify-between",
-                                        isEditing && !cell && "text-muted-foreground italic text-[10px]"
+                                        "px-3 py-2 truncate h-9 leading-5 flex items-center justify-between min-h-[2.25rem] w-full",
+                                        isEditing && "cursor-text"
                                       )}>
-                                        <span className="truncate flex-1">{String(cell || (isEditing ? "empty" : ""))}</span>
+                                        <span className="truncate flex-1 min-h-[1.25rem]">
+                                          {String(cell || "")}
+                                        </span>
                                         {isEditing && (
                                           <Edit2 className="h-2.5 w-2.5 opacity-0 group-hover/cell:opacity-30 flex-shrink-0 ml-1 text-primary" />
                                         )}
