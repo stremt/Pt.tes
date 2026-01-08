@@ -158,20 +158,12 @@ export default function ExcelViewer() {
     });
   };
 
-  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
-
-  const toggleEditing = () => {
-    setIsEditing(!isEditing);
-    setEditCell(null);
-    if (!isEditing && history.length === 0) {
-      const initialHistory = sheets.map(s => ({
-        ...s,
-        headers: [...s.headers],
-        data: s.data.map(r => [...r])
-      }));
-      setHistory([initialHistory]);
-      setHistoryIndex(0);
-    }
+  const deleteColumn = (colIndex: number) => {
+    updateCurrentSheet(sheet => ({
+      ...sheet,
+      headers: sheet.headers.filter((_, i) => i !== colIndex),
+      data: sheet.data.map(row => row.filter((_, i) => i !== colIndex))
+    }));
   };
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
@@ -190,11 +182,6 @@ export default function ExcelViewer() {
     currentSheet.data = newData;
     newSheets[activeSheetIndex] = currentSheet;
     setSheets(newSheets);
-  };
-
-  const handleBlur = () => {
-    setEditCell(null);
-    pushToHistory(sheets);
   };
 
   useEffect(() => {
@@ -472,9 +459,11 @@ export default function ExcelViewer() {
                     <Button variant="outline" size="sm" onClick={toggleFullScreen}>
                       {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
                     </Button>
-                    <Button variant="default" size="sm" onClick={downloadExcel} className="gap-2">
-                      <Download className="h-4 w-4" /> Download
-                    </Button>
+                    {isEditing && (
+                      <Button variant="default" size="sm" onClick={downloadExcel} className="gap-2">
+                        <Download className="h-4 w-4" /> Download
+                      </Button>
+                    )}
                     <Button variant="outline" size="sm" onClick={reset}>
                       <X className="h-4 w-4" />
                     </Button>
@@ -603,7 +592,10 @@ export default function ExcelViewer() {
                   ))}
                 </Tabs>
 
-                <div className="flex items-center justify-between pt-2 border-t">
+                <div className={cn(
+                  "flex items-center justify-between pt-2 border-t",
+                  isFullScreen && "pb-8"
+                )}>
                   <p className="text-sm text-muted-foreground italic">
                     {filteredData.length > displayCount ? `Showing top ${displayCount} rows. Scroll for more.` : `Showing all ${filteredData.length} rows.`}
                   </p>
