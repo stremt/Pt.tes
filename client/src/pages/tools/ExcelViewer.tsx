@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Edit2, FileSpreadsheet, Maximize2, Minimize2, Redo2, Search, Undo2, Upload, X, Shield, Zap, Copy, Columns3, Trash2, ChevronDown, Type } from "lucide-react";
+import { Download, Edit2, FileSpreadsheet, Maximize2, Minimize2, Redo2, Search, Undo2, Upload, X, Shield, Zap, Copy, Columns3, Trash2, ChevronDown, Type, Monitor } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
