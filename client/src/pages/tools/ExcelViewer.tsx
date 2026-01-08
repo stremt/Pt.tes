@@ -25,7 +25,7 @@ export default function ExcelViewer() {
   const [activeSheetIndex, setActiveSheetIndex] = useState(0);
   const [fileName, setFileName] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [displayCount, setDisplayCount] = useState(100);
+  const [displayCount, setDisplayCount] = useState(200);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editCell, setEditCell] = useState<{ rowIndex: number; colIndex: number } | null>(null);
@@ -37,7 +37,41 @@ export default function ExcelViewer() {
   const [showPaste, setShowPaste] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedSheets = localStorage.getItem("excel_viewer_sheets");
+    const savedFileName = localStorage.getItem("excel_viewer_filename");
+    const savedIndex = localStorage.getItem("excel_viewer_active_index");
+
+    if (savedSheets && savedFileName) {
+      try {
+        const parsedSheets = JSON.parse(savedSheets);
+        setSheets(parsedSheets);
+        setFileName(savedFileName);
+        setActiveSheetIndex(savedIndex ? parseInt(savedIndex) : 0);
+        setHistory([parsedSheets]);
+        setHistoryIndex(0);
+      } catch (e) {
+        console.error("Failed to parse saved Excel data", e);
+      }
+    }
+  }, []);
+
+  // Save to localStorage whenever sheets change
+  useEffect(() => {
+    if (sheets.length > 0) {
+      try {
+        localStorage.setItem("excel_viewer_sheets", JSON.stringify(sheets));
+        localStorage.setItem("excel_viewer_filename", fileName);
+        localStorage.setItem("excel_viewer_active_index", activeSheetIndex.toString());
+      } catch (e) {
+        console.warn("Storage quota exceeded, data not saved locally");
+      }
+    }
+  }, [sheets, fileName, activeSheetIndex]);
 
   const pushToHistory = useCallback((newSheets: SheetData[]) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -244,6 +278,15 @@ export default function ExcelViewer() {
     multiple: false,
   });
 
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      if (displayCount < filteredData.length) {
+        setDisplayCount(prev => prev + 200);
+      }
+    }
+  }, [displayCount, filteredData.length]);
+
   const downloadExcel = () => {
     const currentSheet = sheets[activeSheetIndex];
     // Combine headers and data for the AOF format
@@ -269,6 +312,9 @@ export default function ExcelViewer() {
     setHistory([]);
     setHistoryIndex(-1);
     setIsEditing(false);
+    localStorage.removeItem("excel_viewer_sheets");
+    localStorage.removeItem("excel_viewer_filename");
+    localStorage.removeItem("excel_viewer_active_index");
   };
 
   const faqItems: FAQItem[] = [
@@ -430,6 +476,9 @@ export default function ExcelViewer() {
                     <Button variant="outline" size="sm" onClick={toggleFullScreen}>
                       {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
                     </Button>
+                    <Button variant="default" size="sm" onClick={downloadExcel} className="gap-2">
+                      <Download className="h-4 w-4" /> Download
+                    </Button>
                     <Button variant="outline" size="sm" onClick={reset}>
                       <X className="h-4 w-4" />
                     </Button>
@@ -458,10 +507,14 @@ export default function ExcelViewer() {
                   
                   {sheets.map((sheet, idx) => (
                     <TabsContent key={idx} value={idx.toString()} className="mt-4">
-                      <div className={cn(
-                        "overflow-auto border rounded-md bg-white dark:bg-zinc-950",
-                        isFullScreen ? "h-[calc(100vh-280px)]" : "max-h-[600px]"
-                      )}>
+                      <div 
+                        ref={scrollContainerRef}
+                        onScroll={handleScroll}
+                        className={cn(
+                          "overflow-auto border rounded-md bg-white dark:bg-zinc-950",
+                          isFullScreen ? "h-[calc(100vh-280px)]" : "max-h-[600px]"
+                        )}
+                      >
                         <Table>
                           <TableHeader className="sticky top-0 z-10 bg-muted">
                             <TableRow>
@@ -556,10 +609,12 @@ export default function ExcelViewer() {
 
                 <div className="flex items-center justify-between pt-2 border-t">
                   <p className="text-sm text-muted-foreground italic">
-                    {filteredData.length > displayCount ? `Showing top ${displayCount} rows. Search to filter.` : `Showing all ${filteredData.length} rows.`}
+                    {filteredData.length > displayCount ? `Showing top ${displayCount} rows. Scroll for more.` : `Showing all ${filteredData.length} rows.`}
                   </p>
-                  <Button variant="default" size="sm" onClick={downloadExcel} className="gap-2">
-                    <Download className="h-4 w-4" /> Download Edited Excel
+                  <Button variant="outline" size="sm" onClick={() => {
+                    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+                  }} className="gap-2">
+                    Back to Top
                   </Button>
                 </div>
               </div>
