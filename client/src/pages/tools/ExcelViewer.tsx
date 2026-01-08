@@ -183,21 +183,23 @@ export default function ExcelViewer() {
   };
 
   const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
-    const newSheets = [...sheets];
-    const currentSheet = { ...newSheets[activeSheetIndex] };
-    const newData = [...currentSheet.data];
-    const newRow = [...newData[rowIndex]];
-    newRow[colIndex] = value;
-    newData[rowIndex] = newRow;
-    currentSheet.data = newData;
-    newSheets[activeSheetIndex] = currentSheet;
-    setSheets(newSheets);
+    setSheets(prevSheets => {
+      const newSheets = [...prevSheets];
+      const currentSheet = { ...newSheets[activeSheetIndex] };
+      const newData = [...currentSheet.data];
+      const newRow = [...newData[rowIndex]];
+      newRow[colIndex] = value;
+      newData[rowIndex] = newRow;
+      currentSheet.data = newData;
+      newSheets[activeSheetIndex] = currentSheet;
+      return newSheets;
+    });
   };
 
-  const handleBlur = () => {
+  const handleBlur = useCallback(() => {
     setEditCell(null);
     pushToHistory(sheets);
-  };
+  }, [pushToHistory, sheets]);
 
   useEffect(() => {
     document.body.style.overflow = isFullScreen ? "hidden" : "unset";
@@ -275,18 +277,6 @@ export default function ExcelViewer() {
     multiple: false,
   });
 
-  const downloadExcel = () => {
-    const currentSheet = sheets[activeSheetIndex];
-    const fullData = [currentSheet.headers, ...currentSheet.data];
-    const blob = createExcelFromData(fullData, currentSheet.name);
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName || "edited_data.xlsx";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
   const activeSheet = sheets[activeSheetIndex];
   const filteredData = activeSheet ? activeSheet.data.filter((row) =>
     row.some((val) => String(val || "").toLowerCase().includes(searchTerm.toLowerCase()))
@@ -300,6 +290,18 @@ export default function ExcelViewer() {
       }
     }
   }, [displayCount, filteredData.length]);
+
+  const downloadExcel = () => {
+    if (!activeSheet) return;
+    const fullData = [activeSheet.headers, ...activeSheet.data];
+    const blob = createExcelFromData(fullData, activeSheet.name);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName || "edited_data.xlsx";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
 
   const reset = () => {
     setSheets([]);
@@ -561,13 +563,18 @@ export default function ExcelViewer() {
                                     key={cIdx} 
                                     className={cn(
                                       "border-r p-0 min-w-[120px] relative group/cell",
-                                      isEditing && "cursor-text hover:bg-primary/5"
+                                      isEditing && "cursor-text hover:bg-primary/5 select-none"
                                     )}
-                                    onClick={() => handleCellClick(rIdx, cIdx)}
+                                    onMouseDown={(e) => {
+                                      if (isEditing) {
+                                        e.preventDefault(); // Prevent text selection/blur issues
+                                        handleCellClick(rIdx, cIdx);
+                                      }
+                                    }}
                                   >
                                     {isEditing && editCell?.rowIndex === rIdx && editCell?.colIndex === cIdx ? (
                                       <Input
-                                        className="h-9 border-0 rounded-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 px-3 font-medium"
+                                        className="h-9 border-0 rounded-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-0 px-3 font-medium w-full"
                                         autoFocus
                                         defaultValue={String(cell || "")}
                                         onBlur={(e) => {
