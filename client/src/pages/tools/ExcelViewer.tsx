@@ -1,236 +1,470 @@
-import { useState, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
+import { Link } from "wouter";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileSpreadsheet, Upload, X } from "lucide-react";
+import { 
+  Upload, FileText, Download, Search, X, Shield, Zap, 
+  FileSpreadsheet, Monitor, Maximize2, Minimize2, 
+  Edit2, Undo2, Redo2, Copy, Columns3, Trash2, ChevronDown, Type
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "wouter";
-import { readExcelFile, type SheetData } from "@/lib/spreadsheet-utils";
+import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Helmet } from "react-helmet-async";
+import { cn } from "@/lib/utils";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { readExcelFile, createExcelFromData, type SheetData } from "@/lib/spreadsheet-utils";
+import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 
 export default function ExcelViewer() {
-  const [file, setFile] = useState<File | null>(null);
   const [sheets, setSheets] = useState<SheetData[]>([]);
+  const [activeSheetIndex, setActiveSheetIndex] = useState(0);
+  const [fileName, setFileName] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [displayCount, setDisplayCount] = useState(100);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editCell, setEditCell] = useState<{ rowIndex: number; colIndex: number } | null>(null);
+  const [history, setHistory] = useState<SheetData[][]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const [loading, setLoading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  useSEO({
-    title: "Free Excel Viewer Online - View XLSX Files in Browser | Pixocraft Tools",
-    description: "View Excel files online for free without Microsoft Office. Open and preview XLSX, XLS files instantly in your browser. No installation required, completely free.",
-    keywords: "excel viewer online, view xlsx files, open excel without office, free spreadsheet viewer, xlsx viewer, xls viewer online, excel file reader",
-    canonicalUrl: "https://tools.pixocraft.in/tools/excel-viewer",
-  });
+  const pushToHistory = useCallback((newSheets: SheetData[]) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    // Deep copy sheets to prevent mutation issues in history
+    const historyEntry = newSheets.map(s => ({
+      ...s,
+      headers: [...s.headers],
+      data: s.data.map(r => [...r])
+    }));
+    newHistory.push(historyEntry);
+    if (newHistory.length > 50) newHistory.shift();
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [history, historyIndex]);
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
-
-    const validTypes = [
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-excel'
-    ];
-
-    if (!validTypes.includes(selectedFile.type) && !selectedFile.name.match(/\.(xlsx|xls)$/i)) {
-      toast({
-        title: "Invalid File",
-        description: "Please select an Excel file (.xlsx or .xls)",
-        variant: "destructive",
-      });
-      return;
+  const undo = () => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      const historicSheets = history[newIndex];
+      setSheets(historicSheets.map(s => ({
+        ...s,
+        headers: [...s.headers],
+        data: s.data.map(r => [...r])
+      })));
     }
+  };
 
-    setFile(selectedFile);
+  const redo = () => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      const historicSheets = history[newIndex];
+      setSheets(historicSheets.map(s => ({
+        ...s,
+        headers: [...s.headers],
+        data: s.data.map(r => [...r])
+      })));
+    }
+  };
+
+  const updateCurrentSheet = useCallback((updater: (sheet: SheetData) => SheetData) => {
+    const newSheets = [...sheets];
+    newSheets[activeSheetIndex] = updater(newSheets[activeSheetIndex]);
+    setSheets(newSheets);
+    pushToHistory(newSheets);
+  }, [sheets, activeSheetIndex, pushToHistory]);
+
+  const addRow = () => {
+    updateCurrentSheet(sheet => ({
+      ...sheet,
+      data: [...sheet.data, new Array(sheet.headers.length).fill("")]
+    }));
+  };
+
+  const deleteRow = (index: number) => {
+    updateCurrentSheet(sheet => ({
+      ...sheet,
+      data: sheet.data.filter((_, i) => i !== index)
+    }));
+  };
+
+  const addColumn = () => {
+    updateCurrentSheet(sheet => {
+      const newHeader = `Column ${sheet.headers.length + 1}`;
+      return {
+        ...sheet,
+        headers: [...sheet.headers, newHeader],
+        data: sheet.data.map(row => [...row, ""])
+      };
+    });
+  };
+
+  const deleteColumn = (colIndex: number) => {
+    updateCurrentSheet(sheet => ({
+      ...sheet,
+      headers: sheet.headers.filter((_, i) => i !== colIndex),
+      data: sheet.data.map(row => row.filter((_, i) => i !== colIndex))
+    }));
+  };
+
+  const renameColumn = (colIndex: number, newName: string) => {
+    if (!newName) return;
+    updateCurrentSheet(sheet => {
+      const newHeaders = [...sheet.headers];
+      newHeaders[colIndex] = newName;
+      return { ...sheet, headers: newHeaders };
+    });
+  };
+
+  const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+    setEditCell(null);
+    if (!isEditing && history.length === 0) {
+      const initialHistory = sheets.map(s => ({
+        ...s,
+        headers: [...s.headers],
+        data: s.data.map(r => [...r])
+      }));
+      setHistory([initialHistory]);
+      setHistoryIndex(0);
+    }
+  };
+
+  const handleCellClick = (rowIndex: number, colIndex: number) => {
+    if (isEditing) {
+      setEditCell({ rowIndex, colIndex });
+    }
+  };
+
+  const handleCellChange = (rowIndex: number, colIndex: number, value: string) => {
+    const newSheets = [...sheets];
+    const currentSheet = { ...newSheets[activeSheetIndex] };
+    const newData = [...currentSheet.data];
+    const newRow = [...newData[rowIndex]];
+    newRow[colIndex] = value;
+    newData[rowIndex] = newRow;
+    currentSheet.data = newData;
+    newSheets[activeSheetIndex] = currentSheet;
+    setSheets(newSheets);
+  };
+
+  const handleBlur = () => {
+    setEditCell(null);
+    pushToHistory(sheets);
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = isFullScreen ? "hidden" : "unset";
+    return () => { document.body.style.overflow = "unset"; };
+  }, [isFullScreen]);
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+
     setLoading(true);
-
     try {
-      const sheetData = await readExcelFile(selectedFile);
+      const sheetData = await readExcelFile(file);
       setSheets(sheetData);
+      setFileName(file.name);
+      setActiveSheetIndex(0);
+      setDisplayCount(100);
+      
+      const initialHistory = sheetData.map(s => ({
+        ...s,
+        headers: [...s.headers],
+        data: s.data.map(r => [...r])
+      }));
+      setHistory([initialHistory]);
+      setHistoryIndex(0);
+
       toast({
-        title: "Success!",
-        description: `Excel file loaded. Found ${sheetData.length} sheet(s)`,
+        title: "Success",
+        description: `Loaded ${sheetData.length} sheets from ${file.name}`,
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to read Excel file",
         variant: "destructive",
+        title: "Error",
+        description: "Failed to read Excel file",
       });
     } finally {
       setLoading(false);
     }
+  }, [toast]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { 
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+      'application/vnd.ms-excel': ['.xls']
+    },
+    multiple: false,
+  });
+
+  const downloadExcel = () => {
+    const currentSheet = sheets[activeSheetIndex];
+    // Combine headers and data for the AOF format
+    const fullData = [currentSheet.headers, ...currentSheet.data];
+    const blob = createExcelFromData(fullData, currentSheet.name);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName || "edited_data.xlsx";
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
-  const resetTool = () => {
-    setFile(null);
+  const activeSheet = sheets[activeSheetIndex];
+  const filteredData = activeSheet ? activeSheet.data.filter((row) =>
+    row.some((val) => String(val || "").toLowerCase().includes(searchTerm.toLowerCase()))
+  ) : [];
+
+  const reset = () => {
     setSheets([]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    setFileName("");
+    setSearchTerm("");
+    setHistory([]);
+    setHistoryIndex(-1);
+    setIsEditing(false);
   };
 
   const faqItems: FAQItem[] = [
     {
-      question: "Can I view Excel files without Microsoft Office?",
-      answer: "Yes! Our Excel viewer lets you open and view XLSX and XLS files directly in your browser without needing Microsoft Office, Excel, or any other software installed. It's completely free and works on any device with a web browser."
+      question: "Is my Excel data safe when I use this editor?",
+      answer: "Yes, completely. Your files are processed entirely in your browser using JavaScript and are never uploaded to our servers. Your privacy is 100% protected."
     },
     {
-      question: "What Excel file formats are supported?",
-      answer: "Our viewer supports the most common Excel formats: XLSX (Excel 2007 and later) and XLS (Excel 97-2003). These formats cover the vast majority of Excel files you'll encounter. The tool can read multiple sheets and preserve formatting."
+      question: "Can I edit XLSX files online for free?",
+      answer: "Absolutely. Our tool allows you to view, search, and edit Excel files (XLSX, XLS) directly in your browser. You can add rows, delete columns, and modify cells without needing Microsoft Office."
     },
     {
-      question: "Is my Excel data secure?",
-      answer: "Absolutely! All file processing happens entirely in your browser using JavaScript. Your Excel files are never uploaded to our servers or transmitted over the internet. Once you close or refresh the page, all data is completely removed from memory."
-    },
-    {
-      question: "Can I edit the Excel file?",
-      answer: "This tool is designed for viewing only. It displays the data from your Excel file but doesn't support editing. For editing capabilities, you would need Microsoft Excel, Google Sheets, or other spreadsheet software."
-    },
-    {
-      question: "Are there any file size limits?",
-      answer: "The limit depends on your browser's available memory. Most modern browsers can handle Excel files up to several megabytes. Very large files with hundreds of thousands of rows may take longer to load or may exceed browser memory limits."
+      question: "What features does the Excel Editor include?",
+      answer: "It includes full cell editing, row and column management (add/delete/rename), search/filter functionality, full-screen mode, undo/redo history, and the ability to download your edited file."
     }
   ];
 
-  const faqSchema = generateFAQSchema(faqItems);
-
   return (
-    <>
-      <StructuredData data={faqSchema} />
-      <div className="min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <span className="text-foreground">Excel Viewer</span>
-          </div>
+    <ToolLayout
+      title="Excel Viewer & Editor"
+      description="Professional online Excel editor. View, modify, and manage XLSX/XLS files with full spreadsheet power—completely in your browser."
+      toolId="excel-viewer"
+      category="developer"
+      icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
+      faqs={faqItems}
+    >
+      <Helmet>
+        <title>Free Excel Viewer & Editor Online - Edit XLSX Files Instantly</title>
+        <meta name="description" content="Professional Excel editor online. View, search, and edit XLSX/XLS files directly in your browser. No software required, works offline, 100% private." />
+      </Helmet>
+      <StructuredData data={generateFAQSchema(faqItems)} />
 
-          <div className="text-center space-y-4 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <FileSpreadsheet className="h-8 w-8 text-primary" />
+      <div className="space-y-6">
+        {!sheets.length ? (
+          <Card className="border-dashed border-2">
+            <CardContent
+              {...getRootProps()}
+              className="flex flex-col items-center justify-center p-12 h-64 cursor-pointer hover:bg-accent/50 transition-colors"
+            >
+              <input {...getInputProps()} />
+              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                {loading ? <Zap className="h-8 w-8 text-primary animate-pulse" /> : <Upload className="h-8 w-8 text-primary" />}
               </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Excel Viewer</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              View Excel files online without Microsoft Office. Open XLSX and XLS files instantly in your browser.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">No Office Required</Badge>
-              <Badge variant="secondary">Offline</Badge>
-            </div>
-          </div>
-
-          <div className="max-w-6xl mx-auto mb-16">
-            {!file ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Upload Excel File</CardTitle>
-                  <CardDescription>
-                    Select an Excel file to view (.xlsx or .xls)
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
-                    onClick={() => fileInputRef.current?.click()}
-                    data-testid="dropzone-upload"
-                  >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload an Excel file</p>
-                    <p className="text-sm text-muted-foreground">
-                      Supports XLSX and XLS formats
-                    </p>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-                      onChange={handleFileSelect}
-                      className="hidden"
-                      data-testid="input-file"
-                    />
+              <h3 className="text-xl font-semibold mb-2">
+                {isDragActive ? "Drop your Excel file here" : "Upload Excel File"}
+              </h3>
+              <p className="text-muted-foreground text-center max-w-sm">
+                Supports XLSX and XLS formats. All processing is local.
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div 
+            ref={containerRef}
+            className={cn(
+              "space-y-4 transition-all duration-300",
+              isFullScreen && "fixed inset-0 z-[100] bg-background p-4 sm:p-8 overflow-hidden h-screen w-screen m-0"
+            )}
+          >
+            <div className="bg-card rounded-lg border shadow-sm">
+              <div className="flex items-center gap-3 p-4 border-b">
+                <div className="bg-primary/10 p-2 rounded-md flex-shrink-0">
+                  <FileSpreadsheet className="h-5 w-5 text-primary" />
+                </div>
+                <div className="truncate flex-1">
+                  <p className="font-medium truncate text-sm sm:text-base">{fileName}</p>
+                  <p className="text-xs text-muted-foreground">{activeSheet?.data.length} rows in "{activeSheet?.name}"</p>
+                </div>
+                {isEditing && (
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <Button variant="outline" size="icon" onClick={undo} disabled={historyIndex <= 0} title="Undo">
+                      <Undo2 className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" onClick={redo} disabled={historyIndex >= history.length - 1} title="Redo">
+                      <Redo2 className="h-4 w-4" />
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            ) : loading ? (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">Loading Excel file...</p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle>{file.name}</CardTitle>
-                        <CardDescription>{sheets.length} sheet(s)</CardDescription>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={resetTool}
-                        data-testid="button-reset"
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                {sheets.length > 0 && (
-                  <Card>
-                    <CardContent className="p-6">
-                      <Tabs defaultValue={sheets[0]?.name || "0"}>
-                        <TabsList className="mb-4">
-                          {sheets.map((sheet, idx) => (
-                            <TabsTrigger key={idx} value={sheet.name} data-testid={`tab-${idx}`}>
-                              {sheet.name}
-                            </TabsTrigger>
-                          ))}
-                        </TabsList>
-                        {sheets.map((sheet, idx) => (
-                          <TabsContent key={idx} value={sheet.name}>
-                            <div className="overflow-auto max-h-[600px]">
-                              <table className="w-full border-collapse text-sm">
-                                <thead className="bg-muted sticky top-0">
-                                  <tr>
-                                    {sheet.headers.map((header, hIdx) => (
-                                      <th key={hIdx} className="border border-border px-3 py-2 text-left font-medium">
-                                        {header || `Column ${hIdx + 1}`}
-                                      </th>
-                                    ))}
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {sheet.data.map((row, rIdx) => (
-                                    <tr key={rIdx} className="hover:bg-muted/50">
-                                      {row.map((cell, cIdx) => (
-                                        <td key={cIdx} className="border border-border px-3 py-2">
-                                          {cell !== undefined && cell !== null ? String(cell) : ''}
-                                        </td>
-                                      ))}
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </TabsContent>
-                        ))}
-                      </Tabs>
-                    </CardContent>
-                  </Card>
                 )}
               </div>
-            )}
+
+              <div className="p-4 space-y-4">
+                <div className="flex flex-wrap gap-2 items-center justify-between">
+                  <div className="relative flex-1 min-w-[200px]">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search in table..."
+                      className="pl-9 w-full"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant={isEditing ? "default" : "outline"} size="sm" onClick={toggleEditing}>
+                      <Edit2 className="h-4 w-4 mr-1" /> Edit
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={toggleFullScreen}>
+                      {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={reset}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {isEditing && (
+                  <div className="flex flex-wrap gap-2 pb-2">
+                    <Button variant="outline" size="sm" onClick={addRow}>
+                      <Copy className="h-4 w-4 mr-1" /> Add Row
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={addColumn}>
+                      <Columns3 className="h-4 w-4 mr-1" /> Add Column
+                    </Button>
+                  </div>
+                )}
+
+                <Tabs value={activeSheetIndex.toString()} onValueChange={(v) => setActiveSheetIndex(parseInt(v))}>
+                  <TabsList className="w-full justify-start overflow-x-auto h-auto p-1 bg-muted/50">
+                    {sheets.map((sheet, idx) => (
+                      <TabsTrigger key={idx} value={idx.toString()} className="px-4 py-2">
+                        {sheet.name}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                  
+                  {sheets.map((sheet, idx) => (
+                    <TabsContent key={idx} value={idx.toString()} className="mt-4">
+                      <div className={cn(
+                        "overflow-auto border rounded-md bg-white dark:bg-zinc-950",
+                        isFullScreen ? "h-[calc(100vh-280px)]" : "max-h-[600px]"
+                      )}>
+                        <Table>
+                          <TableHeader className="sticky top-0 z-10 bg-muted">
+                            <TableRow>
+                              {sheet.headers.map((header, hIdx) => (
+                                <TableHead key={hIdx} className="min-w-[120px] border-r">
+                                  <div className="flex items-center justify-between group">
+                                    <span className="truncate">{header || `Col ${hIdx + 1}`}</span>
+                                    {isEditing && (
+                                      <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                          <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100">
+                                            <ChevronDown className="h-3 w-3" />
+                                          </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                          <DropdownMenuItem onClick={() => {
+                                            const newName = prompt("Rename column to:", header);
+                                            if (newName) renameColumn(hIdx, newName);
+                                          }}>
+                                            <Type className="h-4 w-4 mr-2" /> Rename
+                                          </DropdownMenuItem>
+                                          <DropdownMenuItem className="text-destructive" onClick={() => deleteColumn(hIdx)}>
+                                            <Trash2 className="h-4 w-4 mr-2" /> Delete
+                                          </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                      </DropdownMenu>
+                                    )}
+                                  </div>
+                                </TableHead>
+                              ))}
+                              {isEditing && <TableHead className="w-10" />}
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {filteredData.slice(0, displayCount).map((row, rIdx) => (
+                              <TableRow key={rIdx} className="hover:bg-muted/30">
+                                {row.map((cell, cIdx) => (
+                                  <TableCell 
+                                    key={cIdx} 
+                                    className={cn(
+                                      "border-r p-0 min-w-[120px]",
+                                      isEditing && "cursor-text hover:bg-primary/5"
+                                    )}
+                                    onClick={() => handleCellClick(rIdx, cIdx)}
+                                  >
+                                    {isEditing && editCell?.rowIndex === rIdx && editCell?.colIndex === cIdx ? (
+                                      <Input
+                                        className="h-9 border-0 rounded-none focus-visible:ring-0 focus-visible:ring-offset-0 px-3"
+                                        autoFocus
+                                        defaultValue={String(cell || "")}
+                                        onBlur={(e) => {
+                                          handleCellChange(rIdx, cIdx, e.target.value);
+                                          handleBlur();
+                                        }}
+                                        onKeyDown={(e) => {
+                                          if (e.key === "Enter") {
+                                            handleCellChange(rIdx, cIdx, (e.target as HTMLInputElement).value);
+                                            handleBlur();
+                                          }
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="px-3 py-2 truncate h-9 leading-5">
+                                        {String(cell || "")}
+                                      </div>
+                                    )}
+                                  </TableCell>
+                                ))}
+                                {isEditing && (
+                                  <TableCell className="p-1 w-10">
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => deleteRow(rIdx)}>
+                                      <Trash2 className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TableCell>
+                                )}
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </TabsContent>
+                  ))}
+                </Tabs>
+
+                <div className="flex items-center justify-between pt-2 border-t">
+                  <p className="text-sm text-muted-foreground italic">
+                    {filteredData.length > displayCount ? `Showing top ${displayCount} rows. Search to filter.` : `Showing all ${filteredData.length} rows.`}
+                  </p>
+                  <Button variant="default" size="sm" onClick={downloadExcel} className="gap-2">
+                    <Download className="h-4 w-4" /> Download Edited Excel
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-    </>
+    </ToolLayout>
   );
 }
