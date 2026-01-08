@@ -7,11 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Upload, FileText, Download, Search, X, Shield, Zap, 
-  FileSpreadsheet, Monitor, Maximize2, Minimize2, 
-  Edit2, Undo2, Redo2, Copy, Columns3, Trash2, ChevronDown, Type
-} from "lucide-react";
+import { Download, Edit2, FileSpreadsheet, Maximize2, Minimize2, Redo2, Search, Undo2, Upload, X, Shield, Zap, Copy, Columns3, Trash2, ChevronDown, Type } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -278,15 +274,6 @@ export default function ExcelViewer() {
     multiple: false,
   });
 
-  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop <= clientHeight + 100) {
-      if (displayCount < filteredData.length) {
-        setDisplayCount(prev => prev + 200);
-      }
-    }
-  }, [displayCount, filteredData.length]);
-
   const downloadExcel = () => {
     const currentSheet = sheets[activeSheetIndex];
     // Combine headers and data for the AOF format
@@ -304,6 +291,15 @@ export default function ExcelViewer() {
   const filteredData = activeSheet ? activeSheet.data.filter((row) =>
     row.some((val) => String(val || "").toLowerCase().includes(searchTerm.toLowerCase()))
   ) : [];
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+      if (displayCount < filteredData.length) {
+        setDisplayCount(prev => prev + 200);
+      }
+    }
+  }, [displayCount, filteredData.length]);
 
   const reset = () => {
     setSheets([]);
@@ -585,7 +581,7 @@ export default function ExcelViewer() {
                                       )}>
                                         <span className="truncate flex-1">{String(cell || (isEditing ? "empty" : ""))}</span>
                                         {isEditing && (
-                                          <Edit2 className="h-2.5 w-2.5 opacity-0 group-hover/cell:opacity-30 flex-shrink-0 ml-1" />
+                                          <Edit2 className="h-2.5 w-2.5 opacity-0 group-hover/cell:opacity-30 flex-shrink-0 ml-1 text-primary" />
                                         )}
                                       </div>
                                     )}
