@@ -516,18 +516,19 @@ export default function ExcelViewer() {
                         <Table>
                           <TableHeader className="sticky top-0 z-10 bg-muted">
                             <TableRow>
+                              {isEditing && <TableHead className="w-10 border-r" />}
                               {sheet.headers.map((header, hIdx) => (
                                 <TableHead key={hIdx} className="min-w-[120px] border-r">
                                   <div className="flex items-center justify-between group">
                                     <span className="truncate">{header || `Col ${hIdx + 1}`}</span>
                                     {isEditing && (
-                                      <DropdownMenu>
+                                      <DropdownMenu modal={false}>
                                         <DropdownMenuTrigger asChild>
                                           <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100">
                                             <ChevronDown className="h-3 w-3" />
                                           </Button>
                                         </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
+                                        <DropdownMenuContent className="z-[110]">
                                           <DropdownMenuItem onClick={() => {
                                             const newName = prompt("Rename column to:", header);
                                             if (newName) renameColumn(hIdx, newName);
@@ -543,12 +544,18 @@ export default function ExcelViewer() {
                                   </div>
                                 </TableHead>
                               ))}
-                              {isEditing && <TableHead className="w-10" />}
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {filteredData.slice(0, displayCount).map((row, rIdx) => (
                               <TableRow key={rIdx} className="hover:bg-muted/30">
+                                {isEditing && (
+                                  <TableCell className="p-1 w-10 text-center border-r">
+                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:bg-destructive/10" onClick={() => deleteRow(rIdx)}>
+                                      <Trash2 className="h-3.5 w-3.5" />
+                                    </Button>
+                                  </TableCell>
+                                )}
                                 {row.map((cell, cIdx) => (
                                   <TableCell 
                                     key={cIdx} 
@@ -589,13 +596,6 @@ export default function ExcelViewer() {
                                     )}
                                   </TableCell>
                                 ))}
-                                {isEditing && (
-                                  <TableCell className="p-1 w-10">
-                                    <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => deleteRow(rIdx)}>
-                                      <Trash2 className="h-3.5 w-3.5" />
-                                    </Button>
-                                  </TableCell>
-                                )}
                               </TableRow>
                             ))}
                           </TableBody>
