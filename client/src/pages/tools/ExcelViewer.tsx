@@ -255,6 +255,19 @@ export default function ExcelViewer() {
     }
   ];
 
+  const howItWorks = [
+    { step: 1, title: "Upload Excel File", description: "Drag and drop your XLSX or XLS file directly into the tool." },
+    { step: 2, title: "Edit & Manage", description: "Click any cell to edit. Use history controls, add/remove rows and columns, and switch between sheets." },
+    { step: 3, title: "Export & Save", description: "Download your updated Excel file with all changes preserved." }
+  ];
+
+  const benefits = [
+    { icon: <Shield className="h-6 w-6 text-primary" />, title: "Privacy First", description: "Your data stays in your browser. No files are uploaded to our servers." },
+    { icon: <Zap className="h-6 w-6 text-primary" />, title: "Full Spreadsheet", description: "Editable cells, sheet management, and row/column control." },
+    { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Multiple Sheets", description: "Easily navigate and edit all sheets within your Excel workbook." },
+    { icon: <Monitor className="h-6 w-6 text-primary" />, title: "Zero Install", description: "View and edit Excel files without Microsoft Office installed." }
+  ];
+
   return (
     <ToolLayout
       title="Excel Viewer & Editor"
@@ -262,10 +275,12 @@ export default function ExcelViewer() {
       toolId="excel-viewer"
       category="developer"
       icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
+      howItWorks={howItWorks}
+      benefits={benefits}
       faqs={faqItems}
     >
       <Helmet>
-        <title>Free Excel Viewer & Editor Online - Edit XLSX Files Instantly</title>
+        <title>Excel Viewer & Editor - View & Edit XLSX Online | Pixocraft Tools</title>
         <meta name="description" content="Professional Excel editor online. View, search, and edit XLSX/XLS files directly in your browser. No software required, works offline, 100% private." />
       </Helmet>
       <StructuredData data={generateFAQSchema(faqItems)} />
