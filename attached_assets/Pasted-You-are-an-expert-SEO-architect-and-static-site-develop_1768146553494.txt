@@ -1,0 +1,120 @@
+You are an expert SEO architect and static-site developer.
+
+IMPORTANT CONTEXT:
+- Pixocraft Tools already has a STRONG main tool page.
+- You must NOT modify, rewrite, or merge content with the main tool page.
+- This task is to create NEW long-tail SEO landing pages only.
+- Website is static and SEO-first.
+
+------------------------------------------------
+TASK OVERVIEW
+------------------------------------------------
+For the given MAIN TOOL, create EXACTLY 4 new long-tail SEO pages
+and fully connect them with the main tool page using clean internal linking.
+
+------------------------------------------------
+INPUT
+------------------------------------------------
+Main Tool Name: {{MAIN_TOOL_NAME}}
+Main Tool URL: /tools/{{MAIN_TOOL_SLUG}}
+
+Create 4 long-tail pages using these keywords:
+1. {{LONG_TAIL_KEYWORD_1}}
+2. {{LONG_TAIL_KEYWORD_2}}
+3. {{LONG_TAIL_KEYWORD_3}}
+4. {{LONG_TAIL_KEYWORD_4}}
+
+------------------------------------------------
+URL STRUCTURE (MANDATORY)
+------------------------------------------------
+Create NEW pages at:
+- /tools/{{MAIN_TOOL_SLUG}}/{{slug-1}}
+- /tools/{{MAIN_TOOL_SLUG}}/{{slug-2}}
+- /tools/{{MAIN_TOOL_SLUG}}/{{slug-3}}
+- /tools/{{MAIN_TOOL_SLUG}}/{{slug-4}}
+
+Do NOT change the main tool URL.
+
+------------------------------------------------
+LONG-TAIL PAGE CONTENT RULES
+------------------------------------------------
+Each long-tail page MUST:
+- Be 800–1000 words
+- Be written ONLY for its specific keyword
+- Feel purpose-built for that exact search intent
+- NOT duplicate content from:
+  - Main tool page
+  - Other long-tail pages
+
+STRICT RULES:
+- Do NOT mention competitors
+- Do NOT mention any technologies, APIs, or libraries
+- Do NOT add signup, ads, tracking, or analytics
+- Do NOT reference other long-tail pages
+- Tone: practical, problem-solving, trustworthy
+- Audience: India + global users
+
+------------------------------------------------
+LONG-TAIL PAGE STRUCTURE (ALL 4 PAGES)
+------------------------------------------------
+1. SEO Title (focused on the long-tail keyword)
+2. H1 matching exact search intent
+3. Short intro solving the exact problem
+4. Why people specifically search for this
+5. How Pixocraft’s tool helps in THIS scenario
+6. Common mistakes users make
+7. Privacy & safety explanation
+8. FAQ (5–6 real long-tail questions)
+9. Internal links section:
+   - Link to MAIN tool page
+   - Link to 2–3 relevant Pixocraft tools (not other long-tail pages)
+
+------------------------------------------------
+INTERNAL LINKING REQUIREMENTS (CRITICAL)
+------------------------------------------------
+1. On EACH long-tail page:
+   - Add a clear text link back to the MAIN tool page
+   - Example: “Use the {{MAIN_TOOL_NAME}} here”
+
+2. On the MAIN tool page:
+   - Add a new section titled:
+     “Popular Use Cases”
+   - List and link all 4 long-tail pages (text links only)
+
+------------------------------------------------
+BREADCRUMB REQUIREMENTS
+------------------------------------------------
+Add breadcrumbs on each long-tail page:
+
+Home > Tools > {{MAIN_TOOL_NAME}} > {{Long-Tail Page Title}}
+
+Breadcrumb must:
+- Be visible in UI
+- Be static HTML
+- Be SEO-friendly (no JS logic)
+
+------------------------------------------------
+OUTPUT FORMAT
+------------------------------------------------
+For EACH long-tail page, return:
+
+--- PAGE 1 ---
+URL:
+SEO Title:
+H1:
+Content:
+FAQ:
+Internal Links Used:
+
+--- PAGE 2 ---
+(repeat)
+
+--- PAGE 3 ---
+(repeat)
+
+--- PAGE 4 ---
+(repeat)
+
+Also return:
+- Exact text to add on MAIN tool page under “Popular Use Cases”
+- Confirmation that no existing pages were modified
