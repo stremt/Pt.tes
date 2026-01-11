@@ -404,32 +404,6 @@ export default function XLSXToCSVConverter() {
             </CardContent>
           </Card>
 
-          {/* Long-tail SEO Pages */}
-          <Card className="border-primary/20 bg-primary/5">
-            <CardHeader>
-              <CardTitle>More XLSX to CSV Converter Variants</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <Link href="/tools/xlsx-to-csv-converter/free-online" asChild>
-                  <Button variant="outline" className="justify-center" data-testid="link-free-online">Free Online Converter</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/no-excel" asChild>
-                  <Button variant="outline" className="justify-center" data-testid="link-no-excel">Without Excel Required</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/with-preview" asChild>
-                  <Button variant="outline" className="justify-center" data-testid="link-preview">With Preview Feature</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/bulk-convert" asChild>
-                  <Button variant="outline" className="justify-center" data-testid="link-bulk">Bulk Conversion</Button>
-                </Link>
-                <Link href="/tools/xlsx-to-csv-converter/history" asChild>
-                  <Button variant="outline" className="justify-center">Conversion History</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Back Link */}
           <p className="text-center text-sm text-muted-foreground">
             <Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link>
