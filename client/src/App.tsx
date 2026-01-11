@@ -338,6 +338,10 @@ const XLSXToCSVFreeOnline = lazy(() => import("@/pages/tools/longtail/XLSXToCSVF
 const XLSXToCSVNoExcel = lazy(() => import("@/pages/tools/longtail/XLSXToCSVNoExcel"));
 const XLSXToCSVBulk = lazy(() => import("@/pages/tools/longtail/XLSXToCSVBulk"));
 const XLSXToCSVWithPreview = lazy(() => import("@/pages/tools/longtail/XLSXToCSVWithPreview"));
+const ExcelToPDFProfessional = lazy(() => import("@/pages/tools/longtail/ExcelToPDFProfessional"));
+const ExcelViewerNoSoftware = lazy(() => import("@/pages/tools/longtail/ExcelViewerNoSoftware"));
+const XLSXToCSVHistory = lazy(() => import("@/pages/tools/longtail/XLSXToCSVHistory"));
+const ExcelViewerMobile = lazy(() => import("@/pages/tools/longtail/ExcelViewerMobile"));
 const InstagramProfilePictureDownloader = lazy(() => import("@/pages/tools/InstagramProfilePictureDownloader"));
 const ConvertTextFileToPdfOnline = lazy(() => import("@/pages/tools/longtail/ConvertTextFileToPdfOnline"));
 const ConvertDocumentTextToPdfFormatting = lazy(() => import("@/pages/tools/longtail/ConvertDocumentTextToPdfFormatting"));
@@ -471,6 +475,10 @@ function Router() {
         <Route path="/tools/xlsx-to-csv-converter/no-excel" component={XLSXToCSVNoExcel} />
         <Route path="/tools/xlsx-to-csv-converter/bulk-convert" component={XLSXToCSVBulk} />
         <Route path="/tools/xlsx-to-csv-converter/with-preview" component={XLSXToCSVWithPreview} />
+        <Route path="/tools/excel-to-pdf/professional" component={ExcelToPDFProfessional} />
+        <Route path="/tools/excel-viewer/no-software" component={ExcelViewerNoSoftware} />
+        <Route path="/tools/xlsx-to-csv-converter/history" component={XLSXToCSVHistory} />
+        <Route path="/tools/excel-viewer/mobile" component={ExcelViewerMobile} />
         <Route path="/tools/json-yaml-converter" component={JSONYAMLConverter} />
         <Route path="/tools/code-beautifier" component={CodeBeautifier} />
         <Route path="/tools/css-minifier" component={CSSMinifier} />

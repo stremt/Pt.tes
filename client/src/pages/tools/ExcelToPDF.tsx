@@ -143,6 +143,9 @@ export default function ExcelToPDF() {
               <Badge variant="secondary">Free</Badge>
               <Badge variant="secondary">Offline</Badge>
               <Badge variant="secondary">All Sheets Included</Badge>
+              <Link href="/tools/excel-to-pdf/professional" className="ml-2">
+                <Button variant="ghost" className="text-primary h-auto p-0 hover:bg-transparent">Try Professional Version</Button>
+              </Link>
             </div>
           </div>
 

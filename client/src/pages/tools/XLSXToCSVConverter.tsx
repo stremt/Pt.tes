@@ -423,6 +423,9 @@ export default function XLSXToCSVConverter() {
                 <Link href="/tools/xlsx-to-csv-converter/bulk-convert" asChild>
                   <Button variant="outline" className="justify-center" data-testid="link-bulk">Bulk Conversion</Button>
                 </Link>
+                <Link href="/tools/xlsx-to-csv-converter/history" asChild>
+                  <Button variant="outline" className="justify-center">Conversion History</Button>
+                </Link>
               </div>
             </CardContent>
           </Card>

@@ -381,6 +381,14 @@ export default function ExcelViewer() {
       <StructuredData data={generateFAQSchema(faqItems)} />
 
       <div className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <Link href="/tools/excel-viewer/no-software" asChild>
+            <Button variant="outline" className="w-full">Open Without Software</Button>
+          </Link>
+          <Link href="/tools/excel-viewer/mobile" asChild>
+            <Button variant="outline" className="w-full">Mobile Optimized View</Button>
+          </Link>
+        </div>
         {!sheets.length ? (
           <div className={cn("grid gap-6 transition-all duration-300", showPaste ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1")}>
             <Card className={cn("border-dashed border-2 transition-all", showPaste && "md:h-[400px]")}>
