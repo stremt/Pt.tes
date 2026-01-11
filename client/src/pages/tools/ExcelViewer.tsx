@@ -317,16 +317,36 @@ export default function ExcelViewer() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is my Excel data safe when I use this editor?",
-      answer: "Yes, completely. Your files are processed entirely in your browser using JavaScript and are never uploaded to our servers. Your privacy is 100% protected."
+      question: "Is it safe to view my confidential Excel files here?",
+      answer: "Yes, your privacy is our priority. All processing happens locally in your web browser. Your files are never uploaded to any server, ensuring your sensitive data stays on your machine."
     },
     {
-      question: "Can I edit XLSX files online for free?",
-      answer: "Absolutely. Our tool allows you to view, search, and edit Excel files (XLSX, XLS) directly in your browser. You can add rows, delete columns, and modify cells without needing Microsoft Office."
+      question: "Can I edit XLSX files online without Microsoft Office?",
+      answer: "Absolutely. Our tool provides a full interface to view and edit Excel files directly. You can modify cells, add rows, and rename columns without needing any office suite installed."
     },
     {
-      question: "What features does the Excel Editor include?",
-      answer: "It includes full cell editing, row and column management (add/delete/rename), search/filter functionality, full-screen mode, undo/redo history, and the ability to download your edited file."
+      question: "Does this tool support multiple sheets in a workbook?",
+      answer: "Yes, it does. When you upload an Excel file, our viewer automatically detects all worksheets. You can easily switch between them using the tabs at the bottom of the editor."
+    },
+    {
+      question: "Is there a file size limit for viewing Excel files?",
+      answer: "There is no strict limit imposed by the tool, but very large files may depend on your browser's memory. Most standard business spreadsheets open instantly."
+    },
+    {
+      question: "Can I use this tool on my smartphone or tablet?",
+      answer: "Yes, our Excel viewer is fully responsive. You can open, view, and perform basic edits on your spreadsheets using any modern mobile browser."
+    },
+    {
+      question: "What formats are supported by the Excel Viewer?",
+      answer: "We support both the modern .xlsx format and the older .xls format. You can also paste data directly from other sources to create a new spreadsheet view."
+    },
+    {
+      question: "How do I save my changes after editing?",
+      answer: "Once you've made your edits, simply click the 'Download' button. The tool will generate a new XLSX file containing all your modifications for you to save."
+    },
+    {
+      question: "Is this online Excel viewer completely free to use?",
+      answer: "Yes, the tool is 100% free. There are no hidden fees, no registration required, and no limits on how many files you can view or edit."
     }
   ];
 
@@ -345,8 +365,8 @@ export default function ExcelViewer() {
 
   return (
     <ToolLayout
-      title="Excel Viewer & Editor"
-      description="Professional online Excel editor. View, modify, and manage XLSX/XLS files with full spreadsheet power—completely in your browser."
+      title="Excel Viewer"
+      description="Access and manage your spreadsheet data with ease using our online Excel viewer. Perfect for professionals and students who need to view or make quick edits to XLSX files without needing expensive software."
       toolId="excel-viewer"
       category="developer"
       icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
@@ -355,8 +375,8 @@ export default function ExcelViewer() {
       faqs={faqItems}
     >
       <Helmet>
-        <title>Excel Viewer & Editor - View & Edit XLSX Online | Pixocraft Tools</title>
-        <meta name="description" content="Professional Excel editor online. View, search, and edit XLSX/XLS files directly in your browser. No software required, works offline, 100% private." />
+        <title>Excel Viewer Online - View and Edit XLSX Files Free</title>
+        <meta name="description" content="View and edit Excel files online for free. This professional XLSX viewer allows you to search, modify, and manage spreadsheets securely in your browser." />
       </Helmet>
       <StructuredData data={generateFAQSchema(faqItems)} />
 

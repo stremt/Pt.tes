@@ -16,8 +16,8 @@ export default function ExcelToPDF() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Excel to PDF Converter Online - Convert XLSX to PDF | Pixocraft Tools",
-    description: "Convert Excel files to PDF online for free. Transform XLSX, XLS spreadsheets to PDF format instantly. No software installation required, works offline in your browser.",
+    title: "Excel to PDF Converter - Convert XLSX to PDF Online",
+    description: "Convert your Excel spreadsheets to PDF format quickly and securely. No software required, 100% private, and works directly in your browser.",
     keywords: "excel to pdf converter, xlsx to pdf, convert excel to pdf free, spreadsheet to pdf, xls to pdf online, excel pdf converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/excel-to-pdf",
   });
@@ -79,24 +79,36 @@ export default function ExcelToPDF() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "How do I convert Excel to PDF?",
-      answer: "Simply upload your Excel file (.xlsx or .xls), and click the Convert to PDF button. The tool will process all sheets in your workbook and generate a PDF document. All conversion happens in your browser, ensuring your data remains private."
+      question: "Is my data safe when converting Excel to PDF?",
+      answer: "Yes, your privacy is guaranteed. The conversion happens entirely within your browser. Your Excel files are never uploaded to our servers, keeping your sensitive data private."
     },
     {
-      question: "Will all Excel sheets be included in the PDF?",
-      answer: "Yes! Our converter processes all sheets in your Excel workbook and includes them in the PDF. Each sheet will appear as a separate section in the resulting PDF document, maintaining the structure of your original spreadsheet."
+      question: "Will the PDF preserve all sheets in my Excel workbook?",
+      answer: "Yes, our converter is designed to process all worksheets within your file. Each sheet will be rendered as a separate section in the final PDF document."
     },
     {
-      question: "Is my Excel data secure?",
-      answer: "Absolutely! All conversion happens entirely in your browser using JavaScript. Your Excel files are never uploaded to our servers or transmitted over the internet. Once you close the page, all data is completely removed from memory."
+      question: "Do I need to pay or register to use this tool?",
+      answer: "No, this is a completely free tool. There are no hidden charges, no sign-up requirements, and you can convert as many files as you need."
     },
     {
-      question: "What Excel formats are supported?",
-      answer: "Our tool supports the most common Excel formats: XLSX (Excel 2007 and later) and XLS (Excel 97-2003). These formats cover the vast majority of Excel files you'll encounter in business and personal use."
+      question: "What Excel formats can I convert to PDF?",
+      answer: "We support both modern .xlsx files and older .xls formats. Simply upload your spreadsheet, and we will handle the conversion for you."
     },
     {
-      question: "Are there any file size limits?",
-      answer: "The limit depends on your browser's available memory. Most modern browsers can handle Excel files up to several megabytes. Very large spreadsheets with hundreds of thousands of rows may take longer to convert or may exceed browser memory limits."
+      question: "Does this tool work without an internet connection?",
+      answer: "Once the page is loaded, the conversion logic runs locally in your browser. This means you can continue to convert files even if you go offline."
+    },
+    {
+      question: "Can I use this on my mobile phone or tablet?",
+      answer: "Yes, the tool is fully optimized for mobile devices. You can convert Excel files to PDF on the go using any modern mobile web browser."
+    },
+    {
+      question: "Will the layout of my spreadsheet change in the PDF?",
+      answer: "We strive to maintain the original layout as much as possible. However, since PDF is a fixed-page format, very wide spreadsheets may be scaled to fit the page."
+    },
+    {
+      question: "Why should I convert Excel to PDF instead of sharing the file?",
+      answer: "PDFs are perfect for sharing because they preserve formatting across all devices and cannot be easily edited, making them ideal for reports and invoices."
     }
   ];
 
@@ -125,7 +137,7 @@ export default function ExcelToPDF() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold">Excel to PDF Converter</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Convert Excel spreadsheets to PDF format instantly. Free, secure, and works offline in your browser.
+              Convert your Excel spreadsheets to professional PDF documents instantly. Our tool solves the problem of sharing spreadsheets in a non-editable, universally readable format, perfect for students, professionals, and developers.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
               <Badge variant="secondary">Free</Badge>
