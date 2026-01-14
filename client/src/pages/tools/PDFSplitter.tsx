@@ -54,6 +54,7 @@ export default function PDFSplitter() {
       await page.render({
         canvasContext: context,
         viewport: viewport,
+        canvas: canvas,
       }).promise;
       return canvas.toDataURL();
     } catch (error) {

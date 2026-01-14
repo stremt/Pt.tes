@@ -15,6 +15,7 @@ import { Droplets, Upload, Download, X, Shield, Briefcase, GraduationCap, Buildi
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { addAdvancedWatermarkToPDF, getPDFInfo, formatFileSize, type WatermarkPosition, type WatermarkFont, type WatermarkLayer } from "@/lib/pdf-utils";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy } from 'pdfjs-dist';
 import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 

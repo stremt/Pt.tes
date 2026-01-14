@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, GraduationCap, Building2, UserCheck, FileText } from "lucide-react";
+import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, GraduationCap, Building2, UserCheck, FileText, Lock as LockIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { removePasswordFromPDF, formatFileSize } from "@/lib/pdf-utils";
@@ -240,7 +240,7 @@ export default function PDFPasswordRemover() {
                         <span>Private decryption</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Lock className="h-4 w-4" />
+                        <LockIcon className="h-4 w-4" />
                         <span>No files stored</span>
                       </div>
                       <div className="flex items-center gap-1.5 font-medium text-primary/80">
