@@ -31,9 +31,9 @@ export default function TimeDifferenceCalculator() {
   const [copied, setCopied] = useState(false);
 
   useSEO({
-    title: "Time Difference Calculator | Hours, Minutes, Seconds Between Dates | Pixocraft Tools",
-    description: "Advanced time difference calculator. Calculate precise duration between two dates and times. Get results in days, hours, minutes, and seconds instantly.",
-    keywords: "time difference calculator, duration calculator, time between dates, hours between times, elapsed time calculator",
+    title: "Time Difference Calculator | Precise Hours & Minutes Between Dates",
+    description: "Calculate time difference between two dates and times instantly. Get precise results in days, hours, minutes, and seconds. Perfect for payroll, billing, and project tracking.",
+    keywords: "time difference calculator, duration calculator, calculate time between dates, hours between times, elapsed time calculator, work hours calculator, payroll time calculator, project duration tool",
     canonicalUrl: "https://tools.pixocraft.in/tools/time-difference-calculator",
   });
 

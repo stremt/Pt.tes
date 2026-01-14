@@ -87,6 +87,12 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "Email Converter", slug: "email-converter", path: "/tools/text-to-pdf/email-converter" },
     { title: "Bulk Conversion", slug: "bulk-conversion", path: "/tools/text-to-pdf/bulk-conversion" },
   ],
+  "time-difference-calculator": [
+    { title: "For Payroll & Billing", slug: "payroll-billing", path: "/tools/time-difference-calculator/payroll-billing" },
+    { title: "Online Duration Tool", slug: "online-duration", path: "/tools/time-difference-calculator/online-duration" },
+    { title: "For Project Tracking", slug: "project-tracking", path: "/tools/time-difference-calculator/project-tracking" },
+    { title: "Work Hours Calculator", slug: "work-hours", path: "/tools/time-difference-calculator/work-hours" },
+  ],
 };
 
 export function getLongTailPages(toolId: string): LongTailPage[] {

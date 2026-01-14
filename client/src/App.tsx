@@ -176,6 +176,10 @@ const EMICalculator = lazy(() => import("@/pages/tools/EMICalculator"));
 const PercentageCalculator = lazy(() => import("@/pages/tools/PercentageCalculator"));
 const AgeCalculator = lazy(() => import("@/pages/tools/AgeCalculator"));
 const TimeDifferenceCalculator = lazy(() => import("@/pages/tools/TimeDifferenceCalculator"));
+const TimeDifferencePayrollBilling = lazy(() => import("@/pages/tools/longtail/TimeDifferencePayrollBilling"));
+const TimeDifferenceOnlineDuration = lazy(() => import("@/pages/tools/longtail/TimeDifferenceOnlineDuration"));
+const TimeDifferenceProjectTracking = lazy(() => import("@/pages/tools/longtail/TimeDifferenceProjectTracking"));
+const TimeDifferenceWorkHours = lazy(() => import("@/pages/tools/longtail/TimeDifferenceWorkHours"));
 const ExpenseTracker = lazy(() => import("@/pages/tools/ExpenseTracker"));
 const TextToSpeech = lazy(() => import("@/pages/tools/TextToSpeech"));
 const SpeechToText = lazy(() => import("@/pages/tools/SpeechToText"));
@@ -516,6 +520,10 @@ function Router() {
         <Route path="/tools/percentage-calculator" component={PercentageCalculator} />
         <Route path="/tools/age-calculator" component={AgeCalculator} />
         <Route path="/tools/time-difference-calculator" component={TimeDifferenceCalculator} />
+        <Route path="/tools/time-difference-calculator/payroll-billing" component={TimeDifferencePayrollBilling} />
+        <Route path="/tools/time-difference-calculator/online-duration" component={TimeDifferenceOnlineDuration} />
+        <Route path="/tools/time-difference-calculator/project-tracking" component={TimeDifferenceProjectTracking} />
+        <Route path="/tools/time-difference-calculator/work-hours" component={TimeDifferenceWorkHours} />
         <Route path="/tools/expense-tracker" component={ExpenseTracker} />
         <Route path="/tools/text-to-speech" component={TextToSpeech} />
         <Route path="/tools/speech-to-text" component={SpeechToText} />
