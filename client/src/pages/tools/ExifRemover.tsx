@@ -1,17 +1,28 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useSEO } from "@/lib/seo";
-import { FileX, Upload, Download, Shield } from "lucide-react";
+import { FileX, Upload, Download, Shield, Info, Image as ImageIcon, MapPin, Calendar, Camera } from "lucide-react";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { Link } from "wouter";
 import { LongTailPagesSection } from "@/components/LongTailPagesSection";
+import ExifReader from 'exifreader';
+import { useToast } from "@/hooks/use-toast";
 
 export default function ExifRemover() {
   const [image, setImage] = useState<string | null>(null);
   const [cleanedImage, setCleanedImage] = useState<string | null>(null);
+  const [imageInfo, setImageInfo] = useState<{
+    name: string;
+    size: string;
+    type: string;
+    dimensions: string;
+    exif: any;
+  } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   useSEO({
     title: "EXIF Remover - Remove Metadata & GPS from Photos Online",
@@ -20,21 +31,86 @@ export default function ExifRemover() {
     canonicalUrl: "https://tools.pixocraft.in/tools/exif-remover",
   });
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const processFile = useCallback(async (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Invalid file type",
+        description: "Please upload an image file.",
+        variant: "destructive"
+      });
+      return;
+    }
 
     const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        setImage(event.target?.result as string);
-        removeExif(img);
-      };
-      img.src = event.target?.result as string;
+    reader.onload = async (event) => {
+      const dataUrl = event.target?.result as string;
+      setImage(dataUrl);
+
+      // Extract EXIF
+      try {
+        const tags = await ExifReader.load(file);
+        setImageInfo({
+          name: file.name,
+          size: (file.size / 1024).toFixed(2) + ' KB',
+          type: file.type,
+          dimensions: 'Calculating...',
+          exif: tags
+        });
+
+        const img = new Image();
+        img.onload = () => {
+          setImageInfo(prev => prev ? { ...prev, dimensions: `${img.width}x${img.height}` } : null);
+          removeExif(img);
+        };
+        img.src = dataUrl;
+      } catch (error) {
+        console.error("Error reading EXIF:", error);
+        // Still try to clean it even if EXIF reading fails
+        const img = new Image();
+        img.onload = () => removeExif(img);
+        img.src = dataUrl;
+      }
     };
     reader.readAsDataURL(file);
+  }, [toast]);
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
   };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  };
+
+  const handlePaste = useCallback((e: ClipboardEvent) => {
+    const items = e.clipboardData?.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          const file = items[i].getAsFile();
+          if (file) processFile(file);
+        }
+      }
+    }
+  }, [processFile]);
+
+  useEffect(() => {
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handlePaste]);
 
   const removeExif = (img: HTMLImageElement) => {
     const canvas = document.createElement('canvas');
@@ -53,7 +129,7 @@ export default function ExifRemover() {
     if (!cleanedImage) return;
 
     const link = document.createElement('a');
-    link.download = 'no-exif-image.png';
+    link.download = `cleaned_${imageInfo?.name || 'image.png'}`;
     link.href = cleanedImage;
     link.click();
   };
@@ -77,9 +153,9 @@ export default function ExifRemover() {
         toolId="exif-remover"
         category="Privacy & Security"
       howItWorks={[
-        { step: 1, title: "Upload Image", description: "Select any photo with EXIF data from your device." },
-        { step: 2, title: "Auto Remove", description: "EXIF metadata (location, camera, date) is stripped automatically." },
-        { step: 3, title: "Download Clean", description: "Get image without any embedded metadata or location data." },
+        { step: 1, title: "Upload, Drag, or Paste", description: "Select a photo, drag it here, or just press Ctrl+V to paste an image from your clipboard." },
+        { step: 2, title: "Review Metadata", description: "See the hidden GPS, camera, and device information embedded in your photo." },
+        { step: 3, title: "Download Clean", description: "Instantly get a clean version of your image with all private metadata stripped away." },
       ]}
       benefits={[
         { icon: <Shield className="h-6 w-6 text-primary" />, title: "Location Privacy", description: "Remove GPS coordinates that reveal where photos were taken." },
@@ -104,41 +180,125 @@ export default function ExifRemover() {
           data-testid="input-file"
         />
 
-        <Card>
+        <Card 
+          className={`border-2 border-dashed transition-colors ${isDragging ? 'border-primary bg-primary/5' : 'border-muted'}`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
           <CardHeader>
-            <CardTitle>Upload Image</CardTitle>
+            <CardTitle>Upload, Drag & Drop, or Paste Image</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <Button onClick={() => fileInputRef.current?.click()} data-testid="button-upload">
-              <Upload className="h-4 w-4 mr-2" />
-              Choose Image
-            </Button>
+          <CardContent className="space-y-4 text-center py-10">
+            <div className="flex flex-col items-center gap-4">
+              <Upload className={`h-12 w-12 transition-colors ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
+              <div className="space-y-1">
+                <p className="text-lg font-medium">Click to upload or drag image here</p>
+                <p className="text-sm text-muted-foreground">You can also paste an image from your clipboard (Ctrl+V)</p>
+              </div>
+              <Button onClick={() => fileInputRef.current?.click()} data-testid="button-upload" size="lg">
+                Choose Image
+              </Button>
+            </div>
 
             {image && (
-              <div className="mt-4">
-                <img src={image} alt="Original" className="max-w-full h-auto max-h-[400px] rounded-lg" data-testid="image-preview" />
+              <div className="mt-8 pt-8 border-t flex flex-col md:flex-row gap-8 text-left">
+                <div className="flex-1">
+                  <h3 className="font-semibold mb-4 flex items-center gap-2">
+                    <ImageIcon className="h-4 w-4" />
+                    Original Preview
+                  </h3>
+                  <img src={image} alt="Original" className="w-full h-auto max-h-[400px] rounded-lg object-contain bg-muted" data-testid="image-preview" />
+                </div>
+                
+                {imageInfo && (
+                  <div className="w-full md:w-80 space-y-4">
+                    <h3 className="font-semibold flex items-center gap-2">
+                      <Info className="h-4 w-4" />
+                      Image Details
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between border-b pb-1">
+                        <span className="text-muted-foreground">Dimensions</span>
+                        <span className="font-mono">{imageInfo.dimensions}</span>
+                      </div>
+                      <div className="flex justify-between border-b pb-1">
+                        <span className="text-muted-foreground">File Size</span>
+                        <span className="font-mono">{imageInfo.size}</span>
+                      </div>
+                      <div className="flex justify-between border-b pb-1">
+                        <span className="text-muted-foreground">Format</span>
+                        <span className="font-mono uppercase">{imageInfo.type.split('/')[1]}</span>
+                      </div>
+                    </div>
+
+                    <h3 className="font-semibold mt-6 flex items-center gap-2">
+                      <Shield className="h-4 w-4" />
+                      Detected EXIF Data
+                    </h3>
+                    <div className="space-y-2 text-xs font-mono bg-muted/50 p-3 rounded-md overflow-hidden max-h-[200px] overflow-y-auto">
+                      {imageInfo.exif && Object.keys(imageInfo.exif).length > 0 ? (
+                        <>
+                          {imageInfo.exif.GPSLatitude && (
+                            <div className="flex items-center gap-2 text-destructive mb-1">
+                              <MapPin className="h-3 w-3" />
+                              <span>GPS Location Found</span>
+                            </div>
+                          )}
+                          {imageInfo.exif.Make && (
+                            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1">
+                              <Camera className="h-3 w-3" />
+                              <span>{imageInfo.exif.Make.description} {imageInfo.exif.Model?.description}</span>
+                            </div>
+                          )}
+                          {imageInfo.exif.DateTime && (
+                            <div className="flex items-center gap-2 text-primary mb-1">
+                              <Calendar className="h-3 w-3" />
+                              <span>{imageInfo.exif.DateTime.description}</span>
+                            </div>
+                          )}
+                          <div className="mt-2 pt-2 border-t border-muted-foreground/20 text-[10px] text-muted-foreground">
+                            {Object.entries(imageInfo.exif).slice(0, 10).map(([key, val]: [string, any]) => (
+                              <div key={key} className="truncate">
+                                <span className="text-primary/70">{key}:</span> {val.description || val.value}
+                              </div>
+                            ))}
+                            {Object.keys(imageInfo.exif).length > 10 && <div className="italic">...and more</div>}
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-muted-foreground italic">No EXIF data detected or format not supported.</p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>
         </Card>
 
         {cleanedImage && (
-          <Card>
+          <Card className="bg-primary/5 border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="h-5 w-5 text-green-600" />
-                EXIF Data Removed
+                <Shield className="h-6 w-6 text-green-600" />
+                Metadata Successfully Stripped
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <p className="text-muted-foreground">
-                  Your image is now clean and ready to download without any metadata.
-                </p>
-                <Button onClick={downloadImage} data-testid="button-download">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Clean Image
-                </Button>
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1 space-y-4">
+                  <p className="text-muted-foreground">
+                    Your image has been re-encoded. All GPS, camera settings, and private timestamps have been completely removed. It is now safe to share.
+                  </p>
+                  <Button onClick={downloadImage} data-testid="button-download" size="lg" className="w-full md:w-auto">
+                    <Download className="h-4 w-4 mr-2" />
+                    Download Clean Image
+                  </Button>
+                </div>
+                <div className="w-40 h-40 bg-muted rounded-lg overflow-hidden flex items-center justify-center border">
+                  <img src={cleanedImage} alt="Cleaned" className="max-w-full max-h-full object-contain" />
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -19,7 +19,7 @@ export default function RemoveExifOnline() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Image EXIF Remover", url: "/tools/image-exif-remover" },
+            { label: "Image EXIF Remover", url: "/tools/exif-remover" },
             { label: "Online Tool" },
           ]}
         />
