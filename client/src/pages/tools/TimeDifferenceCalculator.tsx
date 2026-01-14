@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { useSEO } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
-import { CalendarClock, Copy, Check, Clock, Calendar, ArrowRight, Timer } from "lucide-react";
+import { CalendarClock, Copy, Check, Clock, Calendar, ArrowRight, Timer, Briefcase, Globe, BarChart3, HardHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -113,6 +114,13 @@ export default function TimeDifferenceCalculator() {
     { question: "Is this tool private?", answer: "Completely. All calculations happen locally in your browser. No data is sent to our servers." },
   ];
 
+  const longTailVariants = [
+    { title: "Payroll & Billing", path: "/tools/time-difference-calculator/payroll-billing", icon: Briefcase },
+    { title: "Online Duration", path: "/tools/time-difference-calculator/online-duration", icon: Globe },
+    { title: "Project Tracking", path: "/tools/time-difference-calculator/project-tracking", icon: BarChart3 },
+    { title: "Work Hours", path: "/tools/time-difference-calculator/work-hours", icon: HardHat },
+  ];
+
   return (
     <ToolLayout
       title="Time Difference Calculator"
@@ -210,6 +218,28 @@ export default function TimeDifferenceCalculator() {
               </div>
             </CardContent>
           </Card>
+
+          <div className="space-y-4 pt-4">
+            <h3 className="text-lg font-bold">Specialized Versions</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {longTailVariants.map((variant) => (
+                <Link key={variant.path} href={variant.path}>
+                  <Card className="hover-elevate cursor-pointer border-dashed hover:border-primary/50 transition-colors">
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-lg bg-primary/5 flex items-center justify-center">
+                        <variant.icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-sm">{variant.title}</h4>
+                        <p className="text-[10px] text-muted-foreground line-clamp-1">Optimized for {variant.title.toLowerCase()}</p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="lg:col-span-5 space-y-6">
