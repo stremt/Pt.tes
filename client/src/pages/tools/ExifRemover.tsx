@@ -123,6 +123,11 @@ export default function ExifRemover() {
 
     const cleanDataUrl = canvas.toDataURL('image/png');
     setCleanedImage(cleanDataUrl);
+    
+    toast({
+      title: "Success",
+      description: "All metadata has been stripped and the image has been re-encoded.",
+    });
   };
 
   const downloadImage = () => {
@@ -291,6 +296,15 @@ export default function ExifRemover() {
                   <p className="text-muted-foreground">
                     Your image has been re-encoded. All GPS, camera settings, and private timestamps have been completely removed. It is now safe to share.
                   </p>
+                  <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-md border border-green-200 dark:border-green-900/50 mb-4">
+                    <p className="text-sm font-medium text-green-800 dark:text-green-300 flex items-center gap-2">
+                      <Shield className="h-4 w-4" />
+                      Everything Cleaned
+                    </p>
+                    <p className="text-xs text-green-700 dark:text-green-400 mt-1">
+                      The tool has stripped all embedded info. The new file is a clean slate.
+                    </p>
+                  </div>
                   <Button onClick={downloadImage} data-testid="button-download" size="lg" className="w-full md:w-auto">
                     <Download className="h-4 w-4 mr-2" />
                     Download Clean Image
