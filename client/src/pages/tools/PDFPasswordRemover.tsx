@@ -1,21 +1,23 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, GraduationCap, Building2, UserCheck } from "lucide-react";
+import { Unlock, Upload, Download, X, AlertCircle, Shield, Users, Briefcase, GraduationCap, Building2, UserCheck, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import { removePasswordFromPDF } from "@/lib/pdf-utils";
+import { removePasswordFromPDF, formatFileSize } from "@/lib/pdf-utils";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 export default function PDFPasswordRemover() {
   const [file, setFile] = useState<File | null>(null);
   const [unlockedFile, setUnlockedFile] = useState<Blob | null>(null);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -26,22 +28,58 @@ export default function PDFPasswordRemover() {
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-password-remover",
   });
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      if (selectedFile.type !== "application/pdf") {
-        toast({
-          title: "Invalid File",
-          description: "Please select a PDF file",
-          variant: "destructive",
-        });
-        return;
-      }
-      setFile(selectedFile);
-      setUnlockedFile(null);
-      setPassword("");
+  const handleFileSelect = useCallback((selectedFile: File) => {
+    if (selectedFile.type !== "application/pdf") {
+      toast({
+        title: "Invalid File",
+        description: "Please select a PDF file",
+        variant: "destructive",
+      });
+      playErrorSound();
+      return;
     }
+    setFile(selectedFile);
+    setUnlockedFile(null);
+    setPassword("");
+  }, [toast]);
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
   };
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const selectedFile = e.dataTransfer.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
+  }, [handleFileSelect]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const selectedFile = e.clipboardData?.files?.[0];
+      if (selectedFile && selectedFile.type === "application/pdf") {
+        handleFileSelect(selectedFile);
+        toast({
+          title: "File Pasted",
+          description: `Pasted ${selectedFile.name}`,
+        });
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect, toast]);
 
   const removePassword = async () => {
     if (!file) {
@@ -180,18 +218,41 @@ export default function PDFPasswordRemover() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200 ${
+                      isDragging 
+                        ? "border-primary bg-primary/5 scale-[1.01] shadow-lg" 
+                        : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30"
+                    }`}
                     onClick={() => fileInputRef.current?.click()}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
                     data-testid="dropzone-upload"
                   >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload a PDF</p>
-                    <p className="text-sm text-muted-foreground">Select a password-protected PDF to unlock</p>
+                    <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Upload className={`h-10 w-10 transition-transform duration-200 ${isDragging ? "scale-110 text-primary" : "text-muted-foreground"}`} />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Drop locked PDF here</h3>
+                    <p className="text-muted-foreground mb-6">or click to browse from your device</p>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <Shield className="h-4 w-4" />
+                        <span>Private decryption</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Lock className="h-4 w-4" />
+                        <span>No files stored</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium text-primary/80">
+                        <span className="px-1.5 py-0.5 rounded border border-primary/20 bg-primary/5 text-[10px] uppercase tracking-wider">Tip</span>
+                        <span>Paste with Ctrl+V</span>
+                      </div>
+                    </div>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept="application/pdf"
-                      onChange={handleFileSelect}
+                      onChange={onFileChange}
                       className="hidden"
                       data-testid="input-file"
                     />

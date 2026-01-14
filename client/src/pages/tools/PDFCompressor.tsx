@@ -1,13 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileDown, Upload, Download, X, Shield, Lock, Zap, Globe, GraduationCap, Briefcase, Mail, HardDrive, Users, Building, Check } from "lucide-react";
+import { FileDown, Upload, Download, X, Shield, Lock, Zap, Globe, GraduationCap, Briefcase, Mail, HardDrive, Users, Building, Check, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { compressPDF, formatFileSize, getPDFInfo, type CompressionLevel } from "@/lib/pdf-utils";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 type CompressionOption = "less" | "recommended" | "extreme";
 
@@ -18,6 +19,7 @@ export default function PDFCompressor() {
   const [compressionOption, setCompressionOption] = useState<CompressionOption>('recommended');
   const [loading, setLoading] = useState(false);
   const [compressionProgress, setCompressionProgress] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -29,24 +31,59 @@ export default function PDFCompressor() {
     ogImage: "https://tools.pixocraft.in/og-images/pdf-compressor.jpg",
   });
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (file.type !== "application/pdf") {
-        toast({
-          title: "Invalid File",
-          description: "Please select a PDF file",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      setOriginalFile(file);
-      setCompressedFile(null);
-      
-      getPDFInfo(file).then(info => setOriginalInfo(info));
+  const handleFileSelect = useCallback((file: File) => {
+    if (file.type !== "application/pdf") {
+      toast({
+        title: "Invalid File",
+        description: "Please select a PDF file",
+        variant: "destructive",
+      });
+      playErrorSound();
+      return;
     }
+
+    setOriginalFile(file);
+    setCompressedFile(null);
+    getPDFInfo(file).then(info => setOriginalInfo(info));
+  }, [toast]);
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) handleFileSelect(file);
   };
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFileSelect(file);
+  }, [handleFileSelect]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const file = e.clipboardData?.files?.[0];
+      if (file && file.type === "application/pdf") {
+        handleFileSelect(file);
+        toast({
+          title: "File Pasted",
+          description: `Pasted ${file.name}`,
+        });
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect, toast]);
 
   const getCompressionLevel = (option: CompressionOption): CompressionLevel => {
     if (option === 'extreme') return 'maximum';
@@ -227,20 +264,41 @@ export default function PDFCompressor() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200 ${
+                      isDragging 
+                        ? "border-primary bg-primary/5 scale-[1.01] shadow-lg" 
+                        : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30"
+                    }`}
                     onClick={() => fileInputRef.current?.click()}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
                     data-testid="dropzone-upload"
                   >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload a PDF</p>
-                    <p className="text-sm text-muted-foreground">
-                      Supports PDF files up to 50MB
-                    </p>
+                    <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Upload className={`h-10 w-10 transition-transform duration-200 ${isDragging ? "scale-110 text-primary" : "text-muted-foreground"}`} />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Drop your PDF here</h3>
+                    <p className="text-muted-foreground mb-6">or click to browse from your device</p>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <Shield className="h-4 w-4" />
+                        <span>100% Private</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Lock className="h-4 w-4" />
+                        <span>Client-side only</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium text-primary/80">
+                        <span className="px-1.5 py-0.5 rounded border border-primary/20 bg-primary/5 text-[10px] uppercase tracking-wider">Tip</span>
+                        <span>Press Ctrl+V to paste</span>
+                      </div>
+                    </div>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept="application/pdf"
-                      onChange={handleFileSelect}
+                      onChange={onFileChange}
                       className="hidden"
                       data-testid="input-file"
                     />

@@ -1,17 +1,19 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { RotateCw, Upload, Download, Zap, Lock } from "lucide-react";
+import { RotateCw, Upload, Download, Zap, Lock, Shield, FileText, X } from "lucide-react";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { PDFDocument, degrees } from "pdf-lib";
+import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
 export default function PDFRotator() {
   const [file, setFile] = useState<File | null>(null);
   const [pageCount, setPageCount] = useState(0);
   const [rotating, setRotating] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -22,16 +24,14 @@ export default function PDFRotator() {
     canonicalUrl: "https://tools.pixocraft.in/tools/pdf-rotator",
   });
 
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (!selectedFile) return;
-
+  const handleFileSelect = useCallback(async (selectedFile: File) => {
     if (selectedFile.type !== 'application/pdf') {
       toast({
         title: "Error",
         description: "Please select a PDF file",
         variant: "destructive",
       });
+      playErrorSound();
       return;
     }
 
@@ -48,8 +48,47 @@ export default function PDFRotator() {
         description: "Failed to load PDF",
         variant: "destructive",
       });
+      playErrorSound();
     }
+  }, [toast]);
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
   };
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const selectedFile = e.dataTransfer.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
+  }, [handleFileSelect]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const selectedFile = e.clipboardData?.files?.[0];
+      if (selectedFile && selectedFile.type === "application/pdf") {
+        handleFileSelect(selectedFile);
+        toast({
+          title: "File Pasted",
+          description: `Pasted ${selectedFile.name}`,
+        });
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect, toast]);
 
   const rotatePDF = async (angle: number) => {
     if (!file) return;
@@ -148,47 +187,68 @@ export default function PDFRotator() {
               <CardContent className="space-y-6">
                 {!file ? (
                   <div
+                    className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200 ${
+                      isDragging 
+                        ? "border-primary bg-primary/5 scale-[1.01] shadow-lg" 
+                        : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30"
+                    }`}
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
                     data-testid="dropzone-upload"
                   >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload PDF file</p>
-                    <p className="text-sm text-muted-foreground">
-                      Select a PDF file to rotate
-                    </p>
+                    <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Upload className={`h-10 w-10 transition-transform duration-200 ${isDragging ? "scale-110 text-primary" : "text-muted-foreground"}`} />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Drop PDF here</h3>
+                    <p className="text-muted-foreground mb-6">or click to browse from your device</p>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <Shield className="h-4 w-4" />
+                        <span>Private & Offline</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium text-primary/80">
+                        <span className="px-1.5 py-0.5 rounded border border-primary/20 bg-primary/5 text-[10px] uppercase tracking-wider">Tip</span>
+                        <span>Paste with Ctrl+V</span>
+                      </div>
+                    </div>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept="application/pdf"
-                      onChange={handleFileSelect}
+                      onChange={onFileChange}
                       className="hidden"
                       data-testid="input-file"
                     />
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <Card className="bg-muted/50">
-                      <CardContent className="py-4">
-                        <div className="space-y-2">
-                          <p className="text-sm font-medium">{file.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            Total pages: {pageCount}
-                          </p>
-                          <Button
-                            onClick={() => {
-                              setFile(null);
-                              setPageCount(0);
-                            }}
-                            variant="outline"
-                            size="sm"
-                            data-testid="button-change-file"
-                          >
-                            Change File
-                          </Button>
+                    <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="h-10 w-10 rounded bg-destructive/10 flex items-center justify-center flex-shrink-0">
+                          <FileText className="h-6 w-6 text-destructive" />
                         </div>
-                      </CardContent>
-                    </Card>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium truncate">{file.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {pageCount} page{pageCount !== 1 ? 's' : ''}
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={() => {
+                          setFile(null);
+                          setPageCount(0);
+                        }}
+                        variant="ghost"
+                        size="icon"
+                        className="text-muted-foreground hover:text-foreground"
+                        data-testid="button-reset"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
 
                     <div className="space-y-3">
                       <p className="text-sm font-medium">Select Rotation</p>

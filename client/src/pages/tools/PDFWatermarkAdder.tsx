@@ -54,6 +54,7 @@ export default function PDFWatermarkAdder() {
   const [currentPreviewPage, setCurrentPreviewPage] = useState(1);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
   const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   
   const [watermarkType, setWatermarkType] = useState<'text' | 'image'>('text');
   const [watermarkText, setWatermarkText] = useState("CONFIDENTIAL");
@@ -102,35 +103,71 @@ export default function PDFWatermarkAdder() {
     ogImage: "https://tools.pixocraft.in/og-images/pdf-watermark.jpg",
   });
 
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      if (selectedFile.type !== "application/pdf") {
-        toast({
-          title: "Invalid File",
-          description: "Please select a PDF file",
-          variant: "destructive",
-        });
-        return;
-      }
-      setFile(selectedFile);
-      setWatermarkedFile(null);
-      setCurrentPreviewPage(1);
-      
-      try {
-        const info = await getPDFInfo(selectedFile);
-        setPageCount(info.pageCount);
-        setPageTo(info.pageCount);
-        
-        const arrayBuffer = await selectedFile.arrayBuffer();
-        const pdf = await getDocument({ data: arrayBuffer }).promise;
-        setPdfDoc(pdf);
-      } catch {
-        setPageCount(1);
-        setPdfDoc(null);
-      }
+  const handleFileSelect = useCallback(async (selectedFile: File) => {
+    if (selectedFile.type !== "application/pdf") {
+      toast({
+        title: "Invalid File",
+        description: "Please select a PDF file",
+        variant: "destructive",
+      });
+      playErrorSound();
+      return;
     }
+    setFile(selectedFile);
+    setWatermarkedFile(null);
+    setCurrentPreviewPage(1);
+    
+    try {
+      const info = await getPDFInfo(selectedFile);
+      setPageCount(info.pageCount);
+      setPageTo(info.pageCount);
+      
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      const pdf = await getDocument({ data: arrayBuffer }).promise;
+      setPdfDoc(pdf);
+    } catch {
+      setPageCount(1);
+      setPdfDoc(null);
+    }
+  }, [toast]);
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
   };
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const selectedFile = e.dataTransfer.files?.[0];
+    if (selectedFile) handleFileSelect(selectedFile);
+  }, [handleFileSelect]);
+
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const selectedFile = e.clipboardData?.files?.[0];
+      if (selectedFile && selectedFile.type === "application/pdf") {
+        handleFileSelect(selectedFile);
+        toast({
+          title: "File Pasted",
+          description: `Pasted ${selectedFile.name}`,
+        });
+      }
+    };
+
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [handleFileSelect, toast]);
 
   const handleImageSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -545,18 +582,37 @@ export default function PDFWatermarkAdder() {
                 </CardHeader>
                 <CardContent>
                   <div
-                    className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate transition-colors"
+                    className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-all duration-200 ${
+                      isDragging 
+                        ? "border-primary bg-primary/5 scale-[1.01] shadow-lg" 
+                        : "border-muted-foreground/25 hover:border-primary/50 hover:bg-muted/30"
+                    }`}
                     onClick={() => fileInputRef.current?.click()}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
                     data-testid="dropzone-upload"
                   >
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p className="font-medium mb-2">Click to upload a PDF</p>
-                    <p className="text-sm text-muted-foreground">Add watermark to protect your document</p>
+                    <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                      <Upload className={`h-10 w-10 transition-transform duration-200 ${isDragging ? "scale-110 text-primary" : "text-muted-foreground"}`} />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">Drop PDF here</h3>
+                    <p className="text-muted-foreground mb-6">or click to upload from device</p>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1.5">
+                        <Shield className="h-4 w-4" />
+                        <span>Private & Offline</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 font-medium text-primary/80">
+                        <span className="px-1.5 py-0.5 rounded border border-primary/20 bg-primary/5 text-[10px] uppercase tracking-wider">Tip</span>
+                        <span>Paste with Ctrl+V</span>
+                      </div>
+                    </div>
                     <input
                       ref={fileInputRef}
                       type="file"
                       accept="application/pdf"
-                      onChange={handleFileSelect}
+                      onChange={onFileChange}
                       className="hidden"
                       data-testid="input-file"
                     />
