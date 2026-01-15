@@ -163,11 +163,11 @@ export default function ExifRemover() {
   return (
     <>
       <ToolLayout
-        title="EXIF Remover: Remove Metadata from Photos Online"
+        title="EXIF Remover: Remove Metadata"
         description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
         icon={<FileX className="h-10 w-10 text-primary" />}
         toolId="exif-remover"
-        category="Privacy & Security"
+        category="Privacy"
       howItWorks={[
         { step: 1, title: "Upload, Drag, or Paste", description: "Select a photo, drag it here, or just press Ctrl+V to paste an image from your clipboard." },
         { step: 2, title: "Review Metadata", description: "See the hidden GPS, camera, and device information embedded in your photo." },
@@ -390,14 +390,14 @@ export default function ExifRemover() {
             items={[
               { label: "Home", url: "/" },
               { label: "Tools", url: "/tools" },
-              { label: "Image Tools", url: "/tools/image" },
+              { label: "Privacy", url: "/tools/privacy" },
               { label: "EXIF Remover" },
             ]}
           />
           {/* Category Footer */}
-          <p className="text-center text-sm text-muted-foreground pt-4 border-t">
-            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-          </p>
+          <div className="text-center text-sm text-muted-foreground pt-4 border-t">
+            Category: <Link href="/tools/privacy" className="text-primary hover:text-primary/80 transition-colors">Privacy Tools</Link>
+          </div>
         </div>
       </div>
     </ToolLayout>
