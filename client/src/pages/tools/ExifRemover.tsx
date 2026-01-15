@@ -386,16 +386,14 @@ export default function ExifRemover() {
         <LongTailPagesSection toolId="image-exif-remover" />
 
         <div className="mt-8 pt-8 border-t space-y-4">
-          <div className="hidden sm:block">
-            <Breadcrumb
-              items={[
-                { label: "Home", url: "/" },
-                { label: "Tools", url: "/tools" },
-                { label: "Privacy", url: "/tools/privacy" },
-                { label: "EXIF Remover" },
-              ]}
-            />
-          </div>
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Privacy", url: "/tools/privacy" },
+              { label: "EXIF Remover" },
+            ]}
+          />
           {/* Category Footer */}
           <div className="text-center text-sm text-muted-foreground pt-4 border-t">
             Category: <Link href="/tools/privacy" className="text-primary hover:text-primary/80 transition-colors">Privacy Tools</Link>
