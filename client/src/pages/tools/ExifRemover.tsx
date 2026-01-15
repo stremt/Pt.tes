@@ -288,15 +288,15 @@ export default function ExifRemover() {
                       {imageInfo.exif && Object.keys(imageInfo.exif).length > 0 ? (
                         <>
                           {imageInfo.exif.GPSLatitude && (
-                            <div className="flex items-center gap-2 text-destructive mb-1">
-                              <MapPin className="h-3 w-3" />
-                              <span>GPS Location Found</span>
+                            <div className="flex items-center gap-2 text-destructive mb-1 font-bold">
+                              <MapPin className="h-4 w-4" />
+                              <span>GPS Location Detected (Will be Removed)</span>
                             </div>
                           )}
-                          {imageInfo.exif.Make && (
-                            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1">
-                              <Camera className="h-3 w-3" />
-                              <span>{imageInfo.exif.Make.description} {imageInfo.exif.Model?.description}</span>
+                          {(imageInfo.exif.Make || imageInfo.exif.Model) && (
+                            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1 font-bold">
+                              <Camera className="h-4 w-4" />
+                              <span>Device Info Detected: {imageInfo.exif.Make?.description} {imageInfo.exif.Model?.description} (Will be Removed)</span>
                             </div>
                           )}
                           {imageInfo.exif.DateTime && (
@@ -335,6 +335,17 @@ export default function ExifRemover() {
             <CardContent>
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="flex-1 space-y-4">
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200 gap-1">
+                      <MapPin className="h-3 w-3" /> GPS Location Removed
+                    </Badge>
+                    <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200 gap-1">
+                      <Camera className="h-3 w-3" /> Device Info Stripped
+                    </Badge>
+                    <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200 gap-1">
+                      <Shield className="h-3 w-3" /> 100% Private
+                    </Badge>
+                  </div>
                   <p className="text-muted-foreground">
                     Your image has been re-encoded. All GPS, camera settings, and private timestamps have been completely removed. It is now safe to share.
                   </p>
