@@ -256,12 +256,17 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.url.startsWith("http") ? item.url : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`
-    }))
+    "itemListElement": items.map((item, index) => {
+      const fullUrl = item.url.startsWith("http") 
+        ? item.url 
+        : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`;
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "item": fullUrl
+      };
+    })
   };
 }
 
@@ -295,8 +300,9 @@ export function generateItemListSchema({
       "position": index + 1,
       "item": {
         "@type": "SoftwareApplication",
+        "@id": item.url.startsWith("http") ? item.url : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`,
         "name": item.name,
-        "url": item.url,
+        "url": item.url.startsWith("http") ? item.url : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`,
         "description": item.description
       }
     }))
