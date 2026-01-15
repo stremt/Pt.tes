@@ -9,6 +9,7 @@ import { Link } from "wouter";
 import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 import ExifReader from 'exifreader';
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ExifRemover() {
   const [image, setImage] = useState<string | null>(null);
@@ -21,6 +22,7 @@ export default function ExifRemover() {
     exif: any;
   } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -40,6 +42,10 @@ export default function ExifRemover() {
       });
       return;
     }
+
+    setIsProcessing(true);
+    setCleanedImage(null);
+    setImageInfo(null);
 
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -123,6 +129,7 @@ export default function ExifRemover() {
 
     const cleanDataUrl = canvas.toDataURL('image/png');
     setCleanedImage(cleanDataUrl);
+    setIsProcessing(false);
     
     toast({
       title: "Success",
@@ -206,6 +213,25 @@ export default function ExifRemover() {
               </Button>
             </div>
 
+            {isProcessing && !image && (
+              <div className="mt-8 pt-8 border-t flex flex-col md:flex-row gap-8 text-left">
+                <div className="flex-1 space-y-4">
+                  <Skeleton className="h-6 w-32" />
+                  <Skeleton className="h-[300px] w-full rounded-lg" />
+                </div>
+                <div className="w-full md:w-80 space-y-6">
+                  <Skeleton className="h-6 w-32" />
+                  <div className="space-y-3">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                  <Skeleton className="h-6 w-40" />
+                  <Skeleton className="h-32 w-full rounded-md" />
+                </div>
+              </div>
+            )}
+
             {image && (
               <div className="mt-8 pt-8 border-t flex flex-col md:flex-row gap-8 text-left">
                 <div className="flex-1">
@@ -282,7 +308,7 @@ export default function ExifRemover() {
           </CardContent>
         </Card>
 
-        {cleanedImage && (
+        {cleanedImage ? (
           <Card className="bg-primary/5 border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -313,6 +339,20 @@ export default function ExifRemover() {
                 <div className="w-40 h-40 bg-muted rounded-lg overflow-hidden flex items-center justify-center border">
                   <img src={cleanedImage} alt="Cleaned" className="max-w-full max-h-full object-contain" />
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : isProcessing && image ? (
+          <Card className="animate-pulse">
+            <CardContent className="py-10">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-1 space-y-4">
+                  <Skeleton className="h-6 w-3/4" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-20 w-full rounded-md" />
+                  <Skeleton className="h-10 w-40" />
+                </div>
+                <Skeleton className="w-40 h-40 rounded-lg" />
               </div>
             </CardContent>
           </Card>
