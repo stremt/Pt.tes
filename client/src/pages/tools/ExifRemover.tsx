@@ -162,16 +162,6 @@ export default function ExifRemover() {
 
   return (
     <>
-      <div className="mb-6 px-4 pt-4">
-        <Breadcrumb
-          items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "Image Tools", url: "/tools/image" },
-            { label: "EXIF Remover" },
-          ]}
-        />
-      </div>
       <ToolLayout
         title="EXIF Remover: Remove Metadata from Photos Online"
         description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
@@ -247,76 +237,83 @@ export default function ExifRemover() {
             )}
 
             {image && (
-              <div className="mt-8 pt-8 border-t flex flex-col md:flex-row gap-8 text-left">
-                <div className="flex-1">
+              <div className="mt-8 pt-8 border-t flex flex-col lg:flex-row gap-8 text-left">
+                <div className="flex-1 w-full overflow-hidden">
                   <h3 className="font-semibold mb-4 flex items-center gap-2">
                     <ImageIcon className="h-4 w-4" />
                     Original Preview
                   </h3>
-                  <img src={image} alt="Original" className="w-full h-auto max-h-[400px] rounded-lg object-contain bg-muted" data-testid="image-preview" />
+                  <div className="relative w-full aspect-auto min-h-[200px] bg-muted rounded-lg overflow-hidden border">
+                    <img src={image} alt="Original" className="w-full h-auto max-h-[500px] rounded-lg object-contain" data-testid="image-preview" />
+                  </div>
                 </div>
                 
                 {imageInfo && (
-                  <div className="w-full md:w-80 space-y-4">
-                    <h3 className="font-semibold flex items-center gap-2">
-                      <Info className="h-4 w-4" />
-                      Image Details
-                    </h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between border-b pb-1">
-                        <span className="text-muted-foreground">File Name</span>
-                        <span className="font-mono truncate max-w-[200px]">{imageInfo.name}</span>
-                      </div>
-                      <div className="flex justify-between border-b pb-1">
-                        <span className="text-muted-foreground">Dimensions</span>
-                        <span className="font-mono">{imageInfo.dimensions}</span>
-                      </div>
-                      <div className="flex justify-between border-b pb-1">
-                        <span className="text-muted-foreground">File Size</span>
-                        <span className="font-mono">{imageInfo.size}</span>
-                      </div>
-                      <div className="flex justify-between border-b pb-1">
-                        <span className="text-muted-foreground">Format</span>
-                        <span className="font-mono uppercase">{imageInfo.type.split('/')[1]}</span>
+                  <div className="w-full lg:w-80 space-y-6">
+                    <div className="space-y-4">
+                      <h3 className="font-semibold flex items-center gap-2">
+                        <Info className="h-4 w-4" />
+                        Image Details
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 text-sm">
+                        <div className="flex justify-between border-b pb-1 gap-4">
+                          <span className="text-muted-foreground whitespace-nowrap">File Name</span>
+                          <span className="font-mono truncate text-right">{imageInfo.name}</span>
+                        </div>
+                        <div className="flex justify-between border-b pb-1 gap-4">
+                          <span className="text-muted-foreground whitespace-nowrap">Dimensions</span>
+                          <span className="font-mono text-right">{imageInfo.dimensions}</span>
+                        </div>
+                        <div className="flex justify-between border-b pb-1 gap-4">
+                          <span className="text-muted-foreground whitespace-nowrap">File Size</span>
+                          <span className="font-mono text-right">{imageInfo.size}</span>
+                        </div>
+                        <div className="flex justify-between border-b pb-1 gap-4">
+                          <span className="text-muted-foreground whitespace-nowrap">Format</span>
+                          <span className="font-mono uppercase text-right">{imageInfo.type.split('/')[1]}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <h3 className="font-semibold mt-6 flex items-center gap-2">
-                      <Shield className="h-4 w-4" />
-                      Detected EXIF Data
-                    </h3>
-                    <div className="space-y-2 text-xs font-mono bg-muted/50 p-3 rounded-md overflow-hidden max-h-[200px] overflow-y-auto">
-                      {imageInfo.exif && Object.keys(imageInfo.exif).length > 0 ? (
-                        <>
-                          {imageInfo.exif.GPSLatitude && (
-                            <div className="flex items-center gap-2 text-destructive mb-1 font-bold">
-                              <MapPin className="h-4 w-4" />
-                              <span>GPS Location Detected (Will be Removed)</span>
-                            </div>
-                          )}
-                          {(imageInfo.exif.Make || imageInfo.exif.Model) && (
-                            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-1 font-bold">
-                              <Camera className="h-4 w-4" />
-                              <span>Device Info Detected: {imageInfo.exif.Make?.description} {imageInfo.exif.Model?.description} (Will be Removed)</span>
-                            </div>
-                          )}
-                          {imageInfo.exif.DateTime && (
-                            <div className="flex items-center gap-2 text-primary mb-1">
-                              <Calendar className="h-3 w-3" />
-                              <span>{imageInfo.exif.DateTime.description}</span>
-                            </div>
-                          )}
-                          <div className="mt-2 pt-2 border-t border-muted-foreground/20 text-[10px] text-muted-foreground">
-                            {Object.entries(imageInfo.exif).map(([key, val]: [string, any]) => (
-                              <div key={key} className="truncate">
-                                <span className="text-primary/70">{key}:</span> {val.description || (typeof val.value === 'object' ? JSON.stringify(val.value) : val.value)}
+                    <div className="space-y-4">
+                      <h3 className="font-semibold flex items-center gap-2">
+                        <Shield className="h-4 w-4" />
+                        Detected EXIF Data
+                      </h3>
+                      <div className="space-y-2 text-xs font-mono bg-muted/50 p-3 rounded-md overflow-hidden max-h-[300px] lg:max-h-[400px] overflow-y-auto border">
+                        {imageInfo.exif && Object.keys(imageInfo.exif).length > 0 ? (
+                          <>
+                            {imageInfo.exif.GPSLatitude && (
+                              <div className="flex items-center gap-2 text-destructive mb-2 font-bold bg-destructive/5 p-1.5 rounded border border-destructive/20">
+                                <MapPin className="h-4 w-4 shrink-0" />
+                                <span className="text-[10px] leading-tight">GPS Location Detected (Will be Removed)</span>
                               </div>
-                            ))}
-                          </div>
-                        </>
-                      ) : (
-                        <p className="text-muted-foreground italic">No EXIF data detected or format not supported.</p>
-                      )}
+                            )}
+                            {(imageInfo.exif.Make || imageInfo.exif.Model) && (
+                              <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400 mb-2 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/20">
+                                <Camera className="h-4 w-4 shrink-0" />
+                                <span className="text-[10px] leading-tight">Device Info: {imageInfo.exif.Make?.description} {imageInfo.exif.Model?.description}</span>
+                              </div>
+                            )}
+                            {imageInfo.exif.DateTime && (
+                              <div className="flex items-center gap-2 text-primary mb-2 bg-primary/5 p-1.5 rounded border border-primary/20">
+                                <Calendar className="h-3 w-3 shrink-0" />
+                                <span className="text-[10px]">{imageInfo.exif.DateTime.description}</span>
+                              </div>
+                            )}
+                            <div className="mt-2 pt-2 border-t border-muted-foreground/20 text-[10px] text-muted-foreground space-y-1">
+                              {Object.entries(imageInfo.exif).map(([key, val]: [string, any]) => (
+                                <div key={key} className="flex justify-between gap-2 border-b border-muted/30 pb-1 last:border-0">
+                                  <span className="text-primary/70 shrink-0">{key}:</span>
+                                  <span className="truncate text-right">{val.description || (typeof val.value === 'object' ? JSON.stringify(val.value) : val.value)}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <p className="text-muted-foreground italic text-center py-4">No EXIF data detected or format not supported.</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -388,81 +385,21 @@ export default function ExifRemover() {
 
         <LongTailPagesSection toolId="image-exif-remover" />
 
-        <div className="prose prose-slate dark:prose-invert max-w-none mt-12 space-y-8">
-          <section>
-            <h2 className="text-2xl font-bold">Understanding EXIF Data</h2>
-            <p>
-              Every time you take a photo with a digital camera or smartphone, a hidden layer of information is stored within the file. This is known as EXIF (Exchangeable Image File Format) data. While it serves a technical purpose by recording camera settings like ISO, aperture, and shutter speed, it also captures highly sensitive personal information.
-            </p>
-            <p>
-              Most notably, digital images often include GPS coordinates that pin-point exactly where the photo was taken. When you share these photos online, you aren't just sharing an image; you are sharing a digital map to your location.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold">Why EXIF Data is a Privacy Risk</h2>
-            <p>
-              Privacy is more than just keeping a secret; it is about controlling your personal information. EXIF metadata can be exploited by third parties to track your movements or identify your home and work addresses. For example, a photo of a product you are selling online could reveal your exact front door to a total stranger.
-            </p>
-            <p>
-              Beyond location, metadata also includes device signatures. This info tells people exactly what kind of phone or camera you use, which can be used for targeted social engineering or even identifying your lifestyle habits based on the gear you own.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold">Who Should Use an EXIF Remover?</h2>
-            <p>
-              In today's connected world, everyone can benefit from stripping metadata from their photos, but certain groups find it essential:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Social Media Users:</strong> Protect your home and family's location before posting on Instagram, Facebook, or X.</li>
-              <li><strong>Photographers:</strong> Maintain professional control over your proprietary camera settings and technical secrets.</li>
-              <li><strong>Journalists & Activists:</strong> Safeguard your sources and your own physical safety when reporting from sensitive locations.</li>
-              <li><strong>Businesses:</strong> Prevent competitors from analyzing your production facilities or identifying specific equipment used in your operations.</li>
-              <li><strong>Everyday Users:</strong> Ensure that your private life stays private whenever you send a photo via email or messaging apps.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold">Real-Life Use Cases for Metadata Removal</h2>
-            <p>
-              There are several common scenarios where using an EXIF remover is a crucial step:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Selling Online:</strong> When listing items on marketplaces, strip the metadata so buyers only see the product, not your home location.</li>
-              <li><strong>Sharing Travel Photos:</strong> Post your vacation highlights without alerting the world to exactly which hotel or private villa you are staying in.</li>
-              <li><strong>Professional Delivery:</strong> Send clean images to clients to maintain a professional standard and protect your workflow details.</li>
-              <li><strong>Public Forums:</strong> Upload images to community boards without leaving a trail of your personal device history.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold">A Privacy-First Metadata Tool</h2>
-            <p>
-              Our EXIF remover is designed with a "Privacy-First" philosophy. Unlike traditional online tools, our processor runs entirely within your web browser. This means your images are never uploaded to our servers, and we never see or store your data.
-            </p>
-            <p>
-              You maintain 100% control over your files. The process is instantaneous, secure, and completely free. By stripping the invisible metadata, we give you the confidence to share your visual stories without compromising your personal security.
-            </p>
-          </section>
-
-          <section className="bg-muted p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Related Tools:</h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 list-none p-0 m-0">
-              <li><Link href="/tools/image-resizer" className="text-primary hover:underline">Image Resizer</Link></li>
-              <li><Link href="/tools/background-remover" className="text-primary hover:underline">Background Remover</Link></li>
-              <li><Link href="/tools/image-upscaler" className="text-primary hover:underline">Image Upscaler</Link></li>
-              <li><Link href="/tools/png-to-jpg" className="text-primary hover:underline">PNG to JPG Converter</Link></li>
-              <li><Link href="/tools/image-to-pdf" className="text-primary hover:underline">Image to PDF</Link></li>
-            </ul>
-          </section>
+        <div className="mt-8 pt-8 border-t space-y-4">
+          <Breadcrumb
+            items={[
+              { label: "Home", url: "/" },
+              { label: "Tools", url: "/tools" },
+              { label: "Image Tools", url: "/tools/image" },
+              { label: "EXIF Remover" },
+            ]}
+          />
+          {/* Category Footer */}
+          <p className="text-center text-sm text-muted-foreground pt-4 border-t">
+            Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
+          </p>
         </div>
-
       </div>
-      {/* Category Footer */}
-      <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-        Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-      </p>
     </ToolLayout>
     </>
   );
