@@ -113,7 +113,8 @@ export async function compressVideo(
     "-i", inputName,
     "-c:v", "libx264",
     "-crf", quality.toString(),
-    "-preset", "medium",
+    "-preset", "ultrafast",
+    "-tune", "fastdecode",
     "-c:a", "aac",
     "-b:a", "128k",
     outputName

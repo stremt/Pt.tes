@@ -50,12 +50,17 @@ export default function VideoCompressor() {
   const compress = async () => {
     if (!file) return;
     setCompressing(true);
+    setCompressedBlob(null);
     try {
-      const result = await compressVideo(file, quality);
+      const result = await compressVideo(file, quality, (progress) => {
+        // You could add a progress bar here if needed
+        console.log(`Compression progress: ${Math.round(progress.ratio * 100)}%`);
+      });
       setCompressedBlob(result);
       toast({ title: "Success!", description: `Video compressed by ${Math.round((1 - result.size / file.size) * 100)}%` });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to compress video", variant: "destructive" });
+      console.error("Compression error:", error);
+      toast({ title: "Error", description: "Failed to compress video. Try a smaller file or different quality.", variant: "destructive" });
     } finally {
       setCompressing(false);
     }
