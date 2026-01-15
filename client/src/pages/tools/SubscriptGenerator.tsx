@@ -20,8 +20,8 @@ export default function SubscriptGenerator() {
 
   useSEO({
     title: "Subscript Generator | Create Subscript Text | Pixocraft Tools",
-    description: "Convert text into subscript characters like H₂O, CO₂. Perfect for formulas.",
-    keywords: "subscript generator, chemical text generator",
+    description: "Convert text into subscript characters like H₂O, CO₂. Perfect for formulas and scientific notation. Free, fast and works offline.",
+    keywords: "subscript generator, chemical text generator, subscript text online, unicode subscript",
     canonicalUrl: "https://tools.pixocraft.in/tools/subscript-generator",
   });
 

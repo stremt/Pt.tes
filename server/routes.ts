@@ -404,7 +404,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       "/tools/jpg-to-png", "/tools/png-to-jpg", "/tools/video-to-gif", "/tools/gif-compressor",
       "/tools/mp3-cutter", "/tools/audio-to-mp3", "/tools/video-compressor", "/tools/background-remover",
       "/tools/image-upscaler", "/tools/excel-to-pdf", "/tools/excel-viewer", "/tools/html-to-pdf",
-      "/tools/audio-noise-remover", "/tools/gif-to-mp4", "/tools/mp4-to-mp3"
+      "/tools/audio-noise-remover", "/tools/gif-to-mp4", "/tools/mp4-to-mp3",
+      "/tools/text", "/tools/image", "/tools/pdf", "/tools/media", "/tools/developer",
+      "/tools/math", "/tools/random", "/tools/productivity", "/tools/color", "/tools/ai", "/tools/privacy"
     ];
     
     const toolPages = toolPaths.map(path => ({

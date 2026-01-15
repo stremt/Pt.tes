@@ -28,7 +28,7 @@ export default function Tools() {
     title: "All Tools — Pixocraft Tools (India's Biggest Free Tool Hub — 200+ Tools)",
     description: "Explore 200+ free, lightning-fast, offline-supported tools on Pixocraft Tools — India's biggest tool hub for text, images, PDFs, coding, math, AI, writing and productivity.",
     keywords: "free tools online, India tool hub, 200 tools, PDF tools, image tools, developer tools, static browser tools, text tools, privacy tools, math calculators",
-    canonicalUrl: "https://tools.pixocraft.in/tools",
+    canonicalUrl: typeof window !== 'undefined' ? `${window.location.origin}/tools` : "https://tools.pixocraft.in/tools",
   });
 
   const [location] = useLocation();
