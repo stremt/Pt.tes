@@ -162,7 +162,7 @@ export const tools: ToolMetadata[] = [
     icon: "FileText",
     path: "/tools/word-counter",
     category: "utility",
-    keywords: ["word counter", "character counter", "text analyzer", "word count", "writing tool"],
+    keywords: ["word counter", "character counter", "text analyzer", "word count", "writing tool", "text analyzer"],
   },
   {
     id: "json-formatter",
@@ -180,7 +180,7 @@ export const tools: ToolMetadata[] = [
     icon: "Link2",
     path: "/tools/url-encoder",
     category: "utility",
-    keywords: ["url encoder", "url decoder", "encode url", "decode url", "url escape"],
+    keywords: ["url encoder", "url decoder", "encode url", "decode url", "url escape", "url shortener"],
   },
   {
     id: "color-picker",

@@ -7,6 +7,10 @@ import multer from "multer";
 import mammoth from "mammoth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Soft 404 Redirects for legacy/missing tools
+  app.get("/tools/text-analyzer", (req, res) => res.redirect(301, "/tools/word-counter"));
+  app.get("/tools/url-shortener", (req, res) => res.redirect(301, "/tools/url-encoder"));
+
   // Configure multer for file uploads
   const upload = multer({
     storage: multer.memoryStorage(),
@@ -345,6 +349,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/sitemap.xml", (req, res) => {
     const baseUrl = "https://tools.pixocraft.in";
     const currentDate = new Date().toISOString().split('T')[0];
+    
+    // Redirect missing tools to avoid soft 404s
+    const soft404Redirects: Record<string, string> = {
+      "/tools/text-analyzer": "/tools/word-counter",
+      "/tools/url-shortener": "/tools/url-encoder"
+    };
+
+    // ... handle redirects in middleware or separately, but for sitemap we just exclude them or ensure they point to valid paths
     
     // Static pages
     const staticPages = [
