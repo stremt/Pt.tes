@@ -141,7 +141,9 @@ export default function ExifRemover() {
     if (!cleanedImage) return;
 
     const link = document.createElement('a');
-    link.download = `cleaned_${imageInfo?.name || 'image.png'}`;
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0];
+    link.download = `pixocraft-${dateStr}.png`;
     link.href = cleanedImage;
     link.click();
   };
@@ -289,12 +291,11 @@ export default function ExifRemover() {
                             </div>
                           )}
                           <div className="mt-2 pt-2 border-t border-muted-foreground/20 text-[10px] text-muted-foreground">
-                            {Object.entries(imageInfo.exif).slice(0, 10).map(([key, val]: [string, any]) => (
+                            {Object.entries(imageInfo.exif).map(([key, val]: [string, any]) => (
                               <div key={key} className="truncate">
-                                <span className="text-primary/70">{key}:</span> {val.description || val.value}
+                                <span className="text-primary/70">{key}:</span> {val.description || (typeof val.value === 'object' ? JSON.stringify(val.value) : val.value)}
                               </div>
                             ))}
-                            {Object.keys(imageInfo.exif).length > 10 && <div className="italic">...and more</div>}
                           </div>
                         </>
                       ) : (
