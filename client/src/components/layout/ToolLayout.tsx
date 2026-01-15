@@ -48,22 +48,8 @@ export function ToolLayout({
 
   return (
     <div className="min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-background border-b sticky top-0 z-40">
-        <div className="container mx-auto px-4 max-w-7xl py-3">
-          <Breadcrumb 
-            items={[
-              { name: "Home", url: "/" },
-              { name: "Tools", url: "/tools" },
-              { name: categoryInfo.name, url: categoryInfo.path },
-              { name: title, url: window.location.pathname }
-            ]} 
-          />
-        </div>
-      </div>
-
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background">
+      <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background pt-8 sm:pt-0">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
         <div className="container mx-auto px-4 py-16 md:py-20 max-w-7xl relative">
           <div className="mx-auto max-w-4xl text-center space-y-6">
