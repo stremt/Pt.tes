@@ -342,7 +342,7 @@ export default function ExifRemover() {
               </div>
             </CardContent>
           </Card>
-        ) : isProcessing && image ? (
+        ) : (isProcessing && image ? (
           <Card className="animate-pulse">
             <CardContent className="py-10">
               <div className="flex flex-col md:flex-row items-center gap-6">
@@ -356,7 +356,7 @@ export default function ExifRemover() {
               </div>
             </CardContent>
           </Card>
-        )}
+        ) : null)}
 
         <LongTailPagesSection toolId="image-exif-remover" />
 
