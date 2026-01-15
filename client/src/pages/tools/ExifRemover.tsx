@@ -10,6 +10,7 @@ import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 import ExifReader from 'exifreader';
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatFileSize } from "@/lib/pdf-utils";
 
 export default function ExifRemover() {
   const [image, setImage] = useState<string | null>(null);
@@ -55,12 +56,22 @@ export default function ExifRemover() {
       // Extract EXIF
       try {
         const tags = await ExifReader.load(file);
+        
+        // Add additional file info that ExifReader might not include by default but are in the file object
+        const extendedExif = {
+          ...tags,
+          FileType: { description: file.type.split('/')[1].toUpperCase() },
+          MIMEType: { description: file.type },
+          FileSize: { description: formatFileSize(file.size) },
+          FileModifyDate: { description: new Date(file.lastModified).toLocaleString() },
+        };
+
         setImageInfo({
           name: file.name,
-          size: (file.size / 1024).toFixed(2) + ' KB',
+          size: formatFileSize(file.size),
           type: file.type,
           dimensions: 'Calculating...',
-          exif: tags
+          exif: extendedExif
         });
 
         const img = new Image();
@@ -251,6 +262,10 @@ export default function ExifRemover() {
                       Image Details
                     </h3>
                     <div className="space-y-2 text-sm">
+                      <div className="flex justify-between border-b pb-1">
+                        <span className="text-muted-foreground">File Name</span>
+                        <span className="font-mono truncate max-w-[200px]">{imageInfo.name}</span>
+                      </div>
                       <div className="flex justify-between border-b pb-1">
                         <span className="text-muted-foreground">Dimensions</span>
                         <span className="font-mono">{imageInfo.dimensions}</span>
