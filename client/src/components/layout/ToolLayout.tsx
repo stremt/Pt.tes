@@ -161,7 +161,7 @@ export function ToolLayout({
               {category}
             </Badge>
             <div className="flex justify-center mb-6">
-              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center">
+              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
                 {icon}
               </div>
             </div>

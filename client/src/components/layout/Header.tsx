@@ -40,6 +40,8 @@ export function Header() {
             <img 
               src="/logo.png" 
               alt="Pixocraft Tools Logo" 
+              width="32"
+              height="32"
               className={`transition-all ${scrolled ? 'h-6 w-6 sm:h-7 sm:w-7' : 'h-7 w-7 sm:h-8 sm:w-8'}`}
             />
             <div className="flex flex-col">
