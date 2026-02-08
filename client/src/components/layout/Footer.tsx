@@ -33,6 +33,10 @@ export function Footer() {
     { href: "/tools/password-generator", label: "Password Generator" },
     { href: "/tools/qr-maker", label: "QR Code Maker" },
     { href: "/tools/image-compressor", label: "Image Compressor" },
+    { href: "/tools/box-shadow-generator", label: "Box Shadow" },
+    { href: "/tools/bmi-calculator", label: "BMI Calculator" },
+    { href: "/tools/html-beautifier", label: "HTML Beautifier" },
+    { href: "/tools/pdf-merger", label: "PDF Merger" },
   ];
 
   const companyLinks = [

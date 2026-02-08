@@ -437,6 +437,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/blogs/what-is-temp-mail", priority: "0.7", changefreq: "monthly" },
       { url: "/blogs/password-security-best-practices", priority: "0.7", changefreq: "monthly" },
       { url: "/blogs/qr-codes-marketing-guide", priority: "0.7", changefreq: "monthly" },
+      { url: "/blogs/image-compression-guide-seo", priority: "0.7", changefreq: "monthly" },
+      { url: "/blogs/guide-to-safe-password-generation", priority: "0.7", changefreq: "monthly" },
+      { url: "/blogs/understanding-pdf-merging-tools", priority: "0.7", changefreq: "monthly" },
     ];
 
     const allPages = [...staticPages, ...toolPages, ...blogPages];
