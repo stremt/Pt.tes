@@ -78,7 +78,7 @@ export default function TempMail() {
   const fetchMessages = async (id: string, token: string) => {
     setFetchingMessages(true);
     try {
-      const response = await fetch(`${MAIL_TM_API}/messages`, {
+      const response = await fetch(`/api/tempmail/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -117,8 +117,8 @@ export default function TempMail() {
     setLoading(true);
     setError("");
     try {
-      // Get available domains directly from Mail.tm API
-      const domainsResponse = await fetch(`${MAIL_TM_API}/domains`);
+      // Get available domains through backend proxy
+      const domainsResponse = await fetch(`/api/tempmail/domains`);
       if (!domainsResponse.ok) {
         throw new Error("Failed to fetch domains from email service");
       }
@@ -134,8 +134,8 @@ export default function TempMail() {
       const generatedEmail = `${username}@${domain}`;
       const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-      // Create account directly with Mail.tm API
-      const createResponse = await fetch(`${MAIL_TM_API}/accounts`, {
+      // Create account through backend proxy
+      const createResponse = await fetch(`/api/tempmail/account`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -151,8 +151,8 @@ export default function TempMail() {
         throw new Error(errorData.message || "Failed to create account");
       }
 
-      // Get token directly from Mail.tm API
-      const authResponse = await fetch(`${MAIL_TM_API}/token`, {
+      // Get token through backend proxy
+      const authResponse = await fetch(`/api/tempmail/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -174,8 +174,8 @@ export default function TempMail() {
         throw new Error("Failed to receive authentication token");
       }
       
-      // Get account info directly from Mail.tm API
-      const accountResponse = await fetch(`${MAIL_TM_API}/me`, {
+      // Get account info through backend proxy
+      const accountResponse = await fetch(`/api/tempmail/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -249,7 +249,7 @@ export default function TempMail() {
     setSelectedMessage(message);
     
     try {
-      const response = await fetch(`${MAIL_TM_API}/messages/${message.id}`, {
+      const response = await fetch(`/api/tempmail/messages/${message.id}`, {
         headers: {
           Authorization: `Bearer ${accountToken}`,
         },
