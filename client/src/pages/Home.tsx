@@ -29,9 +29,9 @@ import {
 
 export default function Home() {
   useSEO({
-    title: "Pixocraft Tools — India's Biggest Free Online Tool Hub (200+ Tools) | Free Tools India",
-    description: "India's biggest free online tool hub with 200+ fast, browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup, no tracking, 100% private & offline supported. Best free online tools in India.",
-    keywords: "pixocraft tools, India's biggest tool hub, free online tools india, india online tools, text tools india, image tools india, PDF tools india, developer tools india, offline tools india, static tools india, privacy tools, fastest online tools, 200+ tools, free tools india, best online tools india, browser tools india",
+    title: "Pixocraft Tools — India's Premier Hub for 200+ Free Online Tools",
+    description: "Discover India's leading collection of 200+ free online tools. Secure, fast, and private browser-based utilities for text processing, image editing, PDF management, and developer tasks. No signup required, 100% private.",
+    keywords: "pixocraft tools, free online tools india, web tools hub, privacy tools, developer utilities, text tools, image compressor, pdf tools",
     canonicalUrl: "https://tools.pixocraft.in/",
   });
 

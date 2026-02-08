@@ -14,9 +14,9 @@ export default function Blogs() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useSEO({
-    title: "Blog - Pixocraft Tools | Latest Guides, Tips & Tutorials for Free Online Tools",
-    description: "Explore our comprehensive blog featuring in-depth tutorials, expert tips, and guides on using 200+ free online tools. Learn about privacy, security, productivity, text tools, image editing, PDF manipulation, developer utilities, and more. Expert insights from India's biggest tool hub.",
-    keywords: "pixocraft blog, online tools tutorials, tool guides, privacy tips, security guides, productivity hacks, text tool tips, image editing tutorials, PDF tools guide, developer utilities, free tools blog, India tool hub blog, how to use online tools",
+    title: "Blog - Expert Tool Guides & Tech Insights | Pixocraft Tools",
+    description: "Deep dive into our expert-written guides and tutorials for using online tools efficiently. From privacy tips to developer hacks, our blog covers everything you need to know about the 200+ utilities on Pixocraft.",
+    keywords: "pixocraft blog, tool tutorials, online guide, tech tips, developer resources, productivity blog",
     canonicalUrl: "https://tools.pixocraft.in/blogs",
   });
 

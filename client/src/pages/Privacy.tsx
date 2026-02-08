@@ -4,9 +4,9 @@ import { useSEO } from "@/lib/seo";
 
 export default function Privacy() {
   useSEO({
-    title: "Privacy Policy | Pixocraft Tools",
-    description: "Read our privacy policy to understand how Pixocraft Tools protects your data. We don't collect, track, or sell your information.",
-    keywords: "privacy policy, data protection, privacy, security",
+    title: "Privacy Commitment - Your Data Stays Yours | Pixocraft Tools",
+    description: "At Pixocraft Tools, your privacy is our priority. We operate entirely in your browser—meaning your data never leaves your device. Learn about our zero-tracking, zero-collection policy.",
+    keywords: "privacy policy, data security, local processing, zero tracking, pixocraft privacy",
     canonicalUrl: "https://tools.pixocraft.in/privacy",
   });
 
