@@ -368,7 +368,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       { url: "/privacy", priority: "0.5", changefreq: "monthly" },
     ];
 
-    // COMPREHENSIVE Tool pages - All 175+ tools for maximum SEO coverage
+    // COMPREHENSIVE Tool pages - All 200+ tools for maximum SEO coverage
     const toolPaths = [
       "/tools/temp-mail", "/tools/password-generator", "/tools/qr-maker", "/tools/image-compressor",
       "/tools/text-case-converter", "/tools/word-counter", "/tools/json-formatter", "/tools/url-encoder",
@@ -386,7 +386,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       "/tools/time-difference-calculator", "/tools/time-difference-calculator/payroll-billing",
       "/tools/time-difference-calculator/online-duration", "/tools/time-difference-calculator/project-tracking",
       "/tools/time-difference-calculator/work-hours",
-      "/tools/time-difference-calculator", "/tools/expense-tracker", "/tools/text-to-speech", "/tools/speech-to-text",
+      "/tools/expense-tracker", "/tools/text-to-speech", "/tools/speech-to-text",
       "/tools/unit-converter", "/tools/pdf-merger", "/tools/pdf-splitter", "/tools/pdf-rotator",
       "/tools/pdf-to-image", "/tools/image-to-pdf", "/tools/character-map", "/tools/ascii-converter",
       "/tools/text-diff", "/tools/days-calculator", "/tools/stopwatch", "/tools/countdown-timer",
@@ -418,7 +418,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       "/tools/image-upscaler", "/tools/excel-to-pdf", "/tools/excel-viewer", "/tools/html-to-pdf",
       "/tools/audio-noise-remover", "/tools/gif-to-mp4", "/tools/mp4-to-mp3",
       "/tools/text", "/tools/image", "/tools/pdf", "/tools/media", "/tools/developer",
-      "/tools/math", "/tools/random", "/tools/productivity", "/tools/color", "/tools/ai", "/tools/privacy"
+      "/tools/math", "/tools/random", "/tools/productivity", "/tools/color", "/tools/ai", "/tools/privacy",
+      "/tools/csv-viewer", "/tools/view-private-instagram-profile-picture", "/tools/instagram-profile-picture-downloader",
+      "/tools/convert-pdf-to-image", "/tools/convert-image-to-pdf", "/tools/convert-jpg-to-pdf", "/tools/combine-images-to-pdf",
+      "/tools/convert-jpg-to-png", "/tools/convert-png-to-jpg", "/tools/invoice-generator/freelance",
+      "/tools/invoice-generator/professional", "/tools/invoice-generator/small-business", "/tools/invoice-generator/simple",
+      "/tools/pdf-merger/online", "/tools/pdf-splitter/online", "/tools/pdf-compressor/online", "/tools/pdf-watermark/online"
     ];
     
     const toolPages = toolPaths.map(path => ({
