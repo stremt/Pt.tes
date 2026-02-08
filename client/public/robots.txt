@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Disallow search result pages to prevent duplicate content
+Disallow: /tools?q=*
+Disallow: /tools?category=*
+
+# Sitemap location
 Sitemap: https://tools.pixocraft.in/sitemap.xml
