@@ -65,6 +65,9 @@ export default function TempMail() {
     }
   }, []);
 
+  // Update MAIL_TM_API to use proxy in production
+  const API_BASE = window.location.hostname === "localhost" ? MAIL_TM_API : "/api/tempmail";
+
   // Auto-refresh every 10 seconds when enabled
   useEffect(() => {
     if (autoRefresh && accountId && accountToken) {
@@ -78,7 +81,7 @@ export default function TempMail() {
   const fetchMessages = async (id: string, token: string) => {
     setFetchingMessages(true);
     try {
-      const response = await fetch(`${MAIL_TM_API}/messages`, {
+      const response = await fetch(`${API_BASE}/messages`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -117,8 +120,8 @@ export default function TempMail() {
     setLoading(true);
     setError("");
     try {
-      // Get available domains directly from Mail.tm API
-      const domainsResponse = await fetch(`${MAIL_TM_API}/domains`);
+      // Get available domains
+      const domainsResponse = await fetch(`${API_BASE}/domains`);
       if (!domainsResponse.ok) {
         throw new Error("Failed to fetch domains from email service");
       }
@@ -134,8 +137,8 @@ export default function TempMail() {
       const generatedEmail = `${username}@${domain}`;
       const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-      // Create account directly with Mail.tm API
-      const createResponse = await fetch(`${MAIL_TM_API}/accounts`, {
+      // Create account
+      const createResponse = await fetch(`${API_BASE}/accounts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -151,8 +154,8 @@ export default function TempMail() {
         throw new Error(errorData.message || "Failed to create account");
       }
 
-      // Get token directly from Mail.tm API
-      const authResponse = await fetch(`${MAIL_TM_API}/token`, {
+      // Get token
+      const authResponse = await fetch(`${API_BASE}/token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -174,8 +177,8 @@ export default function TempMail() {
         throw new Error("Failed to receive authentication token");
       }
       
-      // Get account info directly from Mail.tm API
-      const accountResponse = await fetch(`${MAIL_TM_API}/me`, {
+      // Get account info
+      const accountResponse = await fetch(`${API_BASE}/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -249,7 +252,7 @@ export default function TempMail() {
     setSelectedMessage(message);
     
     try {
-      const response = await fetch(`${MAIL_TM_API}/messages/${message.id}`, {
+      const response = await fetch(`${API_BASE}/messages/${message.id}`, {
         headers: {
           Authorization: `Bearer ${accountToken}`,
         },
