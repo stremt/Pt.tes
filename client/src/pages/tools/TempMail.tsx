@@ -66,7 +66,7 @@ export default function TempMail() {
   }, []);
 
   // Update MAIL_TM_API to use proxy in production
-  const API_BASE = window.location.hostname === "localhost" ? MAIL_TM_API : "/api/tempmail";
+  const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? MAIL_TM_API : "/api/tempmail";
 
   // Auto-refresh every 10 seconds when enabled
   useEffect(() => {

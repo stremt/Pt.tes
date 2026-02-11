@@ -317,6 +317,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await fetch(`https://api.mail.tm/messages/${id}`, {
         headers: {
           Authorization: authHeader,
+          "Accept": "application/json",
+          "Content-Type": "application/json"
         },
       });
       
