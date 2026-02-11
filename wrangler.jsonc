@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pixocraft-tools",
+  "pages_build_output_dir": "dist/public",
+  "compatibility_date": "2026-02-11",
+  "workers": [
+    {
+      "binding": "API_WORKER",
+      "service": "pixocraft-tools-api"
+    }
+  ],
+  "routes": [
+    {
+      "pattern": "tools.pixocraft.in/api/*",
+      "script": "cloudflare-worker/worker.js"
+    }
+  ]
+}
