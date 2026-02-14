@@ -24,12 +24,12 @@ export function VersionUpdatePopup() {
   }, []);
 
   const handleRefresh = () => {
-    // Mark as seen
-    localStorage.setItem("temp_mail_fixed_popup_seen", "true");
-    
     // Clear site data to ensure fresh start
     localStorage.clear();
     sessionStorage.clear();
+
+    // Mark as seen AFTER clearing, so it persists in the fresh state
+    localStorage.setItem("temp_mail_fixed_popup_seen", "true");
     
     // Unregister service workers if any
     if (window.navigator && window.navigator.serviceWorker) {
