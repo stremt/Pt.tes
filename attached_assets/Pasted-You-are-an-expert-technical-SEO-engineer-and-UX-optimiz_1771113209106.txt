@@ -1,0 +1,84 @@
+You are an expert technical SEO engineer and UX optimizer.
+
+Improve the SEO, ranking potential, and search intent match of my CSV Viewer & Editor tool page.
+
+GOAL:
+Make this page rank top 1 on Google for:
+
+* csv viewer online
+* csv editor online
+* open csv file online
+* edit csv without excel
+* csv reader online
+* free csv viewer
+
+TASKS:
+
+1. Rewrite page structure for maximum SEO:
+
+* Create strong H1 using primary keyword "CSV Viewer Online – Free CSV Editor & Reader"
+* Add semantic H2 sections
+* Improve keyword coverage naturally
+* Optimize title tag and meta description for high CTR
+
+2. Add high search-intent sections:
+
+* What is CSV Viewer
+* Why open CSV without Excel
+* Who should use this tool (developers, analysts, students)
+* CSV vs Excel comparison table
+* How to open large CSV files
+* How to edit CSV online step by step
+* Use cases (debugging, data cleaning, analysis)
+
+3. Improve content depth:
+
+* Minimum 2000+ words high quality content
+* Include keyword variations naturally
+* Avoid keyword stuffing
+* Write for real users not bots
+
+4. Add SEO schema markup:
+
+* FAQ schema
+* SoftwareApplication schema
+* HowTo schema
+* Breadcrumb schema
+
+5. Improve internal linking:
+
+* Link to related tools like JSON converter, Excel converter, temp mail, password generator
+* Use keyword anchor text
+
+6. Add performance and trust signals:
+
+* "100% client-side processing"
+* "no data upload"
+* "fast rendering for large files"
+* "privacy focused"
+
+7. Improve developer experience:
+
+* Add keyboard shortcuts section
+* Add supported formats
+* Add performance limits
+* Add comparison vs Excel
+
+8. Improve UX:
+
+* Clear hero message
+* Pain-point focused copy
+* Better CTA text
+* Structured layout
+
+9. Generate:
+
+* optimized title tag
+* meta description
+* improved headings structure
+* improved page content
+* schema code
+
+Return full improved page structure and code changes.
+
+Focus on real ranking improvements.
