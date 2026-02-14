@@ -751,6 +751,7 @@ function App() {
         <ThemeProvider>
           <SearchProvider>
             <TooltipProvider>
+              <VersionUpdatePopup />
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-1">
