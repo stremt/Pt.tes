@@ -138,7 +138,7 @@ export default function TempMail() {
       const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
       // Create account
-      const createResponse = await fetch(`${API_BASE}/accounts`, {
+      const createResponse = await fetch(`${API_BASE}/account`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
