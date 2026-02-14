@@ -68,12 +68,12 @@ export default function TempMail() {
   // Update MAIL_TM_API to use proxy in production
   const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? MAIL_TM_API : "/api/tempmail";
 
-  // Auto-refresh every 10 seconds when enabled
+  // Auto-refresh every 3 seconds when enabled
   useEffect(() => {
     if (autoRefresh && accountId && accountToken) {
       const interval = setInterval(() => {
         fetchMessages(accountId, accountToken);
-      }, 10000);
+      }, 3000);
       return () => clearInterval(interval);
     }
   }, [autoRefresh, accountId, accountToken]);
@@ -451,7 +451,7 @@ export default function TempMail() {
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
-                      <span className="text-sm font-medium">Auto-refresh (10s)</span>
+                      <span className="text-sm font-medium">Auto-refresh (3s)</span>
                       <Button
                         onClick={() => setAutoRefresh(!autoRefresh)}
                         variant={autoRefresh ? "default" : "outline"}
