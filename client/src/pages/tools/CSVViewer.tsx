@@ -60,7 +60,6 @@ export default function CSVViewer() {
     });
   }, [toast]);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const savedData = localStorage.getItem("csv_viewer_data");
     const savedHeaders = localStorage.getItem("csv_viewer_headers");
@@ -73,7 +72,6 @@ export default function CSVViewer() {
         setData(parsedData);
         setHeaders(parsedHeaders);
         setFileName(savedFileName);
-        // Initialize history with loaded data
         setHistory([parsedData]);
         setHistoryIndex(0);
       } catch (e) {
@@ -82,7 +80,6 @@ export default function CSVViewer() {
     }
   }, []);
 
-  // Save to localStorage whenever data changes
   useEffect(() => {
     if (data.length > 0) {
       try {
@@ -90,7 +87,6 @@ export default function CSVViewer() {
         localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
         localStorage.setItem("csv_viewer_filename", fileName);
       } catch (e) {
-        // Silently fail if quota exceeded as requested
         console.warn("Storage quota exceeded, data not saved locally");
       }
     } else {
@@ -202,24 +198,19 @@ export default function CSVViewer() {
 
   const handleKeyDown = (e: React.KeyboardEvent, rowIndex: number, colIndex: number) => {
     if (!isEditing) return;
-
     const colKey = headers[colIndex];
-
     if (e.key === "Enter" || e.key === "Tab") {
       if (editCell) {
         e.preventDefault();
         setEditCell(null);
         pushToHistory(data);
-        
         let nextRow = rowIndex;
         let nextCol = colIndex;
-
         if (e.key === "Enter") {
           nextRow = e.shiftKey ? rowIndex - 1 : rowIndex + 1;
         } else {
           nextCol = e.shiftKey ? colIndex - 1 : colIndex + 1;
         }
-
         if (nextRow >= 0 && nextRow < data.length && nextCol >= 0 && nextCol < headers.length) {
           setTimeout(() => setEditCell({ rowIndex: nextRow, colKey: headers[nextCol] }), 0);
         }
@@ -231,23 +222,19 @@ export default function CSVViewer() {
       e.preventDefault();
       let nextRow = rowIndex;
       let nextCol = colIndex;
-
       if (e.key === "ArrowUp") nextRow = Math.max(0, rowIndex - 1);
       if (e.key === "ArrowDown") nextRow = Math.min(data.length - 1, rowIndex + 1);
       if (e.key === "ArrowLeft") nextCol = Math.max(0, colIndex - 1);
       if (e.key === "ArrowRight") nextCol = Math.min(headers.length - 1, colIndex + 1);
-
       const nextCellElement = document.querySelector(`[data-row="${nextRow}"][data-col="${nextCol}"]`) as HTMLElement;
       if (nextCellElement) nextCellElement.focus();
     } else if (e.key.length === 1 && !editCell && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      // Start typing directly
       setEditCell({ rowIndex, colKey });
     }
   };
 
   const HighlightText = ({ text, highlight }: { text: string; highlight: string }) => {
     if (!highlight.trim() || !highlightEnabled) return <>{text}</>;
-    
     const parts = text.split(new RegExp(`(${highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi"));
     return (
       <>
@@ -278,7 +265,6 @@ export default function CSVViewer() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
-
     if (!file.name.endsWith(".csv")) {
       toast({
         variant: "destructive",
@@ -287,7 +273,6 @@ export default function CSVViewer() {
       });
       return;
     }
-
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
@@ -323,16 +308,6 @@ export default function CSVViewer() {
       String(val).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
-  const reset = () => {
-    setData([]);
-    setHeaders([]);
-    setFileName("");
-    setSearchTerm("");
-    setDisplayCount(100);
-    setShowPaste(false);
-    setPastedContent("");
-  };
 
   const loadMore = useCallback(() => {
     if (displayCount < filteredData.length) {
@@ -426,7 +401,6 @@ export default function CSVViewer() {
       </Helmet>
 
       <div className="space-y-12">
-        {/* Hero Section with Search Intent Keywords */}
         <section className="text-center space-y-4 pt-4">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             CSV Viewer Online – Free CSV Editor & Reader
@@ -454,7 +428,6 @@ export default function CSVViewer() {
                 <p className="text-muted-foreground text-center max-w-sm mb-6">
                   Drag and drop your file here, or click to browse.
                 </p>
-                
                 {!showPaste && (
                   <Button 
                     variant="ghost" 
@@ -510,7 +483,6 @@ export default function CSVViewer() {
             )}
           >
             <div className="bg-card rounded-lg border shadow-sm">
-              {/* Top Row: File Info */}
               <div className="flex items-center gap-3 p-4 border-b">
                 <div className="bg-primary/10 p-2 rounded-md flex-shrink-0">
                   <FileText className="h-5 w-5 text-primary" />
@@ -545,7 +517,6 @@ export default function CSVViewer() {
                 )}
               </div>
 
-              {/* Bottom Row: Search & Actions */}
               <div className="p-4 space-y-3">
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -557,7 +528,6 @@ export default function CSVViewer() {
                   />
                 </div>
                 
-                {/* Action Buttons */}
                 <div className="flex flex-wrap gap-2">
                   {isEditing && (
                     <>
@@ -611,237 +581,165 @@ export default function CSVViewer() {
                     variant={highlightEnabled ? "default" : "outline"} 
                     size="sm"
                     onClick={toggleHighlight} 
-                    title={highlightEnabled ? "Disable Highlight" : "Enable Highlight"}
+                    title={highlightEnabled ? "Disable Search Highlighting" : "Enable Search Highlighting"}
                     className="flex-1 sm:flex-none"
                   >
                     <Highlighter className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Find</span>
+                    <span className="hidden sm:inline">Highlight</span>
                   </Button>
-                  
+
                   <Button 
                     variant="outline" 
-                    size="sm"
-                    onClick={toggleFullScreen} 
-                    title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
-                    className="hidden sm:flex flex-1 sm:flex-none"
-                  >
-                    {isFullScreen ? <Minimize2 className="h-4 w-4 sm:mr-1" /> : <Maximize2 className="h-4 w-4 sm:mr-1" />}
-                    <span>{isFullScreen ? "Min" : "Full"}</span>
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={downloadCSV} 
-                    title="Download"
+                    size="sm" 
+                    onClick={downloadCSV}
+                    title="Download CSV"
                     className="flex-1 sm:flex-none"
                   >
                     <Download className="h-4 w-4 sm:mr-1" />
                     <span className="hidden sm:inline">Download</span>
                   </Button>
-                  
+
                   <Button 
-                    variant="ghost" 
-                    size="sm"
-                    onClick={() => {
-                      const confirmed = window.confirm("Are you sure you want to close? Any unsaved changes will be lost.");
-                      if (confirmed) reset();
-                    }}
-                    title="Close"
+                    variant="outline" 
+                    size="sm" 
+                    onClick={toggleFullScreen}
+                    title={isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                     className="flex-1 sm:flex-none"
                   >
+                    {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                  </Button>
+
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={reset}
+                    title="Clear Data"
+                    className="flex-1 sm:flex-none text-destructive hover:bg-destructive/10"
+                  >
                     <X className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Close</span>
+                    <span className="hidden sm:inline">Clear</span>
                   </Button>
                 </div>
               </div>
-            </div>
 
-            <Card className={cn("overflow-hidden flex flex-col", isFullScreen && "flex-1 min-h-0 h-full")}>
               <div 
                 className={cn(
-                  "overflow-auto border rounded-md custom-scrollbar",
-                  isFullScreen ? "flex-1 h-full" : "max-h-[600px]"
-                )} 
+                  "overflow-auto border-t relative",
+                  isFullScreen ? "h-[calc(100vh-220px)]" : "max-h-[600px]"
+                )}
                 onScroll={handleScroll}
               >
                 <Table>
-                  <TableHeader className="bg-muted/50 sticky top-0 z-10 shadow-sm">
+                  <TableHeader className="sticky top-0 bg-card z-20 shadow-sm">
                     <TableRow>
-                      {isEditing && <TableHead className="w-10"></TableHead>}
-                      {headers.map((header) => (
-                        <TableHead key={header} className="whitespace-nowrap font-bold text-foreground group relative">
-                          <div className="flex items-center gap-2">
-                            {header}
-                            {isEditing && (
+                      <TableHead className="w-12 bg-muted/50"></TableHead>
+                      {headers.map((header, index) => (
+                        <TableHead key={index} className="min-w-[150px] p-0 group">
+                          <div className="flex items-center justify-between px-4 py-2 hover:bg-muted/50 transition-colors">
+                            <span className="font-bold text-foreground truncate">{header}</span>
+                            <div className="flex items-center">
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100">
                                     <ChevronDown className="h-3 w-3" />
                                   </Button>
                                 </DropdownMenuTrigger>
-                                <DropdownMenuContent>
+                                <DropdownMenuContent align="end">
                                   <DropdownMenuItem onClick={() => {
-                                    const newName = prompt("Enter new column name:", header);
-                                    if (newName) renameColumn(header, newName);
+                                    const newKey = prompt("Rename column:", header);
+                                    if (newKey) renameColumn(header, newKey);
                                   }}>
                                     <Type className="h-4 w-4 mr-2" /> Rename
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem className="text-destructive" onClick={() => deleteColumn(header)}>
+                                  <DropdownMenuItem 
+                                    className="text-destructive" 
+                                    onClick={() => deleteColumn(header)}
+                                  >
                                     <Trash2 className="h-4 w-4 mr-2" /> Delete
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
-                            )}
+                            </div>
                           </div>
                         </TableHead>
                       ))}
+                      {isEditing && (
+                        <TableHead className="w-12 p-0">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-full w-full rounded-none hover:bg-primary/10 text-primary"
+                            onClick={addColumn}
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </TableHead>
+                      )}
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredData.length > 0 ? (
-                      filteredData.slice(0, displayCount).map((row, idx) => (
-                        <TableRow key={idx}>
-                          {isEditing && (
-                            <TableCell className="p-2">
-                              <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => deleteRow(idx)}>
-                                <Trash2 className="h-3 w-3" />
-                              </Button>
-                            </TableCell>
-                          )}
-                          {headers.map((header, colIdx) => (
-                            <TableCell 
-                              key={`${idx}-${header}`} 
-                              tabIndex={isEditing ? 0 : -1}
-                              data-row={idx}
-                              data-col={colIdx}
-                              className={cn(
-                                "whitespace-nowrap cursor-pointer border outline-none focus:ring-2 focus:ring-primary focus:ring-inset",
-                                isEditing && "hover:bg-accent/50",
-                                editCell?.rowIndex === idx && editCell?.colKey === header && "p-0 ring-2 ring-primary"
-                              )}
-                              onClick={() => handleCellClick(idx, header)}
-                              onKeyDown={(e) => handleKeyDown(e, idx, colIdx)}
-                            >
-                              {editCell?.rowIndex === idx && editCell?.colKey === header ? (
-                                <Input
-                                  autoFocus
-                                  className="h-9 border-0 rounded-none shadow-none focus-visible:ring-0 px-2 min-w-[150px]"
-                                  value={String(row[header])}
-                                  onChange={(e) => handleCellChange(idx, header, e.target.value)}
-                                  onBlur={handleBlur}
-                                  onKeyDown={(e) => {
-                                    if (e.key === "Enter" || e.key === "Tab") {
-                                      handleKeyDown(e, idx, colIdx);
-                                    }
-                                  }}
-                                />
-                              ) : (
-                                <div className="px-2 py-2 min-w-[150px]">
-                                  <HighlightText text={String(row[header])} highlight={searchTerm} />
-                                </div>
-                              )}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={headers.length} className="h-24 text-center">
-                          No results found.
+                    {filteredData.slice(0, displayCount).map((row, rowIndex) => (
+                      <TableRow key={rowIndex} className="group transition-colors hover:bg-muted/30">
+                        <TableCell className="text-center text-xs text-muted-foreground bg-muted/20 font-mono">
+                          {rowIndex + 1}
                         </TableCell>
+                        {headers.map((header, colIndex) => (
+                          <TableCell 
+                            key={colIndex}
+                            className={cn(
+                              "relative p-0 h-10 min-w-[150px] border-r focus-within:ring-2 focus-within:ring-primary focus-within:z-10",
+                              editCell?.rowIndex === rowIndex && editCell?.colKey === header && "p-0"
+                            )}
+                            onClick={() => handleCellClick(rowIndex, header)}
+                            tabIndex={isEditing ? 0 : -1}
+                            onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}
+                            data-row={rowIndex}
+                            data-col={colIndex}
+                          >
+                            {editCell?.rowIndex === rowIndex && editCell?.colKey === header ? (
+                              <Input
+                                autoFocus
+                                className="h-full w-full border-none rounded-none focus-visible:ring-0 px-4"
+                                value={row[header] || ""}
+                                onChange={(e) => handleCellChange(rowIndex, header, e.target.value)}
+                                onBlur={handleBlur}
+                              />
+                            ) : (
+                              <div className="px-4 py-2 truncate text-sm">
+                                <HighlightText text={String(row[header] || "")} highlight={searchTerm} />
+                              </div>
+                            )}
+                          </TableCell>
+                        ))}
+                        {isEditing && (
+                          <TableCell className="p-0 w-12 text-center">
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => deleteRow(rowIndex)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        )}
                       </TableRow>
-                    )}
+                    ))}
                   </TableBody>
                 </Table>
               </div>
-              {filteredData.length > displayCount && (
-                <div className="p-4 bg-muted/20 text-center text-sm text-muted-foreground border-t">
-                  Scroll more to load more... ({displayCount} of {filteredData.length} shown)
-                </div>
-              )}
-              {filteredData.length <= displayCount && data.length > 0 && (
-                <div className="p-4 bg-muted/20 text-center text-sm text-muted-foreground border-t">
-                  All {filteredData.length} rows shown.
-                </div>
-              )}
-            </Card>
+            </div>
+            {displayCount < filteredData.length && (
+              <div className="flex justify-center p-4">
+                <Button variant="outline" onClick={loadMore}>
+                  Load {Math.min(100, filteredData.length - displayCount)} more rows
+                </Button>
+              </div>
+            )}
           </div>
         )}
-
-        {/* Related CSV Tools Section */}
-        <div className="mt-12 border-t pt-12">
-          <h2 className="text-3xl font-bold mb-8 text-center">More CSV Tools & Guides</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link href="/tools/csv-viewer/edit-without-excel">
-              <Card className="cursor-pointer hover-elevate h-full transition-all">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-start justify-between gap-2">
-                    <span>Edit Without Excel</span>
-                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Edit spreadsheets in your browser without needing Microsoft Excel installed.
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/tools/csv-viewer/view-large-files">
-              <Card className="cursor-pointer hover-elevate h-full transition-all">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-start justify-between gap-2">
-                    <span>View Large Files</span>
-                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Efficiently view and search massive CSV files with thousands of rows.
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/tools/csv-viewer/convert-and-edit">
-              <Card className="cursor-pointer hover-elevate h-full transition-all">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-start justify-between gap-2">
-                    <span>Convert & Edit</span>
-                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Convert between Excel, JSON, and CSV formats with full editing capabilities.
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/tools/csv-viewer/view-in-browser">
-              <Card className="cursor-pointer hover-elevate h-full transition-all">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-start justify-between gap-2">
-                    <span>View in Browser</span>
-                    <ArrowRight className="h-5 w-5 flex-shrink-0 text-primary" />
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    View any CSV file directly in your browser without downloading or installing anything.
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-          </div>
-        </div>
       </div>
-      </section>
 
-      {/* SEO Content Section */}
       <section className="mt-16 space-y-12 text-foreground max-w-4xl mx-auto px-4 pb-20">
         <div className="prose prose-slate dark:prose-invert max-w-none">
           <h2 className="text-3xl font-bold mb-6">What is a CSV Viewer and Why Use it?</h2>
@@ -991,7 +889,5 @@ export default function CSVViewer() {
         </div>
       </section>
     </ToolLayout>
-  );
-}
   );
 }
