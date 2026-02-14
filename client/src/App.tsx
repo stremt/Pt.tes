@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageLoader } from "@/components/PageLoader";
 import { checkAndHandleVersionChange } from "@/lib/versionManager";
+import { VersionUpdatePopup } from "@/components/VersionUpdatePopup";
 
 // Eagerly load pages (non-tool pages)
 import Home from "@/pages/Home";
