@@ -682,139 +682,97 @@ export default function CSVViewer() {
                 "fixed inset-0 z-[100] bg-background p-4 sm:p-8 overflow-hidden h-screen w-screen m-0",
             )}
           >
-            <div className="bg-card rounded-lg border shadow-sm">
-              <div className="flex items-center gap-3 p-4 border-b">
-                <div className="bg-primary/10 p-2 rounded-md flex-shrink-0">
-                  <FileText className="h-5 w-5 text-primary" />
-                </div>
-                <div className="truncate flex-1">
-                  <p className="font-medium truncate text-sm sm:text-base">
-                    {fileName}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {data.length} rows detected
-                  </p>
-                </div>
-                {isEditing && (
-                  <div className="flex items-center gap-1 flex-shrink-0">
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={undo}
-                      disabled={historyIndex <= 0}
-                      title="Undo"
-                      className="h-9 w-9"
-                    >
-                      <Undo2 className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={redo}
-                      disabled={historyIndex >= history.length - 1}
-                      title="Redo"
-                      className="h-9 w-9"
-                    >
-                      <Redo2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                )}
-              </div>
-
-              <div className="p-4 space-y-3">
-                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b bg-muted/30">
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="relative flex-1 min-w-[200px] md:max-w-xs group">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
                   <Input
-                    placeholder="Search in table..."
-                    className="pl-9 w-full"
+                    placeholder="Search records..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-9 h-9 bg-background border-muted-foreground/20 focus-visible:ring-primary/30"
                   />
                 </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {isEditing && (
-                    <>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          addRow();
-                          toast({
-                            title: "Success",
-                            description: "New row added",
-                          });
-                        }}
-                        title="Add Row"
-                        className="flex-1 sm:flex-none"
-                      >
-                        <Copy className="h-4 w-4 sm:mr-1" />
-                        <span>Add Row</span>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          addColumn();
-                          toast({
-                            title: "Success",
-                            description: "New column added",
-                          });
-                        }}
-                        title="Add Column"
-                        className="flex-1 sm:flex-none"
-                      >
-                        <Columns3 className="h-4 w-4 sm:mr-1" />
-                        <span>Add Col</span>
-                      </Button>
-                    </>
+                <div className="flex items-center gap-1 bg-background p-1 rounded-md border border-muted-foreground/20">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={undo}
+                    disabled={historyIndex <= 0}
+                    className="h-7 px-2 hover:bg-muted"
+                  >
+                    <Undo2 className="h-3.5 w-3.5" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={redo}
+                    disabled={historyIndex >= history.length - 1}
+                    className="h-7 px-2 hover:bg-muted"
+                  >
+                    <Redo2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant={isEditing ? "default" : "outline"}
+                  size="sm"
+                  onClick={toggleEditing}
+                  className={cn(
+                    "h-9 gap-2 transition-all",
+                    isEditing && "shadow-sm shadow-primary/20",
                   )}
+                >
+                  <Edit2 className="h-4 w-4" />
+                  {isEditing ? "Exit Editor" : "Edit Mode"}
+                </Button>
 
-                  <Button
-                    variant={isEditing ? "default" : "outline"}
-                    size="sm"
-                    onClick={toggleEditing}
-                    title={isEditing ? "Disable Editing" : "Enable Editing"}
-                    className="flex-1 sm:flex-none"
-                  >
-                    <Edit2 className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Edit</span>
-                  </Button>
+                {isEditing && (
+                  <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="h-9 gap-2 border-primary/20 hover:bg-primary/5">
+                          <Plus className="h-4 w-4 text-primary" />
+                          Insert
+                          <ChevronDown className="h-3 w-3 opacity-50" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuItem onClick={addRow} className="gap-2">
+                          <FileText className="h-4 w-4" />
+                          Add New Row
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={addColumn} className="gap-2">
+                          <Columns3 className="h-4 w-4" />
+                          Add New Column
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                )}
 
+                <div className="h-8 w-[1px] bg-muted mx-1 hidden sm:block" />
+
+                <div className="flex items-center gap-1">
                   <Button
-                    variant={highlightEnabled ? "default" : "outline"}
-                    size="sm"
+                    variant="ghost"
+                    size="icon"
                     onClick={toggleHighlight}
-                    title={
-                      highlightEnabled
-                        ? "Disable Search Highlighting"
-                        : "Enable Search Highlighting"
-                    }
-                    className="flex-1 sm:flex-none"
+                    className={cn(
+                      "h-9 w-9",
+                      highlightEnabled && "text-primary bg-primary/10",
+                    )}
+                    title="Toggle Search Highlights"
                   >
-                    <Highlighter className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Highlight</span>
+                    <Highlighter className="h-4 w-4" />
                   </Button>
-
                   <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={downloadCSV}
-                    title="Download CSV"
-                    className="flex-1 sm:flex-none"
-                  >
-                    <Download className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Download</span>
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
+                    variant="ghost"
+                    size="icon"
                     onClick={toggleFullScreen}
-                    title={
-                      isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"
-                    }
-                    className="flex-1 sm:flex-none"
+                    className="h-9 w-9"
+                    title={isFullScreen ? "Exit Fullscreen" : "Enter Fullscreen"}
                   >
                     {isFullScreen ? (
                       <Minimize2 className="h-4 w-4" />
@@ -822,168 +780,200 @@ export default function CSVViewer() {
                       <Maximize2 className="h-4 w-4" />
                     )}
                   </Button>
-
                   <Button
                     variant="ghost"
-                    size="sm"
+                    size="icon"
                     onClick={handleClear}
-                    title="Clear Data"
-                    className="flex-1 sm:flex-none text-destructive hover:bg-destructive/10"
+                    className="h-9 w-9 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                    title="Clear All Data"
                   >
-                    <X className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Clear</span>
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
-              </div>
 
-              <div
-                className={cn(
-                  "overflow-auto border-t relative",
-                  isFullScreen ? "h-[calc(100vh-220px)]" : "max-h-[600px]",
-                )}
-                onScroll={handleScroll}
-              >
-                <Table>
-                  <TableHeader className="sticky top-0 bg-card z-20 shadow-sm">
-                    <TableRow>
-                      <TableHead className="w-12 bg-muted/50"></TableHead>
-                      {headers.map((header, index) => (
-                        <TableHead
-                          key={index}
-                          className="min-w-[150px] p-0 group"
-                        >
-                          <div className="flex items-center justify-between px-4 py-2 hover:bg-muted/50 transition-colors">
-                            <span className="font-bold text-foreground truncate">
-                              {header}
-                            </span>
-                            <div className="flex items-center">
-                              <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                                  >
-                                    <ChevronDown className="h-3 w-3" />
-                                  </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                  <DropdownMenuItem
-                                    onClick={() => {
-                                      const newKey = prompt(
-                                        "Rename column:",
-                                        header,
-                                      );
-                                      if (newKey) renameColumn(header, newKey);
-                                    }}
-                                  >
-                                    <Type className="h-4 w-4 mr-2" /> Rename
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
-                                    className="text-destructive"
-                                    onClick={() => deleteColumn(header)}
-                                  >
-                                    <Trash2 className="h-4 w-4 mr-2" /> Delete
-                                  </DropdownMenuItem>
-                                </DropdownMenuContent>
-                              </DropdownMenu>
-                            </div>
-                          </div>
-                        </TableHead>
-                      ))}
-                      {isEditing && (
-                        <TableHead className="w-12 p-0">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-full w-full rounded-none hover:bg-primary/10 text-primary"
-                            onClick={addColumn}
-                          >
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                        </TableHead>
-                      )}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredData
-                      .slice(0, displayCount)
-                      .map((row, rowIndex) => (
-                        <TableRow
-                          key={rowIndex}
-                          className="group transition-colors hover:bg-muted/30"
-                        >
-                          <TableCell className="text-center text-xs text-muted-foreground bg-muted/20 font-mono">
-                            {rowIndex + 1}
-                          </TableCell>
-                          {headers.map((header, colIndex) => (
-                            <TableCell
-                              key={colIndex}
-                              className={cn(
-                                "relative p-0 h-10 min-w-[150px] border-r focus-within:ring-2 focus-within:ring-primary focus-within:z-10",
-                                editCell?.rowIndex === rowIndex &&
-                                  editCell?.colKey === header &&
-                                  "p-0",
-                              )}
-                              onClick={() => handleCellClick(rowIndex, header)}
-                              tabIndex={isEditing ? 0 : -1}
-                              onKeyDown={(e) =>
-                                handleKeyDown(e, rowIndex, colIndex)
-                              }
-                              data-row={rowIndex}
-                              data-col={colIndex}
-                            >
-                              {editCell?.rowIndex === rowIndex &&
-                              editCell?.colKey === header ? (
-                                <Input
-                                  autoFocus
-                                  className="h-full w-full border-none rounded-none focus-visible:ring-0 px-4"
-                                  value={row[header] || ""}
-                                  onChange={(e) =>
-                                    handleCellChange(
-                                      rowIndex,
-                                      header,
-                                      e.target.value,
-                                    )
-                                  }
-                                  onBlur={handleBlur}
-                                />
-                              ) : (
-                                <div className="px-4 py-2 truncate text-sm">
-                                  <HighlightText
-                                    text={String(row[header] || "")}
-                                    highlight={searchTerm}
-                                  />
-                                </div>
-                              )}
-                            </TableCell>
-                          ))}
-                          {isEditing && (
-                            <TableCell className="p-0 w-12 text-center">
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
-                                onClick={() => deleteRow(rowIndex)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
-            {displayCount < filteredData.length && (
-              <div className="flex justify-center p-4">
-                <Button variant="outline" onClick={loadMore}>
-                  Load {Math.min(100, filteredData.length - displayCount)} more
-                  rows
+                <Button onClick={downloadCSV} size="sm" className="h-9 gap-2 ml-1">
+                  <Download className="h-4 w-4" />
+                  Export
                 </Button>
               </div>
-            )}
+            </div>
+
+            <div
+              className={cn(
+                "relative overflow-auto border-t",
+                isFullScreen ? "h-[calc(100vh-140px)]" : "max-h-[700px]",
+              )}
+              onScroll={handleScroll}
+            >
+              <Table className="border-separate border-spacing-0">
+                <TableHeader className="sticky top-0 z-20 bg-muted/95 backdrop-blur-sm">
+                  <TableRow className="hover:bg-transparent">
+                    <TableHead className="w-12 text-center border-r border-b font-bold text-muted-foreground/70 bg-muted/50">
+                      #
+                    </TableHead>
+                    {headers.map((header, index) => (
+                      <TableHead
+                        key={index}
+                        className="min-w-[150px] p-0 border-r border-b group relative bg-muted/50"
+                      >
+                        <div className="flex items-center justify-between px-3 h-10">
+                          <span className="font-bold text-foreground text-sm truncate uppercase tracking-tight">
+                            {header}
+                          </span>
+                          <div className="flex items-center">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                                >
+                                  <ChevronDown className="h-3 w-3" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    const newKey = prompt(
+                                      "Rename column:",
+                                      header,
+                                    );
+                                    if (newKey) renameColumn(header, newKey);
+                                  }}
+                                  className="gap-2"
+                                >
+                                  <Type className="h-4 w-4" /> Rename
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  className="text-destructive focus:text-destructive focus:bg-destructive/10 gap-2"
+                                  onClick={() => deleteColumn(header)}
+                                >
+                                  <Trash2 className="h-4 w-4" /> Delete
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </div>
+                        </div>
+                      </TableHead>
+                    ))}
+                    {isEditing && (
+                      <TableHead className="w-12 p-0 border-b">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-full w-full rounded-none hover:bg-primary/10 text-primary"
+                          onClick={addColumn}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </TableHead>
+                    )}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredData
+                    .slice(0, displayCount)
+                    .map((row, rowIndex) => (
+                      <TableRow
+                        key={rowIndex}
+                        className="group transition-colors hover:bg-primary/5"
+                      >
+                        <TableCell className="w-12 text-center text-[10px] font-mono text-muted-foreground border-r border-b bg-muted/20 group-hover:bg-primary/10">
+                          {rowIndex + 1}
+                        </TableCell>
+                        {headers.map((header, colIndex) => (
+                          <TableCell
+                            key={colIndex}
+                            className={cn(
+                              "relative p-0 h-11 min-w-[150px] border-r border-b transition-all focus-within:ring-1 focus-within:ring-inset focus-within:ring-primary focus-within:z-10",
+                              isEditing && "cursor-text hover:bg-background",
+                              editCell?.rowIndex === rowIndex &&
+                                editCell?.colKey === header &&
+                                "z-20",
+                            )}
+                            onClick={() => handleCellClick(rowIndex, header)}
+                            tabIndex={isEditing ? 0 : -1}
+                            onKeyDown={(e) =>
+                              handleKeyDown(e, rowIndex, colIndex)
+                            }
+                            data-row={rowIndex}
+                            data-col={colIndex}
+                          >
+                            {editCell?.rowIndex === rowIndex &&
+                            editCell?.colKey === header ? (
+                              <Input
+                                autoFocus
+                                className="absolute inset-0 h-full w-full border-0 rounded-none bg-background focus-visible:ring-0 focus-visible:ring-offset-0 px-3 text-sm shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+                                value={row[header] || ""}
+                                onChange={(e) =>
+                                  handleCellChange(
+                                    rowIndex,
+                                    header,
+                                    e.target.value,
+                                  )
+                                }
+                                onBlur={handleBlur}
+                              />
+                            ) : (
+                              <div className="px-3 py-2 truncate text-sm text-foreground/90 font-medium max-w-[300px]">
+                                <HighlightText
+                                  text={String(row[header] || "")}
+                                  highlight={searchTerm}
+                                />
+                              </div>
+                            )}
+                          </TableCell>
+                        ))}
+                        {isEditing && (
+                          <TableCell className="p-0 w-12 text-center border-b border-r bg-muted/10">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => deleteRow(rowIndex)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+              {displayCount < filteredData.length && (
+                <div className="p-8 text-center text-muted-foreground animate-pulse">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-primary/30" />
+                  </div>
+                  <p className="mt-2 text-xs font-medium uppercase tracking-widest">
+                    Loading more records...
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="p-3 border-t bg-muted/30 flex items-center justify-between text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5">
+                  <FileText className="h-3 w-3" />
+                  {fileName || "Untitled.csv"}
+                </span>
+                <span className="h-3 w-[1px] bg-muted-foreground/30" />
+                <span>
+                  Showing {Math.min(displayCount, filteredData.length)} of{" "}
+                  {filteredData.length} records
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                {isEditing && (
+                  <Badge variant="outline" className="h-5 px-1.5 bg-primary/5 text-primary border-primary/20 text-[9px]">
+                    Editor Active
+                  </Badge>
+                )}
+                <span>Press Tab to navigate</span>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -991,22 +981,35 @@ export default function CSVViewer() {
       <section className="mt-16 space-y-12 text-foreground max-w-4xl mx-auto px-4 pb-20">
         <div className="prose prose-slate dark:prose-invert max-w-none">
           <h2 className="text-3xl font-bold mb-6">
-            What is a CSV Viewer and Why Use it?
+            Professional CSV Data Management Online
           </h2>
-          <p className="text-lg leading-relaxed mb-4">
-            A CSV Viewer is a specialized tool designed to open and read
-            Comma-Separated Values files. While many people default to Microsoft
-            Excel, using a <strong>CSV viewer online</strong> offers a faster,
-            more lightweight alternative. Our tool allows you to{" "}
-            <strong>open CSV file online</strong> instantly without waiting for
-            heavy software to load.
-          </p>
-          <p className="text-lg leading-relaxed mb-8">
-            Whether you are a developer debugging data structures, an analyst
-            performing quick data cleaning, or a student working on a project,
-            our <strong>free CSV viewer</strong> provides the essential
-            spreadsheet features you need without the bloat.
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold flex items-center gap-2">
+                <FileSpreadsheet className="h-5 w-5 text-primary" />
+                Open CSV without Excel
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Excel can be slow, expensive, and often corrupts CSV formatting
+                by automatically converting dates or numbers. Our free CSV
+                reader preserves your raw data while providing a familiar,
+                lightning-fast grid interface for seamless data exploration.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold flex items-center gap-2">
+                <Edit2 className="h-5 w-5 text-primary" />
+                Edit CSV Online Free
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Cleaning data shouldn't be difficult. Our online CSV editor
+                allows you to rename headers, delete rows, and add new data
+                columns instantly. With built-in undo/redo functionality and
+                browser-based saving, your workflow stays productive and
+                worry-free.
+              </p>
+            </div>
+          </div>
 
           <h2 className="text-3xl font-bold mb-6">
             Why Open CSV Without Excel?
