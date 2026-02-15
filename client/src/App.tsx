@@ -116,6 +116,7 @@ import CustomPdfWatermarkCreator from "@/pages/CustomPdfWatermarkCreator";
 import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarkingTool";
 
 // Lazily load all tool components
+const TextToFile = lazy(() => import("@/pages/tools/TextToFile"));
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));

@@ -17,8 +17,8 @@ export function VersionUpdatePopup() {
     // Check if the user has seen the "fixed" popup before
     const hasSeenPopup = localStorage.getItem("temp_mail_fixed_popup_seen");
     
-    // Only show if they haven't seen it
-    if (!hasSeenPopup) {
+    // Always show if they haven't "cleared data" (which sets this to true)
+    if (hasSeenPopup !== "true") {
       setIsOpen(true);
     }
   }, []);
