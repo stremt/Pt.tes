@@ -65,8 +65,8 @@ export default function TempMail() {
     }
   }, []);
 
-  // Update MAIL_TM_API to use proxy in production
-  const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? MAIL_TM_API : "/api/tempmail";
+  // Use direct API in production on Cloudflare Pages (since backend isn't available)
+  const API_BASE = (window.location.hostname.includes("pages.dev") || window.location.hostname.includes("pixocraft.in")) ? MAIL_TM_API : "/api/tempmail";
 
   // Auto-refresh every 3 seconds when enabled
   useEffect(() => {
