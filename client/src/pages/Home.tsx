@@ -24,7 +24,8 @@ import {
   Palette,
   Wand2,
   Database,
-  Type
+  Type,
+  Info
 } from "lucide-react";
 
 export default function Home() {
@@ -339,15 +340,22 @@ export default function Home() {
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
                 India's Biggest Tool Hub
               </Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight px-2 sm:px-4">
-                Pixocraft Tools — India's Biggest Free Online Tool Hub
-                <br />
-                <span className="text-primary">(200+ Tools)</span>
-              </h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight px-2 sm:px-4">
+              Pixocraft Tools — India's Biggest Free Online Tool Hub
+              <br />
+              <span className="text-primary">(200+ Tools)</span>
+            </h1>
+            <div className="space-y-4">
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
                 Access 200+ fast, fully browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup. No tracking. 100% private & offline supported.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-muted-foreground/80">
+                <span className="flex items-center gap-1"><Shield className="h-3 w-3 text-green-500" /> All user files are processed locally in the browser</span>
+                <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-blue-500" /> We do not track personal data or tool inputs</span>
+                <span className="flex items-center gap-1"><Info className="h-3 w-3 text-orange-500" /> We use anonymous analytics to improve tools</span>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
                 <Link href="/tools">
                   <Button size="lg" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-explore-tools">
                     Explore Tools

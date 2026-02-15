@@ -22,9 +22,16 @@ export default function About() {
           <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
             India's Biggest <span className="text-primary">Free Tool Hub</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-            Building India's largest collection of 200+ free, privacy-first online tools for creators, developers, students, and professionals across India
-          </p>
+          <div className="space-y-4">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
+              Building India's largest collection of 200+ free, privacy-first online tools for creators, developers, students, and professionals across India
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-muted-foreground/80">
+              <span className="flex items-center gap-1"><Shield className="h-3 w-3 text-green-500" /> All user files are processed locally in the browser</span>
+              <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-blue-500" /> We do not track personal data or tool inputs</span>
+              <span className="flex items-center gap-1"><Sparkles className="h-3 w-3 text-orange-500" /> We use anonymous analytics to improve tools</span>
+            </div>
+          </div>
         </div>
 
         {/* Stats Section */}
