@@ -45,7 +45,7 @@ export function VersionUpdatePopup() {
   };
 
   const handleClose = () => {
-    localStorage.setItem("temp_mail_fixed_popup_seen", "true");
+    // We want it to open always until they click "Clear Data"
     setIsOpen(false);
   };
 
@@ -55,10 +55,10 @@ export function VersionUpdatePopup() {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-yellow-500" />
-            Major Update Available
+            Updates Available
           </DialogTitle>
           <DialogDescription className="pt-2">
-            We have fully fixed and improved the **Temp Mail** tool! It is now faster, more reliable, and packed with better features.
+            New features and fixes are here! Check out our new **Text to File** tool.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 text-sm text-muted-foreground">
