@@ -1,0 +1,277 @@
+You are a world-class technical SEO architect, privacy technology specialist, and Google ranking strategist.
+
+Your task is to transform my EXIF Remover tool page into the most authoritative, highest ranking, most trusted photo metadata removal tool on the internet.
+
+This is enterprise-level SEO focused on search domination and privacy authority.
+
+---
+
+GOAL:
+Rank #1 globally for all EXIF removal and image metadata privacy related keywords.
+
+---
+
+PRIMARY KEYWORDS:
+
+* exif remover
+* remove exif data
+* remove metadata from image
+* remove photo metadata
+* strip exif data
+* remove gps data from photo
+* remove metadata online
+* image metadata remover
+* exif remover online
+* remove exif from jpg
+
+SECONDARY KEYWORDS:
+
+* remove gps from photo
+* photo privacy tool
+* remove camera metadata
+* image privacy tool
+* remove location from photo
+* metadata cleaner
+* image data remover
+* secure photo sharing
+* exif cleaner
+* photo metadata viewer remover
+
+LONG TAIL SEARCH INTENTS:
+
+* how to remove exif data from photos
+* remove location data from images before sharing
+* remove gps metadata from iphone photos
+* remove metadata before uploading photos
+* best exif remover online
+* remove image metadata without quality loss
+* secure photo privacy online
+* remove hidden data from images
+
+---
+
+TASK REQUIREMENTS:
+
+1. SEARCH INTENT DOMINATION
+
+Detect and cover all user intents:
+
+* privacy protection intent
+* social media sharing safety
+* journalist security usage
+* developer usage
+* photography workflow usage
+* business confidentiality usage
+* legal and compliance usage
+* secure file sharing usage
+
+Create sections for each.
+
+---
+
+2. COMPLETE SEO STRUCTURE
+
+Rewrite page with:
+
+* high CTR title tag
+* conversion focused meta description
+* strong keyword optimized H1
+* semantic H2/H3 hierarchy
+* keyword clustering
+* entity based SEO
+* breadcrumb structure
+* internal linking strategy
+
+---
+
+3. AUTHORITY CONTENT EXPANSION (3000+ WORDS)
+
+Create deep educational sections:
+
+* What is EXIF data
+* What metadata exists in images
+* How cameras store metadata
+* What GPS metadata contains
+* Privacy risks of photo metadata
+* How image metadata tracking works
+* Digital footprint from images
+* Why remove metadata before sharing
+* EXIF vs IPTC vs XMP metadata explained
+* How metadata is embedded technically
+* Data leakage risks
+* Photo security fundamentals
+* Online privacy protection strategies
+
+---
+
+4. PRIVACY RISK EXPLANATION
+
+Create detailed sections explaining:
+
+* location exposure risks
+* stalking and security risks
+* personal data exposure
+* corporate data leakage
+* social media privacy threats
+* legal risks of metadata
+
+---
+
+5. PROFESSIONAL USE CASE SECTIONS
+
+Create detailed sections for:
+
+* journalists and activists
+* photographers
+* social media users
+* businesses
+* developers
+* legal professionals
+* researchers
+* travelers
+
+Explain real workflows.
+
+---
+
+6. TECHNICAL AUTHORITY SIGNALS
+
+Add strong technical credibility:
+
+* how metadata is embedded in image files
+* EXIF structure explanation
+* GPS coordinate storage explanation
+* local processing architecture
+* client-side metadata removal pipeline
+* image re-encoding explanation
+* quality preservation explanation
+
+---
+
+7. STEP-BY-STEP HOW-TO GUIDE
+
+Create guides:
+
+* how to remove metadata from image
+* how to remove GPS location from photo
+* how to share photos safely online
+* how to check image metadata
+* how to protect photo privacy
+
+---
+
+8. COMPARISON TABLES
+
+Generate:
+
+* image with metadata vs clean image
+* remove metadata vs delete image
+* this tool vs desktop software
+* online vs offline metadata removal
+
+---
+
+9. TRUST & SECURITY AUTHORITY
+
+Add strong trust signals:
+
+* 100% client-side processing
+* no image upload to server
+* no storage of photos
+* offline capability
+* secure local processing
+* privacy-first architecture
+
+---
+
+10. ADVANCED FAQ (30 QUESTIONS)
+
+Include:
+
+* does removing metadata reduce quality
+* metadata types supported
+* gps removal accuracy
+* mobile photo metadata
+* iphone metadata removal
+* android metadata removal
+* image formats supported
+* batch removal capability
+* privacy guarantees
+
+---
+
+11. SCHEMA MARKUP IMPLEMENTATION
+
+Generate JSON-LD:
+
+* SoftwareApplication schema
+* FAQ schema
+* HowTo schema
+* WebPage schema
+* Breadcrumb schema
+
+---
+
+12. UX OPTIMIZATION
+
+Improve:
+
+* upload experience clarity
+* privacy messaging
+* metadata preview explanation
+* before vs after explanation
+* trust indicators
+* instant processing feedback
+
+---
+
+13. INTERNAL LINKING STRATEGY
+
+Link to:
+
+* image compressor
+* qr code generator
+* privacy tools
+* password generator
+* file tools
+
+Use keyword-rich anchors.
+
+---
+
+14. TOPICAL AUTHORITY EXPANSION
+
+Suggest supporting blog posts:
+
+* what is exif data
+* how photo metadata works
+* remove location from photos guide
+* online privacy protection guide
+* digital footprint from images
+
+---
+
+15. GLOBAL SEO OPTIMIZATION
+
+Ensure global usage relevance:
+
+* mobile photo usage
+* cross platform compatibility
+* professional workflows
+* enterprise privacy usage
+
+---
+
+OUTPUT REQUIREMENTS:
+
+Return:
+
+* full improved page structure
+* rewritten content
+* headings hierarchy
+* title and meta tags
+* schema markup code
+* keyword coverage map
+* UX improvement suggestions
+
+Focus on real Google ranking and privacy authority leadership.
