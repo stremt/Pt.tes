@@ -21,6 +21,9 @@ import Tools from "@/pages/Tools";
 import NotFound from "@/pages/not-found";
 import OnlineNotepad from "@/pages/tools/longtail/text-to-file/OnlineNotepad";
 import PlainTextEditor from "@/pages/tools/longtail/text-to-file/PlainTextEditor";
+import CreateTextFileOnline from "@/pages/tools/longtail/text-to-file/CreateTextFileOnline";
+import CreateConfigFileOnline from "@/pages/tools/longtail/text-to-file/CreateConfigFileOnline";
+import BrowserTextEditor from "@/pages/tools/longtail/text-to-file/BrowserTextEditor";
 import PrivacyCategory from "@/pages/PrivacyCategory";
 import TextCategory from "@/pages/TextCategory";
 import ImageCategory from "@/pages/ImageCategory";
@@ -527,6 +530,9 @@ function Router() {
         <Route path="/tools/age-calculator" component={AgeCalculator} />
         <Route path="/online-notepad" component={OnlineNotepad} />
         <Route path="/plain-text-editor" component={PlainTextEditor} />
+        <Route path="/create-text-file-online" component={CreateTextFileOnline} />
+        <Route path="/create-config-file-online" component={CreateConfigFileOnline} />
+        <Route path="/browser-text-editor" component={BrowserTextEditor} />
         <Route path="/tools/time-difference-calculator" component={TimeDifferenceCalculator} />
         <Route path="/tools/time-difference-calculator/payroll-billing" component={TimeDifferencePayrollBilling} />
         <Route path="/tools/time-difference-calculator/online-duration" component={TimeDifferenceOnlineDuration} />
