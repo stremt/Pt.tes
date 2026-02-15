@@ -531,23 +531,6 @@ export default function ImageToPDF() {
                     </label>
                   </div>
                 </div>
-
-                <Button
-                  onClick={convertToPDF}
-                  disabled={files.length === 0 || converting}
-                  className="w-full bg-red-500 hover:bg-red-600 text-white"
-                  size="lg"
-                  data-testid="button-convert"
-                >
-                  {converting ? (
-                    <>Converting to PDF...</>
-                  ) : (
-                    <>
-                      Convert to PDF
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
               </CardContent>
             </Card>
           </div>
@@ -754,8 +737,6 @@ export default function ImageToPDF() {
           </section>
         </div>
       </div>
-    </div>
-  </div>
-</>
+    </>
   );
 }
