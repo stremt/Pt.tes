@@ -1,14 +1,27 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
+import { 
+  useSEO, 
+  StructuredData, 
+  generateFAQSchema, 
+  OG_IMAGES, 
+  type FAQItem,
+  generateSoftwareApplicationSchema,
+  generateBreadcrumbSchema
+} from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, Camera, Share2 } from "lucide-react";
+import { 
+  ImageDown, Upload, Download, Image as ImageIcon, ArrowRight, X, Shield, 
+  WifiOff, CheckCircle, Building2, CalendarDays, Globe, ShoppingCart, 
+  Camera, Share2, Zap, Lock, Info, BarChart3, Rocket, Heart,
+  FileCode2, Search, Sparkles, LayoutPanelLeft, UserCheck, Mail, Database
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import imageCompression from "browser-image-compression";
@@ -27,13 +40,33 @@ export default function ImageCompressor() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
+  const toolName = "Enterprise Image Compressor & Optimizer";
+  const toolDescription = "World-class professional image compressor. Reduce JPG, PNG, and WebP sizes by up to 90% without quality loss. 100% private client-side processing for elite SEO performance and Core Web Vitals.";
+  const canonicalUrl = "https://tools.pixocraft.in/tools/image-compressor";
+
   useSEO({
-    title: "Free Offline Image Compressor - No Upload, No Quality Loss | Pixocraft",
-    description: "Compress images free with no quality loss. 100% private offline image compressor—no upload, no servers, works instantly in your browser. Reduce image size by 90% in seconds.",
-    keywords: "image compressor, compress images online, reduce image size, free image compressor, image optimizer, compress jpg png webp, offline image compression, private image compressor, no upload image compressor, pixocraft tools",
-    canonicalUrl: "https://tools.pixocraft.in/tools/image-compressor",
+    title: "Best Image Compressor Online - Reduce Image Size Without Quality Loss",
+    description: toolDescription,
+    keywords: "image compressor, compress image online, reduce image size, image optimizer, compress jpg, compress png, compress webp, online image compression, photo compressor online, reduce image size without losing quality, best image compressor, core web vitals image optimization",
+    canonicalUrl,
     ogImage: OG_IMAGES.imageCompressor,
   });
+
+  const appSchema = useMemo(() => generateSoftwareApplicationSchema({
+    name: toolName,
+    description: toolDescription,
+    url: canonicalUrl,
+    applicationCategory: "DesignApplication",
+    operatingSystem: "Windows, macOS, Linux, Android, iOS",
+    offers: { price: "0", priceCurrency: "USD" }
+  }), []);
+
+  const breadcrumbSchema = useMemo(() => generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Tools", url: "/tools" },
+    { name: "Image Tools", url: "/tools/image" },
+    { name: "Image Compressor", url: "/tools/image-compressor" }
+  ]), []);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -41,7 +74,7 @@ export default function ImageCompressor() {
       if (!file.type.startsWith("image/")) {
         toast({
           title: "Invalid File",
-          description: "Please select an image file",
+          description: "Please select a valid image file (JPG, PNG, WebP).",
           variant: "destructive",
         });
         playErrorSound();
@@ -69,8 +102,8 @@ export default function ImageCompressor() {
       const targetSizeMB = originalSizeMB * (1 - (100 - quality) / 100);
       
       const options = {
-        maxSizeMB: Math.max(0.1, targetSizeMB),
-        maxWidthOrHeight: quality < 50 ? 1280 : 1920,
+        maxSizeMB: Math.max(0.05, targetSizeMB),
+        maxWidthOrHeight: quality < 30 ? 800 : (quality < 60 ? 1280 : 1920),
         useWebWorker: true,
         quality: quality / 100,
         initialQuality: quality / 100,
@@ -79,13 +112,6 @@ export default function ImageCompressor() {
       const compressed = await imageCompression(originalFile, options);
       
       const reductionPercent = Math.round((1 - compressed.size / originalFile.size) * 100);
-      
-      if (reductionPercent < 5) {
-        toast({
-          title: "Minimal Compression",
-          description: `Only ${reductionPercent}% reduction achieved. Try lowering quality for better results.`,
-        });
-      }
       
       setCompressedFile(compressed);
 
@@ -96,14 +122,14 @@ export default function ImageCompressor() {
       reader.readAsDataURL(compressed);
 
       toast({
-        title: "Success!",
-        description: `Image compressed successfully. Reduced by ${reductionPercent}%`,
+        title: "Compression Complete",
+        description: `Successfully reduced file size by ${reductionPercent}%`,
       });
       playCompletionSound();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to compress image. Please try again.",
+        title: "Compression Failed",
+        description: "An error occurred while processing your image. Please try a different file.",
         variant: "destructive",
       });
       playErrorSound();
@@ -116,28 +142,11 @@ export default function ImageCompressor() {
     if (compressedFile) {
       const url = URL.createObjectURL(compressedFile);
       const link = document.createElement("a");
-      link.download = `compressed-${originalFile?.name || "image.jpg"}`;
+      link.download = `optimized-${originalFile?.name || "image.jpg"}`;
       link.href = url;
       link.click();
       URL.revokeObjectURL(url);
-
-      toast({
-        title: "Downloaded!",
-        description: "Compressed image saved to your downloads",
-      });
       playCompletionSound();
-    }
-  };
-
-  const resetTool = () => {
-    setOriginalFile(null);
-    setCompressedFile(null);
-    setOriginalPreview("");
-    setCompressedPreview("");
-    setQuality(80);
-    setSliderEnabled(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
     }
   };
 
@@ -146,39 +155,33 @@ export default function ImageCompressor() {
     const k = 1024;
     const sizes = ["Bytes", "KB", "MB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + " " + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
-
-  const relatedTools = getRelatedTools("image-compressor");
 
   const faqItems: FAQItem[] = [
     {
-      question: "Will compressing my images reduce their quality?",
-      answer: "At 80% quality (our recommended setting), most people cannot detect any visual difference from the original. For web use, social media, and email, compressed images look identical to uncompressed ones while loading much faster. Only at very low quality settings (below 50%) will you notice visible artifacts like blurriness or color banding. You can always preview the compressed image before downloading to ensure quality meets your needs. The key is smart compression that removes invisible data while preserving what you actually see."
+      question: "How do I compress images without losing quality?",
+      answer: "Our tool uses advanced 'smart compression' algorithms that intelligently reduce file size while maintaining visual fidelity. By setting the quality slider to 80-90%, you can achieve significant file size reduction (often over 70%) with virtually no perceptible difference to the human eye. This is perfect for high-performance websites and social media."
     },
     {
-      question: "How much can I reduce my image file size?",
-      answer: "With Pixocraft Tools' image compressor, you can typically reduce image file sizes by 50-90% depending on the original image and quality settings you choose. For example, a 5MB photo can often be compressed to under 500KB while still looking great on websites and social media. Our recommended 80% quality setting usually achieves 60-70% file size reduction with minimal visible quality loss. The exact reduction depends on image complexity, format, and your chosen quality level."
+      question: "Is this online image compressor free to use?",
+      answer: "Yes, our image compressor is 100% free with no hidden charges, no watermarks, and no limits on the number of images you can process. It is a premium-grade tool provided as part of the Pixocraft mission to make high-performance web optimization accessible to everyone."
     },
     {
-      question: "Is image compression safe and private?",
-      answer: "Absolutely! Your privacy is our top priority. All image compression happens entirely in your browser—your images are never uploaded to our servers or transmitted over the internet. We don't store, log, or have any access to your images. Once you close or refresh the page, everything is completely gone from memory. This browser-based approach ensures maximum privacy and security, making Pixocraft Tools safe for compressing confidential business graphics, personal photos, or any sensitive images."
+      question: "Are my images uploaded to your server?",
+      answer: "No. Unlike other tools, Pixocraft uses cutting-edge 'client-side' processing. Your images are processed directly in your web browser. They are never uploaded to any server, ensuring 100% privacy and security. You can even use this tool while offline!"
     },
     {
-      question: "Does this image compressor work offline?",
-      answer: "Yes! Once this page loads, our image compressor works completely offline without needing an internet connection. All processing happens locally in your browser. This makes it ideal for secure environments, areas with limited connectivity, or situations where you need to compress images on the go. Simply load the page once, and you can compress unlimited images anytime—even without Wi-Fi or mobile data."
+      question: "Why should I optimize images for SEO and Core Web Vitals?",
+      answer: "Google uses page load speed (LCP - Largest Contentful Paint) as a key ranking factor. Large images are the #1 cause of slow websites. Compressing your images reduces bandwidth, lowers bounce rates, and directly improves your search engine rankings by providing a better user experience."
     },
     {
-      question: "What is image compression and how does it work?",
-      answer: "Image compression is the process of reducing the file size of an image while maintaining acceptable visual quality. Pixocraft Tools uses advanced algorithms to analyze your image and remove unnecessary data that doesn't significantly affect how the image looks. There are two types: lossy compression (removes some data for smaller files) and lossless compression (preserves all data). Our tool uses smart lossy compression that balances file size reduction with quality preservation, perfect for web use, social media, and email attachments."
+      question: "Which formats are supported?",
+      answer: "We support the three most critical web formats: JPG (perfect for photos), PNG (best for graphics with transparency), and WebP (the modern standard for superior web compression). The tool automatically handles each format optimally."
     },
     {
-      question: "Which image formats does Pixocraft Tools support?",
-      answer: "Our free image compressor online supports the most popular image formats: JPG/JPEG, PNG, and WebP. These formats cover over 95% of images used on the web. JPG is ideal for photos and complex images, PNG works best for graphics with transparency, and WebP offers superior compression for modern browsers. The compressed image maintains the same format as your original upload. We're continually improving our tool and plan to add support for more formats like GIF and SVG in future updates."
-    },
-    {
-      question: "What are the best use cases for image compression?",
-      answer: "Image compression is essential for many scenarios: optimizing images for faster website loading (which improves SEO and user experience), reducing file sizes for email attachments that have size limits, preparing images for social media uploads, saving storage space on your devices or servers, speeding up mobile app performance, and reducing bandwidth costs for high-traffic websites. Web developers, bloggers, social media managers, photographers, and e-commerce businesses all benefit from our image optimizer to deliver faster, more efficient web experiences."
+      question: "What is the difference between lossy and lossless compression?",
+      answer: "Lossy compression (like JPEG) achieves massive size reduction by removing data that the eye can't easily see. Lossless compression (like PNG) reduces size without removing any data but results in much larger files. Our tool uses a balanced approach to give you the best of both worlds: tiny files with high visual quality."
     }
   ];
 
@@ -186,531 +189,321 @@ export default function ImageCompressor() {
 
   return (
     <>
+      <StructuredData data={appSchema} />
+      <StructuredData data={breadcrumbSchema} />
       <StructuredData data={faqSchema} />
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "Image Compressor" }]} />
+      
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "Image Tools", url: "/tools/image" }, { label: "Image Compressor" }]} />
 
-        {/* Page Header */}
-        <div className="text-center space-y-4 mb-8 md:mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-12 w-12 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-              <ImageDown className="h-6 w-6 md:h-8 md:w-8 text-primary" />
+          {/* Hero Section - Search Intent Optimized */}
+          <div className="text-center space-y-6 my-12 md:my-20">
+            <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-2xl mb-4">
+              <Zap className="h-8 w-8 text-primary animate-pulse" />
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground">
+              Professional <span className="text-primary">Image Optimizer</span>
+            </h1>
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Dominate page speed and SEO with the internet's most authoritative image compressor. 
+              Reduce size by <span className="text-foreground font-bold">up to 90%</span> instantly—no uploads, 100% private.
+            </p>
+            
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Badge variant="outline" className="px-4 py-1 text-sm bg-background/50 backdrop-blur-sm"><CheckCircle className="w-3 h-3 mr-2 text-green-500" /> No Quality Loss</Badge>
+              <Badge variant="outline" className="px-4 py-1 text-sm bg-background/50 backdrop-blur-sm"><Shield className="w-3 h-3 mr-2 text-blue-500" /> 100% Private (Local)</Badge>
+              <Badge variant="outline" className="px-4 py-1 text-sm bg-background/50 backdrop-blur-sm"><WifiOff className="w-3 h-3 mr-2 text-orange-500" /> Offline Capable</Badge>
+              <Badge variant="outline" className="px-4 py-1 text-sm bg-background/50 backdrop-blur-sm"><Rocket className="w-3 h-3 mr-2 text-purple-500" /> SEO Optimized</Badge>
             </div>
           </div>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold">Free Offline Image Compressor</h1>
-          <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Compress images instantly—no upload, no servers, no quality loss. 100% private and works offline.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
-            <Badge variant="secondary">100% Free Forever</Badge>
-            <Badge variant="secondary">No Quality Loss</Badge>
-            <Badge variant="secondary">Works Offline</Badge>
-            <Badge variant="secondary">No Upload Required</Badge>
-          </div>
-          <h2 className="text-xs md:text-sm lg:text-base text-muted-foreground max-w-3xl mx-auto pt-2">
-            Reduce image size by up to 90% in seconds. Your images never leave your device—everything happens locally in your browser. Load once, compress unlimited images anytime, even without internet.
-          </h2>
-        </div>
 
-        {/* Main Tool Interface */}
-        <div className="max-w-4xl mx-auto mb-16">
-          {!originalFile ? (
-            <Card>
-              <CardHeader>
-                <CardTitle>Upload Image</CardTitle>
-                <CardDescription>
-                  Select an image to compress (JPG, PNG, WebP)
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div
-                  className="border-2 border-dashed rounded-lg p-6 md:p-12 text-center cursor-pointer hover-elevate transition-colors"
-                  onClick={() => fileInputRef.current?.click()}
-                  data-testid="dropzone-upload"
-                >
-                  <Upload className="h-8 w-8 md:h-12 md:w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="font-medium mb-2 text-sm md:text-base">Click to upload an image</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">
-                    Supports JPG, PNG, and WebP formats
-                  </p>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileSelect}
-                    className="hidden"
-                    data-testid="input-file-upload"
-                  />
+          {/* Main Interface */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+            <div className="lg:col-span-7 xl:col-span-8 space-y-6">
+              {!originalFile ? (
+                <Card className="border-2 border-dashed border-primary/20 hover:border-primary/50 transition-all duration-300">
+                  <CardContent className="flex flex-col items-center justify-center py-20 text-center cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                    <div className="h-20 w-20 bg-primary/5 rounded-full flex items-center justify-center mb-6">
+                      <Upload className="h-10 w-10 text-primary" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">Drop your image here</h3>
+                    <p className="text-muted-foreground mb-8">Click to browse or drag and drop JPG, PNG, or WebP</p>
+                    <Button size="lg" className="rounded-full px-8">Select File</Button>
+                    <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="space-y-6">
+                  {/* Comparison UI */}
+                  <Card className="overflow-hidden">
+                    <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30">
+                      <div>
+                        <CardTitle className="text-lg">Real-Time Comparison</CardTitle>
+                        <CardDescription>Visualizing {quality}% quality setting</CardDescription>
+                      </div>
+                      <Button variant="ghost" size="icon" onClick={() => setOriginalFile(null)}>
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      {compressedPreview ? (
+                        <div className="relative aspect-video bg-muted flex items-center justify-center overflow-hidden">
+                          {sliderEnabled ? (
+                            <ReactCompareSlider
+                              className="w-full h-full"
+                              itemOne={<ReactCompareSliderImage src={originalPreview} alt="Original" />}
+                              itemTwo={<ReactCompareSliderImage src={compressedPreview} alt="Compressed" />}
+                            />
+                          ) : (
+                            <div className="relative w-full h-full flex items-center justify-center">
+                              <img src={compressedPreview} alt="Optimized" className="max-w-full max-h-full object-contain" />
+                              <Button variant="secondary" className="absolute shadow-2xl" onClick={() => setSliderEnabled(true)}>
+                                <Sparkles className="w-4 h-4 mr-2" />
+                                Click to Compare Before/After
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="aspect-video flex items-center justify-center text-muted-foreground">
+                          <ImageIcon className="w-12 h-12 mb-2 opacity-20" />
+                          <p>Processing image for comparison...</p>
+                        </div>
+                      )}
+                    </CardContent>
+                    <CardFooter className="bg-muted/30 grid grid-cols-2 gap-4 py-4 border-t">
+                      <div className="text-center">
+                        <p className="text-xs text-muted-foreground uppercase font-bold">Original</p>
+                        <p className="text-lg font-mono">{formatFileSize(originalFile.size)}</p>
+                      </div>
+                      <div className="text-center border-l border-border">
+                        <p className="text-xs text-primary uppercase font-bold">Optimized</p>
+                        <p className="text-lg font-mono text-primary font-bold">
+                          {compressedFile ? formatFileSize(compressedFile.size) : "..."}
+                        </p>
+                        {compressedFile && (
+                          <Badge className="bg-green-500/10 text-green-500 border-green-500/20">
+                            -{Math.round((1 - compressedFile.size / originalFile.size) * 100)}% Smallest
+                          </Badge>
+                        )}
+                      </div>
+                    </CardFooter>
+                  </Card>
                 </div>
-                <div className="mt-4 md:mt-6 p-3 md:p-4 rounded-lg bg-primary/5 border border-primary/10">
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-center gap-3 md:gap-6 text-xs md:text-sm">
-                    <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="font-medium">No Upload — Images stay on your device</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <WifiOff className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="font-medium">Offline Image Compression — Works without internet</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="space-y-6">
-              {/* Controls Card */}
-              <Card>
-                <CardHeader className="pb-3 md:pb-6">
-                  <div className="flex items-start md:items-center justify-between gap-2">
-                    <div>
-                      <CardTitle className="text-lg md:text-xl">Compression Settings</CardTitle>
-                      <CardDescription className="text-xs md:text-sm">
-                        Adjust quality and compress your image
-                      </CardDescription>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={resetTool}
-                      data-testid="button-reset"
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
+              )}
+            </div>
+
+            {/* Sidebar Controls */}
+            <div className="lg:col-span-5 xl:col-span-4 space-y-6">
+              <Card className="sticky top-24">
+                <CardHeader>
+                  <CardTitle>Optimization Hub</CardTitle>
+                  <CardDescription>Fine-tune your compression settings</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6 p-4 md:p-6">
+                <CardContent className="space-y-8">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <Label>Compression Quality</Label>
-                      <span className="text-sm font-medium">{quality}%</span>
+                      <Label className="text-base">Quality Target</Label>
+                      <Badge variant="secondary" className="text-sm font-mono">{quality}%</Badge>
                     </div>
-                    <Slider
-                      value={[quality]}
-                      onValueChange={(value) => setQuality(value[0])}
-                      min={10}
-                      max={100}
-                      step={5}
-                      disabled={loading}
-                      data-testid="slider-quality"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Lower quality = smaller file size. 80% is recommended for most images.
-                    </p>
+                    <Slider value={[quality]} onValueChange={(v) => setQuality(v[0])} min={10} max={100} step={1} className="py-4" />
+                    <div className="flex justify-between text-[10px] uppercase font-bold text-muted-foreground px-1">
+                      <span>Maximum Savings</span>
+                      <span>Balanced</span>
+                      <span>Max Quality</span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <Button
-                      onClick={compressImage}
-                      disabled={loading}
-                      className="w-full"
-                      size="lg"
-                      data-testid="button-compress"
-                    >
-                      {loading ? (
-                        <>
-                          <ImageDown className="mr-2 h-4 w-4 animate-pulse" />
-                          <span className="hidden sm:inline">Compressing...</span>
-                          <span className="sm:hidden">Compressing...</span>
-                        </>
-                      ) : (
-                        <>
-                          <ImageDown className="mr-2 h-4 w-4" />
-                          <span className="hidden sm:inline">Compress Image</span>
-                          <span className="sm:hidden">Compress</span>
-                        </>
-                      )}
+                  <div className="space-y-3">
+                    <Button size="lg" className="w-full h-14 text-lg font-bold" disabled={!originalFile || loading} onClick={compressImage}>
+                      {loading ? <Zap className="w-5 h-5 mr-2 animate-spin" /> : <ImageDown className="w-5 h-5 mr-2" />}
+                      Optimize Image Now
                     </Button>
                     {compressedFile && (
-                      <Button
-                        onClick={downloadCompressed}
-                        variant="outline"
-                        className="w-full"
-                        size="lg"
-                        data-testid="button-download-compressed"
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        <span className="hidden sm:inline">Download</span>
-                        <span className="sm:hidden">Download</span>
+                      <Button size="lg" variant="outline" className="w-full h-14 text-lg border-primary text-primary hover:bg-primary/5" onClick={downloadCompressed}>
+                        <Download className="w-5 h-5 mr-2" />
+                        Download Optimized Version
                       </Button>
                     )}
                   </div>
-                </CardContent>
-              </Card>
 
-              {/* Split Comparison View */}
-              <Card>
-                <CardHeader className="pb-3 md:pb-6">
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <CardTitle>Comparison</CardTitle>
-                      <CardDescription className="text-xs sm:text-sm">
-                        {sliderEnabled 
-                          ? "Drag the divider to compare. You can also scroll to explore other parts of the image." 
-                          : "Click the center button to enable comparison slider"}
-                      </CardDescription>
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm flex-wrap">
-                      <div className="flex items-center gap-2">
-                        <span className="text-muted-foreground">Original:</span>
-                        <span className="font-medium">{formatFileSize(originalFile.size)}</span>
-                      </div>
-                      {compressedFile && (
-                        <>
-                          <span className="text-muted-foreground hidden sm:inline">|</span>
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-muted-foreground">Compressed:</span>
-                            <span className="font-medium text-primary">{formatFileSize(compressedFile.size)}</span>
-                            <Badge className="text-xs" variant="default">
-                              {Math.round((1 - compressedFile.size / originalFile.size) * 100)}% smaller
-                            </Badge>
-                          </div>
-                        </>
-                      )}
-                    </div>
+                  <div className="pt-6 border-t space-y-4">
+                    <h4 className="text-sm font-bold flex items-center gap-2"><Lock className="w-4 h-4 text-green-500" /> Privacy First Architecture</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Your data never leaves your device. 
+                      100% GDPR and CCPA compliant by design.
+                    </p>
                   </div>
-                </CardHeader>
-                <CardContent className="p-3 md:p-6">
-                  {compressedFile && originalFile && compressedPreview && originalPreview ? (
-                    <div className="space-y-3">
-                      <div className="relative rounded-lg overflow-auto bg-muted border border-border" style={{ maxHeight: "clamp(250px, 70vh, 500px)" }}>
-                        {sliderEnabled ? (
-                          <div className="w-full h-full relative">
-                            <ReactCompareSlider
-                              itemOne={
-                                <ReactCompareSliderImage
-                                  src={originalPreview}
-                                  alt="Original Image"
-                                />
-                              }
-                              itemTwo={
-                                <ReactCompareSliderImage
-                                  src={compressedPreview}
-                                  alt="Compressed Image"
-                                />
-                              }
-                              position={50}
-                              data-testid="split-comparison-container"
-                            />
-                            <div className="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded text-xs sm:text-sm font-semibold">Original</div>
-                            <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded text-xs sm:text-sm font-semibold">Compressed</div>
-                          </div>
-                        ) : (
-                          <div className="relative w-full bg-gray-100 dark:bg-gray-900" style={{ minHeight: "clamp(250px, 70vh, 500px)", aspectRatio: "auto" }}>
-                            <img
-                              src={compressedPreview}
-                              alt="Compressed"
-                              className="w-full h-full object-contain"
-                            />
-                            <button
-                              onClick={() => setSliderEnabled(true)}
-                              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-full px-4 py-2 sm:px-5 sm:py-3 shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center border-2 border-primary"
-                              data-testid="button-enable-slider"
-                              title="Click to enable comparison slider"
-                            >
-                              <span className="text-xs sm:text-sm font-bold whitespace-nowrap">Click to Compare</span>
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      <div className="text-xs text-muted-foreground space-y-1">
-                        <p><strong>Tip:</strong> {sliderEnabled ? "Drag the divider to compare. Scroll or drag the image to explore different areas." : "Click the center button to enable the comparison slider, then drag to compare both images."}</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="w-full rounded-lg overflow-hidden bg-muted flex items-center justify-center" style={{ minHeight: "clamp(200px, 50vh, 400px)" }}>
-                      <div className="text-center text-muted-foreground">
-                        <ImageIcon className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-2 opacity-20" />
-                        <p className="text-xs sm:text-sm">Compress image to see comparison</p>
-                      </div>
-                    </div>
-                  )}
                 </CardContent>
               </Card>
+            </div>
+          </div>
 
-              {/* Compression Results Summary */}
-              {compressedFile && originalFile && (
-                <Card className="bg-primary/5 border-primary/20">
-                  <CardContent className="py-4">
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center">
-                      <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Original Size</p>
-                        <p className="text-lg font-semibold" data-testid="text-original-size">{formatFileSize(originalFile.size)}</p>
-                      </div>
-                      <ArrowRight className="h-5 w-5 text-primary hidden sm:block" />
-                      <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Compressed Size</p>
-                        <p className="text-lg font-semibold text-primary" data-testid="text-compressed-size">{formatFileSize(compressedFile.size)}</p>
-                      </div>
-                      <div className="sm:border-l sm:pl-8 sm:border-border">
-                        <p className="text-xs text-muted-foreground uppercase tracking-wide">Size Reduced By</p>
-                        <p className="text-lg font-bold text-primary" data-testid="text-reduction-percent">{Math.round((1 - compressedFile.size / originalFile.size) * 100)}%</p>
-                      </div>
-                    </div>
+          {/* Authority Educational Content Section */}
+          <div className="max-w-4xl mx-auto space-y-20 py-20 border-t">
+            <article className="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
+              <h2 className="text-3xl md:text-4xl font-bold mb-8">The Definitive Guide to Image Optimization for SEO</h2>
+              <p className="lead">
+                In the modern era of the internet, speed is everything. Whether you are an SEO specialist striving for #1 rankings or a developer optimizing for Core Web Vitals, understanding image compression is your most powerful asset.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-8 my-12 not-prose">
+                <Card className="bg-primary/5 border-none">
+                  <CardHeader><CardTitle className="flex items-center gap-2"><Info className="w-5 h-5" /> What is Image Compression?</CardTitle></CardHeader>
+                  <CardContent className="text-sm leading-relaxed text-muted-foreground">
+                    Image compression is the technical process of encoding or converting an image file so that it consumes less space. It works by identifying and removing redundant data while preserving visual quality.
                   </CardContent>
                 </Card>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* How It Works */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">1</span>
+                <Card className="bg-primary/5 border-none">
+                  <CardHeader><CardTitle className="flex items-center gap-2"><BarChart3 className="w-5 h-5" /> Core Web Vitals Impact</CardTitle></CardHeader>
+                  <CardContent className="text-sm leading-relaxed text-muted-foreground">
+                    Google uses page load speed (LCP) as a key ranking factor. Large images are the #1 cause of slow websites. Optimized images directly improve your search engine rankings.
+                  </CardContent>
+                </Card>
               </div>
-              <h3 className="font-semibold text-lg">Upload Image</h3>
-              <p className="text-muted-foreground">
-                Click to select an image from your device
+
+              <h3 className="text-2xl font-bold mt-12 mb-6">Lossy vs. Lossless Compression</h3>
+              <p>
+                Lossy compression (like JPEG) significantly reduces file size by removing data the eye can't see. Lossless compression (like PNG) preserves all data but results in larger files. Our tool provides a balanced approach for the best web performance.
               </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">2</span>
+
+              <h3 className="text-2xl font-bold mt-12 mb-6">Supported Modern Formats</h3>
+              <div className="space-y-4">
+                <div className="p-4 border rounded-lg bg-muted/50">
+                  <strong className="text-primary block mb-1">WebP: The Modern Web Standard</strong>
+                  Developed by Google, WebP provides superior compression. WebP images are often 30% smaller than comparable JPEGs.
+                </div>
+                <div className="p-4 border rounded-lg bg-muted/50">
+                  <strong className="text-primary block mb-1">JPEG: Best for Photography</strong>
+                  Ideal for complex photos with many colors. High compression with great visual fidelity.
+                </div>
+                <div className="p-4 border rounded-lg bg-muted/50">
+                  <strong className="text-primary block mb-1">PNG: Graphic Precision</strong>
+                  Perfect for logos and graphics requiring transparency.
+                </div>
               </div>
-              <h3 className="font-semibold text-lg">Adjust Quality</h3>
-              <p className="text-muted-foreground">
-                Use the slider to set your desired compression level
-              </p>
-            </div>
-            <div className="text-center space-y-4">
-              <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                <span className="text-2xl font-bold text-primary">3</span>
+
+              <h2 className="text-3xl md:text-4xl font-bold mt-20 mb-8">Professional Use Cases</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 not-prose">
+                {[
+                  { icon: Building2, title: "SaaS & Enterprise", desc: "Reduce bandwidth costs and improve global performance." },
+                  { icon: ShoppingCart, title: "E-commerce", desc: "Speed up product galleries to increase conversion rates." },
+                  { icon: Camera, title: "Photographers", desc: "Share high-res portfolios without clogging bandwidth." },
+                  { icon: Share2, title: "Social Media", desc: "Bypass upload limits and maintain clear visuals." },
+                  { icon: Mail, title: "Email Marketing", desc: "Ensure newsletters land in inbox by keeping size low." },
+                  { icon: Search, title: "SEO Specialists", desc: "Pass Core Web Vitals audits and rank #1." }
+                ].map((useCase, i) => (
+                  <Card key={i} className="hover-elevate">
+                    <CardHeader className="p-4">
+                      <useCase.icon className="w-6 h-6 text-primary mb-2" />
+                      <CardTitle className="text-base">{useCase.title}</CardTitle>
+                      <CardDescription className="text-xs">{useCase.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                ))}
               </div>
-              <h3 className="font-semibold text-lg">Download</h3>
-              <p className="text-muted-foreground">
-                Compare results and download your optimized image
+            </article>
+
+            {/* Comparison Table */}
+            <section className="space-y-10">
+              <h2 className="text-3xl font-bold text-center">Format Comparison</h2>
+              <div className="overflow-x-auto border rounded-xl">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-muted text-muted-foreground font-bold uppercase text-[10px]">
+                    <tr>
+                      <th className="px-6 py-4">Feature</th>
+                      <th className="px-6 py-4">JPEG</th>
+                      <th className="px-6 py-4">PNG</th>
+                      <th className="px-6 py-4">WebP</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    <tr>
+                      <td className="px-6 py-4 font-bold">Best For</td>
+                      <td className="px-6 py-4">Photographs</td>
+                      <td className="px-6 py-4">Graphics</td>
+                      <td className="px-6 py-4">Web Performance</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-bold">Compression</td>
+                      <td className="px-6 py-4">Lossy</td>
+                      <td className="px-6 py-4">Lossless</td>
+                      <td className="px-6 py-4">Superior</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-bold">Transparency</td>
+                      <td className="px-6 py-4">No</td>
+                      <td className="px-6 py-4">Yes</td>
+                      <td className="px-6 py-4">Yes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* FAQ Section */}
+            <section className="space-y-8">
+              <div className="text-center space-y-4">
+                <h2 className="text-3xl font-bold">Frequently Asked Questions</h2>
+                <p className="text-muted-foreground">Expert answers to common image optimization questions.</p>
+              </div>
+              <Accordion type="single" collapsible className="w-full">
+                {faqItems.map((item, i) => (
+                  <AccordionItem key={i} value={`item-${i}`}>
+                    <AccordionTrigger className="text-left font-bold py-6">{item.question}</AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed text-base pb-6">
+                      {item.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </section>
+
+            {/* CTA */}
+            <div className="bg-primary/5 rounded-3xl p-8 md:p-12 text-center space-y-8">
+              <h3 className="text-2xl md:text-3xl font-bold">Optimized for Speed, Built for Privacy.</h3>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                No subscription required. No data tracking. Start optimizing your assets today.
               </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button size="lg" className="rounded-full px-10 h-14 text-lg font-bold" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                  Compress Image Now
+                </Button>
+                <Link href="/tools">
+                  <Button size="lg" variant="ghost" className="rounded-full px-10 h-14 text-lg">
+                    Browse All Tools
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </section>
 
-        {/* Why Use Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Use Pixocraft Tools' Image Compressor?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Boost Website Performance & SEO</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Page load speed is a critical ranking factor for Google and directly impacts user experience. Large, unoptimized images are one of the main causes of slow websites. By compressing images online free with Pixocraft Tools, you can reduce image file sizes by 60-90% without visible quality loss, dramatically improving your site's loading speed. Faster websites rank higher in search results, reduce bounce rates, and increase conversions. Studies show that a 1-second delay in page load time can decrease conversions by 7% and page views by 11%. Our image optimizer helps you deliver lightning-fast web experiences that both search engines and users love.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Save Storage & Bandwidth Costs</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Whether you're managing a personal blog or running an enterprise e-commerce platform, storage and bandwidth costs add up quickly. Compressed images take up significantly less space on your servers and consume less bandwidth when delivered to visitors. For high-traffic websites, this can translate to substantial cost savings on hosting and CDN services. Our free image compressor helps photographers reduce cloud storage costs, enables bloggers to keep more content within their hosting limits, and allows businesses to optimize their infrastructure expenses while maintaining visual quality.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Privacy-First Browser-Based Compression</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Unlike many online image compressors that upload your files to their servers, Pixocraft Tools processes everything locally in your browser using advanced JavaScript algorithms. Your images never leave your device, ensuring complete privacy and security. This is especially important when working with confidential business graphics, personal photos, or proprietary product images. There's no file size upload limit, no waiting in processing queues, and no risk of your images being stored, analyzed, or accessed by third parties. Compress images with complete peace of mind knowing your data stays private.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Perfect for All Your Image Needs</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Our image optimizer is designed to handle any compression scenario. Web developers use it to optimize images for responsive designs and faster Core Web Vitals scores. Social media managers compress images to meet platform upload requirements while maintaining visual appeal. Email marketers reduce image sizes to ensure newsletters load quickly and avoid spam filters. Photographers prepare high-resolution images for online portfolios. E-commerce businesses optimize product photos for faster checkout experiences. With customizable quality settings and support for JPG, PNG, and WebP formats, Pixocraft Tools adapts to your specific needs.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="prose prose-lg max-w-4xl mx-auto space-y-4">
-            <p className="text-muted-foreground">
-              Image optimization is essential for modern web performance. Our tool combines powerful compression algorithms with a user-friendly interface, making it easy for anyone to reduce image size online without technical knowledge. Whether you're optimizing a single photo or preparing dozens of images for your website, Pixocraft Tools delivers professional-quality results in seconds.
-            </p>
-            <p className="text-muted-foreground">
-              Need to create scannable codes for your optimized landing pages? Try our <Link href="/tools/qr-maker" className="text-primary hover:underline">QR Code Maker</Link> to generate instant QR codes. For secure access to your optimized image galleries, use our <Link href="/tools/password-generator" className="text-primary hover:underline">Password Generator</Link> to create strong, unique passwords.
-            </p>
-          </div>
-        </section>
+          <LongTailPagesSection currentToolId="image-compressor" />
 
-        {/* Who Should Use Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Who Should Use This Image Compressor?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card>
-              <CardHeader className="pb-3">
-                <Globe className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Website Owners & Bloggers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Speed up your site, improve Core Web Vitals, and boost SEO rankings with optimized images that load instantly.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-3">
-                <ShoppingCart className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">E-commerce Businesses</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Compress product photos for faster checkout experiences and reduced bounce rates without sacrificing image quality.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-3">
-                <Camera className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Designers & Photographers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Prepare portfolio images for web, reduce file sizes for client delivery, and save storage space on cloud services.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-3">
-                <Share2 className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">Social Media Managers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Meet platform upload limits, speed up posting workflows, and ensure visuals look sharp across all social networks.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Use Cases Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Popular Use Cases</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Website & Blog Optimization</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Optimize images for WordPress, Shopify, Wix, or custom websites to improve Core Web Vitals, boost SEO rankings, and deliver faster page loads. Essential for bloggers, web developers, and online businesses.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Social Media & Marketing</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Prepare images for Instagram, Facebook, Twitter, and LinkedIn while meeting size requirements. Compress email newsletter graphics, reduce file sizes for faster uploads, and maintain quality across platforms.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Photography & Design</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="text-muted-foreground">
-                  Reduce high-resolution photo file sizes for online portfolios, client previews, and digital delivery. Save storage space while preserving visual quality for professional photography and design work.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((faq, index) => (
-                <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
+          {/* Related Tools */}
+          <section className="py-20 border-t">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Related Tools</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {getRelatedTools("image-compressor").map((tool) => (
+                <Link key={tool.id} href={`/tools/${tool.id}`}>
+                  <Card className="h-full hover-elevate cursor-pointer border-muted-foreground/10">
+                    <CardHeader className="p-6">
+                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                        {getToolIcon(tool.id, "h-6 w-6 text-primary")}
+                      </div>
+                      <CardTitle className="text-lg">{tool.name}</CardTitle>
+                      <CardDescription className="line-clamp-2 text-xs">{tool.description}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
               ))}
-            </Accordion>
-          </div>
-        </section>
-
-        {/* Long-Tail SEO Pages */}
-        <LongTailPagesSection toolId="image-compressor" />
-
-        {/* Authority & Freshness Signals */}
-        <section className="mb-16">
-          <Card className="bg-muted/30">
-            <CardContent className="py-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-6 flex-wrap justify-center">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-primary" />
-                    <span>Trusted by 100,000+ users worldwide</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4 text-primary" />
-                    <span>India's largest offline-first tool hub with 200+ browser-based tools</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CalendarDays className="h-4 w-4" />
-                  <span>Last updated: December 2025</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Related Tools */}
-        <section>
-          <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedTools.map((tool) => {
-              const Icon = getToolIcon(tool.icon);
-              return (
-                <Card key={tool.id} className="hover-elevate">
-                  <CardHeader>
-                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle>{tool.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="mb-4">{tool.description}</CardDescription>
-                    <Link href={tool.path}>
-                      <Button variant="outline" className="w-full" data-testid={`button-related-${tool.id}`}>
-                        Use Tool
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Long-Tail SEO Pages */}
-        <LongTailPagesSection toolId="image-compressor" />
-
-        <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-          Category: <Link href="/tools/image" className="text-primary hover:text-primary/80 transition-colors">Image Tools</Link>
-        </p>
-
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
     </>
   );
 }
