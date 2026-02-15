@@ -258,8 +258,8 @@ export default function ImageCompressor() {
                           sliderEnabled ? (
                             <ReactCompareSlider
                               className="w-full h-full"
-                              itemOne={<ReactCompareSliderImage src={originalPreview} alt="Original" />}
-                              itemTwo={<ReactCompareSliderImage src={compressedPreview} alt="Compressed" />}
+                              itemOne={<img src={originalPreview} alt="Original" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                              itemTwo={<img src={compressedPreview} alt="Compressed" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
                             />
                           ) : (
                             <div className="relative w-full h-full flex items-center justify-center p-4">
