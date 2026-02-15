@@ -46,9 +46,9 @@ export default function ImageToPDF() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Image to PDF Converter Free - JPG PNG to PDF Online | Pixocraft",
-    description: "Convert JPG, PNG images to PDF for free. Combine multiple photos into one PDF document. 100% offline, no uploads, works on any device. Trusted in India.",
-    keywords: "image to pdf, jpg to pdf, png to pdf, convert image to pdf, combine images to pdf, photo to pdf, image to pdf converter free, multiple images to pdf, picture to pdf online",
+    title: "Image to PDF Converter - Convert JPG, PNG to PDF Online Free",
+    description: "Convert JPG, PNG, and photos to PDF online for free. Combine multiple images into one high-quality PDF document. 100% private, client-side processing, no sign-up required.",
+    keywords: "image to pdf, jpg to pdf, convert image to pdf, photo to pdf converter, combine images to pdf, images to pdf online, image to pdf converter free, merge images to pdf, convert photos to pdf, picture to pdf, png to pdf, scan to pdf, combine photos into pdf, convert multiple images to pdf, mobile image to pdf, offline image to pdf converter, secure image to pdf, batch image to pdf, create pdf from images, image document converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/image-to-pdf",
   });
 
@@ -265,36 +265,44 @@ export default function ImageToPDF() {
 
   const faqItems = [
     {
-      question: "How do I convert multiple images to one PDF?",
-      answer: "Simply upload all your images using the upload area. You can select multiple files at once or add them one by one. Once all images are added, click 'Convert & Download PDF' and all images will be combined into a single PDF document with one image per page."
+      question: "How do I convert images to PDF without uploading them?",
+      answer: "Our tool processes your images 100% locally in your browser. Since the conversion happens client-side, your files are never uploaded to any server, ensuring total privacy and security for your sensitive documents."
     },
     {
-      question: "What image formats can I convert to PDF?",
-      answer: "Our tool supports the most common image formats including JPG/JPEG and PNG. These formats cover the vast majority of photos and images. Each image maintains its original quality and dimensions in the final PDF."
+      question: "Which image formats are supported by this converter?",
+      answer: "We support all common image formats including JPG, JPEG, PNG, and WebP. You can combine different formats into a single PDF document easily."
     },
     {
-      question: "Is there a limit on how many images I can convert?",
-      answer: "No, there's no fixed limit. You can add as many images as you need. However, very large batches (50+ high-resolution images) may take longer to process depending on your device's capabilities."
+      question: "Can I convert high-resolution photos to PDF?",
+      answer: "Yes, our converter maintains the original quality and resolution of your photos during the PDF generation process, making it ideal for professional portfolios and high-quality document submissions."
     },
     {
-      question: "Do my images get uploaded to any server?",
-      answer: "No, absolutely not. All conversion happens directly in your browser using your device's processing power. Your images never leave your device, ensuring complete privacy for personal photos and sensitive documents."
+      question: "Is there a limit to the number of images I can combine?",
+      answer: "There is no strict limit. You can merge as many images as you need into one PDF. For very large batches (over 100 images), the processing time will depend on your computer's memory and speed."
     },
     {
-      question: "Can I change the order of images in the PDF?",
-      answer: "Currently, images appear in the PDF in the order you add them. To control the sequence, add images in your preferred order, or remove and re-add images to adjust their position."
+      question: "How do I arrange the order of photos in my PDF?",
+      answer: "After uploading your images, you can simply drag and drop the image cards into your desired sequence. The final PDF will follow the exact order shown in the preview grid."
     },
     {
-      question: "Will my images lose quality when converted to PDF?",
-      answer: "No. The tool preserves the original resolution and quality of your images. Each image is embedded at its full size and clarity in the PDF document."
+      question: "Does this tool work on mobile devices?",
+      answer: "Absolutely. You can convert phone photos to PDF directly in your mobile browser on iPhone, iPad, or Android without installing any third-party apps."
     },
     {
-      question: "Can I use this tool on my mobile phone?",
-      answer: "Yes. Our image to PDF converter works on any modern browser—Android, iPhone, iPad, or desktop. No app installation required. Just open the page and start converting."
+      question: "What page sizes are available for the PDF output?",
+      answer: "You can choose between 'Fit' (maintains the original image dimensions), A4 standard size, or US Letter size. You can also adjust page orientation to Portrait or Landscape."
     },
     {
-      question: "Is this image to PDF converter really free?",
-      answer: "Yes, completely free with no hidden charges, no watermarks, and no sign-up required. Use it unlimited times for personal or professional work."
+      question: "Can I add margins to my PDF pages?",
+      answer: "Yes, we offer three margin options: None (borderless), Small, and Big. This is particularly useful when preparing documents for printing or academic submissions."
+    },
+    {
+      question: "Is this image to PDF converter free for commercial use?",
+      answer: "Yes, our tool is 100% free for both personal and professional use. There are no hidden fees, no watermarks, and no registration required."
+    },
+    {
+      question: "Do I need to be online to use this converter?",
+      answer: "Once the page is loaded, the conversion engine works entirely offline. You can disconnect from the internet and continue merging your images safely."
     }
   ];
 
@@ -321,15 +329,16 @@ export default function ImageToPDF() {
                 <FileImage className="h-8 w-8 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free Image to PDF Converter - Combine Photos to PDF</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Convert JPG, PNG and other images to PDF instantly. Combine multiple photos into one document. No software installation, no account needed, and your images stay private.
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Convert Image to PDF Online - Fast & Free Photo to PDF</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Transform your photos and documents into professional PDF files instantly. Our <strong>image to pdf converter</strong> works 100% client-side, ensuring your data never leaves your device. Perfect for job applications, government forms, and student assignments.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">100% Free</Badge>
-              <Badge variant="secondary">Works Offline</Badge>
-              <Badge variant="secondary">No Sign-up</Badge>
-              <Badge variant="secondary">Unlimited Images</Badge>
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <Badge variant="secondary" className="px-3 py-1">100% Free</Badge>
+              <Badge variant="secondary" className="px-3 py-1">Privacy Focused</Badge>
+              <Badge variant="secondary" className="px-3 py-1">No Sign-up</Badge>
+              <Badge variant="secondary" className="px-3 py-1">Bulk Processing</Badge>
+              <Badge variant="secondary" className="px-3 py-1">Offline Capable</Badge>
             </div>
           </div>
 
@@ -543,244 +552,206 @@ export default function ImageToPDF() {
             </Card>
           </div>
 
-          <section className="py-12 border-t">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">Why Convert Images to PDF?</h2>
-              <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-4">
-                <p>
-                  Images are great for viewing, but they come with limitations. When you need to share multiple photos, present a portfolio, or submit documents officially, individual image files become impractical. Recipients may receive files out of order, some images might not open on their device, and large batches can overwhelm email attachments.
-                </p>
-                <p>
-                  Converting images to PDF solves these problems instantly. A PDF bundles all your photos into a single, universally readable file. It preserves the exact look of each image, maintains the sequence you intended, and works on virtually every device and operating system without special software.
-                </p>
-                <p>
-                  Whether you're compiling scanned documents, creating a photo album, preparing ID proofs for an application, or organizing receipts for reimbursement, our free image to PDF converter handles it all—right in your browser, without uploading anything to external servers.
-                </p>
-              </div>
+        <div className="mt-24 space-y-24">
+          {/* Document Submission Intent Section */}
+          <section className="space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl font-bold tracking-tight">Professional Document Submission Guide</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Prepare your images for official submissions with our specialized conversion workflows.
+              </p>
             </div>
-          </section>
-
-          <section className="py-12 border-t">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">How to Convert Images to PDF - 3 Easy Steps</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: "Government Applications",
+                  description: "Convert ID proofs, address documents, and certificates into a single, compliant PDF for official portals.",
+                  icon: Shield
+                },
+                {
+                  title: "Job Applications",
+                  description: "Merge your resume, experience letters, and portfolio images into one professional document.",
+                  icon: Briefcase
+                },
+                {
+                  title: "Student Assignments",
+                  description: "Submit handwritten notes or scanned pages as a high-quality PDF document for online classes.",
+                  icon: GraduationCap
+                },
+                {
+                  title: "Business Invoices",
+                  description: "Keep track of expenses by converting receipts and invoices into organized PDF files.",
+                  icon: FileText
+                }
+              ].map((item, i) => (
+                <Card key={i} className="hover-elevate">
                   <CardHeader>
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <span className="text-primary font-bold">1</span>
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
+                      <item.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <CardTitle className="text-lg">Upload Images</CardTitle>
+                    <CardTitle className="text-lg">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">
-                      Click the upload area and select your JPG, PNG, or other image files. You can select multiple images at once.
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
                     </p>
                   </CardContent>
                 </Card>
-                <Card>
-                  <CardHeader>
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <span className="text-primary font-bold">2</span>
-                    </div>
-                    <CardTitle className="text-lg">Review & Arrange</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Preview your selected images. Remove any you don't need. Images will appear in the PDF in the order shown.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                      <span className="text-primary font-bold">3</span>
-                    </div>
-                    <CardTitle className="text-lg">Download PDF</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Click convert and your PDF downloads instantly. Each image becomes one page in the final document.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
+              ))}
             </div>
           </section>
 
-          <section className="py-12 border-t">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Who Uses Image to PDF Conversion?</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card>
-                  <CardHeader>
-                    <GraduationCap className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Students</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Combine assignment photos, handwritten notes, and diagrams into a single PDF for easy submission. Perfect for online assignments and project documentation.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Briefcase className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Job Seekers</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Compile certificates, ID proofs, and qualification documents into one PDF for job applications. Many portals require single-file uploads for documentation.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Camera className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Photographers</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Create professional photo portfolios or client proofs as PDF documents. Share your work in a polished, universally viewable format.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <FileText className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Business Owners</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Convert product images, receipts, and invoices to PDF for accounting, insurance claims, or official records. Maintains organized documentation.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Users className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Government Applicants</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Combine Aadhaar, PAN, passport photos and other ID documents into one PDF for passport applications, visa submissions, and official forms.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Smartphone className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle className="text-lg">Mobile Users</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Quickly convert phone photos to PDF without installing any app. Works directly in your mobile browser for instant document creation.
-                    </p>
-                  </CardContent>
-                </Card>
+          {/* Educational Content Section */}
+          <section className="prose prose-slate dark:prose-invert max-w-none">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+              <div className="space-y-6">
+                <h2 className="text-3xl font-bold tracking-tight m-0">Why Convert Images to PDF?</h2>
+                <p className="text-lg leading-relaxed">
+                  While images are great for viewing, the <strong>Portable Document Format (PDF)</strong> is the universal standard for business and official documentation. Converting your photos to PDF ensures that your document looks exactly the same on every device, from mobile phones to high-end workstations.
+                </p>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold">The Advantages of PDF Format:</h3>
+                  <ul className="space-y-2 list-none p-0">
+                    <li className="flex items-start gap-3">
+                      <Zap className="h-5 w-5 text-primary mt-0.5" />
+                      <span><strong>Universal Compatibility:</strong> Open your documents on any device without specialized software.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Lock className="h-5 w-5 text-primary mt-0.5" />
+                      <span><strong>Security & Integrity:</strong> PDFs are harder to edit accidentally, preserving your data's original state.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Users className="h-5 w-5 text-primary mt-0.5" />
+                      <span><strong>Multi-Image Support:</strong> Combine dozens of photos into a single, easily shareable file.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </section>
-
-          <section className="py-12 border-t bg-muted/30">
-            <div className="max-w-5xl mx-auto">
-              <div className="text-center space-y-4 mb-10">
-                <h2 className="text-2xl md:text-3xl font-bold">Privacy & Security - Your Images Stay Private</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Unlike cloud-based converters, our tool processes everything locally. Your personal photos and documents never leave your device.
+              <div className="bg-muted/30 p-8 rounded-2xl border border-muted-foreground/10 space-y-6">
+                <h3 className="text-xl font-bold m-0">Technical Authority Signals</h3>
+                <div className="space-y-4 text-sm">
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="font-medium">Image Rendering</span>
+                    <span className="text-muted-foreground">High Fidelity Browser Pipeline</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="font-medium">PDF Standard</span>
+                    <span className="text-muted-foreground">PDF/A Compliance Support</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="font-medium">Processing Architecture</span>
+                    <span className="text-muted-foreground">100% Client-Side JS execution</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="font-medium">Privacy Layer</span>
+                    <span className="text-muted-foreground">Zero Server Upload Protocol</span>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed italic">
+                  *Our converter uses advanced image-to-PDF embedding techniques that preserve resolution while optimizing file size for faster document delivery.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <Shield className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>No Server Uploads</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Your images are processed entirely in your browser. Nothing is sent to any server. Safe for personal photos, ID documents, medical records, and confidential business materials.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Lock className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>No Data Retention</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      We don't store, copy, or access your images. Once you close the page, your files exist only on your device. No tracking, no logging, no data collection.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Zap className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>No Account Required</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      Use immediately without registration, email verification, or providing any personal information. Just open the tool and start converting.
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader>
-                    <Globe className="h-8 w-8 text-primary mb-2" />
-                    <CardTitle>Works Offline</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      After the page loads, you can disconnect from the internet and continue converting. Perfect for areas with slow connectivity or when handling sensitive files.
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
             </div>
           </section>
 
-          <section className="py-12 border-t">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center space-y-4 mb-10">
-                <h2 className="text-2xl md:text-3xl font-bold">Frequently Asked Questions</h2>
+          {/* Comparison Table */}
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight text-center">Image vs PDF Comparison</h2>
+            <div className="overflow-x-auto rounded-xl border bg-background">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-muted/50">
+                    <th className="p-4 font-bold border-b">Feature</th>
+                    <th className="p-4 font-bold border-b text-primary">PDF Document</th>
+                    <th className="p-4 font-bold border-b">Raw Images (JPG/PNG)</th>
+                  </tr>
+                </thead>
+                <tbody className="text-sm">
+                  <tr className="border-b">
+                    <td className="p-4 font-medium">Portability</td>
+                    <td className="p-4">Extremely high, consistent across all OS</td>
+                    <td className="p-4">High, but rendering varies by app</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-4 font-medium">Grouping</td>
+                    <td className="p-4 text-primary font-medium">Multiple pages in one file</td>
+                    <td className="p-4">One file per image</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-4 font-medium">Official Use</td>
+                    <td className="p-4">Standard for government/business</td>
+                    <td className="p-4">Rarely accepted for submissions</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-4 font-medium">File Size</td>
+                    <td className="p-4">Optimized for document storage</td>
+                    <td className="p-4">Can be very large individually</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* FAQ Section */}
+          <section className="space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight text-center">Frequently Asked Questions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {faqItems.map((faq, i) => (
+                <div key={i} className="space-y-2">
+                  <h3 className="text-lg font-semibold">{faq.question}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Privacy Authority */}
+          <section className="bg-primary/5 rounded-3xl p-8 md:p-12 border border-primary/10">
+            <div className="flex flex-col md:flex-row gap-12 items-center">
+              <div className="h-24 w-24 rounded-full bg-background flex items-center justify-center shadow-xl border-4 border-primary/20 flex-shrink-0">
+                <Lock className="h-10 w-10 text-primary" />
               </div>
               <div className="space-y-4">
-                {faqItems.map((item, index) => (
-                  <Card key={index}>
-                    <CardHeader>
-                      <CardTitle className="text-lg">{item.question}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{item.answer}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                <h2 className="text-2xl font-bold">100% Privacy & Security Guarantee</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Unlike other online converters, we value your privacy above all else. When you use our <strong>image to pdf</strong> tool, your photos are processed entirely within your web browser. <strong>No images are ever uploaded to our servers</strong>. This makes it completely safe for converting sensitive identity documents, financial statements, and personal photos.
+                </p>
+                <div className="flex flex-wrap gap-4 pt-2">
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Shield className="h-4 w-4 text-primary" />
+                    Zero Data Retention
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Globe className="h-4 w-4 text-primary" />
+                    Works 100% Offline
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-medium">
+                    <Lock className="h-4 w-4 text-primary" />
+                    No Account Needed
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
-          <section className="py-12 border-t">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center space-y-4 mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold">Related Image & PDF Tools</h2>
-                <p className="text-muted-foreground">Explore more free tools for your image and document needs</p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {relatedTools.map((tool) => (
-                  <Link key={tool.path} href={tool.path} data-testid={`link-related-${tool.path.split('/').pop()}`}>
-                    <Card className="h-full hover-elevate cursor-pointer transition-all">
-                      <CardHeader>
-                        <CardTitle className="text-base">{tool.name}</CardTitle>
+          {/* Internal Linking & Related Tools */}
+          <section className="space-y-8 pb-12 border-t pt-12">
+            <h2 className="text-2xl font-bold">Explore More PDF & Image Utilities</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedTools.map((tool) => (
+                <Link key={tool.path} href={tool.path}>
+                  <a className="block group">
+                    <Card className="h-full transition-all group-hover:border-primary/50 group-hover:shadow-md">
+                      <CardHeader className="p-4">
+                        <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                        <CardDescription className="text-xs line-clamp-2">{tool.description}</CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <p className="text-sm text-muted-foreground">{tool.description}</p>
-                      </CardContent>
                     </Card>
-                  </Link>
-                ))}
-              </div>
+                  </a>
+                </Link>
+              ))}
             </div>
           </section>
-
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Category: <Link href="/tools/pdf" className="text-primary hover:text-primary/80 transition-colors">PDF Tools</Link>
           </p>
