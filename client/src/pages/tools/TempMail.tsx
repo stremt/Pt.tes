@@ -65,8 +65,8 @@ export default function TempMail() {
     }
   }, []);
 
-  // Use direct API in production on Cloudflare Pages (since backend isn't available)
-  const API_BASE = (window.location.hostname.includes("pages.dev") || window.location.hostname.includes("pixocraft.in")) ? MAIL_TM_API : "/api/tempmail";
+  // Direct API for Cloudflare Pages (since backend isn't available)
+  const API_BASE = "https://api.mail.tm";
 
   // Auto-refresh every 3 seconds when enabled
   useEffect(() => {
@@ -138,7 +138,7 @@ export default function TempMail() {
       const password = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
       // Create account
-      const createResponse = await fetch(`${API_BASE}/account`, {
+      const createResponse = await fetch(`${API_BASE}/accounts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
