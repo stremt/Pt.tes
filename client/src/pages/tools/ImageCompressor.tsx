@@ -479,7 +479,7 @@ export default function ImageCompressor() {
             </div>
           </div>
 
-          <LongTailPagesSection currentToolId="image-compressor" />
+          <LongTailPagesSection toolId="image-compressor" />
 
           {/* Related Tools */}
           <section className="py-20 border-t">

@@ -453,6 +453,7 @@ function Router() {
         <Route path="/tools/pdf-to-image/extract" component={ExtractImagesFromPdf} />
         <Route path="/qa-dashboard" component={QADashboard} />
         <Route path="/tools/text-to-file" component={TextToFile} />
+        <Route path="/tools/text-to-file" component={TextToFile} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
