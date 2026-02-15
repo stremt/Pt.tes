@@ -58,7 +58,7 @@ export function VersionUpdatePopup() {
             Updates Available
           </DialogTitle>
           <DialogDescription className="pt-2">
-            New features and fixes are here! Check out our new **Text to File** tool.
+            New features and fixes are here! Check out our updated **Temp Mail** and other tools.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 text-sm text-muted-foreground">
