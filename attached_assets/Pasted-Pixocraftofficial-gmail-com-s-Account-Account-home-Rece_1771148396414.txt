@@ -1,0 +1,110 @@
+Pixocraftofficial@gmail.com's Account
+
+Account home
+
+Recents
+
+
+
+
+
+Analytics & logs
+Domains
+Build
+
+Compute
+Workers & Pages
+Observability
+Workers for Platforms
+Containers
+Beta
+Durable Objects
+Queues
+Workflows
+Browser Rendering
+VPC
+Beta
+
+Email Service
+Workers plans
+
+AI
+
+Storage & databases
+
+Media
+Protect & Connect
+
+Application security
+Zero Trust
+
+Networking
+
+Delivery & performance
+
+Domain registration
+
+Manage account
+ pixocraft-tools-main
+Deployment details
+Repository:
+
+pixocraftofficial/Pixocraft-Tools
+Branch:
+main
+2d42f97
+Update Pixocraft Tools
+Status:
+Failed
+3:03PM February 15, 2026
+Duration:
+8s
+Build settings
+Build log
+Functions
+Redirects
+Headers
+Build log
+Initializing build environment
+2s
+Cloning git repository
+4s
+Building application
+3s
+Deploying to Cloudflare's global network
+—
+15:03:33.696	Cloning repository...
+15:03:36.295	From https://github.com/pixocraftofficial/Pixocraft-Tools
+15:03:36.295	 * branch            2d42f975566925f731b95ec4b7ec00bdbd4420ca -> FETCH_HEAD
+15:03:36.295	
+15:03:36.734	HEAD is now at 2d42f97 Update Pixocraft Tools
+15:03:36.734	
+15:03:36.805	
+15:03:36.805	Using v2 root directory strategy
+15:03:36.827	Success: Finished cloning repository files
+15:03:38.567	Checking for configuration in a Wrangler configuration file (BETA)
+15:03:38.568	
+15:03:38.569	Found wrangler.json file. Reading build configuration...
+15:03:38.606	
+15:03:38.661	✘ [ERROR] Processing ../../../buildhome/repo/wrangler.jsonc configuration:
+15:03:38.662	
+15:03:38.662	    - Expected "routes" to be an array of either strings or objects with the shape { pattern, custom_domain, zone_id | zone_name }, but these weren't valid: [
+15:03:38.662	        {
+15:03:38.662	          "pattern": "*/api/*",
+15:03:38.662	          "script": "cloudflare-worker/worker.js"
+15:03:38.662	        }
+15:03:38.662	      ].
+15:03:38.662	
+15:03:38.662	
+15:03:38.731	🪵  Logs were written to "/root/.config/.wrangler/logs/wrangler-2026-02-15_09-33-38_360.log"
+15:03:38.817	Failed: unable to read wrangler.toml file with code: 1
+15:03:40.138	Failed: an internal error occurred. If this continues, contact support: https://cfl.re/3WgEyrH
+Support
+System status
+Careers
+Terms of Use
+Report Security Issues
+Privacy Policy
+A blue and white pill with a checkmark and an x, representing privacy choicesCookie Preferences
+© 2026 Cloudflare, Inc.
+:12
