@@ -102,6 +102,15 @@ import {
 
 export const tools: ToolMetadata[] = [
   {
+    id: "text-to-file",
+    name: "Word to File (Text to File)",
+    description: "Convert your text into downloadable files like .txt, .doc, or .pdf instantly. No upload required, 100% private and offline-supported.",
+    icon: "FileDown",
+    path: "/tools/text-to-file",
+    category: "utility",
+    keywords: ["text to file", "word to file", "text to doc", "text to txt", "text to pdf", "convert text to file", "save text online"],
+  },
+  {
     id: "csv-viewer",
     name: "CSV Viewer & Editor",
     description: "Open, view and edit CSV files online instantly with full privacy. No upload required, works 100% in your browser. Search, filter and explore your data securely.",
