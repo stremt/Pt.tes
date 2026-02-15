@@ -1,0 +1,522 @@
+Pixocraftofficial@gmail.com's Account
+
+Account home
+
+Recents
+
+
+
+
+
+Analytics & logs
+Domains
+Build
+
+Compute
+Workers & Pages
+Observability
+Workers for Platforms
+Containers
+Beta
+Durable Objects
+Queues
+Workflows
+Browser Rendering
+VPC
+Beta
+
+Email Service
+Workers plans
+
+AI
+
+Storage & databases
+
+Media
+Protect & Connect
+
+Application security
+Zero Trust
+
+Networking
+
+Delivery & performance
+
+Domain registration
+
+Manage account
+ pixocraft-tools-main
+Deployment details
+https://c0f6aa73.pixocraft-tools-main.pages.dev
+Aliases:
+tools.pixocraft.in
+Repository:
+
+pixocraftofficial/Pixocraft-Tools
+Branch:
+main
+5a71495
+Add files via upload
+Status:
+Success
+3:45PM February 15, 2026
+Duration:
+1m 4s
+Build settings
+Build log
+Assets uploaded
+Functions
+Redirects
+Headers
+Build log
+Initializing build environment
+3s
+Cloning git repository
+4s
+Building application
+46s
+Deploying to Cloudflare's global network
+11s
+15:44:20.586	Cloning repository...
+15:44:23.600	From https://github.com/pixocraftofficial/Pixocraft-Tools
+15:44:23.601	 * branch            5a7149586f67815d159d059b9909b1f53df939af -> FETCH_HEAD
+15:44:23.601	
+15:44:24.255	HEAD is now at 5a71495 Add files via upload
+15:44:24.256	
+15:44:24.327	
+15:44:24.328	Using v2 root directory strategy
+15:44:24.351	Success: Finished cloning repository files
+15:44:26.052	Checking for configuration in a Wrangler configuration file (BETA)
+15:44:26.052	
+15:44:26.053	Found wrangler.json file. Reading build configuration...
+15:44:26.058	pages_build_output_dir: dist/public
+15:44:26.058	Build environment variables: (none found)
+15:44:27.169	Successfully read wrangler.toml file.
+15:44:27.265	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
+15:44:27.265	Installing project dependencies: npm clean-install --progress=false
+15:44:32.460	npm warn deprecated @esbuild-kit/esm-loader@2.6.5: Merged into tsx: https://tsx.is
+15:44:32.703	npm warn deprecated @esbuild-kit/core-utils@3.3.2: Merged into tsx: https://tsx.is
+15:44:40.342	
+15:44:40.342	added 656 packages, and audited 657 packages in 13s
+15:44:40.342	
+15:44:40.342	71 packages are looking for funding
+15:44:40.342	  run `npm fund` for details
+15:44:40.374	
+15:44:40.374	18 vulnerabilities (4 low, 6 moderate, 6 high, 2 critical)
+15:44:40.374	
+15:44:40.374	To address issues that do not require attention, run:
+15:44:40.374	  npm audit fix
+15:44:40.374	
+15:44:40.375	To address all issues possible (including breaking changes), run:
+15:44:40.375	  npm audit fix --force
+15:44:40.375	
+15:44:40.375	Some issues need review, and may require choosing
+15:44:40.375	a different dependency.
+15:44:40.375	
+15:44:40.375	Run `npm audit` for details.
+15:44:40.401	Executing user command: npm install; npm run build
+15:44:42.157	
+15:44:42.157	up to date, audited 657 packages in 1s
+15:44:42.157	
+15:44:42.157	71 packages are looking for funding
+15:44:42.157	  run `npm fund` for details
+15:44:42.192	
+15:44:42.192	18 vulnerabilities (4 low, 6 moderate, 6 high, 2 critical)
+15:44:42.192	
+15:44:42.193	To address issues that do not require attention, run:
+15:44:42.193	  npm audit fix
+15:44:42.193	
+15:44:42.193	To address all issues possible (including breaking changes), run:
+15:44:42.193	  npm audit fix --force
+15:44:42.193	
+15:44:42.193	Some issues need review, and may require choosing
+15:44:42.193	a different dependency.
+15:44:42.194	
+15:44:42.194	Run `npm audit` for details.
+15:44:42.548	
+15:44:42.548	> rest-express@1.0.0 build
+15:44:42.548	> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+15:44:42.548	
+15:44:42.813	vite v5.4.20 building for production...
+15:44:42.878	transforming...
+15:44:45.263	
+15:44:45.264	A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+15:44:52.110	node_modules/bluebird/js/release/util.js (165:2): Use of eval in "node_modules/bluebird/js/release/util.js" is strongly discouraged as it poses security risks and may cause issues with minification.
+15:45:00.536	✓ 4013 modules transformed.
+15:45:01.556	rendering chunks...
+15:45:03.093	computing gzip size...
+15:45:03.776	../dist/public/assets/worker-BAOIWoxA.js                                                           2.53 kB
+15:45:03.776	../dist/public/index.html                                                                          2.82 kB │ gzip:   1.35 kB
+15:45:03.776	../dist/public/assets/completion-sound-ig9X4wAM.mp3                                               39.84 kB
+15:45:03.777	../dist/public/assets/sample_error_input03_kofi_by_miraclei-363641_1766285632222-CbNUhomb.mp3     67.71 kB
+15:45:03.777	../dist/public/assets/pdf.worker.min-Cpi8b8z3.mjs                                              1,050.96 kB
+15:45:03.777	../dist/public/assets/index-C2DvUT52.css                                                         175.69 kB │ gzip:  24.48 kB
+15:45:03.777	../dist/public/assets/index-BdQq_4o_.js                                                            0.06 kB │ gzip:   0.08 kB
+15:45:03.777	../dist/public/assets/ui-constants-hWvG3p-x.js                                                     0.23 kB │ gzip:   0.17 kB
+15:45:03.777	../dist/public/assets/index-DrJnoP3p.js                                                            0.23 kB │ gzip:   0.18 kB
+15:45:03.777	../dist/public/assets/minus-BwXOcJ8H.js                                                            0.29 kB │ gzip:   0.24 kB
+15:45:03.778	../dist/public/assets/check-CHVd3e2i.js                                                            0.29 kB │ gzip:   0.24 kB
+15:45:03.778	../dist/public/assets/chevron-up-LkGIqDp3.js                                                       0.30 kB │ gzip:   0.25 kB
+15:45:03.778	../dist/public/assets/TimeDifferencePayrollBilling-DtN7PFd4.js                                     0.30 kB │ gzip:   0.23 kB
+15:45:03.778	../dist/public/assets/TimeDifferenceOnlineDuration-B-fA6Eaw.js                                     0.30 kB │ gzip:   0.23 kB
+15:45:03.778	../dist/public/assets/TimeDifferenceProjectTracking-Bng-JQwv.js                                    0.30 kB │ gzip:   0.23 kB
+15:45:03.778	../dist/public/assets/TimeDifferenceWorkHours-Cx5l-W-n.js                                          0.30 kB │ gzip:   0.23 kB
+15:45:03.778	../dist/public/assets/loader-circle-DCFBrXv_.js                                                    0.31 kB │ gzip:   0.26 kB
+15:45:03.778	../dist/public/assets/circle-check-CDogUquy.js                                                     0.34 kB │ gzip:   0.27 kB
+15:45:03.778	../dist/public/assets/smartphone-_kIq6w_x.js                                                       0.37 kB │ gzip:   0.29 kB
+15:45:03.779	../dist/public/assets/rotate-ccw-CaHuyFFf.js                                                       0.37 kB │ gzip:   0.29 kB
+15:45:03.779	../dist/public/assets/circle-x-CeVis4S2.js                                                         0.37 kB │ gzip:   0.28 kB
+15:45:03.779	../dist/public/assets/music-CZacx_FR.js                                                            0.38 kB │ gzip:   0.29 kB
+15:45:03.779	../dist/public/assets/copy-DpVm7-Ih.js                                                             0.40 kB │ gzip:   0.31 kB
+15:45:03.779	../dist/public/assets/pen-d_AsSxDK.js                                                              0.40 kB │ gzip:   0.31 kB
+15:45:03.779	../dist/public/assets/history-CJDUMRJ2.js                                                          0.41 kB │ gzip:   0.30 kB
+15:45:03.779	../dist/public/assets/timer-e6RKp1Kz.js                                                            0.41 kB │ gzip:   0.29 kB
+15:45:03.780	../dist/public/assets/arrow-left-right-DNKZukB1.js                                                 0.42 kB │ gzip:   0.30 kB
+15:45:03.780	../dist/public/assets/camera-DVDsL8h3.js                                                           0.42 kB │ gzip:   0.31 kB
+15:45:03.780	../dist/public/assets/circle-alert-C33JqfcZ.js                                                     0.42 kB │ gzip:   0.29 kB
+15:45:03.780	../dist/public/assets/external-link-BQX_M44g.js                                                    0.42 kB │ gzip:   0.30 kB
+15:45:03.780	../dist/public/assets/upload-CXYDmb6r.js                                                           0.43 kB │ gzip:   0.32 kB
+15:45:03.780	../dist/public/assets/monitor-hErekj92.js                                                          0.43 kB │ gzip:   0.31 kB
+15:45:03.780	../dist/public/assets/triangle-alert-C7Nn9Gzs.js                                                   0.43 kB │ gzip:   0.31 kB
+15:45:03.780	../dist/public/assets/shopping-cart-bQ0XKx8l.js                                                    0.46 kB │ gzip:   0.33 kB
+15:45:03.781	../dist/public/assets/tag-BDJv4TqY.js                                                              0.50 kB │ gzip:   0.35 kB
+15:45:03.781	../dist/public/assets/graduation-cap-C8R1DQc8.js                                                   0.50 kB │ gzip:   0.35 kB
+15:45:03.781	../dist/public/assets/html2canvas-Cg2O38GG.js                                                      0.50 kB │ gzip:   0.36 kB
+15:45:03.781	../dist/public/assets/file-type-_uxSO45N.js                                                        0.51 kB │ gzip:   0.33 kB
+15:45:03.781	../dist/public/assets/clipboard-paste-ZIzk3pJZ.js                                                  0.51 kB │ gzip:   0.36 kB
+15:45:03.781	../dist/public/assets/share-2-CHwrfl9p.js                                                          0.52 kB │ gzip:   0.34 kB
+15:45:03.781	../dist/public/assets/trash-2-BFbt4oqD.js                                                          0.53 kB │ gzip:   0.35 kB
+15:45:03.781	../dist/public/assets/file-spreadsheet-BTt6ElKN.js                                                 0.54 kB │ gzip:   0.33 kB
+15:45:03.782	../dist/public/assets/eye-off-Jue68qxu.js                                                          0.60 kB │ gzip:   0.38 kB
+15:45:03.782	../dist/public/assets/building-2-DIs4S1wb.js                                                       0.61 kB │ gzip:   0.35 kB
+15:45:03.782	../dist/public/assets/rocket--5egg0ss.js                                                           0.62 kB │ gzip:   0.41 kB
+15:45:03.782	../dist/public/assets/wifi-off-6xEa45O-.js                                                         0.63 kB │ gzip:   0.38 kB
+15:45:03.782	../dist/public/assets/play-DvAQS9WG.js                                                             0.63 kB │ gzip:   0.32 kB
+15:45:03.782	../dist/public/assets/calendar-days-JHKnN9XZ.js                                                    0.66 kB │ gzip:   0.37 kB
+15:45:03.782	../dist/public/assets/bug-B3BFmEeL.js                                                              0.84 kB │ gzip:   0.47 kB
+15:45:03.782	../dist/public/assets/use-clipboard-DpI6uX2F.js                                                    0.92 kB │ gzip:   0.47 kB
+15:45:03.783	../dist/public/assets/CodePreviewCard-DWv7MwSd.js                                                  0.94 kB │ gzip:   0.55 kB
+15:45:03.783	../dist/public/assets/text-utils-Dkq9W0ty.js                                                       1.25 kB │ gzip:   0.47 kB
+15:45:03.783	../dist/public/assets/math-utils-C0jPmERR.js                                                       1.34 kB │ gzip:   0.63 kB
+15:45:03.783	../dist/public/assets/RelatedUseCases-BvKo_OjM.js                                                  1.60 kB │ gzip:   0.78 kB
+15:45:03.783	../dist/public/assets/spreadsheet-utils-ChcA7qWT.js                                                1.64 kB │ gzip:   0.95 kB
+15:45:03.783	../dist/public/assets/XLSXToCSVHistory-CSxTf0FX.js                                                 1.69 kB │ gzip:   0.83 kB
+15:45:03.783	../dist/public/assets/ExcelViewerMobile-BoxrgcUt.js                                                1.76 kB │ gzip:   0.86 kB
+15:45:03.783	../dist/public/assets/progress-DggJzBp9.js                                                         1.90 kB │ gzip:   0.95 kB
+15:45:03.783	../dist/public/assets/ExcelViewerNoSoftware-C__xc4Vx.js                                            1.93 kB │ gzip:   0.97 kB
+15:45:03.784	../dist/public/assets/RandomTask-BrLZSgNB.js                                                       2.35 kB │ gzip:   1.10 kB
+15:45:03.784	../dist/public/assets/RandomObjectGenerator-CLrc-Gri.js                                            2.38 kB │ gzip:   1.09 kB
+15:45:03.784	../dist/public/assets/switch-CLE9kfPX.js                                                           2.38 kB │ gzip:   1.20 kB
+15:45:03.784	../dist/public/assets/RandomSuperheroName-DgiIy8ln.js                                              2.38 kB │ gzip:   1.07 kB
+15:45:03.784	../dist/public/assets/RandomStartupIdea-CRZSkqab.js                                                2.43 kB │ gzip:   1.14 kB
+15:45:03.784	../dist/public/assets/RandomAnimalGenerator-D4e_3Tk2.js                                            2.56 kB │ gzip:   1.16 kB
+15:45:03.784	../dist/public/assets/RandomFakeAddress-A3gkpfkK.js                                                2.60 kB │ gzip:   1.14 kB
+15:45:03.784	../dist/public/assets/RandomMotivationalQuote-BEfwxLJj.js                                          2.64 kB │ gzip:   1.22 kB
+15:45:03.785	../dist/public/assets/RandomTechStack-BVDvhBp0.js                                                  2.66 kB │ gzip:   1.22 kB
+15:45:03.785	../dist/public/assets/RandomHindiName-D7l9cBMY.js                                                  2.77 kB │ gzip:   1.23 kB
+15:45:03.785	../dist/public/assets/RandomRiddle-DPxGVbZ2.js                                                     2.79 kB │ gzip:   1.21 kB
+15:45:03.785	../dist/public/assets/checkbox-4nY9NUr0.js                                                         2.83 kB │ gzip:   1.40 kB
+15:45:03.785	../dist/public/assets/RandomTruthDare-FkSDoaN-.js                                                  2.84 kB │ gzip:   1.24 kB
+15:45:03.785	../dist/public/assets/random-utils-D2TmB8BY.js                                                     2.86 kB │ gzip:   1.44 kB
+15:45:03.785	../dist/public/assets/SuperscriptGenerator-BilvOYSS.js                                             2.96 kB │ gzip:   1.52 kB
+15:45:03.785	../dist/public/assets/RandomMovieSuggestion-WXE8zSdJ.js                                            3.02 kB │ gzip:   1.22 kB
+15:45:03.785	../dist/public/assets/RemoveNumbers-5qdQq0a0.js                                                    3.03 kB │ gzip:   1.29 kB
+15:45:03.785	../dist/public/assets/ExtractNumbers-edGEjbV1.js                                                   3.13 kB │ gzip:   1.34 kB
+15:45:03.786	../dist/public/assets/WordFrequencyCounter-DO-ZTASm.js                                             3.14 kB │ gzip:   1.48 kB
+15:45:03.786	../dist/public/assets/TextSpacer-E-7QROTo.js                                                       3.20 kB │ gzip:   1.43 kB
+15:45:03.786	../dist/public/assets/tabs-BooR_q6W.js                                                             3.22 kB │ gzip:   1.35 kB
+15:45:03.786	../dist/public/assets/CommissionCalculator-BFRfgV1f.js                                             3.23 kB │ gzip:   1.19 kB
+15:45:03.786	../dist/public/assets/SubscriptGenerator-D9YWQoeB.js                                               3.23 kB │ gzip:   1.60 kB
+15:45:03.786	../dist/public/assets/HTMLMinifier-puAc98Te.js                                                     3.27 kB │ gzip:   1.39 kB
+15:45:03.786	../dist/public/assets/SentenceCaseConverter-DZWZfcub.js                                            3.30 kB │ gzip:   1.37 kB
+15:45:03.786	../dist/public/assets/Base64ToImage-SPebj8fY.js                                                    3.31 kB │ gzip:   1.33 kB
+15:45:03.786	../dist/public/assets/VariableFontViewer-leLD7tFz.js                                               3.32 kB │ gzip:   1.37 kB
+15:45:03.786	../dist/public/assets/ColorPaletteShuffler-DXWuWEnT.js                                             3.34 kB │ gzip:   1.44 kB
+15:45:03.786	../dist/public/assets/index-DR9IepGz.js                                                            3.35 kB │ gzip:   1.52 kB
+15:45:03.786	../dist/public/assets/EmojiRemover-CnBXVxIp.js                                                     3.35 kB │ gzip:   1.50 kB
+15:45:03.787	../dist/public/assets/ImageBlurTool-rwLzXYEc.js                                                    3.37 kB │ gzip:   1.55 kB
+15:45:03.787	../dist/public/assets/TitleCaseConverter-Cj7hVINv.js                                               3.37 kB │ gzip:   1.51 kB
+15:45:03.787	../dist/public/assets/NATOPhoneticConverter-DPNSOHXO.js                                            3.37 kB │ gzip:   1.58 kB
+15:45:03.787	../dist/public/assets/CSSGridGenerator-Cn9fmuDz.js                                                 3.38 kB │ gzip:   1.43 kB
+15:45:03.787	../dist/public/assets/TextRotator-yU6ic4vO.js                                                      3.41 kB │ gzip:   1.57 kB
+15:45:03.787	../dist/public/assets/FancyTextStyler-DNuCogMT.js                                                  3.45 kB │ gzip:   1.37 kB
+15:45:03.787	../dist/public/assets/UUIDGenerator-BJ-NNFP7.js                                                    3.47 kB │ gzip:   1.55 kB
+15:45:03.787	../dist/public/assets/PangramGenerator-Btga1g-7.js                                                 3.53 kB │ gzip:   1.60 kB
+15:45:03.787	../dist/public/assets/NotesApp-VGhgy6OF.js                                                         3.56 kB │ gzip:   1.54 kB
+15:45:03.787	../dist/public/assets/ColorPaletteGenerator-O6Rl7s-G.js                                            3.56 kB │ gzip:   1.43 kB
+15:45:03.787	../dist/public/assets/RandomHexColor-DnStMuct.js                                                   3.56 kB │ gzip:   1.41 kB
+15:45:03.787	../dist/public/assets/ImagePixelator-CNxAi2xU.js                                                   3.60 kB │ gzip:   1.58 kB
+15:45:03.788	../dist/public/assets/GlitchTextGenerator-B8kwA4KJ.js                                              3.63 kB │ gzip:   1.77 kB
+15:45:03.788	../dist/public/assets/ModuloCalculator-CPi1eM-o.js                                                 3.66 kB │ gzip:   1.31 kB
+15:45:03.788	../dist/public/assets/RandomDateGenerator-hfNwJR9b.js                                              3.67 kB │ gzip:   1.54 kB
+15:45:03.788	../dist/public/assets/HTMLEncoderDecoder-DU4mjgQq.js                                               3.68 kB │ gzip:   1.54 kB
+15:45:03.788	../dist/public/assets/TextReverser-BXOCXSL6.js                                                     3.73 kB │ gzip:   1.60 kB
+15:45:03.788	../dist/public/assets/RandomWordGenerator-CFLqVeEI.js                                              3.78 kB │ gzip:   1.75 kB
+15:45:03.788	../dist/public/assets/SignaturePadTool-Cwc_ek1s.js                                                 3.79 kB │ gzip:   1.57 kB
+15:45:03.788	../dist/public/assets/FibonacciGenerator-B21XZ2bW.js                                               3.84 kB │ gzip:   1.42 kB
+15:45:03.788	../dist/public/assets/GradientGenerator-DyLMuJ_G.js                                                3.86 kB │ gzip:   1.45 kB
+15:45:03.788	../dist/public/assets/ImageGrayscaleTool-Hz0FYTEE.js                                               3.87 kB │ gzip:   1.72 kB
+15:45:03.789	../dist/public/assets/ImageMirrorTool-DCeCxQTZ.js                                                  3.88 kB │ gzip:   1.74 kB
+15:45:03.789	../dist/public/assets/ImageInvertTool-C-wQpJJz.js                                                  3.90 kB │ gzip:   1.74 kB
+15:45:03.789	../dist/public/assets/ExponentCalculator-CL4Ikgjl.js                                               3.90 kB │ gzip:   1.41 kB
+15:45:03.789	../dist/public/assets/PrimeFactorization-D2fwE9t1.js                                               3.91 kB │ gzip:   1.42 kB
+15:45:03.789	../dist/public/assets/SymbolCombiner-GdMYlfzl.js                                                   3.93 kB │ gzip:   1.46 kB
+15:45:03.789	../dist/public/assets/KeywordDensityChecker-4BwubCsL.js                                            3.95 kB │ gzip:   1.72 kB
+15:45:03.789	../dist/public/assets/GradientTextGenerator-DlmhkvI7.js                                            3.96 kB │ gzip:   1.50 kB
+15:45:03.789	../dist/public/assets/TextHighlightMarker-D4_c1vq9.js                                              3.96 kB │ gzip:   1.52 kB
+15:45:03.789	../dist/public/assets/AgeCalculator-Ub_0F51Y.js                                                    3.97 kB │ gzip:   1.47 kB
+15:45:03.789	../dist/public/assets/OutlineCSSGenerator-OUGb5-2F.js                                              3.98 kB │ gzip:   1.57 kB
+15:45:03.789	../dist/public/assets/CSSClampGenerator-R6iS8imK.js                                                4.00 kB │ gzip:   1.50 kB
+15:45:03.790	../dist/public/assets/SilentText-6saK3IdL.js                                                       4.05 kB │ gzip:   1.89 kB
+15:45:03.790	../dist/public/assets/WordShuffler-DDMMimbm.js                                                     4.06 kB │ gzip:   1.66 kB
+15:45:03.790	../dist/public/assets/LineBreakRemover-T7GSpQdF.js                                                 4.07 kB │ gzip:   1.81 kB
+15:45:03.790	../dist/public/assets/RemoveDuplicateWords-wKX496jb.js                                             4.08 kB │ gzip:   1.82 kB
+15:45:03.790	../dist/public/assets/JSONTreeViewer-CNUGPoVQ.js                                                   4.08 kB │ gzip:   1.70 kB
+15:45:03.790	../dist/public/assets/ExcelToPDFProfessional-CucqPd4Y.js                                           4.11 kB │ gzip:   1.70 kB
+15:45:03.790	../dist/public/assets/ImageToBase64-D4j3svgL.js                                                    4.11 kB │ gzip:   1.66 kB
+15:45:03.790	../dist/public/assets/ASCIIArtGenerator-BP3_a8UE.js                                                4.12 kB │ gzip:   1.91 kB
+15:45:03.790	../dist/public/assets/HexColorPickerTool-C_IamyNW.js                                               4.13 kB │ gzip:   1.74 kB
+15:45:03.790	../dist/public/assets/RatioSimplifier-rjmKlSj_.js                                                  4.14 kB │ gzip:   1.49 kB
+15:45:03.790	../dist/public/assets/AreaConverter-CQ_O9e_q.js                                                    4.14 kB │ gzip:   1.45 kB
+15:45:03.791	../dist/public/assets/ASCIIConverter-tukxkTU0.js                                                   4.20 kB │ gzip:   1.75 kB
+15:45:03.791	../dist/public/assets/CircleCalculator-DWpc7cwI.js                                                 4.21 kB │ gzip:   1.47 kB
+15:45:03.791	../dist/public/assets/DominantColorFinder-q7dOmU9Y.js                                              4.22 kB │ gzip:   1.82 kB
+15:45:03.791	../dist/public/assets/PrimeNumberGenerator-QfcU6GUq.js                                             4.22 kB │ gzip:   1.51 kB
+15:45:03.791	../dist/public/assets/pdf-utils-BT9H_OY_.js                                                        4.23 kB │ gzip:   1.88 kB
+15:45:03.791	../dist/public/assets/ButtonCSSGenerator-D8Vig4HP.js                                               4.25 kB │ gzip:   1.63 kB
+15:45:03.791	../dist/public/assets/TextRepeater-DElmdffT.js                                                     4.26 kB │ gzip:   1.67 kB
+15:45:03.791	../dist/public/assets/AgeGapCalculator-Dewzphm2.js                                                 4.26 kB │ gzip:   1.40 kB
+15:45:03.791	../dist/public/assets/GIFtoMP4-NKl3rvbS.js                                                         4.28 kB │ gzip:   1.76 kB
+15:45:03.791	../dist/public/assets/PrimeNumberChecker-CWxbannJ.js                                               4.28 kB │ gzip:   1.61 kB
+15:45:03.792	../dist/public/assets/ImageDarkenTool-CE027C8p.js                                                  4.29 kB │ gzip:   1.87 kB
+15:45:03.792	../dist/public/assets/MP4toMP3-B3LevpbV.js                                                         4.29 kB │ gzip:   1.76 kB
+15:45:03.792	../dist/public/assets/ImageLightenTool-DSanr1dq.js                                                 4.29 kB │ gzip:   1.87 kB
+15:45:03.792	../dist/public/assets/PercentageChangeCalculator-BmLHA6s6.js                                       4.29 kB │ gzip:   1.54 kB
+15:45:03.792	../dist/public/assets/AudioToMP3-BZiXzMN0.js                                                       4.30 kB │ gzip:   1.77 kB
+15:45:03.792	../dist/public/assets/AdvancedTextShadow-BPypGiID.js                                               4.31 kB │ gzip:   1.64 kB
+15:45:03.792	../dist/public/assets/LCMHCFCalculator-b4C9bEMt.js                                                 4.34 kB │ gzip:   1.49 kB
+15:45:03.793	../dist/public/assets/HTMLBeautifier-scZVjbtW.js                                                   4.38 kB │ gzip:   1.79 kB
+15:45:03.793	../dist/public/assets/ImageUpscaler-B3VBJw7u.js                                                    4.40 kB │ gzip:   1.96 kB
+15:45:03.793	../dist/public/assets/TodoList-x9trXALu.js                                                         4.44 kB │ gzip:   1.93 kB
+15:45:03.793	../dist/public/assets/MarkdownEditor-CsNCFpM7.js                                                   4.45 kB │ gzip:   1.87 kB
+15:45:03.793	../dist/public/assets/RemoveDuplicateLines-BSX0DFsg.js                                             4.51 kB │ gzip:   1.94 kB
+15:45:03.793	../dist/public/assets/MP3Cutter-BssilukC.js                                                        4.52 kB │ gzip:   1.85 kB
+15:45:03.793	../dist/public/assets/MeanMedianModeCalculator-5h0radLN.js                                         4.54 kB │ gzip:   1.58 kB
+15:45:03.793	../dist/public/assets/CaseRandomizer-BkY1JKCb.js                                                   4.55 kB │ gzip:   1.83 kB
+15:45:03.793	../dist/public/assets/AudioNoiseRemover-CjIl4Ai8.js                                                4.59 kB │ gzip:   1.90 kB
+15:45:03.794	../dist/public/assets/HTMLTableGenerator-C17mmk8B.js                                               4.59 kB │ gzip:   1.99 kB
+15:45:03.794	../dist/public/assets/PalindromeChecker-BYm-UI-a.js                                                4.60 kB │ gzip:   1.92 kB
+15:45:03.794	../dist/public/assets/GIFCompressor-BBvFzbWh.js                                                    4.70 kB │ gzip:   1.92 kB
+15:45:03.794	../dist/public/assets/RandomNumberGenerator-a2eGRPDa.js                                            4.70 kB │ gzip:   1.72 kB
+15:45:03.794	../dist/public/assets/SimpleInterestCalculator-DVfoabIL.js                                         4.70 kB │ gzip:   1.55 kB
+15:45:03.794	../dist/public/assets/QuadraticSolver-pxd3HZDI.js                                                  4.71 kB │ gzip:   1.58 kB
+15:45:03.794	../dist/public/assets/HeightConverter-uI0SOGPB.js                                                  4.72 kB │ gzip:   1.59 kB
+15:45:03.794	../dist/public/assets/EMICalculator-CszAq-e-.js                                                    4.73 kB │ gzip:   1.58 kB
+15:45:03.794	../dist/public/assets/FileToBase64-DgTdTfJO.js                                                     4.78 kB │ gzip:   1.89 kB
+15:45:03.794	../dist/public/assets/ImageRotateTool-qgqS0iY0.js                                                  4.79 kB │ gzip:   2.08 kB
+15:45:03.794	../dist/public/assets/BMICalculator-Dup61UfI.js                                                    4.80 kB │ gzip:   1.97 kB
+15:45:03.795	../dist/public/assets/VideoCompressor-C2lJR_qo.js                                                  4.80 kB │ gzip:   1.98 kB
+15:45:03.795	../dist/public/assets/PercentageCalculator-BjPsDaUs.js                                             4.80 kB │ gzip:   1.39 kB
+15:45:03.795	../dist/public/assets/CSSMinifier-DWmm8e_f.js                                                      4.81 kB │ gzip:   2.08 kB
+15:45:03.795	../dist/public/assets/FlexboxPlayground-CEhrejAc.js                                                4.83 kB │ gzip:   1.70 kB
+15:45:03.795	../dist/public/assets/RandomCountryGenerator-COlrvF2N.js                                           4.86 kB │ gzip:   1.83 kB
+15:45:03.795	../dist/public/assets/CodeBeautifier-hDblA7FN.js                                                   4.88 kB │ gzip:   1.90 kB
+15:45:03.795	../dist/public/assets/AverageCalculator-BxdRClsd.js                                                4.90 kB │ gzip:   1.57 kB
+15:45:03.795	../dist/public/assets/CharacterMap-BCNpTLF9.js                                                     5.02 kB │ gzip:   2.42 kB
+15:45:03.795	../dist/public/assets/CharacterParagraphCounter-BtyzRvvM.js                                        5.02 kB │ gzip:   1.76 kB
+15:45:03.795	../dist/public/assets/FaviconGenerator-DWbbsiGO.js                                                 5.04 kB │ gzip:   1.86 kB
+15:45:03.795	../dist/public/assets/MorseCodeTranslator-DL9RaDgK.js                                              5.11 kB │ gzip:   1.99 kB
+15:45:03.795	../dist/public/assets/VideoToGIF-Ba1oYZBS.js                                                       5.13 kB │ gzip:   2.11 kB
+15:45:03.795	../dist/public/assets/UTMBuilder-DDh8gVSa.js                                                       5.13 kB │ gzip:   1.79 kB
+15:45:03.795	../dist/public/assets/Stopwatch-CEJeQdJG.js                                                        5.19 kB │ gzip:   1.87 kB
+15:45:03.795	../dist/public/assets/BackgroundRemover-C0Cuc4-y.js                                                5.28 kB │ gzip:   2.20 kB
+15:45:03.795	../dist/public/assets/CSSAnimationGenerator-CwkIGs0W.js                                            5.30 kB │ gzip:   1.86 kB
+15:45:03.796	../dist/public/assets/TipCalculator-C6n38Qfd.js                                                    5.35 kB │ gzip:   1.71 kB
+15:45:03.796	../dist/public/assets/HexRgbConverter-BgTTYHqj.js                                                  5.39 kB │ gzip:   1.82 kB
+15:45:03.796	../dist/public/assets/ScreenResolutionChecker-g9u6aTdM.js                                          5.39 kB │ gzip:   1.63 kB
+15:45:03.796	../dist/public/assets/BorderRadiusGenerator-DCgupfhe.js                                            5.42 kB │ gzip:   1.79 kB
+15:45:03.796	../dist/public/assets/TextDiff-B1GyNcOo.js                                                         5.43 kB │ gzip:   1.88 kB
+15:45:03.796	../dist/public/assets/TriangleAreaCalculator-hYk5FpU5.js                                           5.45 kB │ gzip:   1.72 kB
+15:45:03.796	../dist/public/assets/CompoundInterestCalculator-CqjRvp8P.js                                       5.50 kB │ gzip:   1.84 kB
+15:45:03.796	../dist/public/assets/JSONCSVConverter-DH4gqnMp.js                                                 5.54 kB │ gzip:   2.20 kB
+15:45:03.796	../dist/public/assets/CurrencyFormatter-5PNvY88q.js                                                5.55 kB │ gzip:   2.07 kB
+15:45:03.796	../dist/public/assets/OGPreview-Dvk5FaKt.js                                                        5.57 kB │ gzip:   1.64 kB
+15:45:03.796	../dist/public/assets/PNGtoJPG-i_3DRd5P.js                                                         5.61 kB │ gzip:   2.42 kB
+15:45:03.796	../dist/public/assets/BoxShadowGenerator-B5XefKKx.js                                               5.62 kB │ gzip:   1.97 kB
+15:45:03.797	../dist/public/assets/MortgageCalculator-BhPie7iN.js                                               5.73 kB │ gzip:   1.70 kB
+15:45:03.797	../dist/public/assets/CountdownTimer-9lqJBUUy.js                                                   5.74 kB │ gzip:   2.09 kB
+15:45:03.797	../dist/public/assets/DaysCalculator-DpKOzJms.js                                                   5.76 kB │ gzip:   1.73 kB
+15:45:03.797	../dist/public/assets/JSMinifier-C6SHqOyu.js                                                       5.80 kB │ gzip:   2.40 kB
+15:45:03.797	../dist/public/assets/TimerStopwatch-DTHql-8l.js                                                   5.98 kB │ gzip:   2.00 kB
+15:45:03.797	../dist/public/assets/TextCaseConverter-BfHOqkV5.js                                                5.99 kB │ gzip:   2.38 kB
+15:45:03.797	../dist/public/assets/QuotationGenerator-Dp9cZqM9.js                                               6.27 kB │ gzip:   2.04 kB
+15:45:03.797	../dist/public/assets/MetaTagGenerator-CxGAt6Px.js                                                 6.28 kB │ gzip:   2.13 kB
+15:45:03.797	../dist/public/assets/Sitemap-5Owr6P9J.js                                                          6.53 kB │ gzip:   2.12 kB
+15:45:03.797	../dist/public/assets/ReceiptGenerator-r5C7CK2J.js                                                 6.53 kB │ gzip:   2.30 kB
+15:45:03.797	../dist/public/assets/ExpenseTracker-Dupm3Jwv.js                                                   6.76 kB │ gzip:   2.24 kB
+15:45:03.797	../dist/public/assets/APISnippetBuilder-J0pHEOJd.js                                                6.82 kB │ gzip:   2.46 kB
+15:45:03.797	../dist/public/assets/LoanCalculator-CJffiWQW.js                                                   6.82 kB │ gzip:   1.88 kB
+15:45:03.798	../dist/public/assets/LongTailPagesSection-BwjtU4io.js                                             6.82 kB │ gzip:   1.86 kB
+15:45:03.798	../dist/public/assets/ExcelToPDF-BMBfKSMx.js                                                       6.89 kB │ gzip:   2.73 kB
+15:45:03.798	../dist/public/assets/ImageCropper-BE-N_ziK.js                                                     6.95 kB │ gzip:   2.48 kB
+15:45:03.798	../dist/public/assets/XLSXToCSVNoExcel-rnsB4QaK.js                                                 6.99 kB │ gzip:   2.74 kB
+15:45:03.798	../dist/public/assets/XLSXToCSVBulk-B61Yd7Vl.js                                                    7.00 kB │ gzip:   2.69 kB
+15:45:03.798	../dist/public/assets/RandomEmojiGenerator-CjuIrqCh.js                                             7.00 kB │ gzip:   3.49 kB
+15:45:03.798	../dist/public/assets/CalorieCalculator-T0gqkEG3.js                                                7.13 kB │ gzip:   2.44 kB
+15:45:03.798	../dist/public/assets/NumberSorter-CEvUfrIR.js                                                     7.30 kB │ gzip:   2.45 kB
+15:45:03.798	../dist/public/assets/XLSXToCSVFreeOnline-BCU_wX2D.js                                              7.30 kB │ gzip:   2.79 kB
+15:45:03.798	../dist/public/assets/Base64Encoder-CtdV-0xU.js                                                    7.31 kB │ gzip:   2.77 kB
+15:45:03.798	../dist/public/assets/HTMLtoPDF-DvehfxW_.js                                                        7.40 kB │ gzip:   2.77 kB
+15:45:03.798	../dist/public/assets/XLSXToCSVWithPreview-08TRiauT.js                                             7.44 kB │ gzip:   2.78 kB
+15:45:03.798	../dist/public/assets/UnitConverter-CnRz9Hm7.js                                                    7.55 kB │ gzip:   2.66 kB
+15:45:03.799	../dist/public/assets/RandomStringGenerator-LS_w5fZ4.js                                            7.56 kB │ gzip:   2.45 kB
+15:45:03.799	../dist/public/assets/ColorPicker-DOfK0M-n.js                                                      7.61 kB │ gzip:   2.77 kB
+15:45:03.799	../dist/public/assets/MatrixCalculator-CcIYZ6Jr.js                                                 7.69 kB │ gzip:   2.56 kB
+15:45:03.799	../dist/public/assets/BlogTag-Dq4OV4En.js                                                          7.70 kB │ gzip:   2.34 kB
+15:45:03.799	../dist/public/assets/PaySplitCalculator-CecBxu1r.js                                               7.92 kB │ gzip:   2.59 kB
+15:45:03.799	../dist/public/assets/XLSXEditWithoutExcel-XxVs0E9B.js                                             8.21 kB │ gzip:   2.23 kB
+15:45:03.799	../dist/public/assets/slider-CIu8r6nH.js                                                           8.22 kB │ gzip:   3.33 kB
+15:45:03.799	../dist/public/assets/ToolLayout-CXOf_b45.js                                                       8.24 kB │ gzip:   2.29 kB
+15:45:03.799	../dist/public/assets/BlogCategory-CTGBITaW.js                                                     8.38 kB │ gzip:   2.62 kB
+15:45:03.802	../dist/public/assets/ffmpeg-client-DkMEkKIK.js                                                    8.58 kB │ gzip:   3.11 kB
+15:45:03.802	../dist/public/assets/YouTubeThumbnailDownloaderOnline-CoPxd5Mf.js                                 8.71 kB │ gzip:   2.38 kB
+15:45:03.802	../dist/public/assets/YouTubeThumbnailDownloaderFree-Dq0cqMyO.js                                   8.73 kB │ gzip:   2.44 kB
+15:45:03.802	../dist/public/assets/CSVEditWithoutExcel-USjwCI4Y.js                                              8.80 kB │ gzip:   2.90 kB
+15:45:03.802	../dist/public/assets/RomanNumeralConverter-B8k8gy34.js                                            8.90 kB │ gzip:   2.64 kB
+15:45:03.803	../dist/public/assets/CSVConvertAndEdit-BGqlzD_T.js                                                8.98 kB │ gzip:   2.90 kB
+15:45:03.803	../dist/public/assets/CSVViewInBrowser-b2tYbuzA.js                                                 8.99 kB │ gzip:   2.82 kB
+15:45:03.803	../dist/public/assets/CSVViewLargeFiles-L4bs7OfR.js                                                9.09 kB │ gzip:   2.99 kB
+15:45:03.803	../dist/public/assets/PDFRotator-B2EAsDH1.js                                                       9.15 kB │ gzip:   2.84 kB
+15:45:03.803	../dist/public/assets/FractionCalculator--cXcTEs6.js                                               9.26 kB │ gzip:   2.83 kB
+15:45:03.803	../dist/public/assets/YouTubeThumbnailDownloaderChannels-BsjJwAtz.js                               9.33 kB │ gzip:   2.29 kB
+15:45:03.803	../dist/public/assets/XLSXViewLargeFiles-CVy9BxWW.js                                               9.35 kB │ gzip:   2.38 kB
+15:45:03.803	../dist/public/assets/URLEncoder-Bi1Lg_-l.js                                                       9.42 kB │ gzip:   3.30 kB
+15:45:03.803	../dist/public/assets/QRMakerFreeOnline-7gNGf9TF.js                                                9.47 kB │ gzip:   2.48 kB
+15:45:03.803	../dist/public/assets/CanonicalUrlGenerator-C7V211v_.js                                            9.74 kB │ gzip:   3.18 kB
+15:45:03.804	../dist/public/assets/QRMakerWiFi-BilpdIdC.js                                                      9.80 kB │ gzip:   2.63 kB
+15:45:03.804	../dist/public/assets/SlugGenerator-BSce1VJ6.js                                                   10.12 kB │ gzip:   3.33 kB
+15:45:03.804	../dist/public/assets/YouTubeThumbnailDownloaderBest-BO_8zcps.js                                  10.26 kB │ gzip:   2.51 kB
+15:45:03.804	../dist/public/assets/UsernameGenerator-0St2Yb1S.js                                               10.32 kB │ gzip:   3.32 kB
+15:45:03.804	../dist/public/assets/QRMakerLogo-DmmuRDFu.js                                                     10.34 kB │ gzip:   2.60 kB
+15:45:03.804	../dist/public/assets/useQuery-2YfCis1J.js                                                        10.37 kB │ gzip:   3.66 kB
+15:45:03.808	../dist/public/assets/SitemapXmlGenerator-DxzlrpkC.js                                             10.38 kB │ gzip:   3.43 kB
+15:45:03.808	../dist/public/assets/XLSXViewInBrowser-BXENuwZk.js                                               10.44 kB │ gzip:   2.60 kB
+15:45:03.808	../dist/public/assets/XLSXConvertAndEdit-pmH4Wmfa.js                                              10.48 kB │ gzip:   2.61 kB
+15:45:03.808	../dist/public/assets/TextCleaner-zPYSFujm.js                                                     10.54 kB │ gzip:   2.99 kB
+15:45:03.808	../dist/public/assets/MetaRobotsTagGenerator-DA1GK-Ag.js                                          10.57 kB │ gzip:   3.29 kB
+15:45:03.808	../dist/public/assets/ConvertTextFileToPdfOnline-IHIWvbD6.js                                      10.60 kB │ gzip:   2.87 kB
+15:45:03.808	../dist/public/assets/QRMakerBusinessCards-BKex7gjG.js                                            10.76 kB │ gzip:   2.95 kB
+15:45:03.808	../dist/public/assets/TextToPdfEmailConverter-Dr5uH0K3.js                                         11.11 kB │ gzip:   3.04 kB
+15:45:03.808	../dist/public/assets/ConvertDocumentTextToPdfFormatting-4IG18IwJ.js                              11.33 kB │ gzip:   3.00 kB
+15:45:03.808	../dist/public/assets/RobotsTextGenerator-D1ovENk8.js                                             11.37 kB │ gzip:   3.44 kB
+15:45:03.809	../dist/public/assets/RegexTester-PdvQg0hN.js                                                     11.46 kB │ gzip:   4.19 kB
+15:45:03.809	../dist/public/assets/QRMakerEvents-DX_1a535.js                                                   11.47 kB │ gzip:   3.13 kB
+15:45:03.809	../dist/public/assets/OpenGraphTagGenerator-0xpRySQ9.js                                           11.57 kB │ gzip:   3.62 kB
+15:45:03.809	../dist/public/assets/QRMakerSocialMedia-Cj2l-TD6.js                                              11.64 kB │ gzip:   3.00 kB
+15:45:03.809	../dist/public/assets/QRMakerProductLinks-CcZaZpZq.js                                             11.72 kB │ gzip:   3.25 kB
+15:45:03.809	../dist/public/assets/TextDiffer-Dfge2oah.js                                                      11.75 kB │ gzip:   4.43 kB
+15:45:03.809	../dist/public/assets/TimeDifferenceCalculator-XHLewnb6.js                                        11.81 kB │ gzip:   3.40 kB
+15:45:03.809	../dist/public/assets/Privacy-CThI1q_W.js                                                         11.87 kB │ gzip:   3.18 kB
+15:45:03.809	../dist/public/assets/LongTailToolPage-DLTHcoCP.js                                                11.92 kB │ gzip:   2.82 kB
+15:45:03.809	../dist/public/assets/About-DokNw4ti.js                                                           12.07 kB │ gzip:   2.73 kB
+15:45:03.809	../dist/public/assets/JPGtoPNG-9zqfquB-.js                                                        12.30 kB │ gzip:   3.97 kB
+15:45:03.809	../dist/public/assets/scroll-area-CdOgDSuP.js                                                     12.49 kB │ gzip:   3.93 kB
+15:45:03.809	../dist/public/assets/TextSummarizer-0tUa20PD.js                                                  13.01 kB │ gzip:   4.66 kB
+15:45:03.809	../dist/public/assets/BulkConvertTextFilesToPdf-BYWfq2TO.js                                       13.02 kB │ gzip:   3.65 kB
+15:45:03.809	../dist/public/assets/Blogs-grnqQz_K.js                                                           13.18 kB │ gzip:   3.39 kB
+15:45:03.810	../dist/public/assets/BlogEditor-Urgh6I5g.js                                                      13.39 kB │ gzip:   4.08 kB
+15:45:03.810	../dist/public/assets/HashGenerator-DZDZkdPj.js                                                   13.64 kB │ gzip:   4.68 kB
+15:45:03.810	../dist/public/assets/QRMakerDynamic-D71hMicf.js                                                  13.74 kB │ gzip:   3.08 kB
+15:45:03.810	../dist/public/assets/InstagramProfilePictureDownloader-96tSzTtO.js                               14.08 kB │ gzip:   4.45 kB
+15:45:03.810	../dist/public/assets/SpeechToText-BVdwo-MF.js                                                    14.51 kB │ gzip:   4.22 kB
+15:45:03.810	../dist/public/assets/YouTubeThumbnailDownloader-DFqiZXJw.js                                      14.96 kB │ gzip:   4.87 kB
+15:45:03.810	../dist/public/assets/JSONFormatter-DR3_EYPq.js                                                   15.01 kB │ gzip:   4.60 kB
+15:45:03.810	../dist/public/assets/TextToSpeech-CunOZ947.js                                                    15.09 kB │ gzip:   4.20 kB
+15:45:03.810	../dist/public/assets/ExcelViewer-BBWJkee1.js                                                     15.68 kB │ gzip:   5.78 kB
+15:45:03.810	../dist/public/assets/QADashboard-DbmEGyTU.js                                                     16.08 kB │ gzip:   4.98 kB
+15:45:03.810	../dist/public/assets/WordCounter-BGXPuwrP.js                                                     16.11 kB │ gzip:   5.22 kB
+15:45:03.810	../dist/public/assets/XLSXViewer-Cw2CRG8z.js                                                      18.33 kB │ gzip:   6.20 kB
+15:45:03.810	../dist/public/assets/TextToPDF-D8yhE6Go.js                                                       19.40 kB │ gzip:   6.00 kB
+15:45:03.811	../dist/public/assets/papaparse.min-DXZAIxjm.js                                                   19.42 kB │ gzip:   7.21 kB
+15:45:03.811	../dist/public/assets/BlogPost-DSO63VJE.js                                                        19.44 kB │ gzip:   5.42 kB
+15:45:03.811	../dist/public/assets/PDFWatermarkRemover-Dlzc-T3h.js                                             19.63 kB │ gzip:   6.21 kB
+15:45:03.811	../dist/public/assets/PDFPasswordRemover-ZI5yBfgW.js                                              19.74 kB │ gzip:   6.40 kB
+15:45:03.811	../dist/public/assets/TextToFile-CbrdRyjq.js                                                      19.94 kB │ gzip:   6.40 kB
+15:45:03.811	../dist/public/assets/select-DHW2d4T_.js                                                          21.17 kB │ gzip:   7.34 kB
+15:45:03.811	../dist/public/assets/PDFToImage-DyE_Q8fr.js                                                      21.27 kB │ gzip:   6.51 kB
+15:45:03.811	../dist/public/assets/dropdown-menu-Cl2O3Vg2.js                                                   22.00 kB │ gzip:   6.46 kB
+15:45:03.811	../dist/public/assets/ImageResizer-C0mei0f5.js                                                    22.12 kB │ gzip:   6.50 kB
+15:45:03.811	../dist/public/assets/purify.es-sOfw8HaZ.js                                                       22.67 kB │ gzip:   8.79 kB
+15:45:03.811	../dist/public/assets/PDFCompressor-DppruMSG.js                                                   23.13 kB │ gzip:   7.06 kB
+15:45:03.811	../dist/public/assets/ImageToPDF-tpgiusj1.js                                                      23.16 kB │ gzip:   6.88 kB
+15:45:03.811	../dist/public/assets/TextEncryptDecrypt-C7wN3Kgu.js                                              23.16 kB │ gzip:   6.18 kB
+15:45:03.811	../dist/public/assets/PDFSplitter-CZoB1Zx_.js                                                     24.06 kB │ gzip:   7.47 kB
+15:45:03.811	../dist/public/assets/XLSXToCSVConverter-Bd2RbEqx.js                                              25.10 kB │ gzip:   7.74 kB
+15:45:03.811	../dist/public/assets/PDFMerger-Comdn1rP.js                                                       25.87 kB │ gzip:   7.53 kB
+15:45:03.811	../dist/public/assets/ImageCompressor-BJWeJsBF.js                                                 26.75 kB │ gzip:   9.01 kB
+15:45:03.812	../dist/public/assets/PasswordGenerator-CRi4vZbN.js                                               27.19 kB │ gzip:   7.03 kB
+15:45:03.812	../dist/public/assets/CSVViewer-DljbsnFS.js                                                       29.17 kB │ gzip:   9.03 kB
+15:45:03.812	../dist/public/assets/TempMail-C9VmKboP.js                                                        30.74 kB │ gzip:   8.70 kB
+15:45:03.812	../dist/public/assets/PDFWatermarkAdder-B1zwVeb4.js                                               34.96 kB │ gzip:  10.04 kB
+15:45:03.812	../dist/public/assets/marked.esm-BD8NA6GV.js                                                      40.40 kB │ gzip:  12.46 kB
+15:45:03.812	../dist/public/assets/JSONYAMLConverter-CDNl-_t_.js                                               45.13 kB │ gzip:  15.54 kB
+15:45:03.814	../dist/public/assets/toolClusters-B728bb_x.js                                                    48.62 kB │ gzip:  14.33 kB
+15:45:03.814	../dist/public/assets/InvoiceGenerator-Bh_wDu5S.js                                                48.79 kB │ gzip:  12.94 kB
+15:45:03.814	../dist/public/assets/browser-image-compression-CBVwGt6Q.js                                       53.02 kB │ gzip:  21.05 kB
+15:45:03.814	../dist/public/assets/random-data-BCNKlD2b.js                                                     57.24 kB │ gzip:  14.65 kB
+15:45:03.814	../dist/public/assets/table-C4H1By__.js                                                           62.54 kB │ gzip:  17.54 kB
+15:45:03.814	../dist/public/assets/QRMaker-Dxuy0QpN.js                                                         69.83 kB │ gzip:  22.26 kB
+15:45:03.814	../dist/public/assets/BarcodeGenerator-xf7vHD1k.js                                                78.19 kB │ gzip:  16.56 kB
+15:45:03.814	../dist/public/assets/index-HrU50xhG.js                                                          102.52 kB │ gzip:  25.63 kB
+15:45:03.814	../dist/public/assets/Contact-D98uEeQq.js                                                        105.03 kB │ gzip:  30.02 kB
+15:45:03.814	../dist/public/assets/ExifRemover-DHEP1JCU.js                                                    119.52 kB │ gzip:  37.70 kB
+15:45:03.815	../dist/public/assets/index.es-uEDqZEkQ.js                                                       150.60 kB │ gzip:  51.52 kB
+15:45:03.815	../dist/public/assets/xlsx-hH4Yd4v-.js                                                           424.65 kB │ gzip: 141.88 kB
+15:45:03.815	../dist/public/assets/pdf-BFwGJqUS.js                                                            445.03 kB │ gzip: 130.38 kB
+15:45:03.815	../dist/public/assets/file-parsing-utils-D8wyJlHk.js                                             494.44 kB │ gzip: 129.63 kB
+15:45:03.815	../dist/public/assets/PDFButton-D0QfQcSX.js                                                      521.23 kB │ gzip: 207.39 kB
+15:45:03.815	../dist/public/assets/html2pdf-BELd-RQC.js                                                       766.78 kB │ gzip: 218.80 kB
+15:45:03.815	../dist/public/assets/HEICtoJPG-BYD28jjm.js                                                    1,358.49 kB │ gzip: 343.39 kB
+15:45:03.815	../dist/public/assets/index-BFR1yGWh.js                                                        1,434.70 kB │ gzip: 336.54 kB
+15:45:03.815	../dist/public/assets/PasswordStrengthChecker-B5R72Ic1.js                                      1,731.12 kB │ gzip: 805.25 kB
+15:45:03.815	
+15:45:03.815	✓ built in 20.95s
+15:45:03.815	(!) Some chunks are larger than 500 kB after minification. Consider:
+15:45:03.815	- Using dynamic import() to code-split the application
+15:45:03.815	- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+15:45:03.815	- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+15:45:03.918	
+15:45:03.918	  dist/index.js  26.3kb
+15:45:03.918	
+15:45:03.918	⚡ Done in 10ms
+15:45:03.940	Finished
+15:45:04.781	Checking for configuration in a Wrangler configuration file (BETA)
+15:45:04.781	
+15:45:04.782	Found wrangler.json file. Reading build configuration...
+15:45:04.786	pages_build_output_dir: dist/public
+15:45:04.786	Build environment variables: (none found)
+15:45:05.887	Successfully read wrangler.toml file.
+15:45:05.888	Found _worker.js in output directory. Uploading.
+15:45:05.894	 ⛅️ wrangler 3.101.0
+15:45:05.894	-------------------
+15:45:06.739	✨ Compiled Worker successfully
+15:45:07.830	Validating asset output directory
+15:45:10.813	Deploying your site to Cloudflare's global network...
+15:45:12.838	Parsed 0 valid redirect rules.
+15:45:12.839	Found invalid redirect lines:
+15:45:12.839	  - #1: /*    /index.html   200
+15:45:12.839	    Infinite loop detected in this rule and has been ignored. This will cause a redirect to strip `.html` or `/index` and end up triggering this rule again. Please fix or remove this rule to silence this warning.
+15:45:14.232	Uploading... (344/344)
+15:45:14.233	✨ Success! Uploaded 0 files (344 already uploaded) (0.45 sec)
+15:45:14.233	
+15:45:14.574	✨ Upload complete!
+15:45:18.693	Success: Assets published!
+15:45:22.071	Success: Your site was deployed!
+Support
+System status
+Careers
+Terms of Use
+Report Security Issues
+Privacy Policy
+A blue and white pill with a checkmark and an x, representing privacy choicesCookie Preferences
+© 2026 Cloudflare, Inc.
