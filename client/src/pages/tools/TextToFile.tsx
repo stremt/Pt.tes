@@ -21,7 +21,7 @@ import {
   FileCode2, Info, BarChart3, Rocket, Heart, Search, 
   Sparkles, UserCheck, Mail, Database, Terminal, 
   FileJson, Layout, BookOpen, PenTool, ClipboardList,
-  Edit3, Save, FileType, Settings, Lock, Share2
+  Edit3, Save, FileType, Settings, Lock, Share2, ArrowRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -430,12 +430,6 @@ export default function TextToFile() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </>
-  );
-}
-
         </div>
       </div>
     </>

@@ -19,6 +19,8 @@ import { VersionUpdatePopup } from "@/components/VersionUpdatePopup";
 import Home from "@/pages/Home";
 import Tools from "@/pages/Tools";
 import NotFound from "@/pages/not-found";
+import OnlineNotepad from "@/pages/tools/longtail/text-to-file/OnlineNotepad";
+import PlainTextEditor from "@/pages/tools/longtail/text-to-file/PlainTextEditor";
 import PrivacyCategory from "@/pages/PrivacyCategory";
 import TextCategory from "@/pages/TextCategory";
 import ImageCategory from "@/pages/ImageCategory";
@@ -523,6 +525,8 @@ function Router() {
         <Route path="/tools/emi-calculator" component={EMICalculator} />
         <Route path="/tools/percentage-calculator" component={PercentageCalculator} />
         <Route path="/tools/age-calculator" component={AgeCalculator} />
+        <Route path="/online-notepad" component={OnlineNotepad} />
+        <Route path="/plain-text-editor" component={PlainTextEditor} />
         <Route path="/tools/time-difference-calculator" component={TimeDifferenceCalculator} />
         <Route path="/tools/time-difference-calculator/payroll-billing" component={TimeDifferencePayrollBilling} />
         <Route path="/tools/time-difference-calculator/online-duration" component={TimeDifferenceOnlineDuration} />
