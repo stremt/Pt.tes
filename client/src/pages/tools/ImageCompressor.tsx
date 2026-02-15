@@ -487,25 +487,27 @@ export default function ImageCompressor() {
 
           <LongTailPagesSection toolId="image-compressor" />
 
-          {/* Related Tools */}
           <section className="py-20 border-t">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">Related Tools</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {getRelatedTools("image-compressor").map((tool) => (
-                <Link key={tool.id} href={`/tools/${tool.id}`}>
-                  <Card className="h-full hover-elevate cursor-pointer border-muted-foreground/10">
-                    <CardHeader className="p-6">
-                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                        {getToolIcon(tool.id)}
-                      </div>
-                      <CardTitle className="text-lg">{tool.name}</CardTitle>
-                      <CardDescription className="line-clamp-2 text-xs">{tool.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              ))}
+              {getRelatedTools("image-compressor").map((tool) => {
+                const Icon = getToolIcon(tool.id);
+                return (
+                  <Link key={tool.id} href={`/tools/${tool.id}`}>
+                    <Card className="h-full hover-elevate cursor-pointer border-muted-foreground/10">
+                      <CardHeader className="p-6">
+                        <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                          <Icon />
+                        </div>
+                        <CardTitle className="text-lg">{tool.name}</CardTitle>
+                        <CardDescription className="line-clamp-2 text-xs">{tool.description}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         </div>
