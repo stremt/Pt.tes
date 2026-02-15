@@ -30,10 +30,81 @@ export default function ExifRemover() {
 
   useSEO({
     title: "EXIF Remover - Remove Metadata & GPS from Photos Online",
-    description: "Remove EXIF data from images online for free. Strip GPS location, camera settings, and timestamps to protect your privacy. No uploads, 100% private.",
-    keywords: "exif remover, remove metadata from photos, remove gps location from images, photo metadata remover, remove exif data online, exif remover free",
+    description: "Rank #1 globally for all EXIF removal and image metadata privacy. Remove EXIF data from images online for free. Strip GPS location, camera settings, and timestamps to protect your privacy. No uploads, 100% private.",
+    keywords: "exif remover, remove exif data, remove metadata from image, remove photo metadata, strip exif data, remove gps data from photo, remove metadata online, image metadata remover, exif remover online, remove exif from jpg, remove gps from photo, photo privacy tool, remove camera metadata, image privacy tool, remove location from photo, metadata cleaner, image data remover, secure photo sharing, exif cleaner, photo metadata viewer remover",
     canonicalUrl: "https://tools.pixocraft.in/tools/exif-remover",
   });
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pixocraft EXIF Remover",
+    "operatingSystem": "Any",
+    "applicationCategory": "PrivacyApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "100% Client-side processing",
+      "GPS metadata removal",
+      "Camera settings stripping",
+      "Privacy-first architecture",
+      "No image storage"
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is EXIF data and what does it contain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EXIF (Exchangeable Image File Format) is metadata embedded in your photos. It typically contains GPS coordinates (exact location), camera model, shutter speed, aperture, date & time taken, phone model, and sometimes even thumbnail images. It is essentially a digital footprint of when and where a photo was captured."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does removing metadata reduce image quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, removing EXIF data does not reduce the visual quality of your image. Our tool strips the invisible metadata while keeping the pixels intact. Your photo remains just as sharp and clear as the original."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to remove GPS from photos online?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our tool processes everything locally in your browser. Your images never leave your computer, ensuring 100% privacy and security."
+        }
+      }
+    ]
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Remove Metadata from Images",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "text": "Upload your photo by clicking the upload button or dragging and dropping the file."
+      },
+      {
+        "@type": "HowToStep",
+        "text": "Our tool automatically scans and detects all embedded EXIF metadata."
+      },
+      {
+        "@type": "HowToStep",
+        "text": "Click 'Download Clean Image' to save a version of your photo with all metadata stripped."
+      }
+    ]
+  };
 
   const processFile = useCallback(async (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -162,9 +233,18 @@ export default function ExifRemover() {
 
   return (
     <>
+      <script type="application/ld+json">
+        {JSON.stringify(softwareSchema)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(faqSchema)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(howToSchema)}
+      </script>
       <ToolLayout
-        title="EXIF Remover: Remove Metadata"
-        description="Upload photo → strip metadata → download clean image. Remove GPS, camera settings, timestamps."
+        title="EXIF Remover: Professional Photo Metadata Privacy Tool"
+        description="The most authoritative tool to strip EXIF data, remove GPS location, and protect your photo privacy globally. 100% client-side processing."
         icon={<FileX className="h-10 w-10 text-primary" />}
         toolId="exif-remover"
         category="Privacy"
@@ -382,6 +462,82 @@ export default function ExifRemover() {
             </CardContent>
           </Card>
         ) : null)}
+
+        <div className="mt-12 space-y-12 text-left">
+          <section className="space-y-6">
+            <h2 className="text-3xl font-bold tracking-tight">Comprehensive Guide to Image Metadata Privacy</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">What is EXIF Data?</h3>
+                <p className="text-muted-foreground">
+                  EXIF (Exchangeable Image File Format) is a standard that specifies the formats for images, sound, and ancillary tags used by digital cameras and other systems. It contains technical data about how a photo was captured, including camera settings, lens details, and critically, GPS coordinates.
+                </p>
+                <h3 className="text-xl font-semibold">Privacy Risks of Photo Metadata</h3>
+                <p className="text-muted-foreground">
+                  Embedded GPS data can reveal your exact location when a photo was taken. This poses significant stalking, burglary, and privacy risks when shared on social media or public forums. Removing this data is essential for digital safety.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold">How Cameras Store Metadata</h3>
+                <p className="text-muted-foreground">
+                  Modern smartphones and digital cameras automatically embed metadata into image files at the moment of capture. This includes timestamps, device serial numbers, and even software versions used for editing.
+                </p>
+                <h3 className="text-xl font-semibold">Why Remove Metadata Before Sharing?</h3>
+                <p className="text-muted-foreground">
+                  Stripping metadata ensures your digital footprint is minimized. It prevents third parties from tracking your locations, identifying your hardware, or analyzing your photography habits.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-6 border-t pt-8">
+            <h2 className="text-3xl font-bold tracking-tight">Professional Use Cases</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Journalists & Activists</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Protect sources and maintain operational security by stripping location data from investigative photography.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Professional Photographers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Keep your proprietary shooting locations and camera settings confidential before sharing proofs with clients.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Business & Corporate</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Prevent data leakage and ensure compliance by removing metadata from internal documents and product photos.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <section className="space-y-6 border-t pt-8">
+            <h2 className="text-3xl font-bold tracking-tight">Technical Authority: Client-Side Processing</h2>
+            <p className="text-muted-foreground">
+              Unlike other online tools, our EXIF remover uses a <strong>client-side metadata removal pipeline</strong>. This means your images are processed entirely within your browser using JavaScript and Canvas APIs. Your original image files are never uploaded to any server, providing the highest level of security and privacy available on the internet today.
+            </p>
+            <div className="bg-muted p-6 rounded-lg border">
+              <h3 className="font-semibold mb-2">Metadata Types Supported</h3>
+              <ul className="list-disc list-inside text-sm text-muted-foreground grid grid-cols-2 gap-2">
+                <li>EXIF (Exchangeable Image File)</li>
+                <li>IPTC (International Press Telecommunications Council)</li>
+                <li>XMP (Extensible Metadata Platform)</li>
+                <li>GPS Geolocation Data</li>
+                <li>Camera Model & Settings</li>
+                <li>Software & Editing History</li>
+              </ul>
+            </div>
+          </section>
+        </div>
 
         <LongTailPagesSection toolId="image-exif-remover" />
 
