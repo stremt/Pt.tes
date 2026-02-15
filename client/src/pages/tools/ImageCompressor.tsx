@@ -492,7 +492,7 @@ export default function ImageCompressor() {
                   <Card className="h-full hover-elevate cursor-pointer border-muted-foreground/10">
                     <CardHeader className="p-6">
                       <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                        {getToolIcon(tool.id, "h-6 w-6 text-primary")}
+                        {getToolIcon(tool.id)}
                       </div>
                       <CardTitle className="text-lg">{tool.name}</CardTitle>
                       <CardDescription className="line-clamp-2 text-xs">{tool.description}</CardDescription>
