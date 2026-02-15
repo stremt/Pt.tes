@@ -242,14 +242,20 @@ export default function ImageCompressor() {
                         <CardTitle className="text-lg">Real-Time Comparison</CardTitle>
                         <CardDescription>Visualizing {quality}% quality setting</CardDescription>
                       </div>
-                      <Button variant="ghost" size="icon" onClick={() => setOriginalFile(null)}>
+                      <Button variant="ghost" size="icon" onClick={() => {
+                        setOriginalFile(null);
+                        setCompressedFile(null);
+                        setOriginalPreview("");
+                        setCompressedPreview("");
+                        setSliderEnabled(false);
+                      }}>
                         <X className="h-4 w-4" />
                       </Button>
                     </CardHeader>
                     <CardContent className="p-0">
-                      {compressedPreview ? (
-                        <div className="relative aspect-video bg-muted flex items-center justify-center overflow-hidden">
-                          {sliderEnabled ? (
+                      <div className="relative w-full aspect-video bg-muted flex items-center justify-center overflow-hidden">
+                        {compressedPreview ? (
+                          sliderEnabled ? (
                             <ReactCompareSlider
                               className="w-full h-full"
                               itemOne={<ReactCompareSliderImage src={originalPreview} alt="Original" />}
@@ -263,14 +269,14 @@ export default function ImageCompressor() {
                                 Click to Compare Before/After
                               </Button>
                             </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="aspect-video flex items-center justify-center text-muted-foreground">
-                          <ImageIcon className="w-12 h-12 mb-2 opacity-20" />
-                          <p>Processing image for comparison...</p>
-                        </div>
-                      )}
+                          )
+                        ) : (
+                          <div className="flex flex-col items-center justify-center text-muted-foreground p-12">
+                            <ImageIcon className="w-12 h-12 mb-4 opacity-20 animate-pulse" />
+                            <p className="text-sm font-medium">Preparing optimized preview...</p>
+                          </div>
+                        )}
+                      </div>
                     </CardContent>
                     <CardFooter className="bg-muted/30 grid grid-cols-2 gap-4 py-4 border-t">
                       <div className="text-center">
