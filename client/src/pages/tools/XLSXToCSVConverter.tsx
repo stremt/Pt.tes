@@ -31,132 +31,42 @@ export default function XLSXToCSVConverter() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Excel to CSV Converter Online - Convert XLSX to CSV Free",
-    description: "Convert Excel XLSX to CSV instantly with preview. No signup, offline processing, completely free. Export spreadsheets in seconds professionally.",
-    keywords: "convert xlsx to csv, excel to csv converter, xlsx converter, online converter free",
+    title: "XLSX to CSV Converter – Convert Excel to CSV Online Free",
+    description: "Best free XLSX to CSV converter online. Convert Excel files (.xlsx, .xls, .xlsm) to CSV instantly without Excel. 100% client-side, secure, and fast for large files.",
+    keywords: "xlsx to csv, xlsx to csv converter, convert excel to csv, excel to csv converter, convert xlsx to csv online, xlsx to csv online free, excel to csv free, excel to csv online, convert excel file to csv, excel file converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/xlsx-to-csv-converter",
   });
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const faqs = [
+    { question: "What is XLSX to CSV conversion?", answer: "XLSX to CSV conversion is the process of transforming a modern Microsoft Excel XML-based spreadsheet (.xlsx) into a plain text format where values are separated by commas. This makes data more portable and easier to import into databases, Python scripts, or other data analysis tools." },
+    { question: "How to convert XLSX to CSV without Excel?", answer: "You can convert XLSX to CSV without Excel using our free online converter. Simply upload your file, and our tool processes it entirely in your browser using JavaScript, meaning you don't need any office software installed." },
+    { question: "Is this Excel to CSV converter secure?", answer: "Yes, it is 100% secure. Our tool uses client-side processing, which means your files are never uploaded to our servers. All data stays on your local machine, making it perfect for sensitive enterprise data." },
+    { question: "Does it support large Excel files?", answer: "Yes, our converter is optimized for performance and can handle large datasets. Since it uses your browser's memory, it can process files with hundreds of thousands of rows quickly without server-side timeouts." },
+    { question: "Can I convert .xls and .xlsm files too?", answer: "Absolutely. We support the older .xls format as well as macro-enabled .xlsm files. All these can be converted to standard CSV format in seconds." },
+    { question: "Will I lose formatting or formulas during conversion?", answer: "CSV is a plain text format, so it only preserves the values currently displayed in the cells. Formulas, cell colors, fonts, and multiple sheets are not supported by the CSV standard." },
+    { question: "Is it compatible with Python Pandas or databases?", answer: "Yes, the generated CSV follows standard encoding (UTF-8) and formatting, making it perfectly compatible with Python Pandas (pd.read_csv), MySQL LOAD DATA, PostgreSQL COPY, and Shopify imports." },
+    { question: "Does it support Unicode and special characters?", answer: "Yes, our tool handles Unicode characters perfectly, ensuring that international data and special symbols are preserved correctly in the CSV output." },
+    { question: "Can I convert multiple sheets at once?", answer: "Currently, our tool converts the first active sheet. For multi-sheet workbooks, we recommend saving the specific sheet you need as a separate file or converting them one by one." },
+    { question: "Is there a limit on the number of conversions?", answer: "No, there are no limits. You can convert as many files as you need, completely free of charge, with no registration required." },
+    { question: "How does this tool compare to desktop software?", answer: "Unlike heavy desktop software, our online converter is instant, requires no installation, and works on any operating system (Windows, Mac, Linux, ChromeOS)." },
+    { question: "Can I use this tool offline?", answer: "Yes. Once the page is loaded, the conversion logic runs entirely in your browser. You can disconnect from the internet and continue converting files securely." },
+    { question: "What delimiter does the output use?", answer: "The tool uses the standard comma (,) as a delimiter. If you need a semicolon or tab, you can easily use our CSV Editor to change the format after conversion." },
+    { question: "Is it mobile-friendly?", answer: "Yes, you can convert Excel files to CSV on your smartphone or tablet just as easily as on a desktop." },
+    { question: "Do you store my data for analytics?", answer: "No. We prioritize your privacy. We do not track the contents of your files, nor do we store any data on our servers." }
+  ];
 
-    setError("");
-    setCSVData("");
-    
-    if (!file.name.match(/\.(xlsx|xls|xlsm)$/i)) {
-      setError("Please upload a valid Excel file (.xlsx, .xls, or .xlsm)");
-      return;
-    }
+  const howItWorks = [
+    { step: 1, title: "Upload Excel File", description: "Select your .xlsx, .xls, or .xlsm file. Our tool handles all modern and legacy Excel formats instantly." },
+    { step: 2, title: "Instant Processing", description: "Your file is converted locally in your browser. No data is ever uploaded to a server, ensuring 100% privacy." },
+    { step: 3, title: "Preview & Download", description: "See a live preview of your data and download your clean CSV file ready for import or analysis." }
+  ];
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      try {
-        const data = event.target?.result;
-        const workbook = XLSX.read(data, { type: "array" });
-        
-        const firstSheetName = workbook.SheetNames[0];
-        if (!firstSheetName) {
-          setError("No sheets found in the workbook");
-          return;
-        }
-        
-        const worksheet = workbook.Sheets[firstSheetName];
-        const csv = XLSX.utils.sheet_to_csv(worksheet);
-        setCSVData(csv);
-        setFileName(`${file.name.replace(/\.[^/.]+$/, "")}.csv`);
-        setSheetName(firstSheetName);
-        toast({
-          title: "Success",
-          description: "File converted successfully!",
-        });
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to convert file");
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  };
-
-  const handlePasteCSV = () => {
-    if (!pastedCSV.trim()) {
-      setError("Please paste some CSV content");
-      return;
-    }
-    setCSVData(pastedCSV);
-    setFileName("pasted_data.csv");
-    setSheetName("Pasted Data");
-    setError("");
-    toast({
-      title: "Success",
-      description: "CSV data loaded successfully!",
-    });
-  };
-
-  const downloadCSV = () => {
-    if (!csvData) return;
-    
-    const element = document.createElement("a");
-    element.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csvData));
-    element.setAttribute("download", fileName);
-    element.style.display = "none";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    toast({
-      title: "Success",
-      description: "CSV file downloaded!",
-    });
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(csvData);
-    toast({
-      title: "Copied",
-      description: "CSV content copied to clipboard!",
-    });
-  };
-
-  const handleClear = () => {
-    setCSVData("");
-    setFileName("");
-    setError("");
-    setSheetName("");
-    setPastedCSV("");
-  };
-
-  const previewRows = csvData.split("\n").slice(0, 15);
-
-  return (
-    <>
-      <StructuredData data={generateBreadcrumbSchema()} />
-      <ToolLayout
-        title="XLSX to CSV Converter"
-        description="Convert your Excel spreadsheets to CSV format quickly and securely. This tool helps professionals, students, and developers transform complex XLSX files into portable CSV data for easy analysis and integration."
-        icon={<FileSpreadsheet className="h-10 w-10 text-primary" />}
-        toolId="xlsx-to-csv-converter"
-        category="developer"
-        howItWorks={[
-          { step: 1, title: "Upload or Paste", description: "Select your Excel file or paste CSV content directly." },
-          { step: 2, title: "Convert or View", description: "XLSX files are automatically converted to CSV format." },
-          { step: 3, title: "Download or Edit", description: "Download your CSV file or copy the content to edit." },
-        ]}
-        benefits={[
-          { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Quick Conversion", description: "Convert Excel files to CSV instantly without any waiting." },
-          { icon: <Eye className="h-6 w-6 text-primary" />, title: "Preview Data", description: "See the first 15 rows before downloading to verify the conversion." },
-          { icon: <RotateCcw className="h-6 w-6 text-primary" />, title: "100% Offline", description: "All processing happens locally. Your files never leave your browser." },
-        ]}
-        faqs={[
-          { question: "Is my Excel file uploaded to any server?", answer: "No. The conversion happens entirely on your device using your browser. Your file is never sent to any server and is never stored." },
-          { question: "Why use CSV instead of Excel?", answer: "CSV is a universal format that works with almost any application—databases, spreadsheet programs, data analytics tools, and programming languages. It's simpler and more portable than Excel." },
-          { question: "What Excel formats can I convert?", answer: "We support .xlsx (modern Excel), .xls (older Excel), and .xlsm (Excel with macros). Simply upload any of these formats." },
-          { question: "What if my Excel file has multiple sheets?", answer: "The first sheet in your workbook is automatically converted to CSV. To convert other sheets, open your file in Excel and save each sheet separately, then convert them one at a time." },
-          { question: "Are there file size restrictions?", answer: "No strict limit. However, very large files (over 100MB) may be slow to process depending on your device's memory. Most files convert in seconds." },
-          { question: "Does the converter keep Excel formatting and formulas?", answer: "CSV format only preserves cell values and text. Excel formatting like colors, fonts, merged cells, and formulas are not included in the CSV output." },
-          { question: "Can I use this tool on my phone?", answer: "Yes, the converter works on smartphones, tablets, and computers. Just open it in any web browser and use the same way." },
-          { question: "Do I need to create an account or sign in?", answer: "No account needed. The tool is free and works immediately without any signup, registration, or login." },
-        ]}
-      >
+  const benefits = [
+    { icon: <FileSpreadsheet className="h-6 w-6 text-primary" />, title: "Enterprise Grade", description: "High-performance processing for large datasets and complex workbooks." },
+    { icon: <Eye className="h-6 w-6 text-primary" />, title: "Data Integrity", description: "Preserves values and Unicode characters perfectly for reliable data migration." },
+    { icon: <RotateCcw className="h-6 w-6 text-primary" />, title: "Privacy First", description: "100% client-side. Your sensitive business data never leaves your device." },
+    { icon: <Upload className="h-6 w-6 text-primary" />, title: "Zero Software", description: "The best way to convert Excel to CSV without installing heavy office suites." }
+  ];
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Tab Switcher */}
           <div className="flex gap-2 border-b">
@@ -313,100 +223,181 @@ export default function XLSXToCSVConverter() {
             </>
           )}
 
-          {/* About This Tool */}
-          <Card>
-            <CardHeader>
-              <CardTitle>What problem does this tool solve?</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-muted-foreground leading-relaxed">
-              <p>
-                Managing data across different platforms can be challenging when file formats are incompatible. Our XLSX to CSV converter solves the common problem of data portability. While Microsoft Excel is a powerful tool for calculations and formatting, many databases, data analysis software, and web applications require data in a simple Comma-Separated Values (CSV) format. This tool bridges that gap instantly.
+          {/* SEO Content Section */}
+          <section className="mt-20 space-y-16 text-foreground pb-20 border-t pt-16">
+            <div className="prose prose-slate dark:prose-invert max-w-none">
+              <h2 className="text-3xl font-bold mb-6">What is XLSX to CSV Conversion?</h2>
+              <p className="text-lg leading-relaxed mb-6">
+                XLSX to CSV conversion is the technical process of transforming a modern Microsoft Excel XML-based spreadsheet (.xlsx) into a plain text format where values are separated by commas. While XLSX is great for formatting and formulas, CSV is the universal standard for <strong>data portability</strong>. Our <strong>excel to csv converter</strong> ensures this transition is seamless, preserving your raw data integrity for use in any other application.
               </p>
-              <p>
-                <strong>Who should use it?</strong>
-                Whether you are a student submitting a research project, a business professional migrating data between CRM systems, a developer building data-driven applications, or a data analyst preparing datasets for Python or R, this tool is designed for you. It simplifies the workflow by removing the need for heavy office software just to convert a file.
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div className="bg-muted/30 p-6 rounded-xl border">
+                  <h3 className="text-xl font-bold mb-3">Why Convert Excel to CSV?</h3>
+                  <ul className="space-y-3">
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><strong>Universal Compatibility:</strong> CSV works with Python, R, SQL, and all CRMs.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><strong>Lightweight Data:</strong> Reduce file size by removing Excel's heavy metadata.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><strong>Database Ready:</strong> Most databases prefer CSV for high-speed bulk imports.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-muted/30 p-6 rounded-xl border">
+                  <h3 className="text-xl font-bold mb-3">Pain Points We Solve</h3>
+                  <ul className="space-y-3">
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><strong>No Excel Needed:</strong> Convert <strong>xlsx to csv without excel</strong> installed.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><strong>Large File Support:</strong> No browser crashes on massive spreadsheets.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                      <span><span><strong>Security First:</strong> 100% local processing. No data upload.</span></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <h2 className="text-3xl font-bold mb-6">XLSX vs CSV: Technical Comparison</h2>
+              <div className="overflow-x-auto mb-12 border rounded-xl">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/50">
+                      <TableHead className="font-bold">Feature</TableHead>
+                      <TableHead className="font-bold">Excel (XLSX)</TableHead>
+                      <TableHead className="font-bold">CSV (Text)</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">Structure</TableCell>
+                      <TableCell>Binary / XML Compressed</TableCell>
+                      <TableCell>Plain Text / Comma Delimited</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Formulas</TableCell>
+                      <TableCell>Supported & Active</TableCell>
+                      <TableCell>Static Values Only</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Metadata</TableCell>
+                      <TableCell>Extensive (Styles, Charts)</TableCell>
+                      <TableCell>None (Raw Data Only)</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Portability</TableCell>
+                      <TableCell>Software Dependent</TableCell>
+                      <TableCell>Universal Standard</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+
+              <h2 className="text-3xl font-bold mb-6">Professional Use Cases for Excel Conversion</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {[
+                  { title: "Developers", text: "Convert Excel data for database seeds, JSON mapping, or API testing." },
+                  { title: "Data Analysts", text: "Clean and prep datasets for Python Pandas, R, or Tableau visualization." },
+                  { title: "E-commerce", text: "Export inventory spreadsheets for Shopify, WooCommerce, or Amazon imports." },
+                  { title: "Marketers", text: "Migrate customer contact lists into Mailchimp, HubSpot, or Salesforce CRM." },
+                  { title: "Researchers", text: "Transform survey results into machine-readable formats for statistical analysis." },
+                  { title: "Accountants", text: "Simplify complex financial reports for import into specialized tax software." }
+                ].map((item, i) => (
+                  <div key={i} className="p-6 border rounded-xl hover:shadow-md transition-shadow">
+                    <h4 className="font-bold text-lg mb-2">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+
+              <h2 className="text-3xl font-bold mb-6">How to Convert Excel to CSV Online Step-by-Step</h2>
+              <div className="space-y-6 mb-12">
+                {[
+                  { step: "01", title: "Select Your File", desc: "Drag and drop your .xlsx or .xls file into the secure upload zone above." },
+                  { step: "02", title: "Automatic Parsing", desc: "Our tool reads the active sheet instantly using high-performance local libraries." },
+                  { step: "03", title: "Data Verification", desc: "Use the live preview window to check the first 15 rows of your data." },
+                  { step: "04", title: "One-Click Export", desc: "Download your professionally formatted CSV file or copy it to your clipboard." }
+                ].map((s, i) => (
+                  <div key={i} className="flex gap-6 items-start">
+                    <span className="text-4xl font-black text-primary/20">{s.step}</span>
+                    <div>
+                      <h4 className="font-bold text-xl">{s.title}</h4>
+                      <p className="text-muted-foreground">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <h2 className="text-3xl font-bold mb-6">Developer Insights: Encoding & Delimiters</h2>
+              <p className="text-lg leading-relaxed mb-8">
+                Our <strong>xlsx converter</strong> defaults to UTF-8 encoding, ensuring that special characters and international symbols remain intact. Whether you are working with currency symbols, mathematical notations, or non-English alphabets, our tool handles Unicode perfectly. The output uses the standard comma (,) delimiter, making it instantly compatible with <strong>Python datasets</strong>, <strong>database imports</strong>, and <strong>CRM migrations</strong>.
               </p>
-              <p>
-                <strong>Practical real-life use cases:</strong>
-                Common scenarios include importing customer lists into email marketing tools, uploading inventory data to e-commerce platforms like Shopify, or preparing academic data for statistical software. It is also perfect for developers who need to quickly grab CSV strings from a spreadsheet for testing.
-              </p>
-              <p>
-                <strong>Privacy & Offline Usage:</strong>
-                We understand that your data is sensitive. That is why our converter operates entirely within your web browser. Your files are processed locally on your computer and are never uploaded to any server. This means you can even use this tool without an active internet connection once the page is loaded, ensuring your business intelligence and personal information remain 100% private.
-              </p>
-            </CardContent>
-          </Card>
+
+              <h2 className="text-3xl font-bold mb-6">Security & Privacy Architecture</h2>
+              <div className="bg-primary/5 p-8 rounded-2xl border border-primary/10 mb-12">
+                <div className="flex items-center gap-3 mb-4">
+                  <Shield className="h-8 w-8 text-primary" />
+                  <h3 className="text-2xl font-bold">100% Client-Side Processing</h3>
+                </div>
+                <p className="text-lg leading-relaxed">
+                  Unlike other <strong>online excel converters</strong>, we never upload your files to a server. The conversion engine runs entirely in your browser's memory. This architecture ensures that your sensitive business data, intellectual property, and personal spreadsheets are 100% private and never stored in any cloud environment.
+                </p>
+              </div>
+
+              <h2 className="text-3xl font-bold mb-6">Related Data Tools</h2>
+              <div className="flex flex-wrap gap-3 mb-12">
+                <Link href="/tools/csv-viewer">
+                  <Button variant="outline" className="rounded-full px-6">CSV Viewer & Editor</Button>
+                </Link>
+                <Link href="/tools/json-csv-converter">
+                  <Button variant="outline" className="rounded-full px-6">JSON to CSV Converter</Button>
+                </Link>
+                <Link href="/tools/csv-json-converter">
+                  <Button variant="outline" className="rounded-full px-6">CSV to JSON Converter</Button>
+                </Link>
+                <Link href="/tools/excel-viewer">
+                  <Button variant="outline" className="rounded-full px-6">Excel Viewer Online</Button>
+                </Link>
+                <Link href="/tools/PasswordGenerator">
+                  <Button variant="outline" className="rounded-full px-6">Secure Password Generator</Button>
+                </Link>
+              </div>
+            </div>
+          </section>
 
           {/* FAQ Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>FAQ</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q1: Is it safe to upload my confidential business data here?</h4>
-                <p className="text-sm text-muted-foreground">A1: Absolutely. Your data never leaves your device. The conversion process happens locally in your browser, meaning no one—not even us—can see or access your files.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q2: Do I need Microsoft Excel installed to use this converter?</h4>
-                <p className="text-sm text-muted-foreground">A2: No, you don't. This tool works independently of any spreadsheet software. You can convert XLSX to CSV on any device that has a modern web browser, including mobile phones.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q3: Is there a limit on how many rows I can convert?</h4>
-                <p className="text-sm text-muted-foreground">A3: While we don't set a hard limit, performance depends on your device's memory. Most standard spreadsheets with thousands of rows convert in a split second.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q4: Will I lose any data during the conversion?</h4>
-                <p className="text-sm text-muted-foreground">A4: The values and text in your cells are preserved perfectly. However, Excel-specific features like formulas, formatting, colors, and charts are not supported by the CSV format.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q5: Can I convert multiple sheets from one Excel file at once?</h4>
-                <p className="text-sm text-muted-foreground">A5: Currently, the tool converts the first active sheet. For multi-sheet workbooks, we recommend saving the specific sheet you need as a separate file or using our advanced viewer to select data.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q6: Does this tool work on Mac and Linux?</h4>
-                <p className="text-sm text-muted-foreground">A6: Yes, it is platform-independent. As long as you have a web browser like Chrome, Firefox, or Safari, it works exactly the same on Windows, macOS, and Linux.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q7: Is the converted CSV compatible with Google Sheets?</h4>
-                <p className="text-sm text-muted-foreground">A7: Yes, the output follows standard CSV encoding, which can be easily imported into Google Sheets, Microsoft Excel, or any other spreadsheet application.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-1">Q8: Why is the tool free and are there any hidden charges?</h4>
-                <p className="text-sm text-muted-foreground">A8: We believe in providing essential utility tools to the community for free. There are no signups, no hidden costs, and no limits on the number of conversions you can perform.</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Related Tools */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Related Tools</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                <Link href="/tools/excel-viewer" asChild>
-                  <Button variant="outline" className="justify-center">Excel Viewer</Button>
-                </Link>
-                <Link href="/tools/csv-viewer" asChild>
-                  <Button variant="outline" className="justify-center">CSV Viewer</Button>
-                </Link>
-                <Link href="/tools/excel-to-pdf" asChild>
-                  <Button variant="outline" className="justify-center">Excel to PDF</Button>
-                </Link>
-                <Link href="/tools/json-csv-converter" asChild>
-                  <Button variant="outline" className="justify-center">JSON CSV Converter</Button>
-                </Link>
-                <Link href="/tools/csv-json-converter" asChild>
-                  <Button variant="outline" className="justify-center">CSV JSON Converter</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {faqs.map((faq, i) => (
+                <Card key={i} className="hover:border-primary/30 transition-colors">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base font-bold">{faq.question}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
 
           {/* Back Link */}
-          <p className="text-center text-sm text-muted-foreground">
-            <Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors">← Back to Developer Tools</Link>
+          <p className="text-center text-sm text-muted-foreground pb-12">
+            <Link href="/tools/developer" className="text-primary hover:text-primary/80 transition-colors flex items-center justify-center gap-2">
+              <RotateCcw className="h-4 w-4" />
+              Back to Developer Tools
+            </Link>
           </p>
         </div>
       </ToolLayout>
