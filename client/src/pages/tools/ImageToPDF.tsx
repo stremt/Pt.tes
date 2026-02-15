@@ -752,11 +752,10 @@ export default function ImageToPDF() {
               ))}
             </div>
           </section>
-          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-            Category: <Link href="/tools/pdf" className="text-primary hover:text-primary/80 transition-colors">PDF Tools</Link>
-          </p>
         </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
   );
 }
