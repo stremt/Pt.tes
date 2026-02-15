@@ -1,0 +1,279 @@
+You are a world-class technical SEO architect, document processing specialist, and Google ranking strategist.
+
+Your task is to transform my "PDF Merger" tool page into the most authoritative, highest ranking, most trusted PDF merging tool on the internet.
+
+This is enterprise-level SEO work focused on global search domination.
+
+---
+
+GOAL:
+Rank #1 globally for all PDF merging and document combination related keywords.
+
+---
+
+PRIMARY KEYWORDS:
+
+* pdf merger
+* merge pdf
+* combine pdf files
+* join pdf files
+* merge pdf online
+* pdf merger free
+* combine pdf online
+* merge multiple pdf files
+* pdf combiner
+* merge pdf without software
+
+SECONDARY KEYWORDS:
+
+* join documents into one pdf
+* combine scanned pdf
+* batch pdf merge
+* offline pdf merger
+* secure pdf merger
+* private pdf merger
+* merge pdf files free
+* pdf document combiner
+* combine files into pdf
+* merge documents online
+
+LONG TAIL SEARCH INTENTS:
+
+* how to merge pdf files
+* combine multiple pdf into one document
+* merge pdf without uploading
+* secure pdf merger online
+* merge scanned documents into one pdf
+* merge pdf for job application
+* merge pdf for government forms
+* merge pdf offline free
+* combine pdf files on mobile
+* merge legal documents pdf
+
+---
+
+TASK REQUIREMENTS:
+
+1. SEARCH INTENT DOMINATION
+
+Detect and cover all user intents:
+
+* document organization intent
+* student submission workflow
+* job application document preparation
+* government application usage
+* business document management
+* legal document processing
+* financial record organization
+* scanned document workflow
+* mobile document management
+* privacy focused document handling
+
+Create dedicated sections for each.
+
+---
+
+2. COMPLETE SEO STRUCTURE
+
+Rewrite entire page with:
+
+* high CTR title tag
+* conversion focused meta description
+* strong keyword optimized H1
+* semantic H2/H3 structure
+* keyword clustering
+* entity based SEO
+* breadcrumb structure
+* internal linking strategy
+
+---
+
+3. AUTHORITY CONTENT EXPANSION (3000+ WORDS)
+
+Create deep educational content:
+
+* What is PDF format
+* Why PDF is universal document format
+* Why merge PDF files
+* How PDF file structure works
+* Document workflow management
+* Benefits of combining documents
+* Digital document organization strategies
+* Document standardization
+* File management best practices
+* Secure document handling practices
+
+---
+
+4. STEP-BY-STEP HOW-TO GUIDES
+
+Create guides:
+
+* how to merge pdf files
+* how to combine multiple documents
+* how to prepare documents for submission
+* how to organize digital records
+* how to merge scanned documents
+
+---
+
+5. PROFESSIONAL USE CASE SECTIONS
+
+Create detailed sections for:
+
+* students submitting assignments
+* job applicants uploading documents
+* business professionals
+* legal document management
+* HR and compliance teams
+* government applications
+* banking documentation
+* accountants organizing records
+* property and real estate documentation
+
+Explain real workflows.
+
+---
+
+6. TECHNICAL AUTHORITY SIGNALS
+
+Add strong technical credibility:
+
+* PDF merging process explanation
+* document rendering pipeline
+* page structure handling
+* file ordering logic
+* local processing architecture
+* browser based PDF processing
+* offline merging explanation
+* document integrity preservation
+
+---
+
+7. DOCUMENT SUBMISSION GUIDE
+
+Add section explaining:
+
+* preparing documents for job applications
+* preparing ID document bundles
+* preparing government submissions
+* preparing financial records
+
+---
+
+8. COMPARISON TABLES
+
+Generate:
+
+* single pdf vs multiple files
+* online vs offline pdf merging
+* this tool vs desktop software
+* upload based vs local processing tools
+
+---
+
+9. TRUST & PRIVACY AUTHORITY
+
+Add strong trust signals:
+
+* 100% client-side processing
+* no file upload to server
+* no document storage
+* no data retention
+* offline capability
+* secure local processing
+
+---
+
+10. ADVANCED FAQ (30 QUESTIONS)
+
+Include:
+
+* file size limits
+* page limits
+* password protected PDFs
+* document quality
+* merge order
+* mobile usage
+* privacy guarantee
+* watermark policy
+* document compatibility
+* file integrity
+
+---
+
+11. SCHEMA MARKUP IMPLEMENTATION
+
+Generate JSON-LD:
+
+* SoftwareApplication schema
+* FAQ schema
+* HowTo schema
+* WebPage schema
+* Breadcrumb schema
+
+---
+
+12. UX OPTIMIZATION
+
+Improve:
+
+* upload clarity
+* file ordering UI explanation
+* merge process clarity
+* progress feedback
+* trust indicators
+* error handling messaging
+
+---
+
+13. INTERNAL LINKING STRATEGY
+
+Link to:
+
+* image to pdf
+* pdf tools
+* image tools
+* document tools
+* privacy tools
+
+Use keyword rich anchors.
+
+---
+
+14. TOPICAL AUTHORITY EXPANSION
+
+Suggest supporting blog posts:
+
+* how to merge pdf files
+* document management guide
+* pdf workflow optimization
+* digital document organization
+* secure document sharing
+
+---
+
+15. GLOBAL SEO OPTIMIZATION
+
+Ensure global relevance:
+
+* mobile support
+* cross device compatibility
+* enterprise usage
+* document compliance workflows
+
+---
+
+OUTPUT REQUIREMENTS:
+
+Return:
+
+* full improved page structure
+* rewritten content
+* headings hierarchy
+* title tag and meta description
+* schema markup code
+* keyword coverage map
+* UX improvement suggestions
+
+Focus on real Google ranking and document processing authority.
