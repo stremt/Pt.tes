@@ -40,16 +40,16 @@ export function Breadcrumb({ items, schemaUrl = "" }: BreadcrumbProps) {
         {items.map((item, index) => (
           <li key={index} className="flex items-center">
             {item.url ? (
-              <>
+              <div className="flex items-center">
                 <Link href={item.url} className="text-primary hover:text-primary/80 transition-colors whitespace-nowrap">
                   {item.label}
                 </Link>
                 {index < items.length - 1 && <span className="mx-2 text-muted-foreground">/</span>}
-              </>
+              </div>
             ) : (
-              <>
+              <div className="flex items-center">
                 <span className="text-foreground font-medium truncate max-w-[120px] sm:max-w-none inline-block align-bottom">{item.label}</span>
-              </>
+              </div>
             )}
           </li>
         ))}
