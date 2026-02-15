@@ -16,6 +16,12 @@ export default function TextCategory() {
 
   const textTools = [
     {
+      id: "text-to-file",
+      name: "Text to File",
+      description: "Write any text and download it as a .txt file instantly.",
+      path: "/tools/text-to-file",
+    },
+    {
       id: "text-case-converter",
       name: "Text Case Converter",
       description: "Convert text between uppercase, lowercase, title case, and more formats instantly.",
