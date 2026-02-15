@@ -143,7 +143,7 @@ export default function TextToFile() {
           </div>
 
           {/* Main Interface */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 items-start">
             <div className="lg:col-span-8 space-y-6">
               <Card className="border-2 border-primary/10">
                 <CardHeader>
@@ -158,7 +158,7 @@ export default function TextToFile() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Start typing your notes, code, or configuration here..."
-                    className="min-h-[400px] font-mono text-base resize-y border-primary/20 focus-visible:ring-primary"
+                    className="min-h-[400px] w-full font-mono text-base resize-y border-primary/20 focus-visible:ring-primary"
                     data-testid="textarea-content"
                   />
                 </CardContent>
@@ -166,7 +166,7 @@ export default function TextToFile() {
             </div>
 
             <div className="lg:col-span-4 space-y-6">
-              <Card className="sticky top-24 border-2 border-primary/10">
+              <Card className="sticky top-24 border-2 border-primary/10 w-full">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Save className="w-5 h-5 text-primary" />
@@ -182,7 +182,7 @@ export default function TextToFile() {
                         value={filename}
                         onChange={(e) => setFilename(e.target.value)}
                         placeholder="my-file"
-                        className="font-mono"
+                        className="flex-1 font-mono"
                         data-testid="input-filename"
                       />
                       <span className="flex items-center text-muted-foreground font-mono">.txt</span>

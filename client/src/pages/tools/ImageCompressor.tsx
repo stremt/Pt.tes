@@ -256,9 +256,9 @@ export default function ImageCompressor() {
                               itemTwo={<ReactCompareSliderImage src={compressedPreview} alt="Compressed" />}
                             />
                           ) : (
-                            <div className="relative w-full h-full flex items-center justify-center">
-                              <img src={compressedPreview} alt="Optimized" className="max-w-full max-h-full object-contain" />
-                              <Button variant="secondary" className="absolute shadow-2xl" onClick={() => setSliderEnabled(true)}>
+                            <div className="relative w-full h-full flex items-center justify-center p-4">
+                              <img src={compressedPreview} alt="Optimized" className="max-w-full max-h-full object-contain rounded-lg shadow-lg" />
+                              <Button variant="secondary" className="absolute shadow-2xl hover-elevate" onClick={() => setSliderEnabled(true)}>
                                 <Sparkles className="w-4 h-4 mr-2" />
                                 Click to Compare Before/After
                               </Button>
