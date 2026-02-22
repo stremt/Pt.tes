@@ -55,10 +55,10 @@ export function VersionUpdatePopup() {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-yellow-500" />
-            Updates Available
+            New Tools & Updates Available!
           </DialogTitle>
           <DialogDescription className="pt-2">
-            New features and fixes are here! Check out our updated **Temp Mail** and other tools.
+            We've added new tools and improved existing ones! Update now to enjoy all the latest features and a better experience.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 text-sm text-muted-foreground">
@@ -71,7 +71,7 @@ export function VersionUpdatePopup() {
             data-testid="button-refresh-app"
           >
             <RefreshCw className="h-4 w-4" />
-            Refresh & Clear Data
+            Update & Refresh
           </Button>
         </DialogFooter>
       </DialogContent>

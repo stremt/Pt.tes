@@ -44,10 +44,10 @@ export default function TextSummarizer() {
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Text Summarizer Under Maintenance</h1>
             <p className="text-xl text-muted-foreground">
-              Bhai, text summarizer service abhi maintenance mein hai. Hum ise jald hi wapas layenge!
+              Our text summarizer service is currently undergoing maintenance. We'll be back online shortly!
             </p>
             <p className="text-lg text-muted-foreground/80">
-              Tab tak aap hamare baaki tools check kar sakte hain.
+              In the meantime, feel free to explore our other professional tools.
             </p>
           </div>
 
