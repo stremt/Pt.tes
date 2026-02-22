@@ -85,12 +85,8 @@ export default function TempMail() {
       </div>
 
       <div className="container mx-auto px-4 max-w-7xl py-12">
-        <RelatedUseCases category="temp-mail" />
-        <LongTailPagesSection 
-          toolName="Temp Mail" 
-          toolSlug="temp-mail" 
-          category="privacy"
-        />
+        <RelatedUseCases toolId="temp-mail" toolName="Temp Mail" />
+        <LongTailPagesSection toolId="temp-mail" />
         
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Explore Other Categories</h2>
