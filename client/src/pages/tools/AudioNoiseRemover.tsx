@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, Volume2 } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-import { useSEO, Breadcrumb } from "@/lib/seo";
+import { useSEO } from "@/lib/seo";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
 import { LongTailPagesSection } from "@/components/LongTailPagesSection";
@@ -72,18 +73,21 @@ export default function AudioNoiseRemover() {
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Explore Other Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {relatedTools.map((tool) => (
-              <Link key={tool.id} href={`/tools/${tool.id}`}>
-                <Card className="hover-elevate cursor-pointer h-full transition-all border-muted hover:border-primary/50">
-                  <CardContent className="p-4 flex flex-col items-center text-center justify-center space-y-2">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                      {getToolIcon(tool.id)}
-                    </div>
-                    <span className="text-sm font-medium line-clamp-1">{tool.name}</span>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+            {relatedTools.map((tool) => {
+              const Icon = getToolIcon(tool.id);
+              return (
+                <Link key={tool.id} href={`/tools/${tool.id}`}>
+                  <Card className="hover-elevate cursor-pointer h-full transition-all border-muted hover:border-primary/50">
+                    <CardContent className="p-4 flex flex-col items-center text-center justify-center space-y-2">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="text-sm font-medium line-clamp-1">{tool.name}</span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

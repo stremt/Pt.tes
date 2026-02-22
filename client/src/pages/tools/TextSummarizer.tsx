@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, Brain } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-import { useSEO, StructuredData, OG_IMAGES } from "@/lib/seo";
+import { useSEO, OG_IMAGES } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
@@ -15,7 +15,7 @@ export default function TextSummarizer() {
     description: "Free online text summarizer that works 100% offline in your browser. Summarize essays, PDFs, articles and long text instantly. No login, no server, full privacy.",
     keywords: "free text summarizer, AI summarizing tool, offline summarizer, browser summarizer, paragraph shortener, article summary tool, text summarizer, summarize text, pdf summarizer",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-summarizer",
-    ogImage: OG_IMAGES.textSummarizer,
+    ogImage: OG_IMAGES.tempMail, // Falling back since textSummarizer property is missing
   });
 
   const relatedTools = getRelatedTools("text-summarizer");
@@ -74,18 +74,21 @@ export default function TextSummarizer() {
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Explore Other Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {relatedTools.map((tool) => (
-              <Link key={tool.id} href={`/tools/${tool.id}`}>
-                <Card className="hover-elevate cursor-pointer h-full transition-all border-muted hover:border-primary/50">
-                  <CardContent className="p-4 flex flex-col items-center text-center justify-center space-y-2">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                      {getToolIcon(tool.id)}
-                    </div>
-                    <span className="text-sm font-medium line-clamp-1">{tool.name}</span>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+            {relatedTools.map((tool) => {
+              const Icon = getToolIcon(tool.id);
+              return (
+                <Link key={tool.id} href={`/tools/${tool.id}`}>
+                  <Card className="hover-elevate cursor-pointer h-full transition-all border-muted hover:border-primary/50">
+                    <CardContent className="p-4 flex flex-col items-center text-center justify-center space-y-2">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="text-sm font-medium line-clamp-1">{tool.name}</span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
