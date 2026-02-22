@@ -1,35 +1,14 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { useSEO, StructuredData, generateFAQSchema } from "@/lib/seo";
-import { Volume2, Upload, Download, X } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
+import { AlertTriangle, ArrowRight, Volume2 } from "lucide-react";
 import { Link } from "wouter";
-import { Breadcrumb } from "@/components/Breadcrumb";
-import { removeAudioNoise, formatFileSize } from "@/lib/ffmpeg-client";
-
-const generateBreadcrumbSchema = () => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tools.pixocraft.in" },
-    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://tools.pixocraft.in/tools" },
-    { "@type": "ListItem", "position": 3, "name": "AI Tools", "item": "https://tools.pixocraft.in/tools/ai" },
-    { "@type": "ListItem", "position": 4, "name": "Audio Noise Remover", "item": "https://tools.pixocraft.in/tools/audio-noise-remover" }
-  ]
-});
+import { useSEO, Breadcrumb } from "@/lib/seo";
+import { getRelatedTools, getToolIcon } from "@/lib/tools";
+import { RelatedUseCases } from "@/components/RelatedUseCases";
+import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function AudioNoiseRemover() {
-  const [file, setFile] = useState<File | null>(null);
-  const [cleanBlob, setCleanBlob] = useState<Blob | null>(null);
-  const [noiseReduction, setNoiseReduction] = useState(0.21);
-  const [processing, setProcessing] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
-
   useSEO({
     title: "Free Audio Noise Remover Online - Remove Background Noise | Pixocraft Tools",
     description: "Remove background noise from audio files online for free. Clean up audio recordings with noise reduction filters. Fast, secure, works offline.",
@@ -37,95 +16,75 @@ export default function AudioNoiseRemover() {
     canonicalUrl: "https://tools.pixocraft.in/tools/audio-noise-remover",
   });
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile?.type.startsWith('audio/')) {
-      setFile(selectedFile);
-      setCleanBlob(null);
-    } else {
-      toast({ title: "Invalid File", description: "Please select an audio file", variant: "destructive" });
-    }
-  };
-
-  const process = async () => {
-    if (!file) return;
-    setProcessing(true);
-    try {
-      const result = await removeAudioNoise(file, noiseReduction);
-      setCleanBlob(result);
-      toast({ title: "Success!", description: "Noise removed from audio" });
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to process audio", variant: "destructive" });
-    } finally {
-      setProcessing(false);
-    }
-  };
-
-  const download = () => {
-    if (cleanBlob) {
-      const url = URL.createObjectURL(cleanBlob);
-      const link = document.createElement("a");
-      link.download = file?.name.replace(/\.[^.]+$/, '-clean.mp3') || "clean.mp3";
-      link.href = url;
-      link.click();
-      URL.revokeObjectURL(url);
-    }
-  };
+  const relatedTools = getRelatedTools("audio-noise-remover");
 
   return (
     <>
-      <StructuredData data={generateFAQSchema([{question: "How does noise removal work?", answer: "The tool applies audio filters to reduce background noise while preserving the main audio content. Higher reduction values remove more noise but may affect audio quality."}])} />
-      <StructuredData data={generateBreadcrumbSchema()} />
-      <div className="min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <Breadcrumb items={[{ label: "Home", url: "/" }, { label: "Tools", url: "/tools" }, { label: "AI Tools", url: "/tools/ai" }, { label: "Audio Noise Remover" }]} />
-          <div className="text-center space-y-4 mb-12">
-            <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto">
-              <Volume2 className="h-8 w-8 text-primary" />
+      <div className="mb-6 px-4 pt-4">
+        <Breadcrumb
+          items={[
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+            { label: "Media Tools", url: "/tools/media" },
+            { label: "Audio Noise Remover" },
+          ]}
+        />
+      </div>
+      
+      <div className="min-h-[60vh] flex flex-col items-center justify-center py-12 px-4 text-center">
+        <div className="max-w-2xl w-full space-y-8">
+          <div className="flex items-center justify-center">
+            <div className="h-24 w-24 rounded-2xl bg-yellow-500/10 flex items-center justify-center animate-pulse">
+              <AlertTriangle className="h-12 w-12 text-yellow-500" />
             </div>
-            <h1 className="text-4xl font-bold">Audio Noise Remover</h1>
-            <p className="text-xl text-muted-foreground">Remove background noise from audio</p>
-            <div className="flex gap-2 justify-center"><Badge>Free</Badge><Badge>Offline</Badge></div>
           </div>
-          <div className="max-w-4xl mx-auto">
-            {!file ? (
-              <Card>
-                <CardHeader><CardTitle>Upload Audio</CardTitle></CardHeader>
-                <CardContent>
-                  <div className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover-elevate" onClick={() => fileInputRef.current?.click()}>
-                    <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                    <p>Click to upload audio</p>
-                    <input ref={fileInputRef} type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
-                  </div>
-                </CardContent>
-              </Card>
-            ) : (
-              <Card>
-                <CardHeader>
-                  <div className="flex justify-between">
-                    <CardTitle>{file.name}</CardTitle>
-                    <Button variant="ghost" size="icon" onClick={() => { setFile(null); setCleanBlob(null); }}>
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div><Label>Noise Reduction: {noiseReduction.toFixed(2)}</Label><Slider value={[noiseReduction]} onValueChange={(v) => setNoiseReduction(v[0])} min={0.1} max={0.5} step={0.01} /></div>
-                  <div className="flex gap-2">
-                    <Button onClick={process} disabled={processing} className="flex-1">{processing ? "Processing..." : "Remove Noise"}</Button>
-                    {cleanBlob && (
-                      <Button onClick={download} variant="outline" className="flex-1">
-                        <Download className="mr-2 h-4 w-4" />Download ({formatFileSize(cleanBlob.size)})
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+          
+          <div className="space-y-4">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Audio Noise Remover Under Maintenance</h1>
+            <p className="text-xl text-muted-foreground">
+              Bhai, audio noise remover service abhi maintenance mein hai. Hum ise jald hi wapas layenge!
+            </p>
+            <p className="text-lg text-muted-foreground/80">
+              Tab tak aap hamare baaki tools check kar sakte hain.
+            </p>
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-            Category: <Link href="/tools/media" className="text-primary hover:text-primary/80 transition-colors">Media Tools</Link>
-          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <Button asChild size="lg" className="hover-elevate">
+              <Link href="/tools">
+                Explore All Tools
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button variant="outline" asChild size="lg" className="hover-elevate">
+              <Link href="/tools/media">
+                Media Tools
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 max-w-7xl py-12">
+        <RelatedUseCases toolId="audio-noise-remover" toolName="Audio Noise Remover" />
+        <LongTailPagesSection toolId="audio-noise-remover" />
+        
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold mb-6">Explore Other Categories</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {relatedTools.map((tool) => (
+              <Link key={tool.id} href={`/tools/${tool.id}`}>
+                <Card className="hover-elevate cursor-pointer h-full transition-all border-muted hover:border-primary/50">
+                  <CardContent className="p-4 flex flex-col items-center text-center justify-center space-y-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                      {getToolIcon(tool.id)}
+                    </div>
+                    <span className="text-sm font-medium line-clamp-1">{tool.name}</span>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>
