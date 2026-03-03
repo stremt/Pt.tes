@@ -1,0 +1,168 @@
+We need to fix entropy calculation, crack-time formatting, and strength scaling across all password generator pages.
+
+Affected pages:
+
+/password-generator (Main Page)
+
+/12-character-password-generator
+
+/16-character-password-generator
+
+/20-character-password-generator
+
+/32-character-password-generator
+
+/48-character-password-generator (if exists)
+
+This is a technical correction, not a design change.
+
+1️⃣ FIX ENTROPY CALCULATION (CRITICAL)
+
+Current entropy values appear inconsistent.
+
+Implement correct entropy formula:
+
+Entropy (bits) = passwordLength × log2(characterSetSize)
+
+Where:
+
+characterSetSize = total enabled characters
+
+For full set (uppercase + lowercase + numbers + symbols): 95 characters
+
+log2(95) ≈ 6.57 bits per character
+
+Expected entropy reference:
+
+12 characters → ~79 bits
+16 characters → ~105 bits
+20 characters → ~131 bits
+32 characters → ~210 bits
+48 characters → ~315 bits
+
+Verify and correct entropy logic on ALL pages listed above.
+
+Ensure displayed entropy matches actual character set selected.
+
+2️⃣ FIX CRACK TIME FORMATTING (MAJOR ISSUE)
+
+Currently crack time shows formats like:
+
+7.8089338764417e+85 billion years
+
+This is incorrect and harms credibility.
+
+Fix display rules globally:
+
+IF crack time > 10^12 years:
+Display:
+
+"Longer than the age of the universe"
+
+OR
+
+"Practically impossible to crack with current technology"
+
+If showing scientific notation:
+
+Display clean format:
+
+~5 × 10^34 years
+
+DO NOT combine exponential notation with “billion years”.
+
+Formatting must be human-readable and professional.
+
+Apply this fix to:
+
+/password-generator
+
+/12-character-password-generator
+
+/16-character-password-generator
+
+/20-character-password-generator
+
+/32-character-password-generator
+
+/48-character-password-generator
+
+3️⃣ NORMALIZE STRENGTH METER LOGIC
+
+Strength meter must be entropy-based, not length-based.
+
+Suggested thresholds:
+
+0–40 bits → Weak
+40–70 bits → Moderate
+70–100 bits → Strong
+100–150 bits → Very Strong
+150+ bits → Uncrackable
+
+Ensure:
+
+12 characters ≈ Strong
+
+16 characters ≈ Very Strong
+
+20 characters ≈ Very Strong / Uncrackable
+
+32+ characters ≈ Uncrackable
+
+Strength percentage must reflect entropy scale proportionally.
+
+4️⃣ FIX MAIN PAGE ENTROPY DISPLAY
+
+On /password-generator, current entropy values may be inflated (example: 44 characters showing 380 bits).
+
+Recalculate properly based on enabled character set.
+
+Ensure:
+
+Displayed entropy matches actual password length and selected character types.
+
+No hardcoded entropy values.
+
+5️⃣ ENSURE CONSISTENCY ACROSS ALL LENGTH PAGES
+
+For each page:
+
+/12-character-password-generator
+Default length = 12
+Entropy ≈ 79 bits
+
+/16-character-password-generator
+Default length = 16
+Entropy ≈ 105 bits
+
+/20-character-password-generator
+Default length = 20
+Entropy ≈ 131 bits
+
+/32-character-password-generator
+Default length = 32
+Entropy ≈ 210 bits
+
+/48-character-password-generator
+Default length = 48
+Entropy ≈ 315 bits
+
+Ensure values update dynamically if user changes character set.
+
+6️⃣ FINAL VALIDATION
+
+After correction, confirm:
+
+Entropy math is accurate.
+
+Crack time formatting is clean.
+
+No scientific notation mixed with "billion years".
+
+Strength scaling is logical and progressive.
+
+All pages display consistent technical logic.
+
+Then confirm:
+
+"Password Generator entropy and crack-time logic has been corrected globally."
