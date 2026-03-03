@@ -4,6 +4,7 @@ import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES } from "@/lib/seo"
 import { ShieldCheck, WifiOff, Lock, Zap, Check, X, Info, Shield, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function PasswordGenerator16Char() {
   useSEO({
