@@ -124,6 +124,7 @@ import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarking
 const TextToFile = lazy(() => import("@/pages/tools/TextToFile"));
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
+const PasswordGenerator16Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator16Char"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
 const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
 const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));
