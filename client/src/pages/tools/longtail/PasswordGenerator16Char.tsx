@@ -197,13 +197,20 @@ export default function PasswordGenerator16Char() {
               </div>
             </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-12 border-t">
-              <Link href="/tools/password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
+              <Link href="/12-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">
-                  <Shield className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Strong Password Generator</span>
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                  <span className="font-bold">12 Character Generator</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Go back to the main generator for custom lengths.</p>
+                <p className="text-sm text-muted-foreground">Standard security for social media and streaming.</p>
+              </Link>
+              <Link href="/20-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
+                <div className="flex items-center gap-3 mb-2">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                  <span className="font-bold">20 Character Generator</span>
+                </div>
+                <p className="text-sm text-muted-foreground">High security for banking and business accounts.</p>
               </Link>
               <Link href="/tools/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">

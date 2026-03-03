@@ -128,6 +128,7 @@ const PasswordGenerator12Char = lazy(() => import("@/pages/tools/longtail/Passwo
 const PasswordGenerator16Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator16Char"));
 const PasswordGenerator20Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator20Char"));
 const PasswordGenerator32Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator32Char"));
+const PasswordGenerator48Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator48Char"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
 const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
 const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));

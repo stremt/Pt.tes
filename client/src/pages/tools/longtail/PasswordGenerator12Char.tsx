@@ -200,7 +200,14 @@ export default function PasswordGenerator12Char() {
                 </div>
                 <p className="text-sm text-muted-foreground">Main generator for fully custom security needs.</p>
               </Link>
-              <Link href="/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
+              <Link href="/16-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
+                <div className="flex items-center gap-3 mb-2">
+                  <ShieldCheck className="h-6 w-6 text-primary" />
+                  <span className="font-bold">16 Character Generator</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Step up to strong security for email and banking.</p>
+              </Link>
+              <Link href="/tools/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">
                   <ShieldCheck className="h-6 w-6 text-primary" />
                   <span className="font-bold">Password Strength Checker</span>
