@@ -60,7 +60,7 @@ export default function PasswordGenerator() {
     if (years < 1000000) return `${Math.round(years / 1000)} thousand years`;
     if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
     if (years < 1e12) return `~${(years / 1e9).toFixed(1)} billion years`;
-    if (years < 1e15) return `~${(years / 1e12).toFixed(1)} trillion years`;
+    
     return "Longer than the age of the universe";
   };
 
@@ -111,26 +111,37 @@ export default function PasswordGenerator() {
     if (!password) return { label: "", color: "", percentage: 0, description: "", entropy: 0 };
     
     let charsetSize = 0;
-    if (/[a-z]/.test(password)) charsetSize += 26;
-    if (/[A-Z]/.test(password)) charsetSize += 26;
-    if (/[0-9]/.test(password)) charsetSize += 10;
-    if (/[^a-zA-Z0-9]/.test(password)) charsetSize += 32;
+    if (includeLowercase) charsetSize += 26;
+    if (includeUppercase) charsetSize += 26;
+    if (includeNumbers) charsetSize += 10;
+    if (includeSymbols) charsetSize += 32;
     
-    const entropy = Math.round(password.length * Math.log2(charsetSize || 1));
+    const entropy = Math.round(length * Math.log2(charsetSize || 1));
     
-    let strength = 0;
-    if (password.length >= 12) strength += 25;
-    if (password.length >= 16) strength += 25;
-    if (/[a-z]/.test(password)) strength += 12.5;
-    if (/[A-Z]/.test(password)) strength += 12.5;
-    if (/[0-9]/.test(password)) strength += 12.5;
-    if (/[^a-zA-Z0-9]/.test(password)) strength += 12.5;
+    let label = "Weak";
+    let color = "bg-destructive";
+    let description = "Add more characters for better security";
+    let percentage = Math.min(100, (entropy / 150) * 100);
 
-    if (strength < 40) return { label: "Weak", color: "bg-destructive", percentage: strength, description: "Add more characters for better security", entropy };
-    if (strength < 70) return { label: "Moderate", color: "bg-yellow-500", percentage: strength, description: "Good strength, consider adding more characters", entropy };
-    if (strength < 90) return { label: "Strong", color: "bg-chart-3", percentage: strength, description: "Excellent security for most accounts", entropy };
-    if (strength < 100) return { label: "Very Strong", color: "bg-green-600", percentage: strength, description: "Highly secure, recommended for critical accounts", entropy };
-    return { label: "Uncrackable", color: "bg-emerald-500", percentage: strength, description: "Maximum security - virtually uncrackable", entropy };
+    if (entropy >= 150) {
+      label = "Uncrackable";
+      color = "bg-emerald-500";
+      description = "Maximum security - virtually uncrackable";
+    } else if (entropy >= 100) {
+      label = "Very Strong";
+      color = "bg-green-600";
+      description = "Highly secure, recommended for critical accounts";
+    } else if (entropy >= 70) {
+      label = "Strong";
+      color = "bg-chart-3";
+      description = "Excellent security for most accounts";
+    } else if (entropy >= 40) {
+      label = "Moderate";
+      color = "bg-yellow-500";
+      description = "Good strength, consider adding more characters";
+    }
+
+    return { label, color, percentage, description, entropy };
   };
 
   const strength = getStrength();
