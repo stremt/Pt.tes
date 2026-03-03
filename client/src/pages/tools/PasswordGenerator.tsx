@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Copy, RefreshCw, Lock, Check, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info, Mail, CreditCard, Code } from "lucide-react";
+import { Copy, RefreshCw, Lock, Check, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info, Mail, CreditCard, Code, WifiOff, Zap, Image as ImageIcon, QrCode, FileText, FileCode } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { RelatedUseCases } from "@/components/RelatedUseCases";
@@ -28,12 +28,39 @@ export default function PasswordGenerator() {
   const { toast } = useToast();
 
   useSEO({
-    title: "Free Strong Password Generator - Secure Random Passwords Online | Pixocraft",
-    description: "Generate strong, secure passwords instantly. Free online password generator with no signup required. Works offline, 100% private - passwords never stored or transmitted.",
-    keywords: "password generator, strong password generator, secure password generator online, random password generator, free password generator, password maker, password creator, generate strong password",
+    title: "Strong Password Generator (Free, Secure, No Signup) – 2026",
+    description: "Generate secure random passwords instantly using Web Crypto API. 100% private, works offline, no signup required. Create 12–32 character strong passwords safely.",
+    keywords: "strong password generator, password generator free, random password generator, secure password generator, password generator no signup, offline password generator, 16 character password generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
   });
+
+  const comparisonData = [
+    { feature: "Runs Fully Offline", pixocraft: true, others: false },
+    { feature: "Stores Passwords", pixocraft: false, others: true },
+    { feature: "Requires Signup", pixocraft: false, others: true },
+    { feature: "Uses Web Crypto API", pixocraft: true, others: false },
+    { feature: "Tracks Users", pixocraft: false, others: true },
+  ];
+
+  const getEstimatedCrackTime = (entropy: number) => {
+    // Basic estimation: 2^entropy combinations
+    // Assuming 10^12 guesses per second (offline attack)
+    const combinations = Math.pow(2, entropy);
+    const seconds = combinations / 1e12;
+    
+    if (seconds < 1) return "Instantly";
+    if (seconds < 60) return `${Math.round(seconds)} seconds`;
+    if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
+    if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
+    if (seconds < 31536000) return `${Math.round(seconds / 86400)} days`;
+    
+    const years = seconds / 31536000;
+    if (years < 1000) return `${Math.round(years)} years`;
+    if (years < 1000000) return `${Math.round(years / 1000)} thousand years`;
+    if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
+    return `${Math.round(years / 1000000000)} billion years`;
+  };
 
   const generatePassword = () => {
     const lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -98,8 +125,10 @@ export default function PasswordGenerator() {
     if (/[^a-zA-Z0-9]/.test(password)) strength += 12.5;
 
     if (strength < 40) return { label: "Weak", color: "bg-destructive", percentage: strength, description: "Add more characters for better security", entropy };
-    if (strength < 70) return { label: "Medium", color: "bg-chart-4", percentage: strength, description: "Good strength, consider adding more characters", entropy };
-    return { label: "Strong", color: "bg-chart-3", percentage: strength, description: "Excellent - virtually uncrackable", entropy };
+    if (strength < 70) return { label: "Moderate", color: "bg-yellow-500", percentage: strength, description: "Good strength, consider adding more characters", entropy };
+    if (strength < 90) return { label: "Strong", color: "bg-chart-3", percentage: strength, description: "Excellent security for most accounts", entropy };
+    if (strength < 100) return { label: "Very Strong", color: "bg-green-600", percentage: strength, description: "Highly secure, recommended for critical accounts", entropy };
+    return { label: "Uncrackable", color: "bg-emerald-500", percentage: strength, description: "Maximum security - virtually uncrackable", entropy };
   };
 
   const strength = getStrength();
@@ -143,14 +172,24 @@ export default function PasswordGenerator() {
 
   const faqSchema = generateFAQSchema(faqItems);
   
-  const softwareSchema = generateSoftwareApplicationSchema({
-    name: "Free Strong Password Generator",
-    description: "Generate secure, random passwords instantly. Free online tool with no signup required. Works offline in your browser with complete privacy.",
-    url: "https://tools.pixocraft.in/tools/password-generator",
-    applicationCategory: "SecurityApplication",
-    operatingSystem: "Any",
-    offers: { price: "0", priceCurrency: "USD" }
-  });
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pixocraft Strong Password Generator",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Web Browser",
+    "url": "https://tools.pixocraft.in/tools/password-generator",
+    "description": "Generate secure random passwords instantly using Web Crypto API. 100% private, works offline, no signup required.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pixocraft Tools"
+    }
+  };
 
   return (
     <>
@@ -170,115 +209,138 @@ export default function PasswordGenerator() {
         <div className="container mx-auto px-4 max-w-7xl">
 
           {/* Page Header */}
-          <div className="text-center space-y-4 mb-6">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Lock className="h-8 w-8 text-primary" />
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Free Strong Password Generator</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Create secure, random passwords instantly. No signup, no tracking, works offline.
+          <div className="text-center space-y-6 mb-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+              Strong Password Generator <span className="text-primary block sm:inline">(Free, Secure & 100% Offline)</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Generate cryptographically secure random passwords instantly. No signup. No tracking. Works fully in your browser.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">100% Free</Badge>
-              <Badge variant="secondary">No Signup</Badge>
-              <Badge variant="secondary">Offline-Ready</Badge>
-              <Badge variant="secondary">Cryptographically Secure</Badge>
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
+              <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400"><ShieldCheck className="h-4 w-4" /> Web Crypto API Powered</span>
+              <span className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400"><WifiOff className="h-4 w-4" /> Works Offline</span>
+              <span className="flex items-center gap-1.5 text-orange-600 dark:text-orange-400"><Lock className="h-4 w-4" /> Zero Data Collection</span>
+              <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400"><Zap className="h-4 w-4" /> Unlimited Passwords</span>
             </div>
           </div>
 
-          {/* Supporting H2 - Search Intent Signal */}
-          <h2 className="text-center text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Generate secure passwords online with complete privacy. Your passwords are created in your browser and never leave your device.
-          </h2>
-
-          {/* Trust Signals - Above the Fold */}
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-chart-3" />
-                <span>No signup required</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-chart-3" />
-                <span>Works fully in your browser</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Eye className="h-4 w-4 text-chart-3" />
-                <span>Never saved or transmitted</span>
-              </div>
+          {/* Trust Badge Section */}
+          <div className="flex flex-col items-center justify-center space-y-2 mb-12">
+            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Trusted by developers, businesses & privacy-focused users</p>
+            <div className="flex items-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
+              <Code className="h-6 w-6" />
+              <Briefcase className="h-6 w-6" />
+              <Shield className="h-6 w-6" />
+              <Users className="h-6 w-6" />
             </div>
           </div>
 
           {/* Main Tool Interface */}
-          <div className="max-w-2xl mx-auto mb-16">
-            <Card>
-              <CardHeader>
-                <CardTitle>Generate Secure Password</CardTitle>
-                <CardDescription>
-                  Customize settings and create cryptographically secure passwords instantly
-                </CardDescription>
+          <div className="max-w-3xl mx-auto mb-16 relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <Card className="relative border-none shadow-2xl overflow-visible">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl">Generate Secure Password Now</CardTitle>
+                    <CardDescription>Takes less than 1 second • Completely private</CardDescription>
+                  </div>
+                  <Lock className="h-6 w-6 text-primary/40" />
+                </div>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-8">
                 {/* Password Display */}
-                <div className="space-y-2">
-                  <Label>Generated Password</Label>
-                  <div className="flex gap-2">
+                <div className="space-y-4">
+                  <div className="relative group">
                     <Input
                       value={password}
                       readOnly
                       placeholder="Click generate to create a password"
-                      className="font-mono text-lg"
+                      className="h-16 px-6 font-mono text-2xl bg-muted/30 border-2 focus-visible:ring-primary/20 transition-all"
                       data-testid="input-generated-password"
                     />
-                    <Button
-                      onClick={copyPassword}
-                      size="icon"
-                      variant={copied ? "default" : "outline"}
-                      disabled={!password}
-                      data-testid="button-copy-password"
-                    >
-                      {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                    </Button>
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
+                      <Button
+                        onClick={copyPassword}
+                        size="lg"
+                        variant={copied ? "default" : "outline"}
+                        disabled={!password}
+                        className="h-12 px-6 shadow-sm hover-elevate active-elevate-2"
+                        data-testid="button-copy-password"
+                      >
+                        {copied ? <Check className="h-5 w-5 mr-2" /> : <Copy className="h-5 w-5 mr-2" />}
+                        {copied ? "Copied" : "Copy"}
+                      </Button>
+                    </div>
                   </div>
-                  {copied && (
-                    <p className="text-sm text-chart-3 font-medium">Password copied to clipboard</p>
-                  )}
+                  
                   {password && (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Password Strength:</span>
-                        <div className="flex items-center gap-2">
-                          <Badge variant={strength.label === "Strong" ? "default" : strength.label === "Medium" ? "secondary" : "destructive"}>
-                            {strength.label}
-                          </Badge>
-                          <span className="text-xs text-muted-foreground">({strength.entropy} bits entropy)</span>
+                    <div className="space-y-4 p-4 rounded-xl bg-muted/20 border border-primary/5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Entropy</p>
+                          <p className="text-xl font-mono font-bold text-primary">{strength.entropy} bits</p>
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Est. Crack Time (Offline)</p>
+                          <p className="text-xl font-bold">{getEstimatedCrackTime(strength.entropy)}</p>
                         </div>
                       </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${strength.color} transition-all duration-300`}
-                          style={{ width: `${strength.percentage}%` }}
-                        />
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="font-bold">Strength: <span className={strength.color.replace('bg-', 'text-')}>{strength.label}</span></span>
+                          <span className="text-muted-foreground">{strength.percentage}%</span>
+                        </div>
+                        <div className="h-3 bg-muted rounded-full overflow-hidden p-0.5 border border-primary/5">
+                          <div
+                            className={`h-full ${strength.color} rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(var(--primary),0.3)]`}
+                            style={{ width: `${strength.percentage}%` }}
+                          />
+                        </div>
+                        <div className="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-muted-foreground/50">
+                          <span>Weak</span>
+                          <span>Moderate</span>
+                          <span>Strong</span>
+                          <span>Very Strong</span>
+                          <span>Uncrackable</span>
+                        </div>
                       </div>
-                      <p className="text-xs text-muted-foreground">{strength.description}</p>
                     </div>
                   )}
+                  
+                  <div className="flex items-center justify-center py-2">
+                    <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                      <Lock className="h-3 w-3" />
+                      Passwords are generated locally in your browser. We never see or store them.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Length Slider */}
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <Label>Password Length</Label>
-                    <span className="text-sm font-medium">{length} characters</span>
+                    <Label className="text-base font-bold">Password Length</Label>
+                    <div className="flex items-center gap-2">
+                      <Input 
+                        type="number" 
+                        value={length} 
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value);
+                          if (!isNaN(val)) setLength(Math.min(128, Math.max(4, val)));
+                        }}
+                        className="w-16 h-8 text-center font-bold"
+                      />
+                      <span className="text-xs font-bold text-muted-foreground uppercase">Chars</span>
+                    </div>
                   </div>
                   <Slider
                     value={[length]}
                     onValueChange={(value) => setLength(value[0])}
-                    min={8}
-                    max={32}
+                    min={4}
+                    max={64}
                     step={1}
+                    className="py-4"
                     data-testid="slider-password-length"
                   />
                   <div className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg">
@@ -290,52 +352,24 @@ export default function PasswordGenerator() {
                 </div>
 
                 {/* Options */}
-                <div className="space-y-4">
-                  <Label>Character Types</Label>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="uppercase" className="font-normal cursor-pointer">
-                        Uppercase Letters (A-Z)
-                      </Label>
-                      <Switch
-                        id="uppercase"
-                        checked={includeUppercase}
-                        onCheckedChange={setIncludeUppercase}
-                        data-testid="switch-uppercase"
-                      />
+                <div className="space-y-6">
+                  <Label className="text-base font-bold">Character Types</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
+                      <Label htmlFor="uppercase" className="font-medium cursor-pointer">Uppercase (A-Z)</Label>
+                      <Switch id="uppercase" checked={includeUppercase} onCheckedChange={setIncludeUppercase} data-testid="switch-uppercase" />
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="lowercase" className="font-normal cursor-pointer">
-                        Lowercase Letters (a-z)
-                      </Label>
-                      <Switch
-                        id="lowercase"
-                        checked={includeLowercase}
-                        onCheckedChange={setIncludeLowercase}
-                        data-testid="switch-lowercase"
-                      />
+                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
+                      <Label htmlFor="lowercase" className="font-medium cursor-pointer">Lowercase (a-z)</Label>
+                      <Switch id="lowercase" checked={includeLowercase} onCheckedChange={setIncludeLowercase} data-testid="switch-lowercase" />
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="numbers" className="font-normal cursor-pointer">
-                        Numbers (0-9)
-                      </Label>
-                      <Switch
-                        id="numbers"
-                        checked={includeNumbers}
-                        onCheckedChange={setIncludeNumbers}
-                        data-testid="switch-numbers"
-                      />
+                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
+                      <Label htmlFor="numbers" className="font-medium cursor-pointer">Numbers (0-9)</Label>
+                      <Switch id="numbers" checked={includeNumbers} onCheckedChange={setIncludeNumbers} data-testid="switch-numbers" />
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="symbols" className="font-normal cursor-pointer">
-                        Symbols (!@#$%^&*)
-                      </Label>
-                      <Switch
-                        id="symbols"
-                        checked={includeSymbols}
-                        onCheckedChange={setIncludeSymbols}
-                        data-testid="switch-symbols"
-                      />
+                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
+                      <Label htmlFor="symbols" className="font-medium cursor-pointer">Symbols (!@#$)</Label>
+                      <Switch id="symbols" checked={includeSymbols} onCheckedChange={setIncludeSymbols} data-testid="switch-symbols" />
                     </div>
                   </div>
                 </div>
@@ -344,17 +378,52 @@ export default function PasswordGenerator() {
                 <div className="flex gap-2">
                   <Button
                     onClick={generatePassword}
-                    className="flex-1"
+                    className="flex-1 h-14 text-xl font-bold bg-gradient-to-r from-primary to-blue-600 hover:opacity-90 shadow-lg"
                     size="lg"
                     data-testid="button-generate-password"
                   >
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Generate Secure Password
+                    <RefreshCw className="mr-2 h-5 w-5" />
+                    Generate Secure Password Now
                   </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
+
+          {/* Comparison Table Section */}
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Why Pixocraft Password Generator is More Private</h2>
+            <div className="max-w-4xl mx-auto overflow-hidden rounded-xl border bg-card shadow-lg">
+              <table className="w-full text-left">
+                <thead className="bg-muted/50 border-b">
+                  <tr>
+                    <th className="px-6 py-4 font-bold">Feature</th>
+                    <th className="px-6 py-4 font-bold text-primary">Pixocraft</th>
+                    <th className="px-6 py-4 font-bold text-muted-foreground">Most Online Generators</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {comparisonData.map((row, i) => (
+                    <tr key={i} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-6 py-4 font-medium">{row.feature}</td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2 text-green-600 font-bold">
+                          {row.pixocraft ? <Check className="h-5 w-5" /> : <X className="h-5 w-5 text-red-500" />}
+                          {row.pixocraft ? "Yes" : "Never"}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          {row.others ? <X className="h-5 w-5 text-red-500" /> : <Check className="h-5 w-5 text-green-600" />}
+                          {row.others ? "Often / Sometimes" : "No"}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
 
           {/* Password Recommendations by Account Type */}
           <section className="mb-16">
@@ -462,8 +531,96 @@ export default function PasswordGenerator() {
             </div>
           </section>
 
+          {/* SEO Content Section */}
+          <section className="mb-16 prose prose-slate dark:prose-invert max-w-4xl mx-auto border-t pt-16">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-8">The Ultimate Guide to Strong Passwords & Online Security</h2>
+            
+            <div className="space-y-12">
+              <section>
+                <h3 className="text-2xl font-bold mb-4">What Makes a Strong Password?</h3>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  A strong password is your first line of defense against cyberattacks. Security experts and agencies like NIST (National Institute of Standards and Technology) emphasize that <strong>length and randomness</strong> are the two most critical factors. A truly secure password should be at least 12-16 characters long and include a mix of uppercase letters, lowercase letters, numbers, and special symbols. Crucially, it must avoid predictable patterns, dictionary words, and personal information like birthdays or names, which are easily targeted in social engineering and brute-force attacks.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-2xl font-bold mb-4">How Our Random Password Generator Works</h3>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Our tool leverages the <strong>Web Crypto API</strong>, a modern browser standard designed specifically for cryptographic operations. Unlike standard random functions that can be predictable, the Web Crypto API uses cryptographically strong pseudo-random number generators (CSPRNG) seeded by system-level entropy. This ensures that every password generated on Pixocraft is genuinely unpredictable and meets the highest security standards for military-grade protection.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-2xl font-bold mb-4">Why Offline Password Generation is Safer</h3>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Most online password generators send your data to a remote server for processing. This creates a vulnerability—if the server is compromised or the transmission is intercepted, your new password could be stolen before you even use it. Pixocraft is built as a <strong>100% client-side application</strong>. All generation happens locally in your browser's memory. Your passwords are never transmitted, stored, or logged on our servers. This "zero-knowledge" architecture ensures that you are the only one who ever sees your credentials.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-2xl font-bold mb-4">Best Password Length for Security (NIST Reference)</h3>
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  According to the latest NIST SP 800-63B guidelines, longer passwords (often called passphrases) are significantly harder to crack than shorter, more complex ones. While 8 characters used to be the standard, modern computing power has made them vulnerable. We recommend a <strong>minimum of 12-16 characters</strong> for personal accounts and 20+ characters for critical systems. Every additional character increases the "entropy" (randomness) exponentially, making it trillions of times harder for hackers to guess.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-2xl font-bold mb-4">Common Password Mistakes to Avoid</h3>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0">
+                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
+                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
+                    <span><strong>Reusing Passwords:</strong> Using the same password for your email and bank is a recipe for disaster if one site is breached.</span>
+                  </li>
+                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
+                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
+                    <span><strong>Predictable Substitutions:</strong> Replacing "E" with "3" or "A" with "@" is easily detected by modern cracking tools.</span>
+                  </li>
+                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
+                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
+                    <span><strong>Personal Details:</strong> Avoid using pet names, children's names, or your phone number in any part of the password.</span>
+                  </li>
+                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
+                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
+                    <span><strong>Sequential Patterns:</strong> "12345" or "qwerty" are among the most common and first-to-be-tested combinations.</span>
+                  </li>
+                </ul>
+              </section>
+            </div>
+          </section>
+
+          <div className="space-y-4 pt-12 border-t text-center">
+            <h3 className="text-2xl font-bold">Boost Your Security Further</h3>
+            <p className="text-muted-foreground mb-8">Don't stop at just generating a password. Use our suite of security tools to stay fully protected.</p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link href="/tools/password-strength-checker" className="group flex flex-col items-center gap-2 p-6 rounded-2xl bg-card border hover:border-primary transition-all hover-elevate">
+                <ShieldCheck className="h-10 w-10 text-primary" />
+                <span className="font-bold">Test your password strength instantly</span>
+                <p className="text-xs text-muted-foreground">Verify any password security level</p>
+              </Link>
+              <Link href="/tools/username-generator" className="group flex flex-col items-center gap-2 p-6 rounded-2xl bg-card border hover:border-primary transition-all hover-elevate">
+                <User className="h-10 w-10 text-primary" />
+                <span className="font-bold">Generate secure usernames</span>
+                <p className="text-xs text-muted-foreground">Create anonymous digital IDs</p>
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
+            {[
+              { label: "Word Counter", href: "/tools/word-counter", icon: FileText },
+              { label: "Text to PDF", href: "/tools/text-to-pdf", icon: FileCode },
+              { label: "Image Compressor", href: "/tools/image-compressor", icon: ImageIcon },
+              { label: "QR Maker", href: "/tools/qr-maker", icon: QrCode },
+            ].map((tool) => (
+              <Link key={tool.label} href={tool.href} className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm font-medium">
+                <tool.icon className="h-4 w-4 text-primary" />
+                {tool.label}
+              </Link>
+            ))}
+          </div>
+
           {/* How It Works */}
-          <section className="mb-16">
+          <section className="mb-16 mt-20">
             <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center space-y-4">
