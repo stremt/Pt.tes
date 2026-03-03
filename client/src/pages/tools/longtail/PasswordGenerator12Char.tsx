@@ -3,6 +3,7 @@ import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES } from "@/lib/seo";
 import { ShieldCheck, WifiOff, Lock, Zap, Check, X, Shield, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export default function PasswordGenerator12Char() {
@@ -186,27 +187,39 @@ export default function PasswordGenerator12Char() {
               </div>
             </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-12 border-t">
-              <Link href="/tools/password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <Shield className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Password Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Main generator for custom security needs.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
+              <Link href="/tools/password-generator" className="group" data-testid="link-main-gen">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Main Generator
+                    </CardTitle>
+                    <CardDescription>Custom length tool</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/16-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">16 Character Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Strong security for email and banking.</p>
+              <Link href="/16-character-password-generator" className="group" data-testid="link-16-char">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      16 Character
+                    </CardTitle>
+                    <CardDescription>Strong security level</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/tools/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Strength Checker</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Verify your existing passwords.</p>
+              <Link href="/tools/password-strength-checker" className="group" data-testid="link-checker">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Strength Checker
+                    </CardTitle>
+                    <CardDescription>Verify your security</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
             </div>
           </section>

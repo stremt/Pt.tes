@@ -1,0 +1,33 @@
+client:536 WebSocket connection to 'wss://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.dev/?token=0lL8RHKWrzji' failed: 
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=0lL8RHKWrzji' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-NFC5BX5N.js?v=f15b6c04:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+main.tsx:10 ServiceWorker registered: 
+ServiceWorkerRegistration
+20-character-password-generator:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+2
+PasswordGenerator20Char.tsx:224 Uncaught ReferenceError: Card is not defined
+    at PasswordGenerator20Char (PasswordGenerator20Char.tsx:224:18)
+chunk-NFC5BX5N.js?v=f15b6c04:14032 The above error occurred in the <PasswordGenerator20Char> component:
+
+    at PasswordGenerator20Char (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.dev/src/pages/tools/longtail/PasswordGenerator20Char.tsx:26:3)
+    at Route (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=f15b6c04:323:16)
+    at Switch (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=f15b6c04:379:17)
+    at Suspense
+    at Router
+    at main
+    at div
+    at Provider (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…unner/workspace/node_modules/.vite/deps/chunk-XOUBXFGS.js?v=f15b6c04:38:15)
+    at TooltipProvider (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…rkspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=f15b6c04:63:5)
+    at SearchProvider (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.dev/src/contexts/SearchContext.tsx:20:34)
+    at ThemeProvider (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.dev/src/contexts/ThemeContext.tsx:20:33)
+    at QueryClientProvider (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…rkspace/node_modules/.vite/deps/@tanstack_react-query.js?v=f15b6c04:2805:3)
+    at _a (https://3cddee6f-dada-48e0-9103-d92fb25a1874-00-24wi8cuqtpfse.sisko.replit.…r/workspace/node_modules/.vite/deps/react-helmet-async.js?v=f15b6c04:624:5)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+chunk-NFC5BX5N.js?v=f15b6c04:19413 Uncaught ReferenceError: Card is not defined
+    at PasswordGenerator20Char (PasswordGenerator20Char.tsx:224:18)
