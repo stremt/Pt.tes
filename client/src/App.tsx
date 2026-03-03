@@ -385,7 +385,7 @@ const LongTailToolPage = lazy(() => import("@/pages/LongTailToolPage"));
 
 function VersionCheck() {
   useEffect(() => {
-    checkAndHandleVersionChange();
+    // checkAndHandleVersionChange();
   }, []);
   
   return null;
@@ -469,6 +469,7 @@ function Router() {
         <Route path="/16-character-password-generator" component={PasswordGenerator16Char} />
         <Route path="/20-character-password-generator" component={PasswordGenerator20Char} />
         <Route path="/32-character-password-generator" component={PasswordGenerator32Char} />
+        <Route path="/48-character-password-generator" component={PasswordGenerator48Char} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
         <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />
@@ -772,7 +773,7 @@ function App() {
         <ThemeProvider>
           <SearchProvider>
             <TooltipProvider>
-              <VersionUpdatePopup />
+              {/* <VersionUpdatePopup /> */}
               <div className="flex flex-col min-h-screen">
                 <Header />
                 <main className="flex-1">
