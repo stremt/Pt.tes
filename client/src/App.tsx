@@ -124,7 +124,10 @@ import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarking
 const TextToFile = lazy(() => import("@/pages/tools/TextToFile"));
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
+const PasswordGenerator12Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator12Char"));
 const PasswordGenerator16Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator16Char"));
+const PasswordGenerator20Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator20Char"));
+const PasswordGenerator32Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator32Char"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
 const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
 const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));
@@ -462,6 +465,10 @@ function Router() {
         <Route path="/tools/text-to-file" component={TextToFile} />
         <Route path="/tools/temp-mail" component={TempMail} />
         <Route path="/tools/password-generator" component={PasswordGenerator} />
+        <Route path="/12-character-password-generator" component={PasswordGenerator12Char} />
+        <Route path="/16-character-password-generator" component={PasswordGenerator16Char} />
+        <Route path="/20-character-password-generator" component={PasswordGenerator20Char} />
+        <Route path="/32-character-password-generator" component={PasswordGenerator32Char} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
         <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />

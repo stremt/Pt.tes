@@ -75,7 +75,19 @@ export default function PasswordGenerator16Char() {
             <section>
               <h2 className="text-3xl font-bold mb-4">Is a 16 Character Password Strong Enough?</h2>
               <p className="text-lg text-muted-foreground">
-                Yes. A properly generated 16 character password using uppercase letters, lowercase letters, numbers and symbols creates over <strong>95^16</strong> possible combinations. That equals over <strong>4.4 x 10^31</strong> possible passwords. This level of entropy makes brute-force attacks practically impossible using modern computing systems.
+                Yes. A properly generated 16 character password using uppercase letters, lowercase letters, numbers and symbols creates over:
+              </p>
+              <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
+                95^16 possible combinations
+              </div>
+              <p className="text-lg text-muted-foreground">
+                That equals:
+              </p>
+              <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
+                Over 4.4 x 10^31 possible passwords.
+              </div>
+              <p className="text-lg text-muted-foreground">
+                This level of entropy makes brute-force attacks practically impossible using modern computing systems.
               </p>
             </section>
 

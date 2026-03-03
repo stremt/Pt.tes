@@ -531,6 +531,27 @@ export default function PasswordGenerator() {
             </div>
           </section>
 
+          {/* Internal Linking Cluster */}
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold mb-6 text-center">Specific Password Length Generators</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+              {[
+                { length: 12, label: "12 Characters", href: "/12-character-password-generator" },
+                { length: 16, label: "16 Characters", href: "/16-character-password-generator" },
+                { length: 20, label: "20 Characters", href: "/20-character-password-generator" },
+                { length: 32, label: "32 Characters", href: "/32-character-password-generator" },
+              ].map((item) => (
+                <Link key={item.length} href={item.href} className="flex flex-col items-center justify-center p-4 rounded-xl border bg-card hover:border-primary transition-all hover-elevate group text-center">
+                  <span className="text-2xl font-bold text-primary mb-1">{item.length}</span>
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{item.label}</span>
+                </Link>
+              ))}
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-6 max-w-2xl mx-auto">
+              Our length-specific generators are optimized for different security needs, from standard social media accounts (12 chars) to high-security banking and enterprise systems (20-32 chars).
+            </p>
+          </section>
+
           {/* SEO Content Section */}
           <section className="mb-16 prose prose-slate dark:prose-invert max-w-4xl mx-auto border-t pt-16">
             <h2 className="text-4xl font-extrabold tracking-tight mb-8">The Ultimate Guide to Strong Passwords & Online Security</h2>
