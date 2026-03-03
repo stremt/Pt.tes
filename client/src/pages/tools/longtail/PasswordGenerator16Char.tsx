@@ -76,19 +76,13 @@ export default function PasswordGenerator16Char() {
             <section>
               <h2 className="text-3xl font-bold mb-4">Is a 16 Character Password Strong Enough?</h2>
               <p className="text-lg text-muted-foreground">
-                Yes. A properly generated 16 character password using uppercase letters, lowercase letters, numbers and symbols creates over:
+                A properly generated 16 character password using uppercase letters, lowercase letters, numbers and symbols creates:
               </p>
               <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
-                95^16 possible combinations
+                95^16 combinations
               </div>
               <p className="text-lg text-muted-foreground">
-                That equals:
-              </p>
-              <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
-                Over 4.4 x 10^31 possible passwords.
-              </div>
-              <p className="text-lg text-muted-foreground">
-                This level of entropy makes brute-force attacks practically impossible using modern computing systems.
+                This level of complexity provides ~105 bits of entropy, moving your security into the "Strong" tier required for banking and primary email accounts.
               </p>
             </section>
 
@@ -104,22 +98,22 @@ export default function PasswordGenerator16Char() {
                   </thead>
                   <tbody className="divide-y">
                     <tr>
-                      <td className="px-6 py-4 font-medium">Basic GPU Attack</td>
-                      <td className="px-6 py-4">Trillions of Years</td>
+                      <td className="px-6 py-4 font-medium">High-End GPU Rig</td>
+                      <td className="px-6 py-4">~1.4 Trillion Years</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-medium">Advanced Cluster Attack</td>
-                      <td className="px-6 py-4">Billions of Years</td>
+                      <td className="px-6 py-4 font-medium">Massive GPU Cluster</td>
+                      <td className="px-6 py-4">~14 Billion Years</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-medium">Quantum Theoretical Model</td>
-                      <td className="px-6 py-4">Still Impractical</td>
+                      <td className="px-6 py-4 font-medium">State-Level Supercomputer</td>
+                      <td className="px-6 py-4">~140 Million Years</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <p className="text-sm text-muted-foreground italic">
-                Note: Crack time depends on randomness. Human-made passwords are weaker. Randomly generated passwords offer exponentially higher protection.
+                Note: 16 characters is the "sweet spot" for high security without the extreme length of enterprise keys.
               </p>
             </section>
 
@@ -198,27 +192,50 @@ export default function PasswordGenerator16Char() {
               </div>
             </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
-              <Link href="/12-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">12 Character Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Standard security for social media and streaming.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-12 border-t">
+              <Link href="/12-character-password-generator" className="group" data-testid="link-12-char">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      12 Character
+                    </CardTitle>
+                    <CardDescription>Standard security level</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/20-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">20 Character Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground">High security for banking and business accounts.</p>
+              <Link href="/20-character-password-generator" className="group" data-testid="link-20-char">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      20 Character
+                    </CardTitle>
+                    <CardDescription>High security level</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/tools/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Password Strength Checker</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Verify the security level of your existing passwords.</p>
+              <Link href="/tools/password-generator" className="group" data-testid="link-main-gen">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Main Generator
+                    </CardTitle>
+                    <CardDescription>Custom length tool</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+              <Link href="/tools/password-strength-checker" className="group" data-testid="link-checker">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Strength Checker
+                    </CardTitle>
+                    <CardDescription>Verify your security</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
             </div>
           </section>

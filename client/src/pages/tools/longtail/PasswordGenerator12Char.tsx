@@ -78,16 +78,10 @@ export default function PasswordGenerator12Char() {
                 A properly generated 12 character password using uppercase letters, lowercase letters, numbers and symbols creates:
               </p>
               <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
-                95^12 possible combinations
+                95^12 combinations
               </div>
               <p className="text-lg text-muted-foreground">
-                That equals:
-              </p>
-              <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
-                Over 540 trillion trillion possible passwords.
-              </div>
-              <p className="text-lg text-muted-foreground">
-                This provides strong protection against brute-force and dictionary attacks when randomly generated. However, security depends on randomness. A human-made 12 character password is much weaker than a randomly generated one.
+                This provides ~79 bits of entropy, which is the standard security level for most non-critical online accounts.
               </p>
             </section>
 
@@ -103,22 +97,22 @@ export default function PasswordGenerator12Char() {
                   </thead>
                   <tbody className="divide-y">
                     <tr>
-                      <td className="px-6 py-4 font-medium">Basic Consumer GPU</td>
-                      <td className="px-6 py-4">Thousands of Years</td>
+                      <td className="px-6 py-4 font-medium">Standard Desktop PC</td>
+                      <td className="px-6 py-4">~2,000 Years</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-medium">Advanced GPU Cluster</td>
-                      <td className="px-6 py-4">Hundreds of Years</td>
+                      <td className="px-6 py-4 font-medium">High-End GPU Rig</td>
+                      <td className="px-6 py-4">~200 Years</td>
                     </tr>
                     <tr>
-                      <td className="px-6 py-4 font-medium">State-Level Attack</td>
-                      <td className="px-6 py-4">Still Extremely Difficult</td>
+                      <td className="px-6 py-4 font-medium">Massive GPU Cluster</td>
+                      <td className="px-6 py-4">~2 Years</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <p className="text-sm text-muted-foreground italic">
-                Crack time depends on attack method and randomness quality. Our tool ensures maximum entropy for every generation.
+                Note: These estimates assume a full character set. Human-patterned passwords can often be cracked in minutes.
               </p>
             </section>
 
@@ -196,23 +190,23 @@ export default function PasswordGenerator12Char() {
               <Link href="/tools/password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">
                   <Shield className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Strong Password Generator</span>
+                  <span className="font-bold">Password Generator</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Main generator for fully custom security needs.</p>
+                <p className="text-sm text-muted-foreground">Main generator for custom security needs.</p>
               </Link>
               <Link href="/16-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">
                   <ShieldCheck className="h-6 w-6 text-primary" />
                   <span className="font-bold">16 Character Generator</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Step up to strong security for email and banking.</p>
+                <p className="text-sm text-muted-foreground">Strong security for email and banking.</p>
               </Link>
               <Link href="/tools/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
                 <div className="flex items-center gap-3 mb-2">
                   <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Password Strength Checker</span>
+                  <span className="font-bold">Strength Checker</span>
                 </div>
-                <p className="text-sm text-muted-foreground">Verify the security level of your existing passwords.</p>
+                <p className="text-sm text-muted-foreground">Verify your existing passwords.</p>
               </Link>
             </div>
           </section>

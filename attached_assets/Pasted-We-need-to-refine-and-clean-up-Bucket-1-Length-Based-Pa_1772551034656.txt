@@ -1,0 +1,160 @@
+We need to refine and clean up Bucket 1 (Length-Based Password Pages).
+
+Pages included:
+
+/12-character-password-generator
+
+/16-character-password-generator
+
+/20-character-password-generator
+
+/32-character-password-generator
+
+/48-character-password-generator (if exists)
+
+This is NOT a rewrite.
+This is a structural and technical refinement.
+
+🔍 1️⃣ CHECK FOR DUPLICATE ROUTES
+
+Ensure only ONE route exists per length page.
+
+Remove any duplicate 16-character page.
+
+Confirm correct slug structure.
+
+Confirm self-referencing canonical on each page.
+
+If duplicate routes exist → remove and clean router config.
+
+🔍 2️⃣ FIX CRACK TIME FORMATTING
+
+Current issue:
+Some crack-time values display scientific notation + “billion years” together.
+
+Example problem:
+5.217860722099207e+34 billion years
+
+Fix:
+
+Display clean scientific format:
+"~5 × 10^43 years"
+
+OR simplified:
+"Longer than the age of the universe"
+
+Do NOT mix exponential format with extra billion wording.
+
+Keep formatting clean and readable.
+
+🔍 3️⃣ VERIFY ENTROPY FORMULA CONSISTENCY
+
+Ensure entropy calculation uses:
+
+Entropy = log2(95^length)
+
+Check that:
+
+12 → ~78–80 bits
+16 → ~104–106 bits
+20 → ~130–132 bits
+32 → ~209–210 bits
+48 → ~314–316 bits
+
+If inconsistent → correct.
+
+🔍 4️⃣ DIFFERENTIATE SECURITY POSITIONING CLEARLY
+
+Ensure each page clearly represents a different tier:
+
+12 → Standard Security
+16 → Strong Security
+20 → High Security
+32 → Enterprise Security
+48 → Ultra / Cryptographic Tier
+
+Make sure tone increases in technical depth progressively.
+
+Do NOT allow overlapping positioning language.
+
+🔍 5️⃣ IMPROVE INTERNAL LINKING FLOW
+
+Each length page must:
+
+Link back to /password-generator
+
+Link to one shorter length
+
+Link to one longer length
+
+Link to /password-strength-checker
+
+Example:
+
+16 page links:
+12 page
+20 page
+
+32 page links:
+20 page
+48 page
+
+Make linking hierarchical, not random.
+
+🔍 6️⃣ REMOVE MINOR CONTENT REPETITION
+
+Scan for:
+
+Repeated “Why random generation matters” wording
+
+Identical crack-time disclaimers
+
+Identical FAQ answers across pages
+
+If repetition exists:
+Rewrite slightly to maintain uniqueness.
+
+🔍 7️⃣ HOMEPAGE CLEANUP
+
+Homepage is strong but slightly verbose.
+
+Refine by:
+
+Reducing repetition in “Why Choose Pixocraft”
+
+Compressing repeated best practice sections
+
+Keeping homepage focused on primary keyword:
+“Strong Password Generator”
+
+Length pages handle detailed entropy discussions.
+
+🎯 GOAL OF THIS REFINEMENT
+
+Remove duplication risk
+
+Improve technical credibility
+
+Improve formatting quality
+
+Improve crawl efficiency
+
+Strengthen topical authority ladder
+
+Prepare cluster for scaling to Bucket 2
+
+📋 OUTPUT REQUIRED
+
+After refinement, confirm:
+
+No duplicate routes exist
+
+Crack-time formatting cleaned
+
+Entropy consistent across all pages
+
+Internal linking structured correctly
+
+Homepage trimmed and focused
+
+Then confirm:

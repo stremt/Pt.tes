@@ -59,7 +59,9 @@ export default function PasswordGenerator() {
     if (years < 1000) return `${Math.round(years)} years`;
     if (years < 1000000) return `${Math.round(years / 1000)} thousand years`;
     if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
-    return `${Math.round(years / 1000000000)} billion years`;
+    if (years < 1e12) return `~${(years / 1e9).toFixed(1)} billion years`;
+    if (years < 1e15) return `~${(years / 1e12).toFixed(1)} trillion years`;
+    return "Longer than the age of the universe";
   };
 
   const generatePassword = () => {
@@ -408,13 +410,13 @@ export default function PasswordGenerator() {
                       <td className="px-6 py-4 font-medium">{row.feature}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 text-green-600 font-bold">
-                          {row.pixocraft ? <Check className="h-5 w-5" /> : <X className="h-5 w-5 text-red-500" />}
+                          {row.pixocraft ? <Check className="h-5 w-5" /> : <X className="h-5 w-5 text-destructive" />}
                           {row.pixocraft ? "Yes" : "Never"}
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2 text-muted-foreground">
-                          {row.others ? <X className="h-5 w-5 text-red-500" /> : <Check className="h-5 w-5 text-green-600" />}
+                          {row.others ? <X className="h-5 w-5 text-destructive" /> : <Check className="h-5 w-5 text-green-600" />}
                           {row.others ? "Often / Sometimes" : "No"}
                         </div>
                       </td>

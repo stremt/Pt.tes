@@ -68,15 +68,36 @@ export default function PasswordGenerator48Char() {
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-12">
             <section>
-              <h2 className="text-3xl font-bold mb-4">The Power of 48 Characters</h2>
+              <h2 className="text-3xl font-bold mb-4">Why Ultimate Randomness Matters</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                A 48-character password using a full 95-character set provides ~315 bits of entropy. This is significantly beyond the 256-bit security level often used in military-grade encryption. It offers:
+                At 48 characters, even the slightest pattern can be a vulnerability over centuries of time. Pixocraft uses the Web Crypto API to ensure <strong>mathematical unpredictability</strong>. This "Ultra" tier is designed for assets that must remain secure for the next 50+ years, providing a cryptographic buffer against hardware leaps.
               </p>
-              <div className="bg-muted p-4 rounded-lg my-4 font-mono text-xl text-center">
-                95^48 combinations
+            </section>
+
+            <section>
+              <h2 className="text-3xl font-bold mb-4">Estimated Crack Time for 48 Characters</h2>
+              <div className="overflow-hidden rounded-xl border bg-card shadow-lg mb-4">
+                <table className="w-full text-left">
+                  <thead className="bg-muted/50 border-b">
+                    <tr>
+                      <th className="px-6 py-4 font-bold">Attack Model</th>
+                      <th className="px-6 py-4 font-bold">Estimated Crack Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y">
+                    <tr>
+                      <td className="px-6 py-4 font-medium">Quantum Theoretical Model</td>
+                      <td className="px-6 py-4">Longer than the age of the universe</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 font-medium">All Computing Power on Earth</td>
+                      <td className="px-6 py-4">Computationally infeasible</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                This search space is so vast that it is physically impossible to crack using any known or theoretical computing resource within several life-spans of the universe.
+              <p className="text-sm text-muted-foreground italic">
+                Note: 48 characters is the ultimate entropy level for permanent archival and root keys.
               </p>
             </section>
 
@@ -84,12 +105,12 @@ export default function PasswordGenerator48Char() {
               <h2 className="text-3xl font-bold mb-4">When to Use 48 Characters</h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0">
                 {[
-                  "Master keys for encryption software",
-                  "Cryptocurrency cold storage seeds",
-                  "Root administrator credentials",
-                  "Highly sensitive API production keys",
+                  "Military-grade encryption seeds",
+                  "Cryptocurrency cold storage (Physical)",
+                  "Root administrator for entire networks",
+                  "Master keys for organizational vaults",
                   "Secure backup recovery codes",
-                  "Military or Government grade security"
+                  "Nation-state level security projects"
                 ].map(item => (
                   <li key={item} className="flex items-center gap-2 p-3 rounded-lg bg-muted/50 font-medium">
                     <Check className="h-4 w-4 text-green-600" /> {item}
@@ -110,27 +131,49 @@ export default function PasswordGenerator48Char() {
               </div>
             </section>
 
+            <section className="text-center py-12 border-t mt-12">
+              <h2 className="text-3xl font-bold mb-4">Generate Your 48-Character Root Key Now</h2>
+              <p className="text-muted-foreground mb-8">The ultimate entropy level for your most critical digital assets.</p>
+              <div className="flex justify-center">
+                <Button size="lg" className="h-14 px-8 text-xl font-bold rounded-full hover-elevate" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                  Generate 48 Character Password
+                </Button>
+              </div>
+            </section>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t">
-              <Link href="/password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <Shield className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Main Generator</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Custom lengths and options.</p>
+              <Link href="/32-character-password-generator" className="group" data-testid="link-32-char">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      32 Character
+                    </CardTitle>
+                    <CardDescription>Enterprise security level</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/32-character-password-generator" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">32 Character Page</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Enterprise-level security.</p>
+              <Link href="/tools/password-generator" className="group" data-testid="link-main-gen">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Main Generator
+                    </CardTitle>
+                    <CardDescription>Custom length tool</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
-              <Link href="/password-strength-checker" className="group p-6 rounded-2xl border hover:border-primary transition-all hover-elevate">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Strength Checker</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Verify your existing passwords.</p>
+              <Link href="/tools/password-strength-checker" className="group" data-testid="link-checker">
+                <Card className="hover-elevate transition-all">
+                  <CardHeader className="p-4">
+                    <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                      Strength Checker
+                    </CardTitle>
+                    <CardDescription>Verify your security</CardDescription>
+                  </CardHeader>
+                </Card>
               </Link>
             </div>
           </section>

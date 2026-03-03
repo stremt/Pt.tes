@@ -347,12 +347,12 @@ export default function Home() {
             </h1>
             <div className="space-y-4">
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
-                Access 200+ fast, fully browser-based tools for text, images, PDF, coding, math, AI, writing and productivity. No signup. No tracking. 100% private & offline supported.
+                Access 200+ fast, fully browser-based tools for text, images, PDF, coding, and productivity. No signup. No tracking. 100% private.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-muted-foreground/80">
-                <span className="flex items-center gap-1"><Shield className="h-3 w-3 text-green-500" /> All user files are processed locally in the browser</span>
-                <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-blue-500" /> We do not track personal data or tool inputs</span>
-                <span className="flex items-center gap-1"><Info className="h-3 w-3 text-orange-500" /> We use anonymous analytics to improve tools</span>
+                <span className="flex items-center gap-1"><Shield className="h-3 w-3 text-green-500" /> Local Processing</span>
+                <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-blue-500" /> Zero Tracking</span>
+                <span className="flex items-center gap-1"><Lock className="h-3 w-3 text-orange-500" /> Offline Support</span>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
@@ -742,19 +742,10 @@ export default function Home() {
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4" data-testid="accordion-faq">
               <AccordionItem value="item-1" className="border rounded-lg px-4 sm:px-6">
                 <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-what-is">
-                  What is Pixocraft Tools?
+                  What is Pixocraft Tools and why is it India's biggest tool hub?
                 </AccordionTrigger>
                 <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  Pixocraft Tools is India's biggest free online tool hub offering 200+ browser-based tools for text processing, image editing, PDF manipulation, developer utilities, math calculations, and productivity. All tools are 100% free, work offline, and require no signup.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="item-2" className="border rounded-lg px-4 sm:px-6">
-                <AccordionTrigger className="text-left text-sm sm:text-base" data-testid="faq-trigger-why-biggest">
-                  Why is Pixocraft India's biggest tool hub?
-                </AccordionTrigger>
-                <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  Pixocraft Tools is India's biggest tool hub because we offer 200+ completely free, static, browser-based tools with zero tracking, no login requirements, and full offline support. All tools run entirely in your browser with 0ms server delay.
+                  Pixocraft Tools is India's most comprehensive free online tool hub, offering 200+ browser-based utilities with 0ms server delay. We are the largest platform because every tool is 100% free, runs entirely in your browser for maximum privacy, and requires no signup or login.
                 </AccordionContent>
               </AccordionItem>
 
