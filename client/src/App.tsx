@@ -49,6 +49,7 @@ import IsMyPasswordStrong from "@/pages/IsMyPasswordStrong";
 import PasswordStrengthValidation from "@/pages/PasswordStrengthValidation";
 import PasswordEntropyExplained from "@/pages/PasswordEntropyExplained";
 import CommonPasswordMistakes from "@/pages/CommonPasswordMistakes";
+import HowToCreateStrongPassword from "@/pages/HowToCreateStrongPassword";
 import RandomStringGeneratorApiKeys from "@/pages/RandomStringGeneratorApiKeys";
 import RandomStringGeneratorOnline from "@/pages/RandomStringGeneratorOnline";
 import SecureRandomStringGenerator from "@/pages/SecureRandomStringGenerator";
@@ -447,6 +448,7 @@ function Router() {
         <Route path="/tools/password-strength-checker/validation" component={PasswordStrengthValidation} />
         <Route path="/password-entropy-explained" component={PasswordEntropyExplained} />
         <Route path="/common-password-mistakes" component={CommonPasswordMistakes} />
+        <Route path="/how-to-create-strong-password" component={HowToCreateStrongPassword} />
         <Route path="/tools/random-string-generator/api-keys" component={RandomStringGeneratorApiKeys} />
         <Route path="/tools/random-string-generator/online" component={RandomStringGeneratorOnline} />
         <Route path="/tools/random-string-generator/secure" component={SecureRandomStringGenerator} />
