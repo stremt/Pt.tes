@@ -56,6 +56,7 @@ export default function PasswordStrengthChecker() {
 
   const timeToCrack = security.crackTime;
   const passwordEntropy = security.entropy;
+  const feedback = security.feedback;
 
   const checks = useMemo(() => {
     const hasLowercase = /[a-z]/.test(password);
@@ -215,21 +216,21 @@ export default function PasswordStrengthChecker() {
                     </div>
                   </div>
 
-                  {analysis && analysis.feedback.warning && (
+                  {feedback && feedback.warning && (
                     <div className="flex items-start gap-3 p-4 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                       <AlertTriangle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                       <div className="space-y-1">
                         <p className="font-semibold text-yellow-900 dark:text-yellow-200">Warning</p>
-                        <p className="text-sm text-yellow-800 dark:text-yellow-300">{analysis.feedback.warning}</p>
+                        <p className="text-sm text-yellow-800 dark:text-yellow-300">{feedback.warning}</p>
                       </div>
                     </div>
                   )}
 
-                  {analysis && analysis.feedback.suggestions && analysis.feedback.suggestions.length > 0 && (
+                  {feedback && feedback.suggestions && feedback.suggestions.length > 0 && (
                     <div className="space-y-2">
                       <p className="font-semibold text-sm">Suggestions:</p>
                       <ul className="space-y-1">
-                        {analysis.feedback.suggestions.map((suggestion, index) => (
+                        {feedback.suggestions.map((suggestion, index) => (
                           <li key={index} className="text-sm text-muted-foreground flex items-start gap-2">
                             <span className="text-primary mt-0.5">•</span>
                             <span>{suggestion}</span>
@@ -269,7 +270,7 @@ export default function PasswordStrengthChecker() {
               </Card>
 
               {/* Weak Password CTA */}
-              {analysis && analysis.score < 3 && (
+              {security.score < 3 && (
                 <Card className="bg-primary/5 border-primary/20">
                   <CardContent className="pt-6">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
