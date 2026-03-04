@@ -39,6 +39,19 @@ export default function PasswordStrengthChecker() {
     return zxcvbn(password);
   }, [password]);
 
+  const passwordEntropy = useMemo(() => {
+    if (!password) return 0;
+    
+    let charsetSize = 0;
+    if (/[a-z]/.test(password)) charsetSize += 26;
+    if (/[A-Z]/.test(password)) charsetSize += 26;
+    if (/[0-9]/.test(password)) charsetSize += 10;
+    if (/[^A-Za-z0-9]/.test(password)) charsetSize += 32;
+    
+    const entropy = password.length * Math.log2(charsetSize);
+    return Math.round(entropy);
+  }, [password]);
+
   const strengthInfo = useMemo(() => {
     if (!analysis) return null;
 
@@ -57,38 +70,7 @@ export default function PasswordStrengthChecker() {
     if (entropy < 100) return { ...strengthLevels[2], percent: Math.round(40 + ((entropy - 70) / 30) * 20) };
     if (entropy < 150) return { ...strengthLevels[3], percent: Math.round(60 + ((entropy - 100) / 50) * 25) };
     return { ...strengthLevels[4], percent: Math.round(Math.min(100, 85 + ((entropy - 150) / 100) * 15)), label: "Computationally Infeasible" };
-  }, [passwordEntropy]);
-
-  const timeToCrack = useMemo(() => {
-    if (!analysis) return null;
-
-    const seconds = analysis.crackTimesSeconds.onlineNoThrottling10PerSecond;
-    
-    if (seconds < 1) return "Instantly";
-    if (seconds < 60) return `${Math.round(seconds)} seconds`;
-    if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
-    if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
-    if (seconds < 2592000) return `${Math.round(seconds / 86400)} days`;
-    if (seconds < 31536000) return `${Math.round(seconds / 2592000)} months`;
-    
-    const years = seconds / 31536000;
-    if (years < 1000000) return `${Math.round(years)} years`;
-    if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
-    return "Centuries";
-  }, [analysis]);
-
-  const passwordEntropy = useMemo(() => {
-    if (!password) return 0;
-    
-    let charsetSize = 0;
-    if (/[a-z]/.test(password)) charsetSize += 26;
-    if (/[A-Z]/.test(password)) charsetSize += 26;
-    if (/[0-9]/.test(password)) charsetSize += 10;
-    if (/[^A-Za-z0-9]/.test(password)) charsetSize += 32;
-    
-    const entropy = password.length * Math.log2(charsetSize);
-    return Math.round(entropy);
-  }, [password]);
+  }, [analysis, passwordEntropy]);
 
   const checks = useMemo(() => {
     const hasLowercase = /[a-z]/.test(password);
