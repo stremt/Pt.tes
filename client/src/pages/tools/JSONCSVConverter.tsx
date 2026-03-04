@@ -126,30 +126,38 @@ export default function JSONCSVConverter() {
         {/* Input/Output Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Input */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Input {mode === "json-to-csv" ? "JSON" : "CSV"}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                placeholder={
-                  mode === "json-to-csv"
-                    ? '[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]'
-                    : 'name,age\nJohn,30\nJane,25'
-                }
-                value={input}
-                onChange={(e) => {
-                  setInput(e.target.value);
-                  setError("");
-                }}
-                className="min-h-[400px] text-sm font-mono"
-                data-testid="input-data"
-              />
-            </CardContent>
-          </Card>
+          {(!output || input) && (
+            <Card className={cn(output && "opacity-50 hover:opacity-100 transition-opacity")}>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle>Input {mode === "json-to-csv" ? "JSON" : "CSV"}</CardTitle>
+                {output && (
+                  <Button variant="ghost" size="sm" onClick={handleClear}>
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    New Conversion
+                  </Button>
+                )}
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  placeholder={
+                    mode === "json-to-csv"
+                      ? '[{"name": "John", "age": 30}, {"name": "Jane", "age": 25}]'
+                      : 'name,age\nJohn,30\nJane,25'
+                  }
+                  value={input}
+                  onChange={(e) => {
+                    setInput(e.target.value);
+                    setError("");
+                  }}
+                  className={cn("text-sm font-mono transition-all", output ? "min-h-[100px]" : "min-h-[400px]")}
+                  data-testid="input-data"
+                />
+              </CardContent>
+            </Card>
+          )}
 
           {/* Output */}
-          <Card>
+          <Card className={cn(!input && output && "lg:col-span-2")}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Output {mode === "json-to-csv" ? "CSV" : "JSON"}</span>

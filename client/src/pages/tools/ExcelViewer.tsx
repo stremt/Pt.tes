@@ -488,8 +488,16 @@ export default function ExcelViewer() {
                     />
                   </div>
                   <div className="flex gap-2">
-                    <Button variant={isEditing ? "default" : "outline"} size="sm" onClick={toggleEditing}>
-                      <Edit2 className="h-4 w-4 mr-1" /> Edit
+                    <Button 
+                      variant={isEditing ? "default" : "outline"} 
+                      size="sm" 
+                      onClick={toggleEditing}
+                      className={cn(
+                        "transition-all duration-500",
+                        !isEditing && sheets.length > 0 && "ring-2 ring-primary ring-offset-2 animate-pulse shadow-lg"
+                      )}
+                    >
+                      <Edit2 className="h-4 w-4 mr-1" /> {isEditing ? "Done Editing" : "Edit Spreadsheet"}
                     </Button>
                     <Button variant="outline" size="sm" onClick={toggleFullScreen}>
                       {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}

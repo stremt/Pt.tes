@@ -550,10 +550,13 @@ export default function XLSXViewer() {
                     size="sm"
                     onClick={toggleEditing} 
                     title={isEditing ? "Disable Editing" : "Enable Editing"}
-                    className="flex-1 sm:flex-none"
+                    className={cn(
+                      "flex-1 sm:flex-none transition-all duration-500",
+                      !isEditing && data.length > 0 && "ring-2 ring-primary ring-offset-2 animate-pulse shadow-lg"
+                    )}
                   >
                     <Edit2 className="h-4 w-4 sm:mr-1" />
-                    <span className="hidden sm:inline">Edit</span>
+                    <span className="hidden sm:inline">{isEditing ? "Done Editing" : "Edit Spreadsheet"}</span>
                   </Button>
                   
                   <Button 

@@ -674,6 +674,24 @@ export default function CSVViewer() {
             )}
           </div>
         ) : (
+          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border mb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                <FileText className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-bold truncate max-w-[200px]">{fileName}</p>
+                <p className="text-xs text-muted-foreground">{data.length} rows loaded</p>
+              </div>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleClear} className="gap-2">
+              <RotateCcw className="h-4 w-4" />
+              Upload New
+            </Button>
+          </div>
+        )}
+
+        {data.length > 0 && (
           <div
             ref={containerRef}
             className={cn(

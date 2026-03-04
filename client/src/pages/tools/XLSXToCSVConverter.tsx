@@ -250,7 +250,7 @@ export default function XLSXToCSVConverter() {
             </div>
 
             <CardContent className="p-8">
-              {viewMode === "upload" ? (
+              {(viewMode === "upload" && !csvData) ? (
                 <div 
                   {...getRootProps()} 
                   className={cn(
@@ -291,7 +291,7 @@ export default function XLSXToCSVConverter() {
                     </div>
                   </div>
                 </div>
-              ) : (
+              ) : viewMode === "paste" && !csvData ? (
                 <div className="space-y-6">
                   <div className="relative">
                     <Textarea
@@ -311,6 +311,22 @@ export default function XLSXToCSVConverter() {
                   >
                     <ClipboardPaste className="h-6 w-6 mr-3" />
                     Load & Convert Content
+                  </Button>
+                </div>
+              ) : csvData && (
+                <div className="flex items-center justify-between p-4 bg-primary/5 rounded-xl border border-primary/10">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                      <FileSpreadsheet className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold truncate max-w-[200px]">{fileName}</p>
+                      <p className="text-xs text-muted-foreground">Sheet: {sheetName}</p>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="sm" onClick={handleClear} className="text-muted-foreground hover:text-destructive">
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    Convert Another
                   </Button>
                 </div>
               )}
