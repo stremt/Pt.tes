@@ -552,6 +552,26 @@ export default function Home() {
                 <p>
                   Pixocraft Tools has established itself as <strong>India's biggest free online tool hub</strong>, offering an unparalleled collection of <strong>200+ static, browser-based tools</strong> that cater to every digital need. Whether you're looking for powerful <strong>text tools</strong> like word counters, case converters, and text summarizers, or advanced <strong>image tools</strong> including compressors, resizers, and format converters, Pixocraft delivers instant results without any signup or registration.
                 </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
+                  <div className="space-y-2">
+                    <h4 className="font-bold text-foreground">Security Education</h4>
+                    <ul className="space-y-1">
+                      <li><Link href="/password-entropy-explained" className="text-sm hover:underline hover:text-primary">Password Entropy Explained</Link></li>
+                      <li><Link href="/common-password-mistakes" className="text-sm hover:underline hover:text-primary">Common Password Mistakes</Link></li>
+                      <li><Link href="/how-to-create-strong-password" className="text-sm hover:underline hover:text-primary">How to Create Strong Passwords</Link></li>
+                      <li><Link href="/password-strength-checker-guide" className="text-sm hover:underline hover:text-primary">Password Strength Guide</Link></li>
+                    </ul>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-bold text-foreground">Quick Links</h4>
+                    <ul className="space-y-1">
+                      <li><Link href="/tools/password-generator" className="text-sm hover:underline hover:text-primary">Password Generator</Link></li>
+                      <li><Link href="/tools/password-strength-checker" className="text-sm hover:underline hover:text-primary">Strength Checker</Link></li>
+                      <li><Link href="/tools/temp-mail" className="text-sm hover:underline hover:text-primary">Temp Mail Online</Link></li>
+                      <li><Link href="/tools/qr-maker" className="text-sm hover:underline hover:text-primary">QR Code Maker</Link></li>
+                    </ul>
+                  </div>
+                </div>
                 <p>
                   Our comprehensive suite includes professional <strong>PDF tools</strong> for merging, splitting, and rotating documents, essential <strong>developer tools</strong> like JSON formatters, code beautifiers, minifiers, and Base64 encoders, along with powerful <strong>math tools</strong> featuring EMI calculators, loan calculators, and fraction solvers. The platform also features innovative <strong>AI tools</strong> for text summarization and speech processing, creative <strong>color tools</strong> for designers, and productivity enhancers like todo lists and expense trackers.
                 </p>
