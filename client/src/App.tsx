@@ -52,6 +52,9 @@ import CommonPasswordMistakes from "@/pages/CommonPasswordMistakes";
 import HowToCreateStrongPassword from "@/pages/HowToCreateStrongPassword";
 import StrongPasswordExamples from "@/pages/StrongPasswordExamples";
 import PasswordStrengthCheckerGuide from "@/pages/PasswordStrengthCheckerGuide";
+import HowPasswordsGetHacked from "@/pages/HowPasswordsGetHacked";
+import SecureRandomPasswordGenerator from "@/pages/SecureRandomPasswordGenerator";
+import StrongestPasswordGenerator from "@/pages/StrongestPasswordGenerator";
 import RandomStringGeneratorApiKeys from "@/pages/RandomStringGeneratorApiKeys";
 import RandomStringGeneratorOnline from "@/pages/RandomStringGeneratorOnline";
 import SecureRandomStringGenerator from "@/pages/SecureRandomStringGenerator";
@@ -500,6 +503,9 @@ function Router() {
         <Route path="/apple-id-password-generator" component={AppleIdPasswordGenerator} />
         <Route path="/banking-password-generator" component={BankingPasswordGenerator} />
         <Route path="/military-grade-password-generator" component={MilitaryGradePasswordGenerator} />
+        <Route path="/secure-random-password-generator" component={SecureRandomPasswordGenerator} />
+        <Route path="/strongest-password-generator" component={StrongestPasswordGenerator} />
+        <Route path="/how-passwords-get-hacked" component={HowPasswordsGetHacked} />
         <Route path="/password-brute-force-calculator" component={PasswordBruteForceCalculator} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
