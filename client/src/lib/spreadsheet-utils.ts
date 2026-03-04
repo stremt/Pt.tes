@@ -44,14 +44,17 @@ export async function convertExcelToHTML(file: File): Promise<string> {
   const sheets = await readExcelFile(file);
   
   let html = '<html><head><style>';
-  html += 'body { font-family: Arial, sans-serif; padding: 20px; }';
-  html += 'table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }';
-  html += 'th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }';
-  html += 'th { background-color: #f2f2f2; font-weight: bold; }';
-  html += 'h2 { margin-top: 20px; }';
+  html += 'body { font-family: "Helvetica", "Arial", sans-serif; padding: 20px; color: #333; }';
+  html += 'table { border-collapse: collapse; width: 100%; margin-bottom: 30px; table-layout: fixed; word-wrap: break-word; }';
+  html += 'th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 10pt; min-width: 50px; overflow: hidden; }';
+  html += 'th { background-color: #f8f9fa; font-weight: bold; border-bottom: 2px solid #aaa; }';
+  html += 'h2 { margin-top: 20px; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 5px; }';
+  html += '.sheet-container { page-break-after: always; }';
+  html += '.sheet-container:last-child { page-break-after: auto; }';
   html += '</style></head><body>';
   
   sheets.forEach(sheet => {
+    html += `<div class="sheet-container">`;
     html += `<h2>${sheet.name}</h2>`;
     html += '<table>';
     
@@ -65,15 +68,23 @@ export async function convertExcelToHTML(file: File): Promise<string> {
     
     html += '<tbody>';
     sheet.data.forEach(row => {
+      // Skip empty rows
+      if (row.length === 0 || row.every(cell => cell === undefined || cell === null || cell === '')) {
+        return;
+      }
       html += '<tr>';
-      row.forEach((cell: any) => {
+      // Ensure we iterate based on headers length to maintain structure
+      const colCount = Math.max(sheet.headers.length, row.length);
+      for (let i = 0; i < colCount; i++) {
+        const cell = row[i];
         html += `<td>${cell !== undefined && cell !== null ? cell : ''}</td>`;
-      });
+      }
       html += '</tr>';
     });
     html += '</tbody>';
     
     html += '</table>';
+    html += `</div>`;
   });
   
   html += '</body></html>';

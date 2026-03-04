@@ -35,16 +35,28 @@ export default function ExcelToPDFProfessional() {
       const htmlContent = await convertExcelToHTML(file);
       const element = document.createElement('div');
       element.innerHTML = htmlContent;
+      document.body.appendChild(element); // Temporarily add to DOM for better rendering
+      
       const opt = {
-        margin: 10,
+        margin: [10, 10, 10, 10],
         filename: file.name.replace(/\.(xlsx|xls)$/i, '.pdf'),
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollY: 0
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' as const },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
+      
       await html2pdf().set(opt).from(element).save();
+      document.body.removeChild(element);
       toast({ title: "Success!", description: "Professional PDF generated successfully" });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to convert", variant: "destructive" });
+      console.error('Conversion error:', error);
+      toast({ title: "Error", description: "Failed to convert. Please try a different file.", variant: "destructive" });
     } finally {
       setConverting(false);
     }
