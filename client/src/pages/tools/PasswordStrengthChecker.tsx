@@ -47,12 +47,17 @@ export default function PasswordStrengthChecker() {
       { label: "Very Weak", color: "text-red-600", bgColor: "bg-red-600", percent: 20 },
       { label: "Weak", color: "text-orange-600", bgColor: "bg-orange-600", percent: 40 },
       { label: "Fair", color: "text-yellow-600", bgColor: "bg-yellow-600", percent: 60 },
-      { label: "Strong", color: "text-blue-600", bgColor: "bg-blue-600", percent: 80 },
+      { label: "Strong", color: "text-blue-600", bgColor: "bg-blue-600", percent: 85 },
       { label: "Very Strong", color: "text-green-600", bgColor: "bg-green-600", percent: 100 },
     ];
 
-    return strengthLevels[score];
-  }, [analysis]);
+    const entropy = passwordEntropy;
+    if (entropy < 40) return strengthLevels[0];
+    if (entropy < 70) return strengthLevels[1];
+    if (entropy < 100) return strengthLevels[2];
+    if (entropy < 150) return strengthLevels[3];
+    return strengthLevels[4];
+  }, [passwordEntropy]);
 
   const timeToCrack = useMemo(() => {
     if (!analysis) return null;

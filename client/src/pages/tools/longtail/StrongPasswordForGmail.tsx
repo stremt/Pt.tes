@@ -96,22 +96,41 @@ export default function StrongPasswordForGmail() {
               </p>
             </div>
             <PasswordGeneratorTool initialLength={16} />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Generated using cryptographically secure randomness in your browser.
+            </p>
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
-            {/* Featured Snippet Section */}
-            <section className="bg-primary/5 p-8 rounded-2xl border border-primary/10">
-              <h2 className="text-2xl font-bold mb-4">What Is the Best Password Length for Gmail?</h2>
-              <p className="text-lg leading-relaxed">
-                The best password length for Gmail is 16 characters or more, using a random mix of letters, numbers, and symbols. Since Gmail acts as a recovery gateway for other accounts, this length provides the necessary entropy to resist modern brute-force attacks.
-              </p>
+
+            {/* Unique Data Block: Primary Email Risk Flow */}
+            <section className="bg-muted/30 p-8 rounded-2xl border">
+              <h3 className="text-2xl font-bold mb-6">Primary Email Risk Flow (3-Step Reset Chain)</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">1</div>
+                  <p>Attacker gains access to your primary Gmail account through a weak password or phishing.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">2</div>
+                  <p>They search for "Welcome" or "Password Reset" emails to identify linked bank and social accounts.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">3</div>
+                  <p>Attackers trigger "Forgot Password" on those services, intercepting recovery links in your inbox.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">4</div>
+                  <p>Your entire digital identity is compromised within minutes as passwords are changed across all platforms.</p>
+                </li>
+              </ul>
             </section>
 
             {/* Section: Why Gmail Is the Gateway to Your Digital Identity */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Why Gmail Is the Gateway to Your Digital Identity</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Your Gmail account isn't just for email—it's the primary anchor for your entire online existence.
+                Your Gmail account isn't just for email—it's the primary anchor for your entire online existence, creating a potential identity chain compromise if left vulnerable.
               </p>
               <div className="space-y-6">
                 <div className="p-6 rounded-xl border bg-card">
@@ -159,9 +178,9 @@ export default function StrongPasswordForGmail() {
               </p>
             </section>
 
-            {/* Section 2 */}
+            {/* Comparison Tier Table */}
             <section>
-              <h2 className="text-3xl font-bold mb-6">What Is the Best Password Length for Gmail?</h2>
+              <h2 className="text-3xl font-bold mb-6">Security Tiers for Gmail Protection</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <Card className="border-yellow-200/50 dark:border-yellow-900/20">
                   <CardHeader className="pb-2">
@@ -330,7 +349,7 @@ export default function StrongPasswordForGmail() {
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <ArrowRight className="h-4 w-4" /> Apple ID
                     </CardTitle>
-                    <CardDescription>Ecosystem security</CardDescription>
+                    <CardDescription>Account recovery chain</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

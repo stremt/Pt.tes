@@ -96,6 +96,9 @@ export default function BankingPasswordGenerator() {
               </p>
             </div>
             <PasswordGeneratorTool initialLength={20} />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Exceeds standard financial password complexity recommendations.
+            </p>
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
@@ -107,11 +110,34 @@ export default function BankingPasswordGenerator() {
               </p>
             </section>
 
+            {/* Unique Data Block: Financial Compromise Timeline */}
+            <section className="bg-muted/30 p-8 rounded-2xl border">
+              <h3 className="text-2xl font-bold mb-6">Financial Compromise Timeline After Breach</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">0h</div>
+                  <p>Initial credential harvesting through phishing or data breach exposure.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">1h</div>
+                  <p>Unauthorized login and rapid modification of account alert settings to hide activity.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">4h</div>
+                  <p>Triggering of multiple outbound wire transfers or digital wallet drains.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">12h</div>
+                  <p>Full account lockout and potential multi-year legal hurdles for asset recovery.</p>
+                </li>
+              </ul>
+            </section>
+
             {/* Section: Why Banking Security Must Be Future-Proof */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Why Banking Security Must Be Future-Proof</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Financial data is a permanent target. A password that is "safe enough" today may not be safe against tomorrow's computing capabilities.
+                Financial data is a permanent target. A password that is "safe enough" today may not be safe against tomorrow's computing capabilities, necessitating high long-term cryptographic safety.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-6 rounded-xl border bg-card">
@@ -334,7 +360,7 @@ export default function BankingPasswordGenerator() {
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <ArrowRight className="h-4 w-4" /> Gmail Account
                     </CardTitle>
-                    <CardDescription>Identity safety</CardDescription>
+                    <CardDescription>Identity reset risk</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

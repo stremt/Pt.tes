@@ -96,6 +96,9 @@ export default function StrongPasswordForInstagram() {
               </p>
             </div>
             <PasswordGeneratorTool initialLength={16} />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              High-entropy strings resistant to automated bot attacks.
+            </p>
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
@@ -107,11 +110,34 @@ export default function StrongPasswordForInstagram() {
               </p>
             </section>
 
+            {/* Unique Data Block: Influencer Account Monetization Risk */}
+            <section className="bg-muted/30 p-8 rounded-2xl border">
+              <h3 className="text-2xl font-bold mb-6">Influencer Account Monetization Risk</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">•</div>
+                  <p>Hacked accounts are sold on "Handle Markets" for hundreds of dollars based on follower count.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">•</div>
+                  <p>Attackers ransom accounts back to owners, demanding crypto payments for access restoration.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">•</div>
+                  <p>Compromised profiles are used to run fraudulent giveaways, stealing follower payment data.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">•</div>
+                  <p>Brand credibility is destroyed instantly when bot-driven spam is posted to your public feed.</p>
+                </li>
+              </ul>
+            </section>
+
             {/* Section: How Influencer Accounts Are Monetized Targets */}
             <section>
               <h2 className="text-3xl font-bold mb-6">How Influencer Accounts Are Monetized Targets</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                On Instagram, your follower count isn't just a number—it's a financial asset that hackers actively look to exploit.
+                On Instagram, your follower count isn't just a number—it's a financial asset that hackers actively look to exploit, often leading to monetization and resale risk if left unprotected.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-6 rounded-xl border bg-card">
@@ -321,13 +347,13 @@ export default function StrongPasswordForInstagram() {
                   </CardHeader>
                 </Card>
               </Link>
-              <Link href="/16-character-password-generator" className="group">
+              <Link href="/strong-password-for-facebook" className="group">
                 <Card className="hover-elevate transition-all">
                   <CardHeader className="p-4">
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <ArrowRight className="h-4 w-4" /> 16 Character
+                      <ArrowRight className="h-4 w-4" /> Facebook
                     </CardTitle>
-                    <CardDescription>Secure tier</CardDescription>
+                    <CardDescription>Linked platforms</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

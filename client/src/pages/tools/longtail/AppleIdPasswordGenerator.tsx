@@ -96,6 +96,9 @@ export default function AppleIdPasswordGenerator() {
               </p>
             </div>
             <PasswordGeneratorTool initialLength={16} />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Built to protect device-level and iCloud access integrity.
+            </p>
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
@@ -107,11 +110,34 @@ export default function AppleIdPasswordGenerator() {
               </p>
             </section>
 
+            {/* Unique Data Block: Device Lockout Scenario */}
+            <section className="bg-muted/30 p-8 rounded-2xl border">
+              <h3 className="text-2xl font-bold mb-6">Device Lockout Scenario Explained</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">!</div>
+                  <p>Attacker gains your Apple ID password and immediately enables "Lost Mode" on all your devices.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">!</div>
+                  <p>Recovery email and phone numbers are changed within the Apple ID portal, locking you out.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">!</div>
+                  <p>Attacker initiates a remote wipe of your MacBook and iPad to eliminate local data access.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">!</div>
+                  <p>Your hardware becomes useless until Apple support verification, which can take days or weeks.</p>
+                </li>
+              </ul>
+            </section>
+
             {/* Section: Device-Level Security Implications */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Device-Level Security Implications</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Your Apple ID isn't just for logging in—it's the core of your device's physical and digital security.
+                Your Apple ID isn't just for logging in—it's the core of your device's physical and digital security, maintaining complete device ecosystem control.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-6 rounded-xl border bg-card shadow-sm">
@@ -338,7 +364,7 @@ export default function AppleIdPasswordGenerator() {
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <ArrowRight className="h-4 w-4" /> Gmail Account
                     </CardTitle>
-                    <CardDescription>Identity safety</CardDescription>
+                    <CardDescription>Account recovery chain</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

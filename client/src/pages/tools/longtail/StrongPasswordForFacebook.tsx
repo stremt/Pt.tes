@@ -97,6 +97,9 @@ export default function StrongPasswordForFacebook() {
               </p>
             </div>
             <PasswordGeneratorTool initialLength={16} />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Designed to prevent credential stuffing vulnerabilities.
+            </p>
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
@@ -108,11 +111,30 @@ export default function StrongPasswordForFacebook() {
               </p>
             </section>
 
+            {/* Unique Data Block: Credential Stuffing Explained */}
+            <section className="bg-muted/30 p-8 rounded-2xl border">
+              <h3 className="text-2xl font-bold mb-6">Credential Stuffing Explained in 3 Steps</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">1</div>
+                  <p>Hackers acquire a list of email/password pairs from a breach on a smaller, insecure website.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">2</div>
+                  <p>Automated software "stuffs" these pairs into Facebook's login portal simultaneously.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0 font-bold text-primary">3</div>
+                  <p>If you reused that password, the attacker gains instant access to your social graph and linked apps.</p>
+                </li>
+              </ul>
+            </section>
+
             {/* Section: Facebook as an Identity Anchor Account */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Facebook as an Identity Anchor Account</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Facebook is rarely just a standalone social profile—it acts as an "anchor" for your digital footprint.
+                Facebook is rarely just a standalone social profile—it acts as an "anchor" for your digital footprint, often susceptible to credential stuffing if left vulnerable.
               </p>
               <div className="space-y-6">
                 <div className="p-6 rounded-xl border bg-card">
@@ -299,7 +321,7 @@ export default function StrongPasswordForFacebook() {
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
                       <ArrowRight className="h-4 w-4" /> Instagram
                     </CardTitle>
-                    <CardDescription>Visual security</CardDescription>
+                    <CardDescription>Social security connection</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

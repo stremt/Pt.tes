@@ -370,7 +370,7 @@ export default function PasswordGenerator() {
             <div className="bg-card p-8 rounded-2xl border">
               <h2 className="text-3xl font-bold mb-4">How Our Secure Password Generator Works</h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                Unlike traditional generators that use <code>Math.random()</code>, which is predictable and not suitable for security, our tool uses the <strong>Web Crypto API</strong> (<code>window.crypto.getRandomValues</code>). This provides <strong>cryptographically secure pseudo-random numbers (CSPRNG)</strong>, ensuring that your passwords have maximum entropy and are impossible to predict by brute-force attacks.
+                Unlike traditional generators that use <code>Math.random()</code>, which is predictable and not suitable for security, our tool uses the <strong>Web Crypto API</strong> (<code>window.crypto.getRandomValues</code>). This provides <strong>cryptographically secure pseudo-random numbers (CSPRNG)</strong>, ensuring that your passwords have maximum entropy and are computationally infeasible to crack with current technology.
               </p>
             </div>
 
