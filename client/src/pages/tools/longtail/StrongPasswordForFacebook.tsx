@@ -28,9 +28,9 @@ export default function StrongPasswordForFacebook() {
   ];
 
   useSEO({
-    title: "Strong Password for Facebook (Secure & Hack-Proof) – Free Generator",
+    title: "Strong Password for Facebook (Secure & Computationally Infeasible) – Free Generator",
     description: "Generate a strong Facebook password instantly. Protect your account from hacking, phishing, and credential stuffing with a secure random password. 100% private and offline.",
-    keywords: "strong password for facebook, facebook password generator, secure facebook password, best password for facebook account, facebook account security password, how to protect facebook from hackers, unhackable facebook password",
+    keywords: "strong password for facebook, facebook password generator, secure facebook password, best password for facebook account, facebook account security password, how to protect facebook from hackers, secure facebook password",
     canonicalUrl: "https://tools.pixocraft.in/strong-password-for-facebook",
     ogImage: OG_IMAGES.passwordGenerator,
   });

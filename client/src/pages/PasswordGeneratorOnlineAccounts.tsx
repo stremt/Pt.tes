@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 export default function PasswordGeneratorOnlineAccounts() {
   useSEO({
     title: "Strong Password Generator for Online Accounts – Create Secure Passwords | Pixocraft",
-    description: "Generate strong, random passwords for your online accounts instantly. Protect your email, social media, and accounts with secure, unhackable passwords from Pixocraft.",
+    description: "Generate strong, random passwords for your online accounts instantly. Protect your email, social media, and accounts with secure, computationally infeasible passwords from Pixocraft.",
     keywords: "strong password generator, random password for accounts, secure password generator online, password generator for email, safe password maker"
   });
 

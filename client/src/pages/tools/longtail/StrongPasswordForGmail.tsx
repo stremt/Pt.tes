@@ -27,9 +27,9 @@ export default function StrongPasswordForGmail() {
   ];
 
   useSEO({
-    title: "Strong Password for Gmail (Secure & Unhackable) – Free Generator",
+    title: "Strong Password for Gmail (Secure & Computationally Infeasible) – Free Generator",
     description: "Generate a strong password for Gmail instantly. Protect your Google account with a secure, cryptographically random password. 100% private and offline.",
-    keywords: "strong password for gmail, gmail password generator, secure gmail password, best password for gmail, how to create strong gmail password, gmail account security password, unhackable gmail password",
+    keywords: "strong password for gmail, gmail password generator, secure gmail password, best password for gmail, how to create strong gmail password, gmail account security password, secure gmail password",
     canonicalUrl: "https://tools.pixocraft.in/strong-password-for-gmail",
     ogImage: OG_IMAGES.passwordGenerator,
   });

@@ -27,9 +27,9 @@ export default function AppleIdPasswordGenerator() {
   ];
 
   useSEO({
-    title: "Apple ID Password Generator (Secure & Unhackable) – Free & Offline",
+    title: "Apple ID Password Generator (Secure & Computationally Infeasible) – Free & Offline",
     description: "Generate a strong Apple ID password instantly. Protect your iCloud, devices, and payments with a secure random password. 100% private and offline.",
-    keywords: "apple id password generator, strong password for apple id, secure apple id password, best password for icloud, unhackable apple id password, apple account security password, secure icloud login password",
+    keywords: "apple id password generator, strong password for apple id, secure apple id password, best password for icloud, secure apple id password, apple account security password, secure icloud login password",
     canonicalUrl: "https://tools.pixocraft.in/apple-id-password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
   });
@@ -178,7 +178,7 @@ export default function AppleIdPasswordGenerator() {
                 ))}
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed italic border-l-4 pl-4 border-primary/20">
-                A compromise doesn't just mean data loss—it can mean complete account lockout and the loss of thousands of dollars in digital purchases. Use our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Strength Checker</Link> to ensure your Apple ID is unhackable.
+                A compromise doesn't just mean data loss—it can mean complete account lockout and the loss of thousands of dollars in digital purchases. Use our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Strength Checker</Link> to ensure your Apple ID is secure.
               </p>
             </section>
 

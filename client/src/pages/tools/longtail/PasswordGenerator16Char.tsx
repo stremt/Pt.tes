@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 export default function PasswordGenerator16Char() {
   useSEO({
     title: "16 Character Password Generator (Strong & Secure) – Free & Offline",
-    description: "Generate a strong 16 character password instantly. 100% secure, offline and private. No signup required. Create uncrackable random passwords now.",
+    description: "Generate a strong 16 character password instantly. 100% secure, offline and private. No signup required. Create computationally infeasible random passwords now.",
     keywords: "16 character password generator, strong 16 character password, 16 digit password generator, secure 16 character password, 16 character random password",
     canonicalUrl: "https://tools.pixocraft.in/16-character-password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
@@ -68,7 +68,7 @@ export default function PasswordGenerator16Char() {
           {/* Hero Section */}
           <div className="text-center space-y-6 mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-              16 Character Password Generator – Strong, Secure & Uncrackable
+              16 Character Password Generator – Strong, Secure & Computationally Infeasible
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Need a strong 16 character password for your email, banking or social accounts? Generate a secure random 16 character password instantly. 100% private and powered by cryptographic randomness.

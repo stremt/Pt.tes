@@ -27,9 +27,9 @@ export default function BankingPasswordGenerator() {
   ];
 
   useSEO({
-    title: "Banking Password Generator (High-Security & Unhackable) – Free & Offline",
+    title: "Banking Password Generator (High-Security & Computationally Infeasible) – Free & Offline",
     description: "Generate a high-security banking password instantly. Protect your bank account with a cryptographically secure, random password. 100% private and offline.",
-    keywords: "banking password generator, strong password for banking, secure bank account password, best password for online banking, unhackable banking password, bank account password security, secure password for net banking, banking login password generator",
+    keywords: "banking password generator, strong password for banking, secure bank account password, best password for online banking, secure banking password, bank account password security, secure password for net banking, banking login password generator",
     canonicalUrl: "https://tools.pixocraft.in/banking-password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
   });

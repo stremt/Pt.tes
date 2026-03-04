@@ -52,11 +52,11 @@ export default function PasswordStrengthChecker() {
     ];
 
     const entropy = passwordEntropy;
-    if (entropy < 40) return strengthLevels[0];
-    if (entropy < 70) return strengthLevels[1];
-    if (entropy < 100) return strengthLevels[2];
-    if (entropy < 150) return strengthLevels[3];
-    return strengthLevels[4];
+    if (entropy < 40) return { ...strengthLevels[0], percent: Math.round(Math.max(5, (entropy / 40) * 20)) };
+    if (entropy < 70) return { ...strengthLevels[1], percent: Math.round(20 + ((entropy - 40) / 30) * 20) };
+    if (entropy < 100) return { ...strengthLevels[2], percent: Math.round(40 + ((entropy - 70) / 30) * 20) };
+    if (entropy < 150) return { ...strengthLevels[3], percent: Math.round(60 + ((entropy - 100) / 50) * 25) };
+    return { ...strengthLevels[4], percent: Math.round(Math.min(100, 85 + ((entropy - 150) / 100) * 15)), label: "Computationally Infeasible" };
   }, [passwordEntropy]);
 
   const timeToCrack = useMemo(() => {

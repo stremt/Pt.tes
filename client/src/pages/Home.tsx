@@ -338,7 +338,7 @@ export default function Home() {
             <div className="mx-auto max-w-4xl text-center space-y-4 sm:space-y-6 md:space-y-8">
               <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5" data-testid="badge-india-biggest">
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-                India's Biggest Tool Hub
+                Computationally Infeasible Security
               </Badge>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight px-2 sm:px-4">
               Pixocraft Tools — India's Biggest Free Online Tool Hub

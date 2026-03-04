@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react";
 export default function PasswordGeneratorSecurity() {
   useSEO({
     title: "Random Password Generator for Security – Protect Your Accounts | Pixocraft",
-    description: "Generate truly random passwords for maximum security. Create unhackable passwords instantly with military-grade randomization from Pixocraft's free password generator.",
-    keywords: "random password generator security, secure password generator, random password maker, cryptographic password generator, unhackable password generator"
+    description: "Generate truly random passwords for maximum security. Create computationally infeasible passwords instantly with military-grade randomization from Pixocraft's free password generator.",
+    keywords: "random password generator security, secure password generator, random password maker, cryptographic password generator, strong password generator"
   });
 
   return (

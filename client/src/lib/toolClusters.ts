@@ -280,7 +280,7 @@ export const useCasePages: ToolUseCasePage[] = [
       benefits: [
         { title: "Bank-Grade Security", description: "Exceeds all major bank password requirements" },
         { title: "100% Private", description: "Generated locally - never transmitted or stored anywhere" },
-        { title: "Maximum Entropy", description: "Highest possible randomness for uncrackable passwords" },
+        { title: "Maximum Entropy", description: "Highest possible randomness for computationally infeasible passwords" },
         { title: "Multi-Bank Ready", description: "Works with any bank's specific password requirements" }
       ],
       howItWorks: [

@@ -79,7 +79,7 @@ export default function PasswordGenerator() {
     },
     {
       question: "Can hackers crack randomly generated passwords?",
-      answer: "Randomly generated passwords with sufficient length and complexity are virtually uncrackable. A 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, cracking it would take longer than the age of the universe. The key factors are true randomness (which our generator provides) and sufficient length (12+ characters minimum)."
+      answer: "Randomly generated passwords with sufficient length and complexity are computationally infeasible to crack. A 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, cracking it would take longer than the age of the universe. The key factors are true randomness (which our generator provides) and sufficient length (12+ characters minimum)."
     },
     {
       question: "What is the best password length for security?",
@@ -99,7 +99,7 @@ export default function PasswordGenerator() {
     },
     {
       question: "What makes a password strong and secure?",
-      answer: "A strong password has three key characteristics: length (at least 12-16 characters), complexity (mix of uppercase, lowercase, numbers, and symbols), and uniqueness (different for each account). Our generator creates passwords with over 10^28 possible combinations for a 16-character password, making them virtually impossible to crack."
+      answer: "A strong password has three key characteristics: length (at least 12-16 characters), complexity (mix of uppercase, lowercase, numbers, and symbols), and uniqueness (different for each account). Our generator creates passwords with over 10^28 possible combinations for a 16-character password, making it computationally infeasible to crack."
     },
     {
       question: "How often should I change my passwords?",
@@ -382,7 +382,7 @@ export default function PasswordGenerator() {
                 </p>
               </section>
               <section>
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Uncrackable Security</h3>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Computationally Infeasible Security</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   A 16-character password generated here has more combinations than there are atoms in the observable universe. It would take current supercomputers trillions of years to crack.
                 </p>

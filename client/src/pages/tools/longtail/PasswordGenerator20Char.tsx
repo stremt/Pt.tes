@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PasswordGenerator20Char() {
   useSEO({
-    title: "20 Character Password Generator (High Security & Uncrackable) – Free",
+    title: "20 Character Password Generator (High Security & Computationally Infeasible) – Free",
     description: "Generate a strong 20 character password instantly. High-security, cryptographically random, 100% private and offline. No signup required.",
     keywords: "20 character password generator, strong 20 character password, secure 20 character password, 20 digit password generator, random 20 character password, high security password generator",
     canonicalUrl: "https://tools.pixocraft.in/20-character-password-generator",
