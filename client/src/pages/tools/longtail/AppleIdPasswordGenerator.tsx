@@ -9,24 +9,20 @@ import { Button } from "@/components/ui/button";
 export default function AppleIdPasswordGenerator() {
   const faqItems: FAQItem[] = [
     {
-      question: "Is 12 characters enough for Apple ID?",
-      answer: "While Apple's minimum is lower, 12 characters is the modern baseline for security. However, for an account that controls your entire device ecosystem and backups, 16+ characters is strongly recommended to provide a much higher entropy level."
+      question: "What is the risk of an Apple ID ecosystem lockout?",
+      answer: "If an attacker gains your Apple ID password, they can lock you out of all your devices via 'Find My,' remotely wipe your data, and prevent you from regaining access to your photos and backups."
     },
     {
-      question: "Can Apple accounts be hacked even with strong passwords?",
-      answer: "A randomly generated 16+ character password makes brute-force attacks effectively impossible. However, 'social engineering' and phishing (fake Apple security alerts) remain risks. Always combine a strong password with Apple's built-in Two-Factor Authentication."
+      question: "Why does Apple ID require higher entropy than a standard app?",
+      answer: "Your Apple ID is the root of trust for your device's physical security, keychain passwords, and iCloud backups. High entropy (16+ characters) ensures this root remains unshakeable."
     },
     {
-      question: "Should developers use longer passwords?",
-      answer: "Yes. Apple Developer accounts and those with administrative access to organizational resources should use 20+ characters to protect sensitive codebases and certificates."
+      question: "How do I protect my iCloud backups from being harvested?",
+      answer: "Attackers often use credential stuffing to gain access to iCloud accounts and download private data. Using a unique, high-entropy password generated locally is the most effective defense against this."
     },
     {
-      question: "Does this Apple ID password generator store passwords?",
-      answer: "No. Everything runs locally in your web browser using the Web Crypto API. Your generated password is never transmitted to our servers, stored, or logged. It is 100% private and offline."
-    },
-    {
-      question: "How do I update my Apple ID password safely?",
-      answer: "Always update your password through official Apple settings on your device (Settings > [Your Name] > Password & Security) or by visiting appleid.apple.com directly. Never click on links in emails to change your password."
+      question: "Should I use a recovery key with my strong password?",
+      answer: "Yes. Combining a high-entropy password with a physical or digital recovery key provides the highest level of security available for Apple users, protecting you from both hacking and accidental lockout."
     }
   ];
 
@@ -81,7 +77,7 @@ export default function AppleIdPasswordGenerator() {
                 Your Apple ID controls access to iCloud, iMessage, App Store purchases, device backups, and payment information. A weak password can expose personal data, photos, and even enable unauthorized device access.
               </p>
               <p className="text-lg text-muted-foreground">
-                Generate a secure Apple ID password instantly using our cryptographically secure Password Generator. Fully private. No signup required. Works offline.
+                Shield your entire ecosystem with an unhackable Apple ID key. Our generator works completely offline to ensure your primary credentials stay private.
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
@@ -94,10 +90,45 @@ export default function AppleIdPasswordGenerator() {
 
           {/* Tool Section */}
           <div className="max-w-3xl mx-auto mb-16">
+            <div className="text-center mb-4">
+              <p className="text-sm font-medium text-muted-foreground">
+                Passwords are generated locally on your machine. No server-side logs or transmission occurs.
+              </p>
+            </div>
             <PasswordGeneratorTool initialLength={16} />
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
+            {/* Featured Snippet Section */}
+            <section className="bg-primary/5 p-8 rounded-2xl border border-primary/10">
+              <h2 className="text-2xl font-bold mb-4">What Is the Best Password Length for Apple ID?</h2>
+              <p className="text-lg leading-relaxed">
+                The best password length for Apple ID is 16 characters or more. Since your Apple ID manages sensitive data across all your devices, a longer, random password is essential for protecting your iCloud backups and preventing unauthorized account takeovers.
+              </p>
+            </section>
+
+            {/* Section: Device-Level Security Implications */}
+            <section>
+              <h2 className="text-3xl font-bold mb-6">Device-Level Security Implications</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                Your Apple ID isn't just for logging in—it's the core of your device's physical and digital security.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-xl border bg-card shadow-sm">
+                  <h4 className="font-bold text-xl mb-2">Find My iPhone Lockout Risk</h4>
+                  <p className="text-muted-foreground">If an attacker compromises your Apple ID, they can remotely lock your device or put it into "Lost Mode," effectively holding your hardware for ransom.</p>
+                </div>
+                <div className="p-6 rounded-xl border bg-card shadow-sm">
+                  <h4 className="font-bold text-xl mb-2">iCloud Backup Exposure</h4>
+                  <p className="text-muted-foreground">Your most private data—photos, contact lists, and message history—is synced to iCloud. A weak password is the only thing standing between an attacker and your personal life.</p>
+                </div>
+                <div className="p-6 rounded-xl border bg-card shadow-sm">
+                  <h4 className="font-bold text-xl mb-2">Recovery Key System</h4>
+                  <p className="text-muted-foreground">Apple's security ecosystem relies on a hierarchy of trust. Ensuring your Apple ID password has high entropy is the first step in maintaining that ecosystem's integrity.</p>
+                </div>
+              </div>
+            </section>
+
             {/* Section 1 */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Why Apple ID Security Is Critical</h2>
@@ -301,23 +332,23 @@ export default function AppleIdPasswordGenerator() {
                   </CardHeader>
                 </Card>
               </Link>
-              <Link href="/16-character-password-generator" className="group">
+              <Link href="/strong-password-for-gmail" className="group">
                 <Card className="hover-elevate transition-all">
                   <CardHeader className="p-4">
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <ArrowRight className="h-4 w-4" /> 16 Character
+                      <ArrowRight className="h-4 w-4" /> Gmail Account
                     </CardTitle>
-                    <CardDescription>Strong tier</CardDescription>
+                    <CardDescription>Identity safety</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>
-              <Link href="/20-character-password-generator" className="group">
+              <Link href="/strong-password-for-facebook" className="group">
                 <Card className="hover-elevate transition-all">
                   <CardHeader className="p-4">
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <ArrowRight className="h-4 w-4" /> 20 Character
+                      <ArrowRight className="h-4 w-4" /> Facebook
                     </CardTitle>
-                    <CardDescription>High security</CardDescription>
+                    <CardDescription>Social security</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>

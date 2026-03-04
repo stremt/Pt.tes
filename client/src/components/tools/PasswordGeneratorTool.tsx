@@ -122,7 +122,26 @@ export function PasswordGeneratorTool({
     let label = "Weak";
     let color = "bg-destructive";
     let description = "Add more characters";
-    let percentage = Math.min(100, (entropy / 150) * 100);
+    
+    // Adjusted scaling based on requirements:
+    // 0–40 bits → 20%
+    // 40–70 bits → 40%
+    // 70–100 bits → 60%
+    // 100–150 bits → 80%
+    // 150+ bits → 100%
+    let percentage = 0;
+    if (entropy < 40) {
+      percentage = Math.max(5, (entropy / 40) * 20);
+    } else if (entropy < 70) {
+      percentage = 20 + ((entropy - 40) / 30) * 20;
+    } else if (entropy < 100) {
+      percentage = 40 + ((entropy - 70) / 30) * 20;
+    } else if (entropy < 150) {
+      percentage = 60 + ((entropy - 100) / 50) * 20;
+    } else {
+      percentage = 80 + Math.min(20, ((entropy - 150) / 100) * 20);
+    }
+    percentage = Math.round(percentage);
 
     if (entropy >= 150) {
       label = "Uncrackable";

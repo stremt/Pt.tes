@@ -10,20 +10,20 @@ import { Button } from "@/components/ui/button";
 export default function StrongPasswordForFacebook() {
   const faqItems: FAQItem[] = [
     {
-      question: "Is 12 characters enough for Facebook?",
-      answer: "Yes, 12 characters is the minimum recommended length for standard accounts. However, 16+ characters is safer, especially if your account is linked to business pages, high-value groups, or extensive third-party app permissions."
+      question: "Why is password reuse so dangerous for Facebook users?",
+      answer: "Facebook is often used as an identity anchor for third-party apps and games. If you reuse your Facebook password on a less secure site that gets breached, attackers can 'stuff' those credentials into Facebook to hijack your entire digital footprint."
     },
     {
-      question: "Can Facebook accounts be hacked even with strong passwords?",
-      answer: "A strong, randomly generated password makes brute-force attacks impossible. However, phishing (fake login pages) can still trick users into revealing their keys. Always combine a strong password with Two-Factor Authentication (2FA) for complete protection."
+      question: "Can a strong password prevent Facebook Marketplace scams?",
+      answer: "A strong password prevents attackers from taking over your profile to run scams. While it doesn't stop external fraud, it ensures that your reputation and established history aren't used to trick others."
     },
     {
-      question: "Should I use a different password for Facebook and Instagram?",
-      answer: "Absolutely. Credential stuffing is a common attack where hackers test leaked passwords from one site on others. Using unique passwords for every platform ensures that a breach on one service doesn't compromise your entire digital life."
+      question: "How does 16-character entropy protect against Facebook breaches?",
+      answer: "A 16-character random password offers ~105 bits of entropy, which is computationally infeasible to crack even with modern high-speed server clusters. It effectively eliminates the risk of brute-force entry."
     },
     {
-      question: "Does this Facebook password generator store passwords?",
-      answer: "No. Everything happens locally in your browser using the Web Crypto API. We have zero access to your generated passwords—they are never stored, transmitted, or logged on any server."
+      question: "What is the 'Domino Effect' in social media security?",
+      answer: "It refers to how a single password breach on one platform can lead to the consecutive compromise of all linked social and professional accounts. Unique, high-entropy passwords are the only way to stop this chain reaction."
     }
   ];
 
@@ -47,7 +47,7 @@ export default function StrongPasswordForFacebook() {
     { name: "Home", url: "/" },
     { name: "Tools", url: "/tools" },
     { name: "Password Generator", url: "/tools/password-generator" },
-    { name: "Strong Facebook Password", url: "/strong-password-for-facebook" }
+    { name: "Facebook Password", url: "/strong-password-for-facebook" }
   ]);
 
   return (
@@ -61,7 +61,7 @@ export default function StrongPasswordForFacebook() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "Password Generator", url: "/tools/password-generator" },
-            { label: "Strong Facebook Password" },
+            { label: "Facebook Password" },
           ]}
         />
       </div>
@@ -78,7 +78,7 @@ export default function StrongPasswordForFacebook() {
                 Facebook accounts are frequently targeted through data breaches, phishing scams, and password reuse attacks. Because Facebook is often linked to apps, games, and business pages, a weak password can expose more than just your profile.
               </p>
               <p className="text-lg text-muted-foreground">
-                Generate a secure Facebook password instantly using our cryptographically secure Password Generator. Fully private. No signup. Works offline.
+                Create a high-entropy password to shield your Facebook data. Our generator operates entirely within your browser for total privacy and security.
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
@@ -91,10 +91,45 @@ export default function StrongPasswordForFacebook() {
 
           {/* Tool Section */}
           <div className="max-w-3xl mx-auto mb-16">
+            <div className="text-center mb-4">
+              <p className="text-sm font-medium text-muted-foreground">
+                Passwords are generated locally on your device. No server-side logs or transmission occurs.
+              </p>
+            </div>
             <PasswordGeneratorTool initialLength={16} />
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
+            {/* Featured Snippet Section */}
+            <section className="bg-primary/5 p-8 rounded-2xl border border-primary/10">
+              <h2 className="text-2xl font-bold mb-4">What Is the Best Password Length for Facebook?</h2>
+              <p className="text-lg leading-relaxed">
+                The best password length for Facebook is 16 characters or more. Since many people use "Log in with Facebook" for other services, a longer password ensures that a single breach doesn't compromise your entire digital ecosystem.
+              </p>
+            </section>
+
+            {/* Section: Facebook as an Identity Anchor Account */}
+            <section>
+              <h2 className="text-3xl font-bold mb-6">Facebook as an Identity Anchor Account</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                Facebook is rarely just a standalone social profile—it acts as an "anchor" for your digital footprint.
+              </p>
+              <div className="space-y-6">
+                <div className="p-6 rounded-xl border bg-card">
+                  <h4 className="font-bold text-xl mb-2">Login via Facebook Integrations</h4>
+                  <p className="text-muted-foreground">Thousands of apps use Facebook for authentication. If your Facebook account is compromised, hackers gain immediate access to every third-party service you've linked via SSO.</p>
+                </div>
+                <div className="p-6 rounded-xl border bg-card">
+                  <h4 className="font-bold text-xl mb-2">Marketplace Scams</h4>
+                  <p className="text-muted-foreground">Compromised accounts are frequently used to list fraudulent items on Facebook Marketplace, leveraging your established profile to trick buyers.</p>
+                </div>
+                <div className="p-6 rounded-xl border bg-card">
+                  <h4 className="font-bold text-xl mb-2">Business Page Hijacking</h4>
+                  <p className="text-muted-foreground">If you manage a business page, a weak personal password is the weakest link. Attackers can take over your page, run fraudulent ads, and lock you out of your professional assets.</p>
+                </div>
+              </div>
+            </section>
+
             {/* Section 1 */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Why Facebook Accounts Are Frequently Compromised</h2>
@@ -258,13 +293,13 @@ export default function StrongPasswordForFacebook() {
                   </CardHeader>
                 </Card>
               </Link>
-              <Link href="/16-character-password-generator" className="group">
+              <Link href="/strong-password-for-instagram" className="group">
                 <Card className="hover-elevate transition-all">
                   <CardHeader className="p-4">
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">
-                      <ArrowRight className="h-4 w-4" /> 16 Character
+                      <ArrowRight className="h-4 w-4" /> Instagram
                     </CardTitle>
-                    <CardDescription>Strong security</CardDescription>
+                    <CardDescription>Visual security</CardDescription>
                   </CardHeader>
                 </Card>
               </Link>
