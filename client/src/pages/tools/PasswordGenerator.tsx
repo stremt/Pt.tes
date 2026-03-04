@@ -239,25 +239,96 @@ export default function PasswordGenerator() {
           </section>
 
           {/* Internal Linking Cluster */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 text-center">Specific Password Length Generators</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              {[
-                { length: 12, label: "12 Characters", href: "/12-character-password-generator" },
-                { length: 16, label: "16 Characters", href: "/16-character-password-generator" },
-                { length: 20, label: "20 Characters", href: "/20-character-password-generator" },
-                { length: 32, label: "32 Characters", href: "/32-character-password-generator" },
-                { length: "Unhackable", label: "Unhackable Password", href: "/unhackable-password-generator" },
-                { length: "Private", label: "Private Password", href: "/private-password-generator" },
-                { length: "Offline", label: "Offline Password", href: "/offline-password-generator" },
-              ].map((item) => (
-                <Link key={item.length} href={item.href} className="flex flex-col items-center justify-center p-4 rounded-xl border bg-card hover:border-primary transition-all hover-elevate group text-center">
-                  <div className="h-10 w-10 rounded-full bg-primary/5 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <ShieldCheck className="h-5 w-5" />
-                  </div>
-                  <span className="text-sm font-bold group-hover:text-primary transition-colors">{item.label}</span>
-                </Link>
-              ))}
+          <section className="mb-16 space-y-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-6 text-center">Specific Password Length Generators</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                {[
+                  { label: "12 Characters", href: "/12-character-password-generator" },
+                  { label: "16 Characters", href: "/16-character-password-generator" },
+                  { label: "20 Characters", href: "/20-character-password-generator" },
+                  { label: "32 Characters", href: "/32-character-password-generator" },
+                ].map((item) => (
+                  <Link key={item.href} href={item.href} className="flex flex-col items-center justify-center p-4 rounded-xl border bg-card hover:border-primary transition-all hover-elevate group text-center">
+                    <div className="h-10 w-10 rounded-full bg-primary/5 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
+                      <ShieldCheck className="h-5 w-5" />
+                    </div>
+                    <span className="text-sm font-bold group-hover:text-primary transition-colors">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-2 text-center">Advanced Security Password Generators</h2>
+              <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto text-sm">These specialized generators help create extremely secure passwords designed for advanced security needs.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {[
+                  { title: "Secure Random Password", desc: "Generate high-entropy passwords using cryptographic randomness.", url: "/secure-random-password-generator" },
+                  { title: "Unhackable Password", desc: "Create extremely strong passwords designed to resist brute-force attacks.", url: "/unhackable-password-generator" },
+                  { title: "Private Password", desc: "Security-first password generation that stays entirely local.", url: "/private-password-generator" },
+                  { title: "Offline Password", desc: "Generate secure credentials without any internet connection.", url: "/offline-password-generator" },
+                  { title: "Military-Grade Password", desc: "Maximum complexity passwords for mission-critical accounts.", url: "/military-grade-password-generator" },
+                  { title: "Strongest Password", desc: "The pinnacle of password security with maximum entropy.", url: "/strongest-password-generator" },
+                ].map((item, i) => (
+                  <Link key={i} href={item.url} className="group">
+                    <Card className="hover-elevate transition-all border-primary/5 h-full">
+                      <CardHeader className="p-5">
+                        <CardTitle className="text-lg group-hover:text-primary transition-colors mb-2">{item.title}</CardTitle>
+                        <CardDescription>{item.desc}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-8 text-center">Password Security Tools</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                {[
+                  { title: "Brute Force Calculator", desc: "Estimate how long it would take to crack a password.", url: "/password-brute-force-calculator", icon: Zap },
+                  { title: "Strength Checker", desc: "Test the security of your passwords instantly.", url: "/password-strength-checker", icon: ShieldCheck },
+                ].map((item, i) => (
+                  <Link key={i} href={item.url} className="group">
+                    <Card className="hover-elevate transition-all border-primary/5">
+                      <CardHeader className="p-5 flex flex-row items-center gap-4">
+                        <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                          <item.icon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg group-hover:text-primary transition-colors">{item.title}</CardTitle>
+                          <CardDescription>{item.desc}</CardDescription>
+                        </div>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-8 text-center">Password Security Guides</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+                {[
+                  { title: "How Passwords Get Hacked", desc: "Common cracking techniques used by hackers.", url: "/how-passwords-get-hacked" },
+                  { title: "Password Entropy Explained", desc: "How entropy determines password strength.", url: "/password-entropy-explained" },
+                  { title: "Common Password Mistakes", desc: "Mistakes that make passwords easy to crack.", url: "/common-password-mistakes" },
+                  { title: "Create Strong Passwords", desc: "Expert tips for secure credentials.", url: "/how-to-create-strong-password" },
+                  { title: "Strength Checker Guide", desc: "How to use our testing tools effectively.", url: "/password-strength-checker-guide" },
+                  { title: "Strong Password Examples", desc: "Real examples of secure passwords.", url: "/strong-password-examples" },
+                  { title: "Password Security Tips", desc: "Best practices for digital safety.", url: "/password-security-tips" },
+                ].map((item, i) => (
+                  <Link key={i} href={item.url} className="group">
+                    <Card className="hover-elevate transition-all border-primary/5 h-full">
+                      <CardHeader className="p-4">
+                        <CardTitle className="text-sm font-bold group-hover:text-primary transition-colors mb-1">{item.title}</CardTitle>
+                        <CardDescription className="text-xs">{item.desc}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             </div>
           </section>
 

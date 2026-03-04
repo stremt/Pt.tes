@@ -172,7 +172,7 @@ export default function StrongPasswordExamples() {
             </div>
             
             <div className="bg-primary/5 p-8 rounded-2xl border border-primary/10 text-center">
-              <h3 className="text-xl font-bold mb-4">Possible Combinations: 2<sup>105</sup></h3>
+              <h3 className="text-xl font-bold mb-4">Possible Combinations: 2^105</h3>
               <p className="text-muted-foreground leading-relaxed">
                 This enormous number of possibilities makes brute-force attacks extremely difficult. Even with trillions of guesses per second, it would take longer than the age of the universe to crack.
               </p>
