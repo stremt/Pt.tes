@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
