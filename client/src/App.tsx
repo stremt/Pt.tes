@@ -131,6 +131,9 @@ const PasswordGenerator32Char = lazy(() => import("@/pages/tools/longtail/Passwo
 const PasswordGenerator48Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator48Char"));
 const StrongPasswordForGmail = lazy(() => import("@/pages/tools/longtail/StrongPasswordForGmail"));
 const StrongPasswordForInstagram = lazy(() => import("@/pages/tools/longtail/StrongPasswordForInstagram"));
+const StrongPasswordForFacebook = lazy(() => import("@/pages/tools/longtail/StrongPasswordForFacebook"));
+const AppleIdPasswordGenerator = lazy(() => import("@/pages/tools/longtail/AppleIdPasswordGenerator"));
+const BankingPasswordGenerator = lazy(() => import("@/pages/tools/longtail/BankingPasswordGenerator"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
 const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
 const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));
@@ -475,6 +478,9 @@ function Router() {
         <Route path="/48-character-password-generator" component={PasswordGenerator48Char} />
         <Route path="/strong-password-for-gmail" component={StrongPasswordForGmail} />
         <Route path="/strong-password-for-instagram" component={StrongPasswordForInstagram} />
+        <Route path="/strong-password-for-facebook" component={StrongPasswordForFacebook} />
+        <Route path="/apple-id-password-generator" component={AppleIdPasswordGenerator} />
+        <Route path="/banking-password-generator" component={BankingPasswordGenerator} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
         <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />
