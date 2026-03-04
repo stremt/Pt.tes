@@ -11,6 +11,7 @@ import { zxcvbn, zxcvbnOptions } from "@zxcvbn-ts/core";
 import * as zxcvbnCommonPackage from "@zxcvbn-ts/language-common";
 import * as zxcvbnEnPackage from "@zxcvbn-ts/language-en";
 import { ShieldCheck, Eye, EyeOff, Check, X, AlertTriangle, Sparkles, Zap, Lock, Globe, Info, ArrowRight, Shield, WifiOff } from "lucide-react";
+import { calculatePasswordSecurity } from "@/lib/passwordSecurity";
 
 const options = {
   translations: zxcvbnEnPackage.translations,
@@ -39,38 +40,22 @@ export default function PasswordStrengthChecker() {
     return zxcvbn(password);
   }, [password]);
 
-  const passwordEntropy = useMemo(() => {
-    if (!password) return 0;
-    
-    let charsetSize = 0;
-    if (/[a-z]/.test(password)) charsetSize += 26;
-    if (/[A-Z]/.test(password)) charsetSize += 26;
-    if (/[0-9]/.test(password)) charsetSize += 10;
-    if (/[^A-Za-z0-9]/.test(password)) charsetSize += 32;
-    
-    const entropy = password.length * Math.log2(charsetSize);
-    return Math.round(entropy);
+  const security = useMemo(() => {
+    return calculatePasswordSecurity(password);
   }, [password]);
 
   const strengthInfo = useMemo(() => {
-    if (!analysis) return null;
+    if (!password) return null;
+    return {
+      label: security.strengthLabel,
+      color: security.strengthColor.replace("bg-", "text-"),
+      bgColor: security.strengthColor,
+      percent: security.strengthPercent,
+    };
+  }, [password, security]);
 
-    const score = analysis.score;
-    const strengthLevels = [
-      { label: "Very Weak", color: "text-red-600", bgColor: "bg-red-600", percent: 20 },
-      { label: "Weak", color: "text-orange-600", bgColor: "bg-orange-600", percent: 40 },
-      { label: "Fair", color: "text-yellow-600", bgColor: "bg-yellow-600", percent: 60 },
-      { label: "Strong", color: "text-blue-600", bgColor: "bg-blue-600", percent: 85 },
-      { label: "Very Strong", color: "text-green-600", bgColor: "bg-green-600", percent: 100 },
-    ];
-
-    const entropy = passwordEntropy;
-    if (entropy < 40) return { ...strengthLevels[0], percent: Math.round(Math.max(5, (entropy / 40) * 20)) };
-    if (entropy < 70) return { ...strengthLevels[1], percent: Math.round(20 + ((entropy - 40) / 30) * 20) };
-    if (entropy < 100) return { ...strengthLevels[2], percent: Math.round(40 + ((entropy - 70) / 30) * 20) };
-    if (entropy < 150) return { ...strengthLevels[3], percent: Math.round(60 + ((entropy - 100) / 50) * 25) };
-    return { ...strengthLevels[4], percent: Math.round(Math.min(100, 85 + ((entropy - 150) / 100) * 15)), label: "Computationally Infeasible" };
-  }, [analysis, passwordEntropy]);
+  const timeToCrack = security.crackTime;
+  const passwordEntropy = security.entropy;
 
   const checks = useMemo(() => {
     const hasLowercase = /[a-z]/.test(password);

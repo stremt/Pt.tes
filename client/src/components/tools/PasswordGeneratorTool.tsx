@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Copy, RefreshCw, Lock, Check, Info, ShieldCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { calculatePasswordSecurity } from "@/lib/passwordSecurity";
 
 interface PasswordGeneratorToolProps {
   initialLength?: number;
@@ -28,29 +29,9 @@ export function PasswordGeneratorTool({
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
-  const getEstimatedCrackTime = (entropy: number) => {
-    const combinations = Math.pow(2, entropy);
-    const seconds = combinations / 1e12; // Assuming 10^12 guesses per second
-    
-    if (seconds < 1) return "Instantly";
-    if (seconds < 60) return `${Math.round(seconds)} seconds`;
-    if (seconds < 3600) return `${Math.round(seconds / 60)} minutes`;
-    if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
-    if (seconds < 31536000) return `${Math.round(seconds / 86400)} days`;
-    
-    const years = seconds / 31536000;
-    if (years < 1000) return `${Math.round(years)} years`;
-    if (years < 1000000) return `${Math.round(years / 1000)} thousand years`;
-    if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
-    if (years < 1e12) return `~${(years / 1e9).toFixed(1)} billion years`;
-    
-    if (years > 13.8e9) return "Longer than the age of the universe";
-
-    // Clean scientific notation for extremely large values
-    const exponent = Math.floor(Math.log10(years));
-    const mantissa = (years / Math.pow(10, exponent)).toFixed(1);
-    return `~${mantissa} × 10^${exponent} years`;
-  };
+  const security = useMemo(() => {
+    return calculatePasswordSecurity(password);
+  }, [password]);
 
   const generatePassword = () => {
     const lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -59,11 +40,10 @@ export function PasswordGeneratorTool({
     const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
     let chars = "";
-    let charsetSize = 0;
-    if (includeLowercase) { chars += lowercase; charsetSize += 26; }
-    if (includeUppercase) { chars += uppercase; charsetSize += 26; }
-    if (includeNumbers) { chars += numbers; charsetSize += 10; }
-    if (includeSymbols) { chars += symbols; charsetSize += 32; }
+    if (includeLowercase) chars += lowercase;
+    if (includeUppercase) chars += uppercase;
+    if (includeNumbers) chars += numbers;
+    if (includeSymbols) chars += symbols;
 
     if (chars === "") {
       toast({
@@ -100,71 +80,6 @@ export function PasswordGeneratorTool({
       setTimeout(() => setCopied(false), 2000);
     }
   };
-
-  const getStrength = () => {
-    if (!password) return { label: "", color: "", percentage: 0, description: "", entropy: 0 };
-    
-    let charsetSize = 0;
-    if (includeLowercase) charsetSize += 26;
-    if (includeUppercase) charsetSize += 26;
-    if (includeNumbers) charsetSize += 10;
-    if (includeSymbols) charsetSize += 32;
-    
-    const entropy = Math.round(length * Math.log2(charsetSize || 1));
-    
-    // Strength thresholds based on entropy
-    // 0–40 bits → Weak
-    // 40–70 bits → Moderate
-    // 70–100 bits → Strong
-    // 100–150 bits → Very Strong
-    // 150+ bits → Computationally Infeasible
-    
-    let label = "Weak";
-    let color = "bg-destructive";
-    let description = "Add more characters";
-    
-    // Revised mapping based on requirement:
-    // 0–40 bits → 20%
-    // 40–70 bits → 40%
-    // 70–100 bits → 60%
-    // 100–150 bits → 85%
-    // 150+ bits → 100%
-    let percentage = 0;
-    if (entropy <= 40) {
-      percentage = 20;
-    } else if (entropy <= 70) {
-      percentage = 40;
-    } else if (entropy <= 100) {
-      percentage = 60;
-    } else if (entropy <= 150) {
-      percentage = 85;
-    } else {
-      percentage = 100;
-    }
-    percentage = Math.round(percentage);
-
-    if (entropy >= 150) {
-      label = "Computationally Infeasible";
-      color = "bg-emerald-500";
-      description = "Maximum security";
-    } else if (entropy >= 100) {
-      label = "Very Strong";
-      color = "bg-green-600";
-      description = "Highly secure";
-    } else if (entropy >= 70) {
-      label = "Strong";
-      color = "bg-chart-3";
-      description = "Excellent security";
-    } else if (entropy >= 40) {
-      label = "Moderate";
-      color = "bg-yellow-500";
-      description = "Good strength";
-    }
-
-    return { label, color, percentage, description, entropy };
-  };
-
-  const strength = getStrength();
 
   return (
     <Card className="relative border-none shadow-2xl overflow-visible bg-background/60 backdrop-blur-md ring-1 ring-primary/10">
@@ -216,29 +131,29 @@ export function PasswordGeneratorTool({
                 <p className="text-[10px] font-black uppercase tracking-widest text-primary/70 mb-1.5 flex items-center gap-1">
                   <ShieldCheck className="h-3 w-3" /> Entropy Score
                 </p>
-                <p className="text-3xl font-mono font-black text-primary tracking-tighter">{strength.entropy} <span className="text-xs font-bold opacity-60">BITS</span></p>
+                <p className="text-3xl font-mono font-black text-primary tracking-tighter">{security.entropy} <span className="text-xs font-bold opacity-60">BITS</span></p>
               </div>
               <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/10 flex flex-col justify-center shadow-sm hover:shadow-md transition-shadow">
                 <p className="text-[10px] font-black uppercase tracking-widest text-blue-600/70 mb-1.5 flex items-center gap-1">
                   <RefreshCw className="h-3 w-3" /> Crack Time
                 </p>
-                <p className="text-xl font-black leading-tight tracking-tight text-blue-700 dark:text-blue-400">{getEstimatedCrackTime(strength.entropy)}</p>
+                <p className="text-xl font-black leading-tight tracking-tight text-blue-700 dark:text-blue-400">{security.crackTime}</p>
               </div>
               <div className="p-5 rounded-2xl bg-muted/40 border border-border flex flex-col justify-center shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70 flex items-center gap-1">
                     <Lock className="h-3 w-3" /> Security
                   </p>
-                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-background border shadow-sm">{strength.percentage}%</span>
+                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-background border shadow-sm">{security.strengthPercent}%</span>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className={`text-sm font-black uppercase tracking-tighter ${strength.color.replace('bg-', 'text-')}`}>{strength.label}</span>
+                    <span className={`text-sm font-black uppercase tracking-tighter ${security.strengthColor.replace('bg-', 'text-')}`}>{security.strengthLabel}</span>
                   </div>
                   <div className="h-2.5 bg-muted rounded-full overflow-hidden ring-1 ring-black/5 dark:ring-white/5">
                     <div
-                      className={`h-full ${strength.color} transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(0,0,0,0.1)] relative`}
-                      style={{ width: `${strength.percentage}%` }}
+                      className={`h-full ${security.strengthColor} transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(0,0,0,0.1)] relative`}
+                      style={{ width: `${security.strengthPercent}%` }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
                     </div>
