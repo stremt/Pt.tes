@@ -131,6 +131,7 @@ const PasswordGenerator32Char = lazy(() => import("@/pages/tools/longtail/Passwo
 const PasswordGenerator48Char = lazy(() => import("@/pages/tools/longtail/PasswordGenerator48Char"));
 const UnhackablePasswordGenerator = lazy(() => import("@/pages/tools/longtail/UnhackablePasswordGenerator"));
 const PrivatePasswordGenerator = lazy(() => import("@/pages/tools/longtail/PrivatePasswordGenerator"));
+const OfflinePasswordGenerator = lazy(() => import("@/pages/tools/longtail/OfflinePasswordGenerator"));
 const StrongPasswordForGmail = lazy(() => import("@/pages/tools/longtail/StrongPasswordForGmail"));
 const StrongPasswordForInstagram = lazy(() => import("@/pages/tools/longtail/StrongPasswordForInstagram"));
 const StrongPasswordForFacebook = lazy(() => import("@/pages/tools/longtail/StrongPasswordForFacebook"));
@@ -480,6 +481,7 @@ function Router() {
         <Route path="/48-character-password-generator" component={PasswordGenerator48Char} />
         <Route path="/unhackable-password-generator" component={UnhackablePasswordGenerator} />
         <Route path="/private-password-generator" component={PrivatePasswordGenerator} />
+        <Route path="/offline-password-generator" component={OfflinePasswordGenerator} />
         <Route path="/strong-password-for-gmail" component={StrongPasswordForGmail} />
         <Route path="/strong-password-for-instagram" component={StrongPasswordForInstagram} />
         <Route path="/strong-password-for-facebook" component={StrongPasswordForFacebook} />
