@@ -9,6 +9,7 @@ import { useSEO, StructuredData } from "@/lib/seo";
 import { ArrowRightLeft, Copy, RotateCcw, Zap, Lock, Globe } from "lucide-react";
 import Papa from "papaparse";
 import { Link } from "wouter";
+import { cn } from "@/lib/utils";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",

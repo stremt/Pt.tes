@@ -43,6 +43,7 @@ import {
   ArrowRight,
   Copy,
   Columns3,
+  RotateCcw,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
