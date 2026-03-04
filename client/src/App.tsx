@@ -137,6 +137,7 @@ const StrongPasswordForInstagram = lazy(() => import("@/pages/tools/longtail/Str
 const StrongPasswordForFacebook = lazy(() => import("@/pages/tools/longtail/StrongPasswordForFacebook"));
 const AppleIdPasswordGenerator = lazy(() => import("@/pages/tools/longtail/AppleIdPasswordGenerator"));
 const BankingPasswordGenerator = lazy(() => import("@/pages/tools/longtail/BankingPasswordGenerator"));
+const MilitaryGradePasswordGenerator = lazy(() => import("@/pages/tools/longtail/MilitaryGradePasswordGenerator"));
 const QRMaker = lazy(() => import("@/pages/tools/QRMaker"));
 const QRMakerFreeOnline = lazy(() => import("@/pages/tools/longtail/QRMakerFreeOnline"));
 const QRMakerWiFi = lazy(() => import("@/pages/tools/longtail/QRMakerWiFi"));
@@ -487,6 +488,7 @@ function Router() {
         <Route path="/strong-password-for-facebook" component={StrongPasswordForFacebook} />
         <Route path="/apple-id-password-generator" component={AppleIdPasswordGenerator} />
         <Route path="/banking-password-generator" component={BankingPasswordGenerator} />
+        <Route path="/military-grade-password-generator" component={MilitaryGradePasswordGenerator} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
         <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />
