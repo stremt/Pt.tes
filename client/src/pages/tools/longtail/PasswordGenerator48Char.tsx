@@ -46,6 +46,19 @@ export default function PasswordGenerator48Char() {
         />
       </div>
 
+      <StructuredData data={generateSoftwareApplicationSchema({
+        name: "48 Character Password Generator",
+        description: "Generate secure 48 character passwords instantly using Web Crypto API.",
+        url: "https://tools.pixocraft.in/48-character-password-generator",
+        category: "SecurityApplication"
+      })} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "48 Character Password", url: "/48-character-password-generator" }
+      ])} />
+
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center space-y-6 mb-12">

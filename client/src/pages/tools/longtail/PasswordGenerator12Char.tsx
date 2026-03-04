@@ -50,6 +50,19 @@ export default function PasswordGenerator12Char() {
         />
       </div>
 
+      <StructuredData data={generateSoftwareApplicationSchema({
+        name: "12 Character Password Generator",
+        description: "Generate secure 12 character passwords instantly using Web Crypto API.",
+        url: "https://tools.pixocraft.in/12-character-password-generator",
+        category: "SecurityApplication"
+      })} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "12 Character Password", url: "/12-character-password-generator" }
+      ])} />
+
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Hero Section */}
@@ -127,7 +140,7 @@ export default function PasswordGenerator12Char() {
                   </li>
                 ))}
               </ul>
-              <p className="text-muted-foreground mt-4">For banking, crypto, or business admin accounts, <Link href="/16-character-password-generator" className="text-primary font-bold hover:underline">16+ characters</Link> are recommended.</p>
+              <p className="text-muted-foreground mt-4">For banking, crypto, or business admin accounts, <Link href="/16-character-password-generator" className="text-primary font-bold hover:underline">16+ characters</Link> are recommended. You can also verify your current password with our <Link href="/tools/password-strength-checker" className="text-primary font-bold hover:underline">Strength Checker</Link>.</p>
             </section>
 
             <section>

@@ -50,6 +50,19 @@ export default function PasswordGenerator20Char() {
         />
       </div>
 
+      <StructuredData data={generateSoftwareApplicationSchema({
+        name: "20 Character Password Generator",
+        description: "Generate secure 20 character passwords instantly using Web Crypto API.",
+        url: "https://tools.pixocraft.in/20-character-password-generator",
+        category: "SecurityApplication"
+      })} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "20 Character Password", url: "/20-character-password-generator" }
+      ])} />
+
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Hero Section */}
@@ -163,7 +176,7 @@ export default function PasswordGenerator20Char() {
                   </tbody>
                 </table>
               </div>
-              <p className="text-muted-foreground mt-4">The exponential growth per character means that while 16 is strong, 20 characters offer a massive increase in the safety margin for professional environments.</p>
+              <p className="text-muted-foreground mt-4">The exponential growth per character means that while 16 is strong, 20 characters offer a massive increase in the safety margin for professional environments. Use our <Link href="/tools/password-strength-checker" className="text-primary font-bold hover:underline">Strength Checker</Link> to validate your keys.</p>
             </section>
 
             <section>

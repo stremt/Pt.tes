@@ -23,6 +23,10 @@ export default function AppleIdPasswordGenerator() {
     {
       question: "Does this Apple ID password generator store passwords?",
       answer: "No. Everything runs locally in your web browser using the Web Crypto API. Your generated password is never transmitted to our servers, stored, or logged. It is 100% private and offline."
+    },
+    {
+      question: "How do I update my Apple ID password safely?",
+      answer: "Always update your password through official Apple settings on your device (Settings > [Your Name] > Password & Security) or by visiting appleid.apple.com directly. Never click on links in emails to change your password."
     }
   ];
 
@@ -109,7 +113,7 @@ export default function AppleIdPasswordGenerator() {
                 ))}
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed italic border-l-4 pl-4 border-primary/20">
-                A compromise doesn't just mean data loss—it can mean complete account lockout and the loss of thousands of dollars in digital purchases.
+                A compromise doesn't just mean data loss—it can mean complete account lockout and the loss of thousands of dollars in digital purchases. Use our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Strength Checker</Link> to ensure your Apple ID is unhackable.
               </p>
             </section>
 
@@ -268,6 +272,14 @@ export default function AppleIdPasswordGenerator() {
                 </p>
               </div>
             </section>
+
+            {/* Structured Data for SEO */}
+            <StructuredData data={generateBreadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Tools", url: "/tools" },
+              { name: "Password Generator", url: "/tools/password-generator" },
+              { name: "Apple ID Password", url: "/apple-id-password-generator" }
+            ])} />
 
             {/* Internal Links */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-16 border-t">

@@ -50,6 +50,19 @@ export default function PasswordGenerator16Char() {
         />
       </div>
 
+      <StructuredData data={generateSoftwareApplicationSchema({
+        name: "16 Character Password Generator",
+        description: "Generate secure 16 character passwords instantly using Web Crypto API.",
+        url: "https://tools.pixocraft.in/16-character-password-generator",
+        category: "SecurityApplication"
+      })} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "16 Character Password", url: "/16-character-password-generator" }
+      ])} />
+
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Hero Section */}
@@ -127,7 +140,7 @@ export default function PasswordGenerator16Char() {
                   </li>
                 ))}
               </ul>
-              <p className="text-muted-foreground mt-4">For extremely sensitive enterprise systems, consider 20+ characters for an even higher security margin.</p>
+              <p className="text-muted-foreground mt-4">For extremely sensitive enterprise systems, consider 20+ characters for an even higher security margin. Check your security level using our <Link href="/tools/password-strength-checker" className="text-primary font-bold hover:underline">Password Strength Checker</Link>.</p>
             </section>
 
             <section>

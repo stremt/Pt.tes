@@ -110,7 +110,7 @@ export default function StrongPasswordForFacebook() {
                 ))}
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Most breaches occur through <strong>Credential Stuffing</strong>—where attackers test passwords leaked from other sites—and sophisticated <strong>Phishing</strong> campaigns. A unique, high-entropy password is your primary shield against these automated threats.
+                Most breaches occur through <strong>Credential Stuffing</strong>—where attackers test passwords leaked from other sites—and sophisticated <strong>Phishing</strong> campaigns. A unique, high-entropy password is your primary shield against these automated threats. Check your existing passwords with our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Strength Checker</Link>.
               </p>
             </section>
 
@@ -229,6 +229,14 @@ export default function StrongPasswordForFacebook() {
                 </p>
               </div>
             </section>
+
+            {/* Structured Data for SEO */}
+            <StructuredData data={generateBreadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Tools", url: "/tools" },
+              { name: "Password Generator", url: "/tools/password-generator" },
+              { name: "Strong Facebook Password", url: "/strong-password-for-facebook" }
+            ])} />
 
             {/* Internal Links */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-16 border-t">

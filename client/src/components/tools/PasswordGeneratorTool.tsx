@@ -44,7 +44,12 @@ export function PasswordGeneratorTool({
     if (years < 1000000000) return `${Math.round(years / 1000000)} million years`;
     if (years < 1e12) return `~${(years / 1e9).toFixed(1)} billion years`;
     
-    return "Longer than the age of the universe";
+    if (years > 13.8e9) return "Longer than the age of the universe";
+
+    // Clean scientific notation for extremely large values
+    const exponent = Math.floor(Math.log10(years));
+    const mantissa = (years / Math.pow(10, exponent)).toFixed(1);
+    return `~${mantissa} × 10^${exponent} years`;
   };
 
   const generatePassword = () => {

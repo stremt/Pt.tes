@@ -109,7 +109,7 @@ export default function StrongPasswordForInstagram() {
                 ))}
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Most hacking methods—like <strong>Phishing DMs</strong>, <strong>Fake Login Pages</strong>, and <strong>Brute-Force attempts</strong>—rely on the user having a weak or reused password. Understanding these threats is the first step toward total account security.
+                Most hacking methods—like <strong>Phishing DMs</strong>, <strong>Fake Login Pages</strong>, and <strong>Brute-Force attempts</strong>—rely on the user having a weak or reused password. Understanding these threats is the first step toward total account security. Use our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Strength Checker</Link> to see how your current password holds up.
               </p>
             </section>
 
@@ -257,6 +257,14 @@ export default function StrongPasswordForInstagram() {
                 </p>
               </div>
             </section>
+
+            {/* Structured Data for SEO */}
+            <StructuredData data={generateBreadcrumbSchema([
+              { name: "Home", url: "/" },
+              { name: "Tools", url: "/tools" },
+              { name: "Password Generator", url: "/tools/password-generator" },
+              { name: "Strong Instagram Password", url: "/strong-password-for-instagram" }
+            ])} />
 
             {/* Internal Links */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-16 border-t">

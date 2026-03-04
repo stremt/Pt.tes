@@ -1,29 +1,18 @@
+import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { getRelatedTools, getToolIcon } from "@/lib/tools";
-import { Copy, RefreshCw, Lock, Check, X, Shield, ArrowRight, ShieldCheck, Globe, Eye, Users, Briefcase, GraduationCap, User, ExternalLink, Info, Mail, CreditCard, Code, WifiOff, Zap, Image as ImageIcon, QrCode, FileText, FileCode } from "lucide-react";
+import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem, generateBreadcrumbSchema } from "@/lib/seo";
+import { getRelatedTools } from "@/lib/tools";
+import { Copy, RefreshCw, Lock, Check, X, Shield, ShieldCheck, Users, Briefcase, Info, Mail, CreditCard, Code, WifiOff, Zap, Instagram, Facebook, Apple, Landmark } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import { RelatedUseCases } from "@/components/RelatedUseCases";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 export default function PasswordGenerator() {
-
   const [password, setPassword] = useState("");
-  const [length, setLength] = useState(16);
-  const [includeUppercase, setIncludeUppercase] = useState(true);
-  const [includeLowercase, setIncludeLowercase] = useState(true);
-  const [includeNumbers, setIncludeNumbers] = useState(true);
-  const [includeSymbols, setIncludeSymbols] = useState(true);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
@@ -35,6 +24,13 @@ export default function PasswordGenerator() {
     ogImage: OG_IMAGES.passwordGenerator,
   });
 
+  const softwareSchema = generateSoftwareApplicationSchema({
+    name: "Pixocraft Strong Password Generator",
+    description: "Generate secure random passwords instantly using Web Crypto API. 100% private and offline.",
+    url: "https://tools.pixocraft.in/tools/password-generator",
+    category: "SecurityApplication"
+  });
+
   const comparisonData = [
     { feature: "Runs Fully Offline", pixocraft: true, others: false },
     { feature: "Stores Passwords", pixocraft: false, others: true },
@@ -44,8 +40,6 @@ export default function PasswordGenerator() {
   ];
 
   const getEstimatedCrackTime = (entropy: number) => {
-    // Basic estimation: 2^entropy combinations
-    // Assuming 10^12 guesses per second (offline attack)
     const combinations = Math.pow(2, entropy);
     const seconds = combinations / 1e12;
     
@@ -64,37 +58,6 @@ export default function PasswordGenerator() {
     return "Longer than the age of the universe";
   };
 
-  const generatePassword = () => {
-    const lowercase = "abcdefghijklmnopqrstuvwxyz";
-    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const numbers = "0123456789";
-    const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-
-    let chars = "";
-    if (includeLowercase) chars += lowercase;
-    if (includeUppercase) chars += uppercase;
-    if (includeNumbers) chars += numbers;
-    if (includeSymbols) chars += symbols;
-
-    if (chars === "") {
-      toast({
-        title: "Error",
-        description: "Please select at least one character type",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    let generatedPassword = "";
-    const cryptoArray = new Uint32Array(length);
-    crypto.getRandomValues(cryptoArray);
-    for (let i = 0; i < length; i++) {
-      generatedPassword += chars.charAt(cryptoArray[i] % chars.length);
-    }
-
-    setPassword(generatedPassword);
-  };
-
   const copyPassword = () => {
     if (password) {
       navigator.clipboard.writeText(password);
@@ -107,47 +70,8 @@ export default function PasswordGenerator() {
     }
   };
 
-  const getStrength = () => {
-    if (!password) return { label: "", color: "", percentage: 0, description: "", entropy: 0 };
-    
-    let charsetSize = 0;
-    if (includeLowercase) charsetSize += 26;
-    if (includeUppercase) charsetSize += 26;
-    if (includeNumbers) charsetSize += 10;
-    if (includeSymbols) charsetSize += 32;
-    
-    const entropy = Math.round(length * Math.log2(charsetSize || 1));
-    
-    let label = "Weak";
-    let color = "bg-destructive";
-    let description = "Add more characters for better security";
-    let percentage = Math.min(100, (entropy / 150) * 100);
-
-    if (entropy >= 150) {
-      label = "Uncrackable";
-      color = "bg-emerald-500";
-      description = "Maximum security - virtually uncrackable";
-    } else if (entropy >= 100) {
-      label = "Very Strong";
-      color = "bg-green-600";
-      description = "Highly secure, recommended for critical accounts";
-    } else if (entropy >= 70) {
-      label = "Strong";
-      color = "bg-chart-3";
-      description = "Excellent security for most accounts";
-    } else if (entropy >= 40) {
-      label = "Moderate";
-      color = "bg-yellow-500";
-      description = "Good strength, consider adding more characters";
-    }
-
-    return { label, color, percentage, description, entropy };
-  };
-
-  const strength = getStrength();
   const relatedTools = getRelatedTools("password-generator");
 
-  // Reordered FAQs - Most common Google "People Also Ask" questions first
   const faqItems: FAQItem[] = [
     {
       question: "Is an online password generator safe to use?",
@@ -185,29 +109,15 @@ export default function PasswordGenerator() {
 
   const faqSchema = generateFAQSchema(faqItems);
   
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pixocraft Strong Password Generator",
-    "applicationCategory": "SecurityApplication",
-    "operatingSystem": "Web Browser",
-    "url": "https://tools.pixocraft.in/tools/password-generator",
-    "description": "Generate secure random passwords instantly using Web Crypto API. 100% private, works offline, no signup required.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Pixocraft Tools"
-    }
-  };
-
   return (
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" }
+      ])} />
       <div className="mb-6 px-4 pt-4">
         <Breadcrumb
           items={[
@@ -251,157 +161,41 @@ export default function PasswordGenerator() {
           {/* Main Tool Interface */}
           <div className="max-w-3xl mx-auto mb-16 relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <Card className="relative border-none shadow-2xl overflow-visible">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-2xl">Generate Secure Password Now</CardTitle>
-                    <CardDescription>Takes less than 1 second • Completely private</CardDescription>
-                  </div>
-                  <Lock className="h-6 w-6 text-primary/40" />
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-8">
-                {/* Password Display */}
-                <div className="space-y-4">
-                  <div className="relative group">
-                    <Input
-                      value={password}
-                      readOnly
-                      placeholder="Click generate to create a password"
-                      className="h-16 px-6 font-mono text-2xl bg-muted/30 border-2 focus-visible:ring-primary/20 transition-all"
-                      data-testid="input-generated-password"
-                    />
-                    <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
-                      <Button
-                        onClick={copyPassword}
-                        size="lg"
-                        variant={copied ? "default" : "outline"}
-                        disabled={!password}
-                        className="h-12 px-6 shadow-sm hover-elevate active-elevate-2"
-                        data-testid="button-copy-password"
-                      >
-                        {copied ? <Check className="h-5 w-5 mr-2" /> : <Copy className="h-5 w-5 mr-2" />}
-                        {copied ? "Copied" : "Copy"}
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  {password && (
-                    <div className="space-y-4 p-4 rounded-xl bg-muted/20 border border-primary/5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Entropy</p>
-                          <p className="text-xl font-mono font-bold text-primary">{strength.entropy} bits</p>
-                        </div>
-                        <div className="space-y-1">
-                          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Est. Crack Time (Offline)</p>
-                          <p className="text-xl font-bold">{getEstimatedCrackTime(strength.entropy)}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="font-bold">Strength: <span className={strength.color.replace('bg-', 'text-')}>{strength.label}</span></span>
-                          <span className="text-muted-foreground">{strength.percentage}%</span>
-                        </div>
-                        <div className="h-3 bg-muted rounded-full overflow-hidden p-0.5 border border-primary/5">
-                          <div
-                            className={`h-full ${strength.color} rounded-full transition-all duration-500 ease-out shadow-[0_0_10px_rgba(var(--primary),0.3)]`}
-                            style={{ width: `${strength.percentage}%` }}
-                          />
-                        </div>
-                        <div className="flex justify-between text-[10px] font-bold uppercase tracking-tighter text-muted-foreground/50">
-                          <span>Weak</span>
-                          <span>Moderate</span>
-                          <span>Strong</span>
-                          <span>Very Strong</span>
-                          <span>Uncrackable</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="flex items-center justify-center py-2">
-                    <p className="text-xs text-muted-foreground flex items-center gap-1.5">
-                      <Lock className="h-3 w-3" />
-                      Passwords are generated locally in your browser. We never see or store them.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Length Slider */}
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <Label className="text-base font-bold">Password Length</Label>
-                    <div className="flex items-center gap-2">
-                      <Input 
-                        type="number" 
-                        value={length} 
-                        onChange={(e) => {
-                          const val = parseInt(e.target.value);
-                          if (!isNaN(val)) setLength(Math.min(128, Math.max(4, val)));
-                        }}
-                        className="w-16 h-8 text-center font-bold"
-                      />
-                      <span className="text-xs font-bold text-muted-foreground uppercase">Chars</span>
-                    </div>
-                  </div>
-                  <Slider
-                    value={[length]}
-                    onValueChange={(value) => setLength(value[0])}
-                    min={4}
-                    max={64}
-                    step={1}
-                    className="py-4"
-                    data-testid="slider-password-length"
-                  />
-                  <div className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg">
-                    <Info className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                    <p className="text-xs text-muted-foreground">
-                      Security experts recommend <strong>12-16 characters minimum</strong> for standard accounts. For banking, email, or work accounts, use 16-24 characters for maximum protection.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Options */}
-                <div className="space-y-6">
-                  <Label className="text-base font-bold">Character Types</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
-                      <Label htmlFor="uppercase" className="font-medium cursor-pointer">Uppercase (A-Z)</Label>
-                      <Switch id="uppercase" checked={includeUppercase} onCheckedChange={setIncludeUppercase} data-testid="switch-uppercase" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
-                      <Label htmlFor="lowercase" className="font-medium cursor-pointer">Lowercase (a-z)</Label>
-                      <Switch id="lowercase" checked={includeLowercase} onCheckedChange={setIncludeLowercase} data-testid="switch-lowercase" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
-                      <Label htmlFor="numbers" className="font-medium cursor-pointer">Numbers (0-9)</Label>
-                      <Switch id="numbers" checked={includeNumbers} onCheckedChange={setIncludeNumbers} data-testid="switch-numbers" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/10 hover:bg-muted/30 transition-colors">
-                      <Label htmlFor="symbols" className="font-medium cursor-pointer">Symbols (!@#$)</Label>
-                      <Switch id="symbols" checked={includeSymbols} onCheckedChange={setIncludeSymbols} data-testid="switch-symbols" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Generate Button */}
-                <div className="flex gap-2">
-                  <Button
-                    onClick={generatePassword}
-                    className="flex-1 h-14 text-xl font-bold bg-gradient-to-r from-primary to-blue-600 hover:opacity-90 shadow-lg"
-                    size="lg"
-                    data-testid="button-generate-password"
-                  >
-                    <RefreshCw className="mr-2 h-5 w-5" />
-                    Generate Secure Password Now
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <PasswordGeneratorTool initialLength={16} />
           </div>
+
+          {/* New Optimized Links Section */}
+          <section className="mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold mb-8 text-center">Specialized Password Generators</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { title: "Gmail Password", desc: "Secure your Google ecosystem", url: "/strong-password-for-gmail", icon: Mail },
+                  { title: "Instagram Password", desc: "Protect your creator brand", url: "/strong-password-for-instagram", icon: Instagram },
+                  { title: "Facebook Password", desc: "Social profile defense", url: "/strong-password-for-facebook", icon: Facebook },
+                  { title: "Banking Password", desc: "Financial-grade security", url: "/banking-password-generator", icon: Landmark },
+                  { title: "Apple ID Password", desc: "Secure your iCloud data", url: "/apple-id-password-generator", icon: Apple },
+                  { title: "16 Character Password", desc: "Standard high security", url: "/16-character-password-generator", icon: ShieldCheck },
+                  { title: "20 Character Password", desc: "Enterprise protection", url: "/20-character-password-generator", icon: Lock },
+                  { title: "32 Character Password", desc: "Maximum entropy keys", url: "/32-character-password-generator", icon: Zap }
+                ].map((tool, i) => (
+                  <Link key={i} href={tool.url} className="group">
+                    <Card className="hover-elevate transition-all border-primary/5">
+                      <CardHeader className="p-5">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <tool.icon className="h-5 w-5" />
+                          </div>
+                          <CardTitle className="text-lg group-hover:text-primary transition-colors">{tool.title}</CardTitle>
+                        </div>
+                        <CardDescription>{tool.desc}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
 
           {/* Comparison Table Section */}
           <section className="mb-16">
@@ -555,354 +349,76 @@ export default function PasswordGenerator() {
                 { length: 32, label: "32 Characters", href: "/32-character-password-generator" },
               ].map((item) => (
                 <Link key={item.length} href={item.href} className="flex flex-col items-center justify-center p-4 rounded-xl border bg-card hover:border-primary transition-all hover-elevate group text-center">
-                  <span className="text-2xl font-bold text-primary mb-1">{item.length}</span>
-                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{item.label}</span>
+                  <div className="h-10 w-10 rounded-full bg-primary/5 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
+                  <span className="text-sm font-bold group-hover:text-primary transition-colors">{item.label}</span>
                 </Link>
               ))}
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-6 max-w-2xl mx-auto">
-              Our length-specific generators are optimized for different security needs, from standard social media accounts (12 chars) to high-security banking and enterprise systems (20-32 chars).
-            </p>
           </section>
 
           {/* SEO Content Section */}
-          <section className="mb-16 prose prose-slate dark:prose-invert max-w-4xl mx-auto border-t pt-16">
-            <h2 className="text-4xl font-extrabold tracking-tight mb-8">The Ultimate Guide to Strong Passwords & Online Security</h2>
-            
-            <div className="space-y-12">
-              <section>
-                <h3 className="text-2xl font-bold mb-4">What Makes a Strong Password?</h3>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  A strong password is your first line of defense against cyberattacks. Security experts and agencies like NIST (National Institute of Standards and Technology) emphasize that <strong>length and randomness</strong> are the two most critical factors. A truly secure password should be at least 12-16 characters long and include a mix of uppercase letters, lowercase letters, numbers, and special symbols. Crucially, it must avoid predictable patterns, dictionary words, and personal information like birthdays or names, which are easily targeted in social engineering and brute-force attacks.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-2xl font-bold mb-4">How Our Random Password Generator Works</h3>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Our tool leverages the <strong>Web Crypto API</strong>, a modern browser standard designed specifically for cryptographic operations. Unlike standard random functions that can be predictable, the Web Crypto API uses cryptographically strong pseudo-random number generators (CSPRNG) seeded by system-level entropy. This ensures that every password generated on Pixocraft is genuinely unpredictable and meets the highest security standards for military-grade protection.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-2xl font-bold mb-4">Why Offline Password Generation is Safer</h3>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  Most online password generators send your data to a remote server for processing. This creates a vulnerability—if the server is compromised or the transmission is intercepted, your new password could be stolen before you even use it. Pixocraft is built as a <strong>100% client-side application</strong>. All generation happens locally in your browser's memory. Your passwords are never transmitted, stored, or logged on our servers. This "zero-knowledge" architecture ensures that you are the only one who ever sees your credentials.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-2xl font-bold mb-4">Best Password Length for Security (NIST Reference)</h3>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  According to the latest NIST SP 800-63B guidelines, longer passwords (often called passphrases) are significantly harder to crack than shorter, more complex ones. While 8 characters used to be the standard, modern computing power has made them vulnerable. We recommend a <strong>minimum of 12-16 characters</strong> for personal accounts and 20+ characters for critical systems. Every additional character increases the "entropy" (randomness) exponentially, making it trillions of times harder for hackers to guess.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="text-2xl font-bold mb-4">Common Password Mistakes to Avoid</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0">
-                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
-                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
-                    <span><strong>Reusing Passwords:</strong> Using the same password for your email and bank is a recipe for disaster if one site is breached.</span>
-                  </li>
-                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
-                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
-                    <span><strong>Predictable Substitutions:</strong> Replacing "E" with "3" or "A" with "@" is easily detected by modern cracking tools.</span>
-                  </li>
-                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
-                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
-                    <span><strong>Personal Details:</strong> Avoid using pet names, children's names, or your phone number in any part of the password.</span>
-                  </li>
-                  <li className="flex gap-3 p-4 rounded-lg bg-muted/50">
-                    <X className="h-5 w-5 text-red-500 shrink-0 mt-1" />
-                    <span><strong>Sequential Patterns:</strong> "12345" or "qwerty" are among the most common and first-to-be-tested combinations.</span>
-                  </li>
-                </ul>
-              </section>
-            </div>
-          </section>
-
-          <div className="space-y-4 pt-12 border-t text-center">
-            <h3 className="text-2xl font-bold">Boost Your Security Further</h3>
-            <p className="text-muted-foreground mb-8">Don't stop at just generating a password. Use our suite of security tools to stay fully protected.</p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <Link href="/tools/password-strength-checker" className="group flex flex-col items-center gap-2 p-6 rounded-2xl bg-card border hover:border-primary transition-all hover-elevate">
-                <ShieldCheck className="h-10 w-10 text-primary" />
-                <span className="font-bold">Test your password strength instantly</span>
-                <p className="text-xs text-muted-foreground">Verify any password security level</p>
-              </Link>
-              <Link href="/tools/username-generator" className="group flex flex-col items-center gap-2 p-6 rounded-2xl bg-card border hover:border-primary transition-all hover-elevate">
-                <User className="h-10 w-10 text-primary" />
-                <span className="font-bold">Generate secure usernames</span>
-                <p className="text-xs text-muted-foreground">Create anonymous digital IDs</p>
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
-            {[
-              { label: "Word Counter", href: "/tools/word-counter", icon: FileText },
-              { label: "Text to PDF", href: "/tools/text-to-pdf", icon: FileCode },
-              { label: "Image Compressor", href: "/tools/image-compressor", icon: ImageIcon },
-              { label: "QR Maker", href: "/tools/qr-maker", icon: QrCode },
-            ].map((tool) => (
-              <Link key={tool.label} href={tool.href} className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm font-medium">
-                <tool.icon className="h-4 w-4 text-primary" />
-                {tool.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* How It Works */}
-          <section className="mb-16 mt-20">
-            <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center space-y-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                  <span className="text-2xl font-bold text-primary">1</span>
-                </div>
-                <h3 className="font-semibold text-lg">Customize Settings</h3>
-                <p className="text-muted-foreground">
-                  Choose your password length (12-16 characters recommended) and select which character types to include.
-                </p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                  <span className="text-2xl font-bold text-primary">2</span>
-                </div>
-                <h3 className="font-semibold text-lg">Generate Instantly</h3>
-                <p className="text-muted-foreground">
-                  Click generate to create a cryptographically secure random password using the Web Crypto API.
-                </p>
-              </div>
-              <div className="text-center space-y-4">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                  <span className="text-2xl font-bold text-primary">3</span>
-                </div>
-                <h3 className="font-semibold text-lg">Copy & Store Safely</h3>
-                <p className="text-muted-foreground">
-                  Copy your password and save it in a trusted password manager. Never store passwords in plain text.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* People Also Ask Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Common Questions About Password Security</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Is an online password generator safe?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Yes, when the generator runs entirely in your browser (like ours). We use the Web Crypto API for true cryptographic randomness and never send your passwords to any server. Your passwords exist only on your device.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Can hackers crack generated passwords?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    A properly generated 16-character password with mixed characters has over 10^28 possible combinations. At one trillion guesses per second, it would take longer than the age of the universe to crack.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">What is the best password length?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Security organizations like NIST recommend a minimum of 12 characters, with 16+ characters being ideal for sensitive accounts. Each additional character exponentially increases security.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Should I use different passwords for every account?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Absolutely. Password reuse is a leading cause of account breaches. When one service is compromised, attackers try those credentials on other sites. Use a unique password for every account.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          {/* Why Use Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Choose Pixocraft's Password Generator?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <Card>
-                <CardHeader>
-                  <Shield className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Cryptographically Secure</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Unlike basic random generators, we use the Web Crypto API for true cryptographic randomness. This meets enterprise security standards and ensures each password is genuinely unpredictable. A 16-character password with all character types has over 10^28 possible combinations.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Lock className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Complete Privacy</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Everything runs locally in your browser. No passwords are ever transmitted over the network, logged on servers, or stored in databases. We have zero visibility into your passwords. This is the most private way to generate passwords online.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <RefreshCw className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Unique Passwords for Every Account</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Research shows 81% of data breaches involve weak or reused passwords. Generate unlimited unique passwords instantly to ensure each of your accounts has its own protection. If one service is breached, your other accounts remain secure.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Check className="h-8 w-8 text-primary mb-2" />
-                  <CardTitle>Free Forever, No Signup</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Generate as many passwords as you need without creating an account, providing an email, or paying anything. This tool works offline once loaded, so you can use it even without an internet connection.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-            
-            {/* Internal Links & Authority Signals */}
-            <div className="prose prose-lg max-w-4xl mx-auto space-y-4">
-              <p className="text-muted-foreground">
-                Need a temporary email for signing up to a new service securely? Use our <Link href="/tools/temp-mail" className="text-primary hover:underline">Temporary Email Generator</Link> for added privacy. Verify your password's strength anytime with our <Link href="/tools/password-strength-checker" className="text-primary hover:underline">Password Strength Checker</Link>.
-              </p>
-              <p className="text-muted-foreground text-sm">
-                Our password recommendations align with guidelines from{" "}
-                <a href="https://pages.nist.gov/800-63-3/sp800-63b.html" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">
-                  NIST (National Institute of Standards and Technology) <ExternalLink className="h-3 w-3" />
-                </a>{" "}
-                and{" "}
-                <a href="https://www.cisa.gov/news-events/news/choosing-and-protecting-passwords" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline inline-flex items-center gap-1">
-                  CISA (Cybersecurity and Infrastructure Security Agency) <ExternalLink className="h-3 w-3" />
-                </a>.
+          <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-12">
+            <div className="bg-card p-8 rounded-2xl border">
+              <h2 className="text-3xl font-bold mb-4">How Our Secure Password Generator Works</h2>
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                Unlike traditional generators that use <code>Math.random()</code>, which is predictable and not suitable for security, our tool uses the <strong>Web Crypto API</strong> (<code>window.crypto.getRandomValues</code>). This provides <strong>cryptographically secure pseudo-random numbers (CSPRNG)</strong>, ensuring that your passwords have maximum entropy and are impossible to predict by brute-force attacks.
               </p>
             </div>
-          </section>
 
-          {/* Best Practices Section */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Password Security Best Practices</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Use a Password Manager</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-muted-foreground">
-                    Store all your generated passwords in a trusted password manager like Bitwarden, 1Password, or Dashlane. This allows you to use complex, unique passwords for every account without memorizing them.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Enable 2FA Everywhere</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-muted-foreground">
-                    Two-factor authentication adds an extra layer of security beyond your password. Use authenticator apps like Google Authenticator or Authy instead of SMS when possible, as they're more secure.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Never Share Passwords</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-muted-foreground">
-                    Legitimate services never ask for your password via email or phone. Don't share passwords through messaging apps, emails, or texts. Use secure sharing features in password managers if needed.
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <section>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Lock className="h-5 w-5 text-primary" /> 100% Private & Offline</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Your privacy is our priority. This tool runs entirely in your browser. No data is sent to our servers, no passwords are logged, and no tracking is used. You can even use this tool while offline.
+                </p>
+              </section>
+              <section>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Uncrackable Security</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  A 16-character password generated here has more combinations than there are atoms in the observable universe. It would take current supercomputers trillions of years to crack.
+                </p>
+              </section>
             </div>
-          </section>
 
-          {/* FAQ */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-            <div className="max-w-3xl mx-auto">
+            <section className="bg-muted/30 p-8 rounded-2xl border border-primary/10">
+              <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
               <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((faq, index) => (
-                  <AccordionItem key={`faq-${index}`} value={`item-${index}`}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                {faqItems.map((item, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`} className="border-b-primary/10">
+                    <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
+                      {item.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed">
+                      {item.answer}
+                    </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
+            </section>
           </section>
-
-          {/* Long-Tail SEO Pages */}
-          <LongTailPagesSection toolId="password-generator" />
-
-          {/* Freshness & Authority Indicator */}
-          <div className="text-center mb-12 space-y-2">
-            <p className="text-sm text-muted-foreground">
-              Last updated: December 2025
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Pixocraft Tools is a trusted platform with 175+ free online tools used by millions worldwide.
-            </p>
-          </div>
-
-          {/* Related Use Cases */}
-          <RelatedUseCases toolId="password-generator" toolName="Password Generator" />
 
           {/* Related Tools */}
-          <section>
-            <h2 className="text-3xl font-bold mb-8 text-center">Related Security Tools</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedTools.map((tool) => {
-                const Icon = getToolIcon(tool.icon);
-                return (
-                  <Card key={tool.id} className="hover-elevate">
-                    <CardHeader>
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
-                        <Icon className="h-6 w-6 text-primary" />
+          <section className="mt-20">
+            <h2 className="text-2xl font-bold mb-8 text-center">More Privacy & Security Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedTools.map((tool) => (
+                <Link key={tool.id} href={tool.url}>
+                  <Card className="hover-elevate transition-all border-primary/5">
+                    <CardHeader className="p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                          <tool.icon className="h-5 w-5" />
+                        </div>
+                        <CardTitle className="text-lg">{tool.title}</CardTitle>
                       </div>
-                      <CardTitle>{tool.name}</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <CardDescription className="mb-4">{tool.description}</CardDescription>
-                      <Link href={tool.path}>
-                        <Button variant="outline" className="w-full" data-testid={`button-related-${tool.id}`}>
-                          Use Tool
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </CardContent>
                   </Card>
-                );
-              })}
+                </Link>
+              ))}
             </div>
           </section>
-
-          {/* Category Footer */}
-          <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
-            Category: <Link href="/tools/privacy" className="text-primary hover:text-primary/80 transition-colors">Privacy Tools</Link>
-          </p>
         </div>
       </div>
     </>

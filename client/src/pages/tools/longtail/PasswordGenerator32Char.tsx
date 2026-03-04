@@ -50,6 +50,19 @@ export default function PasswordGenerator32Char() {
         />
       </div>
 
+      <StructuredData data={generateSoftwareApplicationSchema({
+        name: "32 Character Password Generator",
+        description: "Generate secure 32 character passwords instantly using Web Crypto API.",
+        url: "https://tools.pixocraft.in/32-character-password-generator",
+        category: "SecurityApplication"
+      })} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "32 Character Password", url: "/32-character-password-generator" }
+      ])} />
+
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Hero Section */}
