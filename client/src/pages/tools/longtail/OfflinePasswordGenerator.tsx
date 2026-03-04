@@ -10,8 +10,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 export default function OfflinePasswordGenerator() {
   useSEO({
     title: "Offline Password Generator – Create Secure Passwords Without Internet",
-    description: "Generate strong passwords offline using cryptographic randomness. Pixocraft Password Generator works entirely inside your browser with no server communication.",
-    keywords: "offline password generator, password generator offline, browser password generator, client side password generator, local password generator, secure offline password generator",
+    description: "Generate strong passwords offline using cryptographic randomness. Pixocraft Password Generator works entirely inside your browser with no server communication or logging.",
+    keywords: "offline password generator, password generator offline, browser password generator, client side password generator, local password generator, secure offline password generator, private password generator tool",
     canonicalUrl: "https://tools.pixocraft.in/offline-password-generator",
     ogImage: OG_IMAGES.passwordGenerator,
   });
@@ -19,23 +19,23 @@ export default function OfflinePasswordGenerator() {
   const faqItems = [
     {
       question: "Can a password generator work offline?",
-      answer: "Yes, modern browsers have built-in cryptographic APIs (Web Crypto API) that allow for secure random number generation without any internet connection."
+      answer: "Yes, the Pixocraft Password Generator uses the Web Crypto API which is built into your browser. This allows it to generate secure random passwords without any internet connection."
     },
     {
       question: "Is an offline password generator safer?",
-      answer: "Generally, yes. By working offline, the tool eliminates the risk of passwords being intercepted during transmission or logged on a remote server."
+      answer: "Yes, because the password never leaves your device. Online generators may transmit your password to a server where it could be logged or intercepted."
     },
     {
       question: "Does Pixocraft store generated passwords?",
-      answer: "No. Pixocraft is a client-side tool. All generation happens on your device and is never sent to our servers or stored in any database."
+      answer: "No. All generation happens locally in your browser. We have no access to the passwords you create."
     },
     {
       question: "How secure are offline password generators?",
-      answer: "They are extremely secure when they use cryptographically strong randomness. Pixocraft uses CSPRNG values which are the gold standard for security."
+      answer: "When using cryptographically secure APIs like Web Crypto, they are as secure as any professional security tool, providing high entropy and true randomness."
     },
     {
       question: "What makes a password generator private?",
-      answer: "Local execution, zero data transmission, and no tracking scripts are what make a password generator truly private."
+      answer: "A private generator works entirely on the client-side (your browser), meaning no data is ever sent to a server for processing or storage."
     }
   ];
 
@@ -70,124 +70,121 @@ export default function OfflinePasswordGenerator() {
 
       <div className="min-h-screen py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          {/* Hero Section */}
           <div className="text-center space-y-6 mb-12">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
               Offline Password Generator – <span className="text-primary">Create Secure Passwords Without Internet</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
-              Generate cryptographically secure passwords locally on your device. No internet required, no data transmission, 100% private.
+              Generate cryptographically secure random passwords entirely inside your browser. No server communication, no logging, 100% private.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-bold">
-              <span className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400"><WifiOff className="h-4 w-4" /> 100% Offline Capable</span>
+              <span className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400"><WifiOff className="h-4 w-4" /> No Internet Required</span>
               <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400"><ShieldCheck className="h-4 w-4" /> Web Crypto API</span>
               <span className="flex items-center gap-1.5 text-orange-600 dark:text-orange-400"><Lock className="h-4 w-4" /> Local Generation</span>
-              <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400"><Zap className="h-4 w-4" /> Zero Server Logs</span>
+              <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400"><Zap className="h-4 w-4" /> Zero Logging</span>
             </div>
           </div>
 
           <div className="max-w-3xl mx-auto mb-16">
-            <PasswordGeneratorTool initialLength={20} />
+            <PasswordGeneratorTool initialLength={16} />
           </div>
 
           <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-16">
-            {/* Introduction */}
             <section className="bg-primary/5 p-8 rounded-3xl border border-primary/10 shadow-sm">
               <h2 className="text-3xl font-black mb-6 flex items-center gap-3">
-                <WifiOff className="h-8 w-8 text-primary" /> 
-                Secure Generation Without Connectivity
+                <Info className="h-8 w-8 text-primary" /> 
+                Why Offline Generation Matters
               </h2>
               <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  Most online password generators rely on servers to create passwords. This introduces potential privacy risks because generated passwords may pass through external systems or be logged in backend databases.
+                  Most online password generators rely on servers to create passwords. This introduces potential privacy risks because generated passwords may pass through external systems.
                 </p>
                 <p>
-                  The <strong>Pixocraft Offline Password Generator</strong> solves this problem. The generator runs entirely inside your browser, using the <strong>Web Crypto API</strong> to produce cryptographically secure random passwords. This means your password is created locally on your device with no internet connection required, no transmission, and no external servers involved.
+                  The Pixocraft Offline Password Generator solves this problem. The generator runs entirely inside your browser, using the <strong>Web Crypto API</strong> to produce cryptographically secure random passwords.
                 </p>
+                <ul className="list-none p-0 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <li className="flex items-center gap-2 font-bold text-foreground"><Check className="h-5 w-5 text-primary" /> No internet connection required</li>
+                  <li className="flex items-center gap-2 font-bold text-foreground"><Check className="h-5 w-5 text-primary" /> No password transmission</li>
+                  <li className="flex items-center gap-2 font-bold text-foreground"><Check className="h-5 w-5 text-primary" /> No password logging</li>
+                  <li className="flex items-center gap-2 font-bold text-foreground"><Check className="h-5 w-5 text-primary" /> No external servers involved</li>
+                </ul>
               </div>
             </section>
 
-            {/* Why Works Offline */}
             <section>
               <h2 className="text-3xl font-black mb-8 text-center">Why Pixocraft Password Generator Works Offline</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                  { title: "In-Browser Execution", desc: "The entire generation code is downloaded once and runs locally in your browser memory.", icon: Cpu },
-                  { title: "No Network Dependency", desc: "Once the page is loaded, you can disconnect from the internet and it will work perfectly.", icon: WifiOff },
-                  { title: "Web Crypto API Randomness", desc: "Uses standard browser security features for generating unpredictable strings.", icon: Lock },
-                  { title: "Zero Data Transmission", desc: "Passwords are never sent to a server, ensuring they never leave your machine.", icon: Globe },
-                  { title: "Privacy-First Architecture", desc: "Designed from the ground up to prioritize user confidentiality above all else.", icon: ShieldCheck }
+                  { title: "Runs in Browser", desc: "The code executes entirely on your device's hardware.", icon: Cpu },
+                  { title: "Web Crypto API", desc: "Uses standard browser security APIs for true randomness.", icon: ShieldCheck },
+                  { title: "No Network Needed", desc: "Functions perfectly even when your device is offline.", icon: WifiOff },
+                  { title: "No Logging", desc: "We have no way to see or store what you generate.", icon: Database },
+                  { title: "Secure Logic", desc: "Uses industry-standard algorithms for local generation.", icon: Lock }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4 p-6 rounded-2xl bg-card border shadow-sm hover-elevate transition-all">
-                    <div className="p-2 rounded-xl bg-primary/10 text-primary">
-                      <item.icon className="h-6 w-6" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="font-black text-lg">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
+                  <Card key={i} className="hover-elevate border-primary/5">
+                    <CardHeader className="p-6">
+                      <item.icon className="h-8 w-8 text-primary mb-4" />
+                      <CardTitle className="text-xl font-black">{item.title}</CardTitle>
+                      <CardDescription className="text-muted-foreground font-medium">{item.desc}</CardDescription>
+                    </CardHeader>
+                  </Card>
                 ))}
               </div>
             </section>
 
-            {/* How It Works */}
-            <section className="bg-muted/30 p-8 rounded-3xl border">
+            <section className="bg-muted/30 p-8 rounded-3xl border border-border shadow-inner">
               <h2 className="text-3xl font-black mb-6">How Offline Password Generation Works</h2>
-              <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  The core technology behind our generator is <code>window.crypto.getRandomValues()</code>. This browser API is designed to generate <strong>cryptographically secure random numbers (CSPRNG)</strong>.
-                </p>
-                <p>
-                  These numbers are used to build passwords with maximum entropy. Because the API is built directly into modern browsers (Chrome, Firefox, Safari, Edge), the generator can function entirely without internet access. This ensures that the 'seed' of your password is truly random and technically unpredictable.
-                </p>
-              </div>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                The core of our technology is <code>window.crypto.getRandomValues()</code>. This browser API generates cryptographically secure random numbers directly on your processor.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                These numbers are used to build passwords with maximum entropy. Because the API is built into all modern browsers, the generator functions without any internet access or external server calls.
+              </p>
             </section>
 
-            {/* Why Offline is Safer */}
             <section>
               <h2 className="text-3xl font-black mb-8 text-center">Why Offline Password Generators Are More Secure</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold flex items-center gap-2 text-destructive"><AlertTriangle className="h-5 w-5" /> Risks of Online-Only Tools</h3>
-                  <ul className="space-y-2 list-none p-0">
-                    {["Centralized server compromise", "Traffic interception (Man-in-the-Middle)", "Hidden backend password logging", "Vulnerabilities in API endpoints"].map((risk, i) => (
-                      <li key={i} className="flex items-center gap-2 text-muted-foreground font-medium">
-                        <div className="h-1.5 w-1.5 rounded-full bg-destructive" /> {risk}
-                      </li>
-                    ))}
+                <div className="space-y-4 p-6 rounded-2xl bg-destructive/5 border border-destructive/10">
+                  <h3 className="text-xl font-black text-destructive flex items-center gap-2"><AlertTriangle className="h-5 w-5" /> Online Risks</h3>
+                  <ul className="space-y-2 list-none p-0 text-sm font-medium">
+                    <li>• Server compromise leaks all data</li>
+                    <li>• Network interception (Man-in-the-middle)</li>
+                    <li>• Backend logging of user activity</li>
+                    <li>• Reliance on external API security</li>
                   </ul>
                 </div>
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold flex items-center gap-2 text-primary"><ShieldCheck className="h-5 w-5" /> The Offline Advantage</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Offline generation removes these risks because the password never exists outside your device's memory. Even if our servers were compromised, your passwords would remain safe because they were never there to begin with.
+                <div className="space-y-4 p-6 rounded-2xl bg-primary/5 border border-primary/10">
+                  <h3 className="text-xl font-black text-primary flex items-center gap-2"><ShieldCheck className="h-5 w-5" /> Offline Benefits</h3>
+                  <p className="text-sm font-medium leading-relaxed">
+                    Offline generation removes these risks because the password never exists outside your device's memory. This provides a "zero-knowledge" environment where only you ever see the result.
                   </p>
                 </div>
               </div>
             </section>
 
-            {/* Entropy Explanation */}
             <section className="bg-card border-2 border-primary/10 rounded-3xl p-8 space-y-6 shadow-xl">
               <h2 className="text-3xl font-black text-center">Strong Offline Passwords Still Require High Entropy</h2>
-              <p className="text-muted-foreground text-lg text-center max-w-2xl mx-auto">
-                Entropy measures the unpredictability of a password. A 16-character password using a full character set (A-Z, a-z, 0-9, symbols) produces:
+              <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+                Entropy measures the unpredictability of a password. A 16-character password using a full character set produces:
               </p>
-              <div className="bg-muted p-6 rounded-2xl text-center space-y-4">
-                <div className="text-4xl font-black text-primary font-mono tracking-tighter">~105 Bits (2^105 Combinations)</div>
-                <p className="text-sm text-muted-foreground">This massive search space makes brute-force attacks computationally unrealistic for even the world's fastest supercomputers.</p>
+              <div className="bg-muted p-6 rounded-2xl text-center space-y-4 border shadow-inner">
+                <p className="text-4xl font-black text-primary font-mono tracking-tighter">~105 Bits</p>
+                <p className="text-xl font-bold">2^105 Possible Combinations</p>
               </div>
+              <p className="text-center text-muted-foreground font-medium italic">
+                This makes brute-force attacks computationally unrealistic, even for powerful GPU clusters.
+              </p>
             </section>
 
-            {/* Password Length Table */}
             <section>
-              <h2 className="text-3xl font-black mb-8 text-center">Security Levels by Password Length</h2>
+              <h2 className="text-3xl font-black mb-8 text-center">Entropy Growth and Security Levels</h2>
               <div className="overflow-hidden rounded-3xl border shadow-lg bg-card">
                 <Table>
                   <TableHeader className="bg-muted/50">
                     <TableRow>
                       <TableHead className="px-6 py-4 font-black text-foreground">Password Length</TableHead>
-                      <TableHead className="px-6 py-4 font-black text-foreground">Entropy Estimate</TableHead>
+                      <TableHead className="px-6 py-4 font-black text-foreground">Approximate Entropy</TableHead>
                       <TableHead className="px-6 py-4 font-black text-foreground">Security Level</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -200,7 +197,7 @@ export default function OfflinePasswordGenerator() {
                     ].map((row, i) => (
                       <TableRow key={i}>
                         <TableCell className="px-6 py-4 font-bold">{row.length}</TableCell>
-                        <TableCell className="px-6 py-4 font-mono">{row.entropy}</TableCell>
+                        <TableCell className="px-6 py-4 font-mono font-medium">{row.entropy}</TableCell>
                         <TableCell className={`px-6 py-4 font-black ${row.color}`}>{row.level}</TableCell>
                       </TableRow>
                     ))}
@@ -209,7 +206,24 @@ export default function OfflinePasswordGenerator() {
               </div>
             </section>
 
-            {/* Internal Links */}
+            <section>
+              <h2 className="text-3xl font-black mb-8">Best Practices for Secure Passwords</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  "Use 16 or more characters",
+                  "Enable two-factor authentication",
+                  "Avoid password reuse across sites",
+                  "Store passwords in a secure manager",
+                  "Avoid common dictionary words"
+                ].map((tip, i) => (
+                  <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-muted/20 border">
+                    <Check className="h-4 w-4 text-primary shrink-0" />
+                    <span className="font-bold text-muted-foreground">{tip}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             <section className="space-y-8">
               <h2 className="text-3xl font-black mb-8 text-center">Generate Secure Passwords for Specific Platforms</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -237,7 +251,6 @@ export default function OfflinePasswordGenerator() {
               </div>
             </section>
 
-            {/* FAQ Section */}
             <section>
               <h2 className="text-3xl font-black mb-8">Frequently Asked Questions</h2>
               <div className="space-y-8">

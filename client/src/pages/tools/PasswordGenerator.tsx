@@ -288,7 +288,8 @@ export default function PasswordGenerator() {
                     A 16-character password generated here has more combinations than there are atoms in the observable universe. It would take current supercomputers trillions of years to crack.
                   </p>
                 </CardContent>
-              </div>
+              </Card>
+            </div>
 
             {/* Security Transparency Section */}
             <div id="security-transparency" className="not-prose space-y-8">
