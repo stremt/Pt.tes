@@ -1,7 +1,7 @@
 import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem, generateBreadcrumbSchema } from "@/lib/seo";
-import { ShieldCheck, WifiOff, Lock, Zap, Check, Shield, ArrowRight, Landmark, ShieldAlert, Key, Smartphone, AlertCircle, Info, CreditCard, Wallet, Banknote, X } from "lucide-react";
+import { ShieldCheck, WifiOff, Lock, Zap, Check, Shield, ArrowRight, Landmark, ShieldAlert, Key, Smartphone, AlertCircle, Info, CreditCard, Wallet, Banknote, XCircle } from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -190,7 +190,7 @@ export default function BankingPasswordGenerator() {
               <h2 className="text-3xl font-bold mb-6">Weak vs Strong Banking Password Example</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                  <X className="h-5 w-5 text-destructive" />
+                  <XCircle className="h-5 w-5 text-destructive" />
                   <div>
                     <span className="font-mono text-lg line-through opacity-50">Bank@123</span>
                     <span className="ml-4 text-sm font-bold uppercase text-destructive">Weak: Common patterns</span>

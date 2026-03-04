@@ -1,0 +1,62 @@
+client:536 WebSocket connection to 'wss://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/?token=a1dDulOXWgDQ' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=a1dDulOXWgDQ' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-NFC5BX5N.js?v=f15b6c04:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+main.tsx:10 ServiceWorker registered: ServiceWorkerRegistration
+banking-password-generator:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">
+BankingPasswordGenerator.tsx:193 Uncaught ReferenceError: X is not defined
+    at BankingPasswordGenerator (BankingPasswordGenerator.tsx:193:20)
+    at renderWithHooks (chunk-NFC5BX5N.js?v=f15b6c04:11548:26)
+    at updateFunctionComponent (chunk-NFC5BX5N.js?v=f15b6c04:14582:28)
+    at mountLazyComponent (chunk-NFC5BX5N.js?v=f15b6c04:14833:23)
+    at beginWork (chunk-NFC5BX5N.js?v=f15b6c04:15918:22)
+    at HTMLUnknownElement.callCallback2 (chunk-NFC5BX5N.js?v=f15b6c04:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-NFC5BX5N.js?v=f15b6c04:3699:24)
+    at invokeGuardedCallback (chunk-NFC5BX5N.js?v=f15b6c04:3733:39)
+    at beginWork$1 (chunk-NFC5BX5N.js?v=f15b6c04:19765:15)
+    at performUnitOfWork (chunk-NFC5BX5N.js?v=f15b6c04:19198:20)
+BankingPasswordGenerator.tsx:193 Uncaught ReferenceError: X is not defined
+    at BankingPasswordGenerator (BankingPasswordGenerator.tsx:193:20)
+    at renderWithHooks (chunk-NFC5BX5N.js?v=f15b6c04:11548:26)
+    at updateFunctionComponent (chunk-NFC5BX5N.js?v=f15b6c04:14582:28)
+    at mountLazyComponent (chunk-NFC5BX5N.js?v=f15b6c04:14833:23)
+    at beginWork (chunk-NFC5BX5N.js?v=f15b6c04:15918:22)
+    at HTMLUnknownElement.callCallback2 (chunk-NFC5BX5N.js?v=f15b6c04:3674:22)
+    at Object.invokeGuardedCallbackDev (chunk-NFC5BX5N.js?v=f15b6c04:3699:24)
+    at invokeGuardedCallback (chunk-NFC5BX5N.js?v=f15b6c04:3733:39)
+    at beginWork$1 (chunk-NFC5BX5N.js?v=f15b6c04:19765:15)
+    at performUnitOfWork (chunk-NFC5BX5N.js?v=f15b6c04:19198:20)
+chunk-NFC5BX5N.js?v=f15b6c04:14032 The above error occurred in the <BankingPasswordGenerator> component:
+
+    at BankingPasswordGenerator (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/src/pages/tools/longtail/BankingPasswordGenerator.tsx:53:3)
+    at Route (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=f15b6c04:323:16)
+    at Switch (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=f15b6c04:379:17)
+    at Suspense
+    at Router
+    at main
+    at div
+    at Provider (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-XOUBXFGS.js?v=f15b6c04:38:15)
+    at TooltipProvider (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=f15b6c04:63:5)
+    at SearchProvider (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/src/contexts/SearchContext.tsx:20:34)
+    at ThemeProvider (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/src/contexts/ThemeContext.tsx:20:33)
+    at QueryClientProvider (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=f15b6c04:2805:3)
+    at _a (https://08ba1738-5b86-463b-abc4-08b325fbb477-00-ndlructgt1wp.pike.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/react-helmet-async.js?v=f15b6c04:624:5)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-NFC5BX5N.js?v=f15b6c04:14032
+chunk-NFC5BX5N.js?v=f15b6c04:19413 Uncaught ReferenceError: X is not defined
+    at BankingPasswordGenerator (BankingPasswordGenerator.tsx:193:20)
+    at renderWithHooks (chunk-NFC5BX5N.js?v=f15b6c04:11548:26)
+    at updateFunctionComponent (chunk-NFC5BX5N.js?v=f15b6c04:14582:28)
+    at mountLazyComponent (chunk-NFC5BX5N.js?v=f15b6c04:14833:23)
+    at beginWork (chunk-NFC5BX5N.js?v=f15b6c04:15918:22)
+    at beginWork$1 (chunk-NFC5BX5N.js?v=f15b6c04:19753:22)
+    at performUnitOfWork (chunk-NFC5BX5N.js?v=f15b6c04:19198:20)
+    at workLoopSync (chunk-NFC5BX5N.js?v=f15b6c04:19137:13)
+    at renderRootSync (chunk-NFC5BX5N.js?v=f15b6c04:19116:15)
+    at recoverFromConcurrentError (chunk-NFC5BX5N.js?v=f15b6c04:18736:28)
