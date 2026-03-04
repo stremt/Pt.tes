@@ -155,6 +155,7 @@ const URLEncoder = lazy(() => import("@/pages/tools/URLEncoder"));
 const ColorPicker = lazy(() => import("@/pages/tools/ColorPicker"));
 const UsernameGenerator = lazy(() => import("@/pages/tools/UsernameGenerator"));
 const PasswordStrengthChecker = lazy(() => import("@/pages/tools/PasswordStrengthChecker"));
+const PasswordBruteForceCalculator = lazy(() => import("@/pages/tools/PasswordBruteForceCalculator"));
 const TextSummarizer = lazy(() => import("@/pages/tools/TextSummarizer"));
 const ImageResizer = lazy(() => import("@/pages/tools/ImageResizer"));
 const Base64Encoder = lazy(() => import("@/pages/tools/Base64Encoder"));
@@ -489,6 +490,7 @@ function Router() {
         <Route path="/apple-id-password-generator" component={AppleIdPasswordGenerator} />
         <Route path="/banking-password-generator" component={BankingPasswordGenerator} />
         <Route path="/military-grade-password-generator" component={MilitaryGradePasswordGenerator} />
+        <Route path="/password-brute-force-calculator" component={PasswordBruteForceCalculator} />
         <Route path="/tools/qr-code-maker/free-online" component={QRMakerFreeOnline} />
         <Route path="/tools/qr-code-maker/wifi-network" component={QRMakerWiFi} />
         <Route path="/tools/qr-code-maker/business-cards" component={QRMakerBusinessCards} />
