@@ -134,18 +134,26 @@ export default function PasswordGenerator() {
         <div className="container mx-auto px-4 max-w-7xl">
 
           {/* Page Header */}
-          <div className="text-center space-y-6 mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-              Strong Password Generator <span className="text-primary block sm:inline">(Free, Secure & 100% Offline)</span>
+          <div className="text-center space-y-8 mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-black uppercase tracking-widest animate-pulse border border-primary/20">
+              <Zap className="h-4 w-4" /> 2026 Enhanced Security Edition
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1]">
+              Strong Password Generator <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent block mt-2">100% Private & Secure</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Generate cryptographically secure random passwords instantly. No signup. No tracking. Works fully in your browser.
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
+              Generate cryptographically secure random passwords instantly using <span className="text-foreground font-bold">Web Crypto API</span>. No signup, no tracking, works fully offline.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
-              <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400"><ShieldCheck className="h-4 w-4" /> Web Crypto API Powered</span>
-              <span className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400"><WifiOff className="h-4 w-4" /> Works Offline</span>
-              <span className="flex items-center gap-1.5 text-orange-600 dark:text-orange-400"><Lock className="h-4 w-4" /> Zero Data Collection</span>
-              <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400"><Zap className="h-4 w-4" /> Unlimited Passwords</span>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-green-500/10 text-green-600 dark:text-green-400 font-bold border border-green-500/20">
+                <ShieldCheck className="h-4 w-4" /> Web Crypto API
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/20">
+                <WifiOff className="h-4 w-4" /> Works Offline
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold border border-orange-500/20">
+                <Lock className="h-4 w-4" /> Zero Logging
+              </div>
             </div>
           </div>
 
