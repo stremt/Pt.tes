@@ -1,6 +1,6 @@
 import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { useSEO, StructuredData, generateFAQSchema, OG_IMAGES } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, generateBreadcrumbSchema } from "@/lib/seo";
 import { ShieldCheck, WifiOff, Lock, Zap, Check, X, Shield, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
