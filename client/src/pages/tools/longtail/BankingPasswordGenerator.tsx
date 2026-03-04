@@ -50,16 +50,18 @@ export default function BankingPasswordGenerator() {
     category: "SecurityApplication"
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Tools", url: "/tools" },
+    { name: "Password Generator", url: "/tools/password-generator" },
+    { name: "Banking Password", url: "/banking-password-generator" }
+  ]);
+
   return (
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
-      <StructuredData data={generateBreadcrumbSchema([
-        { name: "Home", url: "/" },
-        { name: "Tools", url: "/tools" },
-        { name: "Password Generator", url: "/tools/password-generator" },
-        { name: "Banking Password", url: "/banking-password-generator" }
-      ])} />
+      <StructuredData data={breadcrumbSchema} />
       <div className="mb-6 px-4 pt-4">
         <Breadcrumb
           items={[

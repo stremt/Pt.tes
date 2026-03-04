@@ -43,16 +43,18 @@ export default function StrongPasswordForFacebook() {
     category: "SecurityApplication"
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Tools", url: "/tools" },
+    { name: "Password Generator", url: "/tools/password-generator" },
+    { name: "Strong Facebook Password", url: "/strong-password-for-facebook" }
+  ]);
+
   return (
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
-      <StructuredData data={generateBreadcrumbSchema([
-        { name: "Home", url: "/" },
-        { name: "Tools", url: "/tools" },
-        { name: "Password Generator", url: "/tools/password-generator" },
-        { name: "Strong Facebook Password", url: "/strong-password-for-facebook" }
-      ])} />
+      <StructuredData data={breadcrumbSchema} />
       <div className="mb-6 px-4 pt-4">
         <Breadcrumb
           items={[

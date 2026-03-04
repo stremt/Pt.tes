@@ -109,15 +109,17 @@ export default function PasswordGenerator() {
 
   const faqSchema = generateFAQSchema(faqItems);
   
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Tools", url: "/tools" },
+    { name: "Password Generator", url: "/tools/password-generator" }
+  ]);
+  
   return (
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
-      <StructuredData data={generateBreadcrumbSchema([
-        { name: "Home", url: "/" },
-        { name: "Tools", url: "/tools" },
-        { name: "Password Generator", url: "/tools/password-generator" }
-      ])} />
+      <StructuredData data={breadcrumbSchema} />
       <div className="mb-6 px-4 pt-4">
         <Breadcrumb
           items={[
