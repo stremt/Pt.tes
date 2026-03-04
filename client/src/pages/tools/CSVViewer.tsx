@@ -243,9 +243,10 @@ export default function CSVViewer() {
   };
 
   const toggleEditing = () => {
-    setIsEditing(!isEditing);
+    const nextEditing = !isEditing;
+    setIsEditing(nextEditing);
     setEditCell(null);
-    if (!isEditing && history.length === 0) {
+    if (nextEditing && history.length === 0) {
       setHistory([[...data]]);
       setHistoryIndex(0);
     }

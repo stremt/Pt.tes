@@ -163,9 +163,10 @@ export default function ExcelViewer() {
   const toggleFullScreen = () => setIsFullScreen(!isFullScreen);
 
   const toggleEditing = () => {
-    setIsEditing(!isEditing);
+    const nextEditing = !isEditing;
+    setIsEditing(nextEditing);
     setEditCell(null);
-    if (!isEditing && history.length === 0) {
+    if (nextEditing && history.length === 0) {
       const initialHistory = sheets.map(s => ({
         ...s,
         headers: [...s.headers],
