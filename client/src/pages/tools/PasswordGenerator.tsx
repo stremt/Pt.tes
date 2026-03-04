@@ -158,13 +158,22 @@ export default function PasswordGenerator() {
           </div>
 
           {/* Trust Badge Section */}
-          <div className="flex flex-col items-center justify-center space-y-2 mb-12">
-            <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Trusted by developers, businesses & privacy-focused users</p>
-            <div className="flex items-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
-              <Code className="h-6 w-6" />
-              <Briefcase className="h-6 w-6" />
-              <Shield className="h-6 w-6" />
-              <Users className="h-6 w-6" />
+          <div className="max-w-5xl mx-auto mb-16">
+            <h2 className="text-xl font-bold mb-8 text-center">Why Pixocraft Password Generator Is Trusted</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+              {[
+                { title: "Client-Side Generation", desc: "Passwords are created directly in your browser.", icon: ShieldCheck },
+                { title: "Web Crypto API", desc: "Uses secure cryptographic randomness.", icon: Lock },
+                { title: "No Server Storage", desc: "Passwords are never transmitted or stored.", icon: X },
+                { title: "Works Offline", desc: "Generator functions without internet access.", icon: WifiOff },
+                { title: "Zero Tracking", desc: "No analytics scripts or password logging.", icon: Users }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center text-center p-4 rounded-xl bg-muted/20 border border-primary/5">
+                  <item.icon className="h-8 w-8 text-primary mb-3" />
+                  <h3 className="font-bold text-sm mb-1">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -365,61 +374,234 @@ export default function PasswordGenerator() {
             </div>
           </section>
 
-          {/* SEO Content Section */}
-          <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-12">
-            <div className="bg-card p-8 rounded-2xl border">
+          {/* Technical Authority Sections */}
+          <section className="prose prose-slate dark:prose-invert max-w-4xl mx-auto space-y-12 pb-20">
+            <div className="bg-card p-8 rounded-2xl border shadow-sm not-prose">
               <h2 className="text-3xl font-bold mb-4">How Our Secure Password Generator Works</h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
                 Unlike traditional generators that use <code>Math.random()</code>, which is predictable and not suitable for security, our tool uses the <strong>Web Crypto API</strong> (<code>window.crypto.getRandomValues</code>). This provides <strong>cryptographically secure pseudo-random numbers (CSPRNG)</strong>, ensuring that your passwords have maximum entropy and are computationally infeasible to crack with current technology.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <section>
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Lock className="h-5 w-5 text-primary" /> 100% Private & Offline</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Your privacy is our priority. This tool runs entirely in your browser. No data is sent to our servers, no passwords are logged, and no tracking is used. You can even use this tool while offline.
-                </p>
-              </section>
-              <section>
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Computationally Infeasible Security</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  A 16-character password generated here has more combinations than there are atoms in the observable universe. It would take current supercomputers trillions of years to crack.
-                </p>
-              </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose">
+              <Card className="bg-muted/30 border-primary/10 shadow-none">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center gap-2"><Lock className="h-5 w-5 text-primary" /> 100% Private & Offline</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    Your privacy is our priority. This tool runs entirely in your browser. No data is sent to our servers, no passwords are logged, and no tracking is used. You can even use this tool while offline.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="bg-muted/30 border-primary/10 shadow-none">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Computationally Infeasible Security</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    A 16-character password generated here has more combinations than there are atoms in the observable universe. It would take current supercomputers trillions of years to crack.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
 
-            <section className="bg-muted/30 p-8 rounded-2xl border border-primary/10">
-              <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
-              <Accordion type="single" collapsible className="w-full">
-                {faqItems.map((item, i) => (
-                  <AccordionItem key={i} value={`faq-${i}`} className="border-b-primary/10">
-                    <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </section>
+            {/* Security Transparency Section */}
+            <div id="security-transparency" className="not-prose space-y-8">
+              <h2 className="text-3xl font-bold text-center pt-8">Security Transparency: How Pixocraft Generates Passwords</h2>
+              <div className="bg-card p-8 rounded-2xl border space-y-8 shadow-sm">
+                <p className="text-lg leading-relaxed text-muted-foreground text-center max-w-3xl mx-auto">
+                  Pixocraft Tools uses modern browser cryptography to generate truly unpredictable passwords. Unlike many basic generators that rely on predictable random functions, this tool uses the Web Crypto API to produce cryptographically secure randomness suitable for protecting sensitive credentials.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold flex items-center gap-2"><ShieldCheck className="h-5 w-5 text-primary" /> Cryptographically Secure Randomness</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">
+                      Passwords are generated using the browser's native cryptographic random number generator: <code>window.crypto.getRandomValues()</code>. This API produces CSPRNG values designed for security-critical operations, ensuring maximum entropy and unpredictability.
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold flex items-center gap-2"><X className="h-5 w-5 text-destructive" /> Why We Never Use Math.random()</h3>
+                    <p className="text-muted-foreground leading-relaxed text-sm">
+                      Traditional random functions such as <code>Math.random()</code>, timestamp seeded randomness, or predictable algorithms are not suitable for security applications because they can produce patterns that attackers may exploit. Pixocraft avoids these methods entirely.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t">
+                  <h3 className="text-xl font-bold mb-4">Client-Side Password Generation</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm mb-4">
+                    All password generation occurs inside your browser. This guarantees:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      "No password transmission",
+                      "No server-side logging",
+                      "No password storage",
+                      "No external API calls"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
+                        <Check className="h-4 w-4 text-green-500" /> {item}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-6 text-sm font-black text-primary italic bg-primary/5 p-3 rounded-lg border border-primary/10 inline-block">Your generated password never leaves your device.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Entropy Education Section */}
+            <div id="entropy-meaning" className="not-prose space-y-8">
+              <h2 className="text-3xl font-bold text-center pt-8">What Does 105 Bits of Entropy Actually Mean?</h2>
+              <div className="bg-muted/30 p-8 rounded-2xl border space-y-8 shadow-inner">
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Entropy measures how unpredictable a password is. A typical 16-character password generated by this tool contains approximately 105 bits of entropy. This represents the size of the possible search space attackers must explore.
+                </p>
+                
+                <div className="bg-background p-6 rounded-xl border shadow-sm">
+                  <h3 className="font-bold mb-4 text-primary">Example: 105 Bits of Entropy</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    A password with 105 bits of entropy has approximately <strong>2<sup>105</sup></strong> possible combinations. This number is astronomically large. Even extremely powerful GPU clusters attempting billions of guesses per second would require longer than the age of the universe to brute-force such a password.
+                  </p>
+                  <p className="text-xs font-bold text-muted-foreground/60 uppercase tracking-widest">Entropy grows exponentially with password length.</p>
+                </div>
+
+                <div className="overflow-hidden rounded-xl border bg-background shadow-sm">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-muted border-b">
+                      <tr>
+                        <th className="px-6 py-4 font-bold">Password Length</th>
+                        <th className="px-6 py-4 font-bold">Approx Entropy</th>
+                        <th className="px-6 py-4 font-bold">Security Level</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      <tr><td className="px-6 py-4">12 characters</td><td className="px-6 py-4">~78 bits</td><td className="px-6 py-4 font-black text-blue-600">Strong</td></tr>
+                      <tr className="bg-primary/5">
+                        <td className="px-6 py-4 font-black text-primary">16 characters</td>
+                        <td className="px-6 py-4 font-black text-primary">~105 bits</td>
+                        <td className="px-6 py-4 font-black text-primary">Very Strong</td>
+                      </tr>
+                      <tr><td className="px-6 py-4">20 characters</td><td className="px-6 py-4">~131 bits</td><td className="px-6 py-4 font-black text-emerald-600">High Security</td></tr>
+                      <tr><td className="px-6 py-4">32 characters</td><td className="px-6 py-4">~210 bits</td><td className="px-6 py-4 font-black text-primary">Extreme</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Password Strength Science Section */}
+            <div id="strength-science" className="not-prose space-y-8">
+              <h2 className="text-3xl font-bold text-center pt-8">How Password Strength Is Calculated</h2>
+              <Card className="border-primary/5 shadow-sm overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="bg-muted/50 p-8 flex justify-center border-b">
+                    <code className="text-xl md:text-3xl font-black text-primary tracking-tight">
+                      Entropy = L × log<sub>2</sub>(R)
+                    </code>
+                  </div>
+                  <div className="p-8 space-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <h4 className="font-bold text-sm uppercase tracking-widest text-muted-foreground">The Formula Variables</h4>
+                        <ul className="space-y-2 text-sm">
+                          <li><strong>L:</strong> Password Length</li>
+                          <li><strong>R:</strong> Size of Character Set (Pool)</li>
+                        </ul>
+                      </div>
+                      <div className="space-y-4">
+                        <h4 className="font-bold text-sm uppercase tracking-widest text-muted-foreground">Common Pool Sizes (R)</h4>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="secondary">Lowercase: 26</Badge>
+                          <Badge variant="secondary">Uppercase: 26</Badge>
+                          <Badge variant="secondary">Numbers: 10</Badge>
+                          <Badge variant="secondary">Symbols: ~33</Badge>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6 rounded-xl bg-primary/5 border border-primary/10">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Total possible characters ≈ 95. Each additional character multiplies the number of possible combinations dramatically. A 16-character password using a 95-character set produces approximately <strong>105 bits of entropy</strong>, making brute-force attacks <strong>computationally infeasible</strong> using modern hardware.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Password Security Best Practices Section */}
+            <div id="security-best-practices" className="not-prose space-y-8 pb-12">
+              <h2 className="text-3xl font-bold text-center pt-8">Password Security Best Practices</h2>
+              <div className="bg-primary/5 p-8 rounded-2xl border border-primary/20 space-y-8 shadow-sm">
+                <div className="grid grid-cols-1 gap-4">
+                  {[
+                    "Use at least 16 characters for important accounts",
+                    "Never reuse passwords across multiple services",
+                    "Enable Two-Factor Authentication (2FA) wherever possible",
+                    "Store passwords in a secure password manager",
+                    "Avoid dictionary words, names, or predictable patterns"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-background border shadow-sm">
+                      <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="h-4 w-4 text-primary" />
+                      </div>
+                      <span className="font-bold text-lg leading-tight">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="pt-8 border-t border-primary/10 space-y-4">
+                  <p className="font-black uppercase tracking-widest text-xs text-muted-foreground">Internal Security Resources</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link href="/tools/password-strength-checker">
+                      <Button variant="outline" size="sm" className="rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Password Strength Checker</Button>
+                    </Link>
+                    <Link href="/20-character-password-generator">
+                      <Button variant="outline" size="sm" className="rounded-xl font-bold hover:bg-primary hover:text-white transition-all">20-Char Generator</Button>
+                    </Link>
+                    <Link href="/strong-password-for-gmail">
+                      <Button variant="outline" size="sm" className="rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Gmail Generator</Button>
+                    </Link>
+                    <Link href="/banking-password-generator">
+                      <Button variant="outline" size="sm" className="rounded-xl font-bold hover:bg-primary hover:text-white transition-all">Banking Generator</Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* Related Tools */}
-          <section className="mt-20">
-            <h2 className="text-2xl font-bold mb-8 text-center">More Privacy & Security Tools</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* FAQ Section */}
+          <section className="bg-muted/30 p-8 rounded-2xl border border-primary/10 max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((item, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="border-b-primary/10">
+                  <AccordionTrigger className="text-left font-bold hover:text-primary transition-colors">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+
+          {/* Related Tools Section */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-8 text-center">Explore More Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {relatedTools.map((tool) => (
-                <Link key={tool.id} href={tool.url}>
-                  <Card className="hover-elevate transition-all border-primary/5">
-                    <CardHeader className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                          <tool.icon className="h-5 w-5" />
-                        </div>
-                        <CardTitle className="text-lg">{tool.title}</CardTitle>
-                      </div>
+                <Link key={tool.path} href={tool.path}>
+                  <Card className="hover-elevate cursor-pointer h-full border-primary/5">
+                    <CardHeader className="p-5">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <tool.icon className="h-5 w-5 text-primary" />
+                        {tool.title}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2">{tool.description}</CardDescription>
                     </CardHeader>
                   </Card>
                 </Link>

@@ -123,23 +123,23 @@ export function PasswordGeneratorTool({
     let color = "bg-destructive";
     let description = "Add more characters";
     
-    // Recalibrated strength scaling based on entropy bits:
+    // Revised mapping based on requirement:
     // 0–40 bits → 20%
     // 40–70 bits → 40%
     // 70–100 bits → 60%
     // 100–150 bits → 85%
     // 150+ bits → 100%
     let percentage = 0;
-    if (entropy < 40) {
-      percentage = Math.max(5, (entropy / 40) * 20);
-    } else if (entropy < 70) {
-      percentage = 20 + ((entropy - 40) / 30) * 20;
-    } else if (entropy < 100) {
-      percentage = 40 + ((entropy - 70) / 30) * 20;
-    } else if (entropy < 150) {
-      percentage = 60 + ((entropy - 100) / 50) * 25;
+    if (entropy <= 40) {
+      percentage = 20;
+    } else if (entropy <= 70) {
+      percentage = 40;
+    } else if (entropy <= 100) {
+      percentage = 60;
+    } else if (entropy <= 150) {
+      percentage = 85;
     } else {
-      percentage = 85 + Math.min(15, ((entropy - 150) / 100) * 15);
+      percentage = 100;
     }
     percentage = Math.round(percentage);
 
