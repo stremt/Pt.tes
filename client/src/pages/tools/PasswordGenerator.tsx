@@ -77,6 +77,8 @@ export default function PasswordGenerator() {
     { name: "Tools", url: "/tools" },
     { name: "Password Generator", url: "/tools/password-generator" }
   ]);
+
+  const relatedTools = getRelatedTools("password-generator", 6);
   
   return (
     <>
