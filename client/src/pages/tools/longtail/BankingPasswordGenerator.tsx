@@ -1,7 +1,7 @@
 import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem, generateBreadcrumbSchema } from "@/lib/seo";
-import { ShieldCheck, WifiOff, Lock, Zap, Check, Shield, ArrowRight, Landmark, ShieldAlert, Key, Smartphone, AlertCircle, Info, CreditCard, Wallet, Banknote } from "lucide-react";
+import { ShieldCheck, WifiOff, Lock, Zap, Check, Shield, ArrowRight, Landmark, ShieldAlert, Key, Smartphone, AlertCircle, Info, CreditCard, Wallet, Banknote, X } from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
