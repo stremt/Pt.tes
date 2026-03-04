@@ -1,6 +1,6 @@
 import { PasswordGeneratorTool } from "@/components/tools/PasswordGeneratorTool";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
+import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem, generateBreadcrumbSchema } from "@/lib/seo";
 import { ShieldCheck, WifiOff, Lock, Zap, Check, Shield, ArrowRight, Apple, ShieldAlert, Key, Smartphone, AlertCircle, Info, Laptop, Tablet, CreditCard } from "lucide-react";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,6 +50,12 @@ export default function AppleIdPasswordGenerator() {
     <>
       <StructuredData data={faqSchema} />
       <StructuredData data={softwareSchema} />
+      <StructuredData data={generateBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Tools", url: "/tools" },
+        { name: "Password Generator", url: "/tools/password-generator" },
+        { name: "Apple ID Password", url: "/apple-id-password-generator" }
+      ])} />
       <div className="mb-6 px-4 pt-4">
         <Breadcrumb
           items={[

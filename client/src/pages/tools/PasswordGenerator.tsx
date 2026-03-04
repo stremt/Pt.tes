@@ -174,10 +174,7 @@ export default function PasswordGenerator() {
                   { title: "Instagram Password", desc: "Protect your creator brand", url: "/strong-password-for-instagram", icon: Instagram },
                   { title: "Facebook Password", desc: "Social profile defense", url: "/strong-password-for-facebook", icon: Facebook },
                   { title: "Banking Password", desc: "Financial-grade security", url: "/banking-password-generator", icon: Landmark },
-                  { title: "Apple ID Password", desc: "Secure your iCloud data", url: "/apple-id-password-generator", icon: Apple },
-                  { title: "16 Character Password", desc: "Standard high security", url: "/16-character-password-generator", icon: ShieldCheck },
-                  { title: "20 Character Password", desc: "Enterprise protection", url: "/20-character-password-generator", icon: Lock },
-                  { title: "32 Character Password", desc: "Maximum entropy keys", url: "/32-character-password-generator", icon: Zap }
+                  { title: "Apple ID Password", desc: "Secure your iCloud data", url: "/apple-id-password-generator", icon: Apple }
                 ].map((tool, i) => (
                   <Link key={i} href={tool.url} className="group">
                     <Card className="hover-elevate transition-all border-primary/5">
