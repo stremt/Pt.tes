@@ -16,6 +16,8 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "For Security", slug: "security", path: "/tools/password-generator/security" },
     { title: "For Business", slug: "business", path: "/tools/password-generator/business" },
     { title: "For Testing", slug: "testing", path: "/tools/password-generator/testing" },
+    { title: "Unhackable Password", slug: "unhackable", path: "/unhackable-password-generator" },
+    { title: "Private Password", slug: "private", path: "/private-password-generator" },
   ],
   "password-strength-checker": [
     { title: "Check Online", slug: "check-online", path: "/tools/password-strength-checker/check-online" },

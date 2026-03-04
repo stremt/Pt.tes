@@ -245,6 +245,8 @@ export default function PasswordGenerator() {
                 { length: 16, label: "16 Characters", href: "/16-character-password-generator" },
                 { length: 20, label: "20 Characters", href: "/20-character-password-generator" },
                 { length: 32, label: "32 Characters", href: "/32-character-password-generator" },
+                { length: "Unhackable", label: "Unhackable Password", href: "/unhackable-password-generator" },
+                { length: "Private", label: "Private Password", href: "/private-password-generator" },
               ].map((item) => (
                 <Link key={item.length} href={item.href} className="flex flex-col items-center justify-center p-4 rounded-xl border bg-card hover:border-primary transition-all hover-elevate group text-center">
                   <div className="h-10 w-10 rounded-full bg-primary/5 flex items-center justify-center mb-2 group-hover:bg-primary group-hover:text-white transition-colors">
