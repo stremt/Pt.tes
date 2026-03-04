@@ -1,0 +1,193 @@
+We need to complete the previously requested refinement changes. The following issues are still present and must be fixed precisely.
+
+This applies to:
+
+Main Page:
+
+/password-generator
+
+Bucket 2 Pages:
+
+/strong-password-for-gmail
+
+/strong-password-for-instagram
+
+/strong-password-for-facebook
+
+/banking-password-generator
+
+/apple-id-password-generator
+
+All pages remain part of the same Password Generator tool system.
+
+1️⃣ FIX STRENGTH PERCENTAGE SCALING (NOT DONE YET)
+
+Current:
+
+16 chars → 105 bits → 62%
+
+This is incorrect psychologically and mathematically scaled.
+
+Recalibrate percentage display using entropy normalization:
+
+Target mapping:
+
+0–40 bits → 20%
+40–70 bits → 40%
+70–100 bits → 60%
+100–150 bits → 80–90%
+150+ bits → 100%
+
+Expected results:
+
+16 chars (~105 bits) → ~80%
+20 chars (~131 bits) → ~90%
+32+ chars (~210 bits) → 100%
+
+Update UI display logic accordingly.
+
+This must reflect dynamically.
+
+2️⃣ REMOVE DUPLICATE “WHAT IS THE BEST PASSWORD LENGTH” SECTIONS
+
+On Gmail page:
+
+The heading appears twice.
+
+Keep only ONE snippet-optimized section.
+
+The comparison tier table must use a different heading like:
+
+“Gmail Security Tier Comparison”
+
+Clean heading hierarchy (H2/H3 properly nested).
+
+3️⃣ REMOVE ABSOLUTE CLAIM ON MAIN PAGE
+
+Main page still contains:
+
+“Uncrackable Security”
+
+Change to:
+
+“Computationally Infeasible Security”
+
+Replace any wording like:
+
+Impossible
+
+Unhackable
+
+Guaranteed secure
+
+Use technically accurate language only.
+
+4️⃣ ADD UNIQUE MICRO TRUST LINE BELOW GENERATOR (EACH PAGE DIFFERENT)
+
+Add a short 1-line reinforcement under generator:
+
+Gmail:
+“Generated using cryptographically secure randomness directly in your browser.”
+
+Instagram:
+“High-entropy strings resistant to automated bot-based takeover attempts.”
+
+Facebook:
+“Built to mitigate credential stuffing and social login exposure.”
+
+Banking:
+“Exceeds standard financial password entropy recommendations.”
+
+Apple ID:
+“Designed to secure device-level and iCloud authentication systems.”
+
+Each line must be unique.
+
+5️⃣ ADD SEMANTIC CROSS-LINKING (NOT JUST FOOTER)
+
+Implement contextual in-text links:
+
+Gmail → mention Apple ID security
+Facebook → mention Instagram linkage
+Banking → mention Gmail recovery chain
+Apple ID → mention Gmail recovery email risk
+Instagram → mention Facebook SSO connection
+
+These must appear inside body paragraphs, not just CTA blocks.
+
+6️⃣ ADD ONE UNIQUE MICRO DATA BLOCK PER PAGE
+
+Each page must include a distinct structured block.
+
+Examples:
+
+Gmail:
+“Digital Identity Reset Chain (3 Steps)”
+
+Instagram:
+“Influencer Account Takeover Flow”
+
+Facebook:
+“Credential Stuffing Attack Lifecycle”
+
+Banking:
+“Financial Compromise Timeline After Breach”
+
+Apple ID:
+“Device Lockout Escalation Scenario”
+
+Each block:
+4–6 bullet points.
+Unique per page.
+Not repeated structure.
+
+7️⃣ VERIFY NO CONTENT STRUCTURE DUPLICATION
+
+Instagram and Facebook pages currently mirror structure too closely.
+
+Reorder one section on Instagram.
+
+For example:
+
+Instagram:
+Move “How Hackers Bypass Weak Passwords” above FAQ.
+
+Ensure page flow differs across platforms.
+
+8️⃣ VERIFY UI CONSISTENCY
+
+After updates confirm:
+
+Strength percentage updated
+
+No layout shift
+
+No console errors
+
+Generator logic unchanged
+
+Entropy unchanged
+
+Crack-time unchanged
+
+REQUIRED CONFIRMATION OUTPUT
+
+After applying fixes, provide:
+
+New strength % for 16, 20, 32 chars
+
+Confirmation duplicate headings removed
+
+Confirmation absolute claims removed
+
+Confirmation micro trust lines added
+
+Confirmation semantic cross-links added
+
+Confirmation unique micro data blocks added
+
+System rating out of 10
+
+Then state:
+
+“Bucket 2 refined to production-grade authority level.”
