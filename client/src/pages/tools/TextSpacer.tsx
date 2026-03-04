@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { Space, Copy, RotateCcw } from "lucide-react";
+import { Space, Copy, RotateCcw, Plus, Minus } from "lucide-react";
 
 export default function TextSpacer() {
   const [input, setInput] = useState("");
@@ -24,6 +24,18 @@ export default function TextSpacer() {
 
   const addSpaces = (text: string, count: number): string => {
     return text.split('').join(' '.repeat(count));
+  };
+
+  const incrementSpacing = () => {
+    if (spacing[0] < 5) {
+      setSpacing([spacing[0] + 1]);
+    }
+  };
+
+  const decrementSpacing = () => {
+    if (spacing[0] > 1) {
+      setSpacing([spacing[0] - 1]);
+    }
   };
 
   const output = addSpaces(input, spacing[0]);
@@ -62,7 +74,7 @@ export default function TextSpacer() {
               )}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <Input
               placeholder="Enter text..."
               value={input}
@@ -70,8 +82,32 @@ export default function TextSpacer() {
               className="text-base"
               data-testid="input-text"
             />
-            <div className="space-y-2">
-              <Label>Spacing: {spacing[0]} {spacing[0] === 1 ? 'space' : 'spaces'}</Label>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-base">Spacing: {spacing[0]} {spacing[0] === 1 ? 'space' : 'spaces'}</Label>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="h-8 w-8" 
+                    onClick={decrementSpacing}
+                    disabled={spacing[0] <= 1}
+                    data-testid="button-minus-spacing"
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="h-8 w-8" 
+                    onClick={incrementSpacing}
+                    disabled={spacing[0] >= 5}
+                    data-testid="button-plus-spacing"
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
               <Slider
                 value={spacing}
                 onValueChange={setSpacing}
