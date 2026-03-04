@@ -190,21 +190,21 @@ export function PasswordGeneratorTool({
         <div className="space-y-6">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-2xl blur-md opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <div className="relative h-20 px-6 font-mono text-xl md:text-2xl bg-muted/30 border-2 border-primary/10 rounded-2xl shadow-inner font-black flex items-center justify-center text-center tracking-wider overflow-hidden whitespace-nowrap">
-              <div className="flex-1 overflow-x-auto no-scrollbar scroll-smooth">
-                {password}
+            <div className="relative flex flex-col md:flex-row gap-4">
+              <div className="relative flex-1 h-20 px-6 font-mono text-xl md:text-2xl bg-muted/30 border-2 border-primary/10 rounded-2xl shadow-inner font-black flex items-center justify-center text-center tracking-wider overflow-hidden whitespace-nowrap">
+                <div className="flex-1 overflow-x-auto no-scrollbar scroll-smooth">
+                  {password}
+                </div>
               </div>
-            </div>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2">
               <Button
                 onClick={copyPassword}
-                size="sm"
+                size="lg"
                 variant={copied ? "default" : "secondary"}
                 disabled={!password}
                 data-testid="button-copy-password"
-                className="h-14 px-6 shadow-xl hover-elevate active-elevate-2 rounded-xl font-black text-base transition-all duration-300"
+                className="h-20 px-8 shadow-xl hover-elevate active-elevate-2 rounded-2xl font-black text-lg transition-all duration-300 min-w-[140px]"
               >
-                {copied ? <Check className="h-5 w-5 mr-2" /> : <Copy className="h-5 w-5 mr-2" />}
+                {copied ? <Check className="h-6 w-6 mr-2" /> : <Copy className="h-6 w-6 mr-2" />}
                 {copied ? "Copied" : "Copy"}
               </Button>
             </div>
