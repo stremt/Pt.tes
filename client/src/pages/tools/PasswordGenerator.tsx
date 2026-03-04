@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, OG_IMAGES, type FAQItem, generateBreadcrumbSchema } from "@/lib/seo";
 import { getRelatedTools } from "@/lib/tools";
-import { Copy, RefreshCw, Lock, Check, X, Shield, ShieldCheck, Users, Briefcase, Info, Mail, CreditCard, Code, WifiOff, Zap, Instagram, Facebook, Apple, Landmark } from "lucide-react";
+import { Copy, RefreshCw, Lock, Check, X, Shield, ShieldCheck, Users, Briefcase, Info, Mail, CreditCard, Code, WifiOff, Zap, Instagram, Facebook, Apple, Landmark, User, GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Breadcrumb } from "@/components/Breadcrumb";
