@@ -190,13 +190,10 @@ export function PasswordGeneratorTool({
         <div className="space-y-6">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-blue-500/30 rounded-2xl blur-md opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <Input
-              value={password}
-              readOnly
-              data-testid="input-generated-password"
-              className="relative h-24 px-6 font-mono text-3xl md:text-4xl bg-muted/30 border-2 border-primary/10 focus-visible:ring-primary/20 transition-all text-center tracking-[0.2em] rounded-2xl shadow-inner font-black"
-            />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+            <div className="relative h-auto min-h-24 px-6 py-4 font-mono text-2xl md:text-3xl bg-muted/30 border-2 border-primary/10 rounded-2xl shadow-inner font-black break-all flex items-center justify-center text-center tracking-wider leading-tight">
+              {password}
+            </div>
+            <div className="absolute right-4 top-4 flex gap-2 z-10">
               <Button
                 onClick={copyPassword}
                 size="lg"
