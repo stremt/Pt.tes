@@ -227,24 +227,19 @@ export default function TextToPDF() {
       element.style.padding = "40px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
-      element.style.width = "800px"; // Fixed width for consistent rendering
+      element.style.width = "794px"; // Match A4 pixel width at 96 DPI
+      element.style.boxSizing = "border-box";
 
       const style = document.createElement('style');
       style.textContent = `
-        .pdf-content-wrapper { color: black !important; }
-        .pdf-content-wrapper table { border-collapse: collapse; width: 100%; margin: 20px 0; table-layout: auto; border: 1px solid #000; }
-        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #000; padding: 12px; text-align: left; }
-        .pdf-content-wrapper th { background-color: #f0f0f0; font-weight: bold; }
-        .pdf-content-wrapper blockquote { border-left: 5px solid #ccc; padding-left: 20px; color: #444; font-style: italic; margin: 20px 0; }
-        .pdf-content-wrapper code { background-color: #f5f5f5; padding: 2px 5px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; color: #d63384; }
-        .pdf-content-wrapper pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; }
-        .pdf-content-wrapper pre code { background-color: transparent; padding: 0; color: inherit; display: block; }
-        .pdf-content-wrapper h1 { font-size: 2.5em; margin-bottom: 0.5em; border-bottom: 2px solid #eee; padding-bottom: 0.3em; }
-        .pdf-content-wrapper h2 { font-size: 2em; margin-bottom: 0.5em; margin-top: 1.2em; border-bottom: 1px solid #eee; padding-bottom: 0.2em; }
-        .pdf-content-wrapper h3 { font-size: 1.5em; margin-bottom: 0.5em; margin-top: 1em; }
-        .pdf-content-wrapper p { margin-bottom: 1em; }
+        .pdf-content-wrapper { color: black !important; width: 794px !important; padding: 40px !important; box-sizing: border-box !important; overflow-wrap: break-word; }
+        .pdf-content-wrapper * { max-width: 100% !important; box-sizing: border-box !important; }
+        .pdf-content-wrapper table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: fixed; border: 1px solid #000; }
+        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #000; padding: 12px; text-align: left; word-break: break-word; }
+        .pdf-content-wrapper pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; }
+        .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
         .pdf-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
-        .katex-display { margin: 1.5em 0; overflow-x: visible; overflow-y: hidden; text-align: center; }
+      `;
         .katex { font-size: 1.1em !important; }
         /* Prism styles for PDF */
         .token.comment { color: #708090; }

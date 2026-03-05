@@ -194,6 +194,43 @@
 }
 
 /* PDF Page Segmentation Styles */
+.pdf-page-preview {
+  width: 794px;
+  min-height: 1123px;
+  margin: 20px auto;
+  padding: 40px;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.pdf-preview-container {
+  overflow-x: hidden;
+}
+
+.pdf-page-content > * {
+  max-width: 100%;
+}
+
+.pdf-page-content table {
+  width: 100% !important;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.pdf-page-content td, .pdf-page-content th {
+  word-break: break-word;
+}
+
+.pdf-page-content .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.pdf-page-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .pdf-page-content table, .pdf-page-content img, .pdf-page-content pre, .pdf-page-content blockquote, .pdf-page-content p, .pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3 {
   page-break-inside: avoid;
   break-inside: avoid;
