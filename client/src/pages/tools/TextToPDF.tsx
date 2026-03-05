@@ -12,8 +12,13 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
 import { marked } from "marked";
-import renderMathInElement from "katex/dist/contrib/auto-render";
-import "katex/dist/katex.min.css";
+import katex from "katex";
+
+declare global {
+  interface Window {
+    renderMathInElement: any;
+  }
+}
 
 export default function TextToPDF() {
   const [textContent, setTextContent] = useState("");
@@ -28,18 +33,63 @@ export default function TextToPDF() {
   const previewRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (showPreview && previewRef.current) {
-      renderMathInElement(previewRef.current, {
-        delimiters: [
-          { left: "$$", right: "$$", display: true },
-          { left: "$", right: "$", display: false },
-          { left: "\\(", right: "\\)", display: false },
-          { left: "\\[", right: "\\]", display: true }
-        ],
-        throwOnError: false
-      });
-    }
+    const renderMath = async () => {
+      if (showPreview && previewRef.current) {
+        try {
+          // Use CDN for KaTeX if local imports are failing in Replit's environment
+          if (!window.renderMathInElement) {
+            await Promise.all([
+              loadStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"),
+              loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"),
+            ]);
+            await loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js");
+          }
+          
+          window.renderMathInElement(previewRef.current, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            throwOnError: false
+          });
+        } catch (e) {
+          console.error("Math render error:", e);
+        }
+      }
+    };
+    renderMath();
   }, [showPreview, textContent, isMarkdown, fontSize, fontFamily]);
+
+  const loadScript = (src: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve();
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+
+  const loadStyle = (href: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`link[href="${href}"]`)) {
+        resolve();
+        return;
+      }
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.onload = () => resolve();
+      link.onerror = reject;
+      document.head.appendChild(link);
+    });
+  };
 
   const convertToPDF = async () => {
     if (!textContent.trim()) {
@@ -94,15 +144,27 @@ export default function TextToPDF() {
       element.innerHTML = htmlContent;
       document.body.appendChild(element);
 
-      renderMathInElement(element, {
-        delimiters: [
-          { left: "$$", right: "$$", display: true },
-          { left: "$", right: "$", display: false },
-          { left: "\\(", right: "\\)", display: false },
-          { left: "\\[", right: "\\]", display: true }
-        ],
-        throwOnError: false
-      });
+      try {
+        if (!window.renderMathInElement) {
+          await Promise.all([
+            loadStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"),
+            loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"),
+          ]);
+          await loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js");
+        }
+        
+        window.renderMathInElement(element, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ],
+          throwOnError: false
+        });
+      } catch (e) {
+        console.error("Math render error during PDF generation:", e);
+      }
 
       const opt = {
         margin: [15, 15, 15, 15],
