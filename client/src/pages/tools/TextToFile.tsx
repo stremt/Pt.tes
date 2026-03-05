@@ -181,6 +181,28 @@ export default function TextToFile() {
                   <CardDescription>Enter your text, code snippets, or configuration data. Your work is handled entirely in your browser's RAM.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  <div className="lg:hidden space-y-4 mb-4">
+                    <div className="flex flex-col gap-4 p-4 bg-primary/5 rounded-xl border border-primary/10">
+                      <div className="space-y-2">
+                        <Label htmlFor="filename-mobile">Filename</Label>
+                        <div className="flex gap-2">
+                          <Input
+                            id="filename-mobile"
+                            value={filename}
+                            onChange={(e) => setFilename(e.target.value)}
+                            placeholder="filename"
+                            className="flex-1 font-mono h-10"
+                          />
+                          <span className="flex items-center text-muted-foreground font-mono">.txt</span>
+                        </div>
+                      </div>
+                      <Button onClick={handleDownload} className="w-full h-12 text-base font-bold rounded-lg" data-testid="button-download-mobile">
+                        <Download className="mr-2 h-4 w-4" />
+                        Download .txt File
+                      </Button>
+                    </div>
+                  </div>
+
                   <Textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
