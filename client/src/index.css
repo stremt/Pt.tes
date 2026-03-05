@@ -166,7 +166,7 @@
 }
 
 /* Markdown Preview Styles */
-.markdown-body pre {
+.markdown-body pre, .pdf-page-content pre {
   background: #1e293b !important;
   color: #e2e8f0 !important;
   padding: 16px !important;
@@ -175,7 +175,7 @@
   margin: 1.5em 0 !important;
 }
 
-.markdown-body pre code {
+.markdown-body pre code, .pdf-page-content pre code {
   white-space: pre !important;
   font-family: "Fira Code", "Courier New", Courier, monospace !important;
   font-size: 14px !important;
@@ -184,13 +184,31 @@
   color: inherit !important;
 }
 
-.markdown-body code:not(pre code) {
+.markdown-body code:not(pre code), .pdf-page-content code:not(pre code) {
   background-color: #f1f5f9;
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
   font-family: "Fira Code", monospace;
   font-size: 0.875em;
   color: #e11d48;
+}
+
+/* PDF Page Segmentation Styles */
+.pdf-page-content table, .pdf-page-content img, .pdf-page-content pre, .pdf-page-content blockquote {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3 {
+  break-after: avoid;
+}
+
+.pdf-page-content {
+  color: black;
+}
+
+.pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3, .pdf-page-content p, .pdf-page-content li {
+  color: black !important;
 }
 
 @layer base {

@@ -22,17 +22,79 @@ declare global {
 }
 
 export default function TextToPDF() {
-  const [textContent, setTextContent] = useState("");
+  const [textContent, setTextContent] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("text-to-pdf-content") || "";
+    }
+    return "";
+  });
   const [converting, setConverting] = useState(false);
   const [showPreview, setShowPreview] = useState(true);
-  const [fontSize, setFontSize] = useState("12");
-  const [fontFamily, setFontFamily] = useState("Arial");
-  const [titleText, setTitleText] = useState("");
+  const [fontSize, setFontSize] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("text-to-pdf-font-size") || "12";
+    }
+    return "12";
+  });
+  const [fontFamily, setFontFamily] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("text-to-pdf-font-family") || "Arial";
+    }
+    return "Arial";
+  });
+  const [titleText, setTitleText] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem("text-to-pdf-title") || "";
+    }
+    return "";
+  });
   const [pageOrientation, setPageOrientation] = useState("portrait");
-  const [isMarkdown, setIsMarkdown] = useState(true);
+  const [isMarkdown, setIsMarkdown] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem("text-to-pdf-is-markdown");
+      return saved !== null ? saved === "true" : true;
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-content", textContent);
+  }, [textContent]);
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-title", titleText);
+  }, [titleText]);
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-font-size", fontSize);
+  }, [fontSize]);
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-font-family", fontFamily);
+  }, [fontFamily]);
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-is-markdown", isMarkdown.toString());
+  }, [isMarkdown]);
+  const [totalPages, setTotalPages] = useState(1);
   const { toast } = useToast();
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const PAGE_HEIGHT = 1123; // A4 height in pixels at 96 DPI
+  const PAGE_WIDTH = 794;   // A4 width in pixels at 96 DPI
+
+  useEffect(() => {
+    const calculatePages = () => {
+      if (!previewRef.current) return;
+      const scrollHeight = previewRef.current.scrollHeight;
+      const pages = Math.max(1, Math.ceil(scrollHeight / PAGE_HEIGHT));
+      setTotalPages(pages);
+    };
+
+    const timeoutId = setTimeout(calculatePages, 100);
+    return () => clearTimeout(timeoutId);
+  }, [textContent, titleText, isMarkdown, fontSize, fontFamily, pageOrientation]);
 
   const loadScript = (src: string): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -351,12 +413,40 @@ Click the **Download** button to see this document in high-quality PDF format!`;
       }
     }, [htmlContent]);
 
+    const pages = [];
+    for (let i = 0; i < totalPages; i++) {
+      pages.push(
+        <div 
+          key={i} 
+          className="pdf-page-preview relative bg-white shadow-lg mx-auto mb-8 border border-gray-200 overflow-hidden"
+          style={{
+            width: `${PAGE_WIDTH}px`,
+            height: `${PAGE_HEIGHT}px`,
+            padding: "40px",
+            boxSizing: "border-box"
+          }}
+        >
+          <div 
+            className="pdf-page-content"
+            style={{
+              transform: `translateY(-${i * PAGE_HEIGHT}px)`,
+              height: `${totalPages * PAGE_HEIGHT}px`
+            }}
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+          <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium">
+            Page {i + 1} of {totalPages}
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div
-        ref={previewContainerRef}
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-        className="markdown-body prose prose-slate max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black"
-      />
+      <div className="pdf-preview-container bg-muted/20 p-8 min-h-full overflow-auto">
+        <div className="max-w-fit mx-auto">
+          {pages}
+        </div>
+      </div>
     );
   };
 
@@ -440,27 +530,75 @@ Click the **Download** button to see this document in high-quality PDF format!`;
                     <Eye className="h-4 w-4 text-primary" />
                     <CardTitle className="text-lg">Live Preview</CardTitle>
                   </div>
-                  <Badge variant="outline" className="bg-primary/5">Real-time Rendering</Badge>
+                  <div className="flex items-center gap-3">
+                    <Badge variant="outline" className="bg-primary/5">Total Pages: {totalPages}</Badge>
+                    <Badge variant="outline" className="bg-primary/5">Real-time Rendering</Badge>
+                  </div>
                 </CardHeader>
                 <CardContent className="flex-1 p-0 overflow-hidden">
                   <div 
                     ref={previewRef}
-                    className="w-full h-[600px] overflow-auto p-8 bg-white text-black"
+                    className="w-full h-[600px] overflow-auto bg-muted/10 text-black"
                     style={{
                       fontFamily: fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily,
                       fontSize: fontSize + "pt",
                       lineHeight: "1.6"
                     }}
                   >
-                    {titleText && (
-                      <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
-                        {titleText}
-                      </h1>
-                    )}
+                    <div className="hidden">
+                      {/* Hidden full content for scroll height calculation */}
+                      <div className="markdown-body prose prose-slate max-w-none p-8">
+                         {titleText && (
+                          <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
+                            {titleText}
+                          </h1>
+                        )}
+                        {isMarkdown ? (
+                           <div dangerouslySetInnerHTML={{ __html: marked(textContent) }} />
+                        ) : (
+                          <div style={{ whiteSpace: "pre-wrap" }}>{textContent}</div>
+                        )}
+                      </div>
+                    </div>
+                    
                     {isMarkdown ? (
                       <MarkdownPreview content={textContent} />
                     ) : (
-                      <div style={{ whiteSpace: "pre-wrap" }}>{textContent}</div>
+                      <div className="pdf-preview-container bg-muted/20 p-8 min-h-full overflow-auto">
+                        <div className="max-w-fit mx-auto">
+                          {Array.from({ length: totalPages }).map((_, i) => (
+                            <div 
+                              key={i} 
+                              className="pdf-page-preview relative bg-white shadow-lg mx-auto mb-8 border border-gray-200 overflow-hidden"
+                              style={{
+                                width: `${PAGE_WIDTH}px`,
+                                height: `${PAGE_HEIGHT}px`,
+                                padding: "40px",
+                                boxSizing: "border-box"
+                              }}
+                            >
+                              <div 
+                                className="pdf-page-content"
+                                style={{
+                                  transform: `translateY(-${i * PAGE_HEIGHT}px)`,
+                                  height: `${totalPages * PAGE_HEIGHT}px`,
+                                  whiteSpace: "pre-wrap"
+                                }}
+                              >
+                                {i === 0 && titleText && (
+                                  <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
+                                    {titleText}
+                                  </h1>
+                                )}
+                                {textContent}
+                              </div>
+                              <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium">
+                                Page {i + 1} of {totalPages}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
                 </CardContent>
