@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,11 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Eye } from "lucide-react";
+import { FileText, Download, Eye, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
 import { marked } from "marked";
+import renderMathInElement from "katex/dist/contrib/auto-render";
+import "katex/dist/katex.min.css";
 
 export default function TextToPDF() {
   const [textContent, setTextContent] = useState("");
@@ -23,13 +25,21 @@ export default function TextToPDF() {
   const [pageOrientation, setPageOrientation] = useState("portrait");
   const [isMarkdown, setIsMarkdown] = useState(false);
   const { toast } = useToast();
+  const previewRef = useRef<HTMLDivElement>(null);
 
-  useSEO({
-    title: "Free Text to PDF Converter - No Signup, Offline & Secure",
-    description: "Convert text files to PDF instantly, offline. Customize fonts, sizes, and formatting. 100% free, no signup, no tracking. Works on all devices.",
-    keywords: "text to pdf converter, convert text to pdf free, text pdf generator, online text to pdf, text document to pdf, offline text to pdf, free pdf converter",
-    canonicalUrl: "https://tools.pixocraft.in/tools/text-to-pdf",
-  });
+  useEffect(() => {
+    if (showPreview && previewRef.current) {
+      renderMathInElement(previewRef.current, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false
+      });
+    }
+  }, [showPreview, textContent, isMarkdown, fontSize, fontFamily]);
 
   const convertToPDF = async () => {
     if (!textContent.trim()) {
@@ -44,46 +54,82 @@ export default function TextToPDF() {
     setConverting(true);
     try {
       const element = document.createElement('div');
-      element.style.fontFamily = fontFamily;
+      element.className = "pdf-content-wrapper";
+      element.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       element.style.fontSize = fontSize + "pt";
       element.style.lineHeight = "1.6";
       element.style.padding = "20px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
+      element.style.width = "100%";
+
+      const style = document.createElement('style');
+      style.textContent = `
+        .pdf-content-wrapper table { border-collapse: collapse; width: 100%; margin: 15px 0; table-layout: auto; }
+        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .pdf-content-wrapper th { background-color: #f5f5f5; font-weight: bold; }
+        .pdf-content-wrapper blockquote { border-left: 4px solid #ddd; padding-left: 15px; color: #666; font-style: italic; margin: 15px 0; }
+        .pdf-content-wrapper code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
+        .pdf-content-wrapper pre { background-color: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto; margin: 15px 0; }
+        .pdf-content-wrapper pre code { background-color: transparent; padding: 0; }
+        .pdf-content-wrapper h1, .pdf-content-wrapper h2, .pdf-content-wrapper h3 { color: #000; margin-top: 20px; margin-bottom: 10px; }
+        .pdf-content-wrapper p { margin-bottom: 10px; }
+        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+      `;
+      document.head.appendChild(style);
 
       let htmlContent = "";
       
       if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt; font-weight: bold; color: #000000;">${escapeHtml(titleText)}</h1>`;
+        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 8}pt; font-weight: bold; color: #000000; border-bottom: 2px solid #333; padding-bottom: 10px;">${escapeHtml(titleText)}</h1>`;
       }
       
       if (isMarkdown) {
         const markdownHtml = await marked(textContent);
-        htmlContent += `<div style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${markdownHtml}</div>`;
+        htmlContent += `<div class="markdown-body">${markdownHtml}</div>`;
       } else {
         htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       }
       
       element.innerHTML = htmlContent;
       document.body.appendChild(element);
-      
+
+      renderMathInElement(element, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false
+      });
+
       const opt = {
-        margin: 10,
+        margin: [15, 15, 15, 15],
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true,
+          letterRendering: true,
+          backgroundColor: '#ffffff'
+        },
         jsPDF: { 
           unit: 'mm', 
           format: 'a4', 
-          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait'
-        }
+          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait',
+          putOnlyUsedFonts: true
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       await html2pdf().set(opt).from(element).save();
       document.body.removeChild(element);
+      document.head.removeChild(style);
 
       toast({
         title: "Success!",
-        description: "Text converted to PDF successfully",
+        description: "Professional PDF generated successfully",
       });
     } catch (error) {
       console.error("PDF conversion error:", error);
@@ -145,17 +191,43 @@ export default function TextToPDF() {
 
   const faqSchema = generateFAQSchema(faqItems);
 
-  const sampleText = `This is a sample text document.
+  const sampleText = `# Professional Document Sample
 
-You can paste any plain text here and convert it to PDF with custom formatting options.
+## Markdown & Text Features
+This tool supports **bold**, *italic*, and ~~strikethrough~~ text. You can create:
+- Bulleted lists
+- Ordered lists
+- [Links](https://tools.pixocraft.in)
+- Blockquotes
 
-Features include:
-- Custom font selection
-- Adjustable font size
-- Optional document title
-- Portrait or landscape orientation
+> "The best way to predict the future is to invent it." - Alan Kay
 
-Click "Convert to PDF" to download your document!`;
+## Mathematical Equations (LaTeX)
+Render complex math symbols and formulas:
+
+**Quadratic Formula:**
+$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
+
+**Integral:**
+$$\\int_{a}^{b} x^2 dx = \\left[ \\frac{x^3}{3} \\right]_a^b$$
+
+**Matrix:**
+$$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$$
+
+## Data Tables
+| Feature | Supported | Quality |
+| :--- | :---: | :--- |
+| Markdown | Yes | High |
+| LaTeX Math | Yes | Vector |
+| Unicode | Yes | Full |
+| Tables | Yes | Structured |
+
+## Multilingual Support
+- Hindi: नमस्ते दुनिया
+- Punjabi: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ
+- Spanish: ¡Hola Mundo!
+
+Click "Convert to PDF" to download this professionally formatted document!`;
 
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
@@ -352,13 +424,14 @@ Click "Convert to PDF" to download your document!`;
             {showPreview && textContent && (
               <Card className="mt-6">
                 <CardHeader>
-                  <CardTitle>Preview {isMarkdown && "( Markdown )"}</CardTitle>
+                  <CardTitle>Preview {isMarkdown && "( Markdown & Math )"}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div 
+                    ref={previewRef}
                     className="border rounded-lg p-8 bg-white text-black overflow-auto max-h-96 prose prose-sm dark:prose-invert"
                     style={{
-                      fontFamily: fontFamily,
+                      fontFamily: fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily,
                       fontSize: fontSize + "pt",
                       lineHeight: "1.6"
                     }}
@@ -368,8 +441,10 @@ Click "Convert to PDF" to download your document!`;
                       <h1 style={{ 
                         textAlign: 'center', 
                         marginBottom: '20px',
-                        fontSize: (parseInt(fontSize) + 6) + 'pt',
-                        fontWeight: 'bold'
+                        fontSize: (parseInt(fontSize) + 8) + 'pt',
+                        fontWeight: 'bold',
+                        borderBottom: '1px solid #eee',
+                        paddingBottom: '10px'
                       }}>
                         {titleText}
                       </h1>
@@ -385,6 +460,20 @@ Click "Convert to PDF" to download your document!`;
                 </CardContent>
               </Card>
             )}
+          </div>
+
+          <div className="max-w-5xl mx-auto mb-16">
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="h-5 w-5 text-primary mt-0.5" />
+                  <div className="text-sm">
+                    <p className="font-semibold text-primary mb-1">New Features Available!</p>
+                    <p className="text-muted-foreground">This tool now supports <strong>Markdown</strong> and <strong>Math Equations (LaTeX)</strong>. Use <code>$$ ... $$</code> for display math and <code>$ ... $</code> for inline math. Complex tables and Unicode characters are now rendered with high precision.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <section className="mb-16">

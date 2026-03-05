@@ -1,0 +1,52 @@
+Upgrade the existing **Text to PDF tool** while keeping the tool **fully static 
+The current version correctly converts plain text into a PDF but fails with structured and complex content such as:
+
+* Markdown formatting (headings, bold, italic, blockquotes, code blocks)
+* Tables collapsing into plain text
+* Mathematical equations breaking into multiple lines
+* Fractions, matrices, and special math symbols not rendering correctly
+* Long equations losing alignment
+* Multi-language Unicode formatting issues
+* Line wrapping problems inside formulas
+
+The upgraded tool must support the following improvements while remaining fully static:
+
+1. **Markdown Rendering**
+
+   * Parse Markdown before generating the PDF.
+   * Support headings, bold, italic, strikethrough, blockquotes, code blocks, and lists.
+   * Properly render Markdown tables with aligned columns.
+
+2. **Math Equation Support**
+
+   * Integrate a lightweight client-side library like **KaTeX or MathJax** to render LaTeX equations.
+   * Ensure fractions, integrals, matrices, limits, and square roots render correctly.
+   * Prevent equations from breaking across lines.
+
+3. **Table Layout Fix**
+
+   * Convert Markdown tables into proper HTML tables before PDF generation.
+   * Maintain column alignment and borders in the final PDF.
+
+4. **Improved PDF Rendering**
+
+   * Use a stable client-side PDF library such as **html2pdf.js (html2canvas + jsPDF)** or a better static-compatible solution.
+   * Preserve layout, spacing, and font rendering.
+
+5. **Unicode and Multilingual Support**
+
+   * Ensure characters from Hindi, Punjabi, Spanish, and other languages render correctly.
+   * Use a font that supports wide Unicode coverage.
+
+6. **Formatting Stability**
+
+   * Maintain spacing and alignment for long paragraphs and equations.
+   * Prevent overflow or broken lines in PDF pages.
+   * Automatically paginate long documents.
+
+7. **Static Architecture Requirement**
+
+   * The tool must remain fully static and compatible with static hosting environments.
+   * No server-side processing should be required.
+
+The final version should be capable of correctly converting **plain text, markdown, tables, mathematical equations, and multilingual content into a clean and properly formatted PDF** without breaking structure or layout.
