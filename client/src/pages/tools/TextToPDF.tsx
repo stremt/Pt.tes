@@ -236,20 +236,36 @@ export default function TextToPDF() {
 
       const style = document.createElement('style');
       style.textContent = `
-        .pdf-content-wrapper { color: black !important; width: 794px !important; padding: 40px !important; box-sizing: border-box !important; overflow-wrap: break-word; }
-        .pdf-content-wrapper > * { max-width: 100% !important; }
-        .pdf-content-wrapper h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; }
-        .pdf-content-wrapper h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; }
-        .pdf-content-wrapper h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
-        .pdf-content-wrapper blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
-        .pdf-content-wrapper del { text-decoration: line-through !important; }
-        .pdf-content-wrapper table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: fixed; border: 1px solid #000; }
-        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #000; padding: 12px; text-align: left; word-break: break-word; }
-        .pdf-content-wrapper pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; }
+        .pdf-content-wrapper { 
+          color: black !important; 
+          width: 794px !important; 
+          padding: 0 !important; 
+          margin: 0 !important;
+          box-sizing: border-box !important; 
+          overflow-wrap: break-word; 
+        }
+        .pdf-page {
+          width: 794px !important;
+          height: 1123px !important;
+          padding: 40px !important;
+          box-sizing: border-box !important;
+          position: relative;
+          overflow: hidden;
+          background: white;
+          page-break-after: always;
+        }
+        .pdf-page > * { max-width: 100% !important; }
+        .pdf-page h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; }
+        .pdf-page h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; }
+        .pdf-page h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
+        .pdf-page blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
+        .pdf-page del { text-decoration: line-through !important; }
+        .pdf-page table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: fixed; border: 1px solid #000; }
+        .pdf-page th, .pdf-page td { border: 1px solid #000; padding: 12px; text-align: left; word-break: break-word; }
+        .pdf-page pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; }
         .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
-        .pdf-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
+        .pdf-page img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
         .katex { font-size: 1.1em !important; }
-        /* Prism styles for PDF */
         .token.comment { color: #708090; }
         .token.string { color: #690; }
         .token.keyword { color: #07a; font-weight: bold; }
@@ -258,18 +274,21 @@ export default function TextToPDF() {
       `;
       document.head.appendChild(style);
 
-      let htmlContent = "";
-      if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
+      let fullHtml = "";
+      for (let i = 0; i < totalPages; i++) {
+        let pageHtml = `<div class="pdf-page">`;
+        pageHtml += `<div style="transform: translateY(-${i * (PAGE_HEIGHT - 80)}px); width: 100%; padding-top: ${i > 0 ? '20px' : '0'};">`;
+        if (i === 0 && titleText) {
+          pageHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
+        }
+        pageHtml += isMarkdown ? marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
+        pageHtml += `</div>`;
+        pageHtml += `<div style="position: absolute; bottom: 20px; right: 40px; font-size: 10pt; color: #666;">Page ${i + 1} of ${totalPages}</div>`;
+        pageHtml += `</div>`;
+        fullHtml += pageHtml;
       }
       
-      if (isMarkdown) {
-        htmlContent += marked(textContent);
-      } else {
-        htmlContent += `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
-      }
-      
-      element.innerHTML = htmlContent;
+      element.innerHTML = fullHtml;
 
       // Add crossOrigin="anonymous" to all images
       const images = element.getElementsByTagName('img');
@@ -306,7 +325,7 @@ export default function TextToPDF() {
       }
 
       const opt = {
-        margin: [15, 15, 15, 15],
+        margin: 0,
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'professional-document.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
@@ -317,7 +336,7 @@ export default function TextToPDF() {
           backgroundColor: '#ffffff' 
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        pagebreak: { mode: ['css', 'legacy'] }
       };
 
       await html2pdf().set(opt).from(element).save();
