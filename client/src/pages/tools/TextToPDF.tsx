@@ -87,6 +87,10 @@ export default function TextToPDF() {
 
   useEffect(() => {
     const timer = setTimeout(async () => {
+      marked.setOptions({
+        breaks: true,
+        gfm: true
+      });
       const html = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${textContent}</div>`;
       setRenderedHtml(html);
     }, 300);
@@ -234,6 +238,11 @@ export default function TextToPDF() {
       style.textContent = `
         .pdf-content-wrapper { color: black !important; width: 794px !important; padding: 40px !important; box-sizing: border-box !important; overflow-wrap: break-word; }
         .pdf-content-wrapper > * { max-width: 100% !important; }
+        .pdf-content-wrapper h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; }
+        .pdf-content-wrapper h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; }
+        .pdf-content-wrapper h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
+        .pdf-content-wrapper blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
+        .pdf-content-wrapper del { text-decoration: line-through !important; }
         .pdf-content-wrapper table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: fixed; border: 1px solid #000; }
         .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #000; padding: 12px; text-align: left; word-break: break-word; }
         .pdf-content-wrapper pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; }
@@ -433,7 +442,7 @@ Click the **Download** button to see this document in high-quality PDF format!`;
       pages.push(
         <div 
           key={i} 
-          className="pdf-page-preview relative bg-white shadow-lg mx-auto mb-8 border border-gray-200 overflow-hidden"
+          className="pdf-page-preview relative bg-white shadow-lg mx-auto mb-4 border border-gray-200 overflow-hidden"
           style={{
             width: `${PAGE_WIDTH}px`,
             height: `${PAGE_HEIGHT}px`,
@@ -445,7 +454,8 @@ Click the **Download** button to see this document in high-quality PDF format!`;
             className="pdf-page-content markdown-body prose prose-slate max-w-none text-black"
             style={{
               transform: `translateY(-${i * (PAGE_HEIGHT - 80)}px)`,
-              width: "100%"
+              width: "100%",
+              paddingTop: i > 0 ? "20px" : "0"
             }}
           >
             {i === 0 && titleText && (

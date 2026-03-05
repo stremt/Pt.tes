@@ -197,7 +197,7 @@
 .pdf-page-preview {
   width: 794px;
   min-height: 1123px;
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 40px;
   box-sizing: border-box;
   overflow-wrap: break-word;
@@ -209,6 +209,39 @@
 
 .pdf-page-content > * {
   max-width: 100%;
+}
+
+.pdf-page-content h1 {
+  font-size: 32px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+.pdf-page-content h2 {
+  font-size: 26px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.pdf-page-content h3 {
+  font-size: 20px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.pdf-page-content blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 16px;
+  color: #555;
+  font-style: italic;
+  margin: 16px 0;
+}
+
+.pdf-page-content del {
+  text-decoration: line-through;
 }
 
 .pdf-page-content table {
