@@ -137,7 +137,7 @@ export default function TextToPDF() {
       element.style.padding = "40px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
-      element.style.width = "100%";
+      element.style.width = "800px"; // Fixed width for consistent rendering
 
       const style = document.createElement('style');
       style.textContent = `
@@ -153,7 +153,7 @@ export default function TextToPDF() {
         .pdf-content-wrapper h2 { font-size: 2em; margin-bottom: 0.5em; margin-top: 1.2em; border-bottom: 1px solid #eee; padding-bottom: 0.2em; }
         .pdf-content-wrapper h3 { font-size: 1.5em; margin-bottom: 0.5em; margin-top: 1em; }
         .pdf-content-wrapper p { margin-bottom: 1em; }
-        .pdf-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 4px; page-break-inside: avoid; }
+        .pdf-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
         .katex-display { margin: 1.5em 0; overflow-x: visible; overflow-y: hidden; text-align: center; }
         .katex { font-size: 1.1em !important; }
         /* Prism styles for PDF */
@@ -177,7 +177,25 @@ export default function TextToPDF() {
       }
       
       element.innerHTML = htmlContent;
+
+      // Add crossOrigin="anonymous" to all images
+      const images = element.getElementsByTagName('img');
+      const imagePromises = Array.from(images).map(img => {
+        img.crossOrigin = "anonymous";
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve(null);
+          } else {
+            img.onload = () => resolve(null);
+            img.onerror = () => resolve(null); // Continue even if image fails
+          }
+        });
+      });
+
       document.body.appendChild(element);
+
+      // Wait for all images to load
+      await Promise.all(imagePromises);
 
       if (window.renderMathInElement) {
         window.renderMathInElement(element, {
@@ -198,7 +216,13 @@ export default function TextToPDF() {
         margin: [15, 15, 15, 15],
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'professional-document.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          allowTaint: true,
+          letterRendering: true, 
+          backgroundColor: '#ffffff' 
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
@@ -311,6 +335,7 @@ Click the **Download** button to see this document in high-quality PDF format!`;
 
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
+    const previewContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       const render = async () => {
@@ -320,10 +345,17 @@ Click the **Download** button to see this document in high-quality PDF format!`;
       render();
     }, [content]);
 
+    useEffect(() => {
+      if (htmlContent && previewContainerRef.current && window.Prism) {
+        window.Prism.highlightAllUnder(previewContainerRef.current);
+      }
+    }, [htmlContent]);
+
     return (
       <div
+        ref={previewContainerRef}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
-        className="markdown-body prose prose-slate max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-code:text-pink-600"
+        className="markdown-body prose prose-slate max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black"
       />
     );
   };
