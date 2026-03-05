@@ -215,45 +215,6 @@ export default function TextToPDF() {
     }
   };
 
-      const opt = {
-        margin: [15, 15, 15, 15],
-        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true,
-          letterRendering: true,
-          backgroundColor: '#ffffff'
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait',
-          putOnlyUsedFonts: true
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      await html2pdf().set(opt).from(element).save();
-      document.body.removeChild(element);
-      document.head.removeChild(style);
-
-      toast({
-        title: "Success!",
-        description: "Professional PDF generated successfully",
-      });
-    } catch (error) {
-      console.error("PDF conversion error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to convert text to PDF",
-        variant: "destructive",
-      });
-    } finally {
-      setConverting(false);
-    }
-  };
-
   const escapeHtml = (text: string) => {
     const map: Record<string, string> = {
       '&': '&amp;',
