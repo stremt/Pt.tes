@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Eye, AlertCircle } from "lucide-react";
+import { FileText, Download, Eye, AlertCircle, Image as ImageIcon, Code, Type } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
@@ -17,50 +17,22 @@ import katex from "katex";
 declare global {
   interface Window {
     renderMathInElement: any;
+    Prism: any;
   }
 }
 
 export default function TextToPDF() {
   const [textContent, setTextContent] = useState("");
   const [converting, setConverting] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [fontSize, setFontSize] = useState("12");
   const [fontFamily, setFontFamily] = useState("Arial");
   const [titleText, setTitleText] = useState("");
   const [pageOrientation, setPageOrientation] = useState("portrait");
-  const [isMarkdown, setIsMarkdown] = useState(false);
+  const [isMarkdown, setIsMarkdown] = useState(true);
   const { toast } = useToast();
   const previewRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const renderMath = async () => {
-      if (showPreview && previewRef.current) {
-        try {
-          // Use CDN for KaTeX if local imports are failing in Replit's environment
-          if (!window.renderMathInElement) {
-            await Promise.all([
-              loadStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"),
-              loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"),
-            ]);
-            await loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js");
-          }
-          
-          window.renderMathInElement(previewRef.current, {
-            delimiters: [
-              { left: "$$", right: "$$", display: true },
-              { left: "$", right: "$", display: false },
-              { left: "\\(", right: "\\)", display: false },
-              { left: "\\[", right: "\\]", display: true }
-            ],
-            throwOnError: false
-          });
-        } catch (e) {
-          console.error("Math render error:", e);
-        }
-      }
-    };
-    renderMath();
-  }, [showPreview, textContent, isMarkdown, fontSize, fontFamily]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const loadScript = (src: string): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -91,13 +63,67 @@ export default function TextToPDF() {
     });
   };
 
+  useEffect(() => {
+    const initLibraries = async () => {
+      try {
+        await Promise.all([
+          loadStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"),
+          loadStyle("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"),
+          loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"),
+          loadScript("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"),
+        ]);
+        await Promise.all([
+          loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"),
+          loadScript("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"),
+          loadScript("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"),
+          loadScript("https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-json.min.js"),
+        ]);
+      } catch (e) {
+        console.error("Library loading error:", e);
+      }
+    };
+    initLibraries();
+  }, []);
+
+  useEffect(() => {
+    const renderContent = async () => {
+      if (showPreview && previewRef.current) {
+        if (window.renderMathInElement) {
+          window.renderMathInElement(previewRef.current, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            throwOnError: false
+          });
+        }
+        if (window.Prism) {
+          window.Prism.highlightAllUnder(previewRef.current);
+        }
+      }
+    };
+    renderContent();
+  }, [showPreview, textContent, isMarkdown, fontSize, fontFamily]);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64 = e.target?.result as string;
+      const imageMarkdown = `\n![${file.name}](${base64})\n`;
+      setTextContent(prev => prev + imageMarkdown);
+      toast({ title: "Image added", description: "Image inserted at the end of text" });
+    };
+    reader.readAsDataURL(file);
+  };
+
   const convertToPDF = async () => {
     if (!textContent.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter text content to convert",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: "Please enter text content to convert", variant: "destructive" });
       return;
     }
 
@@ -108,51 +134,52 @@ export default function TextToPDF() {
       element.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       element.style.fontSize = fontSize + "pt";
       element.style.lineHeight = "1.6";
-      element.style.padding = "20px";
+      element.style.padding = "40px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
       element.style.width = "100%";
 
       const style = document.createElement('style');
       style.textContent = `
-        .pdf-content-wrapper table { border-collapse: collapse; width: 100%; margin: 15px 0; table-layout: auto; }
-        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        .pdf-content-wrapper th { background-color: #f5f5f5; font-weight: bold; }
-        .pdf-content-wrapper blockquote { border-left: 4px solid #ddd; padding-left: 15px; color: #666; font-style: italic; margin: 15px 0; }
-        .pdf-content-wrapper code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
-        .pdf-content-wrapper pre { background-color: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto; margin: 15px 0; }
-        .pdf-content-wrapper pre code { background-color: transparent; padding: 0; }
-        .pdf-content-wrapper h1, .pdf-content-wrapper h2, .pdf-content-wrapper h3 { color: #000; margin-top: 20px; margin-bottom: 10px; }
-        .pdf-content-wrapper p { margin-bottom: 10px; }
-        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+        .pdf-content-wrapper { color: black !important; }
+        .pdf-content-wrapper table { border-collapse: collapse; width: 100%; margin: 20px 0; table-layout: auto; border: 1px solid #000; }
+        .pdf-content-wrapper th, .pdf-content-wrapper td { border: 1px solid #000; padding: 12px; text-align: left; }
+        .pdf-content-wrapper th { background-color: #f0f0f0; font-weight: bold; }
+        .pdf-content-wrapper blockquote { border-left: 5px solid #ccc; padding-left: 20px; color: #444; font-style: italic; margin: 20px 0; }
+        .pdf-content-wrapper code { background-color: #f5f5f5; padding: 2px 5px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; color: #d63384; }
+        .pdf-content-wrapper pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; }
+        .pdf-content-wrapper pre code { background-color: transparent; padding: 0; color: inherit; display: block; }
+        .pdf-content-wrapper h1 { font-size: 2.5em; margin-bottom: 0.5em; border-bottom: 2px solid #eee; padding-bottom: 0.3em; }
+        .pdf-content-wrapper h2 { font-size: 2em; margin-bottom: 0.5em; margin-top: 1.2em; border-bottom: 1px solid #eee; padding-bottom: 0.2em; }
+        .pdf-content-wrapper h3 { font-size: 1.5em; margin-bottom: 0.5em; margin-top: 1em; }
+        .pdf-content-wrapper p { margin-bottom: 1em; }
+        .pdf-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 4px; page-break-inside: avoid; }
+        .katex-display { margin: 1.5em 0; overflow-x: visible; overflow-y: hidden; text-align: center; }
+        .katex { font-size: 1.1em !important; }
+        /* Prism styles for PDF */
+        .token.comment { color: #708090; }
+        .token.string { color: #690; }
+        .token.keyword { color: #07a; font-weight: bold; }
+        .token.function { color: #dd4a68; }
+        .token.operator { color: #9a6e3a; }
       `;
       document.head.appendChild(style);
 
       let htmlContent = "";
-      
       if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 8}pt; font-weight: bold; color: #000000; border-bottom: 2px solid #333; padding-bottom: 10px;">${escapeHtml(titleText)}</h1>`;
+        htmlContent += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
       }
       
       if (isMarkdown) {
-        const markdownHtml = await marked(textContent);
-        htmlContent += `<div class="markdown-body">${markdownHtml}</div>`;
+        htmlContent += marked(textContent);
       } else {
-        htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
+        htmlContent += `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       }
       
       element.innerHTML = htmlContent;
       document.body.appendChild(element);
 
-      try {
-        if (!window.renderMathInElement) {
-          await Promise.all([
-            loadStyle("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"),
-            loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"),
-          ]);
-          await loadScript("https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js");
-        }
-        
+      if (window.renderMathInElement) {
         window.renderMathInElement(element, {
           delimiters: [
             { left: "$$", right: "$$", display: true },
@@ -162,9 +189,31 @@ export default function TextToPDF() {
           ],
           throwOnError: false
         });
-      } catch (e) {
-        console.error("Math render error during PDF generation:", e);
       }
+      if (window.Prism) {
+        window.Prism.highlightAllUnder(element);
+      }
+
+      const opt = {
+        margin: [15, 15, 15, 15],
+        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'professional-document.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+      document.body.removeChild(element);
+      document.head.removeChild(style);
+      toast({ title: "Success!", description: "High-quality PDF generated successfully" });
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      toast({ title: "Error", description: "Failed to generate PDF", variant: "destructive" });
+    } finally {
+      setConverting(false);
+    }
+  };
 
       const opt = {
         margin: [15, 15, 15, 15],
@@ -253,64 +302,67 @@ export default function TextToPDF() {
 
   const faqSchema = generateFAQSchema(faqItems);
 
-  const sampleText = `# Professional Document Sample
+  const sampleText = `# Advanced PDF Generation Sample
 
-## Markdown & Text Features
-This tool supports **bold**, *italic*, and ~~strikethrough~~ text. You can create:
-- Bulleted lists
-- Ordered lists
-- [Links](https://tools.pixocraft.in)
-- Blockquotes
+## 1. Mathematical Equations (KaTeX)
+The tool supports professional LaTeX rendering:
 
-> "The best way to predict the future is to invent it." - Alan Kay
-
-## Mathematical Equations (LaTeX)
-Render complex math symbols and formulas:
-
-**Quadratic Formula:**
+**The Quadratic Formula:**
 $$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
 
-**Integral:**
-$$\\int_{a}^{b} x^2 dx = \\left[ \\frac{x^3}{3} \\right]_a^b$$
+**Euler's Identity:**
+$$e^{i\\pi} + 1 = 0$$
 
-**Matrix:**
-$$\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}$$
+## 2. Syntax-Highlighted Code Blocks
+Write code in your favorite languages:
 
-## Data Tables
-| Feature | Supported | Quality |
+\`\`\`javascript
+function calculateSum(a, b) {
+  console.log("Adding numbers...");
+  return a + b;
+}
+\`\`\`
+
+\`\`\`python
+def greet(name):
+    return f"Hello, {name}!"
+\`\`\`
+
+## 3. Image Support
+Embed images using Markdown or HTML:
+
+![Logo](https://tools.pixocraft.in/logo.png)
+
+## 4. Professional Tables
+| Feature | Support | Performance |
 | :--- | :---: | :--- |
 | Markdown | Yes | High |
-| LaTeX Math | Yes | Vector |
-| Unicode | Yes | Full |
-| Tables | Yes | Structured |
+| KaTeX Math | Yes | Vector |
+| Syntax Highlighting | Yes | Prism.js |
+| Images | Yes | Static |
 
-## Multilingual Support
-- Hindi: नमस्ते दुनिया
-- Punjabi: ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ
-- Spanish: ¡Hola Mundo!
+## 5. Rich Typography
+You can use **bold**, *italic*, ~~strikethrough~~, and [links](https://tools.pixocraft.in).
 
-Click "Convert to PDF" to download this professionally formatted document!`;
+> "Simplicity is the ultimate sophistication." - Leonardo da Vinci
+
+Click the **Download** button to see this document in high-quality PDF format!`;
 
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
 
-    const renderMarkdown = async () => {
-      const html = await marked(content);
-      setHtmlContent(html);
-    };
-
     useEffect(() => {
-      renderMarkdown();
+      const render = async () => {
+        const html = await marked(content);
+        setHtmlContent(html);
+      };
+      render();
     }, [content]);
 
     return (
       <div
         dangerouslySetInnerHTML={{ __html: htmlContent }}
-        style={{
-          fontSize: fontSize + "pt",
-          color: "#000000",
-        }}
-        className="prose prose-sm max-w-none prose-h1:text-black prose-h2:text-black prose-h3:text-black prose-h4:text-black prose-h5:text-black prose-h6:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-em:text-black"
+        className="markdown-body prose prose-slate max-w-none text-black prose-headings:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-code:text-pink-600"
       />
     );
   };
@@ -318,210 +370,198 @@ Click "Convert to PDF" to download this professionally formatted document!`;
   return (
     <>
       <StructuredData data={faqSchema} />
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen py-8">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <Link href="/tools/pdf" className="hover:text-foreground">PDF Tools</Link>
-            {" / "}
+          <div className="mb-6 text-sm text-muted-foreground flex items-center gap-2">
+            <Link href="/" className="hover:text-foreground">Home</Link>
+            <span>/</span>
+            <Link href="/tools" className="hover:text-foreground">Tools</Link>
+            <span>/</span>
             <span className="text-foreground">Text to PDF</span>
           </div>
 
-          <div className="text-center space-y-4 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <FileText className="h-8 w-8 text-primary" />
+          <div className="text-center space-y-4 mb-8">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <FileText className="h-6 w-6 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Convert Text to Professional PDF Documents</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transform plain text into professionally formatted PDFs instantly. Offline, secure, and completely free. No signup, no tracking, no limits.
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Advanced Text to PDF Generator</h1>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Professional document creation with Markdown, LaTeX Math, Syntax Highlighting, and Image support.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">Offline</Badge>
-              <Badge variant="secondary">Custom Formatting</Badge>
-            </div>
           </div>
 
-          <div className="max-w-5xl mx-auto mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Settings */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Formatting Options</CardTitle>
-                  <CardDescription>Customize your PDF appearance</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Document Title (Optional)</label>
-                    <Input
-                      placeholder="Enter document title..."
-                      value={titleText}
-                      onChange={(e) => setTitleText(e.target.value)}
-                      data-testid="input-title"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+            {/* Editor Side */}
+            <div className="space-y-4">
+              <Card className="h-full flex flex-col border-primary/20">
+                <CardHeader className="py-4 flex flex-row items-center justify-between space-y-0 gap-2">
+                  <div className="flex items-center gap-2">
+                    <Type className="h-4 w-4 text-primary" />
+                    <CardTitle className="text-lg">Editor</CardTitle>
+                  </div>
+                  <div className="flex gap-2">
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleImageUpload} 
+                      accept="image/*" 
+                      className="hidden" 
                     />
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="h-8"
+                    >
+                      <ImageIcon className="h-3.5 w-3.5 mr-1.5" />
+                      Add Image
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setTextContent(sampleText)}
+                      className="h-8"
+                    >
+                      Load Sample
+                    </Button>
                   </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Font Family</label>
-                    <Select value={fontFamily} onValueChange={setFontFamily}>
-                      <SelectTrigger data-testid="select-font">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Arial">Arial</SelectItem>
-                        <SelectItem value="Times New Roman">Times New Roman</SelectItem>
-                        <SelectItem value="Courier New">Courier New</SelectItem>
-                        <SelectItem value="Georgia">Georgia</SelectItem>
-                        <SelectItem value="Verdana">Verdana</SelectItem>
-                        <SelectItem value="Comic Sans MS">Comic Sans MS</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Font Size (pt)</label>
-                    <Select value={fontSize} onValueChange={setFontSize}>
-                      <SelectTrigger data-testid="select-size">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="10">10pt</SelectItem>
-                        <SelectItem value="11">11pt</SelectItem>
-                        <SelectItem value="12">12pt</SelectItem>
-                        <SelectItem value="13">13pt</SelectItem>
-                        <SelectItem value="14">14pt</SelectItem>
-                        <SelectItem value="16">16pt</SelectItem>
-                        <SelectItem value="18">18pt</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Page Orientation</label>
-                    <Select value={pageOrientation} onValueChange={setPageOrientation}>
-                      <SelectTrigger data-testid="select-orientation">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="portrait">Portrait</SelectItem>
-                        <SelectItem value="landscape">Landscape</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-2">
-                    <Checkbox
-                      id="markdown-toggle"
-                      checked={isMarkdown}
-                      onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
-                      data-testid="checkbox-markdown"
-                    />
-                    <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer text-foreground">
-                      Treat as Markdown
-                    </label>
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setTextContent(sampleText)}
-                    data-testid="button-sample"
-                  >
-                    Load Sample
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Text Input & Actions */}
-              <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle>Text Input</CardTitle>
-                  <CardDescription>Paste your text content here</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="flex-1 p-0">
                   <Textarea
-                    placeholder="Paste your text here or load a sample..."
+                    placeholder="Write your content here using Markdown or paste your text..."
                     value={textContent}
                     onChange={(e) => setTextContent(e.target.value)}
-                    className="font-mono text-sm min-h-[400px]"
-                    data-testid="textarea-text"
+                    className="w-full h-[600px] border-0 rounded-none focus-visible:ring-0 resize-none font-mono text-sm p-4 bg-muted/30"
                   />
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      onClick={() => setTextContent("")}
-                      data-testid="button-clear"
-                    >
-                      Clear
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowPreview(!showPreview)}
-                      className="flex-1"
-                      data-testid="button-preview"
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      {showPreview ? "Hide Preview" : "Show Preview"}
-                    </Button>
-                    <Button
-                      onClick={convertToPDF}
-                      disabled={converting || !textContent.trim()}
-                      className="flex-1"
-                      data-testid="button-convert"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      {converting ? "Converting..." : "Convert to PDF"}
-                    </Button>
-                  </div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Preview */}
-            {showPreview && textContent && (
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Preview {isMarkdown && "( Markdown & Math )"}</CardTitle>
+            {/* Preview Side */}
+            <div className="space-y-4">
+              <Card className="h-full flex flex-col border-primary/20">
+                <CardHeader className="py-4 flex flex-row items-center justify-between space-y-0 gap-2">
+                  <div className="flex items-center gap-2">
+                    <Eye className="h-4 w-4 text-primary" />
+                    <CardTitle className="text-lg">Live Preview</CardTitle>
+                  </div>
+                  <Badge variant="outline" className="bg-primary/5">Real-time Rendering</Badge>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="flex-1 p-0 overflow-hidden">
                   <div 
                     ref={previewRef}
-                    className="border rounded-lg p-8 bg-white text-black overflow-auto max-h-96 prose prose-sm dark:prose-invert"
+                    className="w-full h-[600px] overflow-auto p-8 bg-white text-black"
                     style={{
                       fontFamily: fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily,
                       fontSize: fontSize + "pt",
                       lineHeight: "1.6"
                     }}
-                    data-testid="preview-text"
                   >
                     {titleText && (
-                      <h1 style={{ 
-                        textAlign: 'center', 
-                        marginBottom: '20px',
-                        fontSize: (parseInt(fontSize) + 8) + 'pt',
-                        fontWeight: 'bold',
-                        borderBottom: '1px solid #eee',
-                        paddingBottom: '10px'
-                      }}>
+                      <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
                         {titleText}
                       </h1>
                     )}
                     {isMarkdown ? (
                       <MarkdownPreview content={textContent} />
                     ) : (
-                      <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                        {textContent}
-                      </div>
+                      <div style={{ whiteSpace: "pre-wrap" }}>{textContent}</div>
                     )}
                   </div>
                 </CardContent>
               </Card>
-            )}
+            </div>
+          </div>
+
+          {/* Controls Bar */}
+          <Card className="mb-12 sticky bottom-4 z-50 shadow-lg border-primary/30">
+            <CardContent className="p-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-4 flex-1">
+                <div className="w-48">
+                  <Input
+                    placeholder="Document Title (Optional)"
+                    value={titleText}
+                    onChange={(e) => setTitleText(e.target.value)}
+                    className="h-9"
+                  />
+                </div>
+                <Select value={fontFamily} onValueChange={setFontFamily}>
+                  <SelectTrigger className="w-40 h-9">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Arial">Sans-Serif</SelectItem>
+                    <SelectItem value="Times New Roman">Serif</SelectItem>
+                    <SelectItem value="Courier New">Monospace</SelectItem>
+                    <SelectItem value="Georgia">Georgia</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={fontSize} onValueChange={setFontSize}>
+                  <SelectTrigger className="w-24 h-9">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10pt</SelectItem>
+                    <SelectItem value="12">12pt</SelectItem>
+                    <SelectItem value="14">14pt</SelectItem>
+                    <SelectItem value="16">16pt</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center gap-2 px-2 border-l pl-4">
+                  <Checkbox
+                    id="markdown-mode"
+                    checked={isMarkdown}
+                    onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
+                  />
+                  <label htmlFor="markdown-mode" className="text-sm font-medium cursor-pointer">Markdown</label>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <Button 
+                  variant="ghost" 
+                  onClick={() => setTextContent("")}
+                  className="text-muted-foreground h-9"
+                >
+                  Clear
+                </Button>
+                <Button
+                  onClick={convertToPDF}
+                  disabled={converting || !textContent.trim()}
+                  size="lg"
+                  className="h-10 px-8 font-bold"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  {converting ? "Processing..." : "Generate PDF"}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <Card className="bg-muted/30">
+              <CardContent className="p-6 space-y-2">
+                <Code className="h-5 w-5 text-primary mb-2" />
+                <h3 className="font-bold">Syntax Highlighting</h3>
+                <p className="text-sm text-muted-foreground">Beautiful code blocks for JS, Python, HTML, CSS, and more with Prism.js.</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-muted/30">
+              <CardContent className="p-6 space-y-2">
+                <ImageIcon className="h-5 w-5 text-primary mb-2" />
+                <h3 className="font-bold">Image Positioning</h3>
+                <p className="text-sm text-muted-foreground">Insert images exactly where you want them. Supports drag & drop and local uploads.</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-muted/30">
+              <CardContent className="p-6 space-y-2">
+                <Zap className="h-5 w-5 text-primary mb-2" />
+                <h3 className="font-bold">Vector Math</h3>
+                <p className="text-sm text-muted-foreground">Crystal clear LaTeX equations that look perfect at any zoom level in your PDF.</p>
+              </CardContent>
+            </Card>
           </div>
 
           <div className="max-w-5xl mx-auto mb-16">
