@@ -194,7 +194,7 @@
 }
 
 /* PDF Page Segmentation Styles */
-.pdf-page-content table, .pdf-page-content img, .pdf-page-content pre, .pdf-page-content blockquote {
+.pdf-page-content table, .pdf-page-content img, .pdf-page-content pre, .pdf-page-content blockquote, .pdf-page-content p, .pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3 {
   page-break-inside: avoid;
   break-inside: avoid;
 }
@@ -204,10 +204,14 @@
 }
 
 .pdf-page-content {
-  color: black;
+  color: black !important;
 }
 
-.pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3, .pdf-page-content p, .pdf-page-content li {
+.pdf-page-content * {
+  color: black !important;
+}
+
+.pdf-page-content h1, .pdf-page-content h2, .pdf-page-content h3, .pdf-page-content p, .pdf-page-content li, .pdf-page-content strong, .pdf-page-content em {
   color: black !important;
 }
 

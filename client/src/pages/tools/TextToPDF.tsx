@@ -80,21 +80,49 @@ export default function TextToPDF() {
   const { toast } = useToast();
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [renderedHtml, setRenderedHtml] = useState("");
 
   const PAGE_HEIGHT = 1123; // A4 height in pixels at 96 DPI
   const PAGE_WIDTH = 794;   // A4 width in pixels at 96 DPI
 
   useEffect(() => {
+    const timer = setTimeout(async () => {
+      const html = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${textContent}</div>`;
+      setRenderedHtml(html);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [textContent, isMarkdown]);
+
+  useEffect(() => {
     const calculatePages = () => {
       if (!previewRef.current) return;
-      const scrollHeight = previewRef.current.scrollHeight;
-      const pages = Math.max(1, Math.ceil(scrollHeight / PAGE_HEIGHT));
+      // Use a hidden element to measure the actual content height
+      const measureEl = document.createElement('div');
+      measureEl.style.width = `${PAGE_WIDTH - 80}px`; // Accounting for 40px padding on each side
+      measureEl.style.visibility = 'hidden';
+      measureEl.style.position = 'absolute';
+      measureEl.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
+      measureEl.style.fontSize = fontSize + "pt";
+      measureEl.style.lineHeight = "1.6";
+      measureEl.className = "markdown-body prose prose-slate max-w-none text-black";
+      
+      let fullHtml = "";
+      if (titleText) {
+        fullHtml += `<h1 style="text-align: center; font-bold border-b pb-4 mb-6; font-size: ${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
+      }
+      fullHtml += renderedHtml;
+      measureEl.innerHTML = fullHtml;
+      
+      document.body.appendChild(measureEl);
+      const contentHeight = measureEl.scrollHeight;
+      document.body.removeChild(measureEl);
+      
+      const pages = Math.max(1, Math.ceil(contentHeight / (PAGE_HEIGHT - 80))); // Accounting for vertical padding
       setTotalPages(pages);
     };
 
-    const timeoutId = setTimeout(calculatePages, 100);
-    return () => clearTimeout(timeoutId);
-  }, [textContent, titleText, isMarkdown, fontSize, fontFamily, pageOrientation]);
+    calculatePages();
+  }, [renderedHtml, titleText, fontSize, fontFamily]);
 
   const loadScript = (src: string): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -395,23 +423,16 @@ You can use **bold**, *italic*, ~~strikethrough~~, and [links](https://tools.pix
 
 Click the **Download** button to see this document in high-quality PDF format!`;
 
-  const MarkdownPreview = ({ content }: { content: string }) => {
-    const [htmlContent, setHtmlContent] = useState("");
+  const MarkdownPreview = ({ content, html }: { content: string, html: string }) => {
     const previewContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      const render = async () => {
-        const html = await marked(content);
-        setHtmlContent(html);
-      };
-      render();
-    }, [content]);
-
-    useEffect(() => {
-      if (htmlContent && previewContainerRef.current && window.Prism) {
+      if (html && previewContainerRef.current && window.Prism) {
         window.Prism.highlightAllUnder(previewContainerRef.current);
       }
-    }, [htmlContent]);
+    }, [html]);
+
+    if (!content.trim() && !titleText.trim()) return null;
 
     const pages = [];
     for (let i = 0; i < totalPages; i++) {
@@ -427,14 +448,20 @@ Click the **Download** button to see this document in high-quality PDF format!`;
           }}
         >
           <div 
-            className="pdf-page-content"
+            className="pdf-page-content markdown-body prose prose-slate max-w-none text-black"
             style={{
-              transform: `translateY(-${i * PAGE_HEIGHT}px)`,
-              height: `${totalPages * PAGE_HEIGHT}px`
+              transform: `translateY(-${i * (PAGE_HEIGHT - 80)}px)`,
+              width: "100%"
             }}
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
-          <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium">
+          >
+            {i === 0 && titleText && (
+              <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt', color: 'black' }}>
+                {titleText}
+              </h1>
+            )}
+            <div dangerouslySetInnerHTML={{ __html: html }} className="text-black" />
+          </div>
+          <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium bg-white/80 px-2 py-1 rounded">
             Page {i + 1} of {totalPages}
           </div>
         </div>
@@ -442,7 +469,7 @@ Click the **Download** button to see this document in high-quality PDF format!`;
     }
 
     return (
-      <div className="pdf-preview-container bg-muted/20 p-8 min-h-full overflow-auto">
+      <div className="pdf-preview-container bg-muted/20 p-8 min-h-full overflow-auto" ref={previewContainerRef}>
         <div className="max-w-fit mx-auto">
           {pages}
         </div>
@@ -545,61 +572,7 @@ Click the **Download** button to see this document in high-quality PDF format!`;
                       lineHeight: "1.6"
                     }}
                   >
-                    <div className="hidden">
-                      {/* Hidden full content for scroll height calculation */}
-                      <div className="markdown-body prose prose-slate max-w-none p-8">
-                         {titleText && (
-                          <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
-                            {titleText}
-                          </h1>
-                        )}
-                        {isMarkdown ? (
-                           <div dangerouslySetInnerHTML={{ __html: marked(textContent) }} />
-                        ) : (
-                          <div style={{ whiteSpace: "pre-wrap" }}>{textContent}</div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {isMarkdown ? (
-                      <MarkdownPreview content={textContent} />
-                    ) : (
-                      <div className="pdf-preview-container bg-muted/20 p-8 min-h-full overflow-auto">
-                        <div className="max-w-fit mx-auto">
-                          {Array.from({ length: totalPages }).map((_, i) => (
-                            <div 
-                              key={i} 
-                              className="pdf-page-preview relative bg-white shadow-lg mx-auto mb-8 border border-gray-200 overflow-hidden"
-                              style={{
-                                width: `${PAGE_WIDTH}px`,
-                                height: `${PAGE_HEIGHT}px`,
-                                padding: "40px",
-                                boxSizing: "border-box"
-                              }}
-                            >
-                              <div 
-                                className="pdf-page-content"
-                                style={{
-                                  transform: `translateY(-${i * PAGE_HEIGHT}px)`,
-                                  height: `${totalPages * PAGE_HEIGHT}px`,
-                                  whiteSpace: "pre-wrap"
-                                }}
-                              >
-                                {i === 0 && titleText && (
-                                  <h1 className="text-center font-bold border-b pb-4 mb-6" style={{ fontSize: (parseInt(fontSize) + 12) + 'pt' }}>
-                                    {titleText}
-                                  </h1>
-                                )}
-                                {textContent}
-                              </div>
-                              <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium">
-                                Page {i + 1} of {totalPages}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <MarkdownPreview content={textContent} html={renderedHtml} />
                   </div>
                 </CardContent>
               </Card>
