@@ -37,11 +37,35 @@ export default function HTMLtoPDF() {
       const element = document.createElement('div');
       element.innerHTML = htmlContent;
       
+      const style = document.createElement('style');
+      style.textContent = `
+        img, table, pre, blockquote, .katex-display {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        p, h1, h2, h3 {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        img {
+          max-width: 100%;
+          height: auto;
+          max-height: 90vh;
+        }
+        hr {
+          page-break-before: auto;
+          page-break-after: auto;
+          margin: 20px 0;
+        }
+      `;
+      element.appendChild(style);
+      
       const opt = {
         margin: 10,
         filename: 'document.pdf',
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] }
       };
 
       await html2pdf().set(opt).from(element).save();

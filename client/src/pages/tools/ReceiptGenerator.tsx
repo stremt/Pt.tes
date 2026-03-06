@@ -54,15 +54,27 @@ export default function ReceiptGenerator() {
     
     try {
       const element = receiptRef.current;
+      
+      const style = document.createElement('style');
+      style.textContent = `
+        .card, img, table {
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+      `;
+      element.appendChild(style);
+
       const opt = {
         margin: [10, 10, 10, 10] as [number, number, number, number],
         filename: `receipt-${receiptNo || 'draft'}.pdf`,
         image: { type: 'jpeg' as const, quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm' as const, format: 'a4', orientation: 'portrait' as const }
+        jsPDF: { unit: 'mm' as const, format: 'a4', orientation: 'portrait' as const },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] }
       };
 
       await html2pdf().set(opt).from(element).save();
+      element.removeChild(style);
       
       toast({
         title: "Success!",

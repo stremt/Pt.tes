@@ -53,11 +53,21 @@ export default function ExcelToPDF() {
       const element = document.createElement('div');
       element.innerHTML = htmlContent;
       
+      const style = document.createElement('style');
+      style.textContent = `
+        table, tr, td, th {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      `;
+      element.appendChild(style);
+      
       const opt = {
         margin: 10,
         filename: file.name.replace(/\.(xlsx|xls)$/i, '.pdf'),
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] }
       };
 
       await html2pdf().set(opt).from(element).save();

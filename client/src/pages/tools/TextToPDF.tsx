@@ -107,7 +107,7 @@ export default function TextToPDF() {
             .pdf-export-content hr { 
               border: none; 
               border-top: 1px solid #ccc; 
-              margin: 24px 0; 
+              margin: 20px 0; 
               page-break-before: auto;
               page-break-after: auto;
             }
