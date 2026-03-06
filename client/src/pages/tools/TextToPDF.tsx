@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
 import { marked } from "marked";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 export default function TextToPDF() {
   const [textContent, setTextContent] = useState("");
@@ -58,8 +60,43 @@ export default function TextToPDF() {
       }
       
       if (isMarkdown) {
-        const markdownHtml = await marked(textContent);
-        htmlContent += `<div style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${markdownHtml}</div>`;
+        let markdownHtml = await marked(textContent);
+        
+        // Render Math with KaTeX
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = markdownHtml;
+        
+        const mathElements = tempDiv.querySelectorAll('code.language-math, .math, [class*="math"]');
+        mathElements.forEach(el => {
+          try {
+            const math = el.textContent || "";
+            const isDisplay = el.tagName === 'DIV' || el.classList.contains('math-display');
+            el.innerHTML = katex.renderToString(math, { displayMode: isDisplay, throwOnError: false });
+          } catch (e) {
+            console.error("KaTeX error:", e);
+          }
+        });
+        
+        // Handle $...$ and $$...$$ manually if not caught by marked
+        let processedHtml = tempDiv.innerHTML;
+        processedHtml = processedHtml.replace(/\$\$(.*?)\$\$/g, (match, math) => {
+          return katex.renderToString(math, { displayMode: true, throwOnError: false });
+        });
+        processedHtml = processedHtml.replace(/\$(.*?)\$/g, (match, math) => {
+          return katex.renderToString(math, { displayMode: false, throwOnError: false });
+        });
+
+        htmlContent += `
+          <style>
+            .pdf-export-content del { text-decoration: line-through; }
+            .pdf-export-content blockquote { border-left: 4px solid #ccc; padding-left: 12px; margin: 12px 0; color: #555; font-style: italic; }
+            .pdf-export-content table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+            .pdf-export-content th, .pdf-export-content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+            .pdf-export-content th { background: #f4f4f4; font-weight: bold; }
+            .katex-display { margin: 16px 0; }
+          </style>
+          <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${processedHtml}</div>
+        `;
       } else {
         htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       }
@@ -145,23 +182,41 @@ export default function TextToPDF() {
 
   const faqSchema = generateFAQSchema(faqItems);
 
-  const sampleText = `This is a sample text document.
+  const sampleText = `### Markdown Test
+This is **bold**, *italic*, and ~~strikethrough text~~.
 
-You can paste any plain text here and convert it to PDF with custom formatting options.
+> This is a blockquote used to test markdown rendering.
 
-Features include:
-- Custom font selection
-- Adjustable font size
-- Optional document title
-- Portrait or landscape orientation
+| ID | Tool | Category | Status |
+|---|---|---|---|
+| 1 | PDF | Office | Active |
+| 2 | Text | Utility | Pending |
 
-Click "Convert to PDF" to download your document!`;
+#### Math Rendering
+Inline math: $E = mc^2$
+
+Display math:
+$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+`;
 
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
 
     const renderMarkdown = async () => {
-      const html = await marked(content);
+      let html = await marked(content);
+      
+      // Basic regex for preview math (simple version)
+      html = html.replace(/\$\$(.*?)\$\$/g, (match, math) => {
+        try {
+          return katex.renderToString(math, { displayMode: true, throwOnError: false });
+        } catch (e) { return match; }
+      });
+      html = html.replace(/\$(.*?)\$/g, (match, math) => {
+        try {
+          return katex.renderToString(math, { displayMode: false, throwOnError: false });
+        } catch (e) { return match; }
+      });
+
       setHtmlContent(html);
     };
 
