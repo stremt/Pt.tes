@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO, StructuredData } from "@/lib/seo";
-import { FileEdit, Copy, RotateCcw, Zap, Eye, Lock } from "lucide-react";
+import { FileEdit, Copy, RotateCcw, Zap, Eye, Lock, Type } from "lucide-react";
 import { marked } from "marked";
 import { Link } from "wouter";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",
@@ -20,9 +21,20 @@ const generateBreadcrumbSchema = () => ({
   ]
 });
 
+const FONTS = [
+  { name: "Monospace", value: "font-mono" },
+  { name: "Sans Serif", value: "font-sans" },
+  { name: "Serif", value: "font-serif" },
+  { name: "Inter", value: "font-inter" },
+  { name: "Roboto Mono", value: "font-roboto-mono" },
+];
+
 export default function MarkdownEditor() {
-  const [markdown, setMarkdown] = useState("");
+  const [markdown, setMarkdown] = useState(() => {
+    return localStorage.getItem("markdown-editor-content") || "# Hello World\n\nWrite your **markdown** here...";
+  });
   const [html, setHtml] = useState("");
+  const [font, setFont] = useState("font-mono");
   const { copyToClipboard, copied } = useClipboard();
 
   useSEO({
@@ -33,6 +45,7 @@ export default function MarkdownEditor() {
   });
 
   useEffect(() => {
+    localStorage.setItem("markdown-editor-content", markdown);
     const convertToHtml = async () => {
       if (!markdown) {
         setHtml("");
@@ -82,7 +95,7 @@ export default function MarkdownEditor() {
       <div className="max-w-7xl mx-auto space-y-6">
         <Card>
           <CardContent className="pt-6">
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 items-center">
               <Button onClick={handleClear} variant="outline" disabled={!markdown} data-testid="button-clear">
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Clear
@@ -96,13 +109,29 @@ export default function MarkdownEditor() {
                 <Copy className="h-4 w-4 mr-2" />
                 {copied ? "Copied HTML!" : "Copy HTML"}
               </Button>
+              
+              <div className="flex items-center gap-2">
+                <Type className="h-4 w-4 text-muted-foreground" />
+                <Select value={font} onValueChange={setFont}>
+                  <SelectTrigger className="w-[180px]" data-testid="select-font">
+                    <SelectValue placeholder="Select Font" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONTS.map((f) => (
+                      <SelectItem key={f.value} value={f.value}>
+                        {f.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
+          <Card className="order-1 lg:order-1">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle>Markdown Editor</CardTitle>
             </CardHeader>
             <CardContent>
@@ -110,25 +139,25 @@ export default function MarkdownEditor() {
                 placeholder="# Hello World\n\nWrite your **markdown** here..."
                 value={markdown}
                 onChange={(e) => setMarkdown(e.target.value)}
-                className="min-h-[600px] text-sm font-mono"
+                className={`min-h-[400px] lg:min-h-[600px] text-sm ${font}`}
                 data-testid="input-markdown"
               />
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
+          <Card className="order-2 lg:order-2">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle>Live Preview</CardTitle>
             </CardHeader>
             <CardContent>
               {html ? (
                 <div
-                  className="prose prose-sm dark:prose-invert max-w-none min-h-[600px] p-4 bg-muted rounded-lg overflow-auto"
+                  className={`prose prose-sm dark:prose-invert max-w-none min-h-[400px] lg:min-h-[600px] p-4 bg-muted rounded-lg overflow-auto ${font}`}
                   dangerouslySetInnerHTML={{ __html: html }}
                   data-testid="preview-html"
                 />
               ) : (
-                <div className="flex items-center justify-center min-h-[600px] text-muted-foreground bg-muted rounded-lg" data-testid="preview-empty">
+                <div className="flex items-center justify-center min-h-[400px] lg:min-h-[600px] text-muted-foreground bg-muted rounded-lg" data-testid="preview-empty">
                   <p className="text-sm">Preview will appear here</p>
                 </div>
               )}
