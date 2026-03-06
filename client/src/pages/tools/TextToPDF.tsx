@@ -254,8 +254,10 @@ export default function TextToPDF() {
       exportContainer.style.fontSize = fontSize + "pt";
       exportContainer.style.lineHeight = "1.6";
       exportContainer.style.position = "absolute";
-      exportContainer.style.left = "-9999px";
+      exportContainer.style.left = "0";
       exportContainer.style.top = "0";
+      exportContainer.style.zIndex = "9999";
+      exportContainer.style.visibility = "visible";
 
       // Markdown render
       marked.setOptions({
@@ -343,7 +345,10 @@ export default function TextToPDF() {
         html2canvas: {
           scale: 2,
           useCORS: true,
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
+          scrollY: 0,
+          windowWidth: 794,
+          logging: true
         },
 
         jsPDF: {
@@ -361,6 +366,9 @@ export default function TextToPDF() {
         .set(options)
         .from(exportContainer)
         .save();
+
+      // Small delay before cleanup to ensure html2pdf is done
+      await new Promise(r => setTimeout(r, 500));
 
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
