@@ -248,8 +248,12 @@ export default function TextToPDF() {
       exportContainer.style.color = "#000000";
       exportContainer.style.width = "794px"; 
       exportContainer.style.boxSizing = "border-box";
-      exportContainer.style.position = "absolute";
-      exportContainer.style.left = "-9999px";
+      // Removed position absolute and left -9999px that caused empty PDF
+      exportContainer.style.position = "fixed";
+      exportContainer.style.top = "0";
+      exportContainer.style.left = "0";
+      exportContainer.style.zIndex = "-1000";
+      exportContainer.style.visibility = "hidden";
 
       // 3. Run Markdown Rendering Before Export
       marked.setOptions({
