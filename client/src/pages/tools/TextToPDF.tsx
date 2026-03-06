@@ -245,19 +245,19 @@ export default function TextToPDF() {
 
       // Create export container
       const exportContainer = document.createElement("div");
+      exportContainer.className = "pdf-export-container";
 
       exportContainer.style.width = "794px";
       exportContainer.style.background = "white";
       exportContainer.style.color = "black";
       exportContainer.style.padding = "40px";
-      exportContainer.style.fontFamily = fontFamily;
+      exportContainer.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       exportContainer.style.fontSize = fontSize + "pt";
       exportContainer.style.lineHeight = "1.6";
       exportContainer.style.position = "absolute";
-      exportContainer.style.left = "0";
+      exportContainer.style.left = "-9999px";
       exportContainer.style.top = "0";
       exportContainer.style.zIndex = "9999";
-      exportContainer.style.visibility = "visible";
 
       // Markdown render
       marked.setOptions({
@@ -268,7 +268,7 @@ export default function TextToPDF() {
       let html = "";
 
       if (titleText) {
-        html += `<h1 style="text-align:center;margin-bottom:30px;">${titleText}</h1>`;
+        html += `<h1 style="text-align:center;margin-bottom:30px;font-weight:bold;font-size:${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
       }
 
       html += isMarkdown
@@ -280,53 +280,69 @@ export default function TextToPDF() {
       // Add styles
       const style = document.createElement("style");
       style.innerHTML = `
-        h1 { font-size: 32px; margin-bottom: 20px; }
-        h2 { font-size: 24px; margin-top: 20px; }
-        h3 { font-size: 18px; margin-top: 16px; }
+        .pdf-export-container h1 { font-size: 32px; margin-bottom: 20px; font-weight: bold; }
+        .pdf-export-container h2 { font-size: 24px; margin-top: 20px; font-weight: bold; }
+        .pdf-export-container h3 { font-size: 18px; margin-top: 16px; font-weight: bold; }
 
-        table {
+        .pdf-export-container table {
           border-collapse: collapse;
-          width: 100%;
+          width: 100% !important;
           margin: 20px 0;
+          table-layout: auto;
         }
 
-        th, td {
+        .pdf-export-container th, .pdf-export-container td {
           border: 1px solid #ccc;
           padding: 8px;
+          text-align: left;
         }
 
-        pre {
-          background:#f5f5f5;
-          padding:15px;
-          border-radius:6px;
-          overflow:auto;
+        .pdf-export-container pre {
+          background: #f5f5f5;
+          padding: 15px;
+          border-radius: 6px;
+          white-space: pre-wrap;
+          word-wrap: break-word;
         }
 
-        blockquote{
-          border-left:4px solid #ccc;
-          padding-left:12px;
-          color:#555;
+        .pdf-export-container blockquote {
+          border-left: 4px solid #ccc;
+          padding-left: 12px;
+          color: #555;
+          margin: 16px 0;
         }
 
-        img{
-          max-width:100%;
-          height:auto;
-          margin:16px auto;
-          display:block;
+        .pdf-export-container img {
+          max-width: 100%;
+          height: auto;
+          margin: 16px auto;
+          display: block;
+        }
+
+        .pdf-export-container code {
+          background: #f0f0f0;
+          padding: 2px 4px;
+          border-radius: 4px;
         }
       `;
 
       document.head.appendChild(style);
       document.body.appendChild(exportContainer);
 
-      // Wait fonts
-      if (document.fonts) {
-        await document.fonts.ready;
-      }
+      // Wait fonts and rendering
+      await document.fonts?.ready;
 
       // Render math
       if (window.renderMathInElement) {
-        window.renderMathInElement(exportContainer);
+        window.renderMathInElement(exportContainer, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
+          ],
+          throwOnError: false
+        });
       }
 
       // Highlight code
@@ -346,9 +362,7 @@ export default function TextToPDF() {
           scale: 2,
           useCORS: true,
           backgroundColor: "#ffffff",
-          scrollY: 0,
-          windowWidth: 794,
-          logging: true
+          logging: false
         },
 
         jsPDF: {
