@@ -157,20 +157,68 @@ export default function TextToPDF() {
       document.body.appendChild(exportContainer);
 
       await document.fonts?.ready;
-      if (window.renderMathInElement) window.renderMathInElement(exportContainer);
-      if (window.Prism) window.Prism.highlightAllUnder(exportContainer);
-      await new Promise(r => setTimeout(r, 500));
+      
+      // Render math with full delimiters
+      if (window.renderMathInElement) {
+        try {
+          window.renderMathInElement(exportContainer, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "$", right: "$", display: false },
+              { left: "\\(", right: "\\)", display: false },
+              { left: "\\[", right: "\\]", display: true }
+            ],
+            throwOnError: false
+          });
+        } catch (e) {
+          console.warn("Math rendering failed in export", e);
+        }
+      }
+
+      // Highlight code
+      if (window.Prism) {
+        try {
+          window.Prism.highlightAllUnder(exportContainer);
+        } catch (e) {
+          console.warn("Prism highlighting failed in export", e);
+        }
+      }
+
+      // Ensure all images are loaded before capture
+      const images = Array.from(exportContainer.getElementsByTagName('img'));
+      await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      }));
+
+      // Force a reflow and ensure content is visible
+      exportContainer.offsetHeight;
+
+      // Wait rendering stability
+      await new Promise(r => setTimeout(r, 1000));
 
       const opt = {
-        margin: 15,
+        margin: [15, 15],
         filename: titleText ? `${titleText}.pdf` : "document.pdf",
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          backgroundColor: "#ffffff",
+          letterRendering: true,
+          logging: true,
+          scrollY: 0,
+          windowWidth: PAGE_WIDTH,
+          removeContainer: true
+        },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         pagebreak: { mode: ["css", "legacy"] }
       };
 
-      await html2pdf().set(opt).from(exportContainer).save();
+      await html2pdf().set(opt).from(exportContainer).toPdf().get('pdf').save();
 
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
