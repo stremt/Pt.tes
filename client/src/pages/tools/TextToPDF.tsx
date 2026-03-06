@@ -60,6 +60,10 @@ export default function TextToPDF() {
       }
       
       if (isMarkdown) {
+        marked.setOptions({
+          gfm: true,
+          breaks: true
+        });
         let markdownHtml = await marked(textContent);
         
         // Render Math with KaTeX
@@ -97,7 +101,13 @@ export default function TextToPDF() {
 
         htmlContent += `
           <style>
-            .pdf-export-content { line-height: 1.6; }
+            .pdf-export-content { line-height: 1.6; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
+            .pdf-export-content h1 { font-size: 28px; font-weight: 700; margin: 24px 0 12px; }
+            .pdf-export-content h2 { font-size: 20px; font-weight: 600; margin: 20px 0 10px; }
+            .pdf-export-content h3 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; }
+            .pdf-export-content p { font-size: 12pt; margin: 10px 0; line-height: 1.6; page-break-inside: avoid; }
+            .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0 10px 20px; }
+            .pdf-export-content li { margin: 6px 0; }
             .pdf-export-content del { 
               text-decoration: line-through; 
               text-decoration-thickness: 1.5px;
@@ -201,7 +211,7 @@ export default function TextToPDF() {
         margin: 10,
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
         html2canvas: { 
-          scale: 2, 
+          scale: 2.5, 
           backgroundColor: '#ffffff',
           useCORS: true,
           logging: true,
@@ -321,6 +331,10 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
     const [htmlContent, setHtmlContent] = useState("");
 
     const renderMarkdown = async () => {
+      marked.setOptions({
+        gfm: true,
+        breaks: true
+      });
       let html = await marked(content);
       
       // Basic regex for preview math (simple version)
