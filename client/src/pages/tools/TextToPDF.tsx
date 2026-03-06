@@ -65,7 +65,7 @@ export default function TextToPDF() {
           breaks: true
         });
         let markdownHtml = await marked(textContent);
-        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "<br>");
+        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
         
         // Render Math with KaTeX
         const tempDiv = document.createElement('div');
@@ -337,7 +337,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
         breaks: true
       });
       let html = await marked(content);
-      html = html.replace(/<br\s*\/?>/g, "<br>");
+      html = html.replace(/<br\s*\/?>/g, "");
       
       // Basic regex for preview math (simple version)
       html = html.replace(/\$\$(.*?)\$\$/g, (match, math) => {
