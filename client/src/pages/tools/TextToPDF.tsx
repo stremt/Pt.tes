@@ -139,7 +139,17 @@ export default function TextToPDF() {
 
       let finalHtml = "";
       if (titleText) finalHtml += `<h1 style="text-align:center;margin-bottom:30px;font-weight:bold;font-size:${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
-      finalHtml += renderedHtml;
+      
+      // Fix 1: Re-parse Markdown during export for stability
+      marked.setOptions({
+        gfm: true,
+        breaks: true
+      });
+      const parsedHtml = isMarkdown
+        ? await marked.parse(textContent)
+        : `<div style="white-space: pre-wrap;">${textContent}</div>`;
+      finalHtml += parsedHtml;
+      
       exportContainer.innerHTML = finalHtml;
 
       const style = document.createElement("style");
@@ -152,6 +162,8 @@ export default function TextToPDF() {
         .pdf-export-content blockquote { border-left: 4px solid #ccc; padding-left: 12px; color: #555; margin: 1em 0; }
         .pdf-export-content img { max-width: 100%; height: auto; display: block; margin: 1em auto; }
         .pdf-export-content code { background: #f0f0f0; padding: 2px 4px; border-radius: 4px; }
+        /* Fix 3: Equations and tables page break avoidance */
+        .katex-display, pre, table { page-break-inside: avoid; }
       `;
       document.head.appendChild(style);
       document.body.appendChild(exportContainer);
@@ -171,7 +183,7 @@ export default function TextToPDF() {
             throwOnError: false
           });
           // Small delay for KaTeX to finish rendering
-          await new Promise(r => setTimeout(r, 500));
+          await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Math rendering failed in export", e);
         }
@@ -182,7 +194,7 @@ export default function TextToPDF() {
         try {
           window.Prism.highlightAllUnder(exportContainer);
           // Small delay for Prism to finish rendering
-          await new Promise(r => setTimeout(r, 500));
+          await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Prism highlighting failed in export", e);
         }
@@ -203,21 +215,24 @@ export default function TextToPDF() {
       exportContainer.style.visibility = "visible";
       exportContainer.offsetHeight;
 
-      // Wait rendering stability
-      await new Promise(r => setTimeout(r, 1500));
+      // Fix 4: Adjusted delay for rendering stability
+      await new Promise(r => setTimeout(r, 400));
 
       const opt = {
         margin: [15, 15],
         filename: titleText ? `${titleText}.pdf` : "document.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { 
+          // Fix 2: html2canvas stability options
           scale: 2, 
           useCORS: true, 
           backgroundColor: "#ffffff",
           letterRendering: true,
-          logging: true,
+          scrollX: 0,
           scrollY: 0,
           windowWidth: PAGE_WIDTH,
+          windowHeight: PAGE_HEIGHT,
+          logging: true,
           removeContainer: false,
           allowTaint: true
         },
