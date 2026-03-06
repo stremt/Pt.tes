@@ -237,101 +237,72 @@ export default function TextToPDF() {
 
     setConverting(true);
     try {
+      // 1. Separate Export Container
       const element = document.createElement('div');
-      element.className = "pdf-content-wrapper";
+      element.className = "pdf-export-container markdown-body prose prose-slate max-w-none";
       element.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       element.style.fontSize = fontSize + "pt";
       element.style.lineHeight = "1.6";
       element.style.padding = "40px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
-      element.style.width = "794px"; // Match A4 pixel width at 96 DPI
+      element.style.width = "794px"; 
       element.style.boxSizing = "border-box";
 
-      const style = document.createElement('style');
-      style.textContent = `
-        .pdf-content-wrapper { 
-          color: black !important; 
-          width: 794px !important; 
-          padding: 0 !important; 
-          margin: 0 !important;
-          box-sizing: border-box !important; 
-          overflow-wrap: break-word; 
-        }
-        .pdf-page {
-          width: 794px !important;
-          height: 1123px !important;
-          padding: 40px !important;
-          box-sizing: border-box !important;
-          position: relative;
-          overflow: hidden;
-          background: white;
-          page-break-after: always;
-          display: flex;
-          flex-direction: column;
-        }
-        .pdf-page-inner {
-          width: 100% !important;
-          flex: 1;
-        }
-        .pdf-page > * { max-width: 100% !important; }
-        .pdf-page h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .pdf-page h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-        .pdf-page h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
-        .pdf-page hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
-        .pdf-page blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
-        .pdf-page del { text-decoration: line-through !important; }
-        .pdf-page table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
-        .pdf-page th, .pdf-page td { border: 1px solid #ccc; padding: 8px; text-align: left; word-break: normal; }
-        .pdf-page th { background-color: #f4f4f4; font-weight: bold; }
-        .pdf-page pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; font-family: monospace; font-size: 10pt; }
-        .pdf-page code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
-        .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; margin: 1em 0; }
-        .pdf-page img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
-        .katex { font-size: 1.1em !important; }
-        .token.comment { color: #708090; }
-        .token.string { color: #690; }
-        .token.keyword { color: #07a; font-weight: bold; }
-        .token.function { color: #dd4a68; }
-        .token.operator { color: #9a6e3a; }
-      `;
-      document.head.appendChild(style);
-
+      // 3. Run Markdown Rendering Before Export
+      marked.setOptions({
+        breaks: true,
+        gfm: true
+      });
+      
       let fullHtml = "";
-      for (let i = 0; i < totalPages; i++) {
-        let pageHtml = `<div class="pdf-page">`;
-        pageHtml += `<div class="pdf-page-inner" style="transform: translateY(-${i * (PAGE_HEIGHT - 80)}px); padding-top: ${i > 0 ? '20px' : '0'};">`;
-        if (i === 0 && titleText) {
-          pageHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
-        }
-        pageHtml += isMarkdown ? marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
-        pageHtml += `</div>`;
-        pageHtml += `<div style="position: absolute; bottom: 20px; right: 40px; font-size: 10pt; color: #666; background: white; padding: 2px 5px;">Page ${i + 1} of ${totalPages}</div>`;
-        pageHtml += `</div>`;
-        fullHtml += pageHtml;
+      if (titleText) {
+        fullHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px;">${escapeHtml(titleText)}</h1>`;
       }
+      fullHtml += isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       
       element.innerHTML = fullHtml;
 
-      // Add crossOrigin="anonymous" to all images
+      // 6. Prevent Empty Pages (Clean up content)
+      element.querySelectorAll("p:empty, div:empty").forEach(el => {
+        if (!el.textContent?.trim() && !el.innerHTML.trim()) el.remove();
+      });
+
+      const style = document.createElement('style');
+      style.textContent = `
+        .pdf-export-container { color: black !important; width: 794px !important; }
+        .pdf-export-container h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .pdf-export-container h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+        .pdf-export-container h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
+        .pdf-export-container hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
+        .pdf-export-container blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
+        .pdf-export-container table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
+        .pdf-export-container th, .pdf-export-container td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .pdf-export-container th { background-color: #f4f4f4; font-weight: bold; }
+        .pdf-export-container pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; font-family: monospace; font-size: 10pt; }
+        .pdf-export-container code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+        .pdf-export-container img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; }
+        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+      `;
+      document.head.appendChild(style);
+
+      // Add crossOrigin to images
       const images = element.getElementsByTagName('img');
       const imagePromises = Array.from(images).map(img => {
         img.crossOrigin = "anonymous";
         return new Promise((resolve) => {
-          if (img.complete) {
-            resolve(null);
-          } else {
+          if (img.complete) resolve(null);
+          else {
             img.onload = () => resolve(null);
-            img.onerror = () => resolve(null); // Continue even if image fails
+            img.onerror = () => resolve(null);
           }
         });
       });
 
       document.body.appendChild(element);
-
-      // Wait for all images to load
       await Promise.all(imagePromises);
 
+      // 4. Run Math Rendering Before Export
       if (window.renderMathInElement) {
         window.renderMathInElement(element, {
           delimiters: [
@@ -348,24 +319,20 @@ export default function TextToPDF() {
       }
 
       const opt = {
-        margin: 0,
-        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'professional-document.pdf',
+        margin: [10, 10, 10, 10],
+        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true, 
-          allowTaint: true,
-          letterRendering: true, 
-          backgroundColor: '#ffffff' 
-        },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
         pagebreak: { mode: ['css', 'legacy'] }
       };
 
+      // 5. Generate PDF Only From Export Container
       await html2pdf().set(opt).from(element).save();
+      
       document.body.removeChild(element);
       document.head.removeChild(style);
-      toast({ title: "Success!", description: "High-quality PDF generated successfully" });
+      toast({ title: "Success!", description: "PDF generated successfully" });
     } catch (error) {
       console.error("PDF generation error:", error);
       toast({ title: "Error", description: "Failed to generate PDF", variant: "destructive" });
