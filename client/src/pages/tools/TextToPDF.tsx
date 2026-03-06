@@ -80,10 +80,14 @@ export default function TextToPDF() {
         // Handle $...$ and $$...$$ manually if not caught by marked
         let processedHtml = tempDiv.innerHTML;
         processedHtml = processedHtml.replace(/\$\$(.*?)\$\$/g, (match, math) => {
-          return katex.renderToString(math, { displayMode: true, throwOnError: false });
+          try {
+            return katex.renderToString(math, { displayMode: true, throwOnError: false });
+          } catch (e) { return match; }
         });
         processedHtml = processedHtml.replace(/\$(.*?)\$/g, (match, math) => {
-          return katex.renderToString(math, { displayMode: false, throwOnError: false });
+          try {
+            return katex.renderToString(math, { displayMode: false, throwOnError: false });
+          } catch (e) { return match; }
         });
 
         htmlContent += `
@@ -107,13 +111,23 @@ export default function TextToPDF() {
       const opt = {
         margin: 10,
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        html2canvas: { scale: 2, backgroundColor: '#ffffff' },
+        html2canvas: { 
+          scale: 2, 
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          logging: true,
+          allowTaint: true
+        },
         jsPDF: { 
           unit: 'mm', 
           format: 'a4', 
-          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait'
+          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait',
+          compress: true
         }
       };
+
+      // Add a small delay to ensure styles and KaTeX are fully rendered
+      await new Promise(r => setTimeout(r, 500));
 
       await html2pdf().set(opt).from(element).save();
       document.body.removeChild(element);
