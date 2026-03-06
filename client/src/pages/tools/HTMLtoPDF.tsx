@@ -39,6 +39,31 @@ export default function HTMLtoPDF() {
       
       const style = document.createElement('style');
       style.textContent = `
+        p {
+          margin: 10px 0;
+          line-height: 1.6;
+        }
+        pre {
+          background: #f6f8fa;
+          padding: 14px;
+          border-radius: 6px;
+          font-family: "Courier New", monospace;
+          font-size: 11pt;
+          line-height: 1.5;
+          overflow-x: auto;
+          margin: 16px 0;
+        }
+        code {
+          font-family: "Courier New", monospace;
+          background: #f3f3f3;
+          padding: 2px 4px;
+          border-radius: 4px;
+        }
+        .math-block {
+          font-family: "Courier New", monospace;
+          line-height: 1.6;
+          margin: 12px 0;
+        }
         img, table, pre, blockquote, .katex-display {
           page-break-inside: avoid;
           break-inside: avoid;
@@ -53,9 +78,14 @@ export default function HTMLtoPDF() {
           max-height: 90vh;
         }
         hr {
+          border: none;
+          border-top: 1px solid #d0d7de;
+          margin: 24px 0;
           page-break-before: auto;
           page-break-after: auto;
-          margin: 20px 0;
+        }
+        .katex-display {
+          margin: 16px 0;
         }
       `;
       element.appendChild(style);
