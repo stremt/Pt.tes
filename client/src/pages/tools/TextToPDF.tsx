@@ -66,12 +66,17 @@ export default function TextToPDF() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = markdownHtml;
         
+        // Using a more robust approach for math rendering
         const mathElements = tempDiv.querySelectorAll('code.language-math, .math, [class*="math"]');
         mathElements.forEach(el => {
           try {
             const math = el.textContent || "";
             const isDisplay = el.tagName === 'DIV' || el.classList.contains('math-display');
-            el.innerHTML = katex.renderToString(math, { displayMode: isDisplay, throwOnError: false });
+            el.innerHTML = katex.renderToString(math, { 
+              displayMode: isDisplay, 
+              throwOnError: false,
+              trust: true
+            });
           } catch (e) {
             console.error("KaTeX error:", e);
           }
@@ -81,23 +86,80 @@ export default function TextToPDF() {
         let processedHtml = tempDiv.innerHTML;
         processedHtml = processedHtml.replace(/\$\$(.*?)\$\$/g, (match, math) => {
           try {
-            return katex.renderToString(math, { displayMode: true, throwOnError: false });
+            return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
           } catch (e) { return match; }
         });
         processedHtml = processedHtml.replace(/\$(.*?)\$/g, (match, math) => {
           try {
-            return katex.renderToString(math, { displayMode: false, throwOnError: false });
+            return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
           } catch (e) { return match; }
         });
 
         htmlContent += `
           <style>
-            .pdf-export-content del { text-decoration: line-through; }
-            .pdf-export-content blockquote { border-left: 4px solid #ccc; padding-left: 12px; margin: 12px 0; color: #555; font-style: italic; }
-            .pdf-export-content table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+            .pdf-export-content { line-height: 1.6; }
+            .pdf-export-content del { 
+              text-decoration: line-through; 
+              text-decoration-thickness: 1.5px;
+              text-decoration-color: #000;
+              vertical-align: baseline;
+            }
+            .pdf-export-content hr { 
+              border: none; 
+              border-top: 1px solid #ccc; 
+              margin: 24px 0; 
+              page-break-before: auto;
+              page-break-after: auto;
+            }
+            .pdf-export-content blockquote { 
+              border-left: 4px solid #ccc; 
+              padding-left: 12px; 
+              margin: 16px 0; 
+              color: #555; 
+              font-style: italic; 
+              page-break-inside: avoid;
+            }
+            .pdf-export-content pre { 
+              background: #f5f5f5; 
+              padding: 14px; 
+              border-radius: 6px; 
+              font-family: "Courier New", monospace; 
+              font-size: 10pt; 
+              overflow-x: auto; 
+              margin: 16px 0;
+              page-break-inside: avoid;
+            }
+            .pdf-export-content code { 
+              background: #f0f0f0; 
+              padding: 2px 5px; 
+              border-radius: 4px; 
+              font-family: monospace;
+            }
+            .pdf-export-content table { 
+              border-collapse: collapse; 
+              width: 100%; 
+              margin: 20px 0; 
+              page-break-inside: avoid;
+            }
             .pdf-export-content th, .pdf-export-content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
             .pdf-export-content th { background: #f4f4f4; font-weight: bold; }
-            .katex-display { margin: 16px 0; }
+            .pdf-export-content img {
+              max-width: 100%;
+              height: auto;
+              max-height: 90vh;
+              page-break-inside: avoid;
+              break-inside: avoid;
+            }
+            .pdf-export-content p, 
+            .pdf-export-content h1, 
+            .pdf-export-content h2, 
+            .pdf-export-content h3 {
+              page-break-inside: avoid;
+            }
+            .katex-display { 
+              margin: 16px 0; 
+              page-break-inside: avoid;
+            }
           </style>
           <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${processedHtml}</div>
         `;
@@ -123,6 +185,9 @@ export default function TextToPDF() {
           format: 'a4', 
           orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait',
           compress: true
+        },
+        pagebreak: {
+          mode: ["avoid-all", "css", "legacy"]
         }
       };
 
@@ -199,12 +264,24 @@ export default function TextToPDF() {
   const sampleText = `### Markdown Test
 This is **bold**, *italic*, and ~~strikethrough text~~.
 
+---
+
 > This is a blockquote used to test markdown rendering.
+
+---
 
 | ID | Tool | Category | Status |
 |---|---|---|---|
 | 1 | PDF | Office | Active |
 | 2 | Text | Utility | Pending |
+
+#### Code Block Test
+\`\`\`javascript
+function paginationTest(){
+ console.log("Testing Pixocraft pagination engine");
+ return true;
+}
+\`\`\`
 
 #### Math Rendering
 Inline math: $E = mc^2$
