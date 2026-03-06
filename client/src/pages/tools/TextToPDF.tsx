@@ -253,17 +253,26 @@ export default function TextToPDF() {
           overflow: hidden;
           background: white;
           page-break-after: always;
+          display: flex;
+          flex-direction: column;
+        }
+        .pdf-page-inner {
+          width: 100% !important;
+          flex: 1;
         }
         .pdf-page > * { max-width: 100% !important; }
-        .pdf-page h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; }
-        .pdf-page h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; }
+        .pdf-page h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .pdf-page h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; }
         .pdf-page h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
+        .pdf-page hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
         .pdf-page blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
         .pdf-page del { text-decoration: line-through !important; }
-        .pdf-page table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: fixed; border: 1px solid #000; }
-        .pdf-page th, .pdf-page td { border: 1px solid #000; padding: 12px; text-align: left; word-break: break-word; }
-        .pdf-page pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; }
-        .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+        .pdf-page table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
+        .pdf-page th, .pdf-page td { border: 1px solid #ccc; padding: 8px; text-align: left; word-break: normal; }
+        .pdf-page th { background-color: #f4f4f4; font-weight: bold; }
+        .pdf-page pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; max-width: 100%; font-family: monospace; font-size: 10pt; }
+        .pdf-page code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+        .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; margin: 1em 0; }
         .pdf-page img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; page-break-inside: avoid; }
         .katex { font-size: 1.1em !important; }
         .token.comment { color: #708090; }
@@ -277,13 +286,13 @@ export default function TextToPDF() {
       let fullHtml = "";
       for (let i = 0; i < totalPages; i++) {
         let pageHtml = `<div class="pdf-page">`;
-        pageHtml += `<div style="transform: translateY(-${i * (PAGE_HEIGHT - 80)}px); width: 100%; padding-top: ${i > 0 ? '20px' : '0'};">`;
+        pageHtml += `<div class="pdf-page-inner" style="transform: translateY(-${i * (PAGE_HEIGHT - 80)}px); padding-top: ${i > 0 ? '20px' : '0'};">`;
         if (i === 0 && titleText) {
           pageHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold;">${escapeHtml(titleText)}</h1>`;
         }
         pageHtml += isMarkdown ? marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
         pageHtml += `</div>`;
-        pageHtml += `<div style="position: absolute; bottom: 20px; right: 40px; font-size: 10pt; color: #666;">Page ${i + 1} of ${totalPages}</div>`;
+        pageHtml += `<div style="position: absolute; bottom: 20px; right: 40px; font-size: 10pt; color: #666; background: white; padding: 2px 5px;">Page ${i + 1} of ${totalPages}</div>`;
         pageHtml += `</div>`;
         fullHtml += pageHtml;
       }
