@@ -231,175 +231,155 @@ export default function TextToPDF() {
 
   const convertToPDF = async () => {
     if (!textContent.trim()) {
-      toast({ title: "Error", description: "Please enter text content to convert", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Please enter text content",
+        variant: "destructive"
+      });
       return;
     }
 
     setConverting(true);
+
     try {
-      // 1. Separate Export Container
-      const exportContainer = document.createElement('div');
-      exportContainer.id = "pdf-export-container";
-      exportContainer.className = "pdf-export-container markdown-body prose prose-slate max-w-none";
-      exportContainer.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
-      exportContainer.style.fontSize = fontSize + "pt";
-      exportContainer.style.lineHeight = "1.6";
-      exportContainer.style.padding = "40px";
-      exportContainer.style.backgroundColor = "#ffffff";
-      exportContainer.style.color = "#000000";
-      exportContainer.style.width = "794px"; 
-      exportContainer.style.boxSizing = "border-box";
-      
-      // 2. Ensure the container is visible before capture (but hidden from view)
-      exportContainer.style.position = "absolute";
-      exportContainer.style.top = "-10000px";
-      exportContainer.style.left = "-10000px";
-      exportContainer.style.zIndex = "-9999";
-      exportContainer.style.visibility = "visible";
-      exportContainer.style.opacity = "1";
-      exportContainer.style.display = "block"; // 3. Ensure display: block
+
+      // Create export container
+      const exportContainer = document.createElement("div");
+
+      exportContainer.style.width = "794px";
       exportContainer.style.background = "white";
       exportContainer.style.color = "black";
+      exportContainer.style.padding = "40px";
+      exportContainer.style.fontFamily = fontFamily;
+      exportContainer.style.fontSize = fontSize + "pt";
+      exportContainer.style.lineHeight = "1.6";
+      exportContainer.style.position = "absolute";
+      exportContainer.style.left = "-9999px";
+      exportContainer.style.top = "0";
 
-      // 3. Run Markdown Rendering Before Export
+      // Markdown render
       marked.setOptions({
-        breaks: true,
-        gfm: true
+        gfm: true,
+        breaks: true
       });
-      
-      let fullHtml = "";
+
+      let html = "";
+
       if (titleText) {
-        fullHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px; color: black; display: block;">${escapeHtml(titleText)}</h1>`;
+        html += `<h1 style="text-align:center;margin-bottom:30px;">${titleText}</h1>`;
       }
-      
-      const contentHtml = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap; color: black; display: block;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
-      fullHtml += contentHtml;
-      
-      exportContainer.innerHTML = fullHtml;
 
-      // 6. Prevent Empty Pages (Clean up content)
-      exportContainer.querySelectorAll("p:empty, div:empty").forEach(el => {
-        if (!el.textContent?.trim() && !el.innerHTML.trim()) el.remove();
-      });
+      html += isMarkdown
+        ? await marked.parse(textContent)
+        : `<div style="white-space:pre-wrap;">${escapeHtml(textContent)}</div>`;
 
-      const style = document.createElement('style');
-      style.textContent = `
-        .pdf-export-container { 
-          color: black !important; 
-          width: 794px !important; 
-          background: white !important; 
-          display: block !important;
+      exportContainer.innerHTML = html;
+
+      // Add styles
+      const style = document.createElement("style");
+      style.innerHTML = `
+        h1 { font-size: 32px; margin-bottom: 20px; }
+        h2 { font-size: 24px; margin-top: 20px; }
+        h3 { font-size: 18px; margin-top: 16px; }
+
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 20px 0;
         }
-        .pdf-export-container * { 
-          display: block; 
-          position: static !important;
-          flex: none !important;
+
+        th, td {
+          border: 1px solid #ccc;
+          padding: 8px;
         }
-        .pdf-export-container h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; color: black !important; }
-        .pdf-export-container h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; color: black !important; }
-        .pdf-export-container h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; color: black !important; }
-        .pdf-export-container p, .pdf-export-container span, .pdf-export-container div { color: black !important; }
-        .pdf-export-container hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; display: block !important; }
-        .pdf-export-container blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; display: block !important; }
-        .pdf-export-container table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; display: table !important; }
-        .pdf-export-container tr { display: table-row !important; }
-        .pdf-export-container th, .pdf-export-container td { border: 1px solid #ccc; padding: 8px; text-align: left; display: table-cell !important; color: black !important; }
-        .pdf-export-container th { background-color: #f4f4f4; font-weight: bold; }
-        .pdf-export-container pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; font-family: monospace; font-size: 10pt; display: block !important; color: black !important; }
-        .pdf-export-container code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; display: inline !important; color: black !important; }
-        .pdf-export-container img { max-width: 100%; height: auto; display: block !important; margin: 16px auto; border-radius: 4px; }
-        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; display: block !important; }
-        .katex { color: black !important; }
+
+        pre {
+          background:#f5f5f5;
+          padding:15px;
+          border-radius:6px;
+          overflow:auto;
+        }
+
+        blockquote{
+          border-left:4px solid #ccc;
+          padding-left:12px;
+          color:#555;
+        }
+
+        img{
+          max-width:100%;
+          height:auto;
+          margin:16px auto;
+          display:block;
+        }
       `;
+
       document.head.appendChild(style);
-
-      // Add crossOrigin to images
-      const images = exportContainer.getElementsByTagName('img');
-      const imagePromises = Array.from(images).map(img => {
-        img.crossOrigin = "anonymous";
-        return new Promise((resolve) => {
-          if (img.complete) resolve(null);
-          else {
-            img.onload = () => resolve(null);
-            img.onerror = () => resolve(null);
-          }
-        });
-      });
-
       document.body.appendChild(exportContainer);
-      await Promise.all(imagePromises);
 
-      // 6. Ensure fonts and math rendering are loaded
+      // Wait fonts
       if (document.fonts) {
         await document.fonts.ready;
       }
 
-      // 4. Run Math Rendering Before Export
+      // Render math
       if (window.renderMathInElement) {
-        window.renderMathInElement(exportContainer, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-            { left: "\\(", right: "\\)", display: false },
-            { left: "\\[", right: "\\]", display: true }
-          ],
-          throwOnError: false
-        });
+        window.renderMathInElement(exportContainer);
       }
+
+      // Highlight code
       if (window.Prism) {
         window.Prism.highlightAllUnder(exportContainer);
       }
 
-      // 5. Wait for rendering before generating the PDF
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait rendering
+      await new Promise(r => setTimeout(r, 400));
 
-      // 5. Generate PDF Only From Export Container
-      const element = exportContainer;
-      
-      // Force a reflow to ensure styles are applied
-      void element.offsetHeight;
-      
-      const opt = {
-        margin: [15, 15, 15, 15],
-        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true, 
-          letterRendering: true,
-          backgroundColor: '#ffffff',
-          logging: true, // Enable logging for debugging
-          allowTaint: true,
-          foreignObjectRendering: false, // Disable foreignObject to avoid blank pages in some browsers
-          onclone: (clonedDoc: Document) => {
-            const clonedElement = clonedDoc.getElementById("pdf-export-container");
-            if (clonedElement) {
-              clonedElement.style.position = "static";
-              clonedElement.style.visibility = "visible";
-              clonedElement.style.display = "block";
-              clonedElement.style.background = "white";
-              clonedElement.style.width = "794px";
-              
-              // Ensure all text is black in the clone
-              const allElements = clonedElement.getElementsByTagName("*");
-              for (let i = 0; i < allElements.length; i++) {
-                (allElements[i] as HTMLElement).style.color = "black";
-              }
-            }
-          }
+      const options = {
+        margin: 15,
+        filename: titleText ? titleText + ".pdf" : "document.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff"
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
-        pagebreak: { mode: ['css', 'legacy'] }
+
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: pageOrientation
+        },
+
+        pagebreak: {
+          mode: ["css", "legacy"]
+        }
       };
 
-      await html2pdf().set(opt).from(element).save();
-      
+      await html2pdf()
+        .set(options)
+        .from(exportContainer)
+        .save();
+
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
-      toast({ title: "Success!", description: "PDF generated successfully" });
-    } catch (error) {
-      console.error("PDF generation error:", error);
-      toast({ title: "Error", description: "Failed to generate PDF", variant: "destructive" });
+
+      toast({
+        title: "Success",
+        description: "PDF generated successfully"
+      });
+
+    } catch (err) {
+
+      console.error(err);
+
+      toast({
+        title: "Error",
+        description: "PDF generation failed",
+        variant: "destructive"
+      });
+
     } finally {
       setConverting(false);
     }
