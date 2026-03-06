@@ -102,26 +102,40 @@ export default function TextToPDF() {
       if (!previewRef.current) return;
       // Use a hidden element to measure the actual content height
       const measureEl = document.createElement('div');
-      measureEl.style.width = `${PAGE_WIDTH - 80}px`; // Accounting for 40px padding on each side
+      measureEl.style.width = `${PAGE_WIDTH}px`; 
       measureEl.style.visibility = 'hidden';
       measureEl.style.position = 'absolute';
       measureEl.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       measureEl.style.fontSize = fontSize + "pt";
       measureEl.style.lineHeight = "1.6";
+      measureEl.style.padding = "40px";
+      measureEl.style.boxSizing = "border-box";
       measureEl.className = "markdown-body prose prose-slate max-w-none text-black";
+      
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        .markdown-body table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
+        .markdown-body th, .markdown-body td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .markdown-body pre { white-space: pre-wrap; word-wrap: break-word; }
+        .markdown-body hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
+      `;
+      measureEl.appendChild(styleEl);
       
       let fullHtml = "";
       if (titleText) {
-        fullHtml += `<h1 style="text-align: center; font-bold border-b pb-4 mb-6; font-size: ${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
+        fullHtml += `<h1 style="text-align: center; font-weight: bold; border-bottom: 1px solid #eee; pb-4 mb-6; font-size: ${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
       }
       fullHtml += renderedHtml;
-      measureEl.innerHTML = fullHtml;
+      
+      const contentContainer = document.createElement('div');
+      contentContainer.innerHTML = fullHtml;
+      measureEl.appendChild(contentContainer);
       
       document.body.appendChild(measureEl);
       const contentHeight = measureEl.scrollHeight;
       document.body.removeChild(measureEl);
       
-      const pages = Math.max(1, Math.ceil(contentHeight / (PAGE_HEIGHT - 80))); // Accounting for vertical padding
+      const pages = Math.max(1, Math.ceil(contentHeight / PAGE_HEIGHT)); 
       setTotalPages(pages);
     };
 
@@ -475,11 +489,13 @@ Click the **Download** button to see this document in high-quality PDF format!`;
             width: `${PAGE_WIDTH}px`,
             height: `${PAGE_HEIGHT}px`,
             padding: "40px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column"
           }}
         >
           <div 
-            className="pdf-page-content markdown-body prose prose-slate max-w-none text-black"
+            className="pdf-page-content markdown-body prose prose-slate max-w-none text-black flex-1"
             style={{
               transform: `translateY(-${i * (PAGE_HEIGHT - 80)}px)`,
               width: "100%",
@@ -491,6 +507,14 @@ Click the **Download** button to see this document in high-quality PDF format!`;
                 {titleText}
               </h1>
             )}
+            <style dangerouslySetInnerHTML={{ __html: `
+              .markdown-body table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
+              .markdown-body th, .markdown-body td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+              .markdown-body th { background-color: #f4f4f4; font-weight: bold; }
+              .markdown-body pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; white-space: pre-wrap; word-wrap: break-word; }
+              .markdown-body code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; }
+              .markdown-body hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
+            `}} />
             <div dangerouslySetInnerHTML={{ __html: html }} className="text-black" />
           </div>
           <div className="absolute bottom-4 right-8 text-xs text-muted-foreground font-medium bg-white/80 px-2 py-1 rounded">
