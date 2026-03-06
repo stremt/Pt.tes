@@ -1,0 +1,155 @@
+const convertToPDF = async () => {
+  if (!textContent.trim()) {
+    toast({
+      title: "Error",
+      description: "Please enter text content",
+      variant: "destructive"
+    });
+    return;
+  }
+
+  setConverting(true);
+
+  try {
+
+    // Create export container
+    const exportContainer = document.createElement("div");
+
+    exportContainer.style.width = "794px";
+    exportContainer.style.background = "white";
+    exportContainer.style.color = "black";
+    exportContainer.style.padding = "40px";
+    exportContainer.style.fontFamily = fontFamily;
+    exportContainer.style.fontSize = fontSize + "pt";
+    exportContainer.style.lineHeight = "1.6";
+    exportContainer.style.position = "absolute";
+    exportContainer.style.left = "-9999px";
+    exportContainer.style.top = "0";
+
+    // Markdown render
+    marked.setOptions({
+      gfm: true,
+      breaks: true
+    });
+
+    let html = "";
+
+    if (titleText) {
+      html += `<h1 style="text-align:center;margin-bottom:30px;">${titleText}</h1>`;
+    }
+
+    html += isMarkdown
+      ? await marked.parse(textContent)
+      : `<div style="white-space:pre-wrap;">${escapeHtml(textContent)}</div>`;
+
+    exportContainer.innerHTML = html;
+
+    // Add styles
+    const style = document.createElement("style");
+    style.innerHTML = `
+      h1 { font-size: 32px; margin-bottom: 20px; }
+      h2 { font-size: 24px; margin-top: 20px; }
+      h3 { font-size: 18px; margin-top: 16px; }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+      }
+
+      th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      pre {
+        background:#f5f5f5;
+        padding:15px;
+        border-radius:6px;
+        overflow:auto;
+      }
+
+      blockquote{
+        border-left:4px solid #ccc;
+        padding-left:12px;
+        color:#555;
+      }
+
+      img{
+        max-width:100%;
+        height:auto;
+        margin:16px auto;
+        display:block;
+      }
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(exportContainer);
+
+    // Wait fonts
+    if (document.fonts) {
+      await document.fonts.ready;
+    }
+
+    // Render math
+    if (window.renderMathInElement) {
+      window.renderMathInElement(exportContainer);
+    }
+
+    // Highlight code
+    if (window.Prism) {
+      window.Prism.highlightAllUnder(exportContainer);
+    }
+
+    // Wait rendering
+    await new Promise(r => setTimeout(r, 400));
+
+    const options = {
+      margin: 15,
+      filename: titleText ? titleText + ".pdf" : "document.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff"
+      },
+
+      jsPDF: {
+        unit: "mm",
+        format: "a4",
+        orientation: pageOrientation
+      },
+
+      pagebreak: {
+        mode: ["css", "legacy"]
+      }
+    };
+
+    await html2pdf()
+      .set(options)
+      .from(exportContainer)
+      .save();
+
+    document.body.removeChild(exportContainer);
+    document.head.removeChild(style);
+
+    toast({
+      title: "Success",
+      description: "PDF generated successfully"
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    toast({
+      title: "Error",
+      description: "PDF generation failed",
+      variant: "destructive"
+    });
+
+  } finally {
+    setConverting(false);
+  }
+};
