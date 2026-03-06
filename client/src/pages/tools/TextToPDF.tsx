@@ -170,6 +170,8 @@ export default function TextToPDF() {
             ],
             throwOnError: false
           });
+          // Small delay for KaTeX to finish rendering
+          await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Math rendering failed in export", e);
         }
@@ -179,6 +181,8 @@ export default function TextToPDF() {
       if (window.Prism) {
         try {
           window.Prism.highlightAllUnder(exportContainer);
+          // Small delay for Prism to finish rendering
+          await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Prism highlighting failed in export", e);
         }
@@ -212,13 +216,17 @@ export default function TextToPDF() {
           logging: true,
           scrollY: 0,
           windowWidth: PAGE_WIDTH,
-          removeContainer: true
+          removeContainer: false
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         pagebreak: { mode: ["css", "legacy"] }
       };
 
-      await html2pdf().set(opt).from(exportContainer).toPdf().get('pdf').save();
+      // Use html2pdf with the container
+      const worker = html2pdf().set(opt).from(exportContainer);
+      
+      // Save the PDF
+      await worker.save();
 
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
