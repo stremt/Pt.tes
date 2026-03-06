@@ -1,0 +1,94 @@
+Fix the PDF export system in the Text to PDF tool. The current implementation generates blank or black pages in the exported PDF even though the preview renders correctly.
+
+The root cause is incorrect CSS overrides and unstable html2canvas capture behavior.
+
+Apply the following changes.
+
+1. Remove the global CSS rule that forces all elements to display as block:
+
+Remove this rule completely:
+
+.pdf-export-container * {
+display: block;
+}
+
+This rule breaks tables, inline elements, KaTeX math rendering, and code highlighting. It also causes html2canvas to produce blank or black pages.
+
+2. Remove the forced color override loop inside the html2canvas clone step.
+
+Delete code similar to this:
+
+for (let i = 0; i < allElements.length; i++) {
+allElements[i].style.color = "black";
+}
+
+This interferes with KaTeX and Prism internal rendering nodes.
+
+3. Simplify the export container CSS.
+
+Use minimal styling instead of forcing layout on every element.
+
+Example:
+
+.pdf-export-container {
+width: 794px;
+background: white;
+color: black;
+padding: 40px;
+font-family: Arial, sans-serif;
+}
+
+.pdf-export-container img {
+max-width: 100%;
+height: auto;
+}
+
+.pdf-export-container table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.pdf-export-container pre {
+white-space: pre-wrap;
+}
+
+4. Ensure the export container is visible to html2canvas but positioned off-screen.
+
+Use:
+
+exportContainer.style.position = "absolute";
+exportContainer.style.left = "-9999px";
+exportContainer.style.top = "0";
+
+Do not use visibility:hidden or display:none.
+
+5. Wait for rendering before generating the PDF.
+
+Before calling html2pdf(), wait for fonts and math rendering:
+
+await document.fonts.ready;
+await new Promise(resolve => setTimeout(resolve, 400));
+
+6. Keep html2canvas configuration simple and stable.
+
+html2canvas: {
+scale: 2,
+useCORS: true,
+backgroundColor: "#ffffff"
+}
+
+Remove options that interfere with rendering such as foreignObjectRendering overrides.
+
+7. Generate the PDF only from the clean export container.
+
+Example:
+
+html2pdf()
+.set(options)
+.from(exportContainer)
+.save();
+
+Never generate the PDF from the preview container.
+
+Final goal:
+The exported PDF must capture exactly the rendered HTML content and must never produce blank or black pages.
