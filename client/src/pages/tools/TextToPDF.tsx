@@ -16,15 +16,21 @@ import katex from "katex";
 import "katex/dist/katex.min.css";
 
 export default function TextToPDF() {
-  const [textContent, setTextContent] = useState("");
+  const [textContent, setTextContent] = useState(() => {
+    return localStorage.getItem("text-to-pdf-content") || "";
+  });
   const [converting, setConverting] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
   const [fontSize, setFontSize] = useState("12");
   const [fontFamily, setFontFamily] = useState("Arial");
   const [titleText, setTitleText] = useState("");
   const [pageOrientation, setPageOrientation] = useState("portrait");
-  const [isMarkdown, setIsMarkdown] = useState(false);
+  const [isMarkdown, setIsMarkdown] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    localStorage.setItem("text-to-pdf-content", textContent);
+  }, [textContent]);
 
   useSEO({
     title: "Free Text to PDF Converter - No Signup, Offline & Secure",
@@ -402,178 +408,178 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             </div>
           </div>
 
-          <div className="max-w-5xl mx-auto mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Settings */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Formatting Options</CardTitle>
-                  <CardDescription>Customize your PDF appearance</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Document Title (Optional)</label>
-                    <Input
-                      placeholder="Enter document title..."
-                      value={titleText}
-                      onChange={(e) => setTitleText(e.target.value)}
-                      data-testid="input-title"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Font Family</label>
-                    <Select value={fontFamily} onValueChange={setFontFamily}>
-                      <SelectTrigger data-testid="select-font">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Arial">Arial</SelectItem>
-                        <SelectItem value="Times New Roman">Times New Roman</SelectItem>
-                        <SelectItem value="Courier New">Courier New</SelectItem>
-                        <SelectItem value="Georgia">Georgia</SelectItem>
-                        <SelectItem value="Verdana">Verdana</SelectItem>
-                        <SelectItem value="Comic Sans MS">Comic Sans MS</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+          <div className="max-w-7xl mx-auto mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+              <div className="space-y-6">
+                {/* Settings */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Formatting Options</CardTitle>
+                    <CardDescription>Customize your PDF appearance</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Document Title (Optional)</label>
+                      <Input
+                        placeholder="Enter document title..."
+                        value={titleText}
+                        onChange={(e) => setTitleText(e.target.value)}
+                        data-testid="input-title"
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Font Family</label>
+                        <Select value={fontFamily} onValueChange={setFontFamily}>
+                          <SelectTrigger data-testid="select-font">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Arial">Arial</SelectItem>
+                            <SelectItem value="Times New Roman">Times New Roman</SelectItem>
+                            <SelectItem value="Courier New">Courier New</SelectItem>
+                            <SelectItem value="Georgia">Georgia</SelectItem>
+                            <SelectItem value="Verdana">Verdana</SelectItem>
+                            <SelectItem value="Comic Sans MS">Comic Sans MS</SelectItem>
+                            <SelectItem value="Impact">Impact</SelectItem>
+                            <SelectItem value="Tahoma">Tahoma</SelectItem>
+                            <SelectItem value="Trebuchet MS">Trebuchet MS</SelectItem>
+                            <SelectItem value="Palatino Linotype">Palatino</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
 
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Font Size (pt)</label>
-                    <Select value={fontSize} onValueChange={setFontSize}>
-                      <SelectTrigger data-testid="select-size">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="10">10pt</SelectItem>
-                        <SelectItem value="11">11pt</SelectItem>
-                        <SelectItem value="12">12pt</SelectItem>
-                        <SelectItem value="13">13pt</SelectItem>
-                        <SelectItem value="14">14pt</SelectItem>
-                        <SelectItem value="16">16pt</SelectItem>
-                        <SelectItem value="18">18pt</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                      <div>
+                        <label className="text-sm font-medium mb-2 block">Font Size (pt)</label>
+                        <Select value={fontSize} onValueChange={setFontSize}>
+                          <SelectTrigger data-testid="select-size">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="10">10pt</SelectItem>
+                            <SelectItem value="11">11pt</SelectItem>
+                            <SelectItem value="12">12pt</SelectItem>
+                            <SelectItem value="13">13pt</SelectItem>
+                            <SelectItem value="14">14pt</SelectItem>
+                            <SelectItem value="16">16pt</SelectItem>
+                            <SelectItem value="18">18pt</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
 
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Page Orientation</label>
-                    <Select value={pageOrientation} onValueChange={setPageOrientation}>
-                      <SelectTrigger data-testid="select-orientation">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="portrait">Portrait</SelectItem>
-                        <SelectItem value="landscape">Landscape</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          id="markdown-toggle"
+                          checked={isMarkdown}
+                          onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
+                          data-testid="checkbox-markdown"
+                        />
+                        <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer text-foreground">
+                          Markdown
+                        </label>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setTextContent(sampleText)}
+                        data-testid="button-sample"
+                        className="text-xs"
+                      >
+                        Load Sample
+                      </Button>
+                    </div>
 
-                  <div className="flex items-center gap-2 pt-2">
-                    <Checkbox
-                      id="markdown-toggle"
-                      checked={isMarkdown}
-                      onCheckedChange={(checked) => setIsMarkdown(checked as boolean)}
-                      data-testid="checkbox-markdown"
-                    />
-                    <label htmlFor="markdown-toggle" className="text-sm font-medium cursor-pointer text-foreground">
-                      Treat as Markdown
-                    </label>
-                  </div>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={convertToPDF}
+                        disabled={converting || !textContent.trim()}
+                        className="flex-1"
+                        data-testid="button-convert"
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        {converting ? "Converting..." : "Download PDF"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setTextContent(sampleText)}
-                    data-testid="button-sample"
-                  >
-                    Load Sample
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Text Input & Actions */}
-              <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle>Text Input</CardTitle>
-                  <CardDescription>Paste your text content here</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Textarea
-                    placeholder="Paste your text here or load a sample..."
-                    value={textContent}
-                    onChange={(e) => setTextContent(e.target.value)}
-                    className="font-mono text-sm min-h-[400px]"
-                    data-testid="textarea-text"
-                  />
-                  <div className="flex gap-2">
+                {/* Text Input */}
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <div>
+                      <CardTitle>Text Input</CardTitle>
+                      <CardDescription>Enter content below</CardDescription>
+                    </div>
                     <Button
-                      variant="outline"
+                      variant="ghost"
+                      size="sm"
                       onClick={() => setTextContent("")}
                       data-testid="button-clear"
                     >
                       Clear
                     </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setShowPreview(!showPreview)}
-                      className="flex-1"
-                      data-testid="button-preview"
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      {showPreview ? "Hide Preview" : "Show Preview"}
-                    </Button>
-                    <Button
-                      onClick={convertToPDF}
-                      disabled={converting || !textContent.trim()}
-                      className="flex-1"
-                      data-testid="button-convert"
-                    >
-                      <Download className="mr-2 h-4 w-4" />
-                      {converting ? "Converting..." : "Convert to PDF"}
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  </CardHeader>
+                  <CardContent>
+                    <Textarea
+                      placeholder="Paste your text here or load a sample..."
+                      value={textContent}
+                      onChange={(e) => setTextContent(e.target.value)}
+                      className="font-mono text-sm min-h-[400px] lg:min-h-[500px]"
+                      data-testid="textarea-text"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
 
-            {/* Preview */}
-            {showPreview && textContent && (
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Preview {isMarkdown && "( Markdown )"}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div 
-                    className="border rounded-lg p-8 bg-white text-black overflow-auto max-h-96 prose prose-sm dark:prose-invert"
-                    style={{
-                      fontFamily: fontFamily,
-                      fontSize: fontSize + "pt",
-                      lineHeight: "1.6"
-                    }}
-                    data-testid="preview-text"
-                  >
-                    {titleText && (
-                      <h1 style={{ 
-                        textAlign: 'center', 
-                        marginBottom: '20px',
-                        fontSize: (parseInt(fontSize) + 6) + 'pt',
-                        fontWeight: 'bold'
-                      }}>
-                        {titleText}
-                      </h1>
-                    )}
-                    {isMarkdown ? (
-                      <MarkdownPreview content={textContent} />
-                    ) : (
-                      <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
-                        {textContent}
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+              {/* Preview */}
+              <div className="lg:sticky lg:top-6">
+                <Card className="flex flex-col h-full">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle>Live Preview</CardTitle>
+                    <Badge variant="outline">{isMarkdown ? "Markdown" : "Plain Text"}</Badge>
+                  </CardHeader>
+                  <CardContent className="flex-1">
+                    <div 
+                      className="border rounded-lg p-6 bg-white text-black overflow-y-auto h-[500px] lg:h-[700px] prose prose-sm max-w-none scrollbar-thin scrollbar-thumb-primary/20 hover:scrollbar-thumb-primary/40"
+                      style={{
+                        fontFamily: fontFamily,
+                        fontSize: fontSize + "pt",
+                        lineHeight: "1.6"
+                      }}
+                      data-testid="preview-text"
+                    >
+                      {titleText && (
+                        <h1 style={{ 
+                          textAlign: 'center', 
+                          marginBottom: '20px',
+                          fontSize: (parseInt(fontSize) + 6) + 'pt',
+                          fontWeight: 'bold',
+                          color: '#000000'
+                        }}>
+                          {titleText}
+                        </h1>
+                      )}
+                      {textContent ? (
+                        isMarkdown ? (
+                          <MarkdownPreview content={textContent} />
+                        ) : (
+                          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", color: "#000000" }}>
+                            {textContent}
+                          </div>
+                        )
+                      ) : (
+                        <div className="flex items-center justify-center h-full text-muted-foreground italic">
+                          Preview will appear here...
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
 
           <section className="mb-16">

@@ -145,19 +145,19 @@ export default function MarkdownEditor() {
             </CardContent>
           </Card>
 
-          <Card className="order-2 lg:order-2">
+          <Card className="order-2 lg:order-2 flex flex-col">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle>Live Preview</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-1 overflow-hidden">
               {html ? (
                 <div
-                  className={`prose prose-sm dark:prose-invert max-w-none min-h-[400px] lg:min-h-[600px] p-4 bg-muted rounded-lg overflow-auto ${font}`}
+                  className={`prose prose-sm dark:prose-invert max-w-none h-[400px] lg:h-[600px] p-4 bg-muted rounded-lg overflow-y-auto scrollbar-thin scrollbar-thumb-primary/20 hover:scrollbar-thumb-primary/40 ${font}`}
                   dangerouslySetInnerHTML={{ __html: html }}
                   data-testid="preview-html"
                 />
               ) : (
-                <div className="flex items-center justify-center min-h-[400px] lg:min-h-[600px] text-muted-foreground bg-muted rounded-lg" data-testid="preview-empty">
+                <div className="flex items-center justify-center h-[400px] lg:h-[600px] text-muted-foreground bg-muted rounded-lg" data-testid="preview-empty">
                   <p className="text-sm">Preview will appear here</p>
                 </div>
               )}
