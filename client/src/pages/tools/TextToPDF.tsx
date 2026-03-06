@@ -238,16 +238,18 @@ export default function TextToPDF() {
     setConverting(true);
     try {
       // 1. Separate Export Container
-      const element = document.createElement('div');
-      element.className = "pdf-export-container markdown-body prose prose-slate max-w-none";
-      element.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
-      element.style.fontSize = fontSize + "pt";
-      element.style.lineHeight = "1.6";
-      element.style.padding = "40px";
-      element.style.backgroundColor = "#ffffff";
-      element.style.color = "#000000";
-      element.style.width = "794px"; 
-      element.style.boxSizing = "border-box";
+      const exportContainer = document.createElement('div');
+      exportContainer.className = "pdf-export-container markdown-body prose prose-slate max-w-none";
+      exportContainer.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
+      exportContainer.style.fontSize = fontSize + "pt";
+      exportContainer.style.lineHeight = "1.6";
+      exportContainer.style.padding = "40px";
+      exportContainer.style.backgroundColor = "#ffffff";
+      exportContainer.style.color = "#000000";
+      exportContainer.style.width = "794px"; 
+      exportContainer.style.boxSizing = "border-box";
+      exportContainer.style.position = "absolute";
+      exportContainer.style.left = "-9999px";
 
       // 3. Run Markdown Rendering Before Export
       marked.setOptions({
@@ -259,12 +261,14 @@ export default function TextToPDF() {
       if (titleText) {
         fullHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px;">${escapeHtml(titleText)}</h1>`;
       }
-      fullHtml += isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       
-      element.innerHTML = fullHtml;
+      const contentHtml = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
+      fullHtml += contentHtml;
+      
+      exportContainer.innerHTML = fullHtml;
 
       // 6. Prevent Empty Pages (Clean up content)
-      element.querySelectorAll("p:empty, div:empty").forEach(el => {
+      exportContainer.querySelectorAll("p:empty, div:empty").forEach(el => {
         if (!el.textContent?.trim() && !el.innerHTML.trim()) el.remove();
       });
 
@@ -287,7 +291,7 @@ export default function TextToPDF() {
       document.head.appendChild(style);
 
       // Add crossOrigin to images
-      const images = element.getElementsByTagName('img');
+      const images = exportContainer.getElementsByTagName('img');
       const imagePromises = Array.from(images).map(img => {
         img.crossOrigin = "anonymous";
         return new Promise((resolve) => {
@@ -299,12 +303,12 @@ export default function TextToPDF() {
         });
       });
 
-      document.body.appendChild(element);
+      document.body.appendChild(exportContainer);
       await Promise.all(imagePromises);
 
       // 4. Run Math Rendering Before Export
       if (window.renderMathInElement) {
-        window.renderMathInElement(element, {
+        window.renderMathInElement(exportContainer, {
           delimiters: [
             { left: "$$", right: "$$", display: true },
             { left: "$", right: "$", display: false },
@@ -315,7 +319,7 @@ export default function TextToPDF() {
         });
       }
       if (window.Prism) {
-        window.Prism.highlightAllUnder(element);
+        window.Prism.highlightAllUnder(exportContainer);
       }
 
       const opt = {
@@ -328,9 +332,9 @@ export default function TextToPDF() {
       };
 
       // 5. Generate PDF Only From Export Container
-      await html2pdf().set(opt).from(element).save();
+      await html2pdf().set(opt).from(exportContainer).save();
       
-      document.body.removeChild(element);
+      document.body.removeChild(exportContainer);
       document.head.removeChild(style);
       toast({ title: "Success!", description: "PDF generated successfully" });
     } catch (error) {
