@@ -45,13 +45,19 @@ export default function HTMLtoPDF() {
         }
         pre {
           background: #f6f8fa;
-          padding: 14px;
+          padding: 16px;
           border-radius: 6px;
           font-family: "Courier New", monospace;
-          font-size: 11pt;
-          line-height: 1.5;
+          font-size: 12px;
+          line-height: 1.6;
           overflow-x: auto;
-          margin: 16px 0;
+          margin: 20px 0;
+          white-space: pre-wrap;
+        }
+        pre code {
+          display: block;
+          width: fit-content;
+          min-width: 100%;
         }
         code {
           font-family: "Courier New", monospace;
@@ -80,7 +86,7 @@ export default function HTMLtoPDF() {
         hr {
           border: none;
           border-top: 1px solid #d0d7de;
-          margin: 24px 0;
+          margin: 28px 0;
           page-break-before: auto;
           page-break-after: auto;
         }

@@ -56,7 +56,7 @@ export default function TextToPDF() {
       let htmlContent = "";
       
       if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 20px; font-size: ${parseInt(fontSize) + 6}pt; font-weight: bold; color: #000000;">${escapeHtml(titleText)}</h1>`;
+        htmlContent += `<h1 style="text-align: center; margin-bottom: 24px; font-size: ${parseInt(fontSize) + 8}pt; font-weight: 800; color: #000000; page-break-after: avoid;">${escapeHtml(titleText)}</h1>`;
       }
       
       if (isMarkdown) {
@@ -112,7 +112,7 @@ export default function TextToPDF() {
             .pdf-export-content hr { 
               border: none; 
               border-top: 1px solid #d0d7de; 
-              margin: 24px 0; 
+              margin: 28px 0; 
               page-break-before: auto;
               page-break-after: auto;
             }
@@ -126,14 +126,20 @@ export default function TextToPDF() {
             }
             .pdf-export-content pre { 
               background: #f6f8fa; 
-              padding: 14px; 
+              padding: 16px; 
               border-radius: 6px; 
               font-family: "Courier New", monospace; 
-              font-size: 11pt; 
-              line-height: 1.5;
+              font-size: 12px; 
+              line-height: 1.6;
               overflow-x: auto; 
-              margin: 16px 0;
+              margin: 20px 0;
               page-break-inside: avoid;
+              white-space: pre-wrap;
+            }
+            .pdf-export-content pre code {
+              display: block;
+              width: fit-content;
+              min-width: 100%;
             }
             .pdf-export-content code { 
               font-family: "Courier New", monospace;
@@ -158,8 +164,19 @@ export default function TextToPDF() {
             }
             .pdf-export-content h1, 
             .pdf-export-content h2, 
-            .pdf-export-content h3 {
+            .pdf-export-content h3,
+            .pdf-export-content h4,
+            .pdf-export-content h5,
+            .pdf-export-content h6 {
               page-break-inside: avoid;
+              page-break-after: avoid;
+              font-weight: 800;
+              margin-top: 24px;
+              margin-bottom: 12px;
+            }
+            .pdf-export-content strong,
+            .pdf-export-content b {
+              font-weight: 800;
             }
             .math-block {
               font-family: "Courier New", monospace;
