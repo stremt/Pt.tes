@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Eye, Image as ImageIcon, Type, Layout } from "lucide-react";
+import { FileText, Download, Eye, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
@@ -40,6 +40,13 @@ export default function TextToPDF() {
   const { toast } = useToast();
   const previewRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useSEO({
+    title: "Free Text to PDF Converter - No Signup, Offline & Secure",
+    description: "Convert text files to PDF instantly, offline. Customize fonts, sizes, and formatting. 100% free, no signup, no tracking. Works on all devices.",
+    keywords: "text to pdf converter, convert text to pdf free, text pdf generator, online text to pdf, text document to pdf, offline text to pdf, free pdf converter",
+    canonicalUrl: "https://tools.pixocraft.in/tools/text-to-pdf",
+  });
 
   // Sync with localStorage
   useEffect(() => {
@@ -140,7 +147,6 @@ export default function TextToPDF() {
       let finalHtml = "";
       if (titleText) finalHtml += `<h1 style="text-align:center;margin-bottom:30px;font-weight:bold;font-size:${parseInt(fontSize) + 12}pt;">${titleText}</h1>`;
       
-      // Fix 1: Re-parse Markdown during export for stability
       marked.setOptions({
         gfm: true,
         breaks: true
@@ -162,7 +168,6 @@ export default function TextToPDF() {
         .pdf-export-content blockquote { border-left: 4px solid #ccc; padding-left: 12px; color: #555; margin: 1em 0; }
         .pdf-export-content img { max-width: 100%; height: auto; display: block; margin: 1em auto; }
         .pdf-export-content code { background: #f0f0f0; padding: 2px 4px; border-radius: 4px; }
-        /* Fix 3: Equations and tables page break avoidance */
         .katex-display, pre, table { page-break-inside: avoid; }
       `;
       document.head.appendChild(style);
@@ -170,7 +175,6 @@ export default function TextToPDF() {
 
       await document.fonts?.ready;
       
-      // Render math with full delimiters
       if (window.renderMathInElement) {
         try {
           window.renderMathInElement(exportContainer, {
@@ -182,25 +186,21 @@ export default function TextToPDF() {
             ],
             throwOnError: false
           });
-          // Small delay for KaTeX to finish rendering
           await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Math rendering failed in export", e);
         }
       }
 
-      // Highlight code
       if (window.Prism) {
         try {
           window.Prism.highlightAllUnder(exportContainer);
-          // Small delay for Prism to finish rendering
           await new Promise(r => setTimeout(r, 200));
         } catch (e) {
           console.warn("Prism highlighting failed in export", e);
         }
       }
 
-      // Ensure all images are loaded before capture
       const images = Array.from(exportContainer.getElementsByTagName('img'));
       await Promise.all(images.map(img => {
         if (img.complete) return Promise.resolve();
@@ -210,12 +210,10 @@ export default function TextToPDF() {
         });
       }));
 
-      // Force a reflow and ensure content is visible
       exportContainer.style.display = "block";
       exportContainer.style.visibility = "visible";
       exportContainer.offsetHeight;
 
-      // Fix 4: Adjusted delay for rendering stability
       await new Promise(r => setTimeout(r, 400));
 
       const opt = {
@@ -223,7 +221,6 @@ export default function TextToPDF() {
         filename: titleText ? `${titleText}.pdf` : "document.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { 
-          // Fix 2: html2canvas stability options
           scale: 2, 
           useCORS: true, 
           backgroundColor: "#ffffff",
@@ -240,10 +237,7 @@ export default function TextToPDF() {
         pagebreak: { mode: ["css", "legacy"] }
       };
 
-      // Use html2pdf with the container
       const worker = html2pdf().set(opt).from(exportContainer);
-      
-      // Save the PDF
       await worker.save();
 
       document.body.removeChild(exportContainer);
@@ -257,8 +251,22 @@ export default function TextToPDF() {
     }
   };
 
+  const faqItems: FAQItem[] = [
+    {
+      question: "Is my text secure when I convert it to PDF?",
+      answer: "Yes. All conversion happens in your browser on your device. Your text never leaves your computer and isn't stored anywhere."
+    },
+    {
+      question: "Can I use this tool offline?",
+      answer: "The page loads online, but once loaded, conversion happens offline. You don't need internet to convert text."
+    }
+  ];
+
+  const faqSchema = generateFAQSchema(faqItems);
+
   return (
     <div className="min-h-screen bg-background py-8">
+      <StructuredData data={faqSchema} />
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between">
@@ -278,66 +286,58 @@ export default function TextToPDF() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-200px)]">
-            {/* Editor */}
             <Card className="flex flex-col overflow-hidden">
-              <CardHeader className="border-b bg-muted/30 py-3">
-                <div className="flex flex-wrap gap-4 items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <Checkbox id="markdown" checked={isMarkdown} onCheckedChange={(val) => setIsMarkdown(!!val)} />
-                      <label htmlFor="markdown" className="text-sm font-medium">Markdown</label>
-                    </div>
-                    <Input 
-                      placeholder="Document Title" 
-                      value={titleText} 
-                      onChange={(e) => setTitleText(e.target.value)}
-                      className="h-8 w-48 bg-background"
-                    />
-                  </div>
+              <div className="border-b bg-muted/30 p-3 flex flex-wrap gap-4 items-center justify-between">
+                <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2">
-                    <Select value={fontFamily} onValueChange={setFontFamily}>
-                      <SelectTrigger className="h-8 w-32 bg-background"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Arial">Sans-Serif</SelectItem>
-                        <SelectItem value="Times New Roman">Serif</SelectItem>
-                        <SelectItem value="Courier New">Monospace</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Select value={fontSize} onValueChange={setFontSize}>
-                      <SelectTrigger className="h-8 w-20 bg-background"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        {["10", "11", "12", "14", "16", "18"].map(s => <SelectItem key={s} value={s}>{s}pt</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                    <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => fileInputRef.current?.click()}>
-                      <ImageIcon className="h-4 w-4" />
-                    </Button>
-                    <input type="file" ref={fileInputRef} onChange={handleImageUpload} accept="image/*" className="hidden" />
+                    <Checkbox id="markdown" checked={isMarkdown} onCheckedChange={(val) => setIsMarkdown(!!val)} />
+                    <label htmlFor="markdown" className="text-sm font-medium">Markdown</label>
                   </div>
+                  <Input 
+                    placeholder="Document Title" 
+                    value={titleText} 
+                    onChange={(e) => setTitleText(e.target.value)}
+                    className="h-8 w-48 bg-background"
+                  />
                 </div>
-              </CardHeader>
-              <CardContent className="p-0 flex-1">
-                <Textarea
-                  value={textContent}
-                  onChange={(e) => setTextContent(e.target.value)}
-                  placeholder="Enter your content here..."
-                  className="h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 font-mono text-sm bg-muted/10"
-                />
-              </CardContent>
+                <div className="flex items-center gap-2">
+                  <Select value={fontFamily} onValueChange={setFontFamily}>
+                    <SelectTrigger className="h-8 w-32 bg-background"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Arial">Sans-Serif</SelectItem>
+                      <SelectItem value="Times New Roman">Serif</SelectItem>
+                      <SelectItem value="Courier New">Monospace</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select value={fontSize} onValueChange={setFontSize}>
+                    <SelectTrigger className="h-8 w-20 bg-background"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {["10", "11", "12", "14", "16", "18"].map(s => <SelectItem key={s} value={s}>{s}pt</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                  <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => fileInputRef.current?.click()}>
+                    <ImageIcon className="h-4 w-4" />
+                  </Button>
+                  <input type="file" ref={fileInputRef} onChange={handleImageUpload} accept="image/*" className="hidden" />
+                </div>
+              </div>
+              <Textarea
+                value={textContent}
+                onChange={(e) => setTextContent(e.target.value)}
+                placeholder="Enter your content here..."
+                className="flex-1 w-full resize-none border-0 rounded-none focus-visible:ring-0 p-6 font-mono text-sm bg-muted/10"
+              />
             </Card>
 
-            {/* Preview */}
             <Card className="flex flex-col overflow-hidden bg-muted/20">
-              <CardHeader className="border-b bg-muted/30 py-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Eye className="h-4 w-4 text-primary" />
-                    <CardTitle className="text-sm font-medium">Live Preview</CardTitle>
-                  </div>
-                  <Badge variant="outline" className="bg-background">Pages: {totalPages}</Badge>
+              <div className="border-b bg-muted/30 p-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Eye className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">Live Preview</span>
                 </div>
-              </CardHeader>
-              <CardContent className="flex-1 overflow-auto p-8">
+                <Badge variant="outline" className="bg-background">Pages: {totalPages}</Badge>
+              </div>
+              <div className="flex-1 overflow-auto p-8">
                 <div className="max-w-fit mx-auto">
                   <div 
                     ref={previewRef}
@@ -354,7 +354,7 @@ export default function TextToPDF() {
                     <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-black prose-p:text-black" dangerouslySetInnerHTML={{ __html: renderedHtml }} />
                   </div>
                 </div>
-              </CardContent>
+              </div>
             </Card>
           </div>
         </div>
