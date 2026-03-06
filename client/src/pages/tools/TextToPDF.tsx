@@ -251,13 +251,15 @@ export default function TextToPDF() {
       exportContainer.style.boxSizing = "border-box";
       
       // 2. Ensure the container is visible before capture (but hidden from view)
-      exportContainer.style.position = "fixed";
-      exportContainer.style.top = "0";
-      exportContainer.style.left = "0";
+      exportContainer.style.position = "absolute";
+      exportContainer.style.top = "-10000px";
+      exportContainer.style.left = "-10000px";
       exportContainer.style.zIndex = "-9999";
       exportContainer.style.visibility = "visible";
       exportContainer.style.opacity = "1";
       exportContainer.style.display = "block"; // 3. Ensure display: block
+      exportContainer.style.background = "white";
+      exportContainer.style.color = "black";
 
       // 3. Run Markdown Rendering Before Export
       marked.setOptions({
@@ -351,6 +353,12 @@ export default function TextToPDF() {
       // 5. Wait for rendering before generating the PDF
       await new Promise(resolve => setTimeout(resolve, 300));
 
+      // 5. Generate PDF Only From Export Container
+      const element = document.getElementById("pdf-export-container") || exportContainer;
+      
+      // Force a reflow to ensure styles are applied
+      void element.offsetHeight;
+      
       const opt = {
         margin: [15, 15, 15, 15],
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
@@ -360,15 +368,15 @@ export default function TextToPDF() {
           useCORS: true, 
           letterRendering: true,
           backgroundColor: '#ffffff',
-          logging: false
+          logging: false,
+          allowTaint: true,
+          removeContainer: true
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
         pagebreak: { mode: ['css', 'legacy'] }
       };
 
-      // 5. Generate PDF Only From Export Container
-      const pdf = html2pdf().set(opt).from(exportContainer);
-      await pdf.save();
+      await html2pdf().set(opt).from(element).save();
       
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
