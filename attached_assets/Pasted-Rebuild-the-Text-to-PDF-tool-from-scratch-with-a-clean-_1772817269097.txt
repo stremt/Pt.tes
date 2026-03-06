@@ -1,0 +1,207 @@
+Rebuild the Text to PDF tool from scratch with a clean and stable architecture. The current implementation is overly complex and causes rendering issues such as blank PDF pages, layout breaks, and unstable html2canvas behavior.
+
+The new implementation must be simple, predictable, and reliable.
+
+Technology stack:
+React + TypeScript frontend
+html2pdf.js for PDF generation
+marked.js for Markdown parsing
+KaTeX for math rendering
+Prism.js for syntax highlighting
+
+Do not reuse the old export logic. Build a new rendering pipeline.
+
+---
+
+ARCHITECTURE
+
+Use two completely separate containers.
+
+1. Preview Container
+   Used only for the live preview shown to the user.
+
+2. Export Container
+   Used only for generating the PDF.
+
+Never generate the PDF from the preview container.
+
+---
+
+EDITOR
+
+Create a text editor with these features:
+
+• large textarea input
+• Markdown support toggle
+• document title field
+• font family selector
+• font size selector
+• optional image upload that inserts base64 markdown image
+• live preview panel
+
+The editor should update the preview in real time.
+
+---
+
+MARKDOWN RENDERING
+
+Use marked.js.
+
+Enable GitHub flavored markdown.
+
+Example configuration:
+
+marked.setOptions({
+gfm: true,
+breaks: true
+});
+
+Convert text content to HTML and store it in state.
+
+---
+
+LIVE PREVIEW
+
+Render the parsed HTML inside the preview container.
+
+After rendering run:
+
+renderMathInElement(previewContainer)
+
+for KaTeX math support.
+
+Then run:
+
+Prism.highlightAllUnder(previewContainer)
+
+for code highlighting.
+
+Preview layout should simulate A4 pages visually.
+
+---
+
+PDF GENERATION
+
+When the user clicks "Generate PDF":
+
+Create a completely new export container element.
+
+Example:
+
+const exportContainer = document.createElement("div");
+
+Set styles:
+
+width: 794px
+padding: 40px
+background: white
+color: black
+font-family based on selected font
+font-size based on selected size
+line-height: 1.6
+
+Position the container off-screen:
+
+position: absolute
+left: -9999px
+top: 0
+
+Insert rendered HTML into this container.
+
+---
+
+RENDER SUPPORT
+
+Before generating the PDF:
+
+1. Wait for fonts
+
+await document.fonts.ready
+
+2. Render math
+
+renderMathInElement(exportContainer)
+
+3. Highlight code
+
+Prism.highlightAllUnder(exportContainer)
+
+4. Wait small delay
+
+await new Promise(resolve => setTimeout(resolve, 400))
+
+---
+
+PDF EXPORT
+
+Use html2pdf.js with stable configuration.
+
+Example:
+
+html2pdf()
+.set({
+margin: 15,
+filename: "document.pdf",
+image: { type: "jpeg", quality: 0.98 },
+html2canvas: {
+scale: 2,
+useCORS: true,
+backgroundColor: "#ffffff"
+},
+jsPDF: {
+unit: "mm",
+format: "a4",
+orientation: "portrait"
+},
+pagebreak: { mode: ["css", "legacy"] }
+})
+.from(exportContainer)
+.save();
+
+After export remove the container from DOM.
+
+---
+
+IMPORTANT RULES
+
+Never override all elements with:
+
+display:block
+
+Never force color overrides on all elements.
+
+Never generate PDF directly from the preview container.
+
+Never use display:none or visibility:hidden on the export container.
+
+---
+
+FEATURE SUPPORT
+
+The final tool must correctly support:
+
+• Markdown headings
+• bold / italic / strikethrough
+• tables
+• blockquotes
+• code blocks with syntax highlighting
+• LaTeX math equations
+• inline images
+• large documents
+• multi-page PDF output
+
+---
+
+FINAL GOAL
+
+The preview must match the exported PDF layout.
+
+The generated PDF must never produce:
+
+• blank pages
+• black pages
+• missing math
+• broken tables
+• layout shifts
+
+Focus on stability and predictable rendering.
