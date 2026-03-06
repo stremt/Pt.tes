@@ -171,7 +171,7 @@ export default function TextToPDF() {
             throwOnError: false
           });
           // Small delay for KaTeX to finish rendering
-          await new Promise(r => setTimeout(r, 200));
+          await new Promise(r => setTimeout(r, 500));
         } catch (e) {
           console.warn("Math rendering failed in export", e);
         }
@@ -182,7 +182,7 @@ export default function TextToPDF() {
         try {
           window.Prism.highlightAllUnder(exportContainer);
           // Small delay for Prism to finish rendering
-          await new Promise(r => setTimeout(r, 200));
+          await new Promise(r => setTimeout(r, 500));
         } catch (e) {
           console.warn("Prism highlighting failed in export", e);
         }
@@ -199,10 +199,12 @@ export default function TextToPDF() {
       }));
 
       // Force a reflow and ensure content is visible
+      exportContainer.style.display = "block";
+      exportContainer.style.visibility = "visible";
       exportContainer.offsetHeight;
 
       // Wait rendering stability
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 1500));
 
       const opt = {
         margin: [15, 15],
@@ -216,7 +218,8 @@ export default function TextToPDF() {
           logging: true,
           scrollY: 0,
           windowWidth: PAGE_WIDTH,
-          removeContainer: false
+          removeContainer: false,
+          allowTaint: true
         },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         pagebreak: { mode: ["css", "legacy"] }
