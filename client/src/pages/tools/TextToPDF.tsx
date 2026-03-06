@@ -354,7 +354,7 @@ export default function TextToPDF() {
       await new Promise(resolve => setTimeout(resolve, 300));
 
       // 5. Generate PDF Only From Export Container
-      const element = document.getElementById("pdf-export-container") || exportContainer;
+      const element = exportContainer;
       
       // Force a reflow to ensure styles are applied
       void element.offsetHeight;
@@ -368,9 +368,25 @@ export default function TextToPDF() {
           useCORS: true, 
           letterRendering: true,
           backgroundColor: '#ffffff',
-          logging: false,
+          logging: true, // Enable logging for debugging
           allowTaint: true,
-          removeContainer: true
+          foreignObjectRendering: false, // Disable foreignObject to avoid blank pages in some browsers
+          onclone: (clonedDoc: Document) => {
+            const clonedElement = clonedDoc.getElementById("pdf-export-container");
+            if (clonedElement) {
+              clonedElement.style.position = "static";
+              clonedElement.style.visibility = "visible";
+              clonedElement.style.display = "block";
+              clonedElement.style.background = "white";
+              clonedElement.style.width = "794px";
+              
+              // Ensure all text is black in the clone
+              const allElements = clonedElement.getElementsByTagName("*");
+              for (let i = 0; i < allElements.length; i++) {
+                (allElements[i] as HTMLElement).style.color = "black";
+              }
+            }
+          }
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
         pagebreak: { mode: ['css', 'legacy'] }
