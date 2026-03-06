@@ -367,7 +367,8 @@ export default function TextToPDF() {
       };
 
       // 5. Generate PDF Only From Export Container
-      await html2pdf().set(opt).from(exportContainer).save();
+      const pdf = html2pdf().set(opt).from(exportContainer);
+      await pdf.save();
       
       document.body.removeChild(exportContainer);
       document.head.removeChild(style);
