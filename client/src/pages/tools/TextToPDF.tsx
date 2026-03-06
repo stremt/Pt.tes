@@ -239,6 +239,7 @@ export default function TextToPDF() {
     try {
       // 1. Separate Export Container
       const exportContainer = document.createElement('div');
+      exportContainer.id = "pdf-export-container";
       exportContainer.className = "pdf-export-container markdown-body prose prose-slate max-w-none";
       exportContainer.style.fontFamily = fontFamily === "Arial" ? '"Helvetica", "Arial", sans-serif' : fontFamily;
       exportContainer.style.fontSize = fontSize + "pt";
@@ -248,12 +249,15 @@ export default function TextToPDF() {
       exportContainer.style.color = "#000000";
       exportContainer.style.width = "794px"; 
       exportContainer.style.boxSizing = "border-box";
-      // Removed position absolute and left -9999px that caused empty PDF
+      
+      // 2. Ensure the container is visible before capture (but hidden from view)
       exportContainer.style.position = "fixed";
       exportContainer.style.top = "0";
       exportContainer.style.left = "0";
-      exportContainer.style.zIndex = "-1000";
-      exportContainer.style.visibility = "hidden";
+      exportContainer.style.zIndex = "-9999";
+      exportContainer.style.visibility = "visible";
+      exportContainer.style.opacity = "1";
+      exportContainer.style.display = "block"; // 3. Ensure display: block
 
       // 3. Run Markdown Rendering Before Export
       marked.setOptions({
@@ -263,10 +267,10 @@ export default function TextToPDF() {
       
       let fullHtml = "";
       if (titleText) {
-        fullHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px;">${escapeHtml(titleText)}</h1>`;
+        fullHtml += `<h1 style="text-align: center; margin-bottom: 30px; font-size: ${parseInt(fontSize) + 12}pt; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px; color: black; display: block;">${escapeHtml(titleText)}</h1>`;
       }
       
-      const contentHtml = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
+      const contentHtml = isMarkdown ? await marked(textContent) : `<div style="white-space: pre-wrap; color: black; display: block;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
       fullHtml += contentHtml;
       
       exportContainer.innerHTML = fullHtml;
@@ -278,19 +282,32 @@ export default function TextToPDF() {
 
       const style = document.createElement('style');
       style.textContent = `
-        .pdf-export-container { color: black !important; width: 794px !important; }
-        .pdf-export-container h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-        .pdf-export-container h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-        .pdf-export-container h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; }
-        .pdf-export-container hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
-        .pdf-export-container blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; }
-        .pdf-export-container table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; }
-        .pdf-export-container th, .pdf-export-container td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .pdf-export-container { 
+          color: black !important; 
+          width: 794px !important; 
+          background: white !important; 
+          display: block !important;
+        }
+        .pdf-export-container * { 
+          display: block; 
+          position: static !important;
+          flex: none !important;
+        }
+        .pdf-export-container h1 { font-size: 32px !important; margin-top: 24px !important; margin-bottom: 16px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 8px; color: black !important; }
+        .pdf-export-container h2 { font-size: 26px !important; margin-top: 20px !important; margin-bottom: 12px !important; font-weight: bold !important; border-bottom: 1px solid #eee; padding-bottom: 4px; color: black !important; }
+        .pdf-export-container h3 { font-size: 20px !important; margin-top: 16px !important; margin-bottom: 8px !important; font-weight: bold !important; color: black !important; }
+        .pdf-export-container p, .pdf-export-container span, .pdf-export-container div { color: black !important; }
+        .pdf-export-container hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; display: block !important; }
+        .pdf-export-container blockquote { border-left: 4px solid #ccc !important; padding-left: 16px !important; color: #555 !important; font-style: italic !important; margin: 16px 0 !important; display: block !important; }
+        .pdf-export-container table { border-collapse: collapse; width: 100% !important; margin: 20px 0; table-layout: auto; border: 1px solid #ccc; display: table !important; }
+        .pdf-export-container tr { display: table-row !important; }
+        .pdf-export-container th, .pdf-export-container td { border: 1px solid #ccc; padding: 8px; text-align: left; display: table-cell !important; color: black !important; }
         .pdf-export-container th { background-color: #f4f4f4; font-weight: bold; }
-        .pdf-export-container pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; font-family: monospace; font-size: 10pt; }
-        .pdf-export-container code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
-        .pdf-export-container img { max-width: 100%; height: auto; display: block; margin: 16px auto; border-radius: 4px; }
-        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; }
+        .pdf-export-container pre { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e9ecef; white-space: pre-wrap; word-wrap: break-word; margin: 20px 0; font-family: monospace; font-size: 10pt; display: block !important; color: black !important; }
+        .pdf-export-container code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 4px; font-family: monospace; display: inline !important; color: black !important; }
+        .pdf-export-container img { max-width: 100%; height: auto; display: block !important; margin: 16px auto; border-radius: 4px; }
+        .katex-display { margin: 1em 0; overflow-x: auto; overflow-y: hidden; display: block !important; }
+        .katex { color: black !important; }
       `;
       document.head.appendChild(style);
 
@@ -310,6 +327,11 @@ export default function TextToPDF() {
       document.body.appendChild(exportContainer);
       await Promise.all(imagePromises);
 
+      // 6. Ensure fonts and math rendering are loaded
+      if (document.fonts) {
+        await document.fonts.ready;
+      }
+
       // 4. Run Math Rendering Before Export
       if (window.renderMathInElement) {
         window.renderMathInElement(exportContainer, {
@@ -326,11 +348,20 @@ export default function TextToPDF() {
         window.Prism.highlightAllUnder(exportContainer);
       }
 
+      // 5. Wait for rendering before generating the PDF
+      await new Promise(resolve => setTimeout(resolve, 300));
+
       const opt = {
-        margin: [10, 10, 10, 10],
+        margin: [15, 15, 15, 15],
         filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          letterRendering: true,
+          backgroundColor: '#ffffff',
+          logging: false
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation, compress: true },
         pagebreak: { mode: ['css', 'legacy'] }
       };
