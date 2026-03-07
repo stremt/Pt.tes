@@ -306,12 +306,13 @@ export default function TextToPDF() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Pixocraft Text to PDF Converter",
-    "operatingSystem": "Web Browser",
-    "applicationCategory": "Utility",
+    "operatingSystem": "Web",
+    "applicationCategory": "UtilityApplication",
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "description": "Free"
     }
   };
 
@@ -622,6 +623,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                   <p>
                     Converting your plain text documents to professional PDF files is easier than ever with Pixocraft. 
+                    Pixocraft works as a powerful TXT to PDF converter that instantly transforms plain text documents into professional PDFs.
                     You can paste text to PDF instantly using the Pixocraft editor without uploading any files.
                     Follow these easy steps:
                   </p>
@@ -633,6 +635,18 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   </ol>
                   <p>
                     This process ensures your <strong>text file to PDF</strong> conversion is fast, secure, and preserves all your data without any server uploads.
+                  </p>
+                </div>
+              </section>
+
+              {/* Performance Section */}
+              <section className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Fast Browser-Based Text to PDF Converter</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    Unlike traditional converters that upload files to servers, Pixocraft runs entirely inside your browser using modern client-side technology. 
+                    This ensures instant text to PDF conversion without delays, uploads, or file size restrictions. 
+                    By processing everything locally, we provide the fastest possible experience while maintaining absolute data sovereignty.
                   </p>
                 </div>
               </section>
