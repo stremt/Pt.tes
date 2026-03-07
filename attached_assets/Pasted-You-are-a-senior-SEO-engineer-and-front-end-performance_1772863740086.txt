@@ -1,0 +1,302 @@
+You are a senior SEO engineer and front-end performance engineer working on the Pixocraft Tools platform.
+
+Your task is to upgrade the SEO of the **Text to PDF Tool page** to an extremely high level while **preserving the existing tool functionality and UI structure exactly as it currently works.**
+
+This is extremely important:
+
+DO NOT break or modify:
+
+* the Text Input editor
+* the Live Preview panel
+* formatting options
+* markdown toggle
+* download PDF logic
+* preview rendering
+* any existing JavaScript conversion logic
+
+The tool layout must remain identical:
+Left side → formatting options + text input
+Right side → live preview
+
+You are allowed to modify:
+
+* page semantic HTML structure
+* meta tags
+* schema markup
+* headings and content sections
+* internal linking
+* SEO structured sections below the tool
+
+Do NOT move the tool above or below drastically.
+The tool must remain **above the fold**.
+
+---
+
+# PRIMARY SEO GOAL
+
+Make this page capable of ranking globally for:
+
+text to pdf
+convert text to pdf
+txt to pdf converter
+text to pdf online free
+paste text to pdf
+markdown to pdf
+convert notes to pdf
+convert email text to pdf
+
+The page must capture **multiple search intents**.
+
+---
+
+# META TAGS
+
+Add highly optimized metadata.
+
+TITLE:
+
+Text to PDF Converter Online Free – Markdown, Images, Tables & Math Supported | Pixocraft
+
+DESCRIPTION:
+
+Convert text to professional PDF instantly. Pixocraft Text to PDF supports Markdown, images, tables, math formulas and custom formatting. 100% private, browser-based and free.
+
+KEYWORDS:
+
+text to pdf, convert text to pdf, txt to pdf converter, paste text to pdf, markdown to pdf converter, convert notes to pdf, convert email to pdf
+
+---
+
+# OPEN GRAPH
+
+Add social sharing metadata.
+
+og:title
+Text to PDF Converter – Free Professional PDF Generator
+
+og:description
+Create professional PDFs from plain text instantly. Supports Markdown, images, tables and math equations.
+
+og:type website
+og:url current page URL
+
+---
+
+# STRUCTURED DATA
+
+Add JSON-LD schema.
+
+Include:
+
+SoftwareApplication schema
+
+Fields:
+name: Pixocraft Text to PDF Converter
+applicationCategory: Utility
+operatingSystem: Web Browser
+price: 0
+priceCurrency: USD
+offers: free
+
+Add FAQ schema for FAQ section.
+
+---
+
+# HERO SEO IMPROVEMENT
+
+Above the tool add a small feature highlight section.
+
+Badges:
+
+• Markdown Formatting Supported
+• Image Embedding Supported
+• Tables Supported
+• Math Equation Support
+• 100% Offline & Private
+
+These must visually appear above the tool.
+
+---
+
+# TOOL DESCRIPTION SECTION
+
+Below the tool add a large SEO optimized section.
+
+Heading H2:
+
+What is a Text to PDF Converter?
+
+Content should explain:
+
+* converting plain text to professional PDF
+* cross device compatibility
+* document preservation
+* professional formatting
+
+Minimum 250 words.
+
+---
+
+# FEATURE SECTION
+
+Heading:
+
+Key Features of Pixocraft Text to PDF
+
+Add feature grid:
+
+Instant Conversion
+Markdown Support
+Image Embedding
+Tables and Structured Content
+Mathematical Equations
+Custom Fonts
+Page Orientation
+Live Preview
+Offline Processing
+
+Each feature should contain short explanation.
+
+---
+
+# 2026 NEW FEATURES SECTION
+
+Heading:
+
+New Advanced Features (2026 Update)
+
+Explain support for:
+
+Markdown formatting
+Image insertion
+Table formatting
+Mathematical formulas
+Custom typography
+Portrait / landscape layouts
+
+---
+
+# HOW TO USE SECTION
+
+Heading:
+
+How to Convert Text to PDF
+
+Steps:
+
+1 Paste or type your text
+2 Enable formatting options
+3 Preview the document
+4 Download the generated PDF
+
+---
+
+# USE CASE SECTION
+
+Heading:
+
+Common Use Cases
+
+Include examples:
+
+Students converting assignments
+Freelancers exporting contracts
+Researchers saving notes
+Business owners creating documents
+Developers exporting markdown files
+Writers exporting drafts
+
+---
+
+# PRIVACY SECTION
+
+Heading:
+
+Private & Offline Processing
+
+Explain that:
+
+All processing happens inside the browser
+No uploads occur
+Documents are never stored
+
+---
+
+# FAQ SECTION
+
+Add SEO focused FAQs.
+
+Questions:
+
+How do I convert text to PDF online for free?
+
+Can I convert a TXT file to PDF?
+
+Does the tool support Markdown formatting?
+
+Can I include images inside the PDF?
+
+Can I convert text to PDF on mobile?
+
+Is my text stored anywhere?
+
+---
+
+# INTERNAL LINKING
+
+Add a section:
+
+Related PDF Tools
+
+Link to:
+
+HTML to PDF
+PDF Merger
+PDF Splitter
+Image to PDF
+PDF Compressor
+
+Use keyword anchors.
+
+---
+
+# PERFORMANCE OPTIMIZATION
+
+Ensure:
+
+lazy loading images
+minimal DOM
+clean semantic headings
+proper aria labels
+
+Maintain extremely fast page speed.
+
+---
+
+# CRITICAL RULES
+
+DO NOT:
+
+change tool UI layout
+remove existing code
+break JavaScript logic
+move the preview editor
+
+ONLY enhance SEO structure around it.
+
+---
+
+# FINAL RESULT
+
+The page must have:
+
+* perfect semantic HTML
+* rich structured data
+* multiple SEO sections
+* strong keyword coverage
+* internal linking
+* fast performance
+
+This page must be able to compete with the best global text-to-pdf converter tools.
+
+Return the upgraded HTML structure without removing the existing tool functionality.

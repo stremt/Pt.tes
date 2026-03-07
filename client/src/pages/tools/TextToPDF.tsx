@@ -33,10 +33,13 @@ export default function TextToPDF() {
   }, [textContent]);
 
   useSEO({
-    title: "Free Text to PDF Converter - No Signup, Offline & Secure",
-    description: "Convert text files to PDF instantly, offline. Customize fonts, sizes, and formatting. 100% free, no signup, no tracking. Works on all devices.",
-    keywords: "text to pdf converter, convert text to pdf free, text pdf generator, online text to pdf, text document to pdf, offline text to pdf, free pdf converter",
+    title: "Text to PDF Converter Online Free – Markdown, Images, Tables & Math Supported | Pixocraft",
+    description: "Convert text to professional PDF instantly. Pixocraft Text to PDF supports Markdown, images, tables, math formulas and custom formatting. 100% private, browser-based and free.",
+    keywords: "text to pdf, convert text to pdf, txt to pdf converter, paste text to pdf, markdown to pdf converter, convert notes to pdf, convert email to pdf",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-to-pdf",
+    ogTitle: "Text to PDF Converter – Free Professional PDF Generator",
+    ogDescription: "Create professional PDFs from plain text instantly. Supports Markdown, images, tables and math equations.",
+    ogType: "website",
   });
 
   const convertToPDF = async () => {
@@ -60,10 +63,6 @@ export default function TextToPDF() {
       element.style.color = "#000000";
 
       let htmlContent = "";
-      
-      if (titleText) {
-        htmlContent += `<h1 style="text-align: center; margin-bottom: 24px; font-size: ${parseInt(fontSize) + 8}pt; font-weight: 800; color: #000000; page-break-after: avoid;">${escapeHtml(titleText)}</h1>`;
-      }
       
       if (isMarkdown) {
         marked.setOptions({
@@ -270,38 +269,43 @@ export default function TextToPDF() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "Is my text secure when I convert it to PDF?",
-      answer: "Yes. All conversion happens in your browser on your device. Your text never leaves your computer and isn't stored anywhere. Once you close the page, there's no record of what you converted."
+      question: "How do I convert text to PDF online for free?",
+      answer: "Simply paste your text into the editor, customize the formatting if needed, and click 'Download PDF'. The conversion happens instantly in your browser."
     },
     {
-      question: "Can I use this tool offline?",
-      answer: "The page loads online, but once loaded, conversion happens offline. You don't need internet to convert text after the page is loaded."
+      question: "Can I convert a TXT file to PDF?",
+      answer: "Yes, you can copy the content of your TXT file, paste it here, and convert it to a professionally formatted PDF document."
     },
     {
-      question: "Why is there no signup or login required?",
-      answer: "Because we don't need to track you or store anything. Your conversion happens locally, so there's no need for accounts, emails, or passwords."
+      question: "Does the tool support Markdown formatting?",
+      answer: "Absolutely! We have full support for Markdown, allowing you to use bold, italics, headers, lists, and even tables and math equations."
     },
     {
-      question: "What's the file size limit for conversion?",
-      answer: "There's no strict limit. Your browser's memory is the limit. Most modern browsers handle very large text files without issues. A 100MB file should work fine on most devices."
+      question: "Can I include images inside the PDF?",
+      answer: "Yes, when using Markdown mode, you can include images using standard Markdown syntax which will be rendered in your final PDF."
     },
     {
-      question: "Will the PDF look the same on someone else's computer?",
-      answer: "Yes. PDFs are designed to look identical everywhere. The fonts, spacing, and layout you set will appear the same on any device that opens the PDF."
+      question: "Can I convert text to PDF on mobile?",
+      answer: "Yes, Pixocraft Text to PDF is fully responsive and works perfectly on smartphones and tablets."
     },
     {
-      question: "What happens if I include special characters or non-English text?",
-      answer: "Special characters and non-English languages work fine. The converter handles Unicode text perfectly, so any language or symbol converts correctly."
-    },
-    {
-      question: "Can I edit the PDF after converting it?",
-      answer: "Text-to-PDF creates read-only PDFs. If you need to edit, modify the text first, then convert again. For more advanced editing, use a PDF editor tool."
-    },
-    {
-      question: "Can I convert multiple files at once?",
-      answer: "Currently, you convert one file at a time. For batch conversions, use the tool repeatedly or explore our bulk conversion guides for large batches."
+      question: "Is my text stored anywhere?",
+      answer: "No. All processing happens locally in your browser. Your data never leaves your device and is never stored on our servers."
     }
   ];
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pixocraft Text to PDF Converter",
+    "operatingSystem": "Web Browser",
+    "applicationCategory": "Utility",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
 
   const faqSchema = generateFAQSchema(faqItems);
 
@@ -378,33 +382,48 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
   return (
     <>
+      <StructuredData data={softwareSchema} />
       <StructuredData data={faqSchema} />
-      <div className="min-h-screen py-12">
+      <div className="min-h-screen bg-muted/30 py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-foreground" data-testid="link-home">Home</Link>
-            {" / "}
-            <Link href="/tools" className="hover:text-foreground" data-testid="link-tools">Tools</Link>
-            {" / "}
-            <Link href="/tools/pdf" className="hover:text-foreground">PDF Tools</Link>
-            {" / "}
-            <span className="text-foreground">Text to PDF</span>
+          <div className="mb-8 text-sm flex items-center gap-2 text-muted-foreground/80">
+            <Link href="/" className="hover:text-primary transition-colors" data-testid="link-home">Home</Link>
+            <span className="opacity-50">/</span>
+            <Link href="/tools" className="hover:text-primary transition-colors" data-testid="link-tools">Tools</Link>
+            <span className="opacity-50">/</span>
+            <Link href="/tools/pdf" className="hover:text-primary transition-colors">PDF Tools</Link>
+            <span className="opacity-50">/</span>
+            <span className="text-foreground font-medium">Text to PDF</span>
           </div>
 
-          <div className="text-center space-y-4 mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                <FileText className="h-8 w-8 text-primary" />
+          <div className="text-center space-y-6 mb-16">
+            <div className="flex items-center justify-center mb-2">
+              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center ring-8 ring-primary/5">
+                <FileText className="h-10 w-10 text-primary" />
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold">Convert Text to Professional PDF Documents</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transform plain text into professionally formatted PDFs instantly. Offline, secure, and completely free. No signup, no tracking, no limits.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <Badge variant="secondary">Free</Badge>
-              <Badge variant="secondary">Offline</Badge>
-              <Badge variant="secondary">Custom Formatting</Badge>
+            <div className="space-y-3">
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+                Convert Text to Professional PDF
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Transform plain text into high-quality, professionally formatted PDF documents instantly. 
+                <span className="block mt-1 font-medium text-primary/80 text-lg">100% Private • Offline • Free</span>
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Markdown Support
+              </Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Math Equations
+              </Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Image Embedding
+              </Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Custom Fonts
+              </Badge>
             </div>
           </div>
 
@@ -419,12 +438,12 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Document Title (Optional)</label>
+                      <label className="text-sm font-medium mb-2 block">Filename (Optional)</label>
                       <Input
-                        placeholder="Enter document title..."
+                        placeholder="Enter filename..."
                         value={titleText}
                         onChange={(e) => setTitleText(e.target.value)}
-                        data-testid="input-title"
+                        data-testid="input-filename"
                       />
                     </div>
                     
@@ -551,17 +570,6 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       }}
                       data-testid="preview-text"
                     >
-                      {titleText && (
-                        <h1 style={{ 
-                          textAlign: 'center', 
-                          marginBottom: '20px',
-                          fontSize: (parseInt(fontSize) + 6) + 'pt',
-                          fontWeight: 'bold',
-                          color: '#000000'
-                        }}>
-                          {titleText}
-                        </h1>
-                      )}
                       {textContent ? (
                         isMarkdown ? (
                           <MarkdownPreview content={textContent} />
@@ -580,119 +588,129 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 </Card>
               </div>
             </div>
+
+            {/* SEO Sections */}
+            <div className="mt-32 space-y-32 max-w-5xl mx-auto">
+              {/* Introduction */}
+              <section className="relative">
+                <div className="absolute -left-4 top-0 w-1 h-full bg-primary/20 rounded-full hidden md:block" />
+                <div className="space-y-6">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight">What is a Text to PDF Converter?</h2>
+                  <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                    <p>
+                      A Text to PDF converter is a specialized utility that transforms plain text data into a Portable Document Format (PDF). While simple text files are great for storage and basic editing, they lack the structural integrity and visual consistency required for professional communication. Our tool bridges this gap by allowing you to paste any text—including structured Markdown—and generate a high-quality PDF document instantly.
+                    </p>
+                    <p>
+                      One of the primary advantages of converting text to PDF is cross-device compatibility. Unlike standard text editors which might display fonts or spacing differently depending on the operating system, a PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device. This document preservation is critical for assignments, contracts, and research notes.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Key Features */}
+              <section className="space-y-12">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Powerful Features for Professionals</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Everything you need to create perfect documents directly in your browser.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {[
+                    { title: "Instant Conversion", desc: "Get your PDF in seconds with our optimized processing engine.", icon: Download },
+                    { title: "Markdown Support", desc: "Use familiar Markdown syntax for rich text formatting.", icon: FileText },
+                    { title: "Image Embedding", desc: "Easily include visual references directly within your documents.", icon: Eye },
+                    { title: "Structured Content", desc: "Support for tables, lists, and hierarchical headings.", icon: FileText },
+                    { title: "Mathematical Equations", desc: "Render complex formulas with built-in KaTeX support.", icon: FileText },
+                    { title: "Custom Fonts", desc: "Choose from a wide range of professional typography options.", icon: FileText },
+                  ].map((feature, idx) => (
+                    <Card key={idx} className="hover-elevate border-primary/5 bg-background/50 backdrop-blur-sm transition-all hover:border-primary/20">
+                      <CardHeader className="pb-2">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                          <feature.icon className="w-5 h-5" />
+                        </div>
+                        <CardTitle className="text-xl">{feature.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+
+              {/* How to Use - Visual Flow */}
+              <section className="bg-card border rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                <div className="relative space-y-12">
+                  <h2 className="text-3xl font-bold text-center tracking-tight">Simple 4-Step Process</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                    {[
+                      { step: "01", title: "Input Content", desc: "Paste or type your text into the editor" },
+                      { step: "02", title: "Format", desc: "Enable Markdown or customize fonts" },
+                      { step: "03", title: "Preview", desc: "Check your document in real-time" },
+                      { step: "04", title: "Download", desc: "Save your professional PDF file" }
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center text-center space-y-4 group">
+                        <div className="w-14 h-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center text-xl font-black shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                          {item.step}
+                        </div>
+                        <div className="space-y-1">
+                          <h3 className="font-bold text-lg">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Privacy - Bold Highlight */}
+              <section className="relative py-12">
+                <div className="absolute inset-0 bg-primary/[0.03] rounded-[2rem] -rotate-1" />
+                <div className="relative p-8 md:p-12 text-center space-y-6">
+                  <Badge variant="outline" className="text-primary border-primary/20 px-4 py-1 rounded-full uppercase tracking-widest text-[10px] font-bold">Privacy First</Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold">100% Private & Secure Conversion</h2>
+                  <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    Your documents never leave your computer. All processing happens locally in your browser session using secure client-side technology. 
+                    <span className="font-semibold text-foreground"> No uploads. No tracking. No storage.</span>
+                  </p>
+                </div>
+              </section>
+
+              {/* FAQ Section - Clean Accordion Style */}
+              <section className="space-y-12">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">Frequently Asked Questions</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  {faqItems.map((faq, idx) => (
+                    <div key={idx} className="space-y-3 group">
+                      <h3 className="font-bold text-xl flex items-start gap-3">
+                        <span className="text-primary mt-1">Q.</span>
+                        {faq.question}
+                      </h3>
+                      <div className="pl-8">
+                        <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Related Tools - Grid */}
+            <section className="pt-20 border-t border-primary/10">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                  <h2 className="text-2xl font-bold tracking-tight text-foreground">Related PDF Tools</h2>
+                  <p className="text-muted-foreground">Check out our other free productivity tools.</p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {["HTML to PDF", "PDF Merger", "PDF Splitter", "Image to PDF", "PDF Compressor"].map((tool) => (
+                    <Link key={tool} href="/tools/pdf" className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
+                      {tool}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
-
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why Convert Text to PDF?</h2>
-            <div className="prose prose-sm dark:prose-invert max-w-4xl mx-auto text-muted-foreground space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">The Problem with Plain Text</h3>
-                <p>Text files are everywhere—in your email, notes apps, documents, and more. But when you need to share them professionally, archive them long-term, or print them nicely formatted, plain text falls short. PDF is the universal standard for documents that need to look consistent across devices, remain un-editable, and feel professional. Converting text to PDF solves this instantly.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Who Benefits Most</h3>
-                <p><strong>Students</strong> converting essays and assignments to PDF for submission. <strong>Professionals</strong> archiving important correspondence and documentation. <strong>Business owners</strong> creating formal documents without expensive software. <strong>Developers and writers</strong> who work primarily in plain text but need portable formats. Anyone who wants to preserve text documents as permanent, shareable records that look professional everywhere.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Real-Life Examples</h3>
-                <p>A student has notes in plain text and needs to submit an essay in PDF format—five minutes of formatting, then download. A freelancer receives a contract via email as plain text and converts it to PDF to archive as legal documentation. A researcher collects data in text format and converts it to PDF for backup and sharing with colleagues. A small business owner creates invoices or receipts in text and converts them to professional-looking PDFs. A writer exports their manuscript from a text editor and converts to PDF for agent submission. A journalist archives email interviews as timestamped PDFs for record-keeping.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Privacy & Offline Guarantee</h3>
-                <p>Here's what makes this tool different: the entire conversion happens on your computer using your browser. Your text is processed locally, not sent anywhere. Once you close the page, nothing is stored or logged. This matters for students protecting academic work, professionals keeping contracts private, and anyone handling sensitive information. You can use this tool offline after the page loads—no internet required for conversion, and no data transmission at any point.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Customization & Control</h3>
-                <p>You're not locked into a single format. Choose your font from standard options, adjust the size, set page orientation (portrait or landscape), and add a title to your document. Want to preview before downloading? You can. Working with structured content? Optional Markdown mode lets you use formatting like headings, bold, lists, and more. Your preferences are applied before conversion, giving you complete control over the final PDF without needing complex software.</p>
-              </div>
-            </div>
-          </section>
-
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Common Use Cases</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Letters & Documents</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Convert letters, essays, or documents to PDF format for printing, sharing, or archiving. Perfect for formal correspondence.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Notes & Planning</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Turn your notes, to-do lists, or planning documents into professional PDF documents. Great for sharing with teams or clients.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Content Export</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Export text content from web pages, editors, or applications as PDF. Preserve your work in a portable, shareable format.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-center">Other PDF Tools You Might Need</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">HTML to PDF Converter</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Convert web pages and HTML code directly to PDF format with full styling preserved.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">PDF Merger</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Combine multiple PDF files into a single document for easier sharing and organization.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Image to PDF Converter</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Convert JPG, PNG, and other image formats into professional PDF documents.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">PDF Splitter</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Extract specific pages or divide large PDFs into smaller, manageable files.</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">PDF Compressor</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Reduce PDF file size for easier sharing and storage without losing quality.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
         </div>
       </div>
     </>
