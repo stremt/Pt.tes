@@ -815,25 +815,80 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">More Text to PDF Tools</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">Explore specialized conversion tools for different text formats and needs.</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {[
-                  { name: "TXT to PDF", path: "/tools/txt-to-pdf", desc: "Convert standard .txt files" },
-                  { name: "Convert Text to PDF", path: "/tools/convert-text-to-pdf", desc: "Fast online conversion" },
-                  { name: "Paste Text to PDF", path: "/tools/paste-text-to-pdf", desc: "Convert copied snippets" },
-                  { name: "Text File to PDF", path: "/tools/text-file-to-pdf", desc: "Professional document generator" }
-                ].map((tool) => (
-                  <Link key={tool.path} href={tool.path} className="group">
-                    <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
-                      <CardHeader className="p-6">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-                          <FileText className="w-5 h-5" />
-                        </div>
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
-                        <CardDescription className="text-sm mt-2">{tool.desc}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </Link>
-                ))}
+
+              {/* Bucket 1 - Core Conversion Intent */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 1 – Core Conversions</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "TXT to PDF", path: "/tools/txt-to-pdf", desc: "Convert standard .txt files" },
+                    { name: "Convert Text to PDF", path: "/tools/convert-text-to-pdf", desc: "Fast online conversion" },
+                    { name: "Paste Text to PDF", path: "/tools/paste-text-to-pdf", desc: "Convert copied snippets" },
+                    { name: "Text File to PDF", path: "/tools/text-file-to-pdf", desc: "Professional document generator" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bucket 2 - Feature-Based Pages */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 2 – Advanced Features</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "Markdown to PDF", path: "/tools/markdown-to-pdf", desc: "Rich markdown formatting" },
+                    { name: "Text with Images to PDF", path: "/tools/text-with-images-to-pdf", desc: "Embed images in text" },
+                    { name: "Table to PDF", path: "/tools/table-to-pdf", desc: "Structured table conversion" },
+                    { name: "Math Equation to PDF", path: "/tools/math-equation-to-pdf", desc: "LaTeX & formulas support" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bucket 3 - Real Use Cases */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 3 – Real Use Cases</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "Notes to PDF", path: "/tools/notes-to-pdf", desc: "Study & personal notes" },
+                    { name: "Email to PDF", path: "/tools/email-to-pdf", desc: "Email archiving & storage" },
+                    { name: "Chat to PDF", path: "/tools/chat-to-pdf", desc: "WhatsApp & messenger chats" },
+                    { name: "Assignment to PDF", path: "/tools/assignment-to-pdf", desc: "Homework & essays" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </section>
 
