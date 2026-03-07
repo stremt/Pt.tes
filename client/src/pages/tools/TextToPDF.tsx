@@ -269,28 +269,28 @@ export default function TextToPDF() {
 
   const faqItems: FAQItem[] = [
     {
-      question: "How do I convert text to PDF online for free?",
-      answer: "Simply paste your text into the editor, customize the formatting if needed, and click 'Download PDF'. The conversion happens instantly in your browser."
+      question: "How do I convert a text file to PDF?",
+      answer: "Simply open your TXT file, copy the content, and paste it into our editor. You can then customize fonts or use Markdown before downloading your professional PDF."
     },
     {
-      question: "Can I convert a TXT file to PDF?",
-      answer: "Yes, you can copy the content of your TXT file, paste it here, and convert it to a professionally formatted PDF document."
+      question: "Can I convert Markdown to PDF?",
+      answer: "Yes, our tool has native support for Markdown. You can include headers, bold text, tables, and even complex math equations which will be rendered perfectly in the PDF."
     },
     {
-      question: "Does the tool support Markdown formatting?",
-      answer: "Absolutely! We have full support for Markdown, allowing you to use bold, italics, headers, lists, and even tables and math equations."
+      question: "Is this text to PDF converter safe?",
+      answer: "Absolutely. Your privacy is our priority. All processing happens locally in your browser, meaning your text is never uploaded to any server or stored anywhere."
     },
     {
-      question: "Can I include images inside the PDF?",
-      answer: "Yes, when using Markdown mode, you can include images using standard Markdown syntax which will be rendered in your final PDF."
+      question: "Does this tool work offline?",
+      answer: "Yes! Once the page is loaded, you can disconnect from the internet and continue converting text to PDF. It's a 100% client-side tool."
+    },
+    {
+      question: "Can I add images to my PDF document?",
+      answer: "Yes, by using Markdown syntax, you can embed images directly into your document. The converter will process these and include them in the final PDF file."
     },
     {
       question: "Can I convert text to PDF on mobile?",
       answer: "Yes, Pixocraft Text to PDF is fully responsive and works perfectly on smartphones and tablets."
-    },
-    {
-      question: "Is my text stored anywhere?",
-      answer: "No. All processing happens locally in your browser. Your data never leaves your device and is never stored on our servers."
     }
   ];
 
@@ -403,11 +403,11 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               </div>
             </div>
             <div className="space-y-3">
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Convert Text to Professional PDF
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+                Convert Text to PDF Online Free
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Transform plain text into high-quality, professionally formatted PDF documents instantly. 
+                Markdown • Images • Tables • Math Supported
                 <span className="block mt-1 font-medium text-primary/80 text-lg">100% Private • Offline • Free</span>
               </p>
             </div>
@@ -599,12 +599,74 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">What is a Text to PDF Converter?</h2>
                   <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                     <p>
-                      A Text to PDF converter is a specialized utility that transforms plain text data into a Portable Document Format (PDF). While simple text files are great for storage and basic editing, they lack the structural integrity and visual consistency required for professional communication. Our tool bridges this gap by allowing you to paste any text—including structured Markdown—and generate a high-quality PDF document instantly.
+                      A Text to PDF converter is a specialized utility that transforms plain text data into a Portable Document Format (PDF). Whether you need to <strong>convert TXT to PDF</strong>, <strong>paste text to PDF</strong>, or <strong>convert markdown to PDF</strong>, our tool handles it all instantly in your browser. While simple text files are great for storage, they lack the structural integrity required for professional communication.
                     </p>
                     <p>
-                      One of the primary advantages of converting text to PDF is cross-device compatibility. Unlike standard text editors which might display fonts or spacing differently depending on the operating system, a PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device. This document preservation is critical for assignments, contracts, and research notes.
+                      Our converter is designed to handle multiple search intents, from <strong>converting notes to PDF</strong> to <strong>converting email text to PDF</strong>. One of the primary advantages is cross-device compatibility. A PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device.
                     </p>
                   </div>
+                </div>
+              </section>
+
+              {/* How to Convert TXT to PDF */}
+              <section className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Convert a TXT File to PDF</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    Converting a standard text file (.txt) to a professional PDF is incredibly simple with Pixocraft. Follow these easy steps:
+                  </p>
+                  <ol className="space-y-2">
+                    <li><strong>Step 1:</strong> Copy the content from your TXT file or document.</li>
+                    <li><strong>Step 2:</strong> Paste it into the Pixocraft Text to PDF editor above.</li>
+                    <li><strong>Step 3:</strong> Enable formatting options like Markdown if you have structured content.</li>
+                    <li><strong>Step 4:</strong> Click the "Download PDF" button to generate your file.</li>
+                  </ol>
+                  <p>
+                    This process ensures your <strong>text file to PDF</strong> conversion is fast, secure, and preserves all your data without any server uploads.
+                  </p>
+                </div>
+              </section>
+
+              {/* Convert Text to PDF for Different Needs */}
+              <section className="space-y-8">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Convert Text to PDF for Different Needs</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Notes to PDF</h3>
+                    <p className="text-muted-foreground">Perfect for students and researchers who need to turn raw study notes into organized, shareable study guides.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Email to PDF</h3>
+                    <p className="text-muted-foreground">Easily archive important email correspondence as permanent, un-editable PDF documents for legal or professional records.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Chat Messages to PDF</h3>
+                    <p className="text-muted-foreground">Save project discussions or support chats as PDF files to maintain a clear history of communications.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Assignments to PDF</h3>
+                    <p className="text-muted-foreground">Students can format their essays using Markdown and export them as clean, submission-ready PDF files.</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Why Choose Pixocraft */}
+              <section className="bg-primary/5 p-8 md:p-12 rounded-3xl space-y-8">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Why Choose Pixocraft Text to PDF</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                  {[
+                    "Fully Offline Processing",
+                    "Markdown Support",
+                    "Math Equation Rendering",
+                    "Image Embedding",
+                    "Table Support",
+                    "Custom Fonts"
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-foreground font-medium">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs">✔</div>
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </section>
 
@@ -729,8 +791,8 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                     <p className="text-muted-foreground">Check out our other free productivity tools.</p>
                   </div>
                   <div className="flex flex-wrap justify-center gap-3">
-                    {["HTML to PDF", "PDF Merger", "PDF Splitter", "Image to PDF", "PDF Compressor"].map((tool) => (
-                      <Link key={tool} href="/tools/pdf" className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
+                    {["HTML to PDF", "PDF to Text", "Markdown Editor", "Image to PDF", "PDF Merger", "PDF Splitter", "PDF Compressor"].map((tool) => (
+                      <Link key={tool} href={tool === "PDF to Text" ? "/tools/pdf" : tool === "Markdown Editor" ? "/tools/text" : "/tools/pdf"} className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
                         {tool}
                       </Link>
                     ))}
