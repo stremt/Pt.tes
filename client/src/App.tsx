@@ -139,6 +139,8 @@ const TableToPdf = lazy(() => import("@/pages/tools/seo/TableToPdf"));
 const MathEquationToPdf = lazy(() => import("@/pages/tools/seo/MathEquationToPdf"));
 const NotesToPdf = lazy(() => import("@/pages/tools/seo/NotesToPdf"));
 const EmailToPdf = lazy(() => import("@/pages/tools/seo/EmailToPdf"));
+const ChatToPdf = lazy(() => import("@/pages/tools/seo/ChatToPdf"));
+const AssignmentToPdf = lazy(() => import("@/pages/tools/seo/AssignmentToPdf"));
 const TextToFile = lazy(() => import("@/pages/tools/TextToFile"));
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -753,6 +755,8 @@ function Router() {
         <Route path="/tools/math-equation-to-pdf" component={MathEquationToPdf} />
         <Route path="/tools/notes-to-pdf" component={NotesToPdf} />
         <Route path="/tools/email-to-pdf" component={EmailToPdf} />
+        <Route path="/tools/chat-to-pdf" component={ChatToPdf} />
+        <Route path="/tools/assignment-to-pdf" component={AssignmentToPdf} />
         <Route path="/tools/text-to-pdf/convert-online" component={ConvertTextFileToPdfOnline} />
         <Route path="/tools/text-to-pdf/formatting-guide" component={ConvertDocumentTextToPdfFormatting} />
         <Route path="/tools/text-to-pdf/email-converter" component={TextToPdfEmailConverter} />
