@@ -129,6 +129,7 @@ import CustomPdfWatermarkCreator from "@/pages/CustomPdfWatermarkCreator";
 import ProfessionalPdfWatermarkingTool from "@/pages/ProfessionalPdfWatermarkingTool";
 
 // Lazily load all tool components
+const TxtToPdf = lazy(() => import("@/pages/tools/seo/TxtToPdf"));
 const TextToFile = lazy(() => import("@/pages/tools/TextToFile"));
 const TempMail = lazy(() => import("@/pages/tools/TempMail"));
 const PasswordGenerator = lazy(() => import("@/pages/tools/PasswordGenerator"));
@@ -733,6 +734,7 @@ function Router() {
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
         <Route path="/tools/text-to-pdf" component={TextToPDF} />
+        <Route path="/tools/txt-to-pdf" component={TxtToPdf} />
         <Route path="/tools/text-to-pdf/convert-online" component={ConvertTextFileToPdfOnline} />
         <Route path="/tools/text-to-pdf/formatting-guide" component={ConvertDocumentTextToPdfFormatting} />
         <Route path="/tools/text-to-pdf/email-converter" component={TextToPdfEmailConverter} />
