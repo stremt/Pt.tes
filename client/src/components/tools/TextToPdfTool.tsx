@@ -9,8 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Download, Type } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import html2pdf from "html2pdf.js";
-import { marked } from "marked";
-import katex from "katex";
+import MarkdownIt from "markdown-it";
+import markdownItKatex from "markdown-it-katex";
 import "katex/dist/katex.min.css";
 
 interface TextToPdfToolProps {
@@ -18,6 +18,15 @@ interface TextToPdfToolProps {
   storageKey?: string;
   defaultMarkdown?: boolean;
 }
+
+// Initialize markdown-it with KaTeX plugin for math rendering
+const md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+  breaks: true,
+  gfm: true,
+}).use(markdownItKatex);
 
 export function TextToPdfTool({ 
   sampleText, 
@@ -74,49 +83,18 @@ export function TextToPdfTool({
       let htmlContent = "";
       
       if (isMarkdown) {
-        marked.setOptions({
-          gfm: true,
-          breaks: true
-        });
-        let markdownHtml = await marked(textContent);
-        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
-        
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = markdownHtml;
-        
-        const mathElements = tempDiv.querySelectorAll('code.language-math, .math, [class*="math"]');
-        mathElements.forEach(el => {
-          try {
-            const math = el.textContent || "";
-            const isDisplay = el.tagName === 'DIV' || el.classList.contains('math-display');
-            el.innerHTML = katex.renderToString(math, { 
-              displayMode: isDisplay, 
-              throwOnError: false,
-              trust: true
-            });
-          } catch (e) {
-            console.error("KaTeX error:", e);
-          }
-        });
-        
-        let processedHtml = tempDiv.innerHTML;
-        processedHtml = processedHtml.replace(/\$\$(.*?)\$\$/g, (match, math) => {
-          try {
-            return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
-          } catch (e) { return match; }
-        });
-        processedHtml = processedHtml.replace(/\$(.*?)\$/g, (match, math) => {
-          try {
-            return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
-          } catch (e) { return match; }
-        });
+        // Use markdown-it with KaTeX plugin for proper math rendering
+        const processedHtml = md.render(textContent);
 
         htmlContent += `
           <style>
+            body { margin: 0; padding: 0; }
             .pdf-export-content { line-height: 1.6; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
             .pdf-export-content h1 { font-size: 28px; font-weight: 700; margin: 24px 0 12px; }
             .pdf-export-content h2 { font-size: 20px; font-weight: 600; margin: 20px 0 10px; }
             .pdf-export-content h3 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; }
+            .pdf-export-content h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+            .pdf-export-content h5, .pdf-export-content h6 { font-size: 12px; font-weight: 600; margin: 12px 0 6px; }
             .pdf-export-content p { font-size: 12pt; margin: 10px 0; line-height: 1.6; page-break-inside: avoid; }
             .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0 10px 20px; }
             .pdf-export-content li { margin: 6px 0; }
@@ -143,12 +121,13 @@ export function TextToPdfTool({
               padding: 16px; 
               border-radius: 6px; 
               font-family: "Courier New", monospace; 
-              font-size: 12px; 
+              font-size: 11px; 
               line-height: 1.6;
               overflow-x: auto; 
               margin: 20px 0;
               page-break-inside: avoid;
               white-space: pre-wrap;
+              word-break: break-all;
             }
             .pdf-export-content pre code {
               display: block;
@@ -184,9 +163,11 @@ export function TextToPdfTool({
               page-break-after: avoid;
               font-weight: 800;
             }
+            .katex { font-size: 1em; }
             .katex-display { 
               margin: 16px 0; 
               page-break-inside: avoid;
+              display: block;
             }
           </style>
           <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${processedHtml}</div>
@@ -243,30 +224,10 @@ export function TextToPdfTool({
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
 
-    const renderMarkdown = async () => {
-      marked.setOptions({
-        gfm: true,
-        breaks: true
-      });
-      let html = await marked(content);
-      html = html.replace(/<br\s*\/?>/g, "");
-      
-      html = html.replace(/\$\$(.*?)\$\$/g, (match, math) => {
-        try {
-          return katex.renderToString(math, { displayMode: true, throwOnError: false });
-        } catch (e) { return match; }
-      });
-      html = html.replace(/\$(.*?)\$/g, (match, math) => {
-        try {
-          return katex.renderToString(math, { displayMode: false, throwOnError: false });
-        } catch (e) { return match; }
-      });
-
-      setHtmlContent(html);
-    };
-
     useEffect(() => {
-      renderMarkdown();
+      // Use markdown-it with KaTeX plugin for consistent rendering
+      const html = md.render(content);
+      setHtmlContent(html);
     }, [content]);
 
     return (
