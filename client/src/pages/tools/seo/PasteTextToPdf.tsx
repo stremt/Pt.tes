@@ -76,29 +76,29 @@ export default function PasteTextToPdf() {
             <span className="text-foreground font-medium">Paste Text to PDF</span>
           </div>
 
-          <div className="text-center space-y-6 mb-16">
-            <div className="flex items-center justify-center mb-2">
-              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center ring-8 ring-primary/5">
-                <Type className="h-10 w-10 text-primary" />
+          <div className="text-center space-y-8 mb-16 relative">
+            <div className="flex items-center justify-center mb-4">
+              <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center ring-1 ring-primary/30 shadow-lg">
+                <Type className="h-12 w-12 text-primary" />
               </div>
             </div>
-            <div className="space-y-3">
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
                 Paste Text to PDF Online
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Copy any text and convert it instantly to a professional PDF
-                <span className="block mt-1 font-medium text-primary/80 text-lg">100% Private • Offline • Free</span>
+                <span className="block mt-2 font-semibold text-primary text-base">100% Private • Offline • Free</span>
               </p>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Copy & Paste
               </Badge>
-              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Instant Conversion
               </Badge>
-              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Any Source
               </Badge>
             </div>
