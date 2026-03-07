@@ -809,9 +809,37 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 </div>
               </section>
 
-              {/* FAQ Section - Clean Accordion Style */}
-              <section className="space-y-12">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-foreground">Frequently Asked Questions</h2>
+            {/* Popular PDF Tools Section */}
+            <section className="space-y-12">
+              <div className="text-center space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">More Text to PDF Tools</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">Explore specialized conversion tools for different text formats and needs.</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  { name: "TXT to PDF", path: "/tools/txt-to-pdf", desc: "Convert standard .txt files" },
+                  { name: "Convert Text to PDF", path: "/tools/convert-text-to-pdf", desc: "Fast online conversion" },
+                  { name: "Paste Text to PDF", path: "/tools/paste-text-to-pdf", desc: "Convert copied snippets" },
+                  { name: "Text File to PDF", path: "/tools/text-file-to-pdf", desc: "Professional document generator" }
+                ].map((tool) => (
+                  <Link key={tool.path} href={tool.path} className="group">
+                    <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                      <CardHeader className="p-6">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
+                          <FileText className="w-5 h-5" />
+                        </div>
+                        <CardTitle className="text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                        <CardDescription className="text-sm mt-2">{tool.desc}</CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            {/* FAQ Section - Clean Accordion Style */}
+            <section className="space-y-12">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-foreground">Frequently Asked Questions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                   {faqItems.map((faq, idx) => (
                     <div key={idx} className="space-y-3 group">
