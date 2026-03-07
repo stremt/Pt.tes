@@ -438,7 +438,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Filename (Optional)</label>
+                      <label className="text-sm font-medium mb-2 block text-foreground">Filename (Optional)</label>
                       <Input
                         placeholder="Enter filename..."
                         value={titleText}
@@ -449,7 +449,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                     
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Font Family</label>
+                        <label className="text-sm font-medium mb-2 block text-foreground">Font Family</label>
                         <Select value={fontFamily} onValueChange={setFontFamily}>
                           <SelectTrigger data-testid="select-font">
                             <SelectValue />
@@ -470,7 +470,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       </div>
 
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Font Size (pt)</label>
+                        <label className="text-sm font-medium mb-2 block text-foreground">Font Size (pt)</label>
                         <Select value={fontSize} onValueChange={setFontSize}>
                           <SelectTrigger data-testid="select-size">
                             <SelectValue />
@@ -527,7 +527,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
                 {/* Text Input */}
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-1">
                     <div>
                       <CardTitle>Text Input</CardTitle>
                       <CardDescription>Enter content below</CardDescription>
@@ -556,7 +556,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               {/* Preview */}
               <div className="lg:sticky lg:top-6">
                 <Card className="flex flex-col h-full">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-1">
                     <CardTitle>Live Preview</CardTitle>
                     <Badge variant="outline">{isMarkdown ? "Markdown" : "Plain Text"}</Badge>
                   </CardHeader>
@@ -579,8 +579,9 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                           </div>
                         )
                       ) : (
-                        <div className="flex items-center justify-center h-full text-muted-foreground italic">
-                          Preview will appear here...
+                        <div className="h-full flex flex-col items-center justify-center text-muted-foreground/50 italic space-y-4">
+                          <Eye className="w-12 h-12 opacity-20" />
+                          <p>Preview will appear here...</p>
                         </div>
                       )}
                     </div>
@@ -595,7 +596,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <section className="relative">
                 <div className="absolute -left-4 top-0 w-1 h-full bg-primary/20 rounded-full hidden md:block" />
                 <div className="space-y-6">
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight">What is a Text to PDF Converter?</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">What is a Text to PDF Converter?</h2>
                   <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                     <p>
                       A Text to PDF converter is a specialized utility that transforms plain text data into a Portable Document Format (PDF). While simple text files are great for storage and basic editing, they lack the structural integrity and visual consistency required for professional communication. Our tool bridges this gap by allowing you to paste any text—including structured Markdown—and generate a high-quality PDF document instantly.
@@ -610,7 +611,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               {/* Key Features */}
               <section className="space-y-12">
                 <div className="text-center space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Powerful Features for Professionals</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Powerful Features for Professionals</h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto">Everything you need to create perfect documents directly in your browser.</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -627,7 +628,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 text-primary">
                           <feature.icon className="w-5 h-5" />
                         </div>
-                        <CardTitle className="text-xl">{feature.title}</CardTitle>
+                        <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
@@ -641,7 +642,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <section className="bg-card border rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32" />
                 <div className="relative space-y-12">
-                  <h2 className="text-3xl font-bold text-center tracking-tight">Simple 4-Step Process</h2>
+                  <h2 className="text-3xl font-bold text-center tracking-tight text-foreground">Simple 4-Step Process</h2>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
                     {[
                       { step: "01", title: "Input Content", desc: "Paste or type your text into the editor" },
@@ -654,7 +655,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                           {item.step}
                         </div>
                         <div className="space-y-1">
-                          <h3 className="font-bold text-lg">{item.title}</h3>
+                          <h3 className="font-bold text-lg text-foreground">{item.title}</h3>
                           <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                         </div>
                       </div>
@@ -663,12 +664,38 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 </div>
               </section>
 
+              {/* Use Case Section */}
+              <section className="space-y-12">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Common Use Cases</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Discover how professionals and students are using our converter.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { title: "Students", desc: "Converting assignments and essays for professional submission." },
+                    { title: "Freelancers", desc: "Exporting clean contracts and project proposals." },
+                    { title: "Researchers", desc: "Saving technical notes with complex math formulas." },
+                    { title: "Business Owners", desc: "Creating quick internal documents and memos." },
+                    { title: "Developers", desc: "Exporting README files and documentation as PDFs." },
+                    { title: "Writers", desc: "Transforming drafts into readable manuscript formats." },
+                  ].map((useCase, idx) => (
+                    <div key={idx} className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                      <div className="space-y-1">
+                        <h4 className="font-bold text-lg text-foreground">{useCase.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{useCase.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
               {/* Privacy - Bold Highlight */}
               <section className="relative py-12">
                 <div className="absolute inset-0 bg-primary/[0.03] rounded-[2rem] -rotate-1" />
                 <div className="relative p-8 md:p-12 text-center space-y-6">
                   <Badge variant="outline" className="text-primary border-primary/20 px-4 py-1 rounded-full uppercase tracking-widest text-[10px] font-bold">Privacy First</Badge>
-                  <h2 className="text-3xl md:text-4xl font-bold">100% Private & Secure Conversion</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground">100% Private & Secure Conversion</h2>
                   <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                     Your documents never leave your computer. All processing happens locally in your browser session using secure client-side technology. 
                     <span className="font-semibold text-foreground"> No uploads. No tracking. No storage.</span>
@@ -678,11 +705,11 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
               {/* FAQ Section - Clean Accordion Style */}
               <section className="space-y-12">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">Frequently Asked Questions</h2>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-foreground">Frequently Asked Questions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                   {faqItems.map((faq, idx) => (
                     <div key={idx} className="space-y-3 group">
-                      <h3 className="font-bold text-xl flex items-start gap-3">
+                      <h3 className="font-bold text-xl flex items-start gap-3 text-foreground">
                         <span className="text-primary mt-1">Q.</span>
                         {faq.question}
                       </h3>
@@ -695,21 +722,22 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               </section>
 
               {/* Related Tools - Grid */}
-            <section className="pt-20 border-t border-primary/10">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                  <h2 className="text-2xl font-bold tracking-tight text-foreground">Related PDF Tools</h2>
-                  <p className="text-muted-foreground">Check out our other free productivity tools.</p>
+              <section className="pt-20 border-t border-primary/10">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div>
+                    <h2 className="text-2xl font-bold tracking-tight text-foreground">Related PDF Tools</h2>
+                    <p className="text-muted-foreground">Check out our other free productivity tools.</p>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {["HTML to PDF", "PDF Merger", "PDF Splitter", "Image to PDF", "PDF Compressor"].map((tool) => (
+                      <Link key={tool} href="/tools/pdf" className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
+                        {tool}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {["HTML to PDF", "PDF Merger", "PDF Splitter", "Image to PDF", "PDF Compressor"].map((tool) => (
-                    <Link key={tool} href="/tools/pdf" className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
-                      {tool}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </section>
+              </section>
+            </div>
           </div>
         </div>
       </div>
