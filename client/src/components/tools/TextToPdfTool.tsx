@@ -9,8 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Download, Type } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import html2pdf from "html2pdf.js";
-import MarkdownIt from "markdown-it";
-import markdownItKatex from "markdown-it-katex";
+import { marked } from "marked";
+import katex from "katex";
 import "katex/dist/katex.min.css";
 
 interface TextToPdfToolProps {
@@ -19,14 +19,38 @@ interface TextToPdfToolProps {
   defaultMarkdown?: boolean;
 }
 
-// Initialize markdown-it with KaTeX plugin for math rendering
-const md = new MarkdownIt({
-  html: true,
-  linkify: true,
-  typographer: true,
-  breaks: true,
-  gfm: true,
-}).use(markdownItKatex);
+// Render math in HTML - process both inline and block math with KaTeX
+const renderMathInHtml = (html: string): string => {
+  // Block math: $$...$$
+  html = html.replace(/\$\$\n?([\s\S]*?)\n?\$\$/g, (match, math) => {
+    try {
+      return `<div class="katex-display">${katex.renderToString(math.trim(), { 
+        displayMode: true, 
+        throwOnError: false,
+        trust: true 
+      })}</div>`;
+    } catch (e) {
+      console.error("KaTeX error:", e);
+      return match;
+    }
+  });
+
+  // Inline math: $...$ (but not $$)
+  html = html.replace(/(?<!\$)\$(?!\$)(.*?)(?<!\$)\$(?!\$)/g, (match, math) => {
+    try {
+      return katex.renderToString(math.trim(), { 
+        displayMode: false, 
+        throwOnError: false,
+        trust: true 
+      });
+    } catch (e) {
+      console.error("KaTeX error:", e);
+      return match;
+    }
+  });
+
+  return html;
+};
 
 export function TextToPdfTool({ 
   sampleText, 
@@ -83,8 +107,15 @@ export function TextToPdfTool({
       let htmlContent = "";
       
       if (isMarkdown) {
-        // Use markdown-it with KaTeX plugin for proper math rendering
-        const processedHtml = md.render(textContent);
+        marked.setOptions({
+          gfm: true,
+          breaks: true
+        });
+        let markdownHtml = await marked(textContent);
+        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
+        
+        // Apply KaTeX math rendering to HTML
+        const processedHtml = renderMathInHtml(markdownHtml);
 
         htmlContent += `
           <style>
@@ -225,9 +256,20 @@ export function TextToPdfTool({
     const [htmlContent, setHtmlContent] = useState("");
 
     useEffect(() => {
-      // Use markdown-it with KaTeX plugin for consistent rendering
-      const html = md.render(content);
-      setHtmlContent(html);
+      const renderPreview = async () => {
+        marked.setOptions({
+          gfm: true,
+          breaks: true
+        });
+        let html = await marked(content);
+        html = html.replace(/<br\s*\/?>/g, "");
+        
+        // Apply KaTeX math rendering
+        html = renderMathInHtml(html);
+        setHtmlContent(html);
+      };
+
+      renderPreview();
     }, [content]);
 
     return (
