@@ -1,0 +1,257 @@
+You are working on the Pixocraft Tools website.
+
+We already have a main tool page:
+
+/tools/text-to-pdf
+
+This is the **primary Text → PDF converter tool page**.
+
+We are now creating multiple **SEO landing pages** that target different search intents related to this tool. These pages must use the **same Text → PDF tool component**, but with slightly different sample content depending on the page topic.
+
+The goal is to create a **topical SEO cluster** around the main Text → PDF tool.
+
+---
+
+PROJECT GOAL
+
+Pixocraft wants to rank for many search queries related to converting text to PDF.
+
+Examples of queries we want to capture:
+
+txt to pdf
+convert text to pdf
+paste text to pdf
+text file to pdf
+markdown to pdf
+notes to pdf
+email to pdf
+chat to pdf
+assignment to pdf
+
+Each SEO page introduces the tool with a specific use case or feature.
+
+However, the **actual conversion tool must be exactly the same component across all pages.**
+
+---
+
+CRITICAL RULES
+
+1. There must be **only one tool component** responsible for the Text → PDF conversion logic.
+
+Example component:
+
+TextToPdfTool
+
+This component must contain:
+
+• text editor
+• preview panel
+• markdown toggle
+• formatting options
+• download PDF button
+• load sample button
+
+The conversion logic must not be duplicated.
+
+All SEO pages should import and use the same component.
+
+---
+
+TOOL CONSISTENCY
+
+The following must remain identical across all pages:
+
+• tool layout
+• conversion engine
+• preview system
+• download functionality
+• formatting controls
+• markdown support
+• image support
+• table support
+• math equation support
+
+Only the **sample content loaded by the "Load Sample" button should change depending on the page**.
+
+---
+
+SEO PAGE STRUCTURE
+
+Each SEO page should follow this layout:
+
+Breadcrumb
+
+Home / Tools / PDF Tools / Text to PDF / Current Page
+
+Example:
+
+Home / Tools / PDF Tools / Text to PDF / TXT to PDF
+
+The "Text to PDF" breadcrumb must link to:
+
+/tools/text-to-pdf
+
+This signals to Google that the main page is the parent tool.
+
+---
+
+TOOL PLACEMENT
+
+The tool should appear near the top of the page so users can immediately use it.
+
+Structure:
+
+Hero section
+Tool section
+SEO content sections
+FAQ
+Related tools
+
+---
+
+SAMPLE CONTENT SYSTEM
+
+The "Load Sample" button must load a different example depending on the page.
+
+Examples:
+
+TXT to PDF page → load a plain text file example
+
+Markdown to PDF page → load markdown example
+
+Notes to PDF page → load study notes example
+
+Email to PDF page → load email example
+
+Chat to PDF page → load conversation example
+
+Assignment to PDF page → load academic assignment example
+
+The tool itself remains identical.
+
+---
+
+EXAMPLE SAMPLE CONTENTS
+
+TXT page sample:
+
+Example TXT Document
+
+This is a plain text file example that demonstrates how a simple text document can be converted into a professional PDF using the Pixocraft Text to PDF converter.
+
+Line 1
+Line 2
+Line 3
+
+---
+
+Markdown page sample:
+
+# Markdown Example
+
+## Features
+
+* Headings
+* Lists
+* Tables
+
+| Feature  | Supported |
+| -------- | --------- |
+| Markdown | Yes       |
+| Images   | Yes       |
+
+---
+
+Notes page sample:
+
+# Study Notes
+
+Topic: Photosynthesis
+
+Key Points
+
+* Plants use sunlight to create energy
+* Chlorophyll absorbs light
+* Oxygen is released during photosynthesis
+
+---
+
+Email page sample:
+
+Subject: Project Update
+
+Dear Team,
+
+The latest project milestone has been completed successfully.
+
+Best regards
+Project Manager
+
+---
+
+Chat page sample:
+
+John: Did you finish the report?
+
+Sarah: Yes, I sent it earlier today.
+
+John: Great, I'll review it now.
+
+---
+
+Assignment page sample:
+
+Assignment Title: Climate Change
+
+Introduction
+
+Climate change refers to long-term changes in global temperatures and weather patterns.
+
+Conclusion
+
+Reducing carbon emissions is important for protecting the planet.
+
+---
+
+SEO CONTENT RULES
+
+Each page must include unique SEO content related to the keyword topic.
+
+For example:
+
+TXT page → explains TXT file conversion
+Markdown page → explains Markdown syntax
+Notes page → explains converting notes to PDF
+Email page → explains email archiving
+
+The content must be unique to avoid duplicate content issues.
+
+---
+
+INTERNAL LINKING
+
+Each SEO page must include a section linking back to the main tool page.
+
+Example:
+
+Use the Pixocraft Text to PDF Converter
+
+Link:
+
+/tools/text-to-pdf
+
+This reinforces the relationship between pages.
+
+---
+
+FINAL GOAL
+
+Create a scalable SEO architecture where:
+
+• one powerful Text → PDF tool component exists
+• multiple SEO landing pages reuse that tool
+• each page targets a different search intent
+• sample content changes depending on the page
+• Google understands the relationship between pages through breadcrumbs and internal links
+
+This structure allows Pixocraft to rank for many related keywords while maintaining a single, consistent tool experience.
