@@ -1,0 +1,172 @@
+You are working on the Pixocraft Tools website.
+
+Pixocraft contains hundreds of online tools. Our goal is to build SEO landing pages that target specific search intents while still allowing users to use the tool directly on the page.
+
+Important concept:
+
+We have a **MAIN TOOL PAGE** and multiple **SEO LANDING PAGES** that support it.
+
+Example:
+
+Main tool page:
+/tools/text-to-pdf
+
+SEO landing pages:
+/tools/txt-to-pdf
+/tools/paste-text-to-pdf
+/tools/convert-text-to-pdf
+/tools/text-file-to-pdf
+
+These pages exist to target different Google search intents.
+
+The SEO landing pages must:
+
+* introduce the tool
+* explain the use case
+* allow users to use the tool directly
+* link back to the main tool page
+
+This structure helps Google understand topical relevance.
+
+---
+
+# IMPORTANT RULES
+
+The page being created is NOT the main tool page.
+
+It is an **SEO landing page that introduces the main tool**.
+
+The main tool page is:
+/tools/text-to-pdf
+
+Every SEO page must clearly indicate that the main tool exists.
+
+---
+
+# BREADCRUMB STRUCTURE
+
+At the top of the page add breadcrumbs like:
+
+Home
+Tools
+PDF Tools
+Text to PDF
+TXT to PDF Converter
+
+Example:
+
+Home / Tools / PDF Tools / Text to PDF / TXT to PDF Converter
+
+The "Text to PDF" breadcrumb must link to:
+
+/tools/text-to-pdf
+
+This signals to Google that the main tool page is the parent.
+
+---
+
+# CANONICAL STRUCTURE
+
+The canonical URL must always point to the current page.
+
+Example:
+
+<link rel="canonical" href="/tools/txt-to-pdf">
+
+Do NOT canonicalize to the main tool page.
+
+---
+
+# INTERNAL LINKING
+
+Inside the page add a strong internal link such as:
+
+"Use the Pixocraft Text to PDF Converter"
+
+Link to:
+/tools/text-to-pdf
+
+This reinforces the relationship between pages.
+
+---
+
+# TOOL INTEGRATION
+
+The same Text → PDF tool interface should appear on this page.
+
+However the surrounding content must be unique and focused on the keyword of the SEO page.
+
+Example:
+
+TXT to PDF page focuses on:
+
+* converting TXT files
+* text file to PDF
+* .txt document conversion
+
+---
+
+# CONTENT RULES
+
+The page content must:
+
+• Be fully unique
+• Target the specific keyword intent
+• Be at least 800–1200 words
+• Use clear headings and semantic HTML
+• Include FAQs
+• Include use cases
+• Include feature explanations
+
+Avoid copying the exact text from the main tool page.
+
+---
+
+# SEO STRUCTURE
+
+The page must include:
+
+H1 heading
+Introduction
+Explanation of the specific conversion type
+Step-by-step guide
+Benefits of conversion
+Feature highlights
+Use cases
+FAQ section
+Internal links to related tools
+
+---
+
+# USER EXPERIENCE
+
+The tool must remain visible and easy to use.
+
+Place the tool near the top of the page so users can immediately start converting text to PDF.
+
+---
+
+# SEO GOAL
+
+These pages are designed to capture search traffic for long-tail keywords while strengthening the authority of the main tool page.
+
+Examples of keywords:
+
+txt to pdf
+convert text to pdf
+paste text to pdf
+text file to pdf
+
+All pages must support the main tool page and improve overall topical authority.
+
+---
+
+# FINAL OBJECTIVE
+
+Create an SEO landing page that:
+
+• Targets a specific keyword
+• Clearly references the main tool page
+• Allows users to use the tool directly
+• Strengthens internal linking structure
+• Helps Pixocraft rank higher in Google search results
