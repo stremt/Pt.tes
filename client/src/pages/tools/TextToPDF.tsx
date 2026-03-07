@@ -291,6 +291,14 @@ export default function TextToPDF() {
     {
       question: "Can I convert text to PDF on mobile?",
       answer: "Yes, Pixocraft Text to PDF is fully responsive and works perfectly on smartphones and tablets."
+    },
+    {
+      question: "What is the best free text to PDF converter?",
+      answer: "Pixocraft offers a top-tier, free online text to PDF converter that works entirely in your browser. It supports Markdown, math equations, and tables while keeping your data 100% private."
+    },
+    {
+      question: "Can I convert copied text to PDF?",
+      answer: "Yes! You can paste text to PDF instantly using the Pixocraft editor. Simply copy your text from any source, paste it into the input area, and click download."
     }
   ];
 
@@ -610,10 +618,12 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
               {/* How to Convert TXT to PDF */}
               <section className="space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Convert a TXT File to PDF</h2>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Convert TXT to PDF Online</h2>
                 <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                   <p>
-                    Converting a standard text file (.txt) to a professional PDF is incredibly simple with Pixocraft. Follow these easy steps:
+                    Converting your plain text documents to professional PDF files is easier than ever with Pixocraft. 
+                    You can paste text to PDF instantly using the Pixocraft editor without uploading any files.
+                    Follow these easy steps:
                   </p>
                   <ol className="space-y-2">
                     <li><strong>Step 1:</strong> Copy the content from your TXT file or document.</li>
@@ -624,6 +634,25 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   <p>
                     This process ensures your <strong>text file to PDF</strong> conversion is fast, secure, and preserves all your data without any server uploads.
                   </p>
+                </div>
+              </section>
+
+              {/* Markdown to PDF Section */}
+              <section className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Convert Markdown to PDF Easily</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    Our advanced engine doesn't just handle plain text—it's a full-featured Markdown to PDF converter. 
+                    Our tool supports various Markdown elements to help you create professional documents:
+                  </p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <li className="flex items-center gap-2"><strong>Headings:</strong> Create clear document structure with H1-H6.</li>
+                    <li className="flex items-center gap-2"><strong>Code Blocks:</strong> Perfect for technical documentation with syntax highlighting.</li>
+                    <li className="flex items-center gap-2"><strong>Lists:</strong> Support for ordered, unordered, and task lists.</li>
+                    <li className="flex items-center gap-2"><strong>Tables:</strong> Render complex data tables with professional styling.</li>
+                    <li className="flex items-center gap-2"><strong>Math Formulas:</strong> Beautifully rendered equations using KaTeX.</li>
+                    <li className="flex items-center gap-2"><strong>Image Embedding:</strong> Include visual references directly in your PDF.</li>
+                  </ul>
                 </div>
               </section>
 
@@ -652,7 +681,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
               {/* Why Choose Pixocraft */}
               <section className="bg-primary/5 p-8 md:p-12 rounded-3xl space-y-8">
-                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Why Choose Pixocraft Text to PDF</h2>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Why Pixocraft Text to PDF is Better</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {[
                     "Fully Offline Processing",
@@ -660,6 +689,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                     "Math Equation Rendering",
                     "Image Embedding",
                     "Table Support",
+                    "No File Upload Required",
                     "Custom Fonts"
                   ].map((item) => (
                     <div key={item} className="flex items-center gap-2 text-foreground font-medium">
@@ -779,6 +809,28 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
                       </div>
                     </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Popular PDF Tools Section */}
+              <section className="space-y-8">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Popular PDF Tools</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {[
+                    { name: "PDF to Text Converter", url: "/tools/pdf" },
+                    { name: "HTML to PDF Converter", url: "/tools/pdf" },
+                    { name: "Image to PDF Converter", url: "/tools/pdf" },
+                    { name: "PDF Merger Tool", url: "/tools/pdf" },
+                    { name: "Markdown Editor", url: "/tools/text" }
+                  ].map((tool) => (
+                    <Link 
+                      key={tool.name} 
+                      href={tool.url}
+                      className="p-4 rounded-xl bg-background border hover:border-primary/50 hover:shadow-sm transition-all text-center text-sm font-medium text-foreground"
+                    >
+                      {tool.name}
+                    </Link>
                   ))}
                 </div>
               </section>
