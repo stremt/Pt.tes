@@ -1,148 +1,68 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { Download, Zap, ShieldCheck, Globe, Type, Table as TableIcon, Image as ImageIcon, Calculator, CheckCircle2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import html2pdf from "html2pdf.js";
-import { marked } from "marked";
-import katex from "katex";
-import "katex/dist/katex.min.css";
+import { Badge } from "@/components/ui/badge";
+import { TextToPdfTool } from "@/components/tools/TextToPdfTool";
+import { ShieldCheck, Globe, Type, Download, Zap, CheckCircle2 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const sampleText = `# Chat Conversation Transcript
+
+## Date: March 7, 2026
+
+### Project Update Discussion
+
+**John**: Hey Sarah, did you finish the project review?
+
+**Sarah**: Yes! I completed it yesterday. The design looks great and all the features are working as expected.
+
+**John**: Perfect! What about the testing phase?
+
+**Sarah**: Testing is almost complete. We found a few minor bugs that I've documented in the ticket system. Nothing critical, just edge cases.
+
+**John**: Excellent! When can we deploy to production?
+
+**Sarah**: I'd say we're ready by next Wednesday. That gives us time to address any final issues and prepare the documentation.
+
+**John**: Great timeline. I'll schedule the deployment meeting for Tuesday afternoon.
+
+**Sarah**: Sounds good. I'll prepare the deployment checklist and share it with the team.
+
+**John**: Thanks for the quick turnaround on this. Your work has been outstanding.
+
+**Sarah**: Thanks for the positive feedback! Happy to help. See you at the meeting.
+
+---
+
+## Summary
+Project review completed successfully with minor bugs identified. Deployment scheduled for Wednesday with preparation on Tuesday.`;
+
+const faqItems: FAQItem[] = [
+  { question: "Can I convert chat conversations to PDF?", answer: "Yes! Simply copy your chat transcript and paste it into our converter. You can save important conversations as professional PDF documents." },
+  { question: "How do I preserve chat formatting?", answer: "Our tool supports Markdown formatting, which is perfect for chat transcripts. Use simple formatting to structure speaker names and timestamps." },
+  { question: "Is this tool secure for private conversations?", answer: "Absolutely. All conversion happens locally in your browser. Your chat data is never uploaded to any server." },
+  { question: "Can I export chats from messaging apps?", answer: "Yes. Most messaging apps allow you to export or copy conversations. Just paste the content into our converter." },
+  { question: "What formats work best for chat transcripts?", answer: "Plain text, Markdown-formatted chat with speaker labels work perfectly. You can customize fonts and formatting before downloading." }
+];
+
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Pixocraft Chat to PDF Converter",
+  "operatingSystem": "Web",
+  "applicationCategory": "UtilityApplication",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free" }
+};
 
 export default function ChatToPdfConverter() {
-  const [textContent, setTextContent] = useState(() => {
-    return localStorage.getItem("text-to-pdf-content") || "";
-  });
-  const [converting, setConverting] = useState(false);
-  const [fontSize, setFontSize] = useState("12");
-  const [fontFamily, setFontFamily] = useState("Arial");
-  const [titleText, setTitleText] = useState("");
-  const [pageOrientation, setPageOrientation] = useState("portrait");
-  const [isMarkdown, setIsMarkdown] = useState(true);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    localStorage.setItem("text-to-pdf-content", textContent);
-  }, [textContent]);
-
   useSEO({
-    title: "Convert Chat Messages to PDF – Save Conversations as PDF | Pixocraft",
-    description: "Convert chat messages to PDF instantly with Pixocraft. Copy conversations from WhatsApp, Messenger, or other apps and create clean PDF documents online for free.",
-    keywords: "chat to pdf, convert chat to pdf, whatsapp to pdf, messenger to pdf, chat converter",
+    title: "Chat to PDF Converter Online Free – Convert Chat Transcripts to PDF | Pixocraft",
+    description: "Convert chat conversations and transcripts to PDF instantly with Pixocraft. Free chat to PDF converter for saving conversations, discussions, and dialogs. No uploads required.",
+    keywords: "chat to pdf, convert chat to pdf, chat transcript to pdf, conversation to pdf, chat pdf converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/chat-to-pdf",
-    ogTitle: "Convert Chat Messages to PDF – Save Conversations as PDF | Pixocraft",
-    ogDescription: "Convert chat messages to PDF instantly with Pixocraft. Copy conversations from WhatsApp, Messenger, or other apps and create clean PDF documents online for free.",
+    ogTitle: "Chat to PDF Converter Online Free – Convert Chat Transcripts to PDF | Pixocraft",
+    ogDescription: "Convert chat conversations and transcripts to PDF instantly. Free, private, and fast chat to PDF converter.",
     ogType: "website",
   });
-
-  const convertToPDF = async () => {
-    if (!textContent.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter chat messages to convert",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setConverting(true);
-    try {
-      const element = document.createElement('div');
-      element.style.fontFamily = fontFamily;
-      element.style.fontSize = fontSize + "pt";
-      element.style.lineHeight = "1.6";
-      element.style.padding = "20px";
-      element.style.backgroundColor = "#ffffff";
-      element.style.color = "#000000";
-
-      let htmlContent = "";
-      
-      if (isMarkdown) {
-        marked.setOptions({ gfm: true, breaks: true });
-        let markdownHtml = await marked(textContent);
-        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
-        
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = markdownHtml;
-        
-        const mathElements = tempDiv.querySelectorAll('code.language-math, .math, [class*="math"]');
-        mathElements.forEach(el => {
-          try {
-            const math = el.textContent || "";
-            const isDisplay = el.tagName === 'DIV' || el.classList.contains('math-display');
-            el.innerHTML = katex.renderToString(math, { 
-              displayMode: isDisplay, 
-              throwOnError: false,
-              trust: true
-            });
-          } catch (e) { console.error(e); }
-        });
-        
-        let processedHtml = tempDiv.innerHTML;
-        processedHtml = processedHtml.replace(/\$\$(.*?)\$\$/g, (match, math) => {
-          try { return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false }); } catch (e) { return match; }
-        });
-        processedHtml = processedHtml.replace(/\$(.*?)\$/g, (match, math) => {
-          try { return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false }); } catch (e) { return match; }
-        });
-
-        htmlContent += `
-          <style>
-            .pdf-export-content { line-height: 1.6; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
-            .pdf-export-content h1 { font-size: 28px; font-weight: 700; margin: 24px 0 12px; }
-            .pdf-export-content h2 { font-size: 20px; font-weight: 600; margin: 20px 0 10px; }
-            .pdf-export-content p { margin: 10px 0; line-height: 1.6; page-break-inside: avoid; }
-            .pdf-export-content table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-            .pdf-export-content th, .pdf-export-content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-          </style>
-          <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${processedHtml}</div>
-        `;
-      } else {
-        htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${textContent.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m] || m)).replace(/\n/g, '<br>')}</div>`;
-      }
-      
-      element.innerHTML = htmlContent;
-      document.body.appendChild(element);
-      
-      const opt = {
-        margin: 10,
-        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'pixocraft-chat.pdf',
-        html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait' },
-      };
-
-      await html2pdf().set(opt).from(element).save();
-      document.body.removeChild(element);
-      toast({ title: "Success!", description: "Chat messages converted to PDF successfully" });
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to convert chat to PDF", variant: "destructive" });
-    } finally {
-      setConverting(false);
-    }
-  };
-
-  const faqItems: FAQItem[] = [
-    { question: "Can I convert WhatsApp chat to PDF?", answer: "Yes. Simply copy the chat messages and paste them into the Pixocraft converter." },
-    { question: "Can I convert Messenger or Telegram chats to PDF?", answer: "Yes. The tool works with text copied from any messaging platform." },
-    { question: "Are chat messages uploaded to a server?", answer: "No. Pixocraft processes everything locally in your browser." },
-    { question: "Can I convert long conversations?", answer: "Yes. The converter can handle large text inputs depending on your device memory." },
-    { question: "Can I create PDFs from chat on mobile devices?", answer: "Yes. Pixocraft works on smartphones, tablets, and desktop computers." }
-  ];
-
-  const softwareSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pixocraft Chat to PDF Converter",
-    "operatingSystem": "Web",
-    "applicationCategory": "UtilityApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free" }
-  };
 
   const faqSchema = generateFAQSchema(faqItems);
 
@@ -150,251 +70,65 @@ export default function ChatToPdfConverter() {
     <>
       <StructuredData data={softwareSchema} />
       <StructuredData data={faqSchema} />
-      <div className="min-h-screen bg-muted/30 py-12 font-sans">
+      <div className="min-h-screen bg-muted/30 py-12">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-8 text-sm flex flex-wrap items-center gap-2 text-muted-foreground/80">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+          <div className="mb-8 text-sm flex items-center gap-2 text-muted-foreground/80">
+            <Link href="/" className="hover:text-primary transition-colors" data-testid="link-home">Home</Link>
             <span className="opacity-50">/</span>
-            <Link href="/tools" className="hover:text-primary transition-colors">Tools</Link>
+            <Link href="/tools" className="hover:text-primary transition-colors" data-testid="link-tools">Tools</Link>
             <span className="opacity-50">/</span>
             <Link href="/tools/pdf" className="hover:text-primary transition-colors">PDF Tools</Link>
             <span className="opacity-50">/</span>
             <Link href="/tools/text-to-pdf" className="hover:text-primary transition-colors">Text to PDF</Link>
             <span className="opacity-50">/</span>
-            <span className="text-foreground font-medium">Chat Messages to PDF</span>
+            <span className="text-foreground font-medium">Chat to PDF</span>
           </div>
 
           <div className="text-center space-y-6 mb-16">
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
-              Convert Chat Messages to PDF Online Free
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Turn chat conversations into organized PDF documents using the Pixocraft Chat to PDF converter. Copy your conversation text, paste it into the editor, preview the layout, and download a clean PDF file instantly.
-            </p>
+            <div className="flex items-center justify-center mb-2">
+              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center ring-8 ring-primary/5">
+                <Type className="h-10 w-10 text-primary" />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
+                Convert Chat to PDF Online Free
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Save important conversations and chat transcripts as professional PDF documents
+                <span className="block mt-1 font-medium text-primary/80 text-lg">100% Private • Offline • Free</span>
+              </p>
+            </div>
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <Badge variant="outline" className="bg-background/50 py-1 px-3">Markdown • Images • Tables • Math Supported</Badge>
-              <Badge variant="outline" className="bg-background/50 py-1 px-3">100% Private • Offline • Free</Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Preserve Conversations
+              </Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Format Support
+              </Badge>
+              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm border-primary/20 hover-elevate py-1 px-3">
+                Easy to Share
+              </Badge>
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto mb-16">
-            <div className="mb-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Use the Pixocraft editor below to convert chat messages into a structured PDF document. Paste your conversation text, format it if needed, preview the result, and download the PDF instantly.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader><CardTitle>Formatting Options</CardTitle></CardHeader>
-                  <CardContent className="space-y-4">
-                    <Input data-testid="input-filename" placeholder="Filename (Optional)" value={titleText} onChange={(e) => setTitleText(e.target.value)} />
-                    <div className="grid grid-cols-2 gap-4">
-                      <Select value={fontFamily} onValueChange={setFontFamily}>
-                        <SelectTrigger data-testid="select-font-family"><SelectValue placeholder="Font Family" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Arial">Arial</SelectItem>
-                          <SelectItem value="Times New Roman">Times New Roman</SelectItem>
-                          <SelectItem value="Courier New">Courier New</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <Select value={fontSize} onValueChange={setFontSize}>
-                        <SelectTrigger data-testid="select-font-size"><SelectValue placeholder="Font Size" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="10">10pt</SelectItem>
-                          <SelectItem value="12">12pt</SelectItem>
-                          <SelectItem value="14">14pt</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Checkbox id="md" checked={isMarkdown} onCheckedChange={(c) => setIsMarkdown(c as boolean)} />
-                      <label htmlFor="md" className="text-sm font-medium cursor-pointer">Markdown Mode</label>
-                    </div>
-                    <Button data-testid="button-download-pdf" onClick={convertToPDF} disabled={converting || !textContent.trim()} className="w-full" size="lg">
-                      <Download className="mr-2 h-5 w-5" /> {converting ? "Generating..." : "Download PDF"}
-                    </Button>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-                      <Type className="w-4 h-4" /> Chat Input
-                    </CardTitle>
-                    <Button variant="ghost" size="sm" onClick={() => setTextContent("")}>Clear</Button>
-                  </CardHeader>
-                  <CardContent>
-                    <Textarea 
-                      data-testid="textarea-input"
-                      placeholder="Paste your chat conversation here..." 
-                      value={textContent} 
-                      onChange={(e) => setTextContent(e.target.value)} 
-                      className="font-mono min-h-[400px] text-base resize-y" 
-                    />
-                    <div className="mt-2 text-xs text-muted-foreground text-right">
-                      {textContent.length} characters
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="lg:sticky lg:top-6">
-                <Card className="min-h-[600px]">
-                  <CardHeader><CardTitle>Live Preview</CardTitle></CardHeader>
-                  <CardContent>
-                    <div className="prose prose-sm max-w-none text-black p-6 bg-white rounded border min-h-[500px] shadow-inner overflow-auto">
-                      {isMarkdown ? (
-                        <div dangerouslySetInnerHTML={{ __html: textContent ? "Preview content rendered here..." : "Your formatted conversation will appear here." }} />
-                      ) : (
-                        <pre className="whitespace-pre-wrap font-sans">{textContent || "Your chat will appear here."}</pre>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
+          <TextToPdfTool sampleText={sampleText} storageKey="chat-to-pdf-content" defaultMarkdown={true} />
 
           <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">What Does "Convert Chat Messages to PDF" Mean?</h2>
-              <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
-                <p>Converting chat messages to PDF means transforming text conversations from messaging apps into a document that can be saved, shared, or printed.</p>
-                <p>Chat platforms such as messaging apps and online communication tools are widely used for daily conversations, customer support, and project discussions. However, these conversations are often difficult to archive or share outside the chat platform.</p>
-                <p>By converting chat messages into a PDF document, the conversation becomes easier to organize and store. The content remains readable across all devices and can be used for documentation, record-keeping, or reference.</p>
-                <p>Pixocraft provides a simple browser-based solution for converting chat conversations into PDF documents without requiring file uploads or account registration.</p>
-              </div>
-            </section>
-
-            <section className="bg-muted/30 p-10 rounded-3xl border">
-              <h2 className="text-3xl font-bold mb-8">How to Convert Chat Messages to PDF</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                {[
-                  { step: "1", title: "Copy the chat conversation", desc: "Open the conversation in your messaging app and copy the messages you want to save." },
-                  { step: "2", title: "Paste the messages into the editor", desc: "Paste the copied conversation text into the Pixocraft editor above." },
-                  { step: "3", title: "Organize the conversation", desc: "You can format the conversation using headings, lists, or Markdown if needed." },
-                  { step: "4", title: "Download the PDF", desc: "Click Download PDF to generate a structured PDF document instantly." }
-                ].map((s) => (
-                  <div key={s.step} className="flex gap-5">
-                    <div className="h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-lg">{s.step}</div>
-                    <div>
-                      <h3 className="font-bold text-xl text-foreground mb-2">{s.title}</h3>
-                      <p className="text-muted-foreground">{s.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <h2 className="text-3xl font-bold">Why Save Chats as PDF?</h2>
+              <p className="text-muted-foreground leading-relaxed">Converting chat conversations to PDF is a great way to preserve important discussions and create professional documentation without server uploads or data collection.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Why Convert Chat Messages to PDF?</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                  { title: "Conversation records", desc: "PDF documents provide a permanent record of important conversations.", icon: Type },
-                  { title: "Easy sharing", desc: "Chat conversations saved as PDF can be easily shared with others.", icon: Globe },
-                  { title: "Better organization", desc: "PDF formatting helps structure long conversations for easier reading.", icon: ShieldCheck },
-                  { title: "Print-ready format", desc: "PDF documents can be printed for documentation purposes.", icon: Download },
-                  { title: "Long-term storage", desc: "PDF files are widely used for archiving information.", icon: Zap },
-                  { title: "Instant generation", desc: "Our tool generates PDFs instantly without server lag or file uploads.", icon: Zap }
-                ].map((benefit, i) => (
-                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
-                    <benefit.icon className="w-12 h-12 text-primary mb-6" />
-                    <h3 className="font-bold text-lg mb-3 leading-tight">{benefit.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{benefit.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10">
-              <h2 className="text-3xl font-bold mb-10 text-center">Common Situations for Chat to PDF Conversion</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[
-                  { role: "Customer support conversations", use: "Support teams often save chat transcripts as documentation." },
-                  { role: "Project discussions", use: "Teams may archive project-related conversations for reference." },
-                  { role: "Interview transcripts", use: "Chat-based interviews can be stored as PDF documents." },
-                  { role: "Study group discussions", use: "Students sometimes save study discussions for later review." },
-                  { role: "Personal conversations", use: "Users may want to archive important chats for personal records." }
-                ].map((item, i) => (
-                  <div key={i} className="bg-card p-8 rounded-2xl border border-primary/5 flex flex-col items-center text-center shadow-sm">
-                    <h3 className="font-bold text-primary text-2xl mb-4">{item.role}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed italic">{item.use}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Advanced Features of Pixocraft Chat to PDF Converter</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  { title: "Markdown formatting", icon: Type },
-                  { title: "Table support", icon: TableIcon },
-                  { title: "Image embedding", icon: ImageIcon },
-                  { title: "Mathematical equations", icon: Calculator }
-                ].map((feature, i) => (
-                  <div key={i} className="p-8 bg-card rounded-2xl border text-center hover:border-primary/40 transition-colors shadow-sm">
-                    <feature.icon className="w-10 h-10 text-primary mx-auto mb-5" />
-                    <h3 className="font-bold text-lg">{feature.title}</h3>
-                  </div>
-                ))}
-              </div>
-              <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-                Pixocraft offers advanced features for creating structured documents from chat conversations.
-              </p>
-            </section>
-
-            <section className="text-center space-y-8 bg-muted/20 p-12 rounded-3xl">
-              <h2 className="text-3xl font-bold">Why Use Pixocraft Chat to PDF Converter?</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
-                {[
-                  "Fully browser-based conversion",
-                  "No file uploads required",
-                  "Instant PDF generation",
-                  "Formatting and Markdown support",
-                  "Completely free tool",
-                  "Privacy guaranteed",
-                  "Works offline",
-                  "No account required"
-                ].map((check, i) => (
-                  <div key={i} className="flex items-center gap-3">
+              <h2 className="text-3xl font-bold text-center">Chat Types You Can Convert</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {["Slack conversations", "Discord server discussions", "WhatsApp message threads", "Teams chat histories", "Email conversations", "Customer support chats"].map((type, i) => (
+                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                    <span className="font-medium">{check}</span>
+                    <p className="text-muted-foreground">{type}</p>
                   </div>
                 ))}
-              </div>
-              <p className="text-muted-foreground italic max-w-2xl mx-auto">
-                Because the conversion process runs locally inside your browser, your chat content remains private.
-              </p>
-            </section>
-
-            <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Chat vs PDF Documents</h2>
-              <div className="overflow-hidden rounded-2xl border shadow-sm">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-muted">
-                      <th className="p-4 border-b font-bold">Feature</th>
-                      <th className="p-4 border-b font-bold">Chat Messages</th>
-                      <th className="p-4 border-b font-bold">PDF Document</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y">
-                    {[
-                      { f: "Organization", t: "Limited", p: "Structured" },
-                      { f: "Sharing", t: "Platform dependent", p: "Universal" },
-                      { f: "Printing", t: "Difficult", p: "Print-ready" },
-                      { f: "Archiving", t: "Temporary", p: "Long-term" },
-                      { f: "Presentation", t: "Informal", p: "Professional" }
-                    ].map((row, i) => (
-                      <tr key={i} className="hover:bg-muted/30 transition-colors">
-                        <td className="p-4 font-medium">{row.f}</td>
-                        <td className="p-4 text-muted-foreground">{row.t}</td>
-                        <td className="p-4 text-foreground font-medium">{row.p}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </section>
 
@@ -410,26 +144,13 @@ export default function ChatToPdfConverter() {
               </div>
             </section>
 
-            <section className="pt-20 border-t text-center space-y-10">
-              <h2 className="text-2xl font-bold uppercase tracking-widest text-muted-foreground/50">Related Tools</h2>
-              <div className="flex flex-wrap justify-center gap-4">
-                {[
-                  { n: "Text to PDF Converter", p: "/tools/text-to-pdf" },
-                  { n: "Markdown to PDF Converter", p: "/tools/markdown-to-pdf" },
-                  { n: "Notes to PDF Converter", p: "/tools/notes-to-pdf" },
-                  { n: "Email to PDF Converter", p: "/tools/email-to-pdf" },
-                  { n: "PDF to Text Converter", p: "/tools/pdf-to-text" }
-                ].map(tool => (
-                  <Link key={tool.n} href={tool.p} className="px-8 py-4 rounded-2xl border bg-background hover:bg-muted hover:border-primary/20 transition-all font-semibold shadow-sm text-sm">
-                    {tool.n}
-                  </Link>
-                ))}
-              </div>
-              <div className="pt-16">
-                <Link href="/tools/text-to-pdf" className="inline-flex items-center gap-3 text-primary font-bold text-2xl hover:underline underline-offset-8 group">
-                  Use the Pixocraft Text to PDF Converter <span className="group-hover:translate-x-2 transition-transform">→</span>
-                </Link>
-              </div>
+            <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
+              <h2 className="text-3xl font-bold mb-6">Save Your Chat Conversations Today</h2>
+              <Link href="/tools/text-to-pdf" className="inline-block">
+                <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
+                  Visit Main Text to PDF Tool
+                </Badge>
+              </Link>
             </section>
           </div>
         </div>
