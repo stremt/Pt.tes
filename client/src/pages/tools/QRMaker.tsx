@@ -1219,36 +1219,36 @@ export default function QRMaker() {
             </div>
 
             <div className="space-y-8 bg-muted/30 p-12 rounded-3xl border">
-              <h2 className="text-4xl font-bold text-center">Technical Authority Comparison</h2>
+              <h2 className="text-4xl font-bold text-center">QR Code Generator vs Other QR Tools</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-base border-collapse bg-background rounded-2xl overflow-hidden shadow-sm">
                   <thead>
                     <tr className="bg-primary text-white">
-                      <th className="p-5 text-left font-bold">Feature Analysis</th>
-                      <th className="p-5 text-left font-bold">Generic Generators</th>
-                      <th className="p-5 text-left font-bold italic">Pixocraft Elite Tool</th>
+                      <th className="p-5 text-left font-bold">Feature</th>
+                      <th className="p-5 text-left font-bold">Other Generators</th>
+                      <th className="p-5 text-left font-bold italic">Pixocraft</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b">
-                      <td className="p-5 font-bold">Data Privacy</td>
-                      <td className="p-5 text-muted-foreground">Server-side logs</td>
-                      <td className="p-5 font-bold text-green-600 flex items-center gap-2"><Shield className="h-4 w-4" /> 100% Client-Side</td>
+                      <td className="p-5 font-bold">Client-Side Processing</td>
+                      <td className="p-5 text-muted-foreground">✖ Server-dependent</td>
+                      <td className="p-5 font-bold text-green-600">✔ 100% Private</td>
                     </tr>
                     <tr className="border-b bg-muted/10">
-                      <td className="p-5 font-bold">Customization</td>
-                      <td className="p-5 text-muted-foreground">Basic Colors</td>
-                      <td className="p-5 font-bold text-green-600 flex items-center gap-2"><Sparkles className="h-4 w-4" /> Patterns, Eyes, Frames</td>
+                      <td className="p-5 font-bold">4K Export Quality</td>
+                      <td className="p-5 text-muted-foreground">✖ Standard only</td>
+                      <td className="p-5 font-bold text-green-600">✔ 4x Resolution</td>
                     </tr>
                     <tr className="border-b">
-                      <td className="p-5 font-bold">Output Resolution</td>
-                      <td className="p-5 text-muted-foreground">Standard 72dpi</td>
-                      <td className="p-5 font-bold text-green-600 flex items-center gap-2"><Download className="h-4 w-4" /> 4K Ultra Print Ready</td>
+                      <td className="p-5 font-bold">No Signup Required</td>
+                      <td className="p-5 text-muted-foreground">✖ Account needed</td>
+                      <td className="p-5 font-bold text-green-600">✔ Instant access</td>
                     </tr>
                     <tr className="bg-muted/10">
-                      <td className="p-5 font-bold">Branding</td>
-                      <td className="p-5 text-muted-foreground">Restricted</td>
-                      <td className="p-5 font-bold text-green-600 flex items-center gap-2"><Users className="h-4 w-4" /> Unlimited Logo Overlays</td>
+                      <td className="p-5 font-bold">Unlimited Scans</td>
+                      <td className="p-5 text-muted-foreground">✖ Limited or paid</td>
+                      <td className="p-5 font-bold text-green-600">✔ Forever free</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1276,33 +1276,33 @@ export default function QRMaker() {
             </div>
           </section>
 
-          {/* How to Create QR Code in 3 Steps */}
+          {/* How to Create QR Code in 3 Steps - HowTo Schema */}
           <section className="space-y-12 py-20 border-t">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <h2 className="text-4xl font-bold">How to Create a QR Code in 3 Steps</h2>
               <p className="text-xl text-muted-foreground">Generate custom QR codes in seconds with our intuitive interface.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="space-y-4">
+              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
                 <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <div className="text-2xl font-bold text-primary">1</div>
                 </div>
-                <h3 className="text-2xl font-bold">Enter Your Data</h3>
-                <p className="text-muted-foreground">Choose a QR code type (URL, WiFi, contact, email, SMS, etc.) and enter your information. Our tool supports 8+ different data types.</p>
+                <h3 className="text-2xl font-bold" itemProp="name">Enter Your Data</h3>
+                <p className="text-muted-foreground" itemProp="text">Choose a QR code type (URL, WiFi, contact, email, SMS, etc.) and enter your information. Our tool supports 8+ different data types.</p>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
                 <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <div className="text-2xl font-bold text-primary">2</div>
                 </div>
-                <h3 className="text-2xl font-bold">Customize Design</h3>
-                <p className="text-muted-foreground">Personalize colors, add your logo, choose eye patterns, select body styles, and add frames. Make your QR code on-brand.</p>
+                <h3 className="text-2xl font-bold" itemProp="name">Customize Design</h3>
+                <p className="text-muted-foreground" itemProp="text">Personalize colors, add your logo, choose eye patterns, select body styles, and add frames. Make your QR code on-brand.</p>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
                 <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <div className="text-2xl font-bold text-primary">3</div>
                 </div>
-                <h3 className="text-2xl font-bold">Download & Use</h3>
-                <p className="text-muted-foreground">Download in high resolution (4K Ultra for print) and use instantly. No signup, no limits, completely free.</p>
+                <h3 className="text-2xl font-bold" itemProp="name">Download & Use</h3>
+                <p className="text-muted-foreground" itemProp="text">Download in high resolution (4K Ultra for print) and use instantly. No signup, no limits, completely free.</p>
               </div>
             </div>
           </section>
@@ -1391,6 +1391,31 @@ export default function QRMaker() {
             </div>
           </section>
 
+          {/* CTA Section */}
+          <section className="py-20 border-t">
+            <div className="max-w-4xl mx-auto text-center space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl font-bold">Create Your QR Code Now</h2>
+                <p className="text-xl text-muted-foreground">Generate unlimited QR codes instantly with advanced customization.</p>
+              </div>
+              <Button 
+                size="lg" 
+                className="px-8 py-3 text-lg"
+                onClick={() => {
+                  const toolSection = document.querySelector('[data-preview-section]')?.parentElement?.parentElement;
+                  if (toolSection) {
+                    toolSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+                data-testid="button-cta-create-qr"
+              >
+                Start Creating QR Codes
+              </Button>
+            </div>
+          </section>
+
           {/* Related Tools */}
           <section className="mt-16 max-w-4xl mx-auto border-t pt-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
@@ -1413,10 +1438,22 @@ export default function QRMaker() {
                   <p className="text-xs text-muted-foreground">Compress images while maintaining quality</p>
                 </div>
               </Link>
-              <Link href="/tools">
+              <Link href="/tools/password-generator">
                 <div className="p-4 rounded-lg border bg-card hover:border-primary transition-all cursor-pointer">
-                  <p className="font-semibold text-sm mb-1">All Tools</p>
-                  <p className="text-xs text-muted-foreground">Browse all available tools</p>
+                  <p className="font-semibold text-sm mb-1">Password Generator</p>
+                  <p className="text-xs text-muted-foreground">Create strong secure passwords</p>
+                </div>
+              </Link>
+              <Link href="/tools/html-beautifier">
+                <div className="p-4 rounded-lg border bg-card hover:border-primary transition-all cursor-pointer">
+                  <p className="font-semibold text-sm mb-1">HTML Beautifier</p>
+                  <p className="text-xs text-muted-foreground">Format and beautify HTML code</p>
+                </div>
+              </Link>
+              <Link href="/tools/pdf-merger">
+                <div className="p-4 rounded-lg border bg-card hover:border-primary transition-all cursor-pointer">
+                  <p className="font-semibold text-sm mb-1">PDF Merger</p>
+                  <p className="text-xs text-muted-foreground">Combine multiple PDF files</p>
                 </div>
               </Link>
             </div>
