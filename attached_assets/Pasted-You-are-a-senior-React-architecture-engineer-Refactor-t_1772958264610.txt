@@ -1,0 +1,125 @@
+You are a senior React architecture engineer.
+
+Refactor the QR code generator system so that a **single universal QR tool component** can be reused across all SEO landing pages.
+
+Important goals:
+
+• One QR generator engine
+• Same templates across all pages
+• Shared localStorage data
+• Reusable component
+• No code duplication
+
+---
+
+# 1 CREATE UNIVERSAL COMPONENT
+
+Create component:
+
+/components/UniversalQRCodeTool.tsx
+
+Move ALL QR generator logic into this component.
+
+Include:
+
+QR generation engine
+customization options
+logo upload
+patterns
+frames
+color picker
+template saving
+download options
+
+This component must contain the full QR generator UI.
+
+---
+
+# 2 SHARE LOCAL STORAGE
+
+Use existing key:
+
+pixocraft_qr_templates_v2
+
+Templates saved from any page must appear on all pages.
+
+Do NOT create page-specific storage.
+
+All pages must use same storage.
+
+---
+
+# 3 MAKE COMPONENT CONFIGURABLE
+
+The component should accept props:
+
+pageType
+pageTitle
+defaultType
+
+Example:
+
+UniversalQRCodeTool({
+pageType: "wifi",
+pageTitle: "WiFi QR Code Generator"
+})
+
+Example:
+
+UniversalQRCodeTool({
+pageType: "social",
+pageTitle: "Social Media QR Code Generator"
+})
+
+---
+
+# 4 AUTO SELECT QR TYPE
+
+Based on pageType:
+
+wifi page → default wifi QR type
+business card page → default vcard
+social page → default URL
+product page → default URL
+
+But allow user to change type if needed.
+
+---
+
+# 5 CREATE SEO PAGE TEMPLATE
+
+Each SEO page should follow structure:
+
+Hero section
+SEO content
+Universal QR Tool
+More SEO content
+FAQ
+CTA to main tool
+
+---
+
+# 6 ADD STRONG CTA
+
+After tool section:
+
+Create Your QR Code Now
+
+Generate unlimited QR codes instantly with our professional generator.
+
+---
+
+# 7 ENSURE PERFORMANCE
+
+The universal tool must:
+
+• load fast
+• avoid unnecessary re-renders
+• work on mobile
+• not break existing functionality
+
+---
+
+# GOAL
+
+Create a **single reusable QR generator component used across all SEO landing pages** so that every page appears to have its own QR generator while maintaining one shared engine.
