@@ -1,0 +1,383 @@
+veryday Objects
+pencil
+pen
+notebook
+eraser
+ruler
+sharpener
+paper
+stapler
+staples
+highlighter
+marker
+clipboard
+rubber band
+sticky notes
+calendar
+envelope
+folder
+book
+magazine
+newspaper
+ticket
+card
+wallet
+key
+keychain
+coin
+button
+zipper
+tissue
+napkin
+watch
+bracelet
+ring
+necklace
+glasses
+sunglasses
+mirror
+comb
+hairbrush
+hair tie
+hair clip
+scarf
+belt
+glove
+sock
+shoe
+slipper
+umbrella
+bag
+backpack
+purse
+Household Items
+chair
+table
+sofa
+couch
+stool
+bench
+cabinet
+drawer
+wardrobe
+bed
+mattress
+pillow
+blanket
+bedsheet
+lamp
+light bulb
+fan
+ceiling fan
+wall clock
+photo frame
+mirror
+curtain
+curtain rod
+carpet
+rug
+door
+door handle
+doorbell
+window
+window screen
+ladder
+toolbox
+hammer
+screwdriver
+wrench
+pliers
+nail
+screw
+drill
+tape measure
+extension cord
+power strip
+Kitchen Items
+spoon
+fork
+knife
+butter knife
+ladle
+spatula
+tongs
+whisk
+rolling pin
+cutting board
+plate
+bowl
+cup
+glass
+mug
+water bottle
+thermos
+lunch box
+food container
+jar
+can opener
+bottle opener
+peeler
+grater
+strainer
+colander
+frying pan
+saucepan
+pressure cooker
+wok
+kettle
+teapot
+oven tray
+baking pan
+microwave
+oven
+toaster
+blender
+mixer
+food processor
+refrigerator
+freezer
+dish rack
+dishwasher
+Technology Objects
+smartphone
+tablet
+laptop
+desktop computer
+monitor
+keyboard
+mouse
+trackpad
+webcam
+microphone
+headphones
+earbuds
+speaker
+router
+modem
+wifi extender
+hard drive
+ssd
+usb drive
+memory card
+printer
+scanner
+projector
+vr headset
+smartwatch
+fitness tracker
+drone
+camera
+tripod
+ring light
+gaming console
+game controller
+joystick
+charging cable
+power bank
+charger
+adapter
+hdmi cable
+ethernet cable
+Office Objects
+office chair
+office desk
+desk lamp
+document tray
+paper tray
+file organizer
+binder
+index card
+whiteboard
+whiteboard marker
+chalk
+chalkboard
+notice board
+pin board
+push pin
+thumbtack
+paper clip
+binder clip
+rubber stamp
+ink pad
+calculator
+time clock
+name badge
+id card holder
+lanyard
+conference table
+meeting notebook
+presentation remote
+laser pointer
+School Objects
+school bag
+textbook
+notebook
+geometry box
+protractor
+compass
+divider
+chalk
+blackboard
+whiteboard
+school desk
+school chair
+lunch bag
+water bottle
+crayons
+color pencils
+paint brush
+paint palette
+eraser dust
+graph paper
+index notebook
+lab coat
+microscope
+test tube
+beaker
+lab flask
+bunsen burner
+Nature Objects
+tree
+leaf
+flower
+rose
+tulip
+sunflower
+grass
+moss
+pine cone
+acorn
+seed
+branch
+log
+rock
+pebble
+sand
+soil
+mountain
+hill
+river
+lake
+waterfall
+ocean
+wave
+shell
+coral
+cloud
+rain
+snow
+ice
+wind
+sun
+moon
+star
+rainbow
+lightning
+Outdoor Objects
+bicycle
+skateboard
+roller skates
+helmet
+tent
+campfire
+lantern
+flashlight
+compass
+map
+binoculars
+fishing rod
+fishing net
+boat
+canoe
+kayak
+anchor
+life jacket
+surfboard
+beach ball
+frisbee
+kite
+swing
+slide
+seesaw
+sandbox
+Clothing Items
+shirt
+t shirt
+jacket
+coat
+sweater
+hoodie
+jeans
+pants
+shorts
+skirt
+dress
+suit
+tie
+bow tie
+belt
+scarf
+gloves
+hat
+cap
+beanie
+boots
+sandals
+slippers
+socks
+Vehicles
+car
+bus
+truck
+motorcycle
+scooter
+bicycle
+train
+tram
+subway
+airplane
+helicopter
+boat
+ship
+yacht
+submarine
+rocket
+space shuttle
+tractor
+bulldozer
+excavator
+ambulance
+fire truck
+police car
+taxi
+Animals (Optional but good for creativity)
+dog
+cat
+rabbit
+horse
+cow
+sheep
+goat
+lion
+tiger
+bear
+elephant
+giraffe
+zebra
+kangaroo
+panda
+monkey
+fox
+wolf
+deer
+camel
+dolphin
+whale
+shark
+octopus
+penguin
+eagle
+owl
+parrot
+peacock
+sparrow

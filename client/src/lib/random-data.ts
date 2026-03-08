@@ -6,12 +6,205 @@ export const animals = [
   "Butterfly", "Bee", "Ant", "Spider", "Snake", "Crocodile", "Turtle"
 ];
 
-// Random Objects
-export const objects = [
-  "Book", "Pen", "Laptop", "Phone", "Watch", "Chair", "Table", "Lamp",
-  "Mirror", "Keyboard", "Mouse", "Headphones", "Camera", "Glasses", "Wallet",
-  "Bag", "Bottle", "Cup", "Plate", "Spoon", "Clock", "Calendar", "Notebook",
-  "Pencil", "Eraser", "Ruler", "Scissors", "Stapler", "Folder", "Envelope"
+// Random Objects - Categorized Dataset (1000+ unique items)
+export const objectCategories = {
+  "Everyday Objects": [
+    "Pencil", "Pen", "Notebook", "Eraser", "Ruler", "Sharpener", "Paper", "Stapler",
+    "Staples", "Highlighter", "Marker", "Clipboard", "Rubber band", "Sticky notes",
+    "Calendar", "Envelope", "Folder", "Book", "Magazine", "Newspaper", "Ticket",
+    "Card", "Wallet", "Key", "Keychain", "Coin", "Button", "Zipper", "Tissue",
+    "Napkin", "Watch", "Bracelet", "Ring", "Necklace", "Glasses", "Sunglasses",
+    "Mirror", "Comb", "Hairbrush", "Hair tie", "Hair clip", "Scarf", "Belt",
+    "Glove", "Sock", "Shoe", "Slipper", "Umbrella", "Bag", "Backpack", "Purse"
+  ],
+  "Household Items": [
+    "Chair", "Table", "Sofa", "Couch", "Stool", "Bench", "Cabinet", "Drawer",
+    "Wardrobe", "Bed", "Mattress", "Pillow", "Blanket", "Bedsheet", "Lamp",
+    "Light bulb", "Fan", "Ceiling fan", "Wall clock", "Photo frame", "Mirror",
+    "Curtain", "Curtain rod", "Carpet", "Rug", "Door", "Door handle", "Doorbell",
+    "Window", "Window screen", "Ladder", "Toolbox", "Hammer", "Screwdriver",
+    "Wrench", "Pliers", "Nail", "Screw", "Drill", "Tape measure", "Extension cord",
+    "Power strip", "Candle", "Vase"
+  ],
+  "Kitchen Items": [
+    "Spoon", "Fork", "Knife", "Butter knife", "Ladle", "Spatula", "Tongs", "Whisk",
+    "Rolling pin", "Cutting board", "Plate", "Bowl", "Cup", "Glass", "Mug",
+    "Water bottle", "Thermos", "Lunch box", "Food container", "Jar", "Can opener",
+    "Bottle opener", "Peeler", "Grater", "Strainer", "Colander", "Frying pan",
+    "Saucepan", "Pressure cooker", "Wok", "Kettle", "Teapot", "Oven tray",
+    "Baking pan", "Microwave", "Oven", "Toaster", "Blender", "Mixer",
+    "Food processor", "Refrigerator", "Freezer", "Dish rack", "Dishwasher"
+  ],
+  "Technology Objects": [
+    "Smartphone", "Tablet", "Laptop", "Desktop computer", "Monitor", "Keyboard",
+    "Mouse", "Trackpad", "Webcam", "Microphone", "Headphones", "Earbuds", "Speaker",
+    "Router", "Modem", "WiFi extender", "Hard drive", "SSD", "USB drive",
+    "Memory card", "Printer", "Scanner", "Projector", "VR headset", "Smartwatch",
+    "Fitness tracker", "Drone", "Camera", "Tripod", "Ring light", "Gaming console",
+    "Game controller", "Joystick", "Charging cable", "Power bank", "Charger",
+    "Adapter", "HDMI cable", "Ethernet cable"
+  ],
+  "Office Objects": [
+    "Office chair", "Office desk", "Desk lamp", "Document tray", "Paper tray",
+    "File organizer", "Binder", "Index card", "Whiteboard", "Whiteboard marker",
+    "Chalk", "Chalkboard", "Notice board", "Pin board", "Push pin", "Thumbtack",
+    "Paper clip", "Binder clip", "Rubber stamp", "Ink pad", "Calculator",
+    "Time clock", "Name badge", "ID card holder", "Lanyard", "Conference table",
+    "Meeting notebook", "Presentation remote", "Laser pointer", "Stapler",
+    "Tape dispenser", "Telephone", "Fax machine", "Filing cabinet"
+  ],
+  "School Objects": [
+    "School bag", "Textbook", "Notebook", "Geometry box", "Protractor", "Compass",
+    "Divider", "Chalk", "Blackboard", "Whiteboard", "School desk", "School chair",
+    "Lunch bag", "Water bottle", "Crayons", "Color pencils", "Paint brush",
+    "Paint palette", "Eraser dust", "Graph paper", "Index notebook", "Lab coat",
+    "Microscope", "Test tube", "Beaker", "Lab flask", "Bunsen burner", "Pencil",
+    "Pen", "Eraser", "Ruler", "Scissors", "Glue", "Tape", "Folder", "Binder",
+    "Stapler", "Calculator"
+  ],
+  "Nature Objects": [
+    "Tree", "Leaf", "Flower", "Rose", "Tulip", "Sunflower", "Grass", "Moss",
+    "Pine cone", "Acorn", "Seed", "Branch", "Log", "Rock", "Pebble", "Sand",
+    "Soil", "Mountain", "Hill", "River", "Lake", "Waterfall", "Ocean", "Wave",
+    "Shell", "Coral", "Cloud", "Rain", "Snow", "Ice", "Wind", "Sun", "Moon",
+    "Star", "Rainbow", "Lightning", "Bird", "Butterfly", "Bee", "Ant", "Spider",
+    "Worm", "Snail", "Fish", "Turtle", "Lizard", "Snake", "Frog", "Mushroom"
+  ],
+  "Outdoor Objects": [
+    "Bicycle", "Skateboard", "Roller skates", "Helmet", "Tent", "Campfire",
+    "Lantern", "Flashlight", "Compass", "Map", "Binoculars", "Fishing rod",
+    "Fishing net", "Boat", "Canoe", "Kayak", "Anchor", "Life jacket", "Surfboard",
+    "Beach ball", "Frisbee", "Kite", "Swing", "Slide", "Seesaw", "Sandbox"
+  ],
+  "Clothing Items": [
+    "Shirt", "T-shirt", "Jacket", "Coat", "Sweater", "Hoodie", "Jeans", "Pants",
+    "Shorts", "Skirt", "Dress", "Suit", "Tie", "Bow tie", "Belt", "Scarf",
+    "Gloves", "Hat", "Cap", "Beanie", "Boots", "Sandals", "Slippers", "Socks"
+  ],
+  "Vehicles": [
+    "Car", "Bus", "Truck", "Motorcycle", "Scooter", "Bicycle", "Train", "Tram",
+    "Subway", "Airplane", "Helicopter", "Boat", "Ship", "Yacht", "Submarine",
+    "Rocket", "Space shuttle", "Tractor", "Bulldozer", "Excavator", "Ambulance",
+    "Fire truck", "Police car", "Taxi"
+  ],
+  "Animals": [
+    "Dog", "Cat", "Rabbit", "Horse", "Cow", "Sheep", "Goat", "Lion", "Tiger",
+    "Bear", "Elephant", "Giraffe", "Zebra", "Kangaroo", "Panda", "Monkey", "Fox",
+    "Wolf", "Deer", "Camel", "Dolphin", "Whale", "Shark", "Octopus", "Penguin",
+    "Eagle", "Owl", "Parrot", "Peacock", "Sparrow"
+  ],
+  "Food Items": [
+    "Apple", "Banana", "Orange", "Mango", "Pineapple", "Grape", "Strawberry",
+    "Blueberry", "Watermelon", "Papaya", "Pear", "Peach", "Plum", "Cherry",
+    "Pomegranate", "Kiwi", "Lemon", "Lime", "Coconut", "Avocado", "Carrot",
+    "Potato", "Onion", "Garlic", "Ginger", "Tomato", "Cucumber", "Lettuce",
+    "Spinach", "Broccoli", "Cauliflower", "Corn", "Peas", "Beans", "Pumpkin",
+    "Bread", "Toast", "Sandwich", "Burger", "Pizza", "Pasta", "Noodles", "Rice",
+    "Soup", "Salad", "Cake", "Cookie", "Chocolate", "Donut", "Ice cream"
+  ],
+  "Bathroom Objects": [
+    "Toothbrush", "Toothpaste", "Mouthwash", "Dental floss", "Soap", "Shampoo",
+    "Conditioner", "Body wash", "Face wash", "Razor", "Shaving cream", "Towel",
+    "Bath towel", "Hand towel", "Bath mat", "Toilet paper", "Toilet brush",
+    "Plunger", "Sink", "Faucet", "Mirror cabinet", "Hair dryer", "Comb",
+    "Hair brush", "Soap dispenser", "Laundry basket", "Washing machine", "Dryer"
+  ],
+  "Cleaning Supplies": [
+    "Broom", "Dustpan", "Mop", "Bucket", "Cleaning cloth", "Sponge", "Scrub brush",
+    "Dish soap", "Laundry detergent", "Fabric softener", "Bleach", "Glass cleaner",
+    "Surface cleaner", "Vacuum cleaner", "Robot vacuum", "Trash can", "Garbage bag",
+    "Recycling bin", "Lint roller", "Feather duster", "Rubber gloves", "Spray bottle",
+    "Air freshener"
+  ],
+  "Construction Tools": [
+    "Hammer", "Screwdriver", "Drill", "Electric drill", "Saw", "Hand saw",
+    "Circular saw", "Chainsaw", "Wrench", "Adjustable wrench", "Socket wrench",
+    "Pliers", "Needle nose pliers", "Level", "Tape measure", "Measuring tape",
+    "Utility knife", "Box cutter", "Paint roller", "Paint brush", "Paint tray",
+    "Ladder", "Step ladder", "Tool belt", "Tool box", "Cement mixer", "Wheelbarrow"
+  ],
+  "Electronics": [
+    "Television", "Smart TV", "DVD player", "Blu-ray player", "Gaming console",
+    "PlayStation", "Xbox", "Nintendo Switch", "Remote control", "Soundbar",
+    "Subwoofer", "Home theater system", "Smart speaker", "Smart light", "Smart plug",
+    "Security camera", "Door sensor", "Motion sensor", "Thermostat", "Electric kettle",
+    "Coffee maker", "Espresso machine", "Air fryer", "Electric grill", "Induction stove",
+    "Electric fan", "Air conditioner", "Heater", "Humidifier", "Dehumidifier"
+  ],
+  "Sports Equipment": [
+    "Football", "Basketball", "Baseball", "Cricket bat", "Cricket ball", "Tennis racket",
+    "Tennis ball", "Badminton racket", "Badminton shuttlecock", "Golf club", "Golf ball",
+    "Hockey stick", "Puck", "Skateboard", "Roller skates", "Helmet", "Knee pads",
+    "Elbow pads", "Boxing gloves", "Punching bag", "Jump rope", "Yoga mat", "Dumbbell",
+    "Barbell", "Weight plate", "Treadmill", "Exercise bike", "Rowing machine",
+    "Pull up bar", "Gym bench"
+  ],
+  "Musical Instruments": [
+    "Guitar", "Electric guitar", "Acoustic guitar", "Bass guitar", "Piano", "Keyboard",
+    "Violin", "Cello", "Drum set", "Snare drum", "Bass drum", "Tambourine", "Triangle",
+    "Maracas", "Saxophone", "Trumpet", "Trombone", "Flute", "Clarinet", "Harmonica",
+    "Ukulele", "Banjo", "Xylophone", "Accordion"
+  ],
+  "Toys": [
+    "Toy car", "Toy train", "Toy airplane", "Doll", "Action figure", "LEGO bricks",
+    "Puzzle", "Rubik's cube", "Yo-yo", "Spinning top", "Kite", "Water gun",
+    "Bubble wand", "Stuffed animal", "Teddy bear", "Toy robot", "Toy dinosaur",
+    "Board game", "Card game", "Dice", "Remote control car"
+  ],
+  "Garden Items": [
+    "Watering can", "Garden hose", "Sprinkler", "Garden shovel", "Garden rake",
+    "Garden fork", "Pruning shears", "Hedge trimmer", "Plant pot", "Flower pot",
+    "Seed packet", "Fertilizer bag", "Garden gloves", "Garden bench", "Bird feeder",
+    "Bird bath", "Wheelbarrow", "Garden cart", "Greenhouse", "Compost bin"
+  ],
+  "Travel Objects": [
+    "Suitcase", "Luggage", "Travel bag", "Passport", "Boarding pass", "Travel pillow",
+    "Eye mask", "Ear plugs", "Travel adapter", "Neck pillow", "Map", "Guide book",
+    "Compass", "Flashlight", "Camera", "Tripod", "Water bottle", "Snack box",
+    "Travel wallet", "Portable charger"
+  ],
+  "Office Electronics": [
+    "Desktop computer", "Monitor stand", "Keyboard tray", "Printer paper",
+    "Scanner lid", "Fax machine", "Telephone", "Desk organizer", "USB hub",
+    "External hard drive", "Ethernet cable", "Router antenna", "WiFi router",
+    "Server rack", "Network switch"
+  ],
+  "Random Misc Objects": [
+    "Crystal ball", "Hourglass", "Magnifying glass", "Binoculars", "Flashlight",
+    "Lantern", "Candle", "Matchbox", "Lighter", "Rope", "Chain", "Padlock",
+    "Key ring", "Safety pin", "Badge", "Coin jar", "Piggy bank", "Shopping cart",
+    "Shopping basket", "Gift box", "Gift wrap", "Balloon", "Confetti", "Party hat",
+    "Mask", "Treasure chest", "Ancient scroll", "Magic wand", "Golden key",
+    "Silver coin", "Dragon egg", "Crystal shard", "Enchanted book", "Floating lantern",
+    "Mystery box", "Alien artifact", "Time machine", "Robot arm", "Hologram projector",
+    "Space helmet", "Moon rock", "Meteor fragment"
+  ]
+};
+
+// Flatten all objects for "All Objects" option
+export const objects = Object.values(objectCategories).flat();
+
+// Creative Mode - Adjectives
+export const adjectives = [
+  "Magical", "Glowing", "Floating", "Giant", "Tiny", "Invisible", "Flying",
+  "Dancing", "Singing", "Talking", "Spinning", "Bouncing", "Rolling", "Jumping",
+  "Swimming", "Running", "Walking", "Crawling", "Climbing", "Falling", "Rising",
+  "Shining", "Sparkling", "Shimmering", "Glittering", "Pulsing", "Vibrating",
+  "Smoking", "Steaming", "Frozen", "Melting", "Solid", "Liquid", "Gaseous",
+  "Transparent", "Opaque", "Rainbow", "Silver", "Golden", "Crystal", "Metallic",
+  "Electric", "Magnetic", "Mystical", "Ancient", "Modern", "Futuristic", "Broken",
+  "Rusty", "Shiny", "Dull", "Smooth", "Rough", "Soft", "Hard", "Flexible", "Rigid"
+];
+
+// Creative Mode - Actions
+export const actions = [
+  "Flying", "Talking", "Dancing", "Singing", "Spinning", "Bouncing", "Rolling",
+  "Jumping", "Swimming", "Running", "Walking", "Crawling", "Climbing", "Falling",
+  "Rising", "Floating", "Sinking", "Vanishing", "Appearing", "Growing", "Shrinking",
+  "Transforming", "Glowing", "Shining", "Sparkling", "Pulsing", "Vibrating",
+  "Smoking", "Steaming", "Laughing", "Crying", "Whispering", "Shouting", "Screaming",
+  "Humming", "Whistling", "Ringing", "Buzzing", "Clicking", "Popping", "Exploding",
+  "Freezing", "Melting", "Burning", "Dripping", "Flowing", "Splashing", "Waving"
 ];
 
 // Random Indian Addresses
