@@ -174,6 +174,7 @@ const JSONFormatter = lazy(() => import("@/pages/tools/JSONFormatter"));
 const URLEncoder = lazy(() => import("@/pages/tools/URLEncoder"));
 const ColorPicker = lazy(() => import("@/pages/tools/ColorPicker"));
 const UsernameGenerator = lazy(() => import("@/pages/tools/UsernameGenerator"));
+const GamingUsernameGenerator = lazy(() => import("@/pages/tools/GamingUsernameGenerator"));
 const PasswordStrengthChecker = lazy(() => import("@/pages/tools/PasswordStrengthChecker"));
 const PasswordBruteForceCalculator = lazy(() => import("@/pages/tools/PasswordBruteForceCalculator"));
 const TextSummarizer = lazy(() => import("@/pages/tools/TextSummarizer"));
@@ -535,6 +536,7 @@ function Router() {
         <Route path="/tools/url-encoder" component={URLEncoder} />
         <Route path="/tools/color-picker" component={ColorPicker} />
         <Route path="/tools/username-generator" component={UsernameGenerator} />
+        <Route path="/tools/gaming-username-generator" component={GamingUsernameGenerator} />
         <Route path="/tools/password-strength-checker" component={PasswordStrengthChecker} />
         <Route path="/tools/text-summarizer" component={TextSummarizer} />
         <Route path="/tools/image-resizer" component={ImageResizer} />
