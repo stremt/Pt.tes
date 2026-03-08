@@ -5,8 +5,10 @@ import {
   prefixes,
   suffixes,
   type UsernameCategory,
+  type UsernameStyle,
   type UsernamePattern,
   categoryConfigs,
+  styleConfigs,
 } from "./username-data";
 
 // Fisher-Yates shuffle for non-repeating generation
@@ -33,16 +35,35 @@ function capitalize(word: string): string {
 function generateByPattern(
   pattern: UsernamePattern,
   separator: string = "",
-  capitalize_: boolean = true
+  capitalize_: boolean = true,
+  customWords?: string[],
+  userInput?: string
 ): string {
   let username = "";
 
   switch (pattern) {
+    case "custom-word":
+      if (userInput) {
+        username = userInput;
+      } else if (customWords && customWords.length > 0) {
+        username = getRandomItem(customWords);
+      } else {
+        username = getRandomItem(nouns);
+      }
+      break;
     case "adjective-noun":
-      username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}`;
+      if (userInput) {
+        username = `${getRandomItem(adjectives)}${separator}${userInput}`;
+      } else {
+        username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}`;
+      }
       break;
     case "adjective-noun-number":
-      username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}${Math.floor(Math.random() * 100)}`;
+      if (userInput) {
+        username = `${getRandomItem(adjectives)}${separator}${userInput}${Math.floor(Math.random() * 100)}`;
+      } else {
+        username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}${Math.floor(Math.random() * 100)}`;
+      }
       break;
     case "noun-verb":
       username = `${getRandomItem(nouns)}${separator}${getRandomItem(verbs)}`;
@@ -51,7 +72,11 @@ function generateByPattern(
       username = `${getRandomItem(prefixes)}${getRandomItem(nouns)}`;
       break;
     case "word-suffix":
-      username = `${getRandomItem(nouns)}${separator}${getRandomItem(suffixes)}`;
+      if (userInput) {
+        username = `${userInput}${separator}${getRandomItem(suffixes)}`;
+      } else {
+        username = `${getRandomItem(nouns)}${separator}${getRandomItem(suffixes)}`;
+      }
       break;
     case "word-year":
       const year = new Date().getFullYear();
@@ -74,21 +99,31 @@ function generateByPattern(
 
 export interface GenerateOptions {
   category?: UsernameCategory;
+  style?: UsernameStyle;
   count?: number;
   customPattern?: UsernamePattern;
+  userInput?: string;
+  minLength?: number;
+  maxLength?: number;
 }
 
 export function generateUsername(options: GenerateOptions = {}): string {
-  const { category = "gaming" } = options;
-  const config = categoryConfigs[category];
+  const { category = "gaming", style, userInput, minLength = 0, maxLength = 999 } = options;
+  
+  let config = style ? styleConfigs[style] : categoryConfigs[category];
 
   const pattern = getRandomItem(config.patterns);
   const separator = getRandomItem(config.separators);
 
-  let username = generateByPattern(pattern, separator, !config.lowercase);
+  let username = generateByPattern(pattern, separator, !config.lowercase, config.customWords, userInput);
 
   if (config.addNumbers && Math.random() > 0.5) {
     username += Math.floor(Math.random() * 100);
+  }
+
+  // Check length constraints
+  if (username.length < minLength || username.length > maxLength) {
+    return generateUsername(options);
   }
 
   return username;
@@ -98,13 +133,17 @@ export function generateMultipleUsernames(
   count: number = 12,
   options: GenerateOptions = {}
 ): string[] {
-  const usernames: string[] = [];
+  const usernames = new Set<string>();
+  let attempts = 0;
+  const maxAttempts = count * 10; // Prevent infinite loops
 
-  for (let i = 0; i < count; i++) {
-    usernames.push(generateUsername(options));
+  while (usernames.size < count && attempts < maxAttempts) {
+    const username = generateUsername(options);
+    usernames.add(username);
+    attempts++;
   }
 
-  return usernames;
+  return Array.from(usernames).slice(0, count);
 }
 
 export function generateByCategory(
@@ -114,10 +153,28 @@ export function generateByCategory(
   return generateMultipleUsernames(count, { category });
 }
 
+export function generateByStyle(
+  style: UsernameStyle,
+  count: number = 12,
+  userInput?: string,
+  minLength?: number,
+  maxLength?: number
+): string[] {
+  return generateMultipleUsernames(count, { style, userInput, minLength, maxLength });
+}
+
 // Get all available categories
 export function getCategories() {
   return Object.entries(categoryConfigs).map(([key, config]) => ({
     id: key as UsernameCategory,
+    name: config.name,
+  }));
+}
+
+// Get all available styles
+export function getStyles() {
+  return Object.entries(styleConfigs).map(([key, config]) => ({
+    id: key as UsernameStyle,
     name: config.name,
   }));
 }

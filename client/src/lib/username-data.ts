@@ -106,8 +106,17 @@ export const suffixes = [
   "Vision", "Sight", "Eye", "Observer", "Watcher", "Looker", "Seer", "Viewer", "Spectator", "Audience", "Listener", "Hearer", "Reader", "Speaker", "Talker", "Voice", "Sound", "Echo", "Whisper", "Murmur"
 ];
 
+// Style-specific word lists
+export const aestheticWords = ["aura", "vibes", "dream", "luxe", "glow", "mist", "velvet", "moon", "soft", "bloom", "essence", "ethereal", "serene", "shimmer", "radiant", "luminous", "tranquil"];
+export const fancyWords = ["prime", "elite", "nova", "legend", "royal", "apex", "zenith", "peak", "supreme", "divine"];
+export const gamingWords = ["slayer", "hunter", "rogue", "phantom", "vortex", "ninja", "warrior", "assassin", "champion", "reaper"];
+export const minimalWords = ["dev", "exe", "xyz", "io", "codes", "builds", "cli", "api", "web", "net"];
+export const cuteWords = ["bunny", "baby", "cute", "sweet", "angel", "star", "pixel", "mint", "honey", "cookie"];
+export const darkWords = ["void", "shadow", "night", "dark", "abyss", "eclipse", "phantom", "ghost", "wraith", "midnight"];
+
 export type UsernameCategory = "gaming" | "instagram" | "tiktok" | "discord" | "youtube" | "fantasy" | "professional";
-export type UsernamePattern = "adjective-noun" | "adjective-noun-number" | "noun-verb" | "prefix-word" | "word-suffix" | "word-year";
+export type UsernameStyle = "aesthetic" | "fancy" | "gaming" | "minimal" | "professional" | "cute" | "dark" | "random";
+export type UsernamePattern = "adjective-noun" | "adjective-noun-number" | "noun-verb" | "prefix-word" | "word-suffix" | "word-year" | "custom-word";
 
 export interface CategoryConfig {
   name: string;
@@ -116,6 +125,7 @@ export interface CategoryConfig {
   lowercase: boolean;
   addNumbers: boolean;
   addYear: boolean;
+  customWords?: string[];
 }
 
 export const categoryConfigs: Record<UsernameCategory, CategoryConfig> = {
@@ -173,6 +183,80 @@ export const categoryConfigs: Record<UsernameCategory, CategoryConfig> = {
     separators: [".", "-", "_"],
     lowercase: true,
     addNumbers: false,
+    addYear: false,
+  },
+};
+
+export const styleConfigs: Record<UsernameStyle, CategoryConfig> = {
+  aesthetic: {
+    name: "Aesthetic",
+    patterns: ["custom-word", "adjective-noun"],
+    separators: [".", "_"],
+    lowercase: true,
+    addNumbers: false,
+    addYear: false,
+    customWords: aestheticWords,
+  },
+  fancy: {
+    name: "Fancy",
+    patterns: ["custom-word"],
+    separators: [""],
+    lowercase: false,
+    addNumbers: false,
+    addYear: false,
+    customWords: fancyWords,
+  },
+  gaming: {
+    name: "Gaming",
+    patterns: ["custom-word", "adjective-noun-number"],
+    separators: [""],
+    lowercase: false,
+    addNumbers: true,
+    addYear: false,
+    customWords: gamingWords,
+  },
+  minimal: {
+    name: "Minimal",
+    patterns: ["custom-word"],
+    separators: ["."],
+    lowercase: true,
+    addNumbers: false,
+    addYear: false,
+    customWords: minimalWords,
+  },
+  professional: {
+    name: "Professional",
+    patterns: ["custom-word", "adjective-noun"],
+    separators: [".", "-"],
+    lowercase: true,
+    addNumbers: false,
+    addYear: false,
+    customWords: minimalWords,
+  },
+  cute: {
+    name: "Cute",
+    patterns: ["custom-word", "adjective-noun"],
+    separators: [".", ""],
+    lowercase: true,
+    addNumbers: false,
+    addYear: false,
+    customWords: cuteWords,
+  },
+  dark: {
+    name: "Dark",
+    patterns: ["custom-word", "adjective-noun"],
+    separators: ["_", ""],
+    lowercase: true,
+    addNumbers: false,
+    addYear: false,
+    customWords: darkWords,
+  },
+  random: {
+    name: "Random",
+    patterns: ["adjective-noun", "adjective-noun-number", "noun-verb", "prefix-word", "word-suffix"],
+    separators: ["", "_", ".", "-"],
+    lowercase: false,
+    addNumbers: true,
     addYear: false,
   },
 };

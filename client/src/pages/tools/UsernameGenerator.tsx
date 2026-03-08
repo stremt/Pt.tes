@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { generateMultipleUsernames, getCategories, type UsernameCategory } from "@/lib/username-generator";
-import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe, Gamepad2, Instagram, Music } from "lucide-react";
+import { generateByStyle, type UsernameStyle } from "@/lib/username-generator";
+import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe, Gamepad2, Music, CopyCheckmark, ExternalLink } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -18,8 +19,11 @@ import {
 
 export default function UsernameGenerator() {
   const [usernames, setUsernames] = useState<string[]>([]);
-  const [category, setCategory] = useState<UsernameCategory>("gaming");
+  const [userInput, setUserInput] = useState<string>("");
+  const [style, setStyle] = useState<UsernameStyle>("gaming");
   const [count, setCount] = useState<number>(12);
+  const [minLength, setMinLength] = useState<number>(6);
+  const [maxLength, setMaxLength] = useState<number>(20);
   const { copyToClipboard } = useClipboard();
 
   useSEO({
@@ -30,18 +34,24 @@ export default function UsernameGenerator() {
   });
 
   const handleGenerate = () => {
-    const newUsernames = generateMultipleUsernames(count, { category });
+    const newUsernames = generateByStyle(style, count, userInput || undefined, minLength, maxLength);
     setUsernames(newUsernames);
   };
 
-  const categoryIcons: Record<UsernameCategory, React.ReactNode> = {
-    gaming: <Gamepad2 className="h-5 w-5" />,
-    instagram: <Instagram className="h-5 w-5" />,
-    tiktok: <Music className="h-5 w-5" />,
-    discord: <Globe className="h-5 w-5" />,
-    youtube: <Globe className="h-5 w-5" />,
-    fantasy: <Sparkles className="h-5 w-5" />,
-    professional: <Globe className="h-5 w-5" />,
+  const handleCopyAll = () => {
+    const allUsernames = usernames.join("\n");
+    copyToClipboard(allUsernames, "All usernames copied!");
+  };
+
+  const getAvailabilityUrl = (username: string, platform: string): string => {
+    const encoded = encodeURIComponent(username);
+    const urls: Record<string, string> = {
+      instagram: `https://instagram.com/${username}`,
+      tiktok: `https://tiktok.com/@${username}`,
+      twitter: `https://twitter.com/${username}`,
+      github: `https://github.com/${username}`,
+    };
+    return urls[platform] || "#";
   };
 
   return (
@@ -52,21 +62,21 @@ export default function UsernameGenerator() {
       toolId="username-generator"
       category="Fun & Utility"
       howItWorks={[
-        { step: 1, title: "Choose Category", description: "Pick the platform or style (Gaming, Instagram, TikTok, Discord, YouTube, Fantasy, or Professional)." },
-        { step: 2, title: "Select Quantity", description: "Choose how many usernames to generate (12, 25, or 50)." },
-        { step: 3, title: "Generate & Copy", description: "Get unique usernames instantly and copy any you like with one click." },
+        { step: 1, title: "Enter Your Name", description: "Optional: Add your name, keyword, or brand word to personalize usernames." },
+        { step: 2, title: "Choose Style", description: "Pick a style: Aesthetic, Fancy, Gaming, Minimal, Professional, Cute, Dark, or Random." },
+        { step: 3, title: "Customize & Generate", description: "Set length preferences and quantity, then generate unique usernames instantly." },
       ]}
       benefits={[
         { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Results", description: "Generate usernames instantly with smart algorithms." },
-        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "7 Categories", description: "Gaming, Instagram, TikTok, Discord, YouTube, Fantasy, and Professional." },
+        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "8 Styles", description: "Aesthetic, Fancy, Gaming, Minimal, Professional, Cute, Dark, and Random." },
         { icon: <Lock className="h-6 w-6 text-primary" />, title: "No Data Stored", description: "All usernames generated locally in your browser." },
-        { icon: <Globe className="h-6 w-6 text-primary" />, title: "2000+ Words", description: "Powered by 2000+ adjectives, nouns, verbs, and more." },
+        { icon: <Globe className="h-6 w-6 text-primary" />, title: "Custom Input", description: "Use your own name or keyword to personalize results." },
       ]}
       faqs={[
-        { question: "What is a username generator?", answer: "A username generator creates unique, creative usernames tailored to different platforms. Our generator uses 2000+ words to produce highly varied usernames with minimal repetition." },
-        { question: "How do the categories work?", answer: "Each category is optimized for its platform. Gaming usernames are bold (ShadowNinja95), Instagram usernames use dots (neon.soul), professional usernames use dashes (swift-developer), and so on." },
-        { question: "Can I use these usernames for Instagram?", answer: "Absolutely! Select 'Instagram' category to get usernames optimized for Instagram with dots and lowercase letters. Check availability on Instagram to see if they're taken." },
-        { question: "Are the usernames checked for availability?", answer: "Our generator creates usernames, but availability depends on each platform. We recommend checking on your target platform (Instagram, TikTok, Discord, etc.) to see if the name is available." },
+        { question: "What is a username generator?", answer: "A username generator creates unique, creative usernames tailored to different styles. Our generator uses 2000+ words to produce highly varied usernames with minimal repetition." },
+        { question: "Can I generate usernames using my name?", answer: "Absolutely! Enter your name or keyword in the input field and the generator will create usernames that incorporate your custom input." },
+        { question: "Are the usernames unique?", answer: "Our generator uses a deduplication system to prevent repetition. Each batch of usernames is unique within that generation." },
+        { question: "Can I use these for Instagram or gaming?", answer: "Yes! Click the availability links to check if your chosen username is available on platforms like Instagram, TikTok, Twitter, or GitHub." },
         { question: "Is the username generator free?", answer: "Yes! Completely free. Generate as many usernames as you want with no limits or registration needed." },
       ]}
     >
@@ -77,26 +87,42 @@ export default function UsernameGenerator() {
             <CardTitle>Generate Usernames</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Custom Input */}
+            <div className="space-y-2">
+              <Label htmlFor="user-input" className="text-base font-semibold">Your Name or Keyword (Optional)</Label>
+              <Input
+                id="user-input"
+                placeholder="e.g., vivek, pixel, neon, shadow"
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                data-testid="input-custom-name"
+              />
+              <p className="text-xs text-muted-foreground">
+                Leave blank for random generation, or enter a name/keyword to personalize usernames
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Category Selector */}
+              {/* Style Selector */}
               <div className="space-y-2">
-                <Label htmlFor="category" className="text-base font-semibold">Category</Label>
-                <Select value={category} onValueChange={(value) => setCategory(value as UsernameCategory)}>
-                  <SelectTrigger id="category" data-testid="select-category">
+                <Label htmlFor="style" className="text-base font-semibold">Username Style</Label>
+                <Select value={style} onValueChange={(value) => setStyle(value as UsernameStyle)}>
+                  <SelectTrigger id="style" data-testid="select-style">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="gaming">Gamepad2 Gaming</SelectItem>
-                    <SelectItem value="instagram">Instagram</SelectItem>
-                    <SelectItem value="tiktok">TikTok</SelectItem>
-                    <SelectItem value="discord">Discord</SelectItem>
-                    <SelectItem value="youtube">YouTube</SelectItem>
-                    <SelectItem value="fantasy">Fantasy</SelectItem>
+                    <SelectItem value="aesthetic">Aesthetic</SelectItem>
+                    <SelectItem value="fancy">Fancy</SelectItem>
+                    <SelectItem value="gaming">Gaming</SelectItem>
+                    <SelectItem value="minimal">Minimal</SelectItem>
                     <SelectItem value="professional">Professional</SelectItem>
+                    <SelectItem value="cute">Cute</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="random">Random</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
-                  Choose a category optimized for your platform
+                  Choose a style for your usernames
                 </p>
               </div>
 
@@ -119,6 +145,34 @@ export default function UsernameGenerator() {
               </div>
             </div>
 
+            {/* Length Control */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <Label className="text-base font-semibold">Minimum Length: {minLength} characters</Label>
+                <input
+                  type="range"
+                  min="3"
+                  max="19"
+                  value={minLength}
+                  onChange={(e) => setMinLength(Math.min(parseInt(e.target.value), maxLength))}
+                  className="w-full"
+                  data-testid="slider-min-length"
+                />
+              </div>
+              <div className="space-y-3">
+                <Label className="text-base font-semibold">Maximum Length: {maxLength} characters</Label>
+                <input
+                  type="range"
+                  min="7"
+                  max="30"
+                  value={maxLength}
+                  onChange={(e) => setMaxLength(Math.max(parseInt(e.target.value), minLength))}
+                  className="w-full"
+                  data-testid="slider-max-length"
+                />
+              </div>
+            </div>
+
             {/* Generate Button */}
             <Button onClick={handleGenerate} size="lg" className="w-full" data-testid="button-generate">
               <RefreshCw className="h-5 w-5 mr-2" />
@@ -130,29 +184,91 @@ export default function UsernameGenerator() {
         {/* Results Grid */}
         {usernames.length > 0 && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <h3 className="text-lg font-semibold">Generated Usernames</h3>
-              <Badge variant="secondary">{usernames.length} usernames</Badge>
+              <div className="flex gap-2">
+                <Badge variant="secondary">{usernames.length} usernames</Badge>
+                <Button 
+                  onClick={handleCopyAll} 
+                  size="sm" 
+                  variant="outline"
+                  data-testid="button-copy-all"
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy All
+                </Button>
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {usernames.map((username, index) => (
                 <Card
                   key={`${username}-${index}`}
-                  className="hover-elevate cursor-pointer transition-all group relative"
-                  onClick={() => copyToClipboard(username, "Username copied!")}
+                  className="hover-elevate transition-all group relative flex flex-col"
                   data-testid={`card-username-${index}`}
                 >
-                  <CardContent className="pt-6 pb-4">
-                    <div className="space-y-2">
+                  <CardContent className="pt-6 pb-4 flex-1">
+                    <div className="space-y-3">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-semibold text-lg truncate" data-testid={`text-username-${index}`}>
                           {username}
                         </span>
-                        <Copy className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0" />
+                        <button
+                          onClick={() => copyToClipboard(username, "Username copied!")}
+                          className="p-1 rounded hover:bg-muted transition-colors"
+                          data-testid={`button-copy-username-${index}`}
+                        >
+                          <Copy className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                        </button>
                       </div>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-xs w-fit">
                         {username.length} chars
                       </Badge>
+                      
+                      <div className="pt-2 border-t space-y-2">
+                        <p className="text-xs font-semibold text-muted-foreground">Check availability:</p>
+                        <div className="flex flex-wrap gap-1">
+                          <a
+                            href={getAvailabilityUrl(username, "instagram")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded bg-muted hover:bg-primary/10 transition-colors"
+                            data-testid={`link-instagram-${index}`}
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            Instagram
+                          </a>
+                          <a
+                            href={getAvailabilityUrl(username, "tiktok")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded bg-muted hover:bg-primary/10 transition-colors"
+                            data-testid={`link-tiktok-${index}`}
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            TikTok
+                          </a>
+                          <a
+                            href={getAvailabilityUrl(username, "twitter")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded bg-muted hover:bg-primary/10 transition-colors"
+                            data-testid={`link-twitter-${index}`}
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            Twitter
+                          </a>
+                          <a
+                            href={getAvailabilityUrl(username, "github")}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded bg-muted hover:bg-primary/10 transition-colors"
+                            data-testid={`link-github-${index}`}
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            GitHub
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -171,12 +287,12 @@ export default function UsernameGenerator() {
               <div className="space-y-1">
                 <h3 className="font-semibold">Pro Tips</h3>
                 <ul className="text-sm text-muted-foreground space-y-1 leading-relaxed">
-                  <li>• Each category is optimized for its platform</li>
-                  <li>• Click any username to copy it instantly</li>
-                  <li>• Generate 12, 25, or 50 usernames at once</li>
-                  <li>• Check availability on your target platform</li>
+                  <li>• Enter your name or keyword to personalize usernames</li>
+                  <li>• Click any username to copy it instantly, or use Copy All</li>
+                  <li>• Adjust length slider to filter by character count</li>
+                  <li>• Check availability on Instagram, TikTok, Twitter, or GitHub</li>
+                  <li>• Aesthetic usernames use soft, elegant words</li>
                   <li>• Gaming usernames are bold and powerful</li>
-                  <li>• Instagram usernames use dots and lowercase</li>
                 </ul>
               </div>
             </div>
