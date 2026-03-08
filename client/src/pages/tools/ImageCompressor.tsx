@@ -29,11 +29,19 @@ import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slide
 import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
+interface ImageItem {
+  id: string;
+  originalFile: File;
+  compressedFile: File | null;
+  originalPreview: string;
+  compressedPreview: string;
+  isCompressing: boolean;
+  reductionPercent: number;
+}
+
 export default function ImageCompressor() {
-  const [originalFile, setOriginalFile] = useState<File | null>(null);
-  const [compressedFile, setCompressedFile] = useState<File | null>(null);
-  const [originalPreview, setOriginalPreview] = useState<string>("");
-  const [compressedPreview, setCompressedPreview] = useState<string>("");
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [quality, setQuality] = useState(80);
   const [loading, setLoading] = useState(false);
   const [sliderEnabled, setSliderEnabled] = useState(false);
@@ -69,85 +77,160 @@ export default function ImageCompressor() {
   ]), []);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
+    const files = Array.from(event.target.files || []);
+    const validFiles = files.filter(file => {
       if (!file.type.startsWith("image/")) {
         toast({
           title: "Invalid File",
-          description: "Please select a valid image file (JPG, PNG, WebP).",
+          description: `"${file.name}" is not a valid image file. Please select JPG, PNG, or WebP.`,
           variant: "destructive",
         });
         playErrorSound();
-        return;
+        return false;
       }
+      return true;
+    });
 
-      setOriginalFile(file);
-      setCompressedFile(null);
-      setCompressedPreview("");
+    if (validFiles.length === 0) return;
 
+    validFiles.forEach(file => {
+      const id = `${file.name}-${Date.now()}-${Math.random()}`;
       const reader = new FileReader();
       reader.onload = (e) => {
-        setOriginalPreview(e.target?.result as string);
+        setImages(prev => [...prev, {
+          id,
+          originalFile: file,
+          compressedFile: null,
+          originalPreview: e.target?.result as string,
+          compressedPreview: "",
+          isCompressing: false,
+          reductionPercent: 0
+        }]);
       };
       reader.readAsDataURL(file);
+    });
+
+    if (validFiles.length > 0) {
+      toast({
+        title: "Images Added",
+        description: `${validFiles.length} image(s) ready for compression.`,
+      });
     }
   };
 
   const compressImage = async () => {
-    if (!originalFile) return;
+    const imagesToCompress = images.filter(img => !img.compressedFile);
+    if (imagesToCompress.length === 0) return;
 
     setLoading(true);
+    let successCount = 0;
+    let failCount = 0;
+
     try {
-      const originalSizeMB = originalFile.size / (1024 * 1024);
-      const targetSizeMB = originalSizeMB * (1 - (100 - quality) / 100);
-      
-      const options = {
-        maxSizeMB: Math.max(0.05, targetSizeMB),
-        maxWidthOrHeight: quality < 30 ? 800 : (quality < 60 ? 1280 : 1920),
-        useWebWorker: true,
-        quality: quality / 100,
-        initialQuality: quality / 100,
-      };
+      for (const image of imagesToCompress) {
+        setImages(prev => prev.map(img => 
+          img.id === image.id ? { ...img, isCompressing: true } : img
+        ));
 
-      const compressed = await imageCompression(originalFile, options);
-      
-      const reductionPercent = Math.round((1 - compressed.size / originalFile.size) * 100);
-      
-      setCompressedFile(compressed);
+        try {
+          const originalSizeMB = image.originalFile.size / (1024 * 1024);
+          const targetSizeMB = originalSizeMB * (1 - (100 - quality) / 100);
+          
+          const options = {
+            maxSizeMB: Math.max(0.05, targetSizeMB),
+            maxWidthOrHeight: quality < 30 ? 800 : (quality < 60 ? 1280 : 1920),
+            useWebWorker: true,
+            quality: quality / 100,
+            initialQuality: quality / 100,
+          };
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCompressedPreview(e.target?.result as string);
-      };
-      reader.readAsDataURL(compressed);
+          const compressed = await imageCompression(image.originalFile, options);
+          const reductionPercent = Math.round((1 - compressed.size / image.originalFile.size) * 100);
 
-      toast({
-        title: "Compression Complete",
-        description: `Successfully reduced file size by ${reductionPercent}%`,
-      });
-      playCompletionSound();
-    } catch (error) {
-      toast({
-        title: "Compression Failed",
-        description: "An error occurred while processing your image. Please try a different file.",
-        variant: "destructive",
-      });
-      playErrorSound();
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            setImages(prev => prev.map(img =>
+              img.id === image.id
+                ? {
+                    ...img,
+                    compressedFile: compressed,
+                    compressedPreview: e.target?.result as string,
+                    isCompressing: false,
+                    reductionPercent
+                  }
+                : img
+            ));
+          };
+          reader.readAsDataURL(compressed);
+          successCount++;
+        } catch (error) {
+          failCount++;
+          setImages(prev => prev.map(img =>
+            img.id === image.id ? { ...img, isCompressing: false } : img
+          ));
+        }
+      }
+
+      setTimeout(() => {
+        if (successCount > 0) {
+          toast({
+            title: "Compression Complete",
+            description: `Successfully compressed ${successCount} image(s)${failCount > 0 ? ` (${failCount} failed)` : ''}`,
+          });
+          playCompletionSound();
+        }
+        if (failCount > 0) {
+          toast({
+            title: "Some Compressions Failed",
+            description: `${failCount} image(s) failed to compress. Try a different file.`,
+            variant: "destructive",
+          });
+          playErrorSound();
+        }
+      }, 100);
     } finally {
       setLoading(false);
     }
   };
 
-  const downloadCompressed = () => {
-    if (compressedFile) {
-      const url = URL.createObjectURL(compressedFile);
+  const downloadImage = (imageId: string) => {
+    const image = images.find(img => img.id === imageId);
+    if (image?.compressedFile) {
+      const url = URL.createObjectURL(image.compressedFile);
       const link = document.createElement("a");
-      link.download = `optimized-${originalFile?.name || "image.jpg"}`;
+      link.download = `optimized-${image.originalFile.name}`;
       link.href = url;
       link.click();
       URL.revokeObjectURL(url);
       playCompletionSound();
     }
+  };
+
+  const downloadAllCompressed = () => {
+    const compressedImages = images.filter(img => img.compressedFile);
+    if (compressedImages.length === 0) return;
+    
+    compressedImages.forEach(image => {
+      setTimeout(() => downloadImage(image.id), 200);
+    });
+    
+    toast({
+      title: "Downloading Files",
+      description: `Downloading ${compressedImages.length} optimized image(s)...`,
+    });
+  };
+
+  const removeImage = (imageId: string) => {
+    setImages(prev => prev.filter(img => img.id !== imageId));
+    if (selectedImageId === imageId) {
+      setSelectedImageId(images.find(img => img.id !== imageId)?.id || null);
+    }
+  };
+
+  const clearAll = () => {
+    setImages([]);
+    setSelectedImageId(null);
+    setSliderEnabled(false);
   };
 
   const formatFileSize = (bytes: number) => {
@@ -221,80 +304,130 @@ export default function ImageCompressor() {
           {/* Main Interface */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
             <div className="lg:col-span-7 xl:col-span-8 space-y-6">
-              {!originalFile ? (
+              {images.length === 0 ? (
                 <Card className="border-2 border-dashed border-primary/20 hover:border-primary/50 transition-all duration-300">
                   <CardContent className="flex flex-col items-center justify-center py-20 text-center cursor-pointer" onClick={() => fileInputRef.current?.click()}>
                     <div className="h-20 w-20 bg-primary/5 rounded-full flex items-center justify-center mb-6">
                       <Upload className="h-10 w-10 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-2">Drop your image here</h3>
-                    <p className="text-muted-foreground mb-8">Click to browse or drag and drop JPG, PNG, or WebP</p>
-                    <Button size="lg" className="rounded-full px-8">Select File</Button>
-                    <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" />
+                    <h3 className="text-2xl font-bold mb-2">Drop your images here</h3>
+                    <p className="text-muted-foreground mb-8">Click to browse or drag and drop multiple JPG, PNG, or WebP files</p>
+                    <Button size="lg" className="rounded-full px-8">Select Images</Button>
+                    <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" multiple />
                   </CardContent>
                 </Card>
               ) : (
                 <div className="space-y-6">
-                  {/* Comparison UI */}
-                  <Card className="overflow-hidden">
-                    <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30">
-                      <div>
-                        <CardTitle className="text-lg">Real-Time Comparison</CardTitle>
-                        <CardDescription>Visualizing {quality}% quality setting</CardDescription>
-                      </div>
-                      <Button variant="ghost" size="icon" onClick={() => {
-                        setOriginalFile(null);
-                        setCompressedFile(null);
-                        setOriginalPreview("");
-                        setCompressedPreview("");
-                        setSliderEnabled(false);
-                      }}>
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                      <div className="relative w-full aspect-video bg-muted flex items-center justify-center overflow-hidden">
-                        {compressedPreview ? (
-                          sliderEnabled ? (
-                            <ReactCompareSlider
-                              className="w-full h-full"
-                              itemOne={<img src={originalPreview} alt="Original" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
-                              itemTwo={<img src={compressedPreview} alt="Compressed" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
-                            />
-                          ) : (
-                            <div className="relative w-full h-full flex items-center justify-center p-4">
-                              <img src={compressedPreview} alt="Optimized" className="max-w-full max-h-full object-contain rounded-lg shadow-lg" />
-                              <Button variant="secondary" className="absolute shadow-2xl hover-elevate" onClick={() => setSliderEnabled(true)}>
-                                <Sparkles className="w-4 h-4 mr-2" />
-                                Click to Compare Before/After
-                              </Button>
+                  {selectedImageId && images.find(img => img.id === selectedImageId) ? (
+                    (() => {
+                      const selectedImage = images.find(img => img.id === selectedImageId)!;
+                      return (
+                        <Card className="overflow-hidden">
+                          <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/30">
+                            <div>
+                              <CardTitle className="text-lg">Real-Time Comparison</CardTitle>
+                              <CardDescription className="text-xs">{selectedImage.originalFile.name} • {quality}% quality</CardDescription>
                             </div>
-                          )
-                        ) : (
-                          <div className="flex flex-col items-center justify-center text-muted-foreground p-12">
-                            <ImageIcon className="w-12 h-12 mb-4 opacity-20 animate-pulse" />
-                            <p className="text-sm font-medium">Preparing optimized preview...</p>
+                            <Button variant="ghost" size="icon" onClick={() => removeImage(selectedImageId)}>
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </CardHeader>
+                          <CardContent className="p-0">
+                            <div className="relative w-full aspect-video bg-muted flex items-center justify-center overflow-hidden">
+                              {selectedImage.compressedPreview ? (
+                                sliderEnabled ? (
+                                  <ReactCompareSlider
+                                    className="w-full h-full"
+                                    itemOne={<img src={selectedImage.originalPreview} alt="Original" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                                    itemTwo={<img src={selectedImage.compressedPreview} alt="Compressed" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />}
+                                  />
+                                ) : (
+                                  <div className="relative w-full h-full flex items-center justify-center p-4">
+                                    <img src={selectedImage.compressedPreview} alt="Optimized" className="max-w-full max-h-full object-contain rounded-lg shadow-lg" />
+                                    <Button variant="secondary" className="absolute shadow-2xl hover-elevate" onClick={() => setSliderEnabled(true)}>
+                                      <Sparkles className="w-4 h-4 mr-2" />
+                                      Click to Compare Before/After
+                                    </Button>
+                                  </div>
+                                )
+                              ) : (
+                                <div className="flex flex-col items-center justify-center text-muted-foreground p-12">
+                                  <ImageIcon className="w-12 h-12 mb-4 opacity-20 animate-pulse" />
+                                  <p className="text-sm font-medium">Waiting for compression...</p>
+                                </div>
+                              )}
+                            </div>
+                          </CardContent>
+                          <CardFooter className="bg-muted/30 grid grid-cols-2 gap-4 py-4 border-t">
+                            <div className="text-center">
+                              <p className="text-xs text-muted-foreground uppercase font-bold">Original</p>
+                              <p className="text-lg font-mono">{formatFileSize(selectedImage.originalFile.size)}</p>
+                            </div>
+                            <div className="text-center border-l border-border">
+                              <p className="text-xs text-primary uppercase font-bold">Optimized</p>
+                              <p className="text-lg font-mono text-primary font-bold">
+                                {selectedImage.compressedFile ? formatFileSize(selectedImage.compressedFile.size) : "..."}
+                              </p>
+                              {selectedImage.compressedFile && (
+                                <Badge className="bg-green-500/10 text-green-500 border-green-500/20">
+                                  -{selectedImage.reductionPercent}% Smaller
+                                </Badge>
+                              )}
+                            </div>
+                          </CardFooter>
+                        </Card>
+                      );
+                    })()
+                  ) : null}
+
+                  {/* Images List */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <ImageIcon className="w-5 h-5" />
+                        Images ({images.length})
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {images.map(image => (
+                          <div
+                            key={image.id}
+                            onClick={() => {
+                              setSelectedImageId(image.id);
+                              setSliderEnabled(false);
+                            }}
+                            className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
+                              selectedImageId === image.id ? 'border-primary bg-primary/5' : 'border-muted hover:border-primary/50'
+                            }`}
+                          >
+                            <img src={image.originalPreview} alt={image.originalFile.name} className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <span className="text-white text-xs font-bold text-center px-2">{image.originalFile.name}</span>
+                            </div>
+                            {image.compressedFile && (
+                              <Badge className="absolute top-2 right-2 bg-green-500">
+                                {image.reductionPercent}%
+                              </Badge>
+                            )}
+                            {image.isCompressing && (
+                              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                                <Zap className="w-5 h-5 text-white animate-spin" />
+                              </div>
+                            )}
                           </div>
-                        )}
+                        ))}
                       </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full mt-4"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <Upload className="w-4 h-4 mr-2" />
+                        Add More Images
+                      </Button>
                     </CardContent>
-                    <CardFooter className="bg-muted/30 grid grid-cols-2 gap-4 py-4 border-t">
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground uppercase font-bold">Original</p>
-                        <p className="text-lg font-mono">{formatFileSize(originalFile.size)}</p>
-                      </div>
-                      <div className="text-center border-l border-border">
-                        <p className="text-xs text-primary uppercase font-bold">Optimized</p>
-                        <p className="text-lg font-mono text-primary font-bold">
-                          {compressedFile ? formatFileSize(compressedFile.size) : "..."}
-                        </p>
-                        {compressedFile && (
-                          <Badge className="bg-green-500/10 text-green-500 border-green-500/20">
-                            -{Math.round((1 - compressedFile.size / originalFile.size) * 100)}% Smallest
-                          </Badge>
-                        )}
-                      </div>
-                    </CardFooter>
                   </Card>
                 </div>
               )}
@@ -304,8 +437,8 @@ export default function ImageCompressor() {
             <div className="lg:col-span-5 xl:col-span-4 space-y-6">
               <Card className="sticky top-24">
                 <CardHeader>
-                  <CardTitle>Optimization Hub</CardTitle>
-                  <CardDescription>Fine-tune your compression settings</CardDescription>
+                  <CardTitle>Batch Compression Hub</CardTitle>
+                  <CardDescription>Compress all images together</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-8">
                   <div className="space-y-4">
@@ -322,17 +455,53 @@ export default function ImageCompressor() {
                   </div>
 
                   <div className="space-y-3">
-                    <Button size="lg" className="w-full h-14 text-lg font-bold" disabled={!originalFile || loading} onClick={compressImage}>
+                    <Button size="lg" className="w-full h-14 text-lg font-bold" disabled={images.length === 0 || loading} onClick={compressImage}>
                       {loading ? <Zap className="w-5 h-5 mr-2 animate-spin" /> : <ImageDown className="w-5 h-5 mr-2" />}
-                      Optimize Image Now
+                      Compress All ({images.filter(img => !img.compressedFile).length})
                     </Button>
-                    {compressedFile && (
-                      <Button size="lg" variant="outline" className="w-full h-14 text-lg border-primary text-primary hover:bg-primary/5" onClick={downloadCompressed}>
+                    {images.some(img => img.compressedFile) && (
+                      <Button size="lg" variant="outline" className="w-full h-14 text-lg border-primary text-primary hover:bg-primary/5" onClick={downloadAllCompressed}>
                         <Download className="w-5 h-5 mr-2" />
-                        Download Optimized Version
+                        Download All ({images.filter(img => img.compressedFile).length})
+                      </Button>
+                    )}
+                    {images.length > 0 && (
+                      <Button size="sm" variant="ghost" className="w-full" onClick={clearAll}>
+                        <X className="w-4 h-4 mr-2" />
+                        Clear All
                       </Button>
                     )}
                   </div>
+
+                  {images.length > 0 && (
+                    <div className="bg-muted/50 p-4 rounded-lg space-y-2">
+                      <p className="text-xs font-bold text-muted-foreground">BATCH STATUS</p>
+                      <div className="space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span>Total Images:</span>
+                          <span className="font-bold">{images.length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Compressed:</span>
+                          <span className="font-bold text-green-600">{images.filter(img => img.compressedFile).length}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Pending:</span>
+                          <span className="font-bold text-orange-600">{images.filter(img => !img.compressedFile).length}</span>
+                        </div>
+                        {images.some(img => img.compressedFile) && (
+                          <div className="flex justify-between">
+                            <span>Total Saved:</span>
+                            <span className="font-bold text-blue-600">
+                              {formatFileSize(
+                                images.reduce((acc, img) => acc + (img.originalFile.size - (img.compressedFile?.size || img.originalFile.size)), 0)
+                              )}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
 
                   <div className="pt-6 border-t space-y-4">
                     <h4 className="text-sm font-bold flex items-center gap-2"><Lock className="w-4 h-4 text-green-500" /> Privacy First Architecture</h4>
