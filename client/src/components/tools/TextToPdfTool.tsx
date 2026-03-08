@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,12 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Download, Type } from "lucide-react";
+import { Download, Heading2, Type, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import html2pdf from "html2pdf.js";
 import { marked } from "marked";
-import katex from "katex";
-import "katex/dist/katex.min.css";
 
 interface TextToPdfToolProps {
   sampleText: string;
@@ -19,38 +17,6 @@ interface TextToPdfToolProps {
   defaultMarkdown?: boolean;
 }
 
-// Render math in HTML - process both inline and block math with KaTeX
-const renderMathInHtml = (html: string): string => {
-  // Block math: $$...$$
-  html = html.replace(/\$\$\n?([\s\S]*?)\n?\$\$/g, (match, math) => {
-    try {
-      return `<div class="katex-display">${katex.renderToString(math.trim(), { 
-        displayMode: true, 
-        throwOnError: false,
-        trust: true 
-      })}</div>`;
-    } catch (e) {
-      console.error("KaTeX error:", e);
-      return match;
-    }
-  });
-
-  // Inline math: $...$ (but not $$)
-  html = html.replace(/(?<!\$)\$(?!\$)(.*?)(?<!\$)\$(?!\$)/g, (match, math) => {
-    try {
-      return katex.renderToString(math.trim(), { 
-        displayMode: false, 
-        throwOnError: false,
-        trust: true 
-      });
-    } catch (e) {
-      console.error("KaTeX error:", e);
-      return match;
-    }
-  });
-
-  return html;
-};
 
 export function TextToPdfTool({ 
   sampleText, 
@@ -68,10 +34,51 @@ export function TextToPdfTool({
   const [isMarkdown, setIsMarkdown] = useState(defaultMarkdown);
   const [showPreview, setShowPreview] = useState(true);
   const { toast } = useToast();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     localStorage.setItem(storageKey, textContent);
   }, [textContent, storageKey]);
+
+  const insertMarkdown = (before: string, after: string = "") => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textContent.substring(start, end) || "text";
+    const newContent = textContent.substring(0, start) + before + selectedText + after + textContent.substring(end);
+    setTextContent(newContent);
+
+    setTimeout(() => {
+      textarea.focus();
+      textarea.selectionStart = start + before.length;
+      textarea.selectionEnd = start + before.length + selectedText.length;
+    }, 0);
+  };
+
+  const applyHeading = () => insertMarkdown("# ", "");
+  const applyParagraph = () => insertMarkdown("", "");
+  const applyBold = () => insertMarkdown("**", "**");
+  const applyBulletList = () => insertMarkdown("- ", "");
+  const applyNumberedList = () => insertMarkdown("1. ", "");
+  const applyAlignLeft = () => insertMarkdown("<div style='text-align: left;'>", "</div>");
+  const applyAlignCenter = () => insertMarkdown("<div style='text-align: center;'>", "</div>");
+  const applyAlignRight = () => insertMarkdown("<div style='text-align: right;'>", "</div>");
+  const applyCodeBlock = () => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textContent.substring(start, end) || "code";
+    const newContent = textContent.substring(0, start) + "```\n" + selectedText + "\n```" + textContent.substring(end);
+    setTextContent(newContent);
+    setTimeout(() => {
+      textarea.focus();
+      textarea.selectionStart = start + 4;
+      textarea.selectionEnd = start + 4 + selectedText.length;
+    }, 0);
+  };
 
   const escapeHtml = (text: string) => {
     const map: Record<string, string> = {
@@ -113,9 +120,6 @@ export function TextToPdfTool({
         });
         let markdownHtml = await marked(textContent);
         markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
-        
-        // Apply KaTeX math rendering to HTML
-        const processedHtml = renderMathInHtml(markdownHtml);
 
         htmlContent += `
           <style>
@@ -129,24 +133,7 @@ export function TextToPdfTool({
             .pdf-export-content p { font-size: 12pt; margin: 10px 0; line-height: 1.6; page-break-inside: avoid; }
             .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0 10px 20px; }
             .pdf-export-content li { margin: 6px 0; }
-            .pdf-export-content del { 
-              text-decoration: line-through; 
-              text-decoration-thickness: 1.5px;
-              text-decoration-color: #000;
-            }
-            .pdf-export-content hr { 
-              border: none; 
-              border-top: 1px solid #d0d7de; 
-              margin: 28px 0; 
-            }
-            .pdf-export-content blockquote { 
-              border-left: 4px solid #ccc; 
-              padding-left: 12px; 
-              margin: 16px 0; 
-              color: #555; 
-              font-style: italic; 
-              page-break-inside: avoid;
-            }
+            .pdf-export-content strong, .pdf-export-content b { font-weight: 700; }
             .pdf-export-content pre { 
               background: #f6f8fa; 
               padding: 16px; 
@@ -171,19 +158,6 @@ export function TextToPdfTool({
               padding: 2px 4px; 
               border-radius: 4px; 
             }
-            .pdf-export-content table { 
-              border-collapse: collapse; 
-              width: 100%; 
-              margin: 20px 0; 
-              page-break-inside: avoid;
-            }
-            .pdf-export-content th, .pdf-export-content td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-            .pdf-export-content th { background: #f4f4f4; font-weight: bold; }
-            .pdf-export-content img {
-              max-width: 100%;
-              height: auto;
-              page-break-inside: avoid;
-            }
             .pdf-export-content h1, 
             .pdf-export-content h2, 
             .pdf-export-content h3,
@@ -194,14 +168,8 @@ export function TextToPdfTool({
               page-break-after: avoid;
               font-weight: 800;
             }
-            .katex { font-size: 1em; }
-            .katex-display { 
-              margin: 16px 0; 
-              page-break-inside: avoid;
-              display: block;
-            }
           </style>
-          <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${processedHtml}</div>
+          <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${markdownHtml}</div>
         `;
       } else {
         htmlContent += `<div style="white-space: pre-wrap; word-wrap: break-word; color: #000000;">${escapeHtml(textContent).replace(/\n/g, '<br>')}</div>`;
@@ -263,9 +231,6 @@ export function TextToPdfTool({
         });
         let html = await marked(content);
         html = html.replace(/<br\s*\/?>/g, "");
-        
-        // Apply KaTeX math rendering
-        html = renderMathInHtml(html);
         setHtmlContent(html);
       };
 
@@ -383,12 +348,12 @@ export function TextToPdfTool({
             </CardContent>
           </Card>
 
-          {/* Text Input */}
+          {/* Text Input with Toolbar */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-1">
               <div>
-                <CardTitle>Text Input</CardTitle>
-                <CardDescription>Enter content below</CardDescription>
+                <CardTitle>Text Editor</CardTitle>
+                <CardDescription>Use the toolbar or markdown syntax</CardDescription>
               </div>
               <Button
                 variant="ghost"
@@ -400,13 +365,101 @@ export function TextToPdfTool({
               </Button>
             </CardHeader>
             <CardContent>
-              <Textarea
-                placeholder="Paste your text here or load a sample..."
-                value={textContent}
-                onChange={(e) => setTextContent(e.target.value)}
-                className="font-mono text-sm min-h-[400px] lg:min-h-[500px]"
-                data-testid="textarea-text"
-              />
+              <div className="flex gap-3">
+                {/* Vertical Toolbar */}
+                <div className="flex flex-col gap-1 py-2">
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyHeading}
+                    title="Heading"
+                    data-testid="button-heading"
+                    className="h-8 w-8"
+                  >
+                    <Heading2 className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyBold}
+                    title="Bold"
+                    data-testid="button-bold"
+                    className="h-8 w-8"
+                  >
+                    <Bold className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyBulletList}
+                    title="Bullet List"
+                    data-testid="button-bullet-list"
+                    className="h-8 w-8"
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyNumberedList}
+                    title="Numbered List"
+                    data-testid="button-numbered-list"
+                    className="h-8 w-8"
+                  >
+                    <ListOrdered className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyAlignLeft}
+                    title="Align Left"
+                    data-testid="button-align-left"
+                    className="h-8 w-8"
+                  >
+                    <AlignLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyAlignCenter}
+                    title="Align Center"
+                    data-testid="button-align-center"
+                    className="h-8 w-8"
+                  >
+                    <AlignCenter className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyAlignRight}
+                    title="Align Right"
+                    data-testid="button-align-right"
+                    className="h-8 w-8"
+                  >
+                    <AlignRight className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={applyCodeBlock}
+                    title="Code Block"
+                    data-testid="button-code-block"
+                    className="h-8 w-8"
+                  >
+                    <Code className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                {/* Text Editor */}
+                <Textarea
+                  ref={textareaRef}
+                  placeholder="Paste your text here or load a sample..."
+                  value={textContent}
+                  onChange={(e) => setTextContent(e.target.value)}
+                  className="font-mono text-sm min-h-[400px] lg:min-h-[500px] flex-1"
+                  data-testid="textarea-text"
+                />
+              </div>
             </CardContent>
           </Card>
         </div>
