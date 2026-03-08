@@ -115,9 +115,9 @@ export default function TxtToPdfConverter() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="txt-to-pdf-content" />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
-            <section className="space-y-7 bg-gradient-to-r from-primary/5 to-transparent rounded-2xl p-8 border border-primary/10">
-              <h2 className="text-3xl font-bold">What is TXT to PDF Conversion?</h2>
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-0">
+            <section className="space-y-4 sm:space-y-7 bg-gradient-to-r from-primary/5 to-transparent rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-primary/10">
+              <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold">What is TXT to PDF Conversion?</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-4">
                 <p>TXT to PDF conversion transforms plain text files into Portable Document Format documents. TXT files are simple text-only documents without any formatting, while PDF files can preserve layout, formatting, and appearance across all devices.</p>
                 <p>When you convert a TXT file to PDF, your plain text becomes a professional, shareable document that looks the same on Windows, macOS, Linux, Android, and iOS.</p>
@@ -125,9 +125,9 @@ export default function TxtToPdfConverter() {
               </div>
             </section>
 
-            <section className="bg-gradient-to-br from-muted/50 via-background to-muted/30 p-12 rounded-3xl border border-primary/10 shadow-sm">
-              <h2 className="text-3xl font-bold mb-10">How to Convert TXT to PDF</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section className="bg-gradient-to-br from-muted/50 via-background to-muted/30 p-4 sm:p-8 lg:p-12 rounded-xl sm:rounded-3xl border border-primary/10 shadow-sm">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10">How to Convert TXT to PDF</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { step: "1", title: "Open your TXT file", desc: "Select your text file and copy the content." },
                   { step: "2", title: "Paste into editor", desc: "Paste your text into the Pixocraft editor window." },
@@ -145,9 +145,9 @@ export default function TxtToPdfConverter() {
               </div>
             </section>
 
-            <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Why Convert TXT to PDF?</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section className="space-y-6 sm:space-y-10">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Why Convert TXT to PDF?</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-6">
                 {[
                   { title: "Professional appearance", desc: "PDFs look clean and official, perfect for business and academic use.", icon: ShieldCheck },
                   { title: "Universal compatibility", desc: "Open PDF files on any device without compatibility issues.", icon: Globe },

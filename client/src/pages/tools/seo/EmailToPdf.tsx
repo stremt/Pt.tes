@@ -125,15 +125,15 @@ export default function EmailToPdfConverter() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="email-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-20">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Why Convert Emails to PDF?</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Why Convert Emails to PDF?</h2>
               <p className="text-muted-foreground leading-relaxed">Converting emails to PDF creates permanent, tamper-proof records of important correspondence. Emails stored as PDFs cannot be accidentally modified and are compatible with any device.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Email Archiving Benefits</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Email Archiving Benefits</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { title: "Legal compliance", desc: "Create audit trails and maintain records for compliance requirements.", icon: ShieldCheck },
                   { title: "Easy sharing", desc: "Share emails without forwarding or revealing email addresses.", icon: Globe },
@@ -152,7 +152,7 @@ export default function EmailToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Email Types to Archive</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Email Types to Archive</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {["Business correspondence", "Project updates", "Contract agreements", "Approval notifications", "Important receipts", "Confirmation emails"].map((type, i) => (
                   <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
@@ -164,8 +164,8 @@ export default function EmailToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
                     <CardHeader><CardTitle className="text-lg">{faq.question}</CardTitle></CardHeader>
@@ -176,7 +176,7 @@ export default function EmailToPdfConverter() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Archive Your Emails Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Archive Your Emails Today</h2>
               <Link href="/tools/text-to-pdf" className="inline-block">
                 <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
                   Visit Main Text to PDF Tool

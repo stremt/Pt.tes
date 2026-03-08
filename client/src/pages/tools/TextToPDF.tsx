@@ -375,8 +375,8 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto mb-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <div className="max-w-7xl mx-auto mb-16 px-4 sm:px-6 lg:px-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-start">
               <div className="space-y-6">
                 {/* Settings */}
                 <Card>
@@ -395,9 +395,9 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       />
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <label className="text-sm font-medium mb-2 block text-foreground">Font Family</label>
+                        <label className="text-xs sm:text-sm font-medium mb-2 block text-foreground">Font Family</label>
                         <Select value={fontFamily} onValueChange={setFontFamily}>
                           <SelectTrigger data-testid="select-font">
                             <SelectValue />
@@ -490,9 +490,9 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                     </Button>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex gap-3">
+                    <div className="flex flex-col lg:flex-row gap-3">
                       {/* Vertical Toolbar */}
-                      <div className="flex flex-col gap-1 py-2">
+                      <div className="flex flex-row lg:flex-col gap-1 py-2 overflow-x-auto lg:overflow-x-visible">
                         <Button size="icon" variant="outline" onClick={applyHeading} title="Heading" data-testid="button-heading" className="h-8 w-8">
                           <Heading2 className="h-4 w-4" />
                         </Button>
@@ -524,7 +524,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         placeholder="Paste your text here or load a sample..."
                         value={textContent}
                         onChange={(e) => setTextContent(e.target.value)}
-                        className="font-mono text-sm min-h-[400px] lg:min-h-[500px] flex-1"
+                        className="font-mono text-xs sm:text-sm min-h-[250px] sm:min-h-[350px] lg:min-h-[500px] flex-1"
                         data-testid="textarea-text"
                       />
                     </div>
@@ -536,12 +536,12 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <div className="lg:sticky lg:top-6">
                 <Card className="flex flex-col h-full">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-1">
-                    <CardTitle>Live Preview</CardTitle>
-                    <Badge variant="outline">{isMarkdown ? "Markdown" : "Plain Text"}</Badge>
+                    <CardTitle className="text-base sm:text-lg">Live Preview</CardTitle>
+                    <Badge variant="outline" className="text-xs">{isMarkdown ? "Markdown" : "Plain Text"}</Badge>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent className="flex-1 px-3 sm:px-6">
                     <div 
-                      className="border rounded-lg p-6 bg-white text-black overflow-y-auto h-[500px] lg:h-[700px] prose prose-sm max-w-none scrollbar-thin scrollbar-thumb-primary/20 hover:scrollbar-thumb-primary/40"
+                      className="border rounded-lg p-3 sm:p-6 bg-white text-black overflow-y-auto h-[250px] sm:h-[350px] lg:h-[700px] prose prose-xs sm:prose-sm max-w-none scrollbar-thin scrollbar-thumb-primary/20 hover:scrollbar-thumb-primary/40"
                       style={{
                         fontFamily: fontFamily,
                         fontSize: fontSize + "pt",

@@ -123,17 +123,17 @@ export default function TableToPdf() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="table-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-0">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Convert Tables to Professional PDFs</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Convert Tables to Professional PDFs</h2>
               <p className="text-muted-foreground leading-relaxed">Create professional PDF documents from Markdown tables. Perfect for reports, data summaries, financial statements, and any structured data that needs to be shared as a PDF.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Table Types We Support</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Table Types We Support</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {["Sales reports", "Budget tables", "Comparison matrices", "Product listings", "Pricing tables", "Data analysis"].map((type, i) => (
-                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
+                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-xl sm:rounded-2xl border">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <p className="text-muted-foreground">{type}</p>
                   </div>
@@ -142,7 +142,7 @@ export default function TableToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Table to PDF Benefits</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Table to PDF Benefits</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   { title: "Clean formatting", desc: "Tables render with perfect borders and alignment.", icon: Download },
@@ -152,7 +152,7 @@ export default function TableToPdf() {
                   { title: "Professional appearance", desc: "Create publication-quality table PDFs.", icon: Type },
                   { title: "No server uploads", desc: "All processing happens in your browser.", icon: ShieldCheck }
                 ].map((benefit, i) => (
-                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-xl sm:rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
                     <benefit.icon className="w-12 h-12 text-primary mb-6" />
                     <h3 className="font-bold text-lg mb-3">{benefit.title}</h3>
                     <p className="text-sm text-muted-foreground">{benefit.desc}</p>
@@ -162,7 +162,7 @@ export default function TableToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
@@ -174,7 +174,7 @@ export default function TableToPdf() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Convert Your Tables Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Convert Your Tables Today</h2>
               <Link href="/tools/text-to-pdf" className="inline-block">
                 <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
                   Visit Main Text to PDF Tool

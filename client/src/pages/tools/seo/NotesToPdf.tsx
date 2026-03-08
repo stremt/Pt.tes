@@ -140,9 +140,9 @@ export default function NotesToPdfConverter() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="notes-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-0">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Why Convert Notes to PDF?</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Why Convert Notes to PDF?</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                 <p>Converting your notes to PDF is an excellent way to organize and preserve your study materials. PDFs provide a professional, structured format that looks consistent across all devices.</p>
                 <p>Students often use our notes to PDF converter to transform study notes, lecture notes, and research notes into shareable, printable documents for submission or archiving.</p>
@@ -151,7 +151,7 @@ export default function NotesToPdfConverter() {
             </section>
 
             <section className="bg-muted/30 p-10 rounded-3xl border">
-              <h2 className="text-3xl font-bold mb-8">How to Convert Notes to PDF</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-8">How to Convert Notes to PDF</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {[
                   { step: "1", title: "Copy your notes", desc: "Open your notes and copy the content." },
@@ -171,7 +171,7 @@ export default function NotesToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Benefits for Students</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Benefits for Students</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   { title: "Easy organization", desc: "Convert scattered notes into one organized PDF document.", icon: ShieldCheck },
@@ -181,7 +181,7 @@ export default function NotesToPdfConverter() {
                   { title: "Archive for reference", desc: "Store your notes in a reliable, long-lasting PDF format.", icon: Zap },
                   { title: "No data collection", desc: "Your personal notes stay completely private on your device.", icon: ShieldCheck }
                 ].map((benefit, i) => (
-                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-xl sm:rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
                     <benefit.icon className="w-12 h-12 text-primary mb-6" />
                     <h3 className="font-bold text-lg mb-3 leading-tight">{benefit.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{benefit.desc}</p>
@@ -191,7 +191,7 @@ export default function NotesToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Types of Notes You Can Convert</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Types of Notes You Can Convert</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {[
                   "Study notes for exams",
@@ -201,7 +201,7 @@ export default function NotesToPdfConverter() {
                   "Project notes and planning",
                   "Personal learning notes"
                 ].map((type, i) => (
-                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
+                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-xl sm:rounded-2xl border">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <p className="text-muted-foreground">{type}</p>
                   </div>
@@ -210,7 +210,7 @@ export default function NotesToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
@@ -222,7 +222,7 @@ export default function NotesToPdfConverter() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Convert Your Study Notes Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Convert Your Study Notes Today</h2>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Use the Pixocraft Notes to PDF converter above to transform your study materials into professional PDF documents instantly, completely free.
               </p>

@@ -139,14 +139,14 @@ export default function MathEquationToPdf() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="math-equation-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-20">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Professional Math Equation PDFs</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Professional Math Equation PDFs</h2>
               <p className="text-muted-foreground leading-relaxed">Convert scientific and mathematical documents to PDF with perfectly rendered equations. Ideal for academic papers, scientific reports, and mathematical documentation.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Supported Math Content</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Supported Math Content</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {["Fractions and exponents", "Calculus equations", "Matrix operations", "Greek letters", "Trigonometry", "Complex expressions"].map((content, i) => (
                   <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
@@ -158,8 +158,8 @@ export default function MathEquationToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Use Cases for Math PDFs</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Use Cases for Math PDFs</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { title: "Academic papers", desc: "Create professional research papers with equations.", icon: Download },
                   { title: "Scientific reports", desc: "Document scientific findings with precision.", icon: Zap },
@@ -178,8 +178,8 @@ export default function MathEquationToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
                     <CardHeader><CardTitle className="text-lg">{faq.question}</CardTitle></CardHeader>
@@ -190,7 +190,7 @@ export default function MathEquationToPdf() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Convert Your Math Equations Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Convert Your Math Equations Today</h2>
               <Link href="/tools/text-to-pdf" className="inline-block">
                 <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
                   Visit Main Text to PDF Tool

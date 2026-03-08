@@ -137,17 +137,17 @@ export default function TextWithImagesToPdf() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="text-with-images-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-0">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Create Rich PDFs with Text and Images</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Create Rich PDFs with Text and Images</h2>
               <p className="text-muted-foreground leading-relaxed">Combine text content with images to create comprehensive, visually engaging PDF documents. Perfect for reports, product showcases, portfolios, and marketing materials.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Use Cases for Text + Images PDFs</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Use Cases for Text + Images PDFs</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {["Product brochures", "Portfolio documents", "Marketing materials", "Product presentations", "Portfolio showcases", "Report documentation"].map((use, i) => (
-                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
+                  <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-xl sm:rounded-2xl border">
                     <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <p className="text-muted-foreground">{use}</p>
                   </div>
@@ -156,7 +156,7 @@ export default function TextWithImagesToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Image Embedding Benefits</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Image Embedding Benefits</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
                   { title: "Visual impact", desc: "Images make documents more engaging and professional.", icon: Download },
@@ -166,7 +166,7 @@ export default function TextWithImagesToPdf() {
                   { title: "Responsive sizing", desc: "Images automatically fit page width.", icon: Type },
                   { title: "Professional appearance", desc: "Create polished, publication-quality documents.", icon: ShieldCheck }
                 ].map((benefit, i) => (
-                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
+                  <div key={i} className="flex flex-col items-center text-center p-8 bg-card rounded-xl sm:rounded-2xl border shadow-sm hover:shadow-md transition-shadow">
                     <benefit.icon className="w-12 h-12 text-primary mb-6" />
                     <h3 className="font-bold text-lg mb-3">{benefit.title}</h3>
                     <p className="text-sm text-muted-foreground">{benefit.desc}</p>
@@ -176,7 +176,7 @@ export default function TextWithImagesToPdf() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
@@ -188,7 +188,7 @@ export default function TextWithImagesToPdf() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Create Your Rich PDF Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Create Your Rich PDF Today</h2>
               <Link href="/tools/text-to-pdf" className="inline-block">
                 <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
                   Visit Main Text to PDF Tool

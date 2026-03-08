@@ -139,14 +139,14 @@ export default function AssignmentToPdfConverter() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="assignment-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-20">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">Why Convert Assignments to PDF?</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">Why Convert Assignments to PDF?</h2>
               <p className="text-muted-foreground leading-relaxed">Converting assignments to PDF ensures consistent formatting, professional appearance, and compatibility across all devices. PDFs preserve your academic work exactly as intended.</p>
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Assignment Types Supported</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Assignment Types Supported</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {["Essays and papers", "Research assignments", "Lab reports", "Case studies", "Thesis chapters", "Reflective essays", "Group projects", "Literature reviews"].map((type, i) => (
                   <div key={i} className="flex items-center gap-4 p-6 bg-card rounded-2xl border">
@@ -158,8 +158,8 @@ export default function AssignmentToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Academic Benefits</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Academic Benefits</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { title: "Professional formatting", desc: "Create polished documents suitable for academic submission.", icon: ShieldCheck },
                   { title: "Consistent appearance", desc: "PDFs look identical on all devices and operating systems.", icon: Globe },
@@ -178,8 +178,8 @@ export default function AssignmentToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
                     <CardHeader><CardTitle className="text-lg">{faq.question}</CardTitle></CardHeader>
@@ -190,7 +190,7 @@ export default function AssignmentToPdfConverter() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Submit Your Assignment as PDF Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Submit Your Assignment as PDF Today</h2>
               <Link href="/tools/text-to-pdf" className="inline-block">
                 <Badge className="cursor-pointer hover-elevate py-2 px-6 text-base">
                   Visit Main Text to PDF Tool

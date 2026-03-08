@@ -152,9 +152,9 @@ export default function MarkdownToPdfConverter() {
 
           <TextToPdfTool sampleText={sampleText} storageKey="markdown-to-pdf-content" defaultMarkdown={true} />
 
-          <div className="mt-24 space-y-20 max-w-5xl mx-auto border-t pt-20">
+          <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-20">
             <section className="space-y-6">
-              <h2 className="text-3xl font-bold">What is Markdown and How to Convert to PDF?</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold">What is Markdown and How to Convert to PDF?</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                 <p>Markdown is a lightweight markup language that allows you to write formatted text using simple symbols. With Pixocraft's Markdown to PDF converter, you can instantly transform your Markdown files into professional PDF documents.</p>
                 <p>Whether you're converting documentation, technical notes, or formatted content, our converter handles all Markdown features including headers, lists, tables, code blocks, images, and even mathematical equations.</p>
@@ -163,7 +163,7 @@ export default function MarkdownToPdfConverter() {
             </section>
 
             <section className="bg-muted/30 p-10 rounded-3xl border">
-              <h2 className="text-3xl font-bold mb-8">How to Convert Markdown to PDF</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-8">How to Convert Markdown to PDF</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {[
                   { step: "1", title: "Prepare your Markdown", desc: "Open your .md file or write Markdown directly in the editor." },
@@ -183,7 +183,7 @@ export default function MarkdownToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Markdown Features Supported</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Markdown Features Supported</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {[
                   { title: "Headings", desc: "Multiple levels of headers (h1 through h6)" },
@@ -207,8 +207,8 @@ export default function MarkdownToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Why Convert Markdown to PDF?</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Why Convert Markdown to PDF?</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { title: "Professional formatting", desc: "Transform plain Markdown into beautifully formatted documents.", icon: ShieldCheck },
                   { title: "Universal sharing", desc: "PDF files are readable on any device without Markdown viewers.", icon: Globe },
@@ -227,8 +227,8 @@ export default function MarkdownToPdfConverter() {
             </section>
 
             <section className="space-y-10">
-              <h2 className="text-3xl font-bold text-center">Frequently Asked Questions</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center">Frequently Asked Questions</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {faqItems.map((faq, i) => (
                   <Card key={i} className="border-none shadow-none bg-muted/20">
                     <CardHeader><CardTitle className="text-lg">{faq.question}</CardTitle></CardHeader>
@@ -239,7 +239,7 @@ export default function MarkdownToPdfConverter() {
             </section>
 
             <section className="bg-primary/5 rounded-3xl p-12 border border-primary/10 text-center">
-              <h2 className="text-3xl font-bold mb-6">Convert Your Markdown to PDF Today</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Convert Your Markdown to PDF Today</h2>
               <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Use the Pixocraft Markdown to PDF converter above to transform your markdown files into professional PDF documents instantly, completely free.
               </p>
