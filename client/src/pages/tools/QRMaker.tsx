@@ -763,8 +763,10 @@ export default function QRMaker() {
             <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <QrCode className="h-10 w-10 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
-              Professional QR Code Generator
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+              Free QR Code Generator
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">(Create Custom QR Codes with Logo Online)</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               The world's most advanced 100% free QR maker. Create high-resolution custom QR codes with logos, frames, and patterns. Secure, private, and works offline.
@@ -1124,6 +1126,26 @@ export default function QRMaker() {
               </div>
             </div>
 
+            <div className="space-y-12 py-16 border-t">
+              <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+                <h2 className="text-4xl font-bold">Why This QR Code Generator Is Different</h2>
+                <p className="text-xl text-muted-foreground">Explore the key advantages that set our tool apart from generic QR generators.</p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                {[
+                  { title: "100% Private", desc: "All processing in your browser. No data sent to servers." },
+                  { title: "Advanced Customization", desc: "Patterns, eye shapes, frames, logos, and full color control." },
+                  { title: "4K Ultra Quality", desc: "Export in standard, HD (2x), or 4K (4x) resolution." },
+                  { title: "No Limits", desc: "Unlimited codes, unlimited scans, forever free." }
+                ].map((item, i) => (
+                  <div key={i} className="p-6 rounded-2xl border bg-card hover:border-primary transition-all space-y-2">
+                    <h3 className="font-bold text-lg">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="space-y-12">
               <div className="text-center max-w-3xl mx-auto space-y-4">
                 <h2 className="text-4xl font-bold">Static vs. Dynamic QR Codes</h2>
@@ -1255,9 +1277,9 @@ export default function QRMaker() {
           </section>
 
           {/* How to Create QR Code in 3 Steps */}
-          <section className="space-y-12 py-20">
+          <section className="space-y-12 py-20 border-t">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <h2 className="text-4xl font-bold">How to Create a QR Code in 3 Simple Steps</h2>
+              <h2 className="text-4xl font-bold">How to Create a QR Code in 3 Steps</h2>
               <p className="text-xl text-muted-foreground">Generate custom QR codes in seconds with our intuitive interface.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
@@ -1288,7 +1310,7 @@ export default function QRMaker() {
           {/* Supported QR Types */}
           <section className="space-y-12 py-20 border-t">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <h2 className="text-4xl font-bold">8 Supported QR Code Types</h2>
+              <h2 className="text-4xl font-bold">Supported QR Code Types</h2>
               <p className="text-xl text-muted-foreground">Create QR codes for any purpose with our comprehensive type support.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1330,7 +1352,7 @@ export default function QRMaker() {
           {/* QR Code Best Practices */}
           <section className="space-y-12 py-20 border-t bg-muted/30 -mx-4 px-4 md:-mx-8 md:px-8">
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <h2 className="text-4xl font-bold">QR Code Best Practices</h2>
+              <h2 className="text-4xl font-bold">QR Code Scanning Best Practices</h2>
               <p className="text-xl text-muted-foreground">Master the technical requirements for maximum scannability.</p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -1370,8 +1392,8 @@ export default function QRMaker() {
           </section>
 
           {/* Related Tools */}
-          <section className="mt-16 max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center">Other Useful Tools</h2>
+          <section className="mt-16 max-w-4xl mx-auto border-t pt-16">
+            <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link href="/tools/barcode-generator">
                 <div className="p-4 rounded-lg border bg-card hover:border-primary transition-all cursor-pointer">
