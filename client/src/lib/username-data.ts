@@ -33,7 +33,25 @@ export const adjectives = [
   "Phoenix", "Dragon", "Griffin", "Chimera", "Sphinx", "Minotaur", "Hydra", "Cerberus", "Pegasus", "Unicorn", "Wyvern", "Basilisk", "Gargoyle", "Golem", "Elemental", "Spirit", "Ghost", "Specter", "Wraith", "Shade",
   "Thunder", "Lightning", "Storm", "Tempest", "Cyclone", "Tornado", "Whirlwind", "Gale", "Squall", "Monsoon", "Deluge", "Flood", "Tsunami", "Tidal", "Wave", "Ripple", "Undulation", "Vibration", "Oscillation", "Frequency",
   "Crown", "Throne", "Scepter", "Tiara", "Diadem", "Coronet", "Crown", "Regalia", "Insignia", "Badge", "Crest", "Seal", "Emblem", "Symbol", "Icon", "Logo", "Trademark", "Brand", "Name", "Title",
-  "Shadow", "Shade", "Eclipse", "Darkness", "Night", "Nightfall", "Dusk", "Twilight", "Gloaming", "Dawn", "Sunrise", "Sunset", "Morning", "Evening", "Noon", "Midday", "Midnight", "Witching", "Bewitched", "Ensorcelled"
+  "Shadow", "Shade", "Eclipse", "Darkness", "Night", "Nightfall", "Dusk", "Twilight", "Gloaming", "Dawn", "Sunrise", "Sunset", "Morning", "Evening", "Noon", "Midday", "Midnight", "Witching", "Bewitched", "Ensorcelled",
+  // Tech & Science
+  "Quantum", "Superfluid", "Plasma", "Photon", "Electron", "Proton", "Neuron", "Synapse", "Algorithm", "Encryption", "Decryption", "Virus", "Malware", "Firewall", "Router", "Server", "Protocol", "API", "Cache", "Query",
+  "Machine", "Robot", "Android", "Automaton", "Cyborg", "Synthetic", "Artificial", "Virtual", "Augmented", "Mixed", "Reality", "Dimension", "Universe", "Metaverse", "Simulation", "Construct", "Platform", "Interface", "Monitor", "Display",
+  "Laser", "Plasma", "Particle", "Wave", "Radiation", "Frequency", "Signal", "Transmission", "Broadcast", "Stream", "Download", "Upload", "Render", "Compile", "Execute", "Debug", "Optimize", "Refactor", "Deploy", "Launch",
+  // Music & Sound
+  "Harmonic", "Melodic", "Rhythmic", "Synth", "Sonic", "Acoustic", "Electric", "Amplified", "Reverb", "Echo", "Chorus", "Harmony", "Chord", "Note", "Beat", "Tempo", "Bass", "Treble", "Frequency", "Oscillator",
+  // Nature & Elements
+  "Alpine", "Glacial", "Volcanic", "Seismic", "Tectonic", "Lunar", "Solar", "Stellar", "Meteorite", "Asteroid", "Comet", "Nova", "Nebula", "Constellation", "Aurora", "Borealis", "Eclipse", "Atmosphere", "Tsunami", "Avalanche",
+  "Floral", "Botanical", "Organic", "Natural", "Terrestrial", "Aquatic", "Marine", "Oceanic", "Atmospheric", "Atmospheric", "Biome", "Ecosystem", "Habitat", "Sanctuary", "Oasis", "Sanctuary", "Wilderness", "Frontier", "Outback", "Tundra",
+  // Colors & Visual
+  "Monochrome", "Pastel", "Neon", "Fluorescent", "Iridescent", "Opalescent", "Pearlescent", "Metallic", "Matte", "Glossy", "Opaque", "Transparent", "Translucent", "Vivid", "Muted", "Saturated", "Desaturated", "Warm", "Cool", "Neutral",
+  // Emotions & States
+  "Blissful", "Ecstatic", "Euphoric", "Joyful", "Happy", "Content", "Satisfied", "Gratified", "Delighted", "Thrilled", "Excited", "Energized", "Invigorated", "Revitalized", "Refreshed", "Serene", "Peaceful", "Tranquil", "Calm", "Collected",
+  "Angry", "Furious", "Enraged", "Livid", "Irate", "Wrathful", "Seething", "Fuming", "Bitter", "Resentful", "Hateful", "Vengeful", "Hostile", "Aggressive", "Combative", "Belligerent", "Pugnacious", "Quarrelsome", "Contentious", "Fractious",
+  // Speed & Movement
+  "Accelerated", "Decelerated", "Instantaneous", "Momentary", "Fleeting", "Ephemeral", "Transient", "Temporary", "Permanent", "Fixed", "Stationary", "Mobile", "Nomadic", "Migratory", "Peripatetic", "Roaming", "Wandering", "Traversing", "Navigating", "Exploring",
+  // Size & Scale
+  "Miniature", "Tiny", "Small", "Compact", "Petite", "Diminutive", "Infinitesimal", "Microscopic", "Enormous", "Gigantic", "Colossal", "Massive", "Immense", "Vast", "Infinite", "Boundless", "Expansive", "Sprawling", "Monumental", "Titanic",
 ];
 
 export const nouns = [
@@ -64,7 +82,32 @@ export const nouns = [
   "Castle", "Fort", "Fortress", "Stronghold", "Keep", "Tower", "Wall", "Rampart", "Bastion", "Citadel", "Palace", "Mansion", "Estate", "Hall", "Temple", "Shrine", "Cathedral", "Basilica", "Abbey", "Monastery",
   "Oracle", "Seer", "Prophet", "Visionary", "Mystic", "Spiritual", "Enlightened", "Sage", "Scholar", "Philosopher", "Thinker", "Intellectual", "Genius", "Prodigy", "Savant", "Expert", "Master", "Grandmaster", "Archmaster", "Supreme",
   "Compass", "Navigator", "Guide", "Scout", "Pathfinder", "Wayfarer", "Wanderer", "Traveler", "Explorer", "Adventurer", "Pilgrim", "Nomad", "Vagrant", "Drifter", "Vagabond", "Hobo", "Tramp", "Beggar", "Pauper", "Mendicant",
-  "Essence", "Spirit", "Soul", "Consciousness", "Mind", "Intellect", "Psyche", "Aura", "Emanation", "Radiation", "Vibration", "Frequency", "Wavelength", "Signal", "Message", "Communication", "Information", "Data", "Bits", "Bytes"
+  "Essence", "Spirit", "Soul", "Consciousness", "Mind", "Intellect", "Psyche", "Aura", "Emanation", "Radiation", "Vibration", "Frequency", "Wavelength", "Signal", "Message", "Communication", "Information", "Data", "Bits", "Bytes",
+  // Additional Animals
+  "Leopard", "Panther", "Cougar", "Jaguar", "Puma", "Cheetah", "Lynx", "Bobcat", "Fox", "Jackal", "Hyena", "Wild Dog", "Antelope", "Elk", "Moose", "Reindeer", "Zebra", "Giraffe", "Rhinoceros", "Hippopotamus",
+  "Butterfly", "Dragonfly", "Beetle", "Hornet", "Wasp", "Bee", "Ant", "Spider", "Scorpion", "Centipede", "Millipede", "Worm", "Snake", "Lizard", "Turtle", "Crocodile", "Alligator", "Frog", "Toad", "Salamander",
+  "Dolphin", "Whale", "Shark", "Stingray", "Octopus", "Squid", "Jellyfish", "Starfish", "Seahorse", "Crab", "Lobster", "Shrimp", "Clam", "Oyster", "Snail", "Angelfish", "Piranha", "Swordfish", "Tuna", "Salmon",
+  "Parrot", "Peacock", "Owl", "Penguin", "Ostrich", "Emu", "Vulture", "Condor", "Hummingbird", "Sparrow", "Canary", "Crow", "Magpie", "Jay", "Woodpecker", "Flamingo", "Stork", "Crane", "Swan", "Goose",
+  // Additional Roles & Professions
+  "Architect", "Engineer", "Designer", "Developer", "Programmer", "Hacker", "Coder", "Cryptographer", "Mathematician", "Physicist", "Chemist", "Biologist", "Geologist", "Astronomer", "Botanist", "Zoologist", "Meteorologist", "Archaeologist", "Paleontologist", "Anthropologist",
+  "Pilot", "Captain", "Sailor", "Navigator", "Fisherman", "Hunter", "Trapper", "Guide", "Scout", "Tracker", "Ranger", "Warden", "Marshal", "Sheriff", "Lawman", "Detective", "Inspector", "Investigator", "Interrogator", "Inquisitor",
+  "Poet", "Author", "Writer", "Novelist", "Journalist", "Philosopher", "Theologian", "Historian", "Chronicler", "Scribe", "Copyist", "Proofreader", "Editor", "Publisher", "Printer", "Typist", "Secretary", "Stenographer", "Accountant", "Auditor",
+  // Tech Terms
+  "Algorithm", "Blockchain", "Database", "Server", "Router", "Gateway", "Firewall", "Proxy", "Node", "Link", "Cluster", "Cache", "Queue", "Stack", "Queue", "Array", "Hash", "Index", "Log", "Trace",
+  "Interface", "Widget", "Component", "Module", "Plugin", "Extension", "Utility", "Function", "Method", "Procedure", "Process", "Thread", "Task", "Job", "Worker", "Service", "Daemon", "Agent", "Bot", "Crawler",
+  // Elements & Nature
+  "Mountain", "Valley", "Canyon", "Cavern", "Cave", "Cliff", "Ridge", "Peak", "Summit", "Plateau", "Plain", "Desert", "Forest", "Jungle", "Marsh", "Swamp", "Bog", "Fen", "Meadow", "Prairie",
+  "Ocean", "Sea", "Lake", "River", "Stream", "Creek", "Brook", "Waterfall", "Geyser", "Spring", "Well", "Fountain", "Pond", "Pool", "Bay", "Gulf", "Strait", "Channel", "Inlet", "Fjord",
+  "Volcano", "Crater", "Lava", "Magma", "Eruption", "Tremor", "Earthquake", "Tsunami", "Avalanche", "Mudslide", "Landslide", "Rockslide", "Sinkhole", "Crevasse", "Chasm", "Abyss", "Gorge", "Pass", "Gap", "Rift",
+  "Cloud", "Mist", "Fog", "Haze", "Smog", "Dust", "Smoke", "Steam", "Vapor", "Gas", "Wind", "Breeze", "Gust", "Squall", "Downburst", "Tornado", "Twister", "Whirlwind", "Dust Devil", "Sandstorm",
+  "Star", "Planet", "Moon", "Sun", "Comet", "Meteor", "Asteroid", "Meteorite", "Constellation", "Galaxy", "Nebula", "Pulsar", "Quasar", "Black Hole", "Wormhole", "Aurora", "Halo", "Ring", "Orbit", "Satellite",
+  // Abstract Concepts
+  "Destiny", "Fate", "Luck", "Chance", "Chaos", "Order", "Harmony", "Entropy", "Infinity", "Eternity", "Immortality", "Mortality", "Infinity", "Zero", "Void", "Nothing", "Something", "Everything", "Anything", "All",
+  "Truth", "Lie", "Fiction", "Reality", "Dream", "Nightmare", "Vision", "Hallucination", "Mirage", "Illusion", "Delusion", "Fantasy", "Imagination", "Creativity", "Innovation", "Inspiration", "Intuition", "Instinct", "Impulse", "Reaction",
+  "Light", "Darkness", "Shadow", "Reflection", "Refraction", "Prism", "Spectrum", "Rainbow", "Glare", "Glint", "Sparkle", "Shimmer", "Glow", "Radiance", "Luminescence", "Bioluminescence", "Phosphorescence", "Fluorescence", "Incandescence", "Iridescence",
+  // Musical & Sound
+  "Symphony", "Sonata", "Concerto", "Requiem", "Elegy", "Fugue", "Canon", "Prelude", "Nocturne", "Waltz", "Tango", "Salsa", "Jazz", "Blues", "Rock", "Metal", "Punk", "Folk", "Country", "Pop",
+  "Melody", "Harmony", "Discord", "Chord", "Interval", "Scale", "Mode", "Key", "Tempo", "Rhythm", "Meter", "Beat", "Pulse", "Measure", "Note", "Tone", "Pitch", "Frequency", "Amplitude", "Timbre",
 ];
 
 export const verbs = [
@@ -77,7 +120,18 @@ export const verbs = [
   "Sing", "Chant", "Hum", "Whistle", "Trill", "Warble", "Carol", "Croon", "Intone", "Vocalize", "Utter", "Speak", "Talk", "Converse", "Discuss", "Debate", "Argue", "Quarrel", "Dispute", "Contend",
   "Fly", "Glide", "Swoop", "Dive", "Plunge", "Descend", "Ascend", "Rise", "Climb", "Scale", "Mount", "Reach", "Attain", "Achieve", "Accomplish", "Complete", "Finish", "End", "Conclude", "Terminate",
   "Soar", "Hover", "Float", "Drift", "Drift", "Sail", "Navigate", "Steer", "Guide", "Direct", "Lead", "Follow", "Pursue", "Chase", "Hunt", "Track", "Trace", "Tail", "Shadow", "Stalk",
-  "Conquer", "Vanquish", "Defeat", "Win", "Triumph", "Prevail", "Succeed", "Prosper", "Thrive", "Flourish", "Bloom", "Blossom", "Flower", "Grow", "Develop", "Evolve", "Progress", "Advance", "Move", "Proceed"
+  "Conquer", "Vanquish", "Defeat", "Win", "Triumph", "Prevail", "Succeed", "Prosper", "Thrive", "Flourish", "Bloom", "Blossom", "Flower", "Grow", "Develop", "Evolve", "Progress", "Advance", "Move", "Proceed",
+  // Additional Verbs
+  "Accelerate", "Decelerate", "Brake", "Reverse", "Circulate", "Rotate", "Spin", "Twist", "Twirl", "Swirl", "Whirl", "Orbit", "Revolve", "Gyrate", "Oscillate", "Vibrate", "Undulate", "Pulsate", "Throb", "Beat",
+  "Awaken", "Wake", "Rouse", "Stir", "Activate", "Energize", "Invigorate", "Stimulate", "Excite", "Thrill", "Delight", "Fascinate", "Captivate", "Enchant", "Mesmerize", "Hypnotize", "Bewitch", "Charm", "Seduce", "Tempt",
+  "Illuminate", "Brighten", "Lighten", "Enlighten", "Illuminate", "Shine", "Glow", "Radiate", "Emit", "Reflect", "Refract", "Absorb", "Transmit", "Project", "Cast", "Beam", "Flash", "Flare", "Glint", "Sparkle",
+  "Breathe", "Exhale", "Inhale", "Respire", "Wheeze", "Gasp", "Pant", "Hyperventilate", "Suffocate", "Asphyxiate", "Choke", "Cough", "Sneeze", "Sniffle", "Snore", "Snort", "Sniff", "Smell", "Scent", "Whiff",
+  "Embrace", "Hug", "Hold", "Clasp", "Grasp", "Grip", "Clutch", "Seize", "Snatch", "Grab", "Catch", "Trap", "Capture", "Ensnare", "Entangle", "Tangle", "Knot", "Bind", "Tie", "Fasten",
+  "Rise", "Lift", "Raise", "Hoist", "Elevate", "Ascend", "Mount", "Climb", "Scale", "Clamber", "Scramble", "Crawl", "Creep", "Steal", "Slink", "Sneak", "Prowl", "Stalk", "Track", "Hunt",
+  "Sink", "Descend", "Lower", "Drop", "Fall", "Tumble", "Collapse", "Crumble", "Crumble", "Disintegrate", "Deteriorate", "Decay", "Decompose", "Rot", "Wither", "Shrivel", "Wilt", "Droop", "Sag", "Slump",
+  "Create", "Build", "Construct", "Erect", "Establish", "Form", "Shape", "Mold", "Carve", "Sculpt", "Forge", "Craft", "Devise", "Invent", "Conceive", "Generate", "Produce", "Manufacture", "Assemble", "Compose",
+  "Destroy", "Demolish", "Dismantle", "Disassemble", "Deconstruct", "Undo", "Unravel", "Untangle", "Disentangle", "Separate", "Divide", "Partition", "Fragment", "Sever", "Sever", "Dismember", "Mutilate", "Mangle", "Disfigure", "Deform",
+  "Transform", "Transmute", "Transfigure", "Alter", "Change", "Modify", "Adapt", "Adjust", "Regulate", "Control", "Manage", "Govern", "Rule", "Reign", "Dominate", "Command", "Direct", "Lead", "Guide", "Steer",
 ];
 
 export const prefixes = [
@@ -90,7 +144,10 @@ export const prefixes = [
   "Night", "Day", "Dawn", "Dusk", "Twilight", "Midnight", "Noon", "Morning", "Evening", "Sunset", "Sunrise", "Moonlight", "Starlight", "Sunlight", "Firelight", "Candlelight", "Torchlight", "Lamplight", "Spotlight", "Floodlight",
   "Grim", "Dark", "Bright", "Clear", "Murky", "Misty", "Foggy", "Cloudy", "Stormy", "Rainy", "Snowy", "Icy", "Frosty", "Cold", "Cool", "Warm", "Hot", "Blazing", "Scorching", "Burning",
   "Grand", "Majestic", "Regal", "Royal", "Imperial", "Magnificent", "Splendid", "Glorious", "Sublime", "Exquisite", "Elegant", "Refined", "Sophisticated", "Cultured", "Civilized", "Polite", "Courteous", "Gracious", "Dignified", "Respectable",
-  "Wild", "Free", "Unbound", "Unleashed", "Unchained", "Unshackled", "Unfettered", "Unconstrained", "Unrestricted", "Unlimited", "Boundless", "Infinite", "Eternal", "Immortal", "Undying", "Everlasting", "Perpetual", "Forever", "Always", "Never"
+  "Wild", "Free", "Unbound", "Unleashed", "Unchained", "Unshackled", "Unfettered", "Unconstrained", "Unrestricted", "Unlimited", "Boundless", "Infinite", "Eternal", "Immortal", "Undying", "Everlasting", "Perpetual", "Forever", "Always", "Never",
+  // Additional Prefixes
+  "Geo", "Hydro", "Pyro", "Aero", "Astro", "Cosmo", "Intro", "Extro", "Retro", "Hyper", "Hypo", "Super", "Infra", "Supra", "Trans", "Extra", "Intra", "Inter", "Auto", "Homo",
+  "Hetero", "Poly", "Mono", "Oligo", "Proto", "Paleo", "Archaeo", "Bronto", "Mega", "Giga", "Tera", "Peta", "Ata", "Zepto", "Yocto", "Exa", "Zetta", "Yotta", "Deci", "Hecto",
 ];
 
 export const suffixes = [
@@ -103,26 +160,40 @@ export const suffixes = [
   "Mind", "Brain", "Intellect", "Genius", "Oracle", "Prophet", "Seer", "Sage", "Scholar", "Philosopher", "Thinker", "Poet", "Bard", "Minstrel", "Troubadour", "Jester", "Clown", "Fool", "Simpleton", "Idiot",
   "Strike", "Blast", "Shot", "Hit", "Blow", "Punch", "Kick", "Slash", "Stab", "Pierce", "Thrust", "Volley", "Barrage", "Bombardment", "Assault", "Attack", "Offense", "Defense", "Guard", "Shield",
   "Glide", "Slide", "Skate", "Ski", "Sail", "Swim", "Dive", "Fly", "Soar", "Hover", "Float", "Drift", "Flow", "Stream", "Rush", "Surge", "Wave", "Tide", "Current", "Wind",
-  "Vision", "Sight", "Eye", "Observer", "Watcher", "Looker", "Seer", "Viewer", "Spectator", "Audience", "Listener", "Hearer", "Reader", "Speaker", "Talker", "Voice", "Sound", "Echo", "Whisper", "Murmur"
+  "Vision", "Sight", "Eye", "Observer", "Watcher", "Looker", "Seer", "Viewer", "Spectator", "Audience", "Listener", "Hearer", "Reader", "Speaker", "Talker", "Voice", "Sound", "Echo", "Whisper", "Murmur",
+  // Additional Suffixes
+  "Maker", "Taker", "Breaker", "Shaker", "Player", "Layer", "Slayer", "Sayer", "Payer", "Flayer", "Grader", "Trader", "Raider", "Leader", "Reader", "Healer", "Dealer", "Welder", "Wielder", "Wilder",
+  "Hunter", "Gatherer", "Keeper", "Sleeper", "Seeker", "Speaker", "Streaker", "Breaker", "Maker", "Taker", "Banker", "Tanker", "Ranker", "Thanker", "Spanker", "Flanker", "Planker", "Clanker", "Blanker", "Cranker",
+  "Sphere", "State", "Trait", "Fate", "Gate", "Crate", "Plate", "Slate", "Grate", "Mate", "Rate", "Date", "Late", "Bait", "Wait", "Strait", "Weight", "Height", "Sight", "Flight",
+  "Ship", "Skip", "Trip", "Strip", "Drip", "Grip", "Flip", "Slip", "Clip", "Whip", "Chip", "Blip", "Snip", "Zip", "Rip", "Sip", "Dip", "Hip", "Lip", "Tip",
+  "Craft", "Draft", "Raft", "Shaft", "Waft", "Theft", "Deft", "Left", "Cleft", "Heft", "Daft", "Oft", "Loft", "Soft", "Aloft", "Shaft", "Tuft", "Rift", "Drift", "Swift",
 ];
 
-// Style-specific word lists
-export const aestheticWords = ["aura", "vibes", "dream", "luxe", "glow", "mist", "velvet", "moon", "soft", "bloom", "essence", "ethereal", "serene", "shimmer", "radiant", "luminous", "tranquil"];
-export const fancyWords = ["prime", "elite", "nova", "legend", "royal", "apex", "zenith", "peak", "supreme", "divine"];
-export const gamingWords = ["slayer", "hunter", "rogue", "phantom", "vortex", "ninja", "warrior", "assassin", "champion", "reaper"];
-export const minimalWords = ["dev", "exe", "xyz", "io", "codes", "builds", "cli", "api", "web", "net"];
-export const cuteWords = ["bunny", "baby", "cute", "sweet", "angel", "star", "pixel", "mint", "honey", "cookie"];
-export const darkWords = ["void", "shadow", "night", "dark", "abyss", "eclipse", "phantom", "ghost", "wraith", "midnight"];
+// Style-specific word lists - GREATLY EXPANDED
+export const aestheticWords = ["aura", "vibes", "dream", "luxe", "glow", "mist", "velvet", "moon", "soft", "bloom", "essence", "ethereal", "serene", "shimmer", "radiant", "luminous", "tranquil", "heavenly", "whisper", "cascade", "silk", "pearl", "crystal", "rose", "lavender", "twilight", "dazzle", "enchant", "mystique", "allure"];
 
-// Gender-specific adjectives and nouns
-export const feminineAdjectives = ["Luna", "Aurora", "Star", "Iris", "Rose", "Sage", "Ivy", "Phoenix", "Mystic", "Grace", "Serene", "Soft", "Gentle", "Bright", "Sweet", "Dreamy", "Cosmic", "Celestial", "Divine", "Ethereal"];
-export const feminineNouns = ["Belle", "Luna", "Aurora", "Iris", "Rose", "Sage", "Ivy", "Lily", "Fawn", "Dove", "Swan", "Fairy", "Nymph", "Muse", "Siren", "Duchess", "Princess", "Queen", "Goddess", "Angel"];
+export const fancyWords = ["prime", "elite", "nova", "legend", "royal", "apex", "zenith", "peak", "supreme", "divine", "majestic", "regal", "opulent", "prestigious", "exquisite", "refined", "elegant", "luxurious", "ornate", "magnificent"];
 
-export const masculineAdjectives = ["Storm", "Blaze", "Iron", "Steel", "Dark", "Thunder", "Savage", "Fierce", "Bold", "Strong", "Mighty", "Shadow", "Apex", "Titan", "Inferno", "Cosmic", "Quantum", "Primal", "Rebel", "Rogue"];
-export const masculineNouns = ["Storm", "Blaze", "Blade", "Wolf", "Tiger", "Warrior", "Knight", "King", "Duke", "Lord", "Rogue", "Pirate", "Ninja", "Samurai", "Titan", "Dragon", "Phoenix", "Hawk", "Eagle", "Beast"];
+export const gamingWords = ["slayer", "hunter", "rogue", "phantom", "vortex", "ninja", "warrior", "assassin", "champion", "reaper", "predator", "beast", "titan", "dragon", "phoenix", "venom", "striker", "blaze", "shadow", "void"];
 
-export const neutralAdjectives = ["Neon", "Pixel", "Cyber", "Digital", "Echo", "Void", "Quantum", "Matrix", "Vector", "Cosmic", "Stellar", "Ultra", "Meta", "Prime", "Apex", "Nova", "Zen", "Pure", "True", "Clear"];
-export const neutralNouns = ["Echo", "Pulse", "Vortex", "Nexus", "Code", "Signal", "Vision", "Mind", "Soul", "Spirit", "Force", "Power", "Entity", "Essence", "Nature", "Core", "Node", "Link", "System", "Network"];
+export const minimalWords = ["dev", "exe", "xyz", "io", "codes", "builds", "cli", "api", "web", "net", "core", "hub", "node", "link", "host", "sync", "tech", "grid", "sys", "app"];
+
+export const cuteWords = ["bunny", "baby", "cute", "sweet", "angel", "star", "pixel", "mint", "honey", "cookie", "peach", "lemon", "cherry", "berry", "daisy", "butterfly", "panda", "puppy", "kitty", "teddy"];
+
+export const darkWords = ["void", "shadow", "night", "dark", "abyss", "eclipse", "phantom", "ghost", "wraith", "midnight", "raven", "skull", "ruin", "decay", "silence", "dread", "terror", "doom", "curse", "obliterate"];
+
+// Enhanced Gender-specific word lists
+export const feminineAdjectives = ["Luna", "Aurora", "Star", "Iris", "Rose", "Sage", "Ivy", "Phoenix", "Mystic", "Grace", "Serene", "Soft", "Gentle", "Bright", "Sweet", "Dreamy", "Cosmic", "Celestial", "Divine", "Ethereal", "Radiant", "Luminous", "Elegant", "Delicate", "Graceful", "Pure", "Pristine", "Noble", "Regal", "Majestic"];
+
+export const feminineNouns = ["Belle", "Luna", "Aurora", "Iris", "Rose", "Sage", "Ivy", "Lily", "Fawn", "Dove", "Swan", "Fairy", "Nymph", "Muse", "Siren", "Duchess", "Princess", "Queen", "Goddess", "Angel", "Enchantress", "Sorceress", "Witch", "Valkyrie", "Warrior", "Maiden", "Lady", "Empress", "Saint", "Sage"];
+
+export const masculineAdjectives = ["Storm", "Blaze", "Iron", "Steel", "Dark", "Thunder", "Savage", "Fierce", "Bold", "Strong", "Mighty", "Shadow", "Apex", "Titan", "Inferno", "Cosmic", "Quantum", "Primal", "Rebel", "Rogue", "Wild", "Ruthless", "Relentless", "Dominant", "Powerful", "Resilient", "Formidable", "Valiant", "Dauntless", "Intrepid"];
+
+export const masculineNouns = ["Storm", "Blaze", "Blade", "Wolf", "Tiger", "Warrior", "Knight", "King", "Duke", "Lord", "Rogue", "Pirate", "Ninja", "Samurai", "Titan", "Dragon", "Phoenix", "Hawk", "Eagle", "Beast", "Assassin", "Ranger", "Gunslinger", "Warlord", "Berserker", "Gladiator", "Conqueror", "Sentinel", "Paladin", "Templar"];
+
+export const neutralAdjectives = ["Neon", "Pixel", "Cyber", "Digital", "Echo", "Void", "Quantum", "Matrix", "Vector", "Cosmic", "Stellar", "Ultra", "Meta", "Prime", "Apex", "Nova", "Zen", "Pure", "True", "Clear", "Flux", "Pulse", "Sync", "Drift", "Static", "Signal", "Sonic", "Flux", "Phase", "Shift"];
+
+export const neutralNouns = ["Echo", "Pulse", "Vortex", "Nexus", "Code", "Signal", "Vision", "Mind", "Soul", "Spirit", "Force", "Power", "Entity", "Essence", "Nature", "Core", "Node", "Link", "System", "Network", "Flux", "Sync", "Node", "Hub", "Portal", "Gateway", "Cipher", "Algorithm", "Logic", "Frequency"];
 
 export type UsernameCategory = "gaming" | "instagram" | "tiktok" | "discord" | "youtube" | "fantasy" | "professional";
 export type UsernameStyle = "aesthetic" | "fancy" | "gaming" | "minimal" | "professional" | "cute" | "dark" | "random";
