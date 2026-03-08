@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code } from "lucide-react";
+import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
