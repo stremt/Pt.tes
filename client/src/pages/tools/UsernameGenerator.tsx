@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { generateMultipleUsernames, type UsernameStyle, type Separator } from "@/lib/random-utils";
-import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe, Hash, Minus, Circle } from "lucide-react";
+import { generateMultipleUsernames, getCategories, type UsernameCategory } from "@/lib/username-generator";
+import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe, Gamepad2, Instagram, Music } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -17,50 +15,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
 
 export default function UsernameGenerator() {
   const [usernames, setUsernames] = useState<string[]>([]);
-  const [includeNumbers, setIncludeNumbers] = useState(true);
-  const [customWords, setCustomWords] = useState("");
-  const [style, setStyle] = useState<UsernameStyle>("classic");
-  const [separator, setSeparator] = useState<Separator>("none");
-  const [maxLength, setMaxLength] = useState<number>(20);
-  const [prioritizeCustomWords, setPrioritizeCustomWords] = useState(false);
+  const [category, setCategory] = useState<UsernameCategory>("gaming");
+  const [count, setCount] = useState<number>(12);
   const { copyToClipboard } = useClipboard();
 
   useSEO({
-    title: "Username Generator | Create Unique Usernames | Pixocraft Tools",
-    description: "Generate creative and unique usernames instantly. Perfect for gaming, social media, and online accounts. Free username generator with customizable options.",
-    keywords: "username generator, random username, gamer tag, username ideas, name generator, gaming names",
+    title: "Username Generator – Create Cool & Unique Usernames Instantly | Pixocraft Tools",
+    description: "Generate creative usernames instantly with our free username generator. Perfect for gaming, Instagram, TikTok, Discord, and social media profiles.",
+    keywords: "username generator, cool username generator, gaming username generator, random username generator, instagram username generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/username-generator",
   });
 
   const handleGenerate = () => {
-    const customWordArray = customWords
-      .split(',')
-      .map(word => word.trim())
-      .filter(word => word.length > 0);
-    
-    const newUsernames = generateMultipleUsernames(12, {
-      includeNumbers,
-      customWords: customWordArray,
-      style,
-      separator,
-      maxLength,
-      prioritizeCustomWords: customWordArray.length > 0 ? prioritizeCustomWords : false
-    });
-    
+    const newUsernames = generateMultipleUsernames(count, { category });
     setUsernames(newUsernames);
   };
 
-  const styleDescriptions = {
-    classic: "AdjectiveNoun123 - Clean and professional",
-    modern: "Adjective_Noun_123 - With separators",
-    prefix: "MrAdjectiveNoun - Add cool prefixes",
-    suffix: "AdjectiveNounPro - Gaming style",
-    minimal: "Word1234 - Simple and short",
-    cool: "word123_noun - Lowercase vibe"
+  const categoryIcons: Record<UsernameCategory, React.ReactNode> = {
+    gaming: <Gamepad2 className="h-5 w-5" />,
+    instagram: <Instagram className="h-5 w-5" />,
+    tiktok: <Music className="h-5 w-5" />,
+    discord: <Globe className="h-5 w-5" />,
+    youtube: <Globe className="h-5 w-5" />,
+    fantasy: <Sparkles className="h-5 w-5" />,
+    professional: <Globe className="h-5 w-5" />,
   };
 
   return (
@@ -71,156 +52,71 @@ export default function UsernameGenerator() {
       toolId="username-generator"
       category="Fun & Utility"
       howItWorks={[
-        { step: 1, title: "Add Custom Words", description: "Enter your own words to personalize usernames." },
-        { step: 2, title: "Choose Style", description: "Pick from 6 different username formats and styles." },
-        { step: 3, title: "Generate & Copy", description: "Get 12 unique usernames instantly and copy any you like." },
+        { step: 1, title: "Choose Category", description: "Pick the platform or style (Gaming, Instagram, TikTok, Discord, YouTube, Fantasy, or Professional)." },
+        { step: 2, title: "Select Quantity", description: "Choose how many usernames to generate (12, 25, or 50)." },
+        { step: 3, title: "Generate & Copy", description: "Get unique usernames instantly and copy any you like with one click." },
       ]}
       benefits={[
-        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Results", description: "Generate 12 unique usernames with a single click." },
-        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "6 Unique Styles", description: "Choose from Classic, Modern, Prefix, Suffix, Minimal, or Cool formats." },
+        { icon: <Zap className="h-6 w-6 text-primary" />, title: "Instant Results", description: "Generate usernames instantly with smart algorithms." },
+        { icon: <Sparkles className="h-6 w-6 text-primary" />, title: "7 Categories", description: "Gaming, Instagram, TikTok, Discord, YouTube, Fantasy, and Professional." },
         { icon: <Lock className="h-6 w-6 text-primary" />, title: "No Data Stored", description: "All usernames generated locally in your browser." },
-        { icon: <Globe className="h-6 w-6 text-primary" />, title: "Custom Words", description: "Add your own words for truly personalized usernames." },
+        { icon: <Globe className="h-6 w-6 text-primary" />, title: "2000+ Words", description: "Powered by 2000+ adjectives, nouns, verbs, and more." },
       ]}
       faqs={[
-        { question: "How do custom words work?", answer: "Custom words you enter will be mixed into the username generation, appearing in place of our default adjectives and nouns. Enable 'Prioritize Custom Words' to use them more frequently." },
-        { question: "What are the different styles?", answer: "Classic (SwiftDragon123), Modern (Swift_Dragon_123), Prefix (MrSwiftDragon), Suffix (SwiftDragonPro), Minimal (Dragon1234), and Cool (swift123_dragon). Each has a unique format!" },
-        { question: "Can I control username length?", answer: "Yes! Use the max length slider to set how long usernames can be. Usernames longer than your limit will be automatically trimmed." },
-        { question: "What separators are available?", answer: "You can choose None (SwiftDragon), Underscore (Swift_Dragon), Dash (Swift-Dragon), or Dot (Swift.Dragon) separators." },
-        { question: "Can I use these usernames for any platform?", answer: "Yes! These usernames work great for gaming platforms, social media, forums, and any online service. However, availability depends on whether someone else has already taken the name." },
+        { question: "What is a username generator?", answer: "A username generator creates unique, creative usernames tailored to different platforms. Our generator uses 2000+ words to produce highly varied usernames with minimal repetition." },
+        { question: "How do the categories work?", answer: "Each category is optimized for its platform. Gaming usernames are bold (ShadowNinja95), Instagram usernames use dots (neon.soul), professional usernames use dashes (swift-developer), and so on." },
+        { question: "Can I use these usernames for Instagram?", answer: "Absolutely! Select 'Instagram' category to get usernames optimized for Instagram with dots and lowercase letters. Check availability on Instagram to see if they're taken." },
+        { question: "Are the usernames checked for availability?", answer: "Our generator creates usernames, but availability depends on each platform. We recommend checking on your target platform (Instagram, TikTok, Discord, etc.) to see if the name is available." },
+        { question: "Is the username generator free?", answer: "Yes! Completely free. Generate as many usernames as you want with no limits or registration needed." },
       ]}
     >
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Controls Card */}
         <Card>
           <CardHeader>
-            <CardTitle>Customize Your Username</CardTitle>
+            <CardTitle>Generate Usernames</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Custom Words Input */}
-            <div className="space-y-2">
-              <Label htmlFor="custom-words" className="text-base font-semibold">Custom Words</Label>
-              <Input
-                id="custom-words"
-                placeholder="Enter words separated by commas (e.g., Cool, Epic, Super, Gaming)"
-                value={customWords}
-                onChange={(e) => setCustomWords(e.target.value)}
-                data-testid="input-custom-words"
-                className="text-base"
-              />
-              <p className="text-xs text-muted-foreground">
-                💡 Your words will be used throughout the usernames!
-              </p>
-            </div>
-
-            {/* Prioritize Custom Words */}
-            {customWords.trim().length > 0 && (
-              <div className="flex items-center justify-between p-4 bg-primary/5 rounded-lg border">
-                <div className="space-y-0.5">
-                  <Label htmlFor="prioritize-custom" className="text-base">Prioritize Custom Words</Label>
-                  <p className="text-sm text-muted-foreground">Use your words more frequently (3x more likely)</p>
-                </div>
-                <Switch
-                  id="prioritize-custom"
-                  checked={prioritizeCustomWords}
-                  onCheckedChange={setPrioritizeCustomWords}
-                  data-testid="switch-prioritize-custom"
-                />
-              </div>
-            )}
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Style Selector */}
+              {/* Category Selector */}
               <div className="space-y-2">
-                <Label htmlFor="style" className="text-base font-semibold">Username Style</Label>
-                <Select value={style} onValueChange={(value) => setStyle(value as UsernameStyle)}>
-                  <SelectTrigger id="style" data-testid="select-style">
+                <Label htmlFor="category" className="text-base font-semibold">Category</Label>
+                <Select value={category} onValueChange={(value) => setCategory(value as UsernameCategory)}>
+                  <SelectTrigger id="category" data-testid="select-category">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="classic">Classic</SelectItem>
-                    <SelectItem value="modern">Modern</SelectItem>
-                    <SelectItem value="prefix">Prefix</SelectItem>
-                    <SelectItem value="suffix">Suffix</SelectItem>
-                    <SelectItem value="minimal">Minimal</SelectItem>
-                    <SelectItem value="cool">Cool</SelectItem>
+                    <SelectItem value="gaming">Gamepad2 Gaming</SelectItem>
+                    <SelectItem value="instagram">Instagram</SelectItem>
+                    <SelectItem value="tiktok">TikTok</SelectItem>
+                    <SelectItem value="discord">Discord</SelectItem>
+                    <SelectItem value="youtube">YouTube</SelectItem>
+                    <SelectItem value="fantasy">Fantasy</SelectItem>
+                    <SelectItem value="professional">Professional</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
-                  {styleDescriptions[style]}
+                  Choose a category optimized for your platform
                 </p>
               </div>
 
-              {/* Separator Selector */}
+              {/* Count Selector */}
               <div className="space-y-2">
-                <Label htmlFor="separator" className="text-base font-semibold">Separator</Label>
-                <Select value={separator} onValueChange={(value) => setSeparator(value as Separator)}>
-                  <SelectTrigger id="separator" data-testid="select-separator">
+                <Label htmlFor="count" className="text-base font-semibold">Generate Count</Label>
+                <Select value={count.toString()} onValueChange={(value) => setCount(parseInt(value))}>
+                  <SelectTrigger id="count" data-testid="select-count">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">
-                      <div className="flex items-center gap-2">
-                        <Circle className="h-4 w-4" />
-                        <span>None</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="underscore">
-                      <div className="flex items-center gap-2">
-                        <Minus className="h-4 w-4" />
-                        <span>Underscore (_)</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="dash">
-                      <div className="flex items-center gap-2">
-                        <Minus className="h-4 w-4" />
-                        <span>Dash (-)</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="dot">
-                      <div className="flex items-center gap-2">
-                        <Circle className="h-4 w-4" />
-                        <span>Dot (.)</span>
-                      </div>
-                    </SelectItem>
+                    <SelectItem value="12">12 usernames</SelectItem>
+                    <SelectItem value="25">25 usernames</SelectItem>
+                    <SelectItem value="50">50 usernames</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
-                  Character between words
+                  How many usernames to generate
                 </p>
               </div>
-            </div>
-
-            {/* Max Length Slider */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <Label className="text-base font-semibold">Max Length</Label>
-                <Badge variant="secondary">{maxLength} characters</Badge>
-              </div>
-              <Slider
-                value={[maxLength]}
-                onValueChange={(value) => setMaxLength(value[0])}
-                min={8}
-                max={30}
-                step={1}
-                data-testid="slider-max-length"
-              />
-              <p className="text-xs text-muted-foreground">
-                Longer usernames = more words, Shorter = more concise
-              </p>
-            </div>
-
-            {/* Include Numbers Toggle */}
-            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
-              <div className="space-y-0.5">
-                <Label htmlFor="include-numbers" className="text-base">Include Numbers</Label>
-                <p className="text-sm text-muted-foreground">Add random numbers for uniqueness</p>
-              </div>
-              <Switch
-                id="include-numbers"
-                checked={includeNumbers}
-                onCheckedChange={setIncludeNumbers}
-                data-testid="switch-include-numbers"
-              />
             </div>
 
             {/* Generate Button */}
@@ -236,45 +132,31 @@ export default function UsernameGenerator() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold">Generated Usernames</h3>
-              <Badge variant="secondary">{usernames.length} ideas</Badge>
+              <Badge variant="secondary">{usernames.length} usernames</Badge>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {usernames.map((username, index) => {
-                const hasCustomWord = customWords.split(',')
-                  .map(w => w.trim().toLowerCase())
-                  .filter(w => w.length > 0)
-                  .some(word => username.toLowerCase().includes(word));
-                
-                return (
-                  <Card
-                    key={`${username}-${index}`}
-                    className="hover-elevate cursor-pointer transition-all group relative"
-                    onClick={() => copyToClipboard(username, "Username copied!")}
-                    data-testid={`card-username-${index}`}
-                  >
-                    <CardContent className="pt-6 pb-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-semibold text-lg truncate" data-testid={`text-username-${index}`}>
-                            {username}
-                          </span>
-                          <Copy className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0" />
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">
-                            {username.length} chars
-                          </Badge>
-                          {hasCustomWord && (
-                            <Badge variant="default" className="text-xs">
-                              ✨ Custom
-                            </Badge>
-                          )}
-                        </div>
+              {usernames.map((username, index) => (
+                <Card
+                  key={`${username}-${index}`}
+                  className="hover-elevate cursor-pointer transition-all group relative"
+                  onClick={() => copyToClipboard(username, "Username copied!")}
+                  data-testid={`card-username-${index}`}
+                >
+                  <CardContent className="pt-6 pb-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-semibold text-lg truncate" data-testid={`text-username-${index}`}>
+                          {username}
+                        </span>
+                        <Copy className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors flex-shrink-0" />
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                      <Badge variant="outline" className="text-xs">
+                        {username.length} chars
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         )}
@@ -289,12 +171,12 @@ export default function UsernameGenerator() {
               <div className="space-y-1">
                 <h3 className="font-semibold">Pro Tips</h3>
                 <ul className="text-sm text-muted-foreground space-y-1 leading-relaxed">
-                  <li>• Add custom words like your name, hobby, or favorite things</li>
-                  <li>• Enable "Prioritize Custom Words" to see them more often</li>
-                  <li>• Try different styles - "Cool" and "Modern" work great for gaming!</li>
-                  <li>• Use the length slider to match platform requirements</li>
-                  <li>• Mix separators with different styles for unique combinations</li>
-                  <li>• Look for the ✨ Custom badge to find usernames with your words</li>
+                  <li>• Each category is optimized for its platform</li>
+                  <li>• Click any username to copy it instantly</li>
+                  <li>• Generate 12, 25, or 50 usernames at once</li>
+                  <li>• Check availability on your target platform</li>
+                  <li>• Gaming usernames are bold and powerful</li>
+                  <li>• Instagram usernames use dots and lowercase</li>
                 </ul>
               </div>
             </div>
