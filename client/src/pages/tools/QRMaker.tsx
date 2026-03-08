@@ -1254,6 +1254,121 @@ export default function QRMaker() {
             </div>
           </section>
 
+          {/* How to Create QR Code in 3 Steps */}
+          <section className="space-y-12 py-20">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <h2 className="text-4xl font-bold">How to Create a QR Code in 3 Simple Steps</h2>
+              <p className="text-xl text-muted-foreground">Generate custom QR codes in seconds with our intuitive interface.</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="space-y-4">
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <div className="text-2xl font-bold text-primary">1</div>
+                </div>
+                <h3 className="text-2xl font-bold">Enter Your Data</h3>
+                <p className="text-muted-foreground">Choose a QR code type (URL, WiFi, contact, email, SMS, etc.) and enter your information. Our tool supports 8+ different data types.</p>
+              </div>
+              <div className="space-y-4">
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <div className="text-2xl font-bold text-primary">2</div>
+                </div>
+                <h3 className="text-2xl font-bold">Customize Design</h3>
+                <p className="text-muted-foreground">Personalize colors, add your logo, choose eye patterns, select body styles, and add frames. Make your QR code on-brand.</p>
+              </div>
+              <div className="space-y-4">
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <div className="text-2xl font-bold text-primary">3</div>
+                </div>
+                <h3 className="text-2xl font-bold">Download & Use</h3>
+                <p className="text-muted-foreground">Download in high resolution (4K Ultra for print) and use instantly. No signup, no limits, completely free.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Supported QR Types */}
+          <section className="space-y-12 py-20 border-t">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <h2 className="text-4xl font-bold">8 Supported QR Code Types</h2>
+              <p className="text-xl text-muted-foreground">Create QR codes for any purpose with our comprehensive type support.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">URL / Website</h3>
+                <p className="text-sm text-muted-foreground">Direct users to your website, landing page, or any web link.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">WiFi Network</h3>
+                <p className="text-sm text-muted-foreground">Share WiFi credentials instantly for restaurants, events, and offices.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">vCard / Contact</h3>
+                <p className="text-sm text-muted-foreground">Let users save your contact info directly to their phone.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">Email Address</h3>
+                <p className="text-sm text-muted-foreground">Create pre-filled email links for easy customer communication.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">SMS / Text</h3>
+                <p className="text-sm text-muted-foreground">Send pre-written text messages with a single scan.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">WhatsApp</h3>
+                <p className="text-sm text-muted-foreground">Connect users directly to WhatsApp conversations.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">Plain Text</h3>
+                <p className="text-sm text-muted-foreground">Store any text, passwords, or promotional messages.</p>
+              </div>
+              <div className="p-6 rounded-2xl border bg-card hover:border-primary transition-all">
+                <h3 className="font-bold text-lg mb-2">Bitcoin Address</h3>
+                <p className="text-sm text-muted-foreground">Accept cryptocurrency payments with embedded wallet addresses.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* QR Code Best Practices */}
+          <section className="space-y-12 py-20 border-t bg-muted/30 -mx-4 px-4 md:-mx-8 md:px-8">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <h2 className="text-4xl font-bold">QR Code Best Practices</h2>
+              <p className="text-xl text-muted-foreground">Master the technical requirements for maximum scannability.</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Contrast & Clarity</h3>
+                <ul className="space-y-3">
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Use high contrast between dark and light colors</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Black on white is the gold standard for reliability</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Avoid gradients and transparency in the QR pattern itself</span></li>
+                </ul>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Size & Resolution</h3>
+                <ul className="space-y-3">
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Minimum size: 2cm x 2cm for reliable scanning</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Use 4K Ultra export for print materials</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Higher resolution prevents pixelation at larger sizes</span></li>
+                </ul>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Quiet Zone & Placement</h3>
+                <ul className="space-y-3">
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Leave white space around the code (quiet zone)</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Don't crop or truncate the code</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Place on uncluttered backgrounds for easy scanning</span></li>
+                </ul>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Logo & Testing</h3>
+                <ul className="space-y-3">
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Keep logo size under 30% of total QR code</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Always test with multiple devices before deployment</span></li>
+                  <li className="flex gap-3"><span className="text-primary">✓</span> <span>Use error correction level H for logo overlay</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           {/* Related Tools */}
           <section className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-center">Other Useful Tools</h2>
