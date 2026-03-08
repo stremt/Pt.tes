@@ -1,0 +1,299 @@
+Replit Prompt — Personalized Username Generator Upgrade (Pixocraft Tools)
+
+You are upgrading the Username Generator tool on Pixocraft Tools.
+
+Goal:
+Allow users to enter their own name, keyword, or brand word, and the generator should create creative usernames based on that input.
+
+The tool must remain:
+
+100% browser-based
+
+
+No APIs
+
+No backend
+
+Fully offline compatible
+
+1. Add User Input Field
+
+At the top of the generator interface add:
+
+Enter Your Name or Keyword
+
+Example input:
+
+vivek
+alex
+neon
+shadow
+pixel
+
+Allow multiple words separated by commas.
+
+Example:
+
+vivek, pixel, ninja
+
+These words should be used inside generated usernames.
+
+2. Username Style Selector
+
+Add a dropdown called:
+
+Username Style
+
+Options:
+
+Aesthetic
+Fancy
+Gaming
+Minimal
+Professional
+Cute
+Dark
+Random
+
+Each style should have its own generation rules and word lists.
+
+3. Example Style Patterns
+Aesthetic Style
+
+Pattern examples:
+
+vivek.vibes
+vivek.luxe
+moon.vivek
+soft.vivek
+
+Words used:
+
+aura
+vibes
+dream
+luxe
+glow
+mist
+velvet
+
+Fancy Style
+
+Patterns:
+
+xVivekX
+VivekElite
+VivekNova
+VivekPrime
+
+Fancy words:
+
+prime
+elite
+nova
+legend
+royal
+
+Gaming Style
+
+Patterns:
+
+VivekSlayer
+ShadowVivek
+VivekHunter
+NeoVivek
+
+Gaming words:
+
+slayer
+hunter
+rogue
+phantom
+vortex
+
+Minimal Style
+
+Patterns:
+
+vivek.dev
+vivek.exe
+vivek.xyz
+vivek.io
+Professional Style
+
+Patterns:
+
+vivek.codes
+vivek.dev
+vivek.builds
+Cute Style
+
+Patterns:
+
+vivek.bunny
+cute.vivek
+babyvivek
+Dark Style
+
+Patterns:
+
+darkvivek
+vivek_shadow
+voidvivek
+night_vivek
+4. Username Generation Logic
+
+When the user clicks Generate, the system should:
+
+Take user input words
+
+Select the chosen style
+
+Apply style-specific patterns
+
+Generate usernames using templates
+
+Example template system:
+
+templates = [
+"{name}{word}",
+"{word}{name}",
+"{name}_{word}",
+"{name}.{word}",
+"x{name}x"
+]
+
+Replace:
+
+{name} = user word
+{word} = random word from style list
+5. Number of Usernames Generated
+
+Add dropdown:
+
+12 usernames
+25 usernames
+50 usernames
+6. Avoid Repetition
+
+Use a Set() system to prevent duplicates.
+
+Example logic:
+
+let generated = new Set();
+
+while(generated.size < count){
+  generated.add(createUsername());
+}
+7. Username Length Control
+
+Add slider:
+
+Minimum 6 characters
+Maximum 20 characters
+
+Generated usernames must respect this limit.
+
+8. Add Copy Features
+
+Each generated username must have:
+
+Copy button.
+
+Also add:
+
+Copy All button.
+
+Example:
+
+VivekNova     [Copy]
+shadowvivek   [Copy]
+vivek.vibes   [Copy]
+9. Username Availability Links
+
+When a user clicks a username, show quick links:
+
+Check Instagram
+Check TikTok
+Check Twitter
+Check GitHub
+
+Example:
+
+https://instagram.com/username
+10. Add Random Mode
+
+If the user does not enter any word, the generator should create fully random usernames.
+
+Example:
+
+NeoVortex
+IronSlayer
+SilentPhantom
+11. Add Example Section
+
+Below the tool add:
+
+Example Usernames
+
+Examples:
+
+vivek.vibes
+shadowvivek
+vivek_hunter
+xvivekx
+vivek.dev
+darkvivek
+
+Show at least 50 examples.
+
+12. SEO Content Section
+
+Add content under the tool.
+
+Headings:
+
+What is a Username Generator
+How to Create a Unique Username
+Best Usernames for Gaming and Social Media
+Tips for Creating Aesthetic Usernames
+
+Content length:
+
+500–700 words.
+
+13. FAQ Section
+
+Add questions:
+
+What is a username generator
+Can I generate usernames using my name
+Are the usernames unique
+Can I use these for Instagram or gaming
+
+14. Performance Rules
+
+The tool must:
+
+load instantly
+work offline
+not use APIs
+not use frameworks
+run entirely in JavaScript
+
+15. Final Output
+
+Return a complete 
+name-based username generator
+
+style selector
+
+non-repeating usernames
+
+copy buttons
+
+username examples
+
+SEO content
+
+FAQ schema
