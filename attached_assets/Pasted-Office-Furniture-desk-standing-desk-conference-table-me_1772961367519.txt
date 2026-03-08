@@ -1,0 +1,366 @@
+Office Furniture
+desk
+standing desk
+conference table
+meeting table
+filing cabinet
+storage cabinet
+bookshelf
+office partition
+cubicle wall
+desk drawer
+desk mat
+monitor arm
+desk organizer tray
+document holder
+paper shredder
+desk clock
+desk calendar
+pen holder
+letter tray
+mail sorter
+footrest
+desk fan
+chair mat
+visitor chair
+reception desk
+reception chair
+Medical Objects
+stethoscope
+thermometer
+blood pressure monitor
+syringe
+bandage
+gauze
+medical gloves
+face mask
+surgical mask
+oxygen mask
+hospital bed
+wheelchair
+crutches
+first aid kit
+medicine bottle
+pill organizer
+medical clipboard
+x ray film
+scalpel
+medical tray
+defibrillator
+surgical scissors
+medical chart
+IV bag
+IV stand
+Photography Equipment
+camera body
+camera lens
+zoom lens
+wide angle lens
+macro lens
+tripod
+camera bag
+lens cap
+lens filter
+memory card
+camera strap
+camera battery
+battery charger
+ring light
+softbox light
+light stand
+reflector
+photo backdrop
+camera monitor
+camera cage
+gimbal stabilizer
+drone camera
+Art Supplies
+paint brush
+paint tube
+paint palette
+watercolor set
+acrylic paint
+oil paint
+sketchbook
+canvas
+easel
+charcoal pencil
+colored pencil
+pastel stick
+ink bottle
+calligraphy pen
+marker pen
+art ruler
+drawing board
+palette knife
+eraser block
+spray fixative
+art tape
+Gaming Objects
+gaming mouse
+gaming keyboard
+gaming headset
+game controller
+arcade machine
+game cartridge
+gaming chair
+gaming desk
+joystick
+vr headset
+gaming monitor
+stream deck
+capture card
+cooling pad
+rgb mouse pad
+gaming console
+console dock
+gaming router
+Space Objects
+planet
+asteroid
+meteor
+meteorite
+comet
+satellite
+space station
+rocket
+space shuttle
+lunar rover
+moon rock
+space helmet
+space suit
+star map
+telescope
+space probe
+orbital module
+cosmic dust
+galaxy model
+nebula poster
+Transportation Parts
+steering wheel
+car tire
+car wheel
+engine
+gearbox
+car battery
+spark plug
+radiator
+car mirror
+headlight
+tail light
+car horn
+seat belt
+dashboard
+fuel tank
+brake pedal
+accelerator pedal
+clutch pedal
+car seat
+windshield
+wiper blade
+car door
+Laboratory Objects
+microscope
+microscope slide
+test tube
+test tube rack
+beaker
+flask
+graduated cylinder
+pipette
+petri dish
+bunsen burner
+lab goggles
+lab gloves
+lab coat
+centrifuge
+thermometer probe
+lab scale
+magnetic stirrer
+chemical bottle
+dropper
+safety shower
+eye wash station
+Camping Gear
+camping tent
+sleeping bag
+camping mat
+camping stove
+gas canister
+campfire grill
+lantern
+headlamp
+flashlight
+compass
+map case
+survival knife
+camp chair
+camp table
+cooler box
+water filter
+canteen
+binoculars
+hiking pole
+first aid pouch
+Festival Items
+party hat
+party mask
+confetti cannon
+balloon arch
+streamers
+festival lantern
+decorative lights
+garland
+flower wreath
+gift ribbon
+gift box
+celebration banner
+firecracker
+sparkler
+festival drum
+festival flag
+stage light
+stage microphone
+disco ball
+Digital Objects (Creative Generator)
+
+These help with creative prompts.
+
+hologram
+digital avatar
+virtual keyboard
+virtual screen
+data chip
+neural implant
+ai assistant device
+smart glasses
+quantum processor
+cybernetic arm
+digital cube
+data crystal
+virtual reality portal
+digital map
+augmented reality headset
+Fantasy Objects (Great for creativity)
+magic wand
+wizard hat
+dragon egg
+enchanted sword
+crystal orb
+ancient scroll
+mystery potion
+golden chalice
+magic ring
+spell book
+enchanted mirror
+magic key
+phoenix feather
+dragon scale
+wizard staff
+ancient relic
+magic crystal
+alchemy bottle
+Retail Objects
+shopping cart
+shopping basket
+price tag
+barcode scanner
+receipt printer
+checkout counter
+store shelf
+display rack
+cash register
+credit card machine
+shopping bag
+gift wrap
+gift tag
+mannequin
+display case
+security tag
+store sign
+product label
+Restaurant Objects
+menu card
+order pad
+chef hat
+chef knife
+serving tray
+napkin holder
+salt shaker
+pepper shaker
+sugar jar
+table number stand
+restaurant chair
+restaurant table
+reservation book
+wine glass
+beer mug
+serving spoon
+food tray
+Mechanical Parts
+gear
+bolt
+nut
+washer
+spring
+chain
+pulley
+bearing
+axle
+lever
+hinge
+bracket
+pipe
+valve
+pressure gauge
+hydraulic piston
+engine block
+fan blade
+Safety Equipment
+fire extinguisher
+fire alarm
+smoke detector
+emergency light
+safety helmet
+safety goggles
+reflective vest
+safety harness
+emergency exit sign
+warning cone
+barrier tape
+life jacket
+lifebuoy
+emergency whistle
+first aid box
+Decorative Objects
+vase
+flower pot
+wall painting
+wall poster
+sculpture
+decorative plate
+decorative bowl
+table centerpiece
+decorative candle
+candle holder
+wall tapestry
+decorative mirror
+table lamp
+floor lamp
+fairy lights
+string lights
+decorative clock
+Storage Objects
+storage box
+plastic container
+storage bin
+drawer organizer
+shelf basket
+tool chest
+locker
+file box
+document case
+archive box
+storage rack
+plastic crate
+cargo box

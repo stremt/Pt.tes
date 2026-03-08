@@ -178,6 +178,264 @@ export const objectCategories = {
     "Silver coin", "Dragon egg", "Crystal shard", "Enchanted book", "Floating lantern",
     "Mystery box", "Alien artifact", "Time machine", "Robot arm", "Hologram projector",
     "Space helmet", "Moon rock", "Meteor fragment"
+  ],
+  "Office Furniture": [
+    "Desk", "Standing desk", "Conference table", "Meeting table", "Filing cabinet",
+    "Storage cabinet", "Bookshelf", "Office partition", "Cubicle wall", "Desk drawer",
+    "Desk mat", "Monitor arm", "Desk organizer tray", "Document holder", "Paper shredder",
+    "Desk clock", "Desk calendar", "Pen holder", "Letter tray", "Mail sorter", "Footrest",
+    "Desk fan", "Chair mat", "Visitor chair", "Reception desk", "Reception chair"
+  ],
+  "Medical Objects": [
+    "Stethoscope", "Thermometer", "Blood pressure monitor", "Syringe", "Bandage",
+    "Gauze", "Medical gloves", "Face mask", "Surgical mask", "Oxygen mask",
+    "Hospital bed", "Wheelchair", "Crutches", "First aid kit", "Medicine bottle",
+    "Pill organizer", "Medical clipboard", "X-ray film", "Scalpel", "Medical tray",
+    "Defibrillator", "Surgical scissors", "Medical chart", "IV bag", "IV stand"
+  ],
+  "Photography Equipment": [
+    "Camera body", "Camera lens", "Zoom lens", "Wide angle lens", "Macro lens",
+    "Tripod", "Camera bag", "Lens cap", "Lens filter", "Memory card", "Camera strap",
+    "Camera battery", "Battery charger", "Ring light", "Softbox light", "Light stand",
+    "Reflector", "Photo backdrop", "Camera monitor", "Camera cage", "Gimbal stabilizer",
+    "Drone camera"
+  ],
+  "Art Supplies": [
+    "Paint brush", "Paint tube", "Paint palette", "Watercolor set", "Acrylic paint",
+    "Oil paint", "Sketchbook", "Canvas", "Easel", "Charcoal pencil", "Colored pencil",
+    "Pastel stick", "Ink bottle", "Calligraphy pen", "Marker pen", "Art ruler",
+    "Drawing board", "Palette knife", "Eraser block", "Spray fixative", "Art tape"
+  ],
+  "Gaming Objects": [
+    "Gaming mouse", "Gaming keyboard", "Gaming headset", "Game controller",
+    "Arcade machine", "Game cartridge", "Gaming chair", "Gaming desk", "Joystick",
+    "VR headset", "Gaming monitor", "Stream deck", "Capture card", "Cooling pad",
+    "RGB mouse pad", "Gaming console", "Console dock", "Gaming router"
+  ],
+  "Space Objects": [
+    "Planet", "Asteroid", "Meteor", "Meteorite", "Comet", "Satellite", "Space station",
+    "Rocket", "Space shuttle", "Lunar rover", "Moon rock", "Space helmet", "Space suit",
+    "Star map", "Telescope", "Space probe", "Orbital module", "Cosmic dust",
+    "Galaxy model", "Nebula poster"
+  ],
+  "Transportation Parts": [
+    "Steering wheel", "Car tire", "Car wheel", "Engine", "Gearbox", "Car battery",
+    "Spark plug", "Radiator", "Car mirror", "Headlight", "Tail light", "Car horn",
+    "Seat belt", "Dashboard", "Fuel tank", "Brake pedal", "Accelerator pedal",
+    "Clutch pedal", "Car seat", "Windshield", "Wiper blade", "Car door"
+  ],
+  "Laboratory Objects": [
+    "Microscope", "Microscope slide", "Test tube", "Test tube rack", "Beaker",
+    "Flask", "Graduated cylinder", "Pipette", "Petri dish", "Bunsen burner",
+    "Lab goggles", "Lab gloves", "Lab coat", "Centrifuge", "Thermometer probe",
+    "Lab scale", "Magnetic stirrer", "Chemical bottle", "Dropper", "Safety shower",
+    "Eye wash station"
+  ],
+  "Camping Gear": [
+    "Camping tent", "Sleeping bag", "Camping mat", "Camping stove", "Gas canister",
+    "Campfire grill", "Lantern", "Headlamp", "Flashlight", "Compass", "Map case",
+    "Survival knife", "Camp chair", "Camp table", "Cooler box", "Water filter",
+    "Canteen", "Binoculars", "Hiking pole", "First aid pouch"
+  ],
+  "Festival Items": [
+    "Party hat", "Party mask", "Confetti cannon", "Balloon arch", "Streamers",
+    "Festival lantern", "Decorative lights", "Garland", "Flower wreath", "Gift ribbon",
+    "Gift box", "Celebration banner", "Firecracker", "Sparkler", "Festival drum",
+    "Festival flag", "Stage light", "Stage microphone", "Disco ball"
+  ],
+  "Digital Objects": [
+    "Hologram", "Digital avatar", "Virtual keyboard", "Virtual screen", "Data chip",
+    "Neural implant", "AI assistant device", "Smart glasses", "Quantum processor",
+    "Cybernetic arm", "Digital cube", "Data crystal", "Virtual reality portal",
+    "Digital map", "Augmented reality headset"
+  ],
+  "Fantasy Objects": [
+    "Magic wand", "Wizard hat", "Dragon egg", "Enchanted sword", "Crystal orb",
+    "Ancient scroll", "Mystery potion", "Golden chalice", "Magic ring", "Spell book",
+    "Enchanted mirror", "Magic key", "Phoenix feather", "Dragon scale", "Wizard staff",
+    "Ancient relic", "Magic crystal", "Alchemy bottle"
+  ],
+  "Retail Objects": [
+    "Shopping cart", "Shopping basket", "Price tag", "Barcode scanner", "Receipt printer",
+    "Checkout counter", "Store shelf", "Display rack", "Cash register", "Credit card machine",
+    "Shopping bag", "Gift wrap", "Gift tag", "Mannequin", "Display case", "Security tag",
+    "Store sign", "Product label"
+  ],
+  "Restaurant Objects": [
+    "Menu card", "Order pad", "Chef hat", "Chef knife", "Serving tray", "Napkin holder",
+    "Salt shaker", "Pepper shaker", "Sugar jar", "Table number stand", "Restaurant chair",
+    "Restaurant table", "Reservation book", "Wine glass", "Beer mug", "Serving spoon",
+    "Food tray"
+  ],
+  "Mechanical Parts": [
+    "Gear", "Bolt", "Nut", "Washer", "Spring", "Chain", "Pulley", "Bearing", "Axle",
+    "Lever", "Hinge", "Bracket", "Pipe", "Valve", "Pressure gauge", "Hydraulic piston",
+    "Engine block", "Fan blade"
+  ],
+  "Safety Equipment": [
+    "Fire extinguisher", "Fire alarm", "Smoke detector", "Emergency light", "Safety helmet",
+    "Safety goggles", "Reflective vest", "Safety harness", "Emergency exit sign",
+    "Warning cone", "Barrier tape", "Life jacket", "Lifebuoy", "Emergency whistle",
+    "First aid box"
+  ],
+  "Decorative Objects": [
+    "Vase", "Flower pot", "Wall painting", "Wall poster", "Sculpture", "Decorative plate",
+    "Decorative bowl", "Table centerpiece", "Decorative candle", "Candle holder",
+    "Wall tapestry", "Decorative mirror", "Table lamp", "Floor lamp", "Fairy lights",
+    "String lights", "Decorative clock"
+  ],
+  "Storage Objects": [
+    "Storage box", "Plastic container", "Storage bin", "Drawer organizer", "Shelf basket",
+    "Tool chest", "Locker", "File box", "Document case", "Archive box", "Storage rack",
+    "Plastic crate", "Cargo box"
+  ],
+  "School Classroom Objects": [
+    "Blackboard", "Whiteboard", "Chalk", "Chalk holder", "Whiteboard eraser",
+    "Projector screen", "Teacher desk", "Student desk", "Classroom chair", "Attendance register",
+    "Lesson planner", "School bell", "Bulletin board", "Notice board", "School timetable",
+    "Marker holder", "Chalk box", "Glue stick", "Scissors", "Craft paper", "Colored paper",
+    "Flash cards", "School badge", "School diary", "School locker"
+  ],
+  "Bakery & Dessert Objects": [
+    "Cupcake", "Muffin", "Brownie", "Cheesecake", "Waffle", "Pancake", "Croissant",
+    "Bagel", "Macaron", "Donut box", "Cake stand", "Icing spatula", "Piping bag",
+    "Piping nozzle", "Rolling cutter", "Cookie cutter", "Baking tray", "Cake mold",
+    "Dessert plate", "Chocolate fountain", "Sugar jar", "Flour container", "Mixing bowl",
+    "Whisk mixer", "Baking rack"
+  ],
+  "Transportation Infrastructure": [
+    "Traffic light", "Street sign", "Road barrier", "Toll booth", "Bus stop", "Taxi stand",
+    "Train platform", "Railway track", "Railway signal", "Airport gate", "Boarding bridge",
+    "Runway light", "Airport luggage cart", "Baggage conveyor", "Parking meter",
+    "Parking barrier", "Charging station", "Fuel pump", "Gas station sign", "Speed breaker",
+    "Road divider", "Bridge support", "Tunnel entrance"
+  ],
+  "Computer Hardware Parts": [
+    "CPU", "GPU", "Motherboard", "RAM stick", "Heat sink", "Cooling fan", "PC case",
+    "Power supply unit", "PC power cable", "Thermal paste", "Network card", "Sound card",
+    "Graphics card", "Cooling radiator", "Fan controller", "SSD enclosure", "Hard drive bay",
+    "Cable organizer", "PC screw", "PC standoff"
+  ],
+  "Writing Instruments": [
+    "Ballpoint pen", "Gel pen", "Fountain pen", "Calligraphy pen", "Brush pen",
+    "Marker pen", "Permanent marker", "Chalk marker", "Dry erase marker", "Paint marker",
+    "Stylus pen", "Tablet stylus", "Technical pen", "Quill pen", "Ink cartridge",
+    "Ink refill", "Pen case", "Pen holder", "Pen stand"
+  ],
+  "Jewelry Objects": [
+    "Gold ring", "Silver ring", "Diamond ring", "Wedding ring", "Bracelet", "Bangle",
+    "Necklace", "Locket", "Earring", "Stud earring", "Hoop earring", "Anklet",
+    "Nose ring", "Jewelry box", "Jewelry tray", "Ring box", "Gemstone", "Pearl necklace",
+    "Brooch", "Pendant"
+  ],
+  "Office Stationery": [
+    "Paper cutter", "Paper punch", "Binding machine", "Binding comb", "Document folder",
+    "File divider", "Index tab", "Post it notes", "Sticky pad", "Desk tray",
+    "Document envelope", "Mail envelope", "Letter opener", "Rubber stamp", "Stamp pad",
+    "Mail sorter", "Document case", "Paperweight", "Clipboard board"
+  ],
+  "Furniture Objects": [
+    "Coffee table", "Side table", "Nightstand", "Dining table", "Dining chair",
+    "Rocking chair", "Recliner chair", "Folding chair", "Bar stool", "Bookshelf",
+    "Display cabinet", "Shoe rack", "Coat rack", "Wall shelf", "TV stand", "Dresser",
+    "Vanity table", "Mirror cabinet", "Room divider", "Folding table"
+  ],
+  "Lighting Objects": [
+    "Table lamp", "Floor lamp", "Desk lamp", "Ceiling light", "Chandelier", "Wall lamp",
+    "Lantern", "Flashlight", "Headlamp", "Spotlight", "Stage light", "Studio light",
+    "LED strip light", "Ring light", "Fairy lights", "Garden light", "Solar light",
+    "Street lamp", "Reading lamp", "Night lamp"
+  ],
+  "Garden Plants": [
+    "Rose plant", "Tulip plant", "Sunflower plant", "Bamboo plant", "Fern plant",
+    "Cactus plant", "Bonsai tree", "Orchid plant", "Lavender plant", "Mint plant",
+    "Basil plant", "Aloe vera plant", "Snake plant", "Money plant", "Palm tree",
+    "Apple tree", "Mango tree", "Lemon tree", "Pine tree", "Oak tree"
+  ],
+  "Pet Objects": [
+    "Dog collar", "Dog leash", "Dog bowl", "Cat bowl", "Pet bed", "Pet cage",
+    "Pet carrier", "Pet toy ball", "Pet brush", "Pet shampoo", "Pet litter box",
+    "Litter scoop", "Pet blanket", "Pet water fountain", "Pet scratching post",
+    "Pet food container", "Pet training pad", "Pet gate"
+  ],
+  "Travel Accessories": [
+    "Travel suitcase", "Carry on bag", "Travel pouch", "Travel organizer", "Packing cube",
+    "Passport holder", "Luggage tag", "Travel wallet", "Neck pillow", "Eye mask",
+    "Travel blanket", "Travel adapter", "Portable charger", "Travel umbrella",
+    "Travel bottle set", "Travel toothbrush", "Toiletry bag"
+  ],
+  "Musical Studio Objects": [
+    "Studio microphone", "Pop filter", "Mic stand", "Audio interface", "Mixing console",
+    "Studio monitor speaker", "Soundproof panel", "Headphone amplifier", "MIDI keyboard",
+    "Drum pad", "Synthesizer", "Studio desk", "Monitor stand", "Cable snake", "Audio cable"
+  ],
+  "Military Objects": [
+    "Helmet", "Combat boots", "Camouflage uniform", "Tactical vest", "Night vision goggles",
+    "Binoculars", "Compass", "Military backpack", "Canteen bottle", "Ammo box",
+    "Radio transmitter", "Military map", "Parachute", "Drone controller", "Field tent",
+    "Survival kit", "Signal flare"
+  ],
+  "Science Objects": [
+    "Atom model", "Periodic table chart", "Magnet", "Bar magnet", "Electromagnet",
+    "Battery cell", "Wire coil", "Circuit board", "Solar panel", "Wind turbine model",
+    "Microscope lens", "Telescope lens", "Lab microscope", "Spectrometer", "Chemical flask",
+    "Lab burner"
+  ],
+  "Board Game Objects": [
+    "Chess board", "Chess piece", "Checkers board", "Dice", "Game token", "Playing card",
+    "Card deck", "Poker chip", "Game board", "Timer clock", "Score pad", "Game spinner",
+    "Tile piece", "Domino tile"
+  ],
+  "Smart Home Objects": [
+    "Smart thermostat", "Smart door lock", "Smart doorbell", "Smart light bulb",
+    "Smart plug", "Smart switch", "Home hub", "Security camera", "Motion detector",
+    "Door sensor", "Window sensor", "Smart curtain motor", "Voice assistant speaker",
+    "Smart display"
+  ],
+  "Film & Video Objects": [
+    "Film camera", "Camera rig", "Film reel", "Director chair", "Clapperboard",
+    "Boom microphone", "Camera dolly", "Camera slider", "Lighting rig", "Green screen",
+    "Teleprompter", "Video monitor", "Camera crane"
+  ],
+  "Fruits": [
+    "Apple", "Banana", "Orange", "Mango", "Pineapple", "Grape", "Strawberry",
+    "Blueberry", "Blackberry", "Raspberry", "Watermelon", "Melon", "Papaya", "Pear",
+    "Peach", "Plum", "Apricot", "Cherry", "Pomegranate", "Kiwi", "Dragon fruit",
+    "Star fruit", "Lychee", "Guava", "Fig", "Date", "Persimmon", "Cranberry",
+    "Tangerine", "Nectarine"
+  ],
+  "Vegetables": [
+    "Carrot", "Potato", "Sweet potato", "Onion", "Garlic", "Ginger", "Tomato",
+    "Cucumber", "Lettuce", "Spinach", "Broccoli", "Cauliflower", "Cabbage", "Radish",
+    "Beetroot", "Zucchini", "Eggplant", "Bell pepper", "Green chili", "Peas", "Corn",
+    "Pumpkin", "Squash", "Okra", "Celery", "Leek", "Artichoke", "Turnip", "Parsnip", "Yam"
+  ],
+  "Beverages": [
+    "Water bottle", "Tea cup", "Coffee mug", "Espresso cup", "Milk carton", "Juice bottle",
+    "Smoothie cup", "Soda can", "Energy drink", "Sports drink", "Thermos flask",
+    "Travel mug", "Glass tumbler", "Wine glass", "Champagne glass", "Beer mug",
+    "Cocktail glass", "Measuring cup", "Pitcher", "Jug"
+  ],
+  "Bakery": [
+    "Bread loaf", "Bagel", "Croissant", "Muffin", "Cupcake", "Donut", "Brownie",
+    "Cheesecake", "Waffle", "Pancake", "Cookie", "Biscuit", "Pretzel", "Cake slice",
+    "Tart", "Pie", "Macaron", "Eclair", "Doughnut box", "Cake stand"
+  ],
+  "Fast Food": [
+    "Burger", "Cheeseburger", "Hot dog", "Sandwich", "Wrap", "Taco", "Burrito",
+    "Pizza slice", "Fried chicken", "Chicken nuggets", "French fries", "Onion rings",
+    "Nachos", "Quesadilla", "Sub sandwich", "Shawarma", "Falafel wrap", "Kebab skewer",
+    "Rice bowl", "Noodle bowl"
+  ],
+  "Birds": [
+    "Sparrow", "Pigeon", "Eagle", "Hawk", "Falcon", "Owl", "Parrot", "Peacock",
+    "Flamingo", "Penguin", "Seagull", "Crow", "Raven", "Woodpecker", "Kingfisher",
+    "Hummingbird", "Turkey", "Duck", "Goose", "Swan"
+  ],
+  "Sea Creatures": [
+    "Fish", "Shark", "Whale", "Dolphin", "Octopus", "Squid", "Jellyfish", "Starfish",
+    "Crab", "Lobster", "Shrimp", "Clam", "Oyster", "Seahorse", "Eel", "Stingray",
+    "Coral", "Sea turtle", "Sea cucumber", "Sea anemone"
   ]
 };
 

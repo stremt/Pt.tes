@@ -1,0 +1,353 @@
+School Classroom Objects
+blackboard
+whiteboard
+chalk
+chalk holder
+whiteboard eraser
+projector screen
+teacher desk
+student desk
+classroom chair
+attendance register
+lesson planner
+school bell
+bulletin board
+notice board
+school timetable
+marker holder
+chalk box
+glue stick
+scissors
+craft paper
+colored paper
+flash cards
+school badge
+school diary
+school locker
+Bakery & Dessert Objects
+cupcake
+muffin
+brownie
+cheesecake
+waffle
+pancake
+croissant
+bagel
+macaron
+donut box
+cake stand
+icing spatula
+piping bag
+piping nozzle
+rolling cutter
+cookie cutter
+baking tray
+cake mold
+dessert plate
+chocolate fountain
+sugar jar
+flour container
+mixing bowl
+whisk mixer
+baking rack
+Transportation Infrastructure
+traffic light
+street sign
+road barrier
+toll booth
+bus stop
+taxi stand
+train platform
+railway track
+railway signal
+airport gate
+boarding bridge
+runway light
+airport luggage cart
+baggage conveyor
+parking meter
+parking barrier
+charging station
+fuel pump
+gas station sign
+speed breaker
+road divider
+bridge support
+tunnel entrance
+Computer Hardware Parts
+cpu
+gpu
+motherboard
+ram stick
+heat sink
+cooling fan
+pc case
+power supply unit
+pc power cable
+thermal paste
+network card
+sound card
+graphics card
+cooling radiator
+fan controller
+ssd enclosure
+hard drive bay
+cable organizer
+pc screw
+pc standoff
+Writing Instruments
+ballpoint pen
+gel pen
+fountain pen
+calligraphy pen
+brush pen
+marker pen
+permanent marker
+chalk marker
+dry erase marker
+paint marker
+stylus pen
+tablet stylus
+technical pen
+quill pen
+ink cartridge
+ink refill
+pen case
+pen holder
+pen stand
+Jewelry Objects
+gold ring
+silver ring
+diamond ring
+wedding ring
+bracelet
+bangle
+necklace
+locket
+earring
+stud earring
+hoop earring
+anklet
+nose ring
+jewelry box
+jewelry tray
+ring box
+gemstone
+pearl necklace
+brooch
+pendant
+Office Stationery
+paper cutter
+paper punch
+binding machine
+binding comb
+document folder
+file divider
+index tab
+post it notes
+sticky pad
+desk tray
+document envelope
+mail envelope
+letter opener
+rubber stamp
+stamp pad
+mail sorter
+document case
+paperweight
+clipboard board
+Furniture Objects
+coffee table
+side table
+nightstand
+dining table
+dining chair
+rocking chair
+recliner chair
+folding chair
+bar stool
+bookshelf
+display cabinet
+shoe rack
+coat rack
+wall shelf
+tv stand
+dresser
+vanity table
+mirror cabinet
+room divider
+folding table
+Lighting Objects
+table lamp
+floor lamp
+desk lamp
+ceiling light
+chandelier
+wall lamp
+lantern
+flashlight
+headlamp
+spotlight
+stage light
+studio light
+led strip light
+ring light
+fairy lights
+garden light
+solar light
+street lamp
+reading lamp
+night lamp
+Garden Plants
+rose plant
+tulip plant
+sunflower plant
+bamboo plant
+fern plant
+cactus plant
+bonsai tree
+orchid plant
+lavender plant
+mint plant
+basil plant
+aloe vera plant
+snake plant
+money plant
+palm tree
+apple tree
+mango tree
+lemon tree
+pine tree
+oak tree
+Pet Objects
+dog collar
+dog leash
+dog bowl
+cat bowl
+pet bed
+pet cage
+pet carrier
+pet toy ball
+pet brush
+pet shampoo
+pet litter box
+litter scoop
+pet blanket
+pet water fountain
+pet scratching post
+pet food container
+pet training pad
+pet gate
+Travel Accessories
+travel suitcase
+carry on bag
+travel pouch
+travel organizer
+packing cube
+passport holder
+luggage tag
+travel wallet
+neck pillow
+eye mask
+travel blanket
+travel adapter
+portable charger
+travel umbrella
+travel bottle set
+travel toothbrush
+toiletry bag
+Musical Studio Objects
+studio microphone
+pop filter
+mic stand
+audio interface
+mixing console
+studio monitor speaker
+soundproof panel
+headphone amplifier
+midi keyboard
+drum pad
+synthesizer
+studio desk
+monitor stand
+cable snake
+audio cable
+Military Objects
+helmet
+combat boots
+camouflage uniform
+tactical vest
+night vision goggles
+binoculars
+compass
+military backpack
+canteen bottle
+ammo box
+radio transmitter
+military map
+parachute
+drone controller
+field tent
+survival kit
+signal flare
+Science Objects
+atom model
+periodic table chart
+magnet
+bar magnet
+electromagnet
+battery cell
+wire coil
+circuit board
+solar panel
+wind turbine model
+microscope lens
+telescope lens
+lab microscope
+spectrometer
+chemical flask
+lab burner
+Board Game Objects
+chess board
+chess piece
+checkers board
+dice
+game token
+playing card
+card deck
+poker chip
+game board
+timer clock
+score pad
+game spinner
+tile piece
+domino tile
+Smart Home Objects
+smart thermostat
+smart door lock
+smart doorbell
+smart light bulb
+smart plug
+smart switch
+home hub
+security camera
+motion detector
+door sensor
+window sensor
+smart curtain motor
+voice assistant speaker
+smart display
+Film & Video Objects
+film camera
+camera rig
+film reel
+director chair
+clapperboard
+boom microphone
+camera dolly
+camera slider
+lighting rig
+green screen
+teleprompter
+video monitor
+camera crane
