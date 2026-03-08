@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { useClipboard } from "@/hooks/use-clipboard";
 import { useSEO } from "@/lib/seo";
-import { generateByStyle, type UsernameStyle } from "@/lib/username-generator";
+import { generateByStyle, type UsernameStyle, type UsernameGender } from "@/lib/username-generator";
 import { User, RefreshCw, Copy, Zap, Lock, Sparkles, Globe, Gamepad2, Music, CopyCheckmark, ExternalLink } from "lucide-react";
 import {
   Select,
@@ -21,6 +21,7 @@ export default function UsernameGenerator() {
   const [usernames, setUsernames] = useState<string[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [style, setStyle] = useState<UsernameStyle>("gaming");
+  const [gender, setGender] = useState<UsernameGender>("neutral");
   const [count, setCount] = useState<number>(12);
   const [minLength, setMinLength] = useState<number>(6);
   const [maxLength, setMaxLength] = useState<number>(20);
@@ -34,7 +35,7 @@ export default function UsernameGenerator() {
   });
 
   const handleGenerate = () => {
-    const newUsernames = generateByStyle(style, count, userInput || undefined, minLength, maxLength);
+    const newUsernames = generateByStyle(style, count, userInput || undefined, gender, minLength, maxLength);
     setUsernames(newUsernames);
   };
 
@@ -63,7 +64,7 @@ export default function UsernameGenerator() {
       category="Fun & Utility"
       howItWorks={[
         { step: 1, title: "Enter Your Name", description: "Optional: Add your name, keyword, or brand word to personalize usernames." },
-        { step: 2, title: "Choose Style", description: "Pick a style: Aesthetic, Fancy, Gaming, Minimal, Professional, Cute, Dark, or Random." },
+        { step: 2, title: "Choose Style & Gender", description: "Pick a style and gender vibe to adapt the word choices and overall feel of usernames." },
         { step: 3, title: "Customize & Generate", description: "Set length preferences and quantity, then generate unique usernames instantly." },
       ]}
       benefits={[
@@ -102,7 +103,7 @@ export default function UsernameGenerator() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Style Selector */}
               <div className="space-y-2">
                 <Label htmlFor="style" className="text-base font-semibold">Username Style</Label>
@@ -123,6 +124,24 @@ export default function UsernameGenerator() {
                 </Select>
                 <p className="text-xs text-muted-foreground">
                   Choose a style for your usernames
+                </p>
+              </div>
+
+              {/* Gender Selector */}
+              <div className="space-y-2">
+                <Label htmlFor="gender" className="text-base font-semibold">Gender Vibe</Label>
+                <Select value={gender} onValueChange={(value) => setGender(value as UsernameGender)}>
+                  <SelectTrigger id="gender" data-testid="select-gender">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="neutral">Neutral</SelectItem>
+                    <SelectItem value="masculine">Masculine</SelectItem>
+                    <SelectItem value="feminine">Feminine</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Adapt word choices to match your vibe
                 </p>
               </div>
 

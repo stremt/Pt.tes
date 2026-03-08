@@ -4,8 +4,15 @@ import {
   verbs,
   prefixes,
   suffixes,
+  feminineAdjectives,
+  feminineNouns,
+  masculineAdjectives,
+  masculineNouns,
+  neutralAdjectives,
+  neutralNouns,
   type UsernameCategory,
   type UsernameStyle,
+  type UsernameGender,
   type UsernamePattern,
   categoryConfigs,
   styleConfigs,
@@ -31,14 +38,30 @@ function capitalize(word: string): string {
   return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
+// Get gender-specific word lists
+function getGenderWords(gender?: UsernameGender) {
+  if (!gender || gender === "neutral") {
+    return { adjectives, nouns };
+  }
+  if (gender === "feminine") {
+    return { adjectives: feminineAdjectives, nouns: feminineNouns };
+  }
+  if (gender === "masculine") {
+    return { adjectives: masculineAdjectives, nouns: masculineNouns };
+  }
+  return { adjectives, nouns };
+}
+
 // Generate username based on pattern
 function generateByPattern(
   pattern: UsernamePattern,
   separator: string = "",
   capitalize_: boolean = true,
   customWords?: string[],
-  userInput?: string
+  userInput?: string,
+  gender?: UsernameGender
 ): string {
+  const genderWords = getGenderWords(gender);
   let username = "";
 
   switch (pattern) {
@@ -48,39 +71,39 @@ function generateByPattern(
       } else if (customWords && customWords.length > 0) {
         username = getRandomItem(customWords);
       } else {
-        username = getRandomItem(nouns);
+        username = getRandomItem(genderWords.nouns);
       }
       break;
     case "adjective-noun":
       if (userInput) {
-        username = `${getRandomItem(adjectives)}${separator}${userInput}`;
+        username = `${getRandomItem(genderWords.adjectives)}${separator}${userInput}`;
       } else {
-        username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}`;
+        username = `${getRandomItem(genderWords.adjectives)}${separator}${getRandomItem(genderWords.nouns)}`;
       }
       break;
     case "adjective-noun-number":
       if (userInput) {
-        username = `${getRandomItem(adjectives)}${separator}${userInput}${Math.floor(Math.random() * 100)}`;
+        username = `${getRandomItem(genderWords.adjectives)}${separator}${userInput}${Math.floor(Math.random() * 100)}`;
       } else {
-        username = `${getRandomItem(adjectives)}${separator}${getRandomItem(nouns)}${Math.floor(Math.random() * 100)}`;
+        username = `${getRandomItem(genderWords.adjectives)}${separator}${getRandomItem(genderWords.nouns)}${Math.floor(Math.random() * 100)}`;
       }
       break;
     case "noun-verb":
-      username = `${getRandomItem(nouns)}${separator}${getRandomItem(verbs)}`;
+      username = `${getRandomItem(genderWords.nouns)}${separator}${getRandomItem(verbs)}`;
       break;
     case "prefix-word":
-      username = `${getRandomItem(prefixes)}${getRandomItem(nouns)}`;
+      username = `${getRandomItem(prefixes)}${getRandomItem(genderWords.nouns)}`;
       break;
     case "word-suffix":
       if (userInput) {
         username = `${userInput}${separator}${getRandomItem(suffixes)}`;
       } else {
-        username = `${getRandomItem(nouns)}${separator}${getRandomItem(suffixes)}`;
+        username = `${getRandomItem(genderWords.nouns)}${separator}${getRandomItem(suffixes)}`;
       }
       break;
     case "word-year":
       const year = new Date().getFullYear();
-      username = `${getRandomItem(nouns)}${separator}${year}`;
+      username = `${getRandomItem(genderWords.nouns)}${separator}${year}`;
       break;
   }
 
@@ -100,6 +123,7 @@ function generateByPattern(
 export interface GenerateOptions {
   category?: UsernameCategory;
   style?: UsernameStyle;
+  gender?: UsernameGender;
   count?: number;
   customPattern?: UsernamePattern;
   userInput?: string;
@@ -108,14 +132,14 @@ export interface GenerateOptions {
 }
 
 export function generateUsername(options: GenerateOptions = {}): string {
-  const { category = "gaming", style, userInput, minLength = 0, maxLength = 999 } = options;
+  const { category = "gaming", style, gender, userInput, minLength = 0, maxLength = 999 } = options;
   
   let config = style ? styleConfigs[style] : categoryConfigs[category];
 
   const pattern = getRandomItem(config.patterns);
   const separator = getRandomItem(config.separators);
 
-  let username = generateByPattern(pattern, separator, !config.lowercase, config.customWords, userInput);
+  let username = generateByPattern(pattern, separator, !config.lowercase, config.customWords, userInput, gender);
 
   if (config.addNumbers && Math.random() > 0.5) {
     username += Math.floor(Math.random() * 100);
@@ -157,10 +181,11 @@ export function generateByStyle(
   style: UsernameStyle,
   count: number = 12,
   userInput?: string,
+  gender?: UsernameGender,
   minLength?: number,
   maxLength?: number
 ): string[] {
-  return generateMultipleUsernames(count, { style, userInput, minLength, maxLength });
+  return generateMultipleUsernames(count, { style, userInput, gender, minLength, maxLength });
 }
 
 // Get all available categories

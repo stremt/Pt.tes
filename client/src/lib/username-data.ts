@@ -114,8 +114,19 @@ export const minimalWords = ["dev", "exe", "xyz", "io", "codes", "builds", "cli"
 export const cuteWords = ["bunny", "baby", "cute", "sweet", "angel", "star", "pixel", "mint", "honey", "cookie"];
 export const darkWords = ["void", "shadow", "night", "dark", "abyss", "eclipse", "phantom", "ghost", "wraith", "midnight"];
 
+// Gender-specific adjectives and nouns
+export const feminineAdjectives = ["Luna", "Aurora", "Star", "Iris", "Rose", "Sage", "Ivy", "Phoenix", "Mystic", "Grace", "Serene", "Soft", "Gentle", "Bright", "Sweet", "Dreamy", "Cosmic", "Celestial", "Divine", "Ethereal"];
+export const feminineNouns = ["Belle", "Luna", "Aurora", "Iris", "Rose", "Sage", "Ivy", "Lily", "Fawn", "Dove", "Swan", "Fairy", "Nymph", "Muse", "Siren", "Duchess", "Princess", "Queen", "Goddess", "Angel"];
+
+export const masculineAdjectives = ["Storm", "Blaze", "Iron", "Steel", "Dark", "Thunder", "Savage", "Fierce", "Bold", "Strong", "Mighty", "Shadow", "Apex", "Titan", "Inferno", "Cosmic", "Quantum", "Primal", "Rebel", "Rogue"];
+export const masculineNouns = ["Storm", "Blaze", "Blade", "Wolf", "Tiger", "Warrior", "Knight", "King", "Duke", "Lord", "Rogue", "Pirate", "Ninja", "Samurai", "Titan", "Dragon", "Phoenix", "Hawk", "Eagle", "Beast"];
+
+export const neutralAdjectives = ["Neon", "Pixel", "Cyber", "Digital", "Echo", "Void", "Quantum", "Matrix", "Vector", "Cosmic", "Stellar", "Ultra", "Meta", "Prime", "Apex", "Nova", "Zen", "Pure", "True", "Clear"];
+export const neutralNouns = ["Echo", "Pulse", "Vortex", "Nexus", "Code", "Signal", "Vision", "Mind", "Soul", "Spirit", "Force", "Power", "Entity", "Essence", "Nature", "Core", "Node", "Link", "System", "Network"];
+
 export type UsernameCategory = "gaming" | "instagram" | "tiktok" | "discord" | "youtube" | "fantasy" | "professional";
 export type UsernameStyle = "aesthetic" | "fancy" | "gaming" | "minimal" | "professional" | "cute" | "dark" | "random";
+export type UsernameGender = "masculine" | "feminine" | "neutral";
 export type UsernamePattern = "adjective-noun" | "adjective-noun-number" | "noun-verb" | "prefix-word" | "word-suffix" | "word-year" | "custom-word";
 
 export interface CategoryConfig {
