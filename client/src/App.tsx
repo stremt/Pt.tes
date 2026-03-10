@@ -167,6 +167,10 @@ const QRMakerEvents = lazy(() => import("@/pages/tools/longtail/QRMakerEvents"))
 const QRMakerSocialMedia = lazy(() => import("@/pages/tools/longtail/QRMakerSocialMedia"));
 const QRMakerProductLinks = lazy(() => import("@/pages/tools/longtail/QRMakerProductLinks"));
 const QRMakerDynamic = lazy(() => import("@/pages/tools/longtail/QRMakerDynamic"));
+const QRCodeForRestaurantMenu = lazy(() => import("@/pages/tools/QRCodeForRestaurantMenu"));
+const QRCodeForPropertyListings = lazy(() => import("@/pages/tools/QRCodeForPropertyListings"));
+const QRCodeForProductPackaging = lazy(() => import("@/pages/tools/QRCodeForProductPackaging"));
+const QRCodeForEventTickets = lazy(() => import("@/pages/tools/QRCodeForEventTickets"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -528,6 +532,10 @@ function Router() {
         <Route path="/tools/qr-code-maker/product-links" component={QRMakerProductLinks} />
         <Route path="/tools/qr-code-maker/dynamic" component={QRMakerDynamic} />
         <Route path="/tools/qr-maker" component={QRMaker} />
+        <Route path="/tools/qr-code-for-restaurant-menu" component={QRCodeForRestaurantMenu} />
+        <Route path="/tools/qr-code-for-property-listings" component={QRCodeForPropertyListings} />
+        <Route path="/tools/qr-code-for-product-packaging" component={QRCodeForProductPackaging} />
+        <Route path="/tools/qr-code-for-event-tickets" component={QRCodeForEventTickets} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
         <Route path="/tools/word-counter" component={WordCounter} />
