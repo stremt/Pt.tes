@@ -1276,37 +1276,6 @@ export default function QRMaker() {
             </div>
           </section>
 
-          {/* How to Create QR Code in 3 Steps - HowTo Schema */}
-          <section className="space-y-12 py-20 border-t">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <h2 className="text-4xl font-bold">How to Create a QR Code in 3 Steps</h2>
-              <p className="text-xl text-muted-foreground">Generate custom QR codes in seconds with our intuitive interface.</p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <div className="text-2xl font-bold text-primary">1</div>
-                </div>
-                <h3 className="text-2xl font-bold" itemProp="name">Enter Your Data</h3>
-                <p className="text-muted-foreground" itemProp="text">Choose a QR code type (URL, WiFi, contact, email, SMS, etc.) and enter your information. Our tool supports 8+ different data types.</p>
-              </div>
-              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <div className="text-2xl font-bold text-primary">2</div>
-                </div>
-                <h3 className="text-2xl font-bold" itemProp="name">Customize Design</h3>
-                <p className="text-muted-foreground" itemProp="text">Personalize colors, add your logo, choose eye patterns, select body styles, and add frames. Make your QR code on-brand.</p>
-              </div>
-              <div className="space-y-4" itemScope itemType="https://schema.org/HowToStep">
-                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <div className="text-2xl font-bold text-primary">3</div>
-                </div>
-                <h3 className="text-2xl font-bold" itemProp="name">Download & Use</h3>
-                <p className="text-muted-foreground" itemProp="text">Download in high resolution (4K Ultra for print) and use instantly. No signup, no limits, completely free.</p>
-              </div>
-            </div>
-          </section>
-
           {/* Supported QR Types */}
           <section className="space-y-12 py-20 border-t">
             <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -1503,7 +1472,20 @@ export default function QRMaker() {
             </div>
           </section>
 
-          {/* How to Generate QR Code - Structured How-To Section */}
+          {/* Free QR Code Maker - Keyword Focused Section */}
+          <section className="py-20 max-w-4xl mx-auto border-t">
+            <h2 className="text-3xl font-bold mb-6">Free QR Code Maker – Generate QR Codes Instantly</h2>
+            <div className="prose prose-sm dark:prose-invert max-w-none space-y-4 text-muted-foreground">
+              <p>
+                Our free QR code maker allows you to generate QR codes instantly for websites, WiFi networks, business cards, and social media profiles. Create unlimited QR codes online and download them in high resolution without signup or registration. Whether you need a simple QR code for a URL or a complex code with branding, customization, and logo overlay, our free online QR code generator handles it all.
+              </p>
+              <p>
+                Best of all, this QR code maker is completely free and works offline. No limits on the number of codes you can generate, no watermarks, and no paid subscriptions. Generate QR codes for personal use, business marketing, event management, product packaging, or any other purpose instantly.
+              </p>
+            </div>
+          </section>
+
+          {/* How to Create a QR Code Online - Structured How-To Section */}
           <section className="py-20 max-w-4xl mx-auto border-t bg-muted/30 -mx-4 px-4 md:-mx-8 md:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl font-bold mb-4">How to Generate a QR Code Online</h2>
@@ -1538,6 +1520,46 @@ export default function QRMaker() {
                     <h3 className="text-xl font-bold">Download in High Resolution</h3>
                     <p className="text-muted-foreground">Download your QR code in high-resolution PNG format. Choose from Normal (1x), High Quality (2x), or Ultra High Definition (4x) for print and digital applications.</p>
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Real Examples of QR Code Usage */}
+          <section className="py-20 max-w-4xl mx-auto border-t">
+            <h2 className="text-3xl font-bold mb-8 text-center">Real Examples of QR Code Usage</h2>
+            <p className="text-lg text-muted-foreground text-center mb-12">See how QR codes are used in real-world scenarios across different industries.</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="rounded-lg border bg-card p-6 space-y-4">
+                <h3 className="text-xl font-bold">QR Code on Restaurant Menu</h3>
+                <p className="text-muted-foreground text-sm">Restaurants display QR codes on tables that link to digital menus. Customers scan with their phones to view menu items, prices, and place orders without touching a physical menu. This enables faster ordering, easy menu updates, and contactless service during busy hours.</p>
+                <div className="bg-muted p-4 rounded-md text-center text-sm text-muted-foreground">
+                  Scan to view menu → Place order → Receive food
+                </div>
+              </div>
+
+              <div className="rounded-lg border bg-card p-6 space-y-4">
+                <h3 className="text-xl font-bold">QR Code on Product Packaging</h3>
+                <p className="text-muted-foreground text-sm">E-commerce brands print QR codes on product boxes that link to product pages, authenticity verification, user manuals, or customer feedback surveys. This increases customer engagement and helps verify that products are genuine and not counterfeit.</p>
+                <div className="bg-muted p-4 rounded-md text-center text-sm text-muted-foreground">
+                  Scan to verify product → Access manual → Leave review
+                </div>
+              </div>
+
+              <div className="rounded-lg border bg-card p-6 space-y-4">
+                <h3 className="text-xl font-bold">QR Code on Business Cards</h3>
+                <p className="text-muted-foreground text-sm">Professionals add QR codes to business cards that link to their contact information (vCard), LinkedIn profile, or website. When someone scans the QR code, contact details are automatically saved to their phone, making networking effortless and eliminating manual data entry.</p>
+                <div className="bg-muted p-4 rounded-md text-center text-sm text-muted-foreground">
+                  Scan business card → Save contact → Connect on LinkedIn
+                </div>
+              </div>
+
+              <div className="rounded-lg border bg-card p-6 space-y-4">
+                <h3 className="text-xl font-bold">QR Code on Event Tickets</h3>
+                <p className="text-muted-foreground text-sm">Event organizers include QR codes on digital or printed tickets. At the event entrance, staff scan the QR codes to verify tickets, check attendance, and prevent fraud. This streamlines check-in and provides real-time attendee data to event planners.</p>
+                <div className="bg-muted p-4 rounded-md text-center text-sm text-muted-foreground">
+                  Scan ticket → Verify entry → Track attendance
                 </div>
               </div>
             </div>
