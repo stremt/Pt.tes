@@ -1,0 +1,215 @@
+You are an expert SEO strategist and content architect.
+
+We are building a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR Code Generator tool component used on the main QR generator page.
+• Do NOT copy large sections of content from the main QR generator page.
+• Create unique topic-specific content focused on QR codes for lead generation and customer data capture.
+
+---
+
+PAGE TOPIC
+
+QR Code for Lead Capture
+
+PAGE URL
+
+/qr-code-for-lead-capture
+
+---
+
+TARGET KEYWORDS
+
+qr code for lead capture
+lead generation qr code
+qr code lead form
+qr code for collecting leads
+qr code marketing leads
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Lead Capture – Generate QR Codes for Lead Generation
+
+Subtext
+
+Create QR codes that connect users directly to lead forms, signup pages, and contact forms. Collect valuable customer information instantly from offline marketing campaigns.
+
+Highlights
+
+• Capture leads instantly
+• Perfect for marketing campaigns
+• Connect offline ads to digital forms
+• Works on all smartphones
+
+CTA
+
+Create Lead Capture QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool directly below the hero section.
+
+Default QR type: URL
+
+Example placeholder
+
+https://yourwebsite.com/signup
+
+Helper text
+
+Paste the link to your signup page, lead form, or landing page to generate a QR code users can scan.
+
+---
+
+SECTION — WHY USE QR CODES FOR LEAD GENERATION
+
+Explain why QR codes are effective for capturing leads.
+
+Topics
+
+offline-to-online lead capture
+simplified signup process
+higher conversion rates
+interactive marketing campaigns
+
+Explain how scanning a QR code instantly opens a lead form.
+
+---
+
+SECTION — BENEFITS OF LEAD CAPTURE QR CODES
+
+Create a benefits grid.
+
+Examples
+
+collect leads quickly
+improve marketing ROI
+increase conversion rates
+simplify signup processes
+capture customer data instantly
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE LEAD CAPTURE QR CODES ARE USED
+
+Examples
+
+event booths
+marketing flyers
+product packaging
+business cards
+store displays
+
+Explain how each placement helps capture leads.
+
+---
+
+SECTION — HOW LEAD CAPTURE QR CODES WORK
+
+Step 1
+Create a signup page or lead form.
+
+Step 2
+Generate a QR code using this tool.
+
+Step 3
+Add the QR code to marketing materials.
+
+Step 4
+Users scan the QR code and submit their details instantly.
+
+---
+
+SECTION — MARKETING USE CASES
+
+Examples
+
+newsletter signup campaigns
+event lead capture forms
+product interest forms
+sales inquiry forms
+
+Explain how businesses convert scans into leads.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+add call-to-action text like “Scan to Sign Up”
+use high contrast colors
+ensure QR codes are large enough
+test QR codes before printing
+
+Explain each tip.
+
+---
+
+SECTION — COMMON MISTAKES
+
+Examples
+
+linking to slow landing pages
+QR codes printed too small
+unclear call-to-action text
+forms that are not mobile optimized
+
+Explain how to avoid these mistakes.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I create a QR code for lead generation
+Can QR codes collect customer data
+Are lead capture QR codes free
+Do users need apps to scan QR codes
+Can QR codes link to signup forms
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other lead generation pages.
+
+QR Code for Google Reviews
+QR Code for Contact Forms
+QR Code for Feedback Forms
+QR Code for Surveys
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Lead Capture QR Code Now
+
+Generate a QR code that helps you collect leads and grow your business instantly.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length: 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide and generator for lead capture QR codes.

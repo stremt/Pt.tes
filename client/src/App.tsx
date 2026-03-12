@@ -183,6 +183,10 @@ const QRCodeForBusinessPromotion = lazy(() => import("@/pages/tools/QRCodeForBus
 const QRCodeForProductMarketing = lazy(() => import("@/pages/tools/QRCodeForProductMarketing"));
 const QRCodeForGoogleReviews = lazy(() => import("@/pages/tools/QRCodeForGoogleReviews"));
 const QRCodeForContactForms = lazy(() => import("@/pages/tools/QRCodeForContactForms"));
+const QRCodeForFeedbackForms = lazy(() => import("@/pages/tools/QRCodeForFeedbackForms"));
+const QRCodeForSurveys = lazy(() => import("@/pages/tools/QRCodeForSurveys"));
+const QRCodeForLeadCapture = lazy(() => import("@/pages/tools/QRCodeForLeadCapture"));
+const QRCodeForWifi = lazy(() => import("@/pages/tools/QRCodeForWifi"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -560,6 +564,10 @@ function Router() {
         <Route path="/tools/qr-code-for-product-marketing" component={QRCodeForProductMarketing} />
         <Route path="/tools/qr-code-for-google-reviews" component={QRCodeForGoogleReviews} />
         <Route path="/tools/qr-code-for-contact-forms" component={QRCodeForContactForms} />
+        <Route path="/tools/qr-code-for-feedback-forms" component={QRCodeForFeedbackForms} />
+        <Route path="/tools/qr-code-for-surveys" component={QRCodeForSurveys} />
+        <Route path="/tools/qr-code-for-lead-capture" component={QRCodeForLeadCapture} />
+        <Route path="/tools/qr-code-for-wifi" component={QRCodeForWifi} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
         <Route path="/tools/word-counter" component={WordCounter} />

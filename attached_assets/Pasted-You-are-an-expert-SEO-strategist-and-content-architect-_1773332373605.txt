@@ -1,0 +1,215 @@
+You are an expert SEO strategist and content architect.
+
+We are building a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR Code Generator tool component used on the main QR tool page.
+• Do NOT duplicate large sections of content from the main QR generator page.
+• Create unique content focused on QR codes for feedback forms and customer experience surveys.
+
+---
+
+PAGE TOPIC
+
+QR Code for Feedback Forms
+
+PAGE URL
+
+/qr-code-for-feedback-forms
+
+---
+
+TARGET KEYWORDS
+
+qr code for feedback form
+feedback form qr code generator
+qr code customer feedback
+qr code for feedback survey
+create qr code for feedback
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Feedback Forms – Collect Customer Feedback Instantly
+
+Subtext
+
+Generate QR codes that link directly to feedback forms so customers can easily share their opinions, suggestions, and experiences.
+
+Highlights
+
+• Collect customer feedback quickly
+• Improve products and services
+• Perfect for restaurants and retail stores
+• Works on all smartphones
+
+CTA
+
+Create Feedback QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool directly under the hero section.
+
+Default QR type: URL
+
+Example placeholder
+
+https://yourwebsite.com/feedback
+
+Helper text
+
+Paste the link to your feedback form or survey page to generate a QR code customers can scan instantly.
+
+---
+
+SECTION — WHY CUSTOMER FEEDBACK MATTERS
+
+Explain why businesses collect feedback.
+
+Topics
+
+improving customer experience
+identifying service problems
+building customer loyalty
+making better business decisions
+
+Explain how QR codes simplify feedback collection.
+
+---
+
+SECTION — BENEFITS OF FEEDBACK QR CODES
+
+Create a benefits grid.
+
+Examples
+
+collect feedback instantly
+increase response rates
+simplify feedback collection
+improve customer satisfaction
+gather valuable business insights
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE FEEDBACK QR CODES ARE USED
+
+Examples
+
+restaurant tables
+product packaging
+store counters
+receipts
+event booths
+
+Explain how placement encourages customers to leave feedback.
+
+---
+
+SECTION — HOW FEEDBACK QR CODES WORK
+
+Step 1
+Create a feedback form using Google Forms or your website.
+
+Step 2
+Generate a QR code using this tool.
+
+Step 3
+Add the QR code to marketing materials or receipts.
+
+Step 4
+Customers scan the code and submit feedback instantly.
+
+---
+
+SECTION — BUSINESS USE CASES
+
+Examples
+
+restaurant customer satisfaction surveys
+retail store feedback forms
+event attendee feedback forms
+product improvement surveys
+
+Explain how feedback helps improve services.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+use clear call-to-action text like “Scan to share feedback”
+ensure QR code is large enough
+use high contrast design
+test QR codes before printing
+
+Explain each tip.
+
+---
+
+SECTION — COMMON MISTAKES
+
+Examples
+
+linking to complicated feedback forms
+QR codes printed too small
+unclear call-to-action text
+forms that are not mobile friendly
+
+Explain how to avoid these mistakes.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I create a QR code for a feedback form
+Can QR codes increase survey responses
+Are feedback QR codes free
+Do users need an app to scan QR codes
+Can QR codes link to Google Forms
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other lead generation pages.
+
+QR Code for Google Reviews
+QR Code for Contact Forms
+QR Code for Surveys
+QR Code for Lead Capture
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Feedback QR Code Now
+
+Generate a QR code that lets customers share their feedback instantly.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length: 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide and generator for feedback QR codes.
