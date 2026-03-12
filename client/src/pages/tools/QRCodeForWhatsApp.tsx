@@ -68,10 +68,27 @@ export default function QRCodeForWhatsApp() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for WhatsApp – Free WhatsApp QR Code Generator | Pixocraft","description":"Create a QR code for WhatsApp that opens a pre-filled chat. Generate a WhatsApp QR code for business, customer support, and marketing.","url":"https://tools.pixocraft.in/tools/qr-code-for-whatsapp","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for WhatsApp","description":"Follow these steps to generate a QR code that opens a WhatsApp chat when scanned.","step":[{"@type":"HowToStep","name":"Enter Your WhatsApp Phone Number","text":"Type your WhatsApp-registered phone number including the international dialing code (e.g., +91 for India) into the input field."},{"@type":"HowToStep","name":"Add an Optional Pre-filled Message","text":"Enter a default message you want to appear in the chat when someone scans your QR code, such as a greeting or inquiry prompt."},{"@type":"HowToStep","name":"Customize the QR Code","text":"Choose brand colors and optionally add the WhatsApp logo or your business logo to the center of the QR code."},{"@type":"HowToStep","name":"Download and Share","text":"Download the QR code and place it on product packaging, business cards, storefronts, or marketing materials."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for WhatsApp","item":"https://tools.pixocraft.in/tools/qr-code-for-whatsapp"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for WhatsApp</span>
+          </nav>
         {/* Hero */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -141,6 +158,13 @@ export default function QRCodeForWhatsApp() {
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
               <QRMaker embedMode={true} />
+            <p className="mt-4 text-sm text-muted-foreground">
+                Use our{" "}
+                <Link href="/tools/qr-maker">
+                  <span className="text-primary hover:underline cursor-pointer">Free QR Code Generator</span>
+                </Link>{" "}
+                to create custom QR codes for websites, social media, marketing campaigns, and business use cases.
+              </p>
             </div>
           </section>
 
@@ -734,6 +758,38 @@ export default function QRCodeForWhatsApp() {
               </Link>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Social Media QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-instagram">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Instagram</span>
+                </Link>{" "}
+                — Grow your Instagram following with a scannable QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-facebook">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Facebook</span>
+                </Link>{" "}
+                — Drive traffic to your Facebook page or profile
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-youtube">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for YouTube</span>
+                </Link>{" "}
+                — Grow your YouTube channel with a scannable QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-linkedin">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for LinkedIn</span>
+                </Link>{" "}
+                — Share your LinkedIn profile at networking events
+              </p>
+              </div>
+            </section>
 
           {/* CTA */}
           <section className="border-t pt-12">

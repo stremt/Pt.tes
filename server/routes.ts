@@ -5,8 +5,33 @@ import { contactFormSchema, tempMailAccountSchema, tempMailAuthSchema } from "@s
 import express from "express";
 import multer from "multer";
 import mammoth from "mammoth";
+import { generateSitemapXml } from "./sitemap";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Dynamic sitemap — always up-to-date, takes priority over static file
+  app.get("/sitemap.xml", (_req, res) => {
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=86400"); // cache 24 h
+    res.send(generateSitemapXml());
+  });
+
+  // Robots.txt — served dynamically so it matches the sitemap URL exactly
+  app.get("/robots.txt", (_req, res) => {
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(
+`User-agent: *
+Allow: /
+
+# Disallow search result pages to prevent duplicate content
+Disallow: /tools?q=*
+Disallow: /tools?category=*
+
+# Sitemap location
+Sitemap: https://tools.pixocraft.in/sitemap.xml`
+    );
+  });
+
   // Soft 404 Redirects for legacy/missing tools
   app.get("/tools/text-analyzer", (req, res) => res.redirect(301, "/tools/word-counter"));
   app.get("/tools/url-shortener", (req, res) => res.redirect(301, "/tools/url-encoder"));

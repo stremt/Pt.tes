@@ -49,10 +49,27 @@ export default function QRCodeForProductPackaging() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for Product Packaging – Free Packaging QR Code Generator | Pixocraft","description":"Create a QR code for product packaging. Generate scannable packaging QR codes for product pages, instructions, warranty registration, and promotions.","url":"https://tools.pixocraft.in/tools/qr-code-for-product-packaging","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for Product Packaging","description":"Follow these steps to generate a QR code for use on your product packaging.","step":[{"@type":"HowToStep","name":"Choose What Your QR Code Should Link To","text":"Decide whether your packaging QR code links to a product page, instructional video, warranty form, or promotional offer."},{"@type":"HowToStep","name":"Enter the URL into the QR Generator","text":"Open the Pixocraft QR Code Generator and paste the destination URL into the input field."},{"@type":"HowToStep","name":"Customize for Your Packaging Design","text":"Match the QR code colors to your packaging artwork and add a product or brand logo to the center."},{"@type":"HowToStep","name":"Download and Add to Packaging Artwork","text":"Download the QR code at high resolution and embed it into your packaging design before printing."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for Product Packaging","item":"https://tools.pixocraft.in/tools/qr-code-for-product-packaging"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for Product Packaging</span>
+          </nav>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -78,6 +95,13 @@ export default function QRCodeForProductPackaging() {
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
               <QRMaker embedMode={true} />
+            <p className="mt-4 text-sm text-muted-foreground">
+                Use our{" "}
+                <Link href="/tools/qr-maker">
+                  <span className="text-primary hover:underline cursor-pointer">Free QR Code Generator</span>
+                </Link>{" "}
+                to create custom QR codes for websites, social media, marketing campaigns, and business use cases.
+              </p>
             </div>
           </section>
 
@@ -258,6 +282,32 @@ export default function QRCodeForProductPackaging() {
               <Link href="/tools/qr-maker"><div className="border rounded-lg p-4 bg-card hover:border-primary transition-all cursor-pointer"><h3 className="font-bold mb-1">Main QR Code Generator</h3><p className="text-sm text-muted-foreground">Full QR code maker with all customization options</p></div></Link>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Related QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-restaurant-menu">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Restaurant Menu</span>
+                </Link>{" "}
+                — Create digital menu QR codes for restaurants
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-property-listings">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Property Listings</span>
+                </Link>{" "}
+                — Share property listings with a scannable QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-event-tickets">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Event Tickets</span>
+                </Link>{" "}
+                — Create scannable QR codes for event tickets
+              </p>
+              </div>
+            </section>
 
           {/* CTA */}
           <section className="border-t pt-12">

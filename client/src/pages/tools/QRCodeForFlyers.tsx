@@ -73,10 +73,27 @@ export default function QRCodeForFlyers() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for Flyers – Free Marketing Flyer QR Code Generator | Pixocraft","description":"Create QR codes for flyers instantly. Generate marketing flyer QR codes that drive traffic, promote offers, and boost engagement.","url":"https://tools.pixocraft.in/tools/qr-code-for-flyers","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for Flyers","description":"Follow these steps to generate a QR code to embed in your printed marketing flyers.","step":[{"@type":"HowToStep","name":"Choose Your Destination URL","text":"Decide what your flyer QR code should link to — a website, landing page, special offer, social media profile, or digital menu."},{"@type":"HowToStep","name":"Generate the QR Code","text":"Open the Pixocraft QR Code Generator, enter your URL, and click Generate to instantly create your QR code."},{"@type":"HowToStep","name":"Customize Colors and Style","text":"Match the QR code design to your flyer's color scheme and branding. Optionally add a logo to the center."},{"@type":"HowToStep","name":"Download and Add to Your Flyer","text":"Download the QR code in high resolution and insert it into your flyer design. Ensure it prints clearly for reliable scanning."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for Flyers","item":"https://tools.pixocraft.in/tools/qr-code-for-flyers"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for Flyers</span>
+          </nav>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -693,6 +710,38 @@ export default function QRCodeForFlyers() {
               </p>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Marketing QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-posters">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Posters</span>
+                </Link>{" "}
+                — Turn posters into interactive digital experiences
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-coupons">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Coupons</span>
+                </Link>{" "}
+                — Create scannable discount and coupon QR codes
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-business-promotion">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Business Promotion</span>
+                </Link>{" "}
+                — Promote your business with QR code marketing
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-product-marketing">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Product Marketing</span>
+                </Link>{" "}
+                — Market products with scannable QR codes
+              </p>
+              </div>
+            </section>
 
           {/* Final CTA */}
           <section className="border-t pt-12">

@@ -1,0 +1,107 @@
+You are upgrading the SEO infrastructure of our QR Code Generator website.
+
+Goal: Create and maintain an updated XML sitemap and ensure all pages are ready for Google indexing.
+
+Important rules:
+
+• Do NOT modify existing page content
+• Only implement SEO infrastructure improvements
+• Ensure the sitemap automatically updates when new pages are added
+
+---
+
+STEP 1 — CREATE XML SITEMAP
+
+Generate an XML sitemap file at:
+
+/sitemap.xml
+
+Include:
+
+• Main QR Code Generator page
+• All SEO landing pages
+• Homepage
+
+Example structure:
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+<loc>https://tools.pixocraft.in/</loc>
+<priority>1.0</priority>
+</url>
+
+<url>
+<loc>https://tools.pixocraft.in/qr-code-generator</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://tools.pixocraft.in/qr-code-for-instagram</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://tools.pixocraft.in/qr-code-for-facebook</loc>
+<priority>0.8</priority>
+</url>
+
+<url>
+<loc>https://tools.pixocraft.in/qr-code-for-youtube</loc>
+<priority>0.8</priority>
+</url>
+
+</urlset>
+
+Ensure every SEO page is included.
+
+---
+
+STEP 2 — AUTO UPDATE SITEMAP
+
+Ensure the sitemap updates automatically when new pages are added to the website.
+
+The sitemap must always contain all public pages.
+
+---
+
+STEP 3 — CREATE ROBOTS.TXT
+
+Add or update the robots.txt file.
+
+Example:
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tools.pixocraft.in/sitemap.xml
+
+---
+
+STEP 4 — ADD INDEXING SIGNALS
+
+Ensure every page includes:
+
+• canonical tag
+• meta title
+• meta description
+• structured data (FAQ and HowTo schema)
+
+---
+
+STEP 5 — GOOGLE INDEXING READY
+
+Ensure pages are optimized for search engines by:
+
+• allowing crawling
+• ensuring internal links exist
+• ensuring pages load fast
+• ensuring structured data is valid
+
+---
+
+STEP 6 — VALIDATION
+
+Ensure the sitemap validates in Google Search Console and follows XML sitemap standards.
+
+All SEO pages must appear inside the sitemap.

@@ -73,10 +73,27 @@ export default function QRCodeForWifi() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for WiFi – Free WiFi QR Code Generator | Pixocraft","description":"Create a WiFi QR code instantly. Generate a scannable QR code that connects guests to your WiFi network without typing a password.","url":"https://tools.pixocraft.in/tools/qr-code-for-wifi","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for WiFi","description":"Follow these steps to generate a QR code that automatically connects devices to your WiFi network.","step":[{"@type":"HowToStep","name":"Enter Your WiFi Network Name (SSID)","text":"Type your WiFi network name (SSID) exactly as it appears in your router settings."},{"@type":"HowToStep","name":"Enter Your WiFi Password","text":"Enter your WiFi password. Select the correct security type: WPA/WPA2, WEP, or None."},{"@type":"HowToStep","name":"Generate the WiFi QR Code","text":"Click Generate in the Pixocraft QR Code Generator to instantly create a QR code encoding your WiFi credentials."},{"@type":"HowToStep","name":"Print and Display the QR Code","text":"Download the QR code and post it in your café, hotel lobby, office, or home for guests to connect instantly by scanning."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for WiFi","item":"https://tools.pixocraft.in/tools/qr-code-for-wifi"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for WiFi</span>
+          </nav>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -642,6 +659,38 @@ export default function QRCodeForWifi() {
               </p>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Utility QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-payments">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Payments</span>
+                </Link>{" "}
+                — Accept digital payments with a scan-to-pay QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-vcard-contacts">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for vCard Contacts</span>
+                </Link>{" "}
+                — Share your contact details with a single scan
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-email">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Email</span>
+                </Link>{" "}
+                — Open a pre-filled email draft with a single scan
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-sms">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for SMS</span>
+                </Link>{" "}
+                — Send a pre-filled text message with a single scan
+              </p>
+              </div>
+            </section>
 
           {/* Final CTA */}
           <section className="border-t pt-12">

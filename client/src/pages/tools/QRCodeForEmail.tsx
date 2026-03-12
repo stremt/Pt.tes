@@ -67,10 +67,27 @@ export default function QRCodeForEmail() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for Email – Free Email QR Code Generator | Pixocraft","description":"Create a QR code for email that opens a pre-filled draft. Generate email QR codes for contact pages, business cards, and marketing materials.","url":"https://tools.pixocraft.in/tools/qr-code-for-email","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for Email","description":"Follow these steps to generate a QR code that opens a pre-filled email draft when scanned.","step":[{"@type":"HowToStep","name":"Enter the Recipient Email Address","text":"Type the email address that should receive the message when a user scans the QR code."},{"@type":"HowToStep","name":"Add a Subject Line and Message Body","text":"Optionally pre-fill the subject line and message body so the user's email client opens with the draft ready to send."},{"@type":"HowToStep","name":"Generate the Email QR Code","text":"Click Generate in the Pixocraft QR Code Generator to create the mailto QR code."},{"@type":"HowToStep","name":"Download and Share","text":"Download the QR code and add it to your contact page, business cards, brochures, or printed materials."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for Email","item":"https://tools.pixocraft.in/tools/qr-code-for-email"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for Email</span>
+          </nav>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -634,6 +651,38 @@ export default function QRCodeForEmail() {
               </p>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Utility QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-wifi">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for WiFi</span>
+                </Link>{" "}
+                — Let guests connect to WiFi with a single scan
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-payments">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Payments</span>
+                </Link>{" "}
+                — Accept digital payments with a scan-to-pay QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-vcard-contacts">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for vCard Contacts</span>
+                </Link>{" "}
+                — Share your contact details with a single scan
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-sms">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for SMS</span>
+                </Link>{" "}
+                — Send a pre-filled text message with a single scan
+              </p>
+              </div>
+            </section>
 
           {/* Final CTA */}
           <section className="border-t pt-12">

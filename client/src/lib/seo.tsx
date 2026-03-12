@@ -246,6 +246,32 @@ export function generateSoftwareApplicationSchema({
   };
 }
 
+// HowTo Schema Generator
+export interface HowToStep {
+  name: string;
+  text: string;
+}
+
+export interface HowToSchemaProps {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+}
+
+export function generateHowToSchema({ name, description, steps }: HowToSchemaProps) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": name,
+    "description": description,
+    "step": steps.map((step) => ({
+      "@type": "HowToStep",
+      "name": step.name,
+      "text": step.text,
+    })),
+  };
+}
+
 // Breadcrumb Schema Generator
 export interface BreadcrumbItem {
   name: string;

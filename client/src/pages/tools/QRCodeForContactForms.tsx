@@ -74,10 +74,27 @@ export default function QRCodeForContactForms() {
   return (
     <>
       <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"WebPage","name":"QR Code for Contact Forms – Free Contact Form QR Code Generator | Pixocraft","description":"Create a QR code for your contact form. Generate scannable contact form QR codes for business cards, flyers, and marketing materials.","url":"https://tools.pixocraft.in/tools/qr-code-for-contact-forms","publisher":{"@type":"Organization","name":"Pixocraft Tools","url":"https://tools.pixocraft.in","logo":{"@type":"ImageObject","url":"https://tools.pixocraft.in/favicon.png"}},"inLanguage":"en-IN","isPartOf":{"@type":"WebSite","@id":"https://tools.pixocraft.in"}})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"HowTo","name":"How to Create a QR Code for a Contact Form","description":"Follow these steps to generate a QR code that links directly to your online contact form.","step":[{"@type":"HowToStep","name":"Copy Your Contact Form URL","text":"Copy the URL of your contact form from your website's contact page or form builder platform."},{"@type":"HowToStep","name":"Enter the URL into the QR Generator","text":"Open the Pixocraft QR Code Generator and paste your contact form URL into the input field."},{"@type":"HowToStep","name":"Customize the QR Code","text":"Adjust colors and add your business logo or icon to the center of the QR code to match your branding."},{"@type":"HowToStep","name":"Add to Marketing Materials","text":"Download the QR code and place it on business cards, brochures, event materials, and signage."}]})}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tools.pixocraft.in/"},{"@type":"ListItem","position":2,"name":"QR Code Generator","item":"https://tools.pixocraft.in/tools/qr-maker"},{"@type":"ListItem","position":3,"name":"QR Code for Contact Forms","item":"https://tools.pixocraft.in/tools/qr-code-for-contact-forms"}]})}
+      </script>
+      <script type="application/ld+json">
         {JSON.stringify(generateFAQSchema(faqItems))}
       </script>
 
       <div className="min-h-screen bg-background">
+        {/* Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm text-muted-foreground pt-4 pb-2 max-w-4xl mx-auto px-4 md:px-8 flex-wrap">
+            <Link href="/"><span className="hover:text-foreground cursor-pointer">Home</span></Link>
+            <span>›</span>
+            <Link href="/tools/qr-maker"><span className="hover:text-foreground cursor-pointer">QR Code Generator</span></Link>
+            <span>›</span>
+            <span className="text-foreground">QR Code for Contact Forms</span>
+          </nav>
         {/* Hero Section */}
         <section className="bg-gradient-to-b from-primary/10 via-primary/5 to-transparent py-16 md:py-20 -mx-4 px-4 md:-mx-8 md:px-8 mb-12">
           <div className="max-w-4xl mx-auto">
@@ -643,6 +660,38 @@ export default function QRCodeForContactForms() {
               </p>
             </div>
           </section>
+
+
+            {/* Same Bucket Cross-linking */}
+            <section className="space-y-6 border-t pt-12">
+              <h2 className="text-2xl font-bold mb-4">More Lead Generation QR Code Generators</h2>
+              <div className="space-y-3 text-muted-foreground">
+                <p>
+                <Link href="/tools/qr-code-for-google-reviews">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Google Reviews</span>
+                </Link>{" "}
+                — Collect more Google reviews with a single scan
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-feedback-forms">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Feedback Forms</span>
+                </Link>{" "}
+                — Collect customer feedback with a scannable QR code
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-surveys">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Surveys</span>
+                </Link>{" "}
+                — Drive survey responses with QR codes
+              </p>
+              <p>
+                <Link href="/tools/qr-code-for-lead-capture">
+                  <span className="text-primary hover:underline cursor-pointer">QR Code for Lead Capture</span>
+                </Link>{" "}
+                — Capture leads instantly with a QR code
+              </p>
+              </div>
+            </section>
 
           {/* Final CTA */}
           <section className="border-t pt-12">
