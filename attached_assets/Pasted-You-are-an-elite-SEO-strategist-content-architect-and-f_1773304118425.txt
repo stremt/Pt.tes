@@ -1,0 +1,267 @@
+You are an elite SEO strategist, content architect, and frontend engineer.
+
+We are building a high-authority SEO landing page for a QR Code Generator website.
+
+Important context:
+
+The website already has a main QR Code Generator tool.
+
+This page must reuse the SAME universal QR generator tool component.
+
+Do NOT duplicate the main tool page content.
+
+The page must contain unique, topic-specific content optimized for a specific use case.
+
+---
+
+PAGE TOPIC
+
+QR Code for Instagram
+
+PAGE URL
+
+/qr-code-for-instagram
+
+GOAL
+
+Create a highly detailed SEO landing page that helps users generate QR codes that link to Instagram profiles.
+
+The page must feel like a **dedicated Instagram QR code generator**.
+
+---
+
+TARGET KEYWORDS
+
+instagram qr code generator
+qr code for instagram profile
+instagram profile qr code
+instagram follow qr code
+create qr code for instagram
+instagram scan code for profile
+
+Use natural keyword variations throughout the content.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Instagram – Create Instagram Profile QR Codes Instantly
+
+Subtext
+
+Generate a QR code that links directly to your Instagram profile.
+Perfect for influencers, creators, businesses, and brands who want to grow followers faster.
+
+Highlights
+
+• Grow Instagram followers faster
+• Share profile instantly
+• Perfect for print and offline marketing
+• Works on all smartphones
+
+CTA
+
+Create Instagram QR Code
+
+---
+
+QR TOOL SECTION
+
+Directly under the hero section embed the universal QR Code Generator tool.
+
+Default QR type should be URL.
+
+Placeholder example:
+
+https://instagram.com/yourusername
+
+Helper text:
+
+Paste your Instagram profile link to create a scannable QR code that lets people follow you instantly.
+
+---
+
+SECTION – WHY USE QR CODES FOR INSTAGRAM
+
+Explain why QR codes help grow social media.
+
+Topics:
+
+offline follower growth
+instant profile access
+no manual username search
+creator marketing
+
+Explain how scanning a QR code instantly opens the Instagram profile.
+
+---
+
+SECTION – BENEFITS OF INSTAGRAM QR CODES
+
+Create a feature grid.
+
+Benefits:
+
+Grow followers faster
+Instant profile access
+Perfect for influencers
+Offline social media marketing
+Professional branding
+
+Each card must include short explanations.
+
+---
+
+SECTION – WHERE INSTAGRAM QR CODES ARE USED
+
+Explain real world placements.
+
+Business cards
+Product packaging
+Event posters
+Restaurant tables
+Influencer merchandise
+Store displays
+
+Explain each example briefly.
+
+---
+
+SECTION – HOW INSTAGRAM QR CODES WORK
+
+Explain the process clearly.
+
+Step 1
+
+Copy your Instagram profile link.
+
+Step 2
+
+Generate a QR code using this tool.
+
+Step 3
+
+Download the QR code image.
+
+Step 4
+
+Print or share the QR code anywhere.
+
+---
+
+SECTION – INSTAGRAM QR CODE USE CASES
+
+Create detailed use cases.
+
+Influencers
+
+Creators add QR codes to posters or merchandise to gain followers.
+
+Small Businesses
+
+Retail stores place QR codes near checkout counters to gain followers.
+
+Restaurants
+
+Restaurants print Instagram QR codes on menus to grow their social presence.
+
+Events
+
+Event organizers place QR codes on banners to grow Instagram audiences.
+
+---
+
+SECTION – INSTAGRAM MARKETING WITH QR CODES
+
+Explain strategies.
+
+QR codes on packaging
+QR codes in stores
+QR codes on flyers
+QR codes on event banners
+
+Explain how brands grow followers offline.
+
+---
+
+SECTION – DESIGN BEST PRACTICES
+
+Provide tips.
+
+Use Instagram colors
+Add Instagram logo in the center
+Keep high contrast
+Ensure QR code is large enough
+Test QR code before printing
+
+---
+
+SECTION – COMMON INSTAGRAM QR CODE MISTAKES
+
+Examples:
+
+Linking to wrong profile
+Using low resolution QR codes
+Placing QR codes too small
+Linking to private accounts
+
+Explain how to avoid each mistake.
+
+---
+
+SECTION – REAL EXAMPLES
+
+Provide scenario examples.
+
+QR code on influencer merchandise
+QR code on cafe menu linking to Instagram
+QR code on retail packaging
+
+Explain how scanning leads to instant profile visits.
+
+---
+
+SECTION – FAQ
+
+Add questions.
+
+How do I create a QR code for my Instagram profile
+Do people need Instagram installed to scan
+Can I print Instagram QR codes
+Are Instagram QR codes free
+How do I grow followers using QR codes
+
+---
+
+SECTION – INTERNAL LINKING
+
+Add links to other QR pages.
+
+QR Code for Facebook
+QR Code for YouTube
+QR Code for LinkedIn
+QR Code for WhatsApp
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Instagram QR Code Now
+
+Generate a QR code that instantly connects people to your Instagram profile.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length must be 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete **Instagram QR code guide + generator**.

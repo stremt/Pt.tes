@@ -1,0 +1,244 @@
+You are an expert SEO strategist and web architect.
+
+We are creating a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• The page must reuse the SAME universal QR code generator tool used on the main QR tool page.
+• Do NOT duplicate content from the main QR generator page.
+• This page must contain unique content focused on a specific use case.
+
+---
+
+PAGE TOPIC
+
+QR Code for Facebook
+
+PAGE URL
+
+/qr-code-for-facebook
+
+---
+
+TARGET KEYWORDS
+
+facebook qr code generator
+qr code for facebook page
+facebook profile qr code
+facebook page qr code generator
+create qr code for facebook
+
+Use natural keyword variations throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Facebook – Create Facebook Page QR Codes Instantly
+
+Subtext
+
+Generate a QR code that links directly to your Facebook page or profile.
+Perfect for businesses, creators, and brands that want to grow their Facebook audience offline.
+
+Highlights
+
+• Grow Facebook followers faster
+• Share your page instantly
+• Works on posters, packaging, and business cards
+• No app required to scan
+
+CTA
+
+Create Facebook QR Code
+
+---
+
+QR TOOL SECTION
+
+Place the universal QR Code Generator tool directly under the hero section.
+
+Default QR type: URL
+
+Example placeholder:
+
+https://facebook.com/yourpage
+
+Helper text:
+
+Paste your Facebook page or profile link to generate a QR code people can scan to visit your page instantly.
+
+---
+
+SECTION — WHY USE FACEBOOK QR CODES
+
+Explain why QR codes help grow Facebook audiences.
+
+Topics to cover:
+
+offline marketing
+instant page access
+easy profile sharing
+faster follower growth
+
+Explain how QR codes eliminate the need to manually search for a page.
+
+---
+
+SECTION — BENEFITS OF FACEBOOK QR CODES
+
+Create a benefits grid.
+
+Examples:
+
+Increase followers
+Drive traffic to Facebook page
+Promote events and posts
+Easy sharing at offline locations
+Professional branding
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE FACEBOOK QR CODES ARE USED
+
+Explain real-world placement ideas.
+
+Business cards
+Retail stores
+Product packaging
+Event banners
+Restaurant tables
+Flyers and posters
+
+Explain how each placement drives Facebook engagement.
+
+---
+
+SECTION — HOW FACEBOOK QR CODES WORK
+
+Explain the process clearly.
+
+Step 1
+Copy your Facebook page or profile URL.
+
+Step 2
+Paste it into the QR generator tool.
+
+Step 3
+Generate and download your QR code.
+
+Step 4
+Print or share it anywhere.
+
+---
+
+SECTION — FACEBOOK QR CODE USE CASES
+
+Examples:
+
+Local businesses promoting Facebook pages
+Retail brands growing social presence
+Event organizers sharing Facebook event pages
+Restaurants connecting customers with Facebook pages
+
+Explain how scanning leads to instant page visits.
+
+---
+
+SECTION — FACEBOOK MARKETING WITH QR CODES
+
+Explain strategies.
+
+QR codes on store displays
+QR codes on packaging
+QR codes on receipts
+QR codes on promotional materials
+
+Explain how businesses gain followers offline.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips:
+
+use high contrast colors
+add Facebook branding
+ensure large QR size
+test scanning before printing
+
+Explain each tip.
+
+---
+
+SECTION — COMMON FACEBOOK QR CODE MISTAKES
+
+Examples:
+
+wrong profile link
+private page links
+low resolution QR codes
+QR codes placed too small
+
+Explain solutions.
+
+---
+
+SECTION — REAL EXAMPLES
+
+Example scenarios:
+
+QR code on retail store window linking to Facebook page
+QR code on product packaging promoting Facebook community
+QR code on event poster linking to Facebook event page
+
+Explain user journey after scanning.
+
+---
+
+SECTION — FAQ
+
+Add questions such as:
+
+How do I create a QR code for my Facebook page
+Can people scan Facebook QR codes without an app
+Are Facebook QR codes free
+Can I print QR codes for Facebook marketing
+How do QR codes help grow Facebook followers
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other pages:
+
+QR Code for Instagram
+QR Code for YouTube
+QR Code for LinkedIn
+QR Code for WhatsApp
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Facebook QR Code Now
+
+Generate a QR code that connects people instantly to your Facebook page.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length must be at least 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide to Facebook QR codes while also acting as a generator page.
