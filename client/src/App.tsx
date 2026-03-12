@@ -176,6 +176,10 @@ const QRCodeForFacebook = lazy(() => import("@/pages/tools/QRCodeForFacebook"));
 const QRCodeForYouTube = lazy(() => import("@/pages/tools/QRCodeForYouTube"));
 const QRCodeForLinkedIn = lazy(() => import("@/pages/tools/QRCodeForLinkedIn"));
 const QRCodeForWhatsApp = lazy(() => import("@/pages/tools/QRCodeForWhatsApp"));
+const QRCodeForFlyers = lazy(() => import("@/pages/tools/QRCodeForFlyers"));
+const QRCodeForPosters = lazy(() => import("@/pages/tools/QRCodeForPosters"));
+const QRCodeForCoupons = lazy(() => import("@/pages/tools/QRCodeForCoupons"));
+const QRCodeForBusinessPromotion = lazy(() => import("@/pages/tools/QRCodeForBusinessPromotion"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -546,6 +550,10 @@ function Router() {
         <Route path="/tools/qr-code-for-youtube" component={QRCodeForYouTube} />
         <Route path="/tools/qr-code-for-linkedin" component={QRCodeForLinkedIn} />
         <Route path="/tools/qr-code-for-whatsapp" component={QRCodeForWhatsApp} />
+        <Route path="/tools/qr-code-for-flyers" component={QRCodeForFlyers} />
+        <Route path="/tools/qr-code-for-posters" component={QRCodeForPosters} />
+        <Route path="/tools/qr-code-for-coupons" component={QRCodeForCoupons} />
+        <Route path="/tools/qr-code-for-business-promotion" component={QRCodeForBusinessPromotion} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
         <Route path="/tools/word-counter" component={WordCounter} />

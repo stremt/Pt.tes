@@ -1,0 +1,229 @@
+You are an expert SEO strategist and web architect.
+
+We are building a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR code generator tool component used on the main QR generator page.
+• Do NOT copy large blocks of content from the main tool page.
+• Create topic-specific SEO content optimized for marketing posters.
+
+---
+
+PAGE TOPIC
+
+QR Code for Posters
+
+PAGE URL
+
+/qr-code-for-posters
+
+---
+
+TARGET KEYWORDS
+
+qr code for posters
+poster qr code generator
+marketing poster qr code
+qr code poster marketing
+create qr code for posters
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Posters – Create Marketing Poster QR Codes Instantly
+
+Subtext
+
+Generate QR codes for posters that connect offline audiences to websites, campaigns, events, and digital experiences instantly.
+
+Highlights
+
+• Turn posters into interactive marketing tools
+• Drive traffic from offline ads
+• Perfect for events and promotions
+• Works on all smartphones
+
+CTA
+
+Create Poster QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool directly under the hero section.
+
+Default QR type: URL
+
+Example placeholder
+
+https://yourwebsite.com
+
+Helper text
+
+Paste the website, landing page, or promotion link you want users to visit when they scan your poster QR code.
+
+---
+
+SECTION — WHY USE QR CODES ON POSTERS
+
+Explain why posters combined with QR codes are powerful.
+
+Topics
+
+offline-to-online marketing
+interactive advertising
+easy user engagement
+instant website access
+
+Explain how scanning a poster QR code immediately connects users to digital content.
+
+---
+
+SECTION — BENEFITS OF POSTER QR CODES
+
+Create a benefits grid.
+
+Examples
+
+Increase website traffic
+Promote events
+Share promotional offers
+Drive app downloads
+Grow social media audiences
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE POSTER QR CODES ARE USED
+
+Examples
+
+Event promotion posters
+Retail marketing posters
+Movie promotion posters
+Real estate advertising posters
+Conference posters
+
+Explain how QR codes increase engagement.
+
+---
+
+SECTION — HOW QR CODES FOR POSTERS WORK
+
+Explain the process clearly.
+
+Step 1
+Choose the website, campaign page, or content you want users to access.
+
+Step 2
+Generate a QR code using this tool.
+
+Step 3
+Add the QR code to your poster design.
+
+Step 4
+Print the poster and display it in high-traffic locations.
+
+---
+
+SECTION — POSTER MARKETING USE CASES
+
+Examples
+
+Event posters linking to ticket pages
+Retail posters linking to discount offers
+Real estate posters linking to property listings
+University posters linking to course information
+
+Explain how scanning leads to conversions.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+use large QR codes
+add “Scan to learn more” call-to-action
+place QR codes where they are clearly visible
+use high contrast colors
+
+Explain each tip.
+
+---
+
+SECTION — COMMON POSTER QR CODE MISTAKES
+
+Examples
+
+QR code too small
+low contrast design
+placing QR code too high
+linking to slow loading websites
+
+Explain how to avoid them.
+
+---
+
+SECTION — REAL EXAMPLES
+
+Example scenarios.
+
+QR code poster for event registration
+QR code poster for product promotion
+QR code poster for restaurant marketing
+
+Explain how users interact with the poster.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I add QR code to posters
+What size should poster QR codes be
+Can poster QR codes increase marketing engagement
+Are QR codes free to generate
+Do users need apps to scan poster QR codes
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other marketing pages.
+
+QR Code for Flyers
+QR Code for Coupons
+QR Code for Business Promotion
+QR Code for Product Marketing
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Poster QR Code Now
+
+Generate a QR code that turns your poster into an interactive marketing experience.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length must be 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a dedicated poster QR code generator and marketing guide.
