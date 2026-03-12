@@ -99,7 +99,7 @@ const COLOR_TEMPLATES = [
   { id: "indigo", name: "Indigo", darkColor: "#4F46E5", lightColor: "#E0E7FF" },
 ];
 
-export default function QRMaker() {
+export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedType, setSelectedType] = useState("");
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -725,9 +725,9 @@ export default function QRMaker() {
 
   return (
     <>
-      <StructuredData data={faqSchema} />
-      <StructuredData data={softwareAppSchema} />
-      <StructuredData data={breadcrumbSchema} />
+      {!embedMode && <StructuredData data={faqSchema} />}
+      {!embedMode && <StructuredData data={softwareAppSchema} />}
+      {!embedMode && <StructuredData data={breadcrumbSchema} />}
 
       {/* Floating Mobile Preview - Draggable */}
       {selectedType && showFloatingPreview && (
@@ -755,10 +755,13 @@ export default function QRMaker() {
 
       <div className="min-h-screen py-8">
         <div className="container mx-auto px-4 max-w-7xl">
+          {!embedMode && (
           <div className="mb-6 text-sm text-muted-foreground">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/developer">Developer Tools</Link> / <span>QR Code Generator</span>
           </div>
+          )}
 
+          {!embedMode && (
           <div className="text-center space-y-4 mb-12">
             <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
               <QrCode className="h-10 w-10 text-primary" />
@@ -786,6 +789,7 @@ export default function QRMaker() {
               </Badge>
             </div>
           </div>
+          )}
 
           {/* TOOL INTERFACE STARTS HERE */}
 
@@ -1076,6 +1080,7 @@ export default function QRMaker() {
             </div>
           )}
 
+          {!embedMode && (<>
           {/* SEO Content Sections */}
           <section className="mt-20 space-y-20 border-t pt-16">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -1681,6 +1686,7 @@ export default function QRMaker() {
             </div>
           </section>
 
+          </>)}
           {/* SEO Content Sections (Step-specific content removed to allow authority expansion below) */}
 
           {/* Save Template Modal */}
@@ -1701,7 +1707,7 @@ export default function QRMaker() {
         </div>
       </div>
 
-      <LongTailPagesSection toolId="qr-code-maker" />
+      {!embedMode && <LongTailPagesSection toolId="qr-code-maker" />}
     </>
   );
 }

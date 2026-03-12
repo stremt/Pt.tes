@@ -96,7 +96,7 @@ export default function QRCodeForRestaurantMenu() {
               <p className="text-lg text-muted-foreground">Paste your restaurant menu URL below to generate a QR code customers can scan instantly.</p>
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
-              <QRMaker />
+              <QRMaker embedMode={true} />
             </div>
           </section>
 
