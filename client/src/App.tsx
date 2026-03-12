@@ -180,6 +180,7 @@ const QRCodeForFlyers = lazy(() => import("@/pages/tools/QRCodeForFlyers"));
 const QRCodeForPosters = lazy(() => import("@/pages/tools/QRCodeForPosters"));
 const QRCodeForCoupons = lazy(() => import("@/pages/tools/QRCodeForCoupons"));
 const QRCodeForBusinessPromotion = lazy(() => import("@/pages/tools/QRCodeForBusinessPromotion"));
+const QRCodeForProductMarketing = lazy(() => import("@/pages/tools/QRCodeForProductMarketing"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -554,6 +555,7 @@ function Router() {
         <Route path="/tools/qr-code-for-posters" component={QRCodeForPosters} />
         <Route path="/tools/qr-code-for-coupons" component={QRCodeForCoupons} />
         <Route path="/tools/qr-code-for-business-promotion" component={QRCodeForBusinessPromotion} />
+        <Route path="/tools/qr-code-for-product-marketing" component={QRCodeForProductMarketing} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
         <Route path="/tools/word-counter" component={WordCounter} />
