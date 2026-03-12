@@ -188,6 +188,8 @@ const QRCodeForSurveys = lazy(() => import("@/pages/tools/QRCodeForSurveys"));
 const QRCodeForLeadCapture = lazy(() => import("@/pages/tools/QRCodeForLeadCapture"));
 const QRCodeForWifi = lazy(() => import("@/pages/tools/QRCodeForWifi"));
 const QRCodeForPayments = lazy(() => import("@/pages/tools/QRCodeForPayments"));
+const QRCodeForVCard = lazy(() => import("@/pages/tools/QRCodeForVCard"));
+const QRCodeForEmail = lazy(() => import("@/pages/tools/QRCodeForEmail"));
 const ImageCompressor = lazy(() => import("@/pages/tools/ImageCompressor"));
 const TextCaseConverter = lazy(() => import("@/pages/tools/TextCaseConverter"));
 const WordCounter = lazy(() => import("@/pages/tools/WordCounter"));
@@ -570,6 +572,8 @@ function Router() {
         <Route path="/tools/qr-code-for-lead-capture" component={QRCodeForLeadCapture} />
         <Route path="/tools/qr-code-for-wifi" component={QRCodeForWifi} />
         <Route path="/tools/qr-code-for-payments" component={QRCodeForPayments} />
+        <Route path="/tools/qr-code-for-vcard-contacts" component={QRCodeForVCard} />
+        <Route path="/tools/qr-code-for-email" component={QRCodeForEmail} />
         <Route path="/tools/image-compressor" component={ImageCompressor} />
         <Route path="/tools/text-case-converter" component={TextCaseConverter} />
         <Route path="/tools/word-counter" component={WordCounter} />

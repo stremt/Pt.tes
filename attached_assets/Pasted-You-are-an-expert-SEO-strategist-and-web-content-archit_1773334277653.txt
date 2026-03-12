@@ -1,0 +1,216 @@
+You are an expert SEO strategist and web content architect.
+
+We are building a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR Code Generator tool component used on the main QR generator page.
+• Do NOT copy large blocks of content from the main QR generator page.
+• Create unique topic-specific content focused on QR codes for sending SMS messages.
+
+---
+
+PAGE TOPIC
+
+QR Code for SMS
+
+PAGE URL
+
+/qr-code-for-sms
+
+---
+
+TARGET KEYWORDS
+
+sms qr code generator
+qr code for sms
+text message qr code
+create qr code for sms
+qr code to send text message
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+SMS QR Code Generator – Create QR Codes to Send Text Messages
+
+Subtext
+
+Generate QR codes that allow users to send SMS messages instantly. Perfect for customer support, service requests, marketing campaigns, and quick communication.
+
+Highlights
+
+• Send SMS instantly with one scan
+• Perfect for support and service requests
+• Great for marketing campaigns
+• Works on all smartphones
+
+CTA
+
+Create SMS QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool directly under the hero section.
+
+Default QR type: SMS
+
+Example fields
+
+Phone Number
+Message (optional)
+
+Helper text
+
+Enter the phone number and message to generate a QR code that opens an SMS draft instantly.
+
+---
+
+SECTION — WHY USE SMS QR CODES
+
+Explain why QR codes simplify SMS communication.
+
+Topics
+
+instant SMS drafting
+simplified customer communication
+faster support requests
+no manual phone number typing
+
+Explain how scanning the QR code opens the SMS app automatically.
+
+---
+
+SECTION — BENEFITS OF SMS QR CODES
+
+Create a benefits grid.
+
+Examples
+
+instant communication
+simplified support contact
+perfect for marketing campaigns
+fast customer interaction
+easy message sending
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE SMS QR CODES ARE USED
+
+Examples
+
+customer support posters
+service request forms
+marketing flyers
+event registrations
+product support pages
+
+Explain how QR codes simplify messaging.
+
+---
+
+SECTION — HOW SMS QR CODES WORK
+
+Step 1
+Enter the phone number.
+
+Step 2
+Add an optional message.
+
+Step 3
+Generate the QR code using this tool.
+
+Step 4
+Users scan the code and their SMS app opens automatically.
+
+---
+
+SECTION — REAL WORLD USE CASES
+
+Examples
+
+customer support SMS codes
+event registration SMS codes
+restaurant booking requests
+product support requests
+
+Explain how scanning simplifies communication.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+include text like “Scan to send message”
+use high contrast QR codes
+test QR codes before printing
+place QR codes where users can easily scan
+
+Explain each tip.
+
+---
+
+SECTION — COMMON MISTAKES
+
+Examples
+
+incorrect phone number
+QR codes printed too small
+low resolution QR codes
+missing call-to-action text
+
+Explain how to avoid these mistakes.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I create a QR code for SMS
+Can QR codes open SMS drafts
+Do users need apps to scan SMS QR codes
+Are SMS QR codes free
+Can QR codes include pre-written messages
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other utility QR pages.
+
+QR Code for WiFi
+QR Code for Payments
+QR Code for vCard Contacts
+QR Code for Email
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your SMS QR Code Now
+
+Generate a QR code that lets users send text messages instantly.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length: 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide and generator for SMS QR codes.

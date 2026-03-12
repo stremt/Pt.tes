@@ -1,0 +1,219 @@
+You are an expert SEO strategist and web content architect.
+
+We are creating a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR Code Generator tool component used on the main QR generator page.
+• Do NOT copy large sections from the main QR generator page.
+• Create unique topic-specific content focused on vCard contact QR codes.
+
+---
+
+PAGE TOPIC
+
+QR Code for vCard Contacts
+
+PAGE URL
+
+/qr-code-for-vcard-contacts
+
+---
+
+TARGET KEYWORDS
+
+vcard qr code generator
+qr code for contact details
+contact qr code generator
+qr code for business card contact
+create qr code for contact
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+vCard QR Code Generator – Create QR Codes for Contact Details
+
+Subtext
+
+Generate QR codes that allow people to save your contact information instantly. Perfect for business cards, networking events, and professional profiles.
+
+Highlights
+
+• Share contact details instantly
+• Perfect for business cards
+• Save contacts with one scan
+• Works on all smartphones
+
+CTA
+
+Create Contact QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool directly below the hero section.
+
+Default QR type: vCard / Contact
+
+Example fields
+
+Name
+Phone Number
+Email Address
+Company
+Website
+
+Helper text
+
+Enter your contact information to generate a QR code that lets users save your details instantly.
+
+---
+
+SECTION — WHY USE CONTACT QR CODES
+
+Explain why QR codes improve contact sharing.
+
+Topics
+
+instant contact sharing
+no manual typing
+perfect for networking
+digital business cards
+
+Explain how scanning a QR code saves the contact automatically.
+
+---
+
+SECTION — BENEFITS OF VCARD QR CODES
+
+Create a benefits grid.
+
+Examples
+
+instant contact saving
+modern networking solution
+perfect for business cards
+simplified contact sharing
+professional digital identity
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE CONTACT QR CODES ARE USED
+
+Examples
+
+business cards
+email signatures
+conference badges
+event networking cards
+portfolio websites
+
+Explain how QR codes simplify networking.
+
+---
+
+SECTION — HOW CONTACT QR CODES WORK
+
+Step 1
+Enter your contact details.
+
+Step 2
+Generate a QR code using this tool.
+
+Step 3
+Add the QR code to your business card or profile.
+
+Step 4
+Users scan the code and save your contact instantly.
+
+---
+
+SECTION — REAL WORLD USE CASES
+
+Examples
+
+digital business cards
+startup founder networking
+conference attendee badges
+freelancer portfolio cards
+
+Explain how scanning saves contact information quickly.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+place QR codes clearly on business cards
+use high contrast colors
+test QR codes before printing
+include “Scan to save contact” text
+
+Explain each tip.
+
+---
+
+SECTION — COMMON MISTAKES
+
+Examples
+
+missing contact details
+QR codes printed too small
+low resolution QR codes
+incorrect phone numbers
+
+Explain how to avoid these mistakes.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I create a QR code for contact details
+Can people save contacts using QR codes
+Are vCard QR codes free
+Do users need apps to scan contact QR codes
+Can QR codes replace business cards
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other utility QR pages.
+
+QR Code for WiFi
+QR Code for Payments
+QR Code for Email
+QR Code for SMS
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Contact QR Code Now
+
+Generate a QR code that allows people to save your contact details instantly.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length: 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide and generator for contact QR codes.
