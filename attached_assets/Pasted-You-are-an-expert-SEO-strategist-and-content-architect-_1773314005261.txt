@@ -1,0 +1,229 @@
+You are an expert SEO strategist and content architect.
+
+We are building a specialized SEO landing page for a QR Code Generator website.
+
+Important rules:
+
+• Reuse the SAME universal QR code generator tool used on the main QR tool page.
+• Do NOT duplicate the main QR code generator page content.
+• Create unique content focused on marketing flyers.
+
+---
+
+PAGE TOPIC
+
+QR Code for Flyers
+
+PAGE URL
+
+/qr-code-for-flyers
+
+---
+
+TARGET KEYWORDS
+
+qr code for flyers
+flyer qr code generator
+marketing flyer qr code
+qr code on flyers
+create qr code for flyers
+
+Use keyword variations naturally throughout the page.
+
+---
+
+HERO SECTION
+
+H1
+
+QR Code for Flyers – Create Marketing Flyer QR Codes Instantly
+
+Subtext
+
+Generate QR codes for flyers that direct people to your website, landing page, product offer, or social media instantly.
+
+Highlights
+
+• Drive traffic from offline marketing
+• Perfect for promotional campaigns
+• Easy to print on flyers
+• Works on all smartphones
+
+CTA
+
+Create Flyer QR Code
+
+---
+
+QR TOOL SECTION
+
+Embed the universal QR Code Generator tool below the hero section.
+
+Default QR type: URL
+
+Example placeholder
+
+https://yourwebsite.com
+
+Helper text
+
+Paste your landing page, product page, or promotion link to generate a QR code for your marketing flyer.
+
+---
+
+SECTION — WHY USE QR CODES ON FLYERS
+
+Explain why businesses combine QR codes with flyers.
+
+Topics
+
+offline to online marketing
+instant access to websites
+better engagement
+trackable campaigns
+
+Explain how QR codes turn static flyers into interactive marketing tools.
+
+---
+
+SECTION — BENEFITS OF FLYER QR CODES
+
+Create a benefits grid.
+
+Examples
+
+Increase website traffic
+Promote special offers
+Drive event registrations
+Grow social media followers
+Improve campaign engagement
+
+Each benefit should include a short explanation.
+
+---
+
+SECTION — WHERE FLYERS WITH QR CODES ARE USED
+
+Examples
+
+Retail promotions
+Restaurant marketing
+Event promotions
+Real estate marketing
+Local business advertising
+
+Explain how QR codes improve flyer effectiveness.
+
+---
+
+SECTION — HOW QR CODES FOR FLYERS WORK
+
+Explain the process.
+
+Step 1
+Choose the page you want people to visit.
+
+Step 2
+Generate a QR code using this tool.
+
+Step 3
+Add the QR code to your flyer design.
+
+Step 4
+Print and distribute the flyer.
+
+---
+
+SECTION — MARKETING USE CASES
+
+Examples
+
+Flyers promoting restaurant discounts
+Event registration flyers
+Product launch promotions
+Real estate property flyers
+
+Explain the marketing impact.
+
+---
+
+SECTION — DESIGN BEST PRACTICES
+
+Tips
+
+Use large QR codes
+Place QR codes clearly on the flyer
+Add call-to-action text like “Scan to learn more”
+Use high contrast colors
+
+Explain each tip.
+
+---
+
+SECTION — COMMON MISTAKES
+
+Examples
+
+QR code too small
+Low resolution image
+No call-to-action text
+Broken landing page links
+
+Explain how to avoid them.
+
+---
+
+SECTION — REAL EXAMPLES
+
+Example scenarios.
+
+QR code flyer for restaurant promotion
+QR code flyer for event tickets
+QR code flyer for product launch
+
+Explain how scanning leads to user action.
+
+---
+
+SECTION — FAQ
+
+Add questions.
+
+How do I add QR code to flyers
+Can QR codes increase flyer engagement
+Are flyer QR codes free
+How big should QR codes be on flyers
+Can QR codes link to promotions
+
+---
+
+SECTION — INTERNAL LINKING
+
+Link to other marketing pages.
+
+QR Code for Posters
+QR Code for Coupons
+QR Code for Business Promotion
+QR Code for Product Marketing
+
+Also link to the main QR Code Generator page.
+
+---
+
+CTA SECTION
+
+Create Your Flyer QR Code Now
+
+Generate a QR code that turns your flyer into an interactive marketing tool.
+
+Add a button that scrolls to the QR tool.
+
+---
+
+SEO REQUIREMENTS
+
+Content length: 1500–2000 words.
+
+Use keyword variations naturally.
+
+Make the page feel like a complete guide and generator for flyer QR codes.
