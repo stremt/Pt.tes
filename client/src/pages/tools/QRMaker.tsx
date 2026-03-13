@@ -6,11 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
-import { LongTailPagesSection } from "@/components/LongTailPagesSection";
 
 interface CustomTemplate {
   id: string;
@@ -1390,6 +1389,99 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
             </div>
           </section>
 
+          {/* QR Code Hub - All Use Cases */}
+          <section className="mt-16 max-w-5xl mx-auto border-t pt-16">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-3">QR Code Hub: All Use Cases</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Explore dedicated guides for every QR code use case — each with tips, examples, and the generator built in.
+              </p>
+            </div>
+
+            {[
+              {
+                icon: Share2,
+                label: "Social QR Codes",
+                pages: [
+                  { href: "/tools/qr-code-for-instagram", title: "QR Code for Instagram", desc: "Drive followers to your Instagram profile instantly with a scannable QR code." },
+                  { href: "/tools/qr-code-for-facebook", title: "QR Code for Facebook", desc: "Share your Facebook page or profile with a single scan — no typing required." },
+                  { href: "/tools/qr-code-for-youtube", title: "QR Code for YouTube", desc: "Link viewers directly to your YouTube channel or video with a QR code." },
+                  { href: "/tools/qr-code-for-linkedin", title: "QR Code for LinkedIn", desc: "Share your LinkedIn profile at events or on business cards effortlessly." },
+                  { href: "/tools/qr-code-for-whatsapp", title: "QR Code for WhatsApp", desc: "Let people message you on WhatsApp instantly by scanning your QR code." },
+                ],
+              },
+              {
+                icon: Megaphone,
+                label: "Marketing QR Codes",
+                pages: [
+                  { href: "/tools/qr-code-for-flyers", title: "QR Code for Flyers", desc: "Turn printed flyers into interactive experiences with embedded QR codes." },
+                  { href: "/tools/qr-code-for-posters", title: "QR Code for Posters", desc: "Add a scannable QR code to posters to connect offline audiences to online content." },
+                  { href: "/tools/qr-code-for-coupons", title: "QR Code for Coupons", desc: "Distribute digital discount coupons via QR codes for easy redemption." },
+                  { href: "/tools/qr-code-for-business-promotion", title: "QR Code for Business Promotion", desc: "Promote your business with branded QR codes across all marketing materials." },
+                  { href: "/tools/qr-code-for-product-marketing", title: "QR Code for Product Marketing", desc: "Link product QR codes to landing pages, demos, or promotional videos." },
+                ],
+              },
+              {
+                icon: Briefcase,
+                label: "Business QR Codes",
+                pages: [
+                  { href: "/tools/qr-code-for-google-reviews", title: "QR Code for Google Reviews", desc: "Make it easy for customers to leave Google reviews by scanning a QR code." },
+                  { href: "/tools/qr-code-for-contact-forms", title: "QR Code for Contact Forms", desc: "Direct customers to your contact form instantly with a scannable QR code." },
+                  { href: "/tools/qr-code-for-feedback-forms", title: "QR Code for Feedback Forms", desc: "Collect customer feedback quickly by linking your feedback form to a QR code." },
+                  { href: "/tools/qr-code-for-surveys", title: "QR Code for Surveys", desc: "Increase survey response rates by sharing your survey via QR code." },
+                  { href: "/tools/qr-code-for-lead-capture", title: "QR Code for Lead Capture", desc: "Capture leads at events and in-store by scanning directly into your CRM." },
+                ],
+              },
+              {
+                icon: Wrench,
+                label: "Utility QR Codes",
+                pages: [
+                  { href: "/tools/qr-code-for-wifi", title: "QR Code for WiFi", desc: "Let guests connect to your WiFi network instantly — no password typing needed." },
+                  { href: "/tools/qr-code-for-payments", title: "QR Code for Payments", desc: "Accept payments seamlessly by encoding your payment link into a QR code." },
+                  { href: "/tools/qr-code-for-vcard-contacts", title: "QR Code for vCard Contacts", desc: "Share your contact details digitally with a scannable vCard QR code." },
+                  { href: "/tools/qr-code-for-email", title: "QR Code for Email", desc: "Pre-fill an email to your address when someone scans your QR code." },
+                  { href: "/tools/qr-code-for-sms", title: "QR Code for SMS", desc: "Allow users to send a pre-written SMS message with one scan." },
+                ],
+              },
+              {
+                icon: Building2,
+                label: "Industry QR Codes",
+                pages: [
+                  { href: "/tools/qr-code-for-restaurant-menu", title: "QR Code for Restaurant Menu", desc: "Offer a contactless digital menu experience for your restaurant or café." },
+                  { href: "/tools/qr-code-for-property-listings", title: "QR Code for Property Listings", desc: "Display QR codes on for-sale signs to instantly share virtual tours and details." },
+                  { href: "/tools/qr-code-for-product-packaging", title: "QR Code for Product Packaging", desc: "Add QR codes to packaging linking to instructions, warranties, or reviews." },
+                  { href: "/tools/qr-code-for-event-tickets", title: "QR Code for Event Tickets", desc: "Generate scannable event tickets and streamline check-in at any venue." },
+                ],
+              },
+            ].map((category) => (
+              <div key={category.label} className="mb-12">
+                <div className="flex items-center gap-2 mb-5">
+                  <category.icon className="h-5 w-5 text-primary" />
+                  <h3 className="text-xl font-bold">{category.label}</h3>
+                </div>
+                <div
+                  className="grid gap-4"
+                  style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+                >
+                  {category.pages.map((page) => (
+                    <Link key={page.href} href={page.href}>
+                      <div
+                        className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                        data-testid={`card-qr-usecase-${page.href.split("/").pop()}`}
+                      >
+                        <h4 className="font-semibold text-sm leading-snug">{page.title}</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{page.desc}</p>
+                        <span className="inline-flex items-center gap-1 text-xs text-primary font-medium mt-1">
+                          Learn More <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+
           {/* Related Tools */}
           <section className="mt-16 max-w-4xl mx-auto border-t pt-16">
             <h2 className="text-3xl font-bold mb-8 text-center">Related Tools</h2>
@@ -1443,37 +1535,6 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               <p>
                 Create custom QR codes with advanced features like logo branding, custom colors, frames, and pattern designs. Our QR code maker free tool supports all QR code types including dynamic links, WiFi credentials, vCards, emails, SMS, Bitcoin addresses, and plain text. Generate unlimited QR codes and download them in multiple resolutions (Normal, High Quality, Ultra High Definition) for both digital and print use.
               </p>
-            </div>
-          </section>
-
-          {/* QR Code Use Cases - Landing Page Links */}
-          <section className="py-20 max-w-4xl mx-auto border-t">
-            <h2 className="text-3xl font-bold mb-8 text-center">QR Codes for Different Industries</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-              <Link href="/tools/qr-code-for-restaurant-menu">
-                <div className="p-6 rounded-lg border bg-card hover:border-primary hover:bg-muted/50 transition-all cursor-pointer space-y-3">
-                  <h3 className="font-bold text-lg">Restaurants & Menus</h3>
-                  <p className="text-sm text-muted-foreground">Create touchless QR code menus for restaurants, cafes, and food service businesses. Perfect for contactless ordering and dynamic menu updates.</p>
-                </div>
-              </Link>
-              <Link href="/tools/qr-code-for-property-listings">
-                <div className="p-6 rounded-lg border bg-card hover:border-primary hover:bg-muted/50 transition-all cursor-pointer space-y-3">
-                  <h3 className="font-bold text-lg">Real Estate</h3>
-                  <p className="text-sm text-muted-foreground">Display QR codes on property listings to instantly share virtual tours, floor plans, and property details with potential buyers.</p>
-                </div>
-              </Link>
-              <Link href="/tools/qr-code-for-product-packaging">
-                <div className="p-6 rounded-lg border bg-card hover:border-primary hover:bg-muted/50 transition-all cursor-pointer space-y-3">
-                  <h3 className="font-bold text-lg">E-commerce & Packaging</h3>
-                  <p className="text-sm text-muted-foreground">Include QR codes on product packaging to link to product pages, authenticity verification, and customer reviews.</p>
-                </div>
-              </Link>
-              <Link href="/tools/qr-code-for-event-tickets">
-                <div className="p-6 rounded-lg border bg-card hover:border-primary hover:bg-muted/50 transition-all cursor-pointer space-y-3">
-                  <h3 className="font-bold text-lg">Events & Tickets</h3>
-                  <p className="text-sm text-muted-foreground">Generate event-specific QR codes for tickets, registration, and check-ins. Track attendance with scannable codes.</p>
-                </div>
-              </Link>
             </div>
           </section>
 
@@ -1707,74 +1768,6 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         </div>
       </div>
 
-      {!embedMode && (
-        <section className="py-16 border-t bg-muted/20">
-          <div className="container max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-3">Explore QR Code Generator Use Cases</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Not sure where to start? Browse our dedicated guides for every QR code use case — each with tips, examples, and the generator built in.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[
-                {
-                  href: "/tools/qr-code-maker/free-online",
-                  title: "Free Online QR Code Generator",
-                  desc: "Create unlimited QR codes instantly with no signup, no watermarks, and no fees — straight from your browser.",
-                },
-                {
-                  href: "/tools/qr-code-maker/wifi-network",
-                  title: "WiFi QR Code Generator",
-                  desc: "Let guests join your WiFi network with a single scan. No more typing passwords.",
-                },
-                {
-                  href: "/tools/qr-code-maker/business-cards",
-                  title: "QR Codes for Business Cards",
-                  desc: "Turn your business card into a digital experience — share contacts, portfolios, or websites instantly.",
-                },
-                {
-                  href: "/tools/qr-code-maker/with-logo",
-                  title: "QR Code Generator with Logo",
-                  desc: "Embed your brand logo into a QR code for polished, professional marketing materials.",
-                },
-                {
-                  href: "/tools/qr-code-maker/event-ticketing",
-                  title: "QR Codes for Event Ticketing",
-                  desc: "Generate scannable event tickets and manage check-ins effortlessly for any event.",
-                },
-                {
-                  href: "/tools/qr-code-maker/social-media",
-                  title: "QR Codes for Social Media",
-                  desc: "Drive followers to your Instagram, Twitter, LinkedIn, or any social profile with one scan.",
-                },
-                {
-                  href: "/tools/qr-code-maker/product-links",
-                  title: "QR Codes for Product Links",
-                  desc: "Add QR codes to packaging and labels to direct customers to product pages, reviews, or tutorials.",
-                },
-                {
-                  href: "/tools/qr-code-maker/dynamic",
-                  title: "Dynamic QR Codes",
-                  desc: "Create QR codes where you can update the destination URL anytime — no need to reprint.",
-                },
-              ].map((item) => (
-                <div key={item.href} className="flex flex-col rounded-lg border bg-card p-5 gap-3">
-                  <h3 className="font-semibold text-base leading-snug">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground flex-1 leading-relaxed">{item.desc}</p>
-                  <Link href={item.href}>
-                    <Button variant="outline" size="sm" className="w-full mt-1" data-testid={`link-use-case-${item.href.split('/').pop()}`}>
-                      Learn More <ArrowRight className="ml-1 h-3 w-3" />
-                    </Button>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {!embedMode && <LongTailPagesSection toolId="qr-code-maker" />}
     </>
   );
 }
