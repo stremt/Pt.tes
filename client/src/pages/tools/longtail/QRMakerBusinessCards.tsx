@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Briefcase, Contact, Printer } from "lucide-react";
+import QRMaker from "../QRMaker";
 
 export default function QRMakerBusinessCards() {
   useSEO({
@@ -19,6 +20,13 @@ export default function QRMakerBusinessCards() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Add professional QR codes to your business cards for instant contact sharing, portfolio access, or website links. Impress clients and colleagues with modern networking tools that bridge digital and physical connections.
         </p>
+
+          {/* Embedded QR Code Tool */}
+          <section className="my-8 border rounded-lg bg-muted/30 p-4 md:p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">Free Online QR Code Generator</h2>
+            <QRMaker embedMode={true} />
+          </section>
+  
 
         <Card className="mb-8 bg-primary/5 border-primary/20">
           <CardContent className="pt-6">

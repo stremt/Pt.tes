@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Zap, Lock, Download } from "lucide-react";
+import QRMaker from "../QRMaker";
 
 export default function QRMakerFreeOnline() {
   useSEO({
@@ -19,6 +20,13 @@ export default function QRMakerFreeOnline() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Generate professional QR codes completely free with our online QR code generator. No signup required, no watermarks, no hidden fees. Create unlimited QR codes instantly in your browser—perfect for business, marketing, events, or personal use.
         </p>
+
+          {/* Embedded QR Code Tool */}
+          <section className="my-8 border rounded-lg bg-muted/30 p-4 md:p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">Free Online QR Code Generator</h2>
+            <QRMaker embedMode={true} />
+          </section>
+  
 
         <Card className="mb-8 bg-primary/5 border-primary/20">
           <CardContent className="pt-6">

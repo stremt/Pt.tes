@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Zap, RefreshCw, BarChart3 } from "lucide-react";
+import QRMaker from "../QRMaker";
 
 export default function QRMakerDynamic() {
   useSEO({
@@ -19,6 +20,13 @@ export default function QRMakerDynamic() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Create dynamic QR codes that can be updated after printing without regenerating new codes. Track scan analytics, change destination URLs, manage marketing campaigns, and optimize performance in real-time. Perfect for long-term campaigns and print materials that need flexibility.
         </p>
+
+          {/* Embedded QR Code Tool */}
+          <section className="my-8 border rounded-lg bg-muted/30 p-4 md:p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">Free Online QR Code Generator</h2>
+            <QRMaker embedMode={true} />
+          </section>
+  
 
         <Card className="mb-8 bg-primary/5 border-primary/20">
           <CardContent className="pt-6">

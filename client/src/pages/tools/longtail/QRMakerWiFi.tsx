@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Wifi, Share2, Lock } from "lucide-react";
+import QRMaker from "../QRMaker";
 
 export default function QRMakerWiFi() {
   useSEO({
@@ -19,6 +20,13 @@ export default function QRMakerWiFi() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Generate WiFi QR codes that automatically connect guests to your network without typing passwords. Perfect for homes, businesses, hotels, cafes, and events. Let visitors scan once and connect instantly.
         </p>
+
+          {/* Embedded QR Code Tool */}
+          <section className="my-8 border rounded-lg bg-muted/30 p-4 md:p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">Free Online QR Code Generator</h2>
+            <QRMaker embedMode={true} />
+          </section>
+  
 
         <Card className="mb-8 bg-primary/5 border-primary/20">
           <CardContent className="pt-6">

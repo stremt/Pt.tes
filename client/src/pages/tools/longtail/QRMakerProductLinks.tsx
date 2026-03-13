@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, ShoppingCart, Package, Link as LinkIcon } from "lucide-react";
+import QRMaker from "../QRMaker";
 
 export default function QRMakerProductLinks() {
   useSEO({
@@ -19,6 +20,13 @@ export default function QRMakerProductLinks() {
         <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
           Generate custom QR codes linking to product pages, online stores, purchase links, and review platforms. Perfect for product packaging, catalogs, retail displays, and marketing materials. Turn offline interactions into instant online purchases and customer feedback.
         </p>
+
+          {/* Embedded QR Code Tool */}
+          <section className="my-8 border rounded-lg bg-muted/30 p-4 md:p-6">
+            <h2 className="text-2xl font-bold mb-4 text-center">Free Online QR Code Generator</h2>
+            <QRMaker embedMode={true} />
+          </section>
+  
 
         <Card className="mb-8 bg-primary/5 border-primary/20">
           <CardContent className="pt-6">
