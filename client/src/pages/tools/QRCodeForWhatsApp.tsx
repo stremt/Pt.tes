@@ -129,7 +129,7 @@ export default function QRCodeForWhatsApp() {
                 </span>
               </div>
             </div>
-            <Button size="lg">Create WhatsApp QR Code</Button>
+            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create WhatsApp QR Code</Button></Link>
           </div>
         </section>
 
@@ -791,6 +791,39 @@ export default function QRCodeForWhatsApp() {
               </div>
             </section>
 
+          {/* Related QR Code Use Cases */}
+          <section className="space-y-6 border-t pt-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Related QR Code Use Cases</h2>
+              <p className="text-muted-foreground mb-6">Explore more QR code guides for your specific needs.</p>
+            </div>
+            <div
+              className="grid gap-4"
+              style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+            >
+              {[
+                { href: "/tools/qr-code-for-instagram", title: "QR Code for Instagram", desc: "Drive followers to your Instagram profile." },
+                { href: "/tools/qr-code-for-facebook", title: "QR Code for Facebook", desc: "Share your Facebook page with a scan." },
+                { href: "/tools/qr-code-for-linkedin", title: "QR Code for LinkedIn", desc: "Share your LinkedIn profile at networking events." },
+                { href: "/tools/qr-code-for-sms", title: "QR Code for SMS", desc: "Pre-fill an SMS message for instant contact." },
+                { href: "/tools/qr-code-for-email", title: "QR Code for Email", desc: "Pre-fill an email to your address when scanned." },
+                { href: "/tools/qr-code-for-lead-capture", title: "QR Code for Lead Capture", desc: "Capture leads at events and in-store via QR code." },
+              ].map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <div
+                    className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                    data-testid={`card-related-${item.href.split("/").pop()}`}
+                  >
+                    <h3 className="font-semibold text-sm leading-snug">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">{item.desc}</p>
+                    <span className="text-xs text-primary font-medium mt-1">Explore &rarr;</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+
           {/* CTA */}
           <section className="border-t pt-12">
             <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8 text-center space-y-4">
@@ -802,7 +835,7 @@ export default function QRCodeForWhatsApp() {
                 conversation instantly. Free, unlimited, and print-ready at 4K
                 resolution.
               </p>
-              <Button size="lg">Create WhatsApp QR Code</Button>
+              <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create WhatsApp QR Code</Button></Link>
             </div>
           </section>
         </div>

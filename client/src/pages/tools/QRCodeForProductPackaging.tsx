@@ -82,7 +82,7 @@ export default function QRCodeForProductPackaging() {
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Drive repeat purchases</span></div>
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Print-ready 4K resolution</span></div>
             </div>
-            <Button size="lg">Create Packaging QR Code</Button>
+            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Packaging QR Code</Button></Link>
           </div>
         </section>
 
@@ -309,12 +309,45 @@ export default function QRCodeForProductPackaging() {
               </div>
             </section>
 
+          {/* Related QR Code Use Cases */}
+          <section className="space-y-6 border-t pt-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Related QR Code Use Cases</h2>
+              <p className="text-muted-foreground mb-6">Explore more QR code guides for your specific needs.</p>
+            </div>
+            <div
+              className="grid gap-4"
+              style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+            >
+              {[
+                { href: "/tools/qr-code-for-restaurant-menu", title: "QR Code for Restaurant Menu", desc: "Offer contactless digital menus for food businesses." },
+                { href: "/tools/qr-code-for-property-listings", title: "QR Code for Property Listings", desc: "Share property info and virtual tours via QR code." },
+                { href: "/tools/qr-code-for-event-tickets", title: "QR Code for Event Tickets", desc: "Generate scannable QR codes for event entry." },
+                { href: "/tools/qr-code-for-product-marketing", title: "QR Code for Product Marketing", desc: "Link QR codes to product landing pages." },
+                { href: "/tools/qr-code-for-coupons", title: "QR Code for Coupons", desc: "Distribute digital discount coupons via QR codes." },
+                { href: "/tools/qr-code-for-instagram", title: "QR Code for Instagram", desc: "Drive customers to your Instagram profile." },
+              ].map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <div
+                    className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                    data-testid={`card-related-${item.href.split("/").pop()}`}
+                  >
+                    <h3 className="font-semibold text-sm leading-snug">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">{item.desc}</p>
+                    <span className="text-xs text-primary font-medium mt-1">Explore &rarr;</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+
           {/* CTA */}
           <section className="border-t pt-12">
             <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8 text-center space-y-4">
               <h2 className="text-3xl font-bold">Add QR Codes to Your Products Now</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Generate professional product packaging QR codes instantly. Free, unlimited, and ready for professional printing at 4K resolution.</p>
-              <Button size="lg">Generate Product QR Code</Button>
+              <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Generate Product QR Code</Button></Link>
             </div>
           </section>
         </div>

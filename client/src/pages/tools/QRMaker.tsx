@@ -791,6 +791,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           )}
 
           {/* TOOL INTERFACE STARTS HERE */}
+          <div id="qr-generator" className="scroll-mt-16" />
 
           {/* Step Indicator */}
           <div className="flex items-center justify-center gap-2 mb-8 mx-auto w-fit">

@@ -60,9 +60,6 @@ export default function QRCodeForVCard() {
     ogImage: OG_IMAGES.qrMaker,
   });
 
-  const scrollToTool = () => {
-    document.getElementById("qr-tool-section")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <>
@@ -117,10 +114,10 @@ export default function QRCodeForVCard() {
               </div>
             </div>
 
-            <Button size="lg" className="w-full md:w-auto" onClick={scrollToTool}>
+            <Link href="/tools/qr-maker#qr-generator"><Button size="lg" className="w-full md:w-auto">
               Create Contact QR Code
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </Button></Link>
           </div>
         </section>
 
@@ -684,6 +681,39 @@ export default function QRCodeForVCard() {
               </div>
             </section>
 
+          {/* Related QR Code Use Cases */}
+          <section className="space-y-6 border-t pt-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Related QR Code Use Cases</h2>
+              <p className="text-muted-foreground mb-6">Explore more QR code guides for your specific needs.</p>
+            </div>
+            <div
+              className="grid gap-4"
+              style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+            >
+              {[
+                { href: "/tools/qr-code-for-wifi", title: "QR Code for WiFi", desc: "Let guests connect to WiFi without typing passwords." },
+                { href: "/tools/qr-code-for-payments", title: "QR Code for Payments", desc: "Accept payments via QR code links seamlessly." },
+                { href: "/tools/qr-code-for-email", title: "QR Code for Email", desc: "Pre-fill an email to your address when scanned." },
+                { href: "/tools/qr-code-for-sms", title: "QR Code for SMS", desc: "Pre-fill an SMS message for instant contact." },
+                { href: "/tools/qr-code-for-linkedin", title: "QR Code for LinkedIn", desc: "Share your LinkedIn profile at networking events." },
+                { href: "/tools/qr-code-for-contact-forms", title: "QR Code for Contact Forms", desc: "Direct people to your contact form instantly." },
+              ].map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <div
+                    className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                    data-testid={`card-related-${item.href.split("/").pop()}`}
+                  >
+                    <h3 className="font-semibold text-sm leading-snug">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">{item.desc}</p>
+                    <span className="text-xs text-primary font-medium mt-1">Explore &rarr;</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+
           {/* Final CTA */}
           <section className="border-t pt-12">
             <div className="p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
@@ -691,10 +721,10 @@ export default function QRCodeForVCard() {
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
                 Generate a QR code that allows people to save your contact details instantly by scanning. Free to use, no account required, and ready to print in seconds.
               </p>
-              <Button size="lg" onClick={scrollToTool}>
+              <Link href="/tools/qr-maker#qr-generator"><Button size="lg">
                 Create Contact QR Code
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              </Button></Link>
             </div>
           </section>
         </div>

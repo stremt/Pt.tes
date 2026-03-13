@@ -82,7 +82,7 @@ export default function QRCodeForEventTickets() {
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Prevent ticket fraud</span></div>
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Track real-time attendance</span></div>
             </div>
-            <Button size="lg">Create Event QR Code</Button>
+            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Event QR Code</Button></Link>
           </div>
         </section>
 
@@ -329,12 +329,45 @@ export default function QRCodeForEventTickets() {
               </div>
             </section>
 
+          {/* Related QR Code Use Cases */}
+          <section className="space-y-6 border-t pt-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Related QR Code Use Cases</h2>
+              <p className="text-muted-foreground mb-6">Explore more QR code guides for your specific needs.</p>
+            </div>
+            <div
+              className="grid gap-4"
+              style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
+            >
+              {[
+                { href: "/tools/qr-code-for-restaurant-menu", title: "QR Code for Restaurant Menu", desc: "Create touchless digital menus for food businesses." },
+                { href: "/tools/qr-code-for-property-listings", title: "QR Code for Property Listings", desc: "Share property listings and virtual tours via QR code." },
+                { href: "/tools/qr-code-for-product-packaging", title: "QR Code for Product Packaging", desc: "Add QR codes to packaging for customer engagement." },
+                { href: "/tools/qr-code-for-instagram", title: "QR Code for Instagram", desc: "Grow event followers on Instagram." },
+                { href: "/tools/qr-code-for-surveys", title: "QR Code for Surveys", desc: "Collect event attendee feedback via QR code." },
+                { href: "/tools/qr-code-for-flyers", title: "QR Code for Flyers", desc: "Add event registration QR codes to flyers." },
+              ].map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <div
+                    className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                    data-testid={`card-related-${item.href.split("/").pop()}`}
+                  >
+                    <h3 className="font-semibold text-sm leading-snug">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed flex-1">{item.desc}</p>
+                    <span className="text-xs text-primary font-medium mt-1">Explore &rarr;</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+
           {/* CTA */}
           <section className="border-t pt-12">
             <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-8 text-center space-y-4">
               <h2 className="text-3xl font-bold">Create Your Event QR Codes Now</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Generate professional event ticket and registration QR codes instantly. Free, unlimited, and ready for any event size.</p>
-              <Button size="lg">Generate Event QR Code</Button>
+              <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Generate Event QR Code</Button></Link>
             </div>
           </section>
         </div>
