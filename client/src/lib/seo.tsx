@@ -59,11 +59,14 @@ export function useSEO({
     setMetaTag("og:title", title, true);
     setMetaTag("og:description", description, true);
     setMetaTag("og:type", ogType, true);
+    setMetaTag("og:site_name", "Pixocraft Tools", true);
     if (canonicalUrl) {
       setMetaTag("og:url", canonicalUrl, true);
     }
     if (ogImage) {
       setMetaTag("og:image", ogImage, true);
+      setMetaTag("og:image:width", "1200", true);
+      setMetaTag("og:image:height", "630", true);
     }
 
     // Twitter Card tags

@@ -389,6 +389,10 @@ const TextToPDF = lazy(() => import("@/pages/tools/TextToPDF"));
 const AudioNoiseRemover = lazy(() => import("@/pages/tools/AudioNoiseRemover"));
 const GIFtoMP4 = lazy(() => import("@/pages/tools/GIFtoMP4"));
 const MP4toMP3 = lazy(() => import("@/pages/tools/MP4toMP3"));
+const AVItoMP3 = lazy(() => import("@/pages/tools/longtail/AVItoMP3"));
+const MOVtoMP3 = lazy(() => import("@/pages/tools/longtail/MOVtoMP3"));
+const MKVtoMP3 = lazy(() => import("@/pages/tools/longtail/MKVtoMP3"));
+const WEBMtoMP3 = lazy(() => import("@/pages/tools/longtail/WEBMtoMP3"));
 const YouTubeThumbnailDownloader = lazy(() => import("@/pages/tools/YouTubeThumbnailDownloader"));
 const YouTubeThumbnailDownloaderFree = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderFree"));
 const YouTubeThumbnailDownloaderOnline = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderOnline"));
@@ -817,6 +821,10 @@ function Router() {
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />
+        <Route path="/tools/avi-to-mp3" component={AVItoMP3} />
+        <Route path="/tools/mov-to-mp3" component={MOVtoMP3} />
+        <Route path="/tools/mkv-to-mp3" component={MKVtoMP3} />
+        <Route path="/tools/webm-to-mp3" component={WEBMtoMP3} />
         <Route path="/tools/youtube-thumbnail-downloader/free-no-login" component={YouTubeThumbnailDownloaderFree} />
         <Route path="/tools/youtube-thumbnail-downloader/online" component={YouTubeThumbnailDownloaderOnline} />
         <Route path="/tools/youtube-thumbnail-downloader/channel-thumbnails" component={YouTubeThumbnailDownloaderChannels} />

@@ -113,10 +113,10 @@ const FAQS = [
 
 const RELATED_TOOLS = [
   { label: "Video to MP3", href: "/tools/audio-to-mp3", icon: Music },
-  { label: "AVI to MP3", href: "/tools/mp4-to-mp3", icon: FileAudio },
-  { label: "MOV to MP3", href: "/tools/mp4-to-mp3", icon: FileAudio },
-  { label: "MKV to MP3", href: "/tools/mp4-to-mp3", icon: FileAudio },
-  { label: "WEBM to MP3", href: "/tools/mp4-to-mp3", icon: FileAudio },
+  { label: "AVI to MP3", href: "/tools/avi-to-mp3", icon: FileAudio },
+  { label: "MOV to MP3", href: "/tools/mov-to-mp3", icon: FileAudio },
+  { label: "MKV to MP3", href: "/tools/mkv-to-mp3", icon: FileAudio },
+  { label: "WEBM to MP3", href: "/tools/webm-to-mp3", icon: FileAudio },
   { label: "Audio Converter", href: "/tools/audio-to-mp3", icon: Headphones },
 ];
 
@@ -146,6 +146,7 @@ export default function MP4toMP3() {
     description: "Convert MP4 to MP3 instantly with Pixocraft's free online converter. Extract audio from video in seconds with no uploads and complete privacy.",
     keywords: "mp4 to mp3 converter, mp4 to mp3 converter online free, convert mp4 to mp3, video to mp3 converter, extract audio from mp4, mp4 audio extractor, convert video to mp3",
     canonicalUrl: "https://tools.pixocraft.in/tools/mp4-to-mp3",
+    ogImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop",
   });
 
   const handleFiles = useCallback((files: FileList | null) => {
