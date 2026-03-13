@@ -1707,6 +1707,73 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         </div>
       </div>
 
+      {!embedMode && (
+        <section className="py-16 border-t bg-muted/20">
+          <div className="container max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-3">Explore QR Code Generator Use Cases</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Not sure where to start? Browse our dedicated guides for every QR code use case — each with tips, examples, and the generator built in.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                {
+                  href: "/tools/qr-code-maker/free-online",
+                  title: "Free Online QR Code Generator",
+                  desc: "Create unlimited QR codes instantly with no signup, no watermarks, and no fees — straight from your browser.",
+                },
+                {
+                  href: "/tools/qr-code-maker/wifi-network",
+                  title: "WiFi QR Code Generator",
+                  desc: "Let guests join your WiFi network with a single scan. No more typing passwords.",
+                },
+                {
+                  href: "/tools/qr-code-maker/business-cards",
+                  title: "QR Codes for Business Cards",
+                  desc: "Turn your business card into a digital experience — share contacts, portfolios, or websites instantly.",
+                },
+                {
+                  href: "/tools/qr-code-maker/with-logo",
+                  title: "QR Code Generator with Logo",
+                  desc: "Embed your brand logo into a QR code for polished, professional marketing materials.",
+                },
+                {
+                  href: "/tools/qr-code-maker/event-ticketing",
+                  title: "QR Codes for Event Ticketing",
+                  desc: "Generate scannable event tickets and manage check-ins effortlessly for any event.",
+                },
+                {
+                  href: "/tools/qr-code-maker/social-media",
+                  title: "QR Codes for Social Media",
+                  desc: "Drive followers to your Instagram, Twitter, LinkedIn, or any social profile with one scan.",
+                },
+                {
+                  href: "/tools/qr-code-maker/product-links",
+                  title: "QR Codes for Product Links",
+                  desc: "Add QR codes to packaging and labels to direct customers to product pages, reviews, or tutorials.",
+                },
+                {
+                  href: "/tools/qr-code-maker/dynamic",
+                  title: "Dynamic QR Codes",
+                  desc: "Create QR codes where you can update the destination URL anytime — no need to reprint.",
+                },
+              ].map((item) => (
+                <div key={item.href} className="flex flex-col rounded-lg border bg-card p-5 gap-3">
+                  <h3 className="font-semibold text-base leading-snug">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground flex-1 leading-relaxed">{item.desc}</p>
+                  <Link href={item.href}>
+                    <Button variant="outline" size="sm" className="w-full mt-1" data-testid={`link-use-case-${item.href.split('/').pop()}`}>
+                      Learn More <ArrowRight className="ml-1 h-3 w-3" />
+                    </Button>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {!embedMode && <LongTailPagesSection toolId="qr-code-maker" />}
     </>
   );
