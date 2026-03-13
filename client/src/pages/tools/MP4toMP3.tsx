@@ -49,10 +49,10 @@ const FEATURES = [
 ];
 
 const HOW_TO_STEPS = [
-  { step: "01", title: "Upload your MP4 file", description: "Click the upload area or drag and drop your MP4 video file onto the converter." },
+  { step: "01", title: "Upload your video file", description: "Click the upload area or drag and drop any supported video file — MP4, MOV, MKV, AVI, WEBM and more." },
   { step: "02", title: "Choose audio quality", description: "Select the bitrate that best suits your needs — from 128 kbps for podcasts up to 320 kbps for music." },
-  { step: "03", title: "Click Convert", description: "Hit the Convert button. FFmpeg processes the file entirely inside your browser." },
-  { step: "04", title: "Download your MP3", description: "Once done, click Download to save the MP3 audio file to your device instantly." },
+  { step: "03", title: "Click Convert", description: "Hit the Convert button. FFmpeg processes the file entirely inside your browser — no upload needed." },
+  { step: "04", title: "Download your MP3", description: "Once done, click Download to save the extracted MP3 audio file to your device instantly." },
 ];
 
 const QUALITY_GUIDE = [
@@ -70,7 +70,18 @@ const USE_CASES = [
   { icon: Headphones, text: "Listen to video content as audio while traveling" },
 ];
 
-const SUPPORTED_FORMATS = ["MP4", "AVI", "MOV", "MKV", "WEBM", "FLV", "MPEG"];
+const SUPPORTED_FORMATS = [
+  { ext: "MP4", desc: "Most common video format" },
+  { ext: "MOV", desc: "Apple QuickTime video" },
+  { ext: "MKV", desc: "Matroska video container" },
+  { ext: "AVI", desc: "Audio Video Interleave" },
+  { ext: "WEBM", desc: "Web-optimised video" },
+  { ext: "FLV", desc: "Flash video format" },
+  { ext: "MPEG", desc: "MPEG video standard" },
+  { ext: "M4V", desc: "iTunes video format" },
+  { ext: "3GP", desc: "Mobile video format" },
+  { ext: "WMV", desc: "Windows Media Video" },
+];
 
 const COMPARISON_ROWS = [
   { feature: "Privacy", pixocraft: "Files never leave your device", traditional: "Files uploaded to external servers" },
@@ -83,31 +94,31 @@ const COMPARISON_ROWS = [
 const FAQS = [
   {
     question: "What is the best MP4 to MP3 converter?",
-    answer: "Pixocraft's MP4 to MP3 Converter stands out as one of the best available online. It is completely free, operates entirely within your browser without uploading any files to external servers, supports audio quality up to 320 kbps, works offline after loading, and imposes no file size restrictions or daily usage limits — making it ideal for everyone.",
+    answer: "Pixocraft's MP4 to MP3 Converter is one of the best available because it is completely free, runs entirely inside your browser without uploading your files to any server, and supports audio quality up to 320 kbps. It works offline after loading, has no file size limits, no daily usage caps, and no registration required — making it the ideal video to MP3 converter for everyone.",
   },
   {
     question: "How do I convert MP4 to MP3 online?",
-    answer: "Converting is simple. Upload your MP4 file using the converter above by clicking the upload button or dragging and dropping the file. Next, select your preferred bitrate (128 to 320 kbps depending on your quality needs). Click Convert, wait a few seconds while the browser processes the file, and then click Download to save your MP3 audio file.",
+    answer: "Converting is straightforward with this free mp4 to mp3 converter. Upload your MP4 or other video file using the uploader above, select your preferred bitrate (128 to 320 kbps), then click Convert. FFmpeg processes the file entirely inside your browser — no upload needed. Once done, click Download to save the extracted MP3 audio file directly to your device.",
   },
   {
     question: "Is this MP4 to MP3 converter free?",
-    answer: "Yes, completely free — now and always. There are no hidden fees, no premium tiers, no watermarks added to output files, and no account or email registration required. You can convert as many video files as you need without any restrictions. Pixocraft is committed to offering this tool for free to everyone.",
+    answer: "Yes, completely free — now and always. This video to MP3 converter has no hidden fees, no premium tiers, no watermarks on output files, and no registration required. You can use it to extract audio from video as many times as you need without any restrictions. Pixocraft is committed to keeping this tool free for everyone.",
   },
   {
-    question: "Is my file secure when using this converter?",
-    answer: "Absolutely. Your video file is never transmitted to any server. All processing is done entirely within your browser using WebAssembly-based FFmpeg technology. This means your data never leaves your computer or mobile device. There is no third party involved, no storage of your files, and no logging of your content.",
+    question: "Is my video file secure when converting?",
+    answer: "Absolutely. When you use this mp4 to mp3 converter, your video file is never transmitted to any server. All processing happens locally in your browser using WebAssembly-based FFmpeg. Your data never leaves your computer or phone. There is no third party involved, no file storage, and no logging — making it one of the most private ways to convert video to MP3.",
   },
   {
     question: "Does the converter work offline?",
-    answer: "Yes. After the page has fully loaded, the converter operates completely offline. No active internet connection is needed during the actual conversion process. This makes it an excellent choice for users with limited or metered data connections, or anyone who simply prefers to work offline without relying on cloud services.",
+    answer: "Yes. After the page loads, this video to mp3 converter operates completely offline. No active internet connection is needed during the actual audio extraction. This makes it ideal for users with limited or metered connections, or anyone who wants to extract audio from video while traveling without relying on cloud services.",
   },
   {
     question: "What bitrate should I choose for MP3 conversion?",
-    answer: "For music with complex audio, choose 256 kbps or 320 kbps for the best listening experience. For podcasts, interviews, or voice recordings, 128 kbps is more than sufficient and keeps file sizes small. 192 kbps offers a well-rounded balance for mixed content. Higher bitrates produce better quality but result in larger file sizes.",
+    answer: "Choose 256 kbps or 320 kbps for music with rich instrumentation to get the best listening experience. For podcasts, interviews, or voice recordings where file size matters, 128 kbps is more than sufficient. 192 kbps is the recommended default — it offers an excellent balance between quality and file size for most video to MP3 conversion use cases.",
   },
   {
     question: "What video formats can I convert to MP3?",
-    answer: "This tool supports a wide range of video formats including MP4, AVI, MOV, MKV, WEBM, FLV, and MPEG. The conversion engine is powered by FFmpeg, which provides broad format compatibility. Simply upload any supported video file and the tool will extract and convert the audio track to MP3 format.",
+    answer: "This tool supports MP4, MOV, MKV, AVI, WEBM, FLV, MPEG, M4V, 3GP, and WMV. The conversion engine is powered by FFmpeg, which provides broad format compatibility. Simply upload any supported video file and the tool will extract and encode the audio track to MP3 format directly in your browser.",
   },
 ];
 
@@ -138,25 +149,45 @@ export default function MP4toMP3() {
   const [bitrate, setBitrate] = useState("192k");
   const [isDragging, setIsDragging] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [statusText, setStatusText] = useState("");
+  const [videoDuration, setVideoDuration] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useSEO({
-    title: "MP4 to MP3 Converter (Free, Fast & Secure) – Pixocraft Tools",
-    description: "Convert MP4 to MP3 instantly with Pixocraft's free online converter. Extract audio from video in seconds with no uploads and complete privacy.",
-    keywords: "mp4 to mp3 converter, mp4 to mp3 converter online free, convert mp4 to mp3, video to mp3 converter, extract audio from mp4, mp4 audio extractor, convert video to mp3",
+    title: "Video to MP3 Converter — Multi Format | Free & Private – Pixocraft Tools",
+    description: "Convert MP4, MOV, MKV, AVI, WEBM, FLV and more to MP3 instantly in your browser. No uploads, no registration, 100% private. Supports bitrates up to 320 kbps.",
+    keywords: "video to mp3 converter, mp4 to mp3, mov to mp3, mkv to mp3, avi to mp3, webm to mp3, flv to mp3, multi format video converter, extract audio from video, browser based mp3 converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/mp4-to-mp3",
     ogImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop",
   });
 
+  const ACCEPTED_EXTS = ["mp4", "mov", "mkv", "avi", "webm", "flv", "mpeg", "mpg", "m4v", "3gp"];
+
   const handleFiles = useCallback((files: FileList | null) => {
     const selectedFile = files?.[0];
     if (!selectedFile) return;
-    if (selectedFile.type.startsWith("video/")) {
+    const ext = selectedFile.name.split(".").pop()?.toLowerCase() || "";
+    const isVideo = selectedFile.type.startsWith("video/") || ACCEPTED_EXTS.includes(ext);
+    if (isVideo) {
       setFile(selectedFile);
       setMp3Blob(null);
+      setVideoDuration(null);
+      // Extract duration via HTML5 video element
+      const url = URL.createObjectURL(selectedFile);
+      const vid = document.createElement("video");
+      vid.preload = "metadata";
+      vid.onloadedmetadata = () => {
+        if (isFinite(vid.duration) && vid.duration > 0) {
+          setVideoDuration(vid.duration);
+        }
+        URL.revokeObjectURL(url);
+      };
+      vid.onerror = () => URL.revokeObjectURL(url);
+      vid.src = url;
     } else {
-      toast({ title: "Invalid File", description: "Please select a valid video file (MP4, AVI, MOV, etc.)", variant: "destructive" });
+      toast({ title: "Unsupported File Format", description: "Please select a video file (MP4, MOV, MKV, AVI, WEBM, FLV, MPEG, M4V, 3GP).", variant: "destructive" });
     }
   }, [toast]);
 
@@ -175,12 +206,29 @@ export default function MP4toMP3() {
     if (!file) return;
     setConverting(true);
     setMp3Blob(null);
+    setProgress(0);
+    setStatusText("Loading FFmpeg…");
     try {
-      const result = await convertMP4ToMP3(file, bitrate);
+      const result = await convertMP4ToMP3(file, bitrate, ({ ratio }) => {
+        const pct = Math.min(Math.round(ratio * 100), 99);
+        setProgress(pct);
+        if (pct < 20) setStatusText("Loading FFmpeg…");
+        else if (pct < 50) setStatusText("Reading video file…");
+        else if (pct < 85) setStatusText("Extracting audio with FFmpeg…");
+        else setStatusText("Encoding MP3…");
+      });
+      setProgress(100);
+      setStatusText("Conversion complete!");
       setMp3Blob(result);
       toast({ title: "Conversion Complete!", description: "Your MP3 file is ready to download." });
-    } catch {
-      toast({ title: "Conversion Failed", description: "Could not extract audio. Try a different file.", variant: "destructive" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("memory") || msg.includes("OOM")) {
+        toast({ title: "File Too Large", description: "The file is too large for browser memory. Try a shorter clip.", variant: "destructive" });
+      } else {
+        toast({ title: "Conversion Failed", description: "Could not extract audio. Make sure the file has an audio track.", variant: "destructive" });
+      }
+      setStatusText("");
     } finally {
       setConverting(false);
     }
@@ -196,15 +244,15 @@ export default function MP4toMP3() {
     URL.revokeObjectURL(url);
   };
 
-  const reset = () => { setFile(null); setMp3Blob(null); };
+  const reset = () => { setFile(null); setMp3Blob(null); setProgress(0); setStatusText(""); setVideoDuration(null); };
 
   return (
     <>
       <StructuredData data={generateFAQSchema(FAQS)} />
       <StructuredData data={generateBreadcrumbSchema()} />
       <StructuredData data={generateSoftwareApplicationSchema({
-        name: "MP4 to MP3 Converter",
-        description: "Free browser-based MP4 to MP3 converter. Convert video to audio instantly with no uploads, no registration, and 100% privacy. Supports bitrates up to 320 kbps.",
+        name: "Video to MP3 Converter — MP4, MOV, MKV, AVI, WEBM & More",
+        description: "Free browser-based video to MP3 converter. Convert MP4, MOV, MKV, AVI, WEBM, FLV, MPEG, M4V, 3GP and WMV to MP3 audio instantly with no uploads, no registration, and 100% privacy. Supports bitrates up to 320 kbps.",
         url: "https://tools.pixocraft.in/tools/mp4-to-mp3",
         applicationCategory: "MultimediaApplication",
       })} />
@@ -225,12 +273,13 @@ export default function MP4toMP3() {
             <Music className="h-8 w-8 text-primary" aria-label="MP4 to MP3 converter icon" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            MP4 to MP3 Converter —<br className="hidden sm:block" /> Free, Fast &amp; Private
+            Video to MP3 Converter —<br className="hidden sm:block" /> Free, Fast &amp; Private
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
-            Convert MP4 videos to MP3 audio instantly in your browser.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-3">
+            Convert any video to MP3 audio instantly in your browser.
             No uploads. No registration. 100% secure and private.
           </p>
+          <p className="text-sm text-muted-foreground mb-6">Supports MP4, MOV, MKV, AVI, WEBM, FLV and more.</p>
           <div className="flex flex-wrap gap-2 justify-center mb-6">
             <Badge variant="secondary" data-testid="badge-private"><Shield className="h-3 w-3 mr-1" />100% Private</Badge>
             <Badge variant="secondary" data-testid="badge-no-upload"><WifiOff className="h-3 w-3 mr-1" />No Upload Required</Badge>
@@ -244,7 +293,7 @@ export default function MP4toMP3() {
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">MP4 to MP3 Converter</CardTitle>
+              <CardTitle className="text-xl">Video to MP3 Converter</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {!file ? (
@@ -257,26 +306,41 @@ export default function MP4toMP3() {
                   onDragLeave={handleDragLeave}
                 >
                   <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-base font-medium mb-1">Drag and drop your MP4 file here</p>
+                  <p className="text-base font-medium mb-1">Drag and drop your video file here</p>
                   <p className="text-sm text-muted-foreground mb-4">or</p>
-                  <Button data-testid="button-upload" type="button">Upload MP4 File</Button>
-                  <p className="text-xs text-muted-foreground mt-4">Supports MP4, AVI, MOV, MKV, WEBM, FLV, MPEG</p>
-                  <input ref={fileInputRef} type="file" accept="video/*" onChange={handleFileInput} className="hidden" data-testid="input-file" />
+                  <Button data-testid="button-upload" type="button">Upload Video File</Button>
+                  <p className="text-xs text-muted-foreground mt-4">MP4 · MOV · MKV · AVI · WEBM · FLV · MPEG · M4V · 3GP</p>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="video/*,.mp4,.mov,.mkv,.avi,.webm,.flv,.mpeg,.m4v,.3gp"
+                    onChange={handleFileInput}
+                    className="hidden"
+                    data-testid="input-file"
+                  />
                 </div>
               ) : (
                 <div className="space-y-4">
+                  {/* File info */}
                   <div className="flex items-start justify-between gap-2 p-4 rounded-lg bg-muted/50">
                     <div className="flex items-center gap-3 min-w-0">
                       <FileAudio className="h-8 w-8 text-primary shrink-0" />
-                      <div className="min-w-0">
+                      <div className="min-w-0 space-y-0.5">
                         <p className="font-medium text-sm truncate" data-testid="text-filename">{file.name}</p>
-                        <p className="text-xs text-muted-foreground" data-testid="text-filesize">{formatFileSize(file.size)}</p>
+                        <p className="text-xs text-muted-foreground" data-testid="text-filesize">
+                          Size: {formatFileSize(file.size)}
+                          {videoDuration != null && (
+                            <> · Duration: {Math.floor(videoDuration / 60)}:{String(Math.floor(videoDuration % 60)).padStart(2, "0")}</>
+                          )}
+                        </p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="icon" onClick={reset} data-testid="button-reset" className="shrink-0">
+                    <Button variant="ghost" size="icon" onClick={reset} data-testid="button-reset" className="shrink-0" disabled={converting}>
                       <X className="h-4 w-4" />
                     </Button>
                   </div>
+
+                  {/* Bitrate selector */}
                   <div>
                     <p className="text-sm font-medium mb-3">Audio Quality</p>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -284,8 +348,9 @@ export default function MP4toMP3() {
                         <button
                           key={opt.value}
                           data-testid={`button-bitrate-${opt.value}`}
-                          onClick={() => setBitrate(opt.value)}
-                          className={`rounded-md border p-3 text-left transition-colors toggle-elevate ${bitrate === opt.value ? "border-primary bg-primary/10 toggle-elevated" : "border-border"}`}
+                          onClick={() => !converting && setBitrate(opt.value)}
+                          disabled={converting}
+                          className={`rounded-md border p-3 text-left transition-colors toggle-elevate disabled:opacity-50 disabled:cursor-not-allowed ${bitrate === opt.value ? "border-primary bg-primary/10 toggle-elevated" : "border-border"}`}
                         >
                           <p className="font-semibold text-sm">{opt.label}</p>
                           <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{opt.description}</p>
@@ -293,19 +358,48 @@ export default function MP4toMP3() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Convert / Download buttons */}
                   <div className="flex flex-wrap gap-3">
-                    <Button onClick={convert} disabled={converting} className="flex-1" data-testid="button-convert">
-                      {converting ? "Converting…" : "Convert to MP3"}
-                    </Button>
-                    {mp3Blob && (
-                      <Button onClick={download} variant="outline" className="flex-1" data-testid="button-download">
-                        <Download className="mr-2 h-4 w-4" />
-                        Download MP3 ({formatFileSize(mp3Blob.size)})
+                    {!mp3Blob ? (
+                      <Button onClick={convert} disabled={converting} className="flex-1" data-testid="button-convert">
+                        {converting ? "Converting…" : "Convert to MP3"}
                       </Button>
+                    ) : (
+                      <>
+                        <Button onClick={download} className="flex-1" data-testid="button-download">
+                          <Download className="mr-2 h-4 w-4" />
+                          Download MP3 ({formatFileSize(mp3Blob.size)})
+                        </Button>
+                        <Button onClick={reset} variant="outline" data-testid="button-convert-another">
+                          Convert Another
+                        </Button>
+                      </>
                     )}
                   </div>
+
+                  {/* Progress bar */}
                   {converting && (
-                    <p className="text-sm text-muted-foreground text-center">Processing audio with FFmpeg in your browser…</p>
+                    <div className="space-y-2" data-testid="section-progress">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>{statusText || "Processing your video…"}</span>
+                        <span>{progress}%</span>
+                      </div>
+                      <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-primary transition-all duration-300"
+                          style={{ width: `${progress}%` }}
+                          data-testid="progress-bar"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Success state */}
+                  {mp3Blob && !converting && (
+                    <p className="text-sm text-center text-green-600 dark:text-green-400 font-medium" data-testid="text-success">
+                      Converted successfully
+                    </p>
                   )}
                 </div>
               )}
@@ -558,14 +652,22 @@ export default function MP4toMP3() {
         <section className="py-16">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Supported Video Formats</h2>
-              <p className="text-muted-foreground">Upload any of these formats to extract MP3 audio.</p>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Supported Video Input Formats</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                This MP4 to MP3 converter accepts all major video formats. Upload any of the formats below to extract high-quality MP3 audio.
+              </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-4xl mx-auto">
               {SUPPORTED_FORMATS.map((fmt) => (
-                <Badge key={fmt} variant="secondary" className="text-sm px-4 py-2">{fmt}</Badge>
+                <div key={fmt.ext} className="flex flex-col items-center gap-1 border rounded-md p-3 text-center">
+                  <span className="font-bold text-primary text-sm">{fmt.ext}</span>
+                  <span className="text-xs text-muted-foreground leading-snug">{fmt.desc}</span>
+                </div>
               ))}
             </div>
+            <p className="text-center text-sm text-muted-foreground mt-6">
+              All formats are converted to MP3 audio entirely in your browser — no upload required.
+            </p>
           </div>
         </section>
 
@@ -602,8 +704,32 @@ export default function MP4toMP3() {
           </div>
         </section>
 
-        {/* ── LONG-FORM SEO TEXT BLOCK ── */}
+        {/* ── CONVERT VIDEO TO MP3 INSTANTLY ── */}
         <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Convert Video to MP3 Instantly in Your Browser</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+              <p>
+                This <strong className="text-foreground">free mp4 to mp3 converter</strong> runs entirely inside your browser using WebAssembly-compiled FFmpeg — the same powerful multimedia engine trusted by professional video editors and broadcasters worldwide. When you click Convert, your video is processed locally on your device. No file is ever uploaded to a remote server, and no internet connection is needed after the page loads.
+              </p>
+              <p>
+                <strong className="text-foreground">Why browser-based conversion is faster.</strong> Traditional online tools require you to upload your entire video file to a server, wait in a processing queue behind other users, and then download the result back to your device. For a large video, this can take several minutes. With Pixocraft's browser-based approach, the complete conversion pipeline runs locally — which means a 500 MB file that might take five minutes on a remote server can be done in well under a minute on a modern laptop or phone.
+              </p>
+              <p>
+                <strong className="text-foreground">Complete privacy, by design.</strong> When you upload a file to an external conversion service, you are trusting that server to handle your content responsibly. Private videos, business recordings, and personal audio are all at risk. With this <strong className="text-foreground">video to mp3 converter</strong>, that risk is eliminated entirely. Your file never leaves your browser — there is no server, no storage, and no logging of any kind.
+              </p>
+              <p>
+                <strong className="text-foreground">Works offline after loading.</strong> Once the page and FFmpeg engine have loaded, you can disconnect from the internet entirely and continue converting videos to MP3 without interruption. This makes it ideal for users on limited or metered connections, travelers who need to <strong className="text-foreground">extract audio from video</strong> without Wi-Fi, and anyone working in low-connectivity environments.
+              </p>
+              <p>
+                <strong className="text-foreground">No limits, ever.</strong> Many competing converters cap daily usage, restrict file sizes, or require account sign-up after a few free conversions. Pixocraft imposes none of these restrictions. Convert as many videos as you need, at any file size, with any supported format — completely free, without ever creating an account or providing an email address.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── LONG-FORM SEO TEXT BLOCK ── */}
+        <section className="bg-muted/30 py-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Free MP4 to MP3 Converter Online — Extract Audio from Any Video</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">

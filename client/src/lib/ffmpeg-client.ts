@@ -274,7 +274,8 @@ export async function convertMP4ToMP3(
 ): Promise<Blob> {
   const ffmpeg = await loadFFmpeg(onProgress);
 
-  const inputName = "input.mp4";
+  const ext = videoFile.name.split(".").pop()?.toLowerCase() || "mp4";
+  const inputName = `input.${ext}`;
   const outputName = "output.mp3";
 
   await ffmpeg.writeFile(inputName, new Uint8Array(await videoFile.arrayBuffer()));
