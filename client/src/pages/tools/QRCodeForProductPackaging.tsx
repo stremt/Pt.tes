@@ -82,7 +82,7 @@ export default function QRCodeForProductPackaging() {
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Drive repeat purchases</span></div>
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Print-ready 4K resolution</span></div>
             </div>
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Packaging QR Code</Button></Link>
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Packaging QR Code</Button></Link></span>
           </div>
         </section>
 

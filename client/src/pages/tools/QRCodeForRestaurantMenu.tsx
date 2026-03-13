@@ -99,9 +99,9 @@ export default function QRCodeForRestaurantMenu() {
               </div>
             </div>
 
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg" className="w-full md:w-auto">
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg" className="w-full md:w-auto">
               Create Restaurant QR Code Now
-            </Button></Link>
+            </Button></Link></span>
           </div>
         </section>
 

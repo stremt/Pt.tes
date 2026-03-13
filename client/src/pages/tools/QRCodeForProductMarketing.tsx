@@ -120,10 +120,10 @@ export default function QRCodeForProductMarketing() {
               </div>
             </div>
 
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg" className="w-full md:w-auto">
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg" className="w-full md:w-auto">
               Create Product QR Code
               <ArrowRight className="ml-2 h-4 w-4" />
-            </Button></Link>
+            </Button></Link></span>
           </div>
         </section>
 

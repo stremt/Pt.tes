@@ -82,7 +82,7 @@ export default function QRCodeForPropertyListings() {
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Print-ready for yard signs</span></div>
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">No app required to scan</span></div>
             </div>
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Property QR Code</Button></Link>
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Property QR Code</Button></Link></span>
           </div>
         </section>
 

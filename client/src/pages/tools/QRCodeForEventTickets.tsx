@@ -82,7 +82,7 @@ export default function QRCodeForEventTickets() {
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Prevent ticket fraud</span></div>
               <div className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span className="text-muted-foreground">Track real-time attendance</span></div>
             </div>
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Event QR Code</Button></Link>
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create Event QR Code</Button></Link></span>
           </div>
         </section>
 

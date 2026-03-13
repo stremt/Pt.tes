@@ -129,7 +129,7 @@ export default function QRCodeForYouTube() {
                 </span>
               </div>
             </div>
-            <Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create YouTube QR Code</Button></Link>
+            <span className="hidden"><Link href="/tools/qr-maker#qr-generator"><Button size="lg">Create YouTube QR Code</Button></Link></span>
           </div>
         </section>
 
