@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +26,7 @@ import {
   XCircle,
   Volume2,
   ArrowRight,
+  Loader2,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
@@ -152,8 +153,17 @@ export default function MP4toMP3() {
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState("");
   const [videoDuration, setVideoDuration] = useState<number | null>(null);
+  const [dots, setDots] = useState(1);
+  const [elapsed, setElapsed] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (!converting) { setDots(1); setElapsed(0); return; }
+    const dotsInterval = setInterval(() => setDots(d => (d % 3) + 1), 500);
+    const elapsedInterval = setInterval(() => setElapsed(s => s + 1), 1000);
+    return () => { clearInterval(dotsInterval); clearInterval(elapsedInterval); };
+  }, [converting]);
 
   useSEO({
     title: "Video to MP3 Converter — Multi Format | Free & Private – Pixocraft Tools",
@@ -207,18 +217,17 @@ export default function MP4toMP3() {
     setConverting(true);
     setMp3Blob(null);
     setProgress(0);
-    setStatusText("Loading FFmpeg…");
+    setStatusText("Loading");
     try {
       const result = await convertMP4ToMP3(file, bitrate, ({ ratio }) => {
         const pct = Math.min(Math.round(ratio * 100), 99);
         setProgress(pct);
-        if (pct < 20) setStatusText("Loading FFmpeg…");
-        else if (pct < 50) setStatusText("Reading video file…");
-        else if (pct < 85) setStatusText("Extracting audio with FFmpeg…");
-        else setStatusText("Encoding MP3…");
+        if (pct < 20) setStatusText("Analysing your file");
+        else if (pct < 85) setStatusText("Converting");
+        else setStatusText("Almost done");
       });
       setProgress(100);
-      setStatusText("Conversion complete!");
+      setStatusText("Complete!");
       setMp3Blob(result);
       toast({ title: "Conversion Complete!", description: "Your MP3 file is ready to download." });
     } catch (err) {
@@ -378,19 +387,47 @@ export default function MP4toMP3() {
                     )}
                   </div>
 
-                  {/* Progress bar */}
+                  {/* Progress / activity indicator */}
                   {converting && (
-                    <div className="space-y-2" data-testid="section-progress">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>{statusText || "Processing your video…"}</span>
-                        <span>{progress}%</span>
+                    <div className="space-y-3 rounded-lg border bg-muted/30 p-4" data-testid="section-progress">
+                      {/* Status row */}
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="h-4 w-4 text-primary animate-spin shrink-0" />
+                        <span className="text-sm font-medium flex-1 min-w-0 truncate" data-testid="text-status">
+                          {statusText || "Processing"}{statusText === "Complete!" ? "" : ".".repeat(dots)}
+                        </span>
+                        <span className="text-xs text-muted-foreground shrink-0 tabular-nums">
+                          {elapsed}s
+                        </span>
                       </div>
+
+                      {/* Progress bar — indeterminate shimmer while at 0%, real fill after */}
                       <div className="w-full h-2 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-primary transition-all duration-300"
-                          style={{ width: `${progress}%` }}
-                          data-testid="progress-bar"
-                        />
+                        {progress === 0 ? (
+                          <div className="h-full w-full relative overflow-hidden rounded-full">
+                            <div className="absolute inset-0 bg-primary/30 rounded-full" />
+                            <div
+                              className="absolute inset-y-0 w-1/3 bg-primary rounded-full"
+                              style={{ animation: "shimmer-scan 1.4s ease-in-out infinite" }}
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            className="h-full rounded-full bg-primary transition-all duration-500"
+                            style={{ width: `${progress}%` }}
+                            data-testid="progress-bar"
+                          />
+                        )}
+                      </div>
+
+                      {/* Bottom row: percentage + hint for big files */}
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>
+                          {progress === 0
+                            ? "Please wait — large files may take a moment to start"
+                            : "Actively processing your file, please keep this tab open"}
+                        </span>
+                        <span className="tabular-nums shrink-0 ml-2">{progress > 0 ? `${progress}%` : ""}</span>
                       </div>
                     </div>
                   )}

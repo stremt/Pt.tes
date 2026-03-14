@@ -474,4 +474,9 @@
       opacity: 0.6;
     }
   }
+
+  @keyframes shimmer-scan {
+    0%   { left: -40%; }
+    100% { left: 130%; }
+  }
 }
