@@ -99,24 +99,28 @@ const COMPARISON_ROWS = [
 
 const FAQS = [
   {
-    question: "What is the best MP4 to MP3 converter?",
-    answer: "Pixocraft's MP4 to MP3 Converter is one of the best available because it is completely free, runs entirely inside your browser without uploading your files to any server, and supports audio quality up to 320 kbps. It works offline after loading, has no file size limits, no daily usage caps, and no registration required — making it the ideal video to MP3 converter for everyone.",
+    question: "What is the best video to MP3 converter?",
+    answer: "Pixocraft's Video to MP3 Converter is one of the best available because it is completely free, runs entirely inside your browser without uploading your files to any server, and supports audio quality up to 320 kbps. It works offline after loading, has no file size limits, no daily usage caps, and no registration required — making it the ideal video to MP3 converter for everyone.",
   },
   {
-    question: "How do I convert MP4 to MP3 online?",
-    answer: "Converting is straightforward with this free mp4 to mp3 converter. Upload your MP4 or other video file using the uploader above, select your preferred bitrate (128 to 320 kbps), then click Convert. FFmpeg processes the file entirely inside your browser — no upload needed. Once done, click Download to save the extracted MP3 audio file directly to your device.",
+    question: "How can I convert video to MP3 online?",
+    answer: "Converting is straightforward with this free video to MP3 converter. Upload your MP4, MOV, MKV or other video file using the uploader above, select your preferred bitrate (128 to 320 kbps), then click Convert. FFmpeg processes the file entirely inside your browser — no upload needed. Once done, click Download to save the extracted MP3 audio file directly to your device.",
+  },
+  {
+    question: "Can I convert multiple videos to MP3 at once?",
+    answer: "Yes. Pixocraft's batch video to MP3 converter lets you upload and convert multiple video files in a single session. Simply drag and drop several files at once, or select multiple files with the file picker. Each file is processed sequentially in your browser and gets its own individual download button. You can also download all converted MP3 files as a ZIP archive in one click — making it the most efficient multi video to MP3 converter available online.",
+  },
+  {
+    question: "Is this video to MP3 converter safe?",
+    answer: "Absolutely. When you use this video to MP3 converter, your video file is never transmitted to any server. All processing happens locally in your browser using WebAssembly-based FFmpeg. Your data never leaves your computer or phone. There is no third party involved, no file storage, and no logging — making it one of the most private ways to convert video to MP3.",
+  },
+  {
+    question: "Does this tool work offline?",
+    answer: "Yes. After the page loads, this video to MP3 converter operates completely offline. No active internet connection is needed during the actual audio extraction. This makes it ideal for users with limited or metered connections, or anyone who wants to extract audio from video while traveling without relying on cloud services.",
   },
   {
     question: "Is this MP4 to MP3 converter free?",
     answer: "Yes, completely free — now and always. This video to MP3 converter has no hidden fees, no premium tiers, no watermarks on output files, and no registration required. You can use it to extract audio from video as many times as you need without any restrictions. Pixocraft is committed to keeping this tool free for everyone.",
-  },
-  {
-    question: "Is my video file secure when converting?",
-    answer: "Absolutely. When you use this mp4 to mp3 converter, your video file is never transmitted to any server. All processing happens locally in your browser using WebAssembly-based FFmpeg. Your data never leaves your computer or phone. There is no third party involved, no file storage, and no logging — making it one of the most private ways to convert video to MP3.",
-  },
-  {
-    question: "Does the converter work offline?",
-    answer: "Yes. After the page loads, this video to mp3 converter operates completely offline. No active internet connection is needed during the actual audio extraction. This makes it ideal for users with limited or metered connections, or anyone who wants to extract audio from video while traveling without relying on cloud services.",
   },
   {
     question: "What bitrate should I choose for MP3 conversion?",
@@ -144,7 +148,7 @@ const generateBreadcrumbSchema = () => ({
     { "@type": "ListItem", position: 1, name: "Home", item: "https://tools.pixocraft.in" },
     { "@type": "ListItem", position: 2, name: "Tools", item: "https://tools.pixocraft.in/tools" },
     { "@type": "ListItem", position: 3, name: "Media Tools", item: "https://tools.pixocraft.in/tools/media" },
-    { "@type": "ListItem", position: 4, name: "MP4 to MP3 Converter", item: "https://tools.pixocraft.in/tools/mp4-to-mp3" },
+    { "@type": "ListItem", position: 4, name: "Video to MP3 Converter", item: "https://tools.pixocraft.in/tools/mp4-to-mp3" },
   ],
 });
 
@@ -438,7 +442,7 @@ export default function MP4toMP3() {
         {/* ── HERO ── */}
         <section className="container mx-auto px-4 max-w-6xl pb-10 text-center">
           <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <Music className="h-8 w-8 text-primary" aria-label="MP4 to MP3 converter icon" />
+            <Music className="h-8 w-8 text-primary" aria-label="video to mp3 converter" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
             Video to MP3 Converter —<br className="hidden sm:block" /> Free, Fast &amp; Private
@@ -447,7 +451,10 @@ export default function MP4toMP3() {
             Convert any video to MP3 audio instantly in your browser.
             No uploads. No registration. 100% secure and private.
           </p>
-          <p className="text-sm text-muted-foreground mb-6">Supports MP4, MOV, MKV, AVI, WEBM, FLV and more.</p>
+          <p className="text-sm text-muted-foreground mb-2">Supports MP4, MOV, MKV, AVI, WEBM, FLV and more.</p>
+          <p className="text-sm text-muted-foreground mb-6">
+            Convert multiple videos to MP3 at once with our <strong className="text-foreground">batch video to MP3 converter</strong>. Multi video to MP3 converter — no limits, no uploads.
+          </p>
           <div className="flex flex-wrap gap-2 justify-center mb-6">
             <Badge variant="secondary" data-testid="badge-private"><Shield className="h-3 w-3 mr-1" />100% Private</Badge>
             <Badge variant="secondary" data-testid="badge-no-upload"><WifiOff className="h-3 w-3 mr-1" />No Upload Required</Badge>
@@ -757,6 +764,54 @@ export default function MP4toMP3() {
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BATCH VIDEO TO MP3 CONVERSION ── */}
+        <section className="bg-muted/30 py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Batch Video to MP3 Conversion</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+              <p>
+                Pixocraft's <strong className="text-foreground">batch video to MP3 converter</strong> lets you convert multiple video files to MP3 audio in a single session — entirely inside your browser with no uploads required. Whether you have two files or twenty, the process is identical: drag and drop your videos onto the converter, pick a bitrate, and hit Convert. Each file is processed one after the other automatically, so you can walk away and return to find every conversion complete.
+              </p>
+              <p>
+                <strong className="text-foreground">Drag and drop many videos at once.</strong> The uploader accepts multiple files simultaneously. Simply drag a selection of videos from your file manager and drop them onto the upload zone. The tool queues them all instantly and displays a real-time progress indicator for each file. No need to convert one video, download it, and repeat — the entire <strong className="text-foreground">batch video converter</strong> workflow is handled in one go.
+              </p>
+              <p>
+                <strong className="text-foreground">Individual download buttons for every file.</strong> Unlike some batch converters that force you to download everything as a single archive, Pixocraft gives each converted file its own download button. This means you can selectively download the files you need immediately, or use the "Download All as ZIP" button to grab every MP3 at once. Each file also has its own audio quality selector, so you can choose different bitrates for different videos in the same batch.
+              </p>
+              <p>
+                <strong className="text-foreground">Faster batch workflow with sequential processing.</strong> Because all conversion happens locally in your browser using WebAssembly FFmpeg, there are no server queues, no upload wait times, and no rate limiting. You get the full power of your device dedicated to your batch conversion job. This <strong className="text-foreground">multi video to MP3 converter</strong> is dramatically faster than any upload-based tool for batch jobs — especially for large video files where upload time alone could take several minutes per file.
+              </p>
+              <p>
+                Batch conversion is ideal for content creators extracting audio from multiple lecture videos, musicians pulling tracks from a video shoot, podcast producers converting recorded sessions, and anyone who regularly needs to <strong className="text-foreground">extract audio from video</strong> in bulk. With no file count limits and no registration, Pixocraft is the most accessible free batch video to MP3 converter available online.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── BEST FREE VIDEO TO MP3 CONVERTER ONLINE ── */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Best Free Video to MP3 Converter Online</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed text-sm md:text-base">
+              <p>
+                Finding the <strong className="text-foreground">best free video to MP3 converter online</strong> means looking for a tool that handles every format you throw at it, respects your privacy, and has absolutely no usage restrictions. Pixocraft's converter meets all three criteria — and delivers them without requiring a sign-up, a download, or a single cent.
+              </p>
+              <p>
+                <strong className="text-foreground">Multi format support.</strong> This <strong className="text-foreground">free video to MP3 converter</strong> accepts MP4, MOV, MKV, AVI, WEBM, FLV, MPEG, M4V, 3GP, and WMV — covering every major video format in use today. Whether you're working with footage from a DSLR camera, a screen recording, a downloaded YouTube video, or a mobile phone clip, the converter handles it with the same ease. You don't need to check whether your format is supported — it almost certainly is.
+              </p>
+              <p>
+                <strong className="text-foreground">Unlimited conversions, always free.</strong> Most online tools that advertise themselves as free come with hidden restrictions — a daily limit of three conversions, a maximum file size of 100 MB, or a mandatory account after the first use. Pixocraft has none of these. <strong className="text-foreground">Convert video audio to MP3</strong> as many times as you want, at any file size, without ever creating an account or entering an email address. The tool is free to use unconditionally.
+              </p>
+              <p>
+                <strong className="text-foreground">Browser conversion — no software needed.</strong> The entire conversion engine runs inside your web browser using WebAssembly-compiled FFmpeg. There is nothing to install, no app to download, and no browser extension required. Open the page on any device — Windows, Mac, Linux, Android, or iOS — and the <strong className="text-foreground">best video to MP3 converter</strong> is immediately available.
+              </p>
+              <p>
+                <strong className="text-foreground">Complete privacy protection.</strong> When you convert video to MP3 using any upload-based service, you are trusting a third-party server with your files. Pixocraft eliminates that risk entirely. Your video is processed locally in your browser — it never leaves your device. There is no server receiving your file, no storage system holding your content, and no logs being created. For anyone working with sensitive or private video content, this browser-based approach is the only safe way to <strong className="text-foreground">convert video to MP3 online</strong>.
+              </p>
             </div>
           </div>
         </section>
