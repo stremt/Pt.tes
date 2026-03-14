@@ -398,6 +398,8 @@ const ConvertVideoToAudio = lazy(() => import("@/pages/tools/longtail/ConvertVid
 const GetAudioFromVideo = lazy(() => import("@/pages/tools/longtail/GetAudioFromVideo"));
 const VideoAudioExtractor = lazy(() => import("@/pages/tools/longtail/VideoAudioExtractor"));
 const ExtractSoundFromVideo = lazy(() => import("@/pages/tools/longtail/ExtractSoundFromVideo"));
+const VideoToMP3ConverterPage = lazy(() => import("@/pages/tools/longtail/VideoToMP3Converter"));
+const FreeVideoToMP3Converter = lazy(() => import("@/pages/tools/longtail/FreeVideoToMP3Converter"));
 const YouTubeThumbnailDownloader = lazy(() => import("@/pages/tools/YouTubeThumbnailDownloader"));
 const YouTubeThumbnailDownloaderFree = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderFree"));
 const YouTubeThumbnailDownloaderOnline = lazy(() => import("@/pages/tools/longtail/YouTubeThumbnailDownloaderOnline"));
@@ -835,6 +837,8 @@ function Router() {
         <Route path="/tools/get-audio-from-video" component={GetAudioFromVideo} />
         <Route path="/tools/video-audio-extractor" component={VideoAudioExtractor} />
         <Route path="/tools/extract-sound-from-video" component={ExtractSoundFromVideo} />
+        <Route path="/tools/video-to-mp3-converter" component={VideoToMP3ConverterPage} />
+        <Route path="/tools/free-video-to-mp3-converter" component={FreeVideoToMP3Converter} />
         <Route path="/tools/youtube-thumbnail-downloader/free-no-login" component={YouTubeThumbnailDownloaderFree} />
         <Route path="/tools/youtube-thumbnail-downloader/online" component={YouTubeThumbnailDownloaderOnline} />
         <Route path="/tools/youtube-thumbnail-downloader/channel-thumbnails" component={YouTubeThumbnailDownloaderChannels} />
