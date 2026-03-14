@@ -285,16 +285,19 @@ export default function MP4toMP3() {
     runningRef.current = true;
     setIsRunning(true);
 
-    const processNext = async () => {
-      // Read directly from ref — always up to date even in async context
+    // Use a while loop instead of recursion so we never read stale ref state between files.
+    // We immediately stamp the ref as "loading" before awaiting, so the next iteration
+    // of the loop won't accidentally re-pick the same item.
+    while (true) {
       const nextItem = queueRef.current.find(i => i.status === "waiting");
-      if (!nextItem) {
-        runningRef.current = false;
-        setIsRunning(false);
-        return;
-      }
+      if (!nextItem) break;
 
       const { id, file } = nextItem;
+
+      // Immediately mark as loading in the ref so next loop iteration skips it
+      queueRef.current = queueRef.current.map(i =>
+        i.id === id ? { ...i, status: "loading" as FileStatus } : i
+      );
       updateItem(id, { status: "loading", statusText: "Loading", progress: 0, elapsed: 0, dots: 1 });
 
       try {
@@ -320,11 +323,11 @@ export default function MP4toMP3() {
             : "Could not extract audio — check the file has an audio track",
         });
       }
-      await processNext();
-    };
+    }
 
-    await processNext();
-  }, [updateItem]);
+    runningRef.current = false;
+    setIsRunning(false);
+  }, [updateItem, setQueueSync]);
 
   const startConversion = () => {
     if (isRunning || !queue.some(i => i.status === "waiting")) return;
@@ -680,7 +683,7 @@ export default function MP4toMP3() {
                         )}
                       </Button>
                     )}
-                    {hasAnyDone && doneCount > 1 && (
+                    {queue.length > 1 && hasAnyDone && (
                       <Button
                         variant="outline"
                         onClick={downloadAll}
@@ -690,7 +693,7 @@ export default function MP4toMP3() {
                         {zipping ? (
                           <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Zipping…</>
                         ) : (
-                          <><Archive className="mr-2 h-4 w-4" />Download all as ZIP</>
+                          <><Archive className="mr-2 h-4 w-4" />Download all ({doneCount}) as ZIP</>
                         )}
                       </Button>
                     )}
