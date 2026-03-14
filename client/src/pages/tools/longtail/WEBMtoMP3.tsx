@@ -12,6 +12,24 @@ const config: FormatConfig = {
   canonicalUrl: "https://tools.pixocraft.in/tools/webm-to-mp3",
   h1: "WEBM to MP3 Converter — Free Online Audio Extractor",
   subheading: "Convert WEBM videos to MP3 audio instantly in your browser.\nNo uploads. No registration needed. 100% private.",
+  whatIsFormat: {
+    heading: "What is the WEBM Format?",
+    paragraphs: [
+      "WEBM is an <strong class=\"text-foreground\">open-source video format developed by Google</strong> and released in 2010. It was designed specifically for use on the web, providing a royalty-free alternative to formats like H.264 and MP4 that were encumbered by patent licensing. WEBM is now supported natively in all major web browsers including Chrome, Firefox, Edge, and Opera.",
+      "WEBM uses the <strong class=\"text-foreground\">VP8, VP9, or AV1 video codec</strong> combined with the Vorbis or Opus audio codec, all within a Matroska-based container. VP9 and AV1 in particular offer excellent compression efficiency — delivering video quality comparable to H.265 at significantly lower bitrates, which is why Google chose VP9 for YouTube's primary streaming codec.",
+      "WEBM is the most common format for <strong class=\"text-foreground\">screen recordings, browser-captured video, and web animations</strong>. Tools like Chrome's built-in screen recorder, OBS Studio (when set to WebM output), and many browser-based recording tools save files in WEBM format by default. It is also the format used for video exported from web-based video editors.",
+      "Despite its web-first origins, <strong class=\"text-foreground\">WEBM files are not universally supported</strong> by all media players and devices. Windows Media Player, older car stereos, and many portable players do not support WEBM natively, which is why converting WEBM to a universal format like MP3 is often necessary.",
+    ],
+  },
+  whyConvert: {
+    heading: "Why Convert WEBM to MP3?",
+    paragraphs: [
+      "<strong class=\"text-foreground\">Screen recordings saved as WEBM</strong> are one of the most common sources of WEBM files that users want to convert to MP3. Tutorial videos, webinar recordings, online meeting recordings, and browser-captured lectures are frequently saved in WEBM. If the visual content is unimportant — for example, a lecture or a podcast interview recorded as a screen capture — converting to MP3 gives you a portable audio file at a fraction of the size.",
+      "<strong class=\"text-foreground\">YouTube video downloads</strong> are another major use case. When video downloaders capture audio-only tracks from YouTube, they are often delivered as WEBM files using the Opus audio codec. Converting these to MP3 ensures maximum compatibility with music players and portable devices that do not support WEBM or Opus.",
+      "<strong class=\"text-foreground\">Podcast content and audio interviews</strong> captured via browser-based recording tools are frequently saved in WEBM format. Podcast producers working in web-based recording platforms often need to convert their WEBM session recordings to MP3 before uploading to podcast hosting services.",
+      "<strong class=\"text-foreground\">Cross-device compatibility</strong> is perhaps the most compelling reason to convert WEBM to MP3. While WEBM plays fine in modern desktop browsers, it is not supported on many mobile audio players, car infotainment systems, or portable MP3 players. Converting to MP3 ensures the audio can be played on any device without compatibility concerns.",
+    ],
+  },
   faqs: [
     {
       question: "How do I convert WEBM to MP3 online?",

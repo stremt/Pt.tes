@@ -12,6 +12,24 @@ const config: FormatConfig = {
   canonicalUrl: "https://tools.pixocraft.in/tools/mov-to-mp3",
   h1: "MOV to MP3 Converter — Free Online Audio Extractor",
   subheading: "Convert QuickTime MOV videos to MP3 audio instantly in your browser.\nNo uploads. No account needed. Completely private.",
+  whatIsFormat: {
+    heading: "What is the MOV Format?",
+    paragraphs: [
+      "MOV is Apple's <strong class=\"text-foreground\">QuickTime Movie format</strong>, introduced in 1991 as the native video container for Apple's QuickTime multimedia framework. It is one of the foundational video formats of the digital video era and remains the default recording format for iPhones, iPads, and Mac computers.",
+      "Like MP4, MOV is a <strong class=\"text-foreground\">container format</strong> — meaning it holds multiple tracks of video, audio, effects, and metadata within a single file. MOV files commonly use H.264 or H.265 (HEVC) video codecs and AAC audio, though they can also store ProRes, Apple Intermediate Codec, and other professional formats used in video production workflows.",
+      "MOV files are widely used in <strong class=\"text-foreground\">professional video editing</strong>. Applications like Final Cut Pro, Adobe Premiere, and DaVinci Resolve all have excellent MOV support. The format also supports <strong class=\"text-foreground\">advanced metadata</strong>, chapter markers, timecodes, and multiple audio tracks — making it a powerful choice for production environments.",
+      "While MOV is primarily an Apple format, it has excellent cross-platform support. Windows, Linux, and Android devices can all play MOV files using modern media players. The format is commonly encountered when receiving video files from iPhone users, Mac-based video editors, or professional camera operators.",
+    ],
+  },
+  whyConvert: {
+    heading: "Why Convert MOV to MP3?",
+    paragraphs: [
+      "MOV files recorded on iPhones and other Apple devices are often large and contain both video and audio data. If you only need the audio — for example, a voice memo recorded as a video, a FaceTime recording, or audio from a filmed event — <strong class=\"text-foreground\">converting MOV to MP3</strong> gives you a compact audio file that is far easier to manage.",
+      "<strong class=\"text-foreground\">iPhone video recordings</strong> are a particularly common source of MOV files that people want to convert to MP3. A 10-minute iPhone video can be 500 MB or more, while the extracted MP3 audio at 128 kbps would be under 10 MB. For content that is purely audio — interviews, lectures, field recordings — the space savings are dramatic.",
+      "<strong class=\"text-foreground\">Music and performance recordings</strong> captured on Apple devices are another common use case. MOV video of a concert, rehearsal, or live performance can be converted to MP3 and added to a music library for portable listening. This workflow is common among musicians and event documentarians.",
+      "<strong class=\"text-foreground\">Podcast and podcast-adjacent content</strong> is frequently captured on iPhones as MOV video. Converting these recordings to MP3 is the standard first step before importing into a podcast editing application like GarageBand, Audacity, or Adobe Audition.",
+    ],
+  },
   faqs: [
     {
       question: "How do I convert a MOV file to MP3 online?",

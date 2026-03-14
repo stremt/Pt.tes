@@ -1,0 +1,199 @@
+Create a high-quality SEO landing page for Pixocraft Tools targeting the keyword:
+
+"AVI to MP3 Converter"
+
+Page URL:
+/tools/avi-to-mp3
+
+Main converter tool:
+/tools/mp4-to-mp3
+
+IMPORTANT:
+This page is an SEO landing page that explains the AVI format and guides users to use the main converter tool. The actual conversion UI should reuse the existing converter from the main page.
+
+---
+
+PRIMARY KEYWORD
+
+avi to mp3 converter
+
+---
+
+SECONDARY KEYWORDS
+
+convert avi to mp3
+avi video to mp3
+extract audio from avi
+avi audio extractor
+video to mp3 converter
+
+---
+
+PAGE STRUCTURE
+
+1️⃣ HERO SECTION
+
+Heading (H1):
+
+AVI to MP3 Converter — Free & Online
+
+Subtext:
+
+Convert AVI video files to MP3 audio instantly using Pixocraft's browser-based video to MP3 converter. No uploads, no sign-up, and complete privacy.
+
+Feature highlights:
+
+• 100% browser based
+• No file uploads
+• Unlimited conversions
+• Supports multiple video formats
+
+Add CTA button:
+
+Convert AVI to MP3
+
+Link it to:
+/tools/mp4-to-mp3
+
+---
+
+2️⃣ WHAT IS AVI FORMAT
+
+Explain AVI in detail.
+
+Include:
+
+• history of AVI
+• Microsoft format
+• how AVI stores audio + video
+• common use cases
+
+Minimum: 150–200 words.
+
+---
+
+3️⃣ WHY CONVERT AVI TO MP3
+
+Explain real use cases:
+
+• extracting music from videos
+• saving lecture audio
+• creating podcasts
+• reducing file size
+
+Minimum: 150 words.
+
+---
+
+4️⃣ HOW TO CONVERT AVI TO MP3
+
+Step-by-step guide:
+
+1 Upload your AVI video file
+2 Choose MP3 audio quality
+3 Click convert
+4 Download the extracted MP3 file
+
+Mention that Pixocraft processes files locally in the browser using FFmpeg WebAssembly.
+
+---
+
+5️⃣ FEATURES OF PIXOCRAFT VIDEO TO MP3 CONVERTER
+
+Explain advantages:
+
+• privacy protection
+• browser conversion
+• fast processing
+• no server uploads
+• batch conversion support
+• multiple video formats
+
+Minimum: 150 words.
+
+---
+
+6️⃣ SUPPORTED VIDEO FORMATS
+
+Add a list:
+
+MP4
+AVI
+MOV
+MKV
+WEBM
+FLV
+MPEG
+M4V
+3GP
+WMV
+
+Explain that all formats can be converted to MP3.
+
+---
+
+7️⃣ BENEFITS OF MP3 FORMAT
+
+Explain why MP3 is popular:
+
+• small file sizes
+• universal compatibility
+• easy to share
+• perfect for music & podcasts
+
+Minimum: 120 words.
+
+---
+
+8️⃣ FAQ SECTION
+
+Create detailed answers.
+
+Questions:
+
+How do I convert AVI to MP3 online?
+Is this AVI to MP3 converter free?
+Is my video file secure?
+Can I convert multiple videos at once?
+What audio quality should I choose?
+
+Each answer: 50–80 words.
+
+---
+
+9️⃣ RELATED CONVERTERS
+
+Add internal links:
+
+MP4 to MP3
+MOV to MP3
+MKV to MP3
+WEBM to MP3
+FLV to MP3
+
+---
+
+SEO META TAGS
+
+Title:
+
+AVI to MP3 Converter (Free & Fast) | Pixocraft Tools
+
+Meta Description:
+
+Convert AVI to MP3 instantly with Pixocraft’s free video to MP3 converter. Extract audio from AVI videos securely in your browser with no uploads required.
+
+---
+
+CONTENT REQUIREMENTS
+
+Word count: 900–1200 words
+Use clear H2 headings
+Naturally include the keyword "avi to mp3 converter"
+Ensure fast loading and responsive layout.
+
+---
+
+GOAL
+
+Create a detailed SEO page that ranks for AVI-to-MP3 conversion searches while directing users to Pixocraft's main converter tool.
