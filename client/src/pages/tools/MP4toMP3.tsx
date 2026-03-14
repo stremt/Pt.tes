@@ -473,7 +473,7 @@ export default function MP4toMP3() {
               {/* Drop zone — always visible so more files can be added */}
               <div
                 data-testid="upload-area"
-                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${isDragging ? "border-primary bg-primary/5" : "border-border hover-elevate"}`}
+                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${isDragging ? "border-primary bg-primary/5" : "border-border bg-muted/30 hover-elevate"}`}
                 onClick={() => fileInputRef.current?.click()}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
