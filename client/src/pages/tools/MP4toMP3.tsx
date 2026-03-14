@@ -507,24 +507,26 @@ export default function MP4toMP3() {
               {/* File queue */}
               {queue.length > 0 && (
                 <>
-                  {/* Bitrate selector */}
-                  <div>
-                    <p className="text-sm font-medium mb-2">Audio Quality</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {BITRATE_OPTIONS.map((opt) => (
-                        <button
-                          key={opt.value}
-                          data-testid={`button-bitrate-${opt.value}`}
-                          onClick={() => !isRunning && setBitrate(opt.value)}
-                          disabled={isRunning}
-                          className={`rounded-md border p-3 text-left transition-colors toggle-elevate disabled:opacity-50 disabled:cursor-not-allowed ${bitrate === opt.value ? "border-primary bg-primary/10 toggle-elevated" : "border-border"}`}
-                        >
-                          <p className="font-semibold text-sm">{opt.label}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{opt.description}</p>
-                        </button>
-                      ))}
+                  {/* Bitrate selector — hide once all files are converted (each file has its own quality pills) */}
+                  {(waitingCount > 0 || isRunning) && (
+                    <div>
+                      <p className="text-sm font-medium mb-2">Audio Quality</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {BITRATE_OPTIONS.map((opt) => (
+                          <button
+                            key={opt.value}
+                            data-testid={`button-bitrate-${opt.value}`}
+                            onClick={() => !isRunning && setBitrate(opt.value)}
+                            disabled={isRunning}
+                            className={`rounded-md border p-3 text-left transition-colors toggle-elevate disabled:opacity-50 disabled:cursor-not-allowed ${bitrate === opt.value ? "border-primary bg-primary/10 toggle-elevated" : "border-border"}`}
+                          >
+                            <p className="font-semibold text-sm">{opt.label}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{opt.description}</p>
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* File list */}
                   <div className="space-y-2" data-testid="file-list">
