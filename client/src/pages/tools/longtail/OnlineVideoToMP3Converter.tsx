@@ -382,7 +382,7 @@ export default function OnlineVideoToMP3Converter() {
         <section className="py-16">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Related Video &amp; Audio Tools</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Related Video to MP3 Tools</h2>
               <p className="text-muted-foreground">More free online tools from Pixocraft for video and audio conversion.</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">

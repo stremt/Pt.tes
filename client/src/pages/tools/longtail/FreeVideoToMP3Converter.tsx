@@ -169,6 +169,23 @@ export default function FreeVideoToMP3Converter() {
           </p>
         </section>
 
+
+        {/* MAIN TOOL BANNER */}
+        <div className="container mx-auto px-4 max-w-3xl pb-6">
+          <Card className="p-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5">Main Tool</p>
+                <p className="font-semibold text-sm">MP4 to MP3 Converter</p>
+                <p className="text-xs text-muted-foreground mt-0.5">This page is part of the Pixocraft MP4 to MP3 Converter ecosystem. Use the main converter tool below to extract MP3 audio from your videos instantly.</p>
+              </div>
+              <Button asChild size="sm">
+                <Link href="/tools/mp4-to-mp3">Use Main MP4 to MP3 Converter</Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
+
         {/* SECTION 2 — TOOL INTERFACE */}
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">
           <VideoToMP3Converter title="Free Video to MP3 Converter" />
@@ -335,8 +352,8 @@ export default function FreeVideoToMP3Converter() {
         <section className="bg-muted/30 py-16">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">Related Video &amp; Audio Tools</h2>
-              <p className="text-muted-foreground">More free tools from Pixocraft for video and audio conversion.</p>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Related Video to MP3 Tools</h2>
+              <p className="text-muted-foreground">More free tools from Pixocraft that are part of the MP4 to MP3 Converter tool suite.</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
               {RELATED_TOOLS.map((tool) => (
