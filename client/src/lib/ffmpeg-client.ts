@@ -1,5 +1,4 @@
-import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { toBlobURL } from "@ffmpeg/util";
+import type { FFmpeg } from "@ffmpeg/ffmpeg";
 
 let ffmpegInstance: FFmpeg | null = null;
 let isLoading = false;
@@ -10,15 +9,34 @@ export interface FFmpegProgress {
   time: number;
 }
 
+async function getModules() {
+  const [{ FFmpeg: FFmpegClass }, { toBlobURL }] = await Promise.all([
+    import(/* @vite-ignore */ "@ffmpeg/ffmpeg"),
+    import(/* @vite-ignore */ "@ffmpeg/util"),
+  ]);
+  return { FFmpegClass, toBlobURL };
+}
+
 export async function loadFFmpeg(
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<FFmpeg> {
   if (ffmpegInstance && ffmpegInstance.loaded) {
+    if (onProgress) {
+      ffmpegInstance.on("progress", ({ progress, time }) => {
+        onProgress({ ratio: progress, time });
+      });
+    }
     return ffmpegInstance;
   }
 
   if (loadPromise) {
-    return loadPromise;
+    const instance = await loadPromise;
+    if (onProgress) {
+      instance.on("progress", ({ progress, time }) => {
+        onProgress({ ratio: progress, time });
+      });
+    }
+    return instance;
   }
 
   loadPromise = (async () => {
@@ -30,7 +48,8 @@ export async function loadFFmpeg(
     isLoading = true;
 
     try {
-      const ffmpeg = new FFmpeg();
+      const { FFmpegClass, toBlobURL } = await getModules();
+      const ffmpeg = new FFmpegClass() as FFmpeg;
 
       if (onProgress) {
         ffmpeg.on("progress", ({ progress, time }) => {
@@ -58,6 +77,18 @@ export async function loadFFmpeg(
   return loadPromise;
 }
 
+async function getFFmpegWithProgress(
+  onProgress?: (progress: FFmpegProgress) => void
+): Promise<FFmpeg> {
+  const ffmpeg = await loadFFmpeg();
+  if (onProgress) {
+    ffmpeg.on("progress", ({ progress, time }) => {
+      onProgress({ ratio: progress, time });
+    });
+  }
+  return ffmpeg;
+}
+
 export async function getFFmpeg(): Promise<FFmpeg> {
   if (ffmpegInstance && ffmpegInstance.loaded) {
     return ffmpegInstance;
@@ -74,7 +105,7 @@ export async function convertVideoToGIF(
   } = {},
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
   const { fps = 10, width = 480, quality = 80 } = options;
 
   const inputName = "input.mp4";
@@ -102,7 +133,7 @@ export async function compressVideo(
   quality: number = 23,
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const inputName = "input.mp4";
   const outputName = "output.mp4";
@@ -135,7 +166,7 @@ export async function compressGIF(
   } = {},
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
   const { width = 480, fps = 10 } = options;
 
   const inputName = "input.gif";
@@ -162,7 +193,7 @@ export async function cutAudio(
   endTime: number,
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const inputExt = audioFile.name.split('.').pop() || 'mp3';
   const inputName = `input.${inputExt}`;
@@ -191,7 +222,7 @@ export async function convertAudioToMP3(
   bitrate: string = "192k",
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const inputExt = audioFile.name.split('.').pop() || 'wav';
   const inputName = `input.${inputExt}`;
@@ -220,7 +251,7 @@ export async function removeAudioNoise(
   noiseReduction: number = 0.21,
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const inputExt = audioFile.name.split('.').pop() || 'mp3';
   const inputName = `input.${inputExt}`;
@@ -245,7 +276,7 @@ export async function convertGIFToMP4(
   gifFile: File,
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const inputName = "input.gif";
   const outputName = "output.mp4";
@@ -272,7 +303,7 @@ export async function convertMP4ToMP3(
   bitrate: string = "192k",
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await loadFFmpeg(onProgress);
+  const ffmpeg = await getFFmpegWithProgress(onProgress);
 
   const ext = videoFile.name.split(".").pop()?.toLowerCase() || "mp4";
   const inputName = `input.${ext}`;
