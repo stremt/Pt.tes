@@ -57,8 +57,11 @@ export async function loadFFmpeg(
         });
       }
 
-      const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
+      const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.9/dist/esm";
+      // classWorkerURL points to our self-contained public worker — no Vite processing
+      const workerURL = `${window.location.origin}/ffmpeg-worker.js`;
       await ffmpeg.load({
+        classWorkerURL: workerURL,
         coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
         wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, "application/wasm"),
       });
