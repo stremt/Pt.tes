@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateHowToSchema } from "@/lib/seo";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -90,7 +91,8 @@ const generateBreadcrumbSchema = () => ({
     { "@type": "ListItem", position: 1, name: "Home", item: "https://tools.pixocraft.in" },
     { "@type": "ListItem", position: 2, name: "Tools", item: "https://tools.pixocraft.in/tools" },
     { "@type": "ListItem", position: 3, name: "Media Tools", item: "https://tools.pixocraft.in/tools/media" },
-    { "@type": "ListItem", position: 4, name: "Free Video to MP3 Converter", item: "https://tools.pixocraft.in/tools/free-video-to-mp3-converter" },
+    { "@type": "ListItem", position: 4, name: "MP4 to MP3 Converter", item: "https://tools.pixocraft.in/tools/mp4-to-mp3" },
+    { "@type": "ListItem", position: 5, name: "Free Video to MP3 Converter", item: "https://tools.pixocraft.in/tools/free-video-to-mp3-converter" },
   ],
 });
 
@@ -128,6 +130,7 @@ export default function FreeVideoToMP3Converter() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "Media Tools", url: "/tools/media" },
+            { label: "MP4 to MP3 Converter", url: "/tools/mp4-to-mp3" },
             { label: "Free Video to MP3 Converter" },
           ]} />
         </div>
@@ -137,9 +140,10 @@ export default function FreeVideoToMP3Converter() {
           <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <Music className="h-8 w-8 text-primary" aria-label="free video to mp3 converter" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
             Free Video to MP3 Converter —<br className="hidden sm:block" /> Unlimited Online Tool
           </h1>
+          <p className="text-xs text-muted-foreground mb-4">Part of the Pixocraft MP4 to MP3 Converter Tool Suite</p>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
             Convert video to MP3 for free using Pixocraft's powerful browser-based video to MP3 converter. Extract high-quality audio from videos instantly without uploads, registration, or limits.
           </p>

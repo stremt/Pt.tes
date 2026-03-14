@@ -99,7 +99,8 @@ const generateBreadcrumbSchema = (config: FormatConfig) => ({
     { "@type": "ListItem", position: 1, name: "Home", item: "https://tools.pixocraft.in" },
     { "@type": "ListItem", position: 2, name: "Tools", item: "https://tools.pixocraft.in/tools" },
     { "@type": "ListItem", position: 3, name: "Media Tools", item: "https://tools.pixocraft.in/tools/media" },
-    { "@type": "ListItem", position: 4, name: config.title, item: config.canonicalUrl },
+    { "@type": "ListItem", position: 4, name: "MP4 to MP3 Converter", item: "https://tools.pixocraft.in/tools/mp4-to-mp3" },
+    { "@type": "ListItem", position: 5, name: config.title, item: config.canonicalUrl },
   ],
 });
 
@@ -206,6 +207,7 @@ export function VideoToMP3Page({ config }: Props) {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "Media Tools", url: "/tools/media" },
+            { label: "MP4 to MP3 Converter", url: "/tools/mp4-to-mp3" },
             { label: config.title },
           ]} />
         </div>
@@ -215,7 +217,8 @@ export function VideoToMP3Page({ config }: Props) {
           <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <Music className="h-8 w-8 text-primary" aria-label={`${config.format} to MP3 converter`} />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">{config.h1}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">{config.h1}</h1>
+          <p className="text-xs text-muted-foreground mb-4">Part of the Pixocraft MP4 to MP3 Converter Tool Suite</p>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 whitespace-pre-line">{config.subheading}</p>
           <ul className="inline-flex flex-col items-start gap-2 mb-8 text-sm text-muted-foreground text-left mx-auto">
             {HERO_FEATURES.map(f => (
@@ -240,6 +243,22 @@ export function VideoToMP3Page({ config }: Props) {
             <Badge variant="secondary"><Star className="h-3 w-3 mr-1" />Free Forever</Badge>
           </div>
         </section>
+
+        {/* ── MAIN TOOL BANNER ── */}
+        <div className="container mx-auto px-4 max-w-3xl pb-6">
+          <Card className="p-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5">Main Tool</p>
+                <p className="font-semibold text-sm">MP4 to MP3 Converter</p>
+                <p className="text-xs text-muted-foreground mt-0.5">This page is part of the Pixocraft MP4 to MP3 Converter ecosystem.</p>
+              </div>
+              <Button asChild size="sm">
+                <Link href="/tools/mp4-to-mp3">Use Main MP4 to MP3 Converter</Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
 
         {/* ── TOOL ── */}
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">

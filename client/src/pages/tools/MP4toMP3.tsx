@@ -141,6 +141,24 @@ const RELATED_TOOLS = [
   { label: "Audio Converter", href: "/tools/audio-to-mp3", icon: Headphones },
 ];
 
+const EXPLORE_MORE_TOOLS = [
+  { label: "Video to MP3 Converter", href: "/tools/video-to-mp3-converter", desc: "Convert any video to MP3 in your browser with no uploads." },
+  { label: "Free Video to MP3 Converter", href: "/tools/free-video-to-mp3-converter", desc: "Completely free MP3 extraction with no limits or registration." },
+  { label: "Best Video to MP3 Converter", href: "/tools/best-video-to-mp3-converter", desc: "Why Pixocraft is the best video to MP3 converter available." },
+  { label: "Online Video to MP3 Converter", href: "/tools/online-video-to-mp3-converter", desc: "Fast, secure online MP3 extraction from any video format." },
+  { label: "Video to MP3 Converter Free", href: "/tools/video-to-mp3-converter-free", desc: "Free video to MP3 tool with no file size caps or daily limits." },
+  { label: "Extract Audio From Video", href: "/tools/extract-audio-from-video", desc: "Extract the audio track from any video as an MP3 file." },
+  { label: "Convert Video to Audio", href: "/tools/convert-video-to-audio", desc: "Convert any video format to MP3 audio instantly." },
+  { label: "Get Audio From Video", href: "/tools/get-audio-from-video", desc: "Get MP3 audio from video files privately in your browser." },
+  { label: "Video Audio Extractor", href: "/tools/video-audio-extractor", desc: "Extract and download audio from video files for free." },
+  { label: "Extract Sound From Video", href: "/tools/extract-sound-from-video", desc: "Extract sound from any video without uploading your file." },
+  { label: "Browser Video to MP3 Converter", href: "/tools/browser-video-to-mp3-converter", desc: "Convert video to MP3 entirely in your browser tab." },
+  { label: "Convert Video to MP3 Without Upload", href: "/tools/convert-video-to-mp3-without-upload", desc: "Convert video to MP3 without uploading files anywhere." },
+  { label: "Offline Video to MP3 Converter", href: "/tools/offline-video-to-mp3-converter", desc: "Convert videos to MP3 with no internet connection needed." },
+  { label: "Private Video to MP3 Converter", href: "/tools/private-video-to-mp3-converter", desc: "Maximum privacy video to MP3 conversion — files stay local." },
+  { label: "Batch Video to MP3 Converter", href: "/tools/batch-video-to-mp3-converter", desc: "Convert multiple videos to MP3 simultaneously in one session." },
+];
+
 const generateBreadcrumbSchema = () => ({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -1114,6 +1132,36 @@ export default function MP4toMP3() {
               <p>
                 This tool is optimized for Core Web Vitals and delivers an excellent Lighthouse performance score. The page uses minimal JavaScript, renders with no layout shifts, and loads essential resources only when needed. This means a fast experience from the first byte to the final download — consistent with Pixocraft's commitment to building tools that respect both your time and your privacy.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── EXPLORE MORE VIDEO TO MP3 TOOLS ── */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Explore More Video to MP3 Tools</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Part of the Pixocraft MP4 to MP3 Converter tool suite — each page covers a specific conversion need.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {EXPLORE_MORE_TOOLS.map((tool) => (
+                <Link key={tool.label} href={tool.href}>
+                  <Card className="p-4 hover-elevate cursor-pointer h-full">
+                    <div className="flex items-start gap-3">
+                      <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <Music className="h-4 w-4 text-primary" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm leading-snug mb-1">{tool.label}</p>
+                        <p className="text-xs text-muted-foreground leading-snug">{tool.desc}</p>
+                      </div>
+                      <ArrowRight className="h-3 w-3 text-muted-foreground shrink-0 mt-0.5" />
+                    </div>
+                  </Card>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

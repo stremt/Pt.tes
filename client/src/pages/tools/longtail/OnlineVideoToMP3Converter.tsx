@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateHowToSchema } from "@/lib/seo";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/Breadcrumb";
@@ -89,7 +90,8 @@ const generateBreadcrumbSchema = () => ({
     { "@type": "ListItem", position: 1, name: "Home", item: "https://tools.pixocraft.in" },
     { "@type": "ListItem", position: 2, name: "Tools", item: "https://tools.pixocraft.in/tools" },
     { "@type": "ListItem", position: 3, name: "Media Tools", item: "https://tools.pixocraft.in/tools/media" },
-    { "@type": "ListItem", position: 4, name: "Online Video to MP3 Converter", item: "https://tools.pixocraft.in/tools/online-video-to-mp3-converter" },
+    { "@type": "ListItem", position: 4, name: "MP4 to MP3 Converter", item: "https://tools.pixocraft.in/tools/mp4-to-mp3" },
+    { "@type": "ListItem", position: 5, name: "Online Video to MP3 Converter", item: "https://tools.pixocraft.in/tools/online-video-to-mp3-converter" },
   ],
 });
 
@@ -127,6 +129,7 @@ export default function OnlineVideoToMP3Converter() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
             { label: "Media Tools", url: "/tools/media" },
+            { label: "MP4 to MP3 Converter", url: "/tools/mp4-to-mp3" },
             { label: "Online Video to MP3 Converter" },
           ]} />
         </div>
@@ -136,9 +139,10 @@ export default function OnlineVideoToMP3Converter() {
           <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <Globe className="h-8 w-8 text-primary" aria-label="online video to mp3 converter" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
             Online Video to MP3 Converter —<br className="hidden sm:block" /> Fast &amp; Secure Tool
           </h1>
+          <p className="text-xs text-muted-foreground mb-4">Part of the Pixocraft MP4 to MP3 Converter Tool Suite</p>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
             Convert video files into MP3 audio instantly using Pixocraft's powerful online video to MP3 converter. No software installation, no uploads, and no registration required.
           </p>
@@ -163,6 +167,22 @@ export default function OnlineVideoToMP3Converter() {
             No account needed. No file size limits. Works on every device and browser.
           </p>
         </section>
+
+        {/* MAIN TOOL BANNER */}
+        <div className="container mx-auto px-4 max-w-3xl pb-6">
+          <Card className="p-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5">Main Tool</p>
+                <p className="font-semibold text-sm">MP4 to MP3 Converter</p>
+                <p className="text-xs text-muted-foreground mt-0.5">This page is part of the Pixocraft MP4 to MP3 Converter ecosystem.</p>
+              </div>
+              <Button asChild size="sm">
+                <Link href="/tools/mp4-to-mp3">Use Main MP4 to MP3 Converter</Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
 
         {/* SECTION 2 — TOOL INTERFACE */}
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">
