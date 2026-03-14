@@ -306,28 +306,43 @@ export async function convertMP4ToMP3(
   bitrate: string = "192k",
   onProgress?: (progress: FFmpegProgress) => void
 ): Promise<Blob> {
-  const ffmpeg = await getFFmpegWithProgress(onProgress);
+  const ffmpeg = await loadFFmpeg();
+
+  // Store the handler so we can remove it after conversion — the FFmpeg instance is a
+  // singleton, so without explicit removal old listeners accumulate and fire again on
+  // subsequent conversions, corrupting the status of already-finished files.
+  const handler = onProgress
+    ? ({ progress, time }: { progress: number; time: number }) => {
+        onProgress({ ratio: progress, time });
+      }
+    : null;
+
+  if (handler) ffmpeg.on("progress", handler);
 
   const ext = videoFile.name.split(".").pop()?.toLowerCase() || "mp4";
   const inputName = `input.${ext}`;
   const outputName = "output.mp3";
 
-  await ffmpeg.writeFile(inputName, new Uint8Array(await videoFile.arrayBuffer()));
+  try {
+    await ffmpeg.writeFile(inputName, new Uint8Array(await videoFile.arrayBuffer()));
 
-  await ffmpeg.exec([
-    "-i", inputName,
-    "-vn",
-    "-ar", "44100",
-    "-ac", "2",
-    "-b:a", bitrate,
-    outputName
-  ]);
+    await ffmpeg.exec([
+      "-i", inputName,
+      "-vn",
+      "-ar", "44100",
+      "-ac", "2",
+      "-b:a", bitrate,
+      outputName
+    ]);
 
-  const data = await ffmpeg.readFile(outputName);
-  await ffmpeg.deleteFile(inputName);
-  await ffmpeg.deleteFile(outputName);
+    const data = await ffmpeg.readFile(outputName);
+    await ffmpeg.deleteFile(inputName);
+    await ffmpeg.deleteFile(outputName);
 
-  return new Blob([data], { type: "audio/mpeg" });
+    return new Blob([data], { type: "audio/mpeg" });
+  } finally {
+    if (handler) ffmpeg.off("progress", handler);
+  }
 }
 
 export function formatTime(seconds: number): string {
