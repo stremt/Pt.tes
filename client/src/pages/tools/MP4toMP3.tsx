@@ -141,6 +141,37 @@ const RELATED_TOOLS = [
   { label: "Extract Audio", href: "/tools/extract-audio-from-video", icon: Headphones },
 ];
 
+const FORMAT_SPECIFIC_TOOLS = [
+  {
+    format: "MOV",
+    label: "MOV to MP3",
+    href: "/tools/mov-to-mp3",
+    desc: "Extract audio from QuickTime MOV videos. Perfect for iPhone and Mac recordings.",
+    badge: "Apple QuickTime",
+  },
+  {
+    format: "MKV",
+    label: "MKV to MP3",
+    href: "/tools/mkv-to-mp3",
+    desc: "Convert Matroska MKV files to MP3. Ideal for movies and multi-track videos.",
+    badge: "Matroska",
+  },
+  {
+    format: "WEBM",
+    label: "WEBM to MP3",
+    href: "/tools/webm-to-mp3",
+    desc: "Convert WEBM video to MP3 audio. Great for screen recordings and web videos.",
+    badge: "Web Video",
+  },
+  {
+    format: "AVI",
+    label: "AVI to MP3",
+    href: "/tools/avi-to-mp3",
+    desc: "Extract audio from AVI files. Works with older Windows and camera recordings.",
+    badge: "Windows Legacy",
+  },
+];
+
 const EXPLORE_MORE_TOOLS = [
   { label: "Video to MP3 Converter", href: "/tools/video-to-mp3-converter", desc: "Convert any video to MP3 in your browser with no uploads." },
   { label: "Free Video to MP3 Converter", href: "/tools/free-video-to-mp3-converter", desc: "Completely free MP3 extraction with no limits or registration." },
@@ -1136,8 +1167,42 @@ export default function MP4toMP3() {
           </div>
         </section>
 
-        {/* ── EXPLORE MORE VIDEO TO MP3 TOOLS ── */}
+        {/* ── FORMAT-SPECIFIC NICHE TOOLS ── */}
         <section className="py-16">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3">Convert Specific Video Formats to MP3</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Need to convert a specific format? Each tool below is optimized for that exact file type.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {FORMAT_SPECIFIC_TOOLS.map((tool) => (
+                <Link key={tool.format} href={tool.href}>
+                  <Card className="p-5 hover-elevate cursor-pointer h-full">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                        <span className="text-sm font-bold text-primary">{tool.format}</span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-sm leading-tight">{tool.label}</p>
+                        <Badge variant="secondary" className="text-xs mt-0.5">{tool.badge}</Badge>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-snug mb-3">{tool.desc}</p>
+                    <div className="flex items-center gap-1 text-xs text-primary font-medium">
+                      <span>Open tool</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── EXPLORE MORE VIDEO TO MP3 TOOLS ── */}
+        <section className="bg-muted/30 py-16">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
               <h2 className="text-2xl md:text-3xl font-bold mb-3">Explore More Video to MP3 Tools</h2>
@@ -1167,7 +1232,7 @@ export default function MP4toMP3() {
         </section>
 
         {/* ── RELATED TOOLS ── */}
-        <section className="bg-muted/30 py-16">
+        <section className="py-16">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
               <h2 className="text-2xl md:text-3xl font-bold mb-3">Related Video &amp; Audio Tools</h2>
