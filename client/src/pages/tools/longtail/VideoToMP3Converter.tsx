@@ -169,23 +169,7 @@ export default function VideoToMP3ConverterPage() {
           </p>
         </section>
 
-        {/* MAIN TOOL BANNER */}
-        <div className="container mx-auto px-4 max-w-3xl pb-6">
-          <Card className="p-4">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5">Main Tool</p>
-                <p className="font-semibold text-sm">MP4 to MP3 Converter</p>
-                <p className="text-xs text-muted-foreground mt-0.5">This page is part of the Pixocraft MP4 to MP3 Converter ecosystem.</p>
-              </div>
-              <Button asChild size="sm">
-                <Link href="/tools/mp4-to-mp3">Use Main MP4 to MP3 Converter</Link>
-              </Button>
-            </div>
-          </Card>
-        </div>
-
-        {/* SECTION 2 — TOOL INTERFACE */}
+{/* SECTION 2 — TOOL INTERFACE */}
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">
           <VideoToMP3Converter title="Video to MP3 Converter" />
         </section>
@@ -400,7 +384,24 @@ export default function VideoToMP3ConverterPage() {
           </div>
         </section>
 
-        {/* Footer link */}
+                {/* MAIN TOOL BANNER */}
+        <div className="container mx-auto px-4 max-w-3xl pb-6">
+          <Card className="p-4">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5">Main Tool</p>
+                <p className="font-semibold text-sm">MP4 to MP3 Converter</p>
+                <p className="text-xs text-muted-foreground mt-0.5">This page is part of the Pixocraft MP4 to MP3 Converter ecosystem.</p>
+              </div>
+              <Button asChild size="sm">
+                <Link href="/tools/mp4-to-mp3">Use Main MP4 to MP3 Converter</Link>
+              </Button>
+            </div>
+          </Card>
+        </div>
+
+        
+{/* Footer link */}
         <div className="border-t">
           <p className="text-center text-sm text-muted-foreground py-6">
             Category:{" "}
