@@ -377,7 +377,6 @@ const PNGtoJPG = lazy(() => import("@/pages/tools/PNGtoJPG"));
 const VideoToGIF = lazy(() => import("@/pages/tools/VideoToGIF"));
 const GIFCompressor = lazy(() => import("@/pages/tools/GIFCompressor"));
 const MP3Cutter = lazy(() => import("@/pages/tools/MP3Cutter"));
-const AudioToMP3 = lazy(() => import("@/pages/tools/AudioToMP3"));
 const VideoCompressor = lazy(() => import("@/pages/tools/VideoCompressor"));
 const BackgroundRemover = lazy(() => import("@/pages/tools/BackgroundRemover"));
 const ImageUpscaler = lazy(() => import("@/pages/tools/ImageUpscaler"));
@@ -794,7 +793,6 @@ function Router() {
         <Route path="/tools/video-to-gif" component={VideoToGIF} />
         <Route path="/tools/gif-compressor" component={GIFCompressor} />
         <Route path="/tools/mp3-cutter" component={MP3Cutter} />
-        <Route path="/tools/audio-to-mp3" component={AudioToMP3} />
         <Route path="/tools/video-compressor" component={VideoCompressor} />
         <Route path="/tools/background-remover" component={BackgroundRemover} />
         <Route path="/tools/image-upscaler" component={ImageUpscaler} />

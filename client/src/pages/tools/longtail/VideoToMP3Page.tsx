@@ -1,13 +1,10 @@
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateHowToSchema } from "@/lib/seo";
 import {
   Music,
-  Upload,
-  Download,
-  X,
   Shield,
   Zap,
   WifiOff,
@@ -21,19 +18,12 @@ import {
   Video,
   CheckCircle,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { convertMP4ToMP3, formatFileSize } from "@/lib/ffmpeg-client";
+import VideoToMP3Converter from "@/components/VideoToMP3Converter";
 
 const OG_IMAGE = "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=630&fit=crop";
 
-const BITRATE_OPTIONS = [
-  { value: "128k", label: "128 kbps", description: "Small size, podcasts & speech" },
-  { value: "192k", label: "192 kbps", description: "Balanced for most use cases" },
-  { value: "256k", label: "256 kbps", description: "High quality music" },
-  { value: "320k", label: "320 kbps", description: "Maximum audiophile quality" },
-];
 
 const FEATURES = [
   { icon: Shield, title: "100% Private", description: "Your files never leave your device. No data uploaded to any server." },
@@ -105,14 +95,7 @@ const generateBreadcrumbSchema = (config: FormatConfig) => ({
 });
 
 export function VideoToMP3Page({ config }: Props) {
-  const [file, setFile] = useState<File | null>(null);
-  const [mp3Blob, setMp3Blob] = useState<Blob | null>(null);
-  const [converting, setConverting] = useState(false);
-  const [bitrate, setBitrate] = useState("192k");
-  const [isDragging, setIsDragging] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
 
   useSEO({
     title: config.metaTitle,
@@ -121,53 +104,6 @@ export function VideoToMP3Page({ config }: Props) {
     canonicalUrl: config.canonicalUrl,
     ogImage: OG_IMAGE,
   });
-
-  const handleFiles = useCallback((files: FileList | null) => {
-    const selectedFile = files?.[0];
-    if (!selectedFile) return;
-    if (selectedFile.type.startsWith("video/") || selectedFile.name.toLowerCase().endsWith(`.${config.format.toLowerCase()}`)) {
-      setFile(selectedFile);
-      setMp3Blob(null);
-    } else {
-      toast({ title: "Invalid File", description: `Please select a valid ${config.format} video file.`, variant: "destructive" });
-    }
-  }, [toast, config.format]);
-
-  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => handleFiles(e.target.files);
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    handleFiles(e.dataTransfer.files);
-  }, [handleFiles]);
-  const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
-  const handleDragLeave = () => setIsDragging(false);
-
-  const convert = async () => {
-    if (!file) return;
-    setConverting(true);
-    setMp3Blob(null);
-    try {
-      const result = await convertMP4ToMP3(file, bitrate);
-      setMp3Blob(result);
-      toast({ title: "Conversion Complete!", description: "Your MP3 file is ready to download." });
-    } catch {
-      toast({ title: "Conversion Failed", description: "Could not extract audio. Try a different file.", variant: "destructive" });
-    } finally {
-      setConverting(false);
-    }
-  };
-
-  const download = () => {
-    if (!mp3Blob) return;
-    const url = URL.createObjectURL(mp3Blob);
-    const link = document.createElement("a");
-    link.download = file?.name.replace(/\.[^.]+$/, ".mp3") || "audio.mp3";
-    link.href = url;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const reset = () => { setFile(null); setMp3Blob(null); };
 
   const howToSteps = [
     { name: `Upload your ${config.format} file`, text: `Click the upload area or drag and drop your ${config.format} video file.` },
@@ -246,75 +182,7 @@ export function VideoToMP3Page({ config }: Props) {
 
         {/* ── TOOL ── */}
         <section id="converter" className="container mx-auto px-4 max-w-3xl pb-16">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">{config.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {!file ? (
-                <div
-                  data-testid="upload-area"
-                  className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${isDragging ? "border-primary bg-primary/5" : "border-border bg-muted/30 hover-elevate"}`}
-                  onClick={() => fileInputRef.current?.click()}
-                  onDrop={handleDrop}
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                >
-                  <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <p className="text-base font-medium mb-1">Drag and drop your {config.format} file here</p>
-                  <p className="text-sm text-muted-foreground mb-4">or</p>
-                  <Button data-testid="button-upload" type="button">Upload {config.format} File</Button>
-                  <p className="text-xs text-muted-foreground mt-4">Supports {config.formatLabel}</p>
-                  <input ref={fileInputRef} type="file" accept={config.accept} onChange={handleFileInput} className="hidden" data-testid="input-file" />
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="flex items-start justify-between gap-2 p-4 rounded-lg bg-muted/50">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <FileAudio className="h-8 w-8 text-primary shrink-0" />
-                      <div className="min-w-0">
-                        <p className="font-medium text-sm truncate" data-testid="text-filename">{file.name}</p>
-                        <p className="text-xs text-muted-foreground" data-testid="text-filesize">{formatFileSize(file.size)}</p>
-                      </div>
-                    </div>
-                    <Button variant="ghost" size="icon" onClick={reset} data-testid="button-reset" className="shrink-0">
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium mb-3">Audio Quality</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {BITRATE_OPTIONS.map((opt) => (
-                        <button
-                          key={opt.value}
-                          data-testid={`button-bitrate-${opt.value}`}
-                          onClick={() => setBitrate(opt.value)}
-                          className={`rounded-md border p-3 text-left transition-colors toggle-elevate ${bitrate === opt.value ? "border-primary bg-primary/10 toggle-elevated" : "border-border"}`}
-                        >
-                          <p className="font-semibold text-sm">{opt.label}</p>
-                          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{opt.description}</p>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    <Button onClick={convert} disabled={converting} className="flex-1" data-testid="button-convert">
-                      {converting ? "Converting…" : `Convert ${config.format} to MP3`}
-                    </Button>
-                    {mp3Blob && (
-                      <Button onClick={download} variant="outline" className="flex-1" data-testid="button-download">
-                        <Download className="mr-2 h-4 w-4" />
-                        Download MP3 ({formatFileSize(mp3Blob.size)})
-                      </Button>
-                    )}
-                  </div>
-                  {converting && (
-                    <p className="text-sm text-muted-foreground text-center">Processing audio with FFmpeg in your browser…</p>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <VideoToMP3Converter title={config.title} />
         </section>
 
         {/* ── WHAT IS FORMAT (format-specific) ── */}

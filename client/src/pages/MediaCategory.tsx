@@ -44,7 +44,6 @@ export default function MediaCategory() {
     { id: "gif-to-mp4", name: "GIF to MP4", description: "Convert animated GIFs to MP4 video format for smaller file sizes and better compatibility.", path: "/tools/gif-to-mp4" },
     { id: "gif-compressor", name: "GIF Compressor", description: "Compress GIF files while maintaining animation quality and smoothness instantly.", path: "/tools/gif-compressor" },
     { id: "video-compressor", name: "Video Compressor", description: "Compress video files to reduce size while maintaining visual quality and clarity.", path: "/tools/video-compressor" },
-    { id: "audio-to-mp3", name: "Audio to MP3 Converter", description: "Convert any audio file to MP3 format. Supports WAV, OGG, AAC, M4A and more formats.", path: "/tools/audio-to-mp3" },
     { id: "mp3-cutter", name: "MP3 Cutter", description: "Cut and trim MP3 audio files online with precise frame-level accuracy control.", path: "/tools/mp3-cutter" },
     { id: "mp4-to-mp3", name: "MP4 to MP3 Converter", description: "Extract audio from MP4 videos and convert to MP3 format quickly and easily.", path: "/tools/mp4-to-mp3" },
     { id: "audio-noise-remover", name: "Audio Noise Remover", description: "Remove background noise and clean up audio recordings with one click processing.", path: "/tools/audio-noise-remover" },

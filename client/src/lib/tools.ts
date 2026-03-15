@@ -1605,15 +1605,6 @@ export const tools: ToolMetadata[] = [
     keywords: ["mp3 cutter", "audio trimmer", "cut mp3 online", "trim audio file", "mp3 editor"],
   },
   {
-    id: "audio-to-mp3",
-    name: "Audio to MP3 Converter",
-    description: "Convert any audio file to MP3 format free. Supports WAV, OGG, AAC, M4A and more. 100% offline converter.",
-    icon: "Volume2",
-    path: "/tools/audio-to-mp3",
-    category: "media",
-    keywords: ["audio to mp3", "convert audio to mp3", "mp3 converter online", "audio format converter", "wav to mp3"],
-  },
-  {
     id: "video-compressor",
     name: "Video Compressor",
     description: "Compress video files online free. Reduce MP4 file size while maintaining quality. Fast, secure, works offline in browser.",

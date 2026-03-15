@@ -133,12 +133,12 @@ const FAQS = [
 ];
 
 const RELATED_TOOLS = [
-  { label: "Video to MP3", href: "/tools/audio-to-mp3", icon: Music },
+  { label: "Video to MP3", href: "/tools/video-to-mp3-converter", icon: Music },
   { label: "AVI to MP3", href: "/tools/avi-to-mp3", icon: FileAudio },
   { label: "MOV to MP3", href: "/tools/mov-to-mp3", icon: FileAudio },
   { label: "MKV to MP3", href: "/tools/mkv-to-mp3", icon: FileAudio },
   { label: "WEBM to MP3", href: "/tools/webm-to-mp3", icon: FileAudio },
-  { label: "Audio Converter", href: "/tools/audio-to-mp3", icon: Headphones },
+  { label: "Extract Audio", href: "/tools/extract-audio-from-video", icon: Headphones },
 ];
 
 const EXPLORE_MORE_TOOLS = [
