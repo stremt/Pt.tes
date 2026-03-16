@@ -95,7 +95,9 @@ export default function Tools() {
         case "productivity":
           return keywords.includes("timer") || keywords.includes("todo") || keywords.includes("notes") ||
                  keywords.includes("expense") || keywords.includes("stopwatch") || keywords.includes("invoice") ||
-                 keywords.includes("receipt") || keywords.includes("tracker");
+                 keywords.includes("receipt") || keywords.includes("tracker") ||
+                 keywords.includes("ingredient") || keywords.includes("food") || keywords.includes("health analyzer") ||
+                 name.includes("ingredient") || name.includes("health analyzer");
         case "color":
           return keywords.includes("color") || keywords.includes("palette") || keywords.includes("gradient") ||
                  keywords.includes("hex") || keywords.includes("rgb") || name.includes("color");
