@@ -63,6 +63,15 @@ const DB: Record<string, IngredientEntry> = {
   "sunflower seeds":       { category: "seed",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Rich in vitamin E and healthy fats." },
   "pumpkin seeds":         { category: "seed",              healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in zinc, magnesium, and healthy fats." },
   "sesame seeds":          { category: "seed",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Good source of calcium, copper, and healthy fats." },
+  // ── Legumes ──
+  "lentils":               { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "High in plant protein, fiber, and iron. Excellent for blood sugar and gut health." },
+  "chickpeas":             { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "Rich in protein, fiber, and micronutrients. Supports heart and digestive health." },
+  "kidney beans":          { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "High in fiber, protein, and antioxidants." },
+  "black beans":           { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "Excellent source of fiber, folate, and plant protein." },
+  "soybeans":              { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "Complete plant protein with all essential amino acids." },
+  "peas":                  { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "Good source of plant protein, fiber, and vitamins A and C." },
+  "green peas":            { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "High in plant protein, fiber, and vitamins." },
+  "split peas":            { category: "legume",            healthImpact: "healthy",  scoreAdjust: 10, explanation: "Excellent source of fiber and plant protein." },
   // ── Natural plant ingredients ──
   "cocoa":                 { category: "natural ingredient", healthImpact: "healthy",  scoreAdjust:  8, explanation: "Rich in flavonoids and antioxidants. Beneficial in small amounts." },
   "cocoa powder":          { category: "natural ingredient", healthImpact: "healthy",  scoreAdjust:  8, explanation: "Pure cocoa is rich in antioxidants and minerals." },
@@ -71,6 +80,12 @@ const DB: Record<string, IngredientEntry> = {
   "honey":                 { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -5, explanation: "Natural sweetener with antioxidants, but still high in sugar. Use in moderation." },
   "maple syrup":           { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -5, explanation: "Natural sweetener with trace minerals but high in sugar." },
   "stevia":                { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -2, explanation: "Plant-derived sweetener. Better alternative to refined sugar." },
+  // ── Fruit concentrates ──
+  "apple juice concentrate":  { category: "fruit concentrate", healthImpact: "moderate", scoreAdjust: -6, explanation: "Concentrated fruit sugar — high glycemic despite natural origin." },
+  "grape juice concentrate":  { category: "fruit concentrate", healthImpact: "moderate", scoreAdjust: -6, explanation: "High in fructose. More processed than whole fruit." },
+  "fruit concentrate":        { category: "fruit concentrate", healthImpact: "moderate", scoreAdjust: -6, explanation: "Concentrated fruit sugars add glycemic load without fiber." },
+  "fruit juice concentrate":  { category: "fruit concentrate", healthImpact: "moderate", scoreAdjust: -6, explanation: "Processed fruit sugar lacking the fiber of whole fruit." },
+  "date syrup":               { category: "fruit concentrate", healthImpact: "moderate", scoreAdjust: -4, explanation: "Natural sweetener from dates. Contains minerals but still high in sugar." },
   "erythritol":            { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -2, explanation: "Sugar alcohol with minimal blood sugar impact. Well tolerated in small amounts." },
   "xylitol":               { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -3, explanation: "Sugar alcohol with dental benefits. May cause digestive issues in excess." },
   "sorbitol":              { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Sugar alcohol that may cause bloating in larger amounts." },
@@ -86,10 +101,10 @@ const DB: Record<string, IngredientEntry> = {
   "pea protein":           { category: "protein",            healthImpact: "healthy",  scoreAdjust:  8, explanation: "Plant-based complete protein. Good for muscle and satiety." },
   "soy protein":           { category: "protein",            healthImpact: "moderate", scoreAdjust: -2, explanation: "Complete plant protein. Moderate amounts are safe for most people." },
   // ── Oils ──
-  "sunflower oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "High in omega-6. Fine in moderation; excess may promote inflammation." },
-  "canola oil":            { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Low in saturated fat. Acceptable in moderation." },
-  "vegetable oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Generic vegetable oil — composition varies. Moderate use acceptable." },
-  "soybean oil":           { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "High in omega-6 fatty acids. Use in moderation." },
+  "sunflower oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -6, explanation: "High in omega-6. Fine in moderation; excess may promote inflammation." },
+  "canola oil":            { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -6, explanation: "Low in saturated fat. Acceptable in moderation." },
+  "vegetable oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -6, explanation: "Generic vegetable oil — composition varies. Moderate use acceptable." },
+  "soybean oil":           { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -6, explanation: "High in omega-6 fatty acids. Use in moderation." },
   "coconut oil":           { category: "oil",                healthImpact: "moderate", scoreAdjust: -5, explanation: "High in saturated fat. Moderate consumption acceptable." },
   "palm oil":              { category: "oil",                healthImpact: "harmful",  scoreAdjust:-15, explanation: "High in saturated fat. Linked to increased heart disease risk." },
   "palm kernel oil":       { category: "oil",                healthImpact: "harmful",  scoreAdjust:-15, explanation: "Very high in saturated fat. Linked to cardiovascular disease." },
@@ -108,7 +123,7 @@ const DB: Record<string, IngredientEntry> = {
   "dextrose":              { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Simple sugar with very high glycemic index." },
   "maltose":               { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "High glycemic index sugar that rapidly raises blood sugar." },
   "sucrose":               { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Table sugar linked to metabolic disorders." },
-  "maltodextrin":          { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Ultra-processed carbohydrate with glycemic index even higher than table sugar." },
+  "maltodextrin":          { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-15, explanation: "Ultra-processed carbohydrate with glycemic index even higher than table sugar." },
   "invert sugar":          { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Mixture of glucose and fructose. Raises blood sugar rapidly." },
   "brown sugar":           { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-15, explanation: "Slightly less processed than white sugar but still high in empty calories." },
   "cane sugar":            { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Refined sugar — same metabolic effects as white sugar." },
@@ -198,6 +213,17 @@ const NORMALIZATION_MAP: Record<string, string> = {
   "refined wheat flour": "refined wheat flour",
   "maida": "maida",
   "atta": "whole wheat flour",
+  "whole grain oats": "oats",
+  "whole grain wheat": "whole wheat",
+  "whole oat flour": "oats",
+  "rolled wheat": "whole wheat",
+  "apple concentrate": "apple juice concentrate",
+  "fruit juice": "fruit juice concentrate",
+  "date paste": "date syrup",
+  "chickpea flour": "chickpeas",
+  "lentil flour": "lentils",
+  "pea flour": "peas",
+  "soy flour": "soybeans",
   "palm olein": "palm oil",
   "partially hydrogenated vegetable oil": "partially hydrogenated oil",
   "hydrogenated vegetable oil": "hydrogenated oil",
@@ -314,6 +340,8 @@ function matchIngredient(normalized: string): IngredientEntry | null {
   if (/shortening/i.test(normalized)) return DB["shortening"];
   if (/vegetable oil|canola|sunflower oil/i.test(normalized)) return DB["vegetable oil"];
   if (/olive oil/i.test(normalized)) return DB["olive oil"];
+  if (/\bbean|lentil|chickpea|legume|\bpea\b/i.test(normalized)) return { category: "legume", healthImpact: "healthy", scoreAdjust: 10, explanation: "Legume rich in plant protein, fiber, and minerals." };
+  if (/fruit.{0,10}concentrate|juice concentrate/i.test(normalized)) return DB["fruit concentrate"];
   if (/flour|starch/i.test(normalized)) return { category: "refined carb", healthImpact: "moderate", scoreAdjust: -8, explanation: "Starchy ingredient — may be refined or whole grain depending on source." };
   if (/vitamin|vit\.|niacin|riboflavin|thiamine|folic|pyridoxine|cyanocobalamin/i.test(normalized)) return { category: "vitamin", healthImpact: "healthy", scoreAdjust: 3, explanation: "Added vitamin that supports nutritional value." };
   if (/magnesium|potassium|calcium|zinc|iron|selenium|phosphorus/i.test(normalized)) return { category: "mineral", healthImpact: "healthy", scoreAdjust: 3, explanation: "Added mineral supporting nutritional value." };
@@ -360,8 +388,17 @@ function hasEnoughFoodWords(tokens: string[]): boolean {
 function analyzeIngredients(rawInput: string): { report: HealthReport } | { error: string } {
   const rawTokens = parseIngredientList(rawInput);
 
-  if (rawTokens.length < 2 || !hasEnoughFoodWords(rawTokens)) {
-    return { error: "No valid ingredient list detected. Please paste ingredients exactly as shown on a food label, separated by commas." };
+  if (rawTokens.length < 2) {
+    return { error: "No valid ingredient list detected. Please paste ingredients exactly as written on a food label." };
+  }
+
+  const recognizedCount = rawTokens.filter((t) => {
+    const norm = normalizeIngredientName(t);
+    return matchIngredient(norm) !== null || hasEnoughFoodWords([t]);
+  }).length;
+
+  if (recognizedCount < 2) {
+    return { error: "No valid ingredient list detected. Please paste ingredients exactly as written on a food label." };
   }
 
   const analyzed: IngredientAnalysis[] = [];
@@ -399,7 +436,9 @@ function analyzeIngredients(rawInput: string): { report: HealthReport } | { erro
     const w = getPositionWeight(idx);
     score += entry.scoreAdjust * w;
   });
-  score = Math.max(0, Math.min(100, Math.round(score)));
+  const hasAnyHarmfulOrModerate = analyzed.some((i) => i.healthImpact === "harmful" || i.healthImpact === "moderate");
+  const maxScore = hasAnyHarmfulOrModerate ? 95 : 100;
+  score = Math.max(0, Math.min(maxScore, Math.round(score)));
 
   const normalizedNames = analyzed.map((i) => i.normalizedName);
   const hasSugar = normalizedNames.some((n) => ["sugar", "cane sugar", "brown sugar", "invert sugar", "high fructose corn syrup", "corn syrup", "glucose", "dextrose", "sucrose", "fructose", "maltose"].includes(n));
@@ -447,11 +486,11 @@ function analyzeIngredients(rawInput: string): { report: HealthReport } | { erro
     dietWarnings.push("People avoiding ultra-processed foods");
 
   let verdict: string;
-  if (score >= 80) verdict = "This product is very healthy. It is made up of natural, wholesome ingredients with minimal processing. Excellent for regular consumption as part of a balanced diet.";
-  else if (score >= 60) verdict = "This product is generally healthy. It contains mostly good ingredients with some processed elements. Suitable for regular consumption with moderation.";
+  if (score >= 80) verdict = "This product is excellent and very healthy. It is made up of natural, wholesome ingredients with minimal processing. Excellent for regular daily consumption as part of a balanced diet.";
+  else if (score >= 60) verdict = "This product is healthy overall. It contains mostly good ingredients with some processed or moderate elements. Suitable for regular consumption.";
   else if (score >= 40) verdict = "This product is moderately processed. It contains a mix of acceptable and concerning ingredients. Consume occasionally and consider healthier alternatives.";
   else if (score >= 20) verdict = "This product is unhealthy. It contains multiple harmful ingredients such as artificial additives, excessive sugars, or harmful fats. Minimize consumption.";
-  else verdict = "This product is highly unhealthy. It is loaded with harmful ingredients — trans fats, artificial additives, excessive sugar, or chemical preservatives. Avoid or replace with a whole food alternative.";
+  else verdict = "This product is highly unhealthy. It is loaded with harmful ingredients — trans fats, artificial additives, excessive sugar, or chemical preservatives. Avoid and replace with a whole food alternative.";
 
   const healthyCount = analyzed.filter((i) => i.healthImpact === "healthy").length;
   const moderateCount = analyzed.filter((i) => i.healthImpact === "moderate").length;
@@ -487,7 +526,7 @@ function ScoreDisplay({ score }: { score: number }) {
     : score >= 20 ? "bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800"
     : "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800";
   const bar = score >= 80 ? "bg-green-500" : score >= 60 ? "bg-lime-500" : score >= 40 ? "bg-yellow-500" : score >= 20 ? "bg-orange-500" : "bg-red-500";
-  const label = score >= 80 ? "Excellent / Very Healthy" : score >= 60 ? "Healthy" : score >= 40 ? "Moderate / Processed" : score >= 20 ? "Unhealthy" : "Highly Unhealthy / Avoid";
+  const label = score >= 95 ? "Excellent / Near-Perfect" : score >= 80 ? "Very Healthy" : score >= 60 ? "Healthy" : score >= 40 ? "Moderate / Processed" : score >= 20 ? "Unhealthy" : "Highly Unhealthy / Avoid";
 
   return (
     <div className={`rounded-xl border-2 p-6 text-center ${bg}`}>
