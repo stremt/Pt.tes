@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
-import { Heart, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Leaf } from "lucide-react";
+import { Heart, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Leaf, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,8 +10,16 @@ import { Label } from "@/components/ui/label";
 
 type HealthImpact = "healthy" | "moderate" | "harmful" | "unknown";
 
+interface IngredientEntry {
+  category: string;
+  healthImpact: HealthImpact;
+  explanation: string;
+  scoreAdjust: number;
+}
+
 interface IngredientAnalysis {
-  name: string;
+  originalName: string;
+  normalizedName: string;
   category: string;
   healthImpact: HealthImpact;
   explanation: string;
@@ -20,375 +28,549 @@ interface IngredientAnalysis {
 interface HealthReport {
   ingredients: IngredientAnalysis[];
   warnings: string[];
+  combinationWarnings: string[];
   positives: string[];
   score: number;
-  scoreLabel: string;
   dietWarnings: string[];
   verdict: string;
+  healthyCount: number;
+  moderateCount: number;
+  harmfulCount: number;
+  unknownCount: number;
 }
 
-const INGREDIENT_DATABASE: Record<string, Omit<IngredientAnalysis, "name">> = {
-  // Healthy whole foods
-  "oats": { category: "whole grain", healthImpact: "healthy", explanation: "Rich in fiber, beta-glucan, and complex carbohydrates. Excellent for heart health and blood sugar control." },
-  "oatmeal": { category: "whole grain", healthImpact: "healthy", explanation: "Rich in fiber and complex carbs. Supports heart health and sustained energy." },
-  "rolled oats": { category: "whole grain", healthImpact: "healthy", explanation: "Minimally processed whole grain with soluble fiber for cholesterol reduction." },
-  "whole wheat": { category: "whole grain", healthImpact: "healthy", explanation: "Contains fiber, vitamins, and minerals. Better than refined wheat." },
-  "whole grain": { category: "whole grain", healthImpact: "healthy", explanation: "Provides fiber, B vitamins, and minerals for sustained energy." },
-  "almonds": { category: "nut", healthImpact: "healthy", explanation: "High in healthy fats, vitamin E, magnesium, and protein." },
-  "walnuts": { category: "nut", healthImpact: "healthy", explanation: "Rich in omega-3 fatty acids and antioxidants. Excellent for brain health." },
-  "cashews": { category: "nut", healthImpact: "healthy", explanation: "Good source of magnesium, zinc, and healthy fats." },
-  "flaxseed": { category: "seed", healthImpact: "healthy", explanation: "High in omega-3 fatty acids and lignans. Supports heart health." },
-  "chia seeds": { category: "seed", healthImpact: "healthy", explanation: "Excellent source of omega-3s, fiber, and calcium." },
-  "sunflower seeds": { category: "seed", healthImpact: "healthy", explanation: "Rich in vitamin E and healthy fats." },
-  "honey": { category: "natural sweetener", healthImpact: "moderate", explanation: "Natural sweetener with antioxidants, but still high in sugar. Use in moderation." },
-  "coconut oil": { category: "oil", healthImpact: "moderate", explanation: "High in saturated fat. Moderate consumption acceptable; limit if monitoring cholesterol." },
-  "olive oil": { category: "oil", healthImpact: "healthy", explanation: "Rich in monounsaturated fats and polyphenols. Supports heart health." },
-  "sunflower oil": { category: "oil", healthImpact: "moderate", explanation: "High in omega-6 fatty acids. Fine in moderation but may promote inflammation in excess." },
-  "palm oil": { category: "oil", healthImpact: "harmful", explanation: "High in saturated fat. Associated with increased heart disease risk." },
-  "cocoa": { category: "whole food", healthImpact: "healthy", explanation: "Rich in flavonoids and antioxidants. Beneficial in small amounts without added sugar." },
-  "dark chocolate": { category: "whole food", healthImpact: "moderate", explanation: "Contains antioxidants but also sugar and fat. Moderate consumption is fine." },
-  "milk": { category: "dairy", healthImpact: "moderate", explanation: "Good source of calcium and protein. Full-fat versions are high in saturated fat." },
-  "skimmed milk": { category: "dairy", healthImpact: "healthy", explanation: "Low-fat source of protein and calcium." },
-  "whey protein": { category: "protein", healthImpact: "healthy", explanation: "High-quality complete protein. Beneficial for muscle maintenance." },
-  "pea protein": { category: "protein", healthImpact: "healthy", explanation: "Plant-based complete protein. Good for muscle and satiety." },
-  "soy protein": { category: "protein", healthImpact: "moderate", explanation: "Complete plant protein. Moderate amounts are safe for most people." },
-  // Sweeteners
-  "sugar": { category: "sweetener", healthImpact: "harmful", explanation: "Refined sugar with no nutritional value. Contributes to obesity, diabetes, and tooth decay." },
-  "glucose": { category: "sweetener", healthImpact: "harmful", explanation: "Simple sugar that rapidly spikes blood glucose levels." },
-  "fructose": { category: "sweetener", healthImpact: "harmful", explanation: "Excess fructose is metabolized by the liver and may contribute to fatty liver disease." },
-  "high fructose corn syrup": { category: "sweetener", healthImpact: "harmful", explanation: "Highly processed sweetener strongly associated with obesity and metabolic syndrome." },
-  "corn syrup": { category: "sweetener", healthImpact: "harmful", explanation: "Concentrated sugar source with high glycemic impact." },
-  "dextrose": { category: "sweetener", healthImpact: "harmful", explanation: "Simple sugar with high glycemic index, causes rapid blood sugar spikes." },
-  "maltose": { category: "sweetener", healthImpact: "harmful", explanation: "High glycemic index sugar that rapidly raises blood sugar." },
-  "sucrose": { category: "sweetener", healthImpact: "harmful", explanation: "Table sugar. High consumption linked to metabolic disorders." },
-  "maltodextrin": { category: "sweetener", healthImpact: "harmful", explanation: "Ultra-processed carbohydrate with very high glycemic index, even higher than table sugar." },
-  "aspartame": { category: "artificial sweetener", healthImpact: "harmful", explanation: "Controversial artificial sweetener. May affect gut microbiome and is linked to headaches in sensitive individuals." },
-  "saccharin": { category: "artificial sweetener", healthImpact: "harmful", explanation: "Oldest artificial sweetener. Some studies suggest negative effects on gut bacteria." },
-  "acesulfame potassium": { category: "artificial sweetener", healthImpact: "harmful", explanation: "Artificial sweetener that may interfere with metabolic processes." },
-  "acesulfame k": { category: "artificial sweetener", healthImpact: "harmful", explanation: "Artificial sweetener with limited long-term safety data." },
-  "sucralose": { category: "artificial sweetener", healthImpact: "moderate", explanation: "Artificial sweetener. Generally considered safe but may affect gut microbiome." },
-  "stevia": { category: "natural sweetener", healthImpact: "moderate", explanation: "Plant-derived sweetener. Better alternative to refined sugar or artificial sweeteners." },
-  "erythritol": { category: "sugar alcohol", healthImpact: "moderate", explanation: "Sugar alcohol with minimal blood sugar impact. Well tolerated in small amounts." },
-  "xylitol": { category: "sugar alcohol", healthImpact: "moderate", explanation: "Sugar alcohol with dental benefits. May cause digestive issues in excess." },
-  "sorbitol": { category: "sugar alcohol", healthImpact: "moderate", explanation: "Sugar alcohol that may cause bloating and digestive discomfort in larger amounts." },
-  // Preservatives
-  "sodium benzoate": { category: "preservative", healthImpact: "harmful", explanation: "Preservative that may convert to benzene (a carcinogen) when combined with vitamin C." },
-  "potassium sorbate": { category: "preservative", healthImpact: "moderate", explanation: "Common preservative. Generally recognized as safe but may cause mild irritation." },
-  "sodium nitrate": { category: "preservative", healthImpact: "harmful", explanation: "Preservative linked to increased cancer risk, especially colorectal cancer." },
-  "sodium nitrite": { category: "preservative", healthImpact: "harmful", explanation: "Meat preservative that can form nitrosamines, which are carcinogenic." },
-  "bha": { category: "preservative", healthImpact: "harmful", explanation: "Butylated hydroxyanisole — a synthetic antioxidant/preservative classified as possibly carcinogenic." },
-  "bht": { category: "preservative", healthImpact: "harmful", explanation: "Butylated hydroxytoluene — synthetic preservative with potential endocrine-disrupting effects." },
-  "tbhq": { category: "preservative", healthImpact: "harmful", explanation: "Synthetic preservative with potential carcinogenic concerns at high doses." },
-  "calcium propionate": { category: "preservative", healthImpact: "moderate", explanation: "Common bread preservative. Generally safe but some sensitivity reports exist." },
-  "sodium metabisulfite": { category: "preservative", healthImpact: "moderate", explanation: "Sulfite preservative that can trigger reactions in sulfite-sensitive individuals." },
-  // Artificial colors
-  "red 40": { category: "artificial color", healthImpact: "harmful", explanation: "Synthetic dye linked to hyperactivity in children. Banned in some countries." },
-  "yellow 5": { category: "artificial color", healthImpact: "harmful", explanation: "Tartrazine — artificial color associated with hyperactivity and allergic reactions." },
-  "yellow 6": { category: "artificial color", healthImpact: "harmful", explanation: "Sunset yellow — synthetic dye with potential links to hyperactivity." },
-  "blue 1": { category: "artificial color", healthImpact: "harmful", explanation: "Brilliant Blue — artificial color with limited long-term safety data." },
-  "caramel color": { category: "artificial color", healthImpact: "moderate", explanation: "Some forms (Class IV) contain 4-MEI, a potential carcinogen." },
-  // Flavor additives
-  "artificial flavor": { category: "artificial flavoring", healthImpact: "harmful", explanation: "Synthetic flavor compounds of largely unknown composition and health effects." },
-  "artificial flavors": { category: "artificial flavoring", healthImpact: "harmful", explanation: "Synthetic flavor chemicals that may mask poor ingredient quality." },
-  "natural flavor": { category: "flavoring", healthImpact: "moderate", explanation: "Can be sourced naturally but is highly processed. Composition is often proprietary." },
-  "natural flavors": { category: "flavoring", healthImpact: "moderate", explanation: "Derived from natural sources but processing removes nutritional value." },
-  "msg": { category: "flavoring", healthImpact: "moderate", explanation: "Monosodium glutamate — flavor enhancer. Generally safe but some people report sensitivity." },
-  "monosodium glutamate": { category: "flavoring", healthImpact: "moderate", explanation: "Flavor enhancer. FDA recognizes as safe; some people report headaches or discomfort." },
-  // Fats
-  "hydrogenated oil": { category: "unhealthy fat", healthImpact: "harmful", explanation: "Contains trans fats that raise LDL cholesterol and lower HDL. Major heart disease risk factor." },
-  "partially hydrogenated oil": { category: "unhealthy fat", healthImpact: "harmful", explanation: "Primary source of industrial trans fats. Strongly linked to cardiovascular disease." },
-  "trans fat": { category: "unhealthy fat", healthImpact: "harmful", explanation: "Industrial trans fats are among the most harmful dietary fats known." },
-  "shortening": { category: "fat", healthImpact: "harmful", explanation: "Often contains hydrogenated oils and trans fats." },
-  "lard": { category: "fat", healthImpact: "moderate", explanation: "Animal fat high in saturated fat. Use in moderation." },
-  // Additives & emulsifiers
-  "soy lecithin": { category: "emulsifier", healthImpact: "moderate", explanation: "Common emulsifier derived from soybeans. Generally safe in small quantities." },
-  "sunflower lecithin": { category: "emulsifier", healthImpact: "moderate", explanation: "Emulsifier considered safer than soy lecithin. Generally well tolerated." },
-  "carrageenan": { category: "thickener", healthImpact: "harmful", explanation: "Seaweed extract used as thickener. Associated with gut inflammation in some studies." },
-  "xanthan gum": { category: "thickener", healthImpact: "moderate", explanation: "Fermented thickener. Safe in small amounts but may cause digestive issues in excess." },
-  "guar gum": { category: "thickener", healthImpact: "moderate", explanation: "Natural thickener. May cause bloating in sensitive individuals." },
-  "locust bean gum": { category: "thickener", healthImpact: "moderate", explanation: "Natural thickener from carob seeds. Generally safe." },
-  "modified starch": { category: "thickener", healthImpact: "moderate", explanation: "Chemically altered starch. High glycemic and highly processed." },
-  "modified food starch": { category: "thickener", healthImpact: "moderate", explanation: "Processed starch used as thickener. Generally safe but highly processed." },
-  "sodium phosphate": { category: "additive", healthImpact: "harmful", explanation: "High phosphate intake is linked to kidney disease and cardiovascular issues." },
-  "disodium phosphate": { category: "additive", healthImpact: "harmful", explanation: "Phosphate additive linked to accelerated aging and kidney stress." },
-  "calcium disodium edta": { category: "preservative", healthImpact: "moderate", explanation: "Chelating preservative. Safe at approved levels but may reduce mineral absorption." },
-  // Sodium/salt
-  "salt": { category: "mineral", healthImpact: "moderate", explanation: "Essential mineral but excess sodium linked to high blood pressure and cardiovascular disease." },
-  "sodium": { category: "mineral", healthImpact: "moderate", explanation: "Essential but high intake raises blood pressure risk." },
-  "sodium chloride": { category: "mineral", healthImpact: "moderate", explanation: "Table salt. Essential in small amounts; excess raises blood pressure." },
-  // Vitamins & minerals (added)
-  "vitamin c": { category: "vitamin", healthImpact: "healthy", explanation: "Essential antioxidant vitamin supporting immune function." },
-  "ascorbic acid": { category: "vitamin", healthImpact: "healthy", explanation: "Vitamin C — antioxidant used as a nutrient or preservative." },
-  "vitamin e": { category: "vitamin", healthImpact: "healthy", explanation: "Fat-soluble antioxidant protecting cells from oxidative damage." },
-  "tocopherol": { category: "vitamin", healthImpact: "healthy", explanation: "Natural form of vitamin E used as an antioxidant." },
-  "niacin": { category: "vitamin", healthImpact: "healthy", explanation: "Vitamin B3 — essential for energy metabolism." },
-  "riboflavin": { category: "vitamin", healthImpact: "healthy", explanation: "Vitamin B2 — important for energy production." },
-  "thiamine": { category: "vitamin", healthImpact: "healthy", explanation: "Vitamin B1 — essential for carbohydrate metabolism." },
-  "iron": { category: "mineral", healthImpact: "healthy", explanation: "Essential mineral for oxygen transport in the blood." },
-  "calcium": { category: "mineral", healthImpact: "healthy", explanation: "Essential mineral for bone health and muscle function." },
-  "zinc": { category: "mineral", healthImpact: "healthy", explanation: "Essential trace mineral supporting immune function." },
-  // Fiber
-  "dietary fiber": { category: "fiber", healthImpact: "healthy", explanation: "Supports digestive health, blood sugar control, and cholesterol levels." },
-  "inulin": { category: "fiber", healthImpact: "healthy", explanation: "Prebiotic fiber that feeds beneficial gut bacteria." },
-  "psyllium husk": { category: "fiber", healthImpact: "healthy", explanation: "Soluble fiber excellent for digestive health and cholesterol reduction." },
-  // Refined carbs
-  "enriched flour": { category: "refined grain", healthImpact: "moderate", explanation: "Refined wheat with some vitamins added back. Lower fiber than whole grain." },
-  "refined flour": { category: "refined grain", healthImpact: "moderate", explanation: "Stripped of fiber and most nutrients. High glycemic index." },
-  "white flour": { category: "refined grain", healthImpact: "moderate", explanation: "Refined grain with minimal fiber. Raises blood sugar quickly." },
-  "maida": { category: "refined grain", healthImpact: "harmful", explanation: "Highly refined wheat flour with very low nutritional value and high glycemic index." },
-  "refined wheat flour": { category: "refined grain", healthImpact: "moderate", explanation: "Processed flour lacking the fiber and nutrients of whole wheat." },
-  "corn starch": { category: "starch", healthImpact: "moderate", explanation: "High glycemic starch with minimal nutritional value." },
-  "tapioca starch": { category: "starch", healthImpact: "moderate", explanation: "Gluten-free starch but low in nutrients." },
+const DB: Record<string, IngredientEntry> = {
+  // ── Whole grains ──
+  "oats":                  { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Rich in beta-glucan fiber. Excellent for heart health and blood sugar control." },
+  "oatmeal":               { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Minimally processed whole grain. Provides sustained energy and fiber." },
+  "rolled oats":           { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Minimally processed oats with soluble fiber for cholesterol reduction." },
+  "whole wheat":           { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Contains fiber, vitamins, and minerals. Better than refined wheat." },
+  "whole grain":           { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Provides fiber, B vitamins, and minerals for sustained energy." },
+  "whole wheat flour":     { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 12, explanation: "Retains fiber and nutrients compared to refined flour." },
+  "brown rice":            { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 12, explanation: "Whole grain with fiber, magnesium, and B vitamins." },
+  "quinoa":                { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 15, explanation: "Complete plant protein with all essential amino acids and high fiber." },
+  "barley":                { category: "whole grain",       healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in soluble fiber. Supports cholesterol and blood sugar." },
+  // ── Nuts ──
+  "almonds":               { category: "nut",               healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in healthy fats, vitamin E, magnesium, and protein." },
+  "walnuts":               { category: "nut",               healthImpact: "healthy",  scoreAdjust: 12, explanation: "Rich in omega-3 fatty acids and antioxidants. Excellent for brain health." },
+  "cashews":               { category: "nut",               healthImpact: "healthy",  scoreAdjust: 12, explanation: "Good source of magnesium, zinc, and healthy fats." },
+  "peanuts":               { category: "nut",               healthImpact: "healthy",  scoreAdjust: 10, explanation: "High in protein and healthy monounsaturated fats." },
+  "pistachios":            { category: "nut",               healthImpact: "healthy",  scoreAdjust: 12, explanation: "Rich in antioxidants, fiber, and healthy fats." },
+  "hazelnuts":             { category: "nut",               healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in vitamin E and healthy monounsaturated fats." },
+  // ── Seeds ──
+  "flaxseed":              { category: "seed",              healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in omega-3 fatty acids and lignans. Supports heart health." },
+  "chia seeds":            { category: "seed",              healthImpact: "healthy",  scoreAdjust: 12, explanation: "Excellent source of omega-3s, fiber, and calcium." },
+  "sunflower seeds":       { category: "seed",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Rich in vitamin E and healthy fats." },
+  "pumpkin seeds":         { category: "seed",              healthImpact: "healthy",  scoreAdjust: 12, explanation: "High in zinc, magnesium, and healthy fats." },
+  "sesame seeds":          { category: "seed",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Good source of calcium, copper, and healthy fats." },
+  // ── Natural plant ingredients ──
+  "cocoa":                 { category: "natural ingredient", healthImpact: "healthy",  scoreAdjust:  8, explanation: "Rich in flavonoids and antioxidants. Beneficial in small amounts." },
+  "cocoa powder":          { category: "natural ingredient", healthImpact: "healthy",  scoreAdjust:  8, explanation: "Pure cocoa is rich in antioxidants and minerals." },
+  "dark chocolate":        { category: "natural ingredient", healthImpact: "moderate", scoreAdjust: -3, explanation: "Contains antioxidants but also sugar and fat. Moderate use is fine." },
+  "olive oil":             { category: "healthy oil",        healthImpact: "healthy",  scoreAdjust:  8, explanation: "Rich in monounsaturated fats and polyphenols. Supports heart health." },
+  "honey":                 { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -5, explanation: "Natural sweetener with antioxidants, but still high in sugar. Use in moderation." },
+  "maple syrup":           { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -5, explanation: "Natural sweetener with trace minerals but high in sugar." },
+  "stevia":                { category: "natural sweetener",  healthImpact: "moderate", scoreAdjust: -2, explanation: "Plant-derived sweetener. Better alternative to refined sugar." },
+  "erythritol":            { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -2, explanation: "Sugar alcohol with minimal blood sugar impact. Well tolerated in small amounts." },
+  "xylitol":               { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -3, explanation: "Sugar alcohol with dental benefits. May cause digestive issues in excess." },
+  "sorbitol":              { category: "sugar alcohol",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Sugar alcohol that may cause bloating in larger amounts." },
+  // ── Dairy ──
+  "milk":                  { category: "dairy",              healthImpact: "moderate", scoreAdjust: -2, explanation: "Good source of calcium and protein. Full-fat versions are high in saturated fat." },
+  "skimmed milk":          { category: "dairy",              healthImpact: "healthy",  scoreAdjust:  5, explanation: "Low-fat source of protein and calcium." },
+  "skim milk":             { category: "dairy",              healthImpact: "healthy",  scoreAdjust:  5, explanation: "Low-fat dairy with protein and calcium." },
+  "butter":                { category: "dairy fat",          healthImpact: "moderate", scoreAdjust: -5, explanation: "High in saturated fat. Fine in moderation but can raise LDL cholesterol." },
+  "cream":                 { category: "dairy fat",          healthImpact: "moderate", scoreAdjust: -5, explanation: "High in saturated fat. Use sparingly." },
+  "cheese":                { category: "dairy",              healthImpact: "moderate", scoreAdjust: -3, explanation: "Good source of calcium and protein, but high in saturated fat and sodium." },
+  "yogurt":                { category: "dairy",              healthImpact: "healthy",  scoreAdjust:  8, explanation: "Contains probiotics, protein, and calcium. Supports gut health." },
+  "whey protein":          { category: "protein",            healthImpact: "healthy",  scoreAdjust:  8, explanation: "High-quality complete protein. Beneficial for muscle maintenance." },
+  "pea protein":           { category: "protein",            healthImpact: "healthy",  scoreAdjust:  8, explanation: "Plant-based complete protein. Good for muscle and satiety." },
+  "soy protein":           { category: "protein",            healthImpact: "moderate", scoreAdjust: -2, explanation: "Complete plant protein. Moderate amounts are safe for most people." },
+  // ── Oils ──
+  "sunflower oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "High in omega-6. Fine in moderation; excess may promote inflammation." },
+  "canola oil":            { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Low in saturated fat. Acceptable in moderation." },
+  "vegetable oil":         { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "Generic vegetable oil — composition varies. Moderate use acceptable." },
+  "soybean oil":           { category: "vegetable oil",      healthImpact: "moderate", scoreAdjust: -5, explanation: "High in omega-6 fatty acids. Use in moderation." },
+  "coconut oil":           { category: "oil",                healthImpact: "moderate", scoreAdjust: -5, explanation: "High in saturated fat. Moderate consumption acceptable." },
+  "palm oil":              { category: "oil",                healthImpact: "harmful",  scoreAdjust:-15, explanation: "High in saturated fat. Linked to increased heart disease risk." },
+  "palm kernel oil":       { category: "oil",                healthImpact: "harmful",  scoreAdjust:-15, explanation: "Very high in saturated fat. Linked to cardiovascular disease." },
+  // ── Harmful fats ──
+  "hydrogenated oil":      { category: "trans fat",          healthImpact: "harmful",  scoreAdjust:-25, explanation: "Contains trans fats that raise LDL and lower HDL cholesterol." },
+  "partially hydrogenated oil": { category: "trans fat",     healthImpact: "harmful",  scoreAdjust:-25, explanation: "Primary source of industrial trans fats. Strongly linked to heart disease." },
+  "trans fat":             { category: "trans fat",          healthImpact: "harmful",  scoreAdjust:-30, explanation: "Industrial trans fats are among the most harmful dietary fats." },
+  "shortening":            { category: "trans fat",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Often contains hydrogenated oils and trans fats." },
+  "lard":                  { category: "animal fat",         healthImpact: "moderate", scoreAdjust: -8, explanation: "Animal fat high in saturated fat. Use sparingly." },
+  // ── Sweeteners / Sugars ──
+  "sugar":                 { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Refined sugar with no nutritional value. Contributes to obesity, diabetes, and tooth decay." },
+  "glucose":               { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Simple sugar that rapidly spikes blood glucose levels." },
+  "fructose":              { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Excess fructose may contribute to fatty liver disease." },
+  "high fructose corn syrup": { category: "sweetener",       healthImpact: "harmful",  scoreAdjust:-25, explanation: "Highly processed sweetener strongly associated with obesity and metabolic syndrome." },
+  "corn syrup":            { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Concentrated sugar source with high glycemic impact." },
+  "dextrose":              { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Simple sugar with very high glycemic index." },
+  "maltose":               { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "High glycemic index sugar that rapidly raises blood sugar." },
+  "sucrose":               { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Table sugar linked to metabolic disorders." },
+  "maltodextrin":          { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-20, explanation: "Ultra-processed carbohydrate with glycemic index even higher than table sugar." },
+  "invert sugar":          { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Mixture of glucose and fructose. Raises blood sugar rapidly." },
+  "brown sugar":           { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-15, explanation: "Slightly less processed than white sugar but still high in empty calories." },
+  "cane sugar":            { category: "sweetener",          healthImpact: "harmful",  scoreAdjust:-18, explanation: "Refined sugar — same metabolic effects as white sugar." },
+  // ── Artificial sweeteners ──
+  "aspartame":             { category: "artificial sweetener", healthImpact: "harmful", scoreAdjust:-10, explanation: "Controversial artificial sweetener. May affect gut microbiome." },
+  "saccharin":             { category: "artificial sweetener", healthImpact: "harmful", scoreAdjust:-10, explanation: "Oldest artificial sweetener. May negatively affect gut bacteria." },
+  "acesulfame potassium":  { category: "artificial sweetener", healthImpact: "harmful", scoreAdjust:-10, explanation: "Artificial sweetener that may interfere with metabolic processes." },
+  "acesulfame k":          { category: "artificial sweetener", healthImpact: "harmful", scoreAdjust:-10, explanation: "Artificial sweetener with limited long-term safety data." },
+  "sucralose":             { category: "artificial sweetener", healthImpact: "moderate", scoreAdjust: -5, explanation: "Generally considered safe but may affect gut microbiome." },
+  // ── Artificial colors ──
+  "red 40":                { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Synthetic dye linked to hyperactivity in children. Banned in some countries." },
+  "yellow 5":              { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Tartrazine — associated with hyperactivity and allergic reactions." },
+  "yellow 6":              { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Sunset yellow — synthetic dye with potential links to hyperactivity." },
+  "blue 1":                { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Brilliant Blue — artificial color with limited long-term safety data." },
+  "blue 2":                { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Synthetic food dye with potential health concerns." },
+  "red 3":                 { category: "artificial color",   healthImpact: "harmful",  scoreAdjust:-15, explanation: "Erythrosine — banned for cosmetics in the US due to cancer risk." },
+  "caramel color":         { category: "artificial color",   healthImpact: "moderate", scoreAdjust:-10, explanation: "Some forms contain 4-MEI, a potential carcinogen." },
+  // ── Artificial flavors ──
+  "artificial flavor":     { category: "artificial flavoring", healthImpact: "harmful", scoreAdjust:-10, explanation: "Synthetic flavor compounds of largely unknown composition and health effects." },
+  "artificial flavors":    { category: "artificial flavoring", healthImpact: "harmful", scoreAdjust:-10, explanation: "Synthetic flavor chemicals that may mask poor ingredient quality." },
+  "artificial flavoring":  { category: "artificial flavoring", healthImpact: "harmful", scoreAdjust:-10, explanation: "Synthetic flavoring agent with unknown long-term effects." },
+  "natural flavor":        { category: "flavoring",          healthImpact: "moderate", scoreAdjust: -3, explanation: "Derived naturally but highly processed. Composition is often undisclosed." },
+  "natural flavors":       { category: "flavoring",          healthImpact: "moderate", scoreAdjust: -3, explanation: "Natural-source but processed flavor agents." },
+  "natural flavoring":     { category: "flavoring",          healthImpact: "moderate", scoreAdjust: -3, explanation: "Processed flavor ingredient from natural sources." },
+  "msg":                   { category: "flavor enhancer",    healthImpact: "moderate", scoreAdjust:-10, explanation: "Monosodium glutamate — flavor enhancer. Safe for most but sensitive individuals report headaches." },
+  "monosodium glutamate":  { category: "flavor enhancer",    healthImpact: "moderate", scoreAdjust:-10, explanation: "Flavor enhancer. FDA recognizes as safe; some report sensitivity." },
+  // ── Preservatives ──
+  "sodium benzoate":       { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-12, explanation: "May convert to benzene (a carcinogen) when combined with vitamin C." },
+  "potassium sorbate":     { category: "preservative",       healthImpact: "moderate", scoreAdjust: -5, explanation: "Common preservative. Generally safe but may cause mild reactions." },
+  "sodium nitrate":        { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-15, explanation: "Linked to increased cancer risk, especially colorectal cancer." },
+  "sodium nitrite":        { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-15, explanation: "Meat preservative that can form carcinogenic nitrosamines." },
+  "bha":                   { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-12, explanation: "Butylated hydroxyanisole — possibly carcinogenic synthetic antioxidant." },
+  "bht":                   { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-12, explanation: "Butylated hydroxytoluene — synthetic preservative with potential endocrine-disrupting effects." },
+  "tbhq":                  { category: "preservative",       healthImpact: "harmful",  scoreAdjust:-12, explanation: "Synthetic preservative with potential carcinogenic concerns at high doses." },
+  "calcium propionate":    { category: "preservative",       healthImpact: "moderate", scoreAdjust: -3, explanation: "Common bread preservative. Generally safe." },
+  "sodium metabisulfite":  { category: "preservative",       healthImpact: "moderate", scoreAdjust: -5, explanation: "Sulfite that can trigger reactions in sulfite-sensitive individuals." },
+  // ── Thickeners / Emulsifiers ──
+  "soy lecithin":          { category: "emulsifier",         healthImpact: "moderate", scoreAdjust: -3, explanation: "Common emulsifier from soybeans. Generally safe in small quantities." },
+  "sunflower lecithin":    { category: "emulsifier",         healthImpact: "moderate", scoreAdjust: -2, explanation: "Emulsifier considered safer than soy lecithin. Generally well tolerated." },
+  "carrageenan":           { category: "thickener",          healthImpact: "harmful",  scoreAdjust:-10, explanation: "Associated with gut inflammation in animal studies." },
+  "xanthan gum":           { category: "thickener",          healthImpact: "moderate", scoreAdjust: -3, explanation: "Safe in small amounts but may cause digestive issues in excess." },
+  "guar gum":              { category: "thickener",          healthImpact: "moderate", scoreAdjust: -3, explanation: "Natural thickener. May cause bloating in sensitive individuals." },
+  "locust bean gum":       { category: "thickener",          healthImpact: "moderate", scoreAdjust: -2, explanation: "Natural thickener from carob seeds. Generally safe." },
+  "modified starch":       { category: "thickener",          healthImpact: "moderate", scoreAdjust: -5, explanation: "Chemically altered starch. Highly processed." },
+  "modified food starch":  { category: "thickener",          healthImpact: "moderate", scoreAdjust: -5, explanation: "Processed starch thickener. Generally safe but highly processed." },
+  // ── Additives ──
+  "sodium phosphate":      { category: "additive",           healthImpact: "harmful",  scoreAdjust:-10, explanation: "High phosphate intake is linked to kidney disease and cardiovascular issues." },
+  "disodium phosphate":    { category: "additive",           healthImpact: "harmful",  scoreAdjust:-10, explanation: "Phosphate additive linked to kidney stress." },
+  "calcium disodium edta": { category: "preservative",       healthImpact: "moderate", scoreAdjust: -5, explanation: "Safe at approved levels but may reduce mineral absorption." },
+  // ── Salt / Sodium ──
+  "salt":                  { category: "mineral",            healthImpact: "moderate", scoreAdjust: -5, explanation: "Essential but excess sodium raises blood pressure." },
+  "sodium chloride":       { category: "mineral",            healthImpact: "moderate", scoreAdjust: -5, explanation: "Table salt. Essential in small amounts; excess raises blood pressure." },
+  // ── Vitamins & Minerals ──
+  "vitamin c":             { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  5, explanation: "Essential antioxidant vitamin supporting immune function." },
+  "ascorbic acid":         { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  5, explanation: "Vitamin C — antioxidant used as nutrient or preservative." },
+  "vitamin e":             { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  5, explanation: "Fat-soluble antioxidant protecting cells from oxidative damage." },
+  "tocopherol":            { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  5, explanation: "Natural form of vitamin E — antioxidant." },
+  "niacin":                { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Vitamin B3 — essential for energy metabolism." },
+  "riboflavin":            { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Vitamin B2 — important for energy production." },
+  "thiamine":              { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Vitamin B1 — essential for carbohydrate metabolism." },
+  "folic acid":            { category: "vitamin",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Vitamin B9 — essential for cell growth and DNA synthesis." },
+  "iron":                  { category: "mineral",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Essential mineral for oxygen transport in the blood." },
+  "calcium carbonate":     { category: "mineral",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Calcium supplement. Supports bone health." },
+  "zinc":                  { category: "mineral",            healthImpact: "healthy",  scoreAdjust:  3, explanation: "Essential trace mineral supporting immune function." },
+  // ── Fiber ──
+  "dietary fiber":         { category: "fiber",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Supports digestive health, blood sugar control, and cholesterol levels." },
+  "inulin":                { category: "fiber",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Prebiotic fiber that feeds beneficial gut bacteria." },
+  "psyllium husk":         { category: "fiber",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "Soluble fiber excellent for digestive health and cholesterol reduction." },
+  "oat fiber":             { category: "fiber",              healthImpact: "healthy",  scoreAdjust: 10, explanation: "High-fiber ingredient supporting gut and heart health." },
+  // ── Refined carbs ──
+  "enriched flour":        { category: "refined grain",      healthImpact: "moderate", scoreAdjust:-10, explanation: "Refined wheat with some vitamins added back. Lower fiber than whole grain." },
+  "refined flour":         { category: "refined grain",      healthImpact: "harmful",  scoreAdjust:-15, explanation: "Stripped of fiber and most nutrients. High glycemic index." },
+  "white flour":           { category: "refined grain",      healthImpact: "moderate", scoreAdjust:-10, explanation: "Refined grain with minimal fiber. Raises blood sugar quickly." },
+  "maida":                 { category: "refined grain",      healthImpact: "harmful",  scoreAdjust:-15, explanation: "Highly refined wheat flour with very low nutritional value and high glycemic index." },
+  "refined wheat flour":   { category: "refined grain",      healthImpact: "harmful",  scoreAdjust:-15, explanation: "Processed flour lacking the fiber and nutrients of whole wheat." },
+  "corn starch":           { category: "starch",             healthImpact: "moderate", scoreAdjust: -5, explanation: "High glycemic starch with minimal nutritional value." },
+  "tapioca starch":        { category: "starch",             healthImpact: "moderate", scoreAdjust: -3, explanation: "Gluten-free starch but low in nutrients." },
+  "wheat flour":           { category: "refined grain",      healthImpact: "moderate", scoreAdjust: -8, explanation: "May be refined or whole wheat — refined versions are lower in fiber and nutrients." },
 };
 
-function parseIngredients(raw: string): string[] {
-  return raw
-    .replace(/\([^)]*%[^)]*\)/g, "")
-    .replace(/\[[^\]]*\]/g, "")
-    .replace(/\([^)]*\)/g, (m) => m.replace(/,/g, ";"))
-    .split(/,|;|\n/)
-    .map((s) => s.replace(/\s*\(.*?\)\s*/g, "").trim().toLowerCase())
-    .map((s) => s.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "").trim())
-    .filter((s) => s.length > 1 && s.length < 80);
+const NORMALIZATION_MAP: Record<string, string> = {
+  "flavor enhancer": "msg",
+  "flavour enhancer": "msg",
+  "e621": "msg",
+  "e 621": "msg",
+  "monosodium glutamate": "msg",
+  "refined wheat flour": "refined wheat flour",
+  "maida": "maida",
+  "atta": "whole wheat flour",
+  "palm olein": "palm oil",
+  "partially hydrogenated vegetable oil": "partially hydrogenated oil",
+  "hydrogenated vegetable oil": "hydrogenated oil",
+  "hydrogenated fat": "hydrogenated oil",
+  "trans fatty acid": "trans fat",
+  "high fructose corn syrup": "high fructose corn syrup",
+  "hfcs": "high fructose corn syrup",
+  "fd&c red no. 40": "red 40",
+  "fd&c red 40": "red 40",
+  "fd&c yellow no. 5": "yellow 5",
+  "fd&c yellow no. 6": "yellow 6",
+  "tartrazine": "yellow 5",
+  "sunset yellow": "yellow 6",
+  "brilliant blue": "blue 1",
+  "acesulfame-k": "acesulfame k",
+  "ace-k": "acesulfame k",
+  "potassium acesulfame": "acesulfame k",
+  "natural and artificial flavor": "artificial flavors",
+  "natural and artificial flavors": "artificial flavors",
+  "artificial colour": "artificial flavors",
+  "artificial color": "artificial flavors",
+  "sodium benzoate preservative": "sodium benzoate",
+  "e211": "sodium benzoate",
+  "e202": "potassium sorbate",
+  "e330": "citric acid",
+  "e471": "soy lecithin",
+  "e322": "soy lecithin",
+  "soya lecithin": "soy lecithin",
+  "lecithin": "soy lecithin",
+  "corn flour": "corn starch",
+  "maize starch": "corn starch",
+  "starch": "modified starch",
+  "food starch": "modified food starch",
+  "vegetable shortening": "shortening",
+  "cane juice": "cane sugar",
+  "evaporated cane juice": "cane sugar",
+  "raw sugar": "sugar",
+  "beet sugar": "sugar",
+  "glucose syrup": "corn syrup",
+  "glucose-fructose syrup": "high fructose corn syrup",
+  "citric acid": "citric acid",
+};
+
+const CITRIC_ACID_ENTRY: IngredientEntry = {
+  category: "preservative",
+  healthImpact: "moderate",
+  scoreAdjust: -2,
+  explanation: "Naturally derived acid used as a preservative and flavor enhancer. Generally safe.",
+};
+
+function normalizeIngredientName(raw: string): string {
+  const lower = raw.toLowerCase().trim();
+  if (NORMALIZATION_MAP[lower]) return NORMALIZATION_MAP[lower];
+  for (const [pattern, replacement] of Object.entries(NORMALIZATION_MAP)) {
+    if (lower.includes(pattern)) return replacement;
+  }
+  return lower;
 }
 
-function findIngredientMatch(name: string): Omit<IngredientAnalysis, "name"> | null {
-  const lower = name.toLowerCase();
-  if (INGREDIENT_DATABASE[lower]) return INGREDIENT_DATABASE[lower];
-  for (const key of Object.keys(INGREDIENT_DATABASE)) {
-    if (lower.includes(key) || key.includes(lower)) {
-      return INGREDIENT_DATABASE[key];
+function parseIngredientList(raw: string): string[] {
+  let text = raw
+    .replace(/\r\n/g, "\n")
+    .replace(/\t/g, " ");
+
+  const chunks: string[] = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of text) {
+    if (ch === "(" || ch === "[") { depth++; if (depth === 1) { current += " "; continue; } }
+    if (ch === ")" || ch === "]") { depth--; continue; }
+    if (depth > 0) {
+      if (ch === ",") current += " ";
+      else current += ch;
+    } else {
+      if (ch === "," || ch === "\n" || ch === ";") {
+        chunks.push(current.trim());
+        current = "";
+      } else {
+        current += ch;
+      }
     }
   }
-  if (/hydrogenated|trans fat/i.test(lower)) {
-    return { category: "unhealthy fat", healthImpact: "harmful", explanation: "Contains trans fats that are harmful to heart health." };
+  if (current.trim()) chunks.push(current.trim());
+
+  const seen = new Set<string>();
+  return chunks
+    .map((s) => s.replace(/%\s*\d+(\.\d+)?/g, "").replace(/\d+(\.\d+)?%/g, "").trim())
+    .map((s) => s.replace(/^[\s\W]+|[\s\W]+$/g, "").trim().toLowerCase())
+    .filter((s) => s.length >= 2 && s.length <= 80 && !/^\d+$/.test(s))
+    .filter((s) => {
+      if (seen.has(s)) return false;
+      seen.add(s);
+      return true;
+    });
+}
+
+function matchIngredient(normalized: string): IngredientEntry | null {
+  if (normalized === "citric acid") return CITRIC_ACID_ENTRY;
+  if (DB[normalized]) return DB[normalized];
+  for (const key of Object.keys(DB)) {
+    if (normalized === key) return DB[key];
+    if (normalized.includes(key) && key.length >= 4) return DB[key];
+    if (key.includes(normalized) && normalized.length >= 4) return DB[key];
   }
-  if (/artificial colou?r|fd&c|dye \d/i.test(lower)) {
-    return { category: "artificial color", healthImpact: "harmful", explanation: "Synthetic food dye linked to hyperactivity and allergic reactions." };
-  }
-  if (/preservative|nitrate|nitrite|sorbate|benzoate/i.test(lower)) {
-    return { category: "preservative", healthImpact: "moderate", explanation: "Food preservative to extend shelf life. May cause reactions in sensitive individuals." };
-  }
-  if (/sugar|syrup|dextrose|fructose|glucose|sucrose|maltose/i.test(lower)) {
-    return { category: "sweetener", healthImpact: "harmful", explanation: "Added sugar or sugar derivative contributing to high glycemic load." };
-  }
-  if (/artificial flavou?r|synthetic flavou?r/i.test(lower)) {
-    return { category: "artificial flavoring", healthImpact: "harmful", explanation: "Synthetic flavor with unknown long-term health effects." };
-  }
-  if (/oil|fat/i.test(lower)) {
-    return { category: "oil/fat", healthImpact: "moderate", explanation: "Source of fat. Health impact depends on type and processing." };
-  }
-  if (/flour|starch/i.test(lower)) {
-    return { category: "refined carb", healthImpact: "moderate", explanation: "Starchy ingredient — may be refined or whole grain depending on source." };
-  }
-  if (/vitamin|mineral|calcium|iron|zinc|magnesium|potassium/i.test(lower)) {
-    return { category: "micronutrient", healthImpact: "healthy", explanation: "Added vitamin or mineral that supports nutritional value." };
-  }
-  if (/extract|powder|concentrate/i.test(lower)) {
-    return { category: "natural extract", healthImpact: "moderate", explanation: "Concentrated or extracted natural ingredient. Usually safe." };
-  }
+  if (/hydrogenated/i.test(normalized)) return DB["hydrogenated oil"];
+  if (/trans fat/i.test(normalized)) return DB["trans fat"];
+  if (/artificial colou?r|fd&c|colour \d|color \d/i.test(normalized)) return { category: "artificial color", healthImpact: "harmful", scoreAdjust: -15, explanation: "Synthetic food dye linked to hyperactivity and allergic reactions." };
+  if (/artificial flavou?r|synthetic flavou?r/i.test(normalized)) return DB["artificial flavors"];
+  if (/high.?fructose|hfcs/i.test(normalized)) return DB["high fructose corn syrup"];
+  if (/sugar|syrup|dextrose|fructose|sucrose|maltose/i.test(normalized)) return { category: "sweetener", healthImpact: "harmful", scoreAdjust: -18, explanation: "Added sugar or sugar derivative contributing to high glycemic load." };
+  if (/sodium benzoate|benzoate/i.test(normalized)) return DB["sodium benzoate"];
+  if (/sorbate|propionate|nitrate|nitrite|sulphite|sulfite/i.test(normalized)) return { category: "preservative", healthImpact: "moderate", scoreAdjust: -5, explanation: "Food preservative used to extend shelf life. May cause reactions in sensitive individuals." };
+  if (/palm/i.test(normalized)) return DB["palm oil"];
+  if (/shortening/i.test(normalized)) return DB["shortening"];
+  if (/vegetable oil|canola|sunflower oil/i.test(normalized)) return DB["vegetable oil"];
+  if (/olive oil/i.test(normalized)) return DB["olive oil"];
+  if (/flour|starch/i.test(normalized)) return { category: "refined carb", healthImpact: "moderate", scoreAdjust: -8, explanation: "Starchy ingredient — may be refined or whole grain depending on source." };
+  if (/vitamin|vit\.|niacin|riboflavin|thiamine|folic|pyridoxine|cyanocobalamin/i.test(normalized)) return { category: "vitamin", healthImpact: "healthy", scoreAdjust: 3, explanation: "Added vitamin that supports nutritional value." };
+  if (/magnesium|potassium|calcium|zinc|iron|selenium|phosphorus/i.test(normalized)) return { category: "mineral", healthImpact: "healthy", scoreAdjust: 3, explanation: "Added mineral supporting nutritional value." };
+  if (/whey|protein concentrate|protein isolate/i.test(normalized)) return DB["whey protein"];
+  if (/lecithin/i.test(normalized)) return DB["soy lecithin"];
+  if (/gum/i.test(normalized)) return DB["xanthan gum"];
+  if (/extract|powder|concentrate/i.test(normalized)) return { category: "natural extract", healthImpact: "moderate", scoreAdjust: -2, explanation: "Concentrated or extracted natural ingredient. Usually safe." };
+  if (/msg|glutamate/i.test(normalized)) return DB["msg"];
   return null;
 }
 
-function analyzeIngredients(raw: string): HealthReport {
-  const parsed = parseIngredients(raw);
-  const analyzed: IngredientAnalysis[] = [];
+const POSITION_WEIGHTS = [1.5, 1.3, 1.1, 1.0, 0.8];
+function getPositionWeight(index: number): number {
+  return index < POSITION_WEIGHTS.length ? POSITION_WEIGHTS[index] : 0.6;
+}
 
-  for (const name of parsed) {
-    const match = findIngredientMatch(name);
-    if (match) {
-      analyzed.push({ name, ...match });
-    } else {
+const KNOWN_FOOD_WORDS = new Set([
+  "sugar","flour","oil","salt","milk","water","butter","cream","egg","eggs","fat",
+  "starch","syrup","cocoa","chocolate","wheat","grain","oat","oats","rice","corn",
+  "soy","soya","palm","honey","vinegar","spice","spices","flavor","flavour","colour",
+  "color","preservative","additive","emulsifier","thickener","stabilizer","acid",
+  "protein","fiber","fibre","yeast","malt","barley","extract","powder","concentrate",
+  "glucose","fructose","sucrose","dextrose","maltose","lactose","sodium","potassium",
+  "calcium","iron","zinc","niacin","riboflavin","thiamine","lecithin","gum","citric",
+  "vanilla","cinnamon","pepper","turmeric","cardamom","ginger","garlic","onion",
+  "tomato","cheese","whey","casein","gelatin","pectin","carrageenan","inulin",
+  "sorbitol","xylitol","erythritol","stevia","aspartame","sucralose","saccharin",
+  "maida","atta","ragi","bajra","jowar","dalda","ghee","groundnut","sesame","mustard",
+  "almonds","walnuts","cashews","peanuts","pistachios","seeds","flaxseed","chia",
+]);
+
+function hasEnoughFoodWords(tokens: string[]): boolean {
+  let matches = 0;
+  for (const token of tokens) {
+    const t = token.toLowerCase();
+    for (const fw of KNOWN_FOOD_WORDS) {
+      if (t.includes(fw)) { matches++; break; }
+    }
+    if (matches >= 2) return true;
+  }
+  return false;
+}
+
+function analyzeIngredients(rawInput: string): { report: HealthReport } | { error: string } {
+  const rawTokens = parseIngredientList(rawInput);
+
+  if (rawTokens.length < 2 || !hasEnoughFoodWords(rawTokens)) {
+    return { error: "No valid ingredient list detected. Please paste ingredients exactly as shown on a food label, separated by commas." };
+  }
+
+  const analyzed: IngredientAnalysis[] = [];
+  const unknownList: IngredientAnalysis[] = [];
+
+  for (const raw of rawTokens) {
+    const normalized = normalizeIngredientName(raw);
+    const entry = matchIngredient(normalized);
+    if (entry) {
       analyzed.push({
-        name,
+        originalName: raw,
+        normalizedName: normalized,
+        category: entry.category,
+        healthImpact: entry.healthImpact,
+        explanation: entry.explanation,
+      });
+    } else {
+      unknownList.push({
+        originalName: raw,
+        normalizedName: normalized,
         category: "unknown",
         healthImpact: "unknown",
-        explanation: "This ingredient is not in our database. Check its source or consult a nutritionist.",
+        explanation: "Not in our database. Verify on a nutrition resource or consult a nutritionist.",
       });
     }
   }
 
-  const harmfulCount = analyzed.filter((i) => i.healthImpact === "harmful").length;
-  const moderateCount = analyzed.filter((i) => i.healthImpact === "moderate").length;
-  const healthyCount = analyzed.filter((i) => i.healthImpact === "healthy").length;
-  const unknownCount = analyzed.filter((i) => i.healthImpact === "unknown").length;
-  const total = analyzed.length || 1;
+  const cappedUnknowns = unknownList.slice(0, 5);
+  const allIngredients = [...analyzed, ...cappedUnknowns];
 
-  const baseScore =
-    (healthyCount * 100 + moderateCount * 55 + unknownCount * 40 + harmfulCount * 0) / total;
-  const penaltyFactor = harmfulCount > 0 ? Math.min(harmfulCount * 8, 40) : 0;
-  const score = Math.max(0, Math.min(100, Math.round(baseScore - penaltyFactor)));
+  let score = 60;
+  analyzed.forEach((ing, idx) => {
+    const entry = matchIngredient(ing.normalizedName) ?? matchIngredient(ing.originalName);
+    if (!entry) return;
+    const w = getPositionWeight(idx);
+    score += entry.scoreAdjust * w;
+  });
+  score = Math.max(0, Math.min(100, Math.round(score)));
 
-  let scoreLabel: string;
-  if (score >= 80) scoreLabel = "Excellent / Healthy";
-  else if (score >= 60) scoreLabel = "Good / Mostly Healthy";
-  else if (score >= 40) scoreLabel = "Moderate / Processed";
-  else if (score >= 20) scoreLabel = "Unhealthy";
-  else scoreLabel = "Highly Unhealthy / Avoid";
-
-  const warnings: string[] = [];
-  const hasSugar = analyzed.some((i) => i.category === "sweetener" && i.healthImpact === "harmful");
+  const normalizedNames = analyzed.map((i) => i.normalizedName);
+  const hasSugar = normalizedNames.some((n) => ["sugar", "cane sugar", "brown sugar", "invert sugar", "high fructose corn syrup", "corn syrup", "glucose", "dextrose", "sucrose", "fructose", "maltose"].includes(n));
+  const hasPalmOil = normalizedNames.some((n) => n.includes("palm"));
+  const hasMaltodextrin = normalizedNames.includes("maltodextrin");
   const hasArtificialColor = analyzed.some((i) => i.category === "artificial color");
   const hasArtificialFlavor = analyzed.some((i) => i.category === "artificial flavoring");
+  const hasTransFat = analyzed.some((i) => i.category === "trans fat");
   const hasPreservative = analyzed.some((i) => i.category === "preservative" && i.healthImpact === "harmful");
-  const hasTransFat = analyzed.some((i) => i.category === "unhealthy fat" && i.healthImpact === "harmful");
-  const hasHighGlycemic = analyzed.some((i) =>
-    ["maltodextrin", "dextrose", "corn syrup", "high fructose corn syrup", "maida"].includes(i.name)
-  );
   const hasArtificialSweetener = analyzed.some((i) => i.category === "artificial sweetener");
+  const hasRefinedGrain = analyzed.some((i) => i.category === "refined grain" && i.healthImpact === "harmful");
 
-  if (hasSugar) warnings.push("High sugar content — may contribute to obesity, diabetes, and energy crashes.");
-  if (hasArtificialColor) warnings.push("Artificial food colors detected — linked to hyperactivity in children and allergic reactions.");
-  if (hasArtificialFlavor) warnings.push("Artificial flavors present — synthetic compounds of unknown composition.");
-  if (hasPreservative) warnings.push("Chemical preservatives detected — may cause adverse reactions in sensitive individuals.");
-  if (hasTransFat) warnings.push("Hydrogenated/trans fats detected — strongly linked to cardiovascular disease.");
-  if (hasHighGlycemic) warnings.push("High glycemic ingredients found — rapid blood sugar spikes expected.");
+  const warnings: string[] = [];
+  if (hasSugar) warnings.push("High sugar content — contributes to obesity, diabetes, and energy crashes.");
+  if (hasTransFat) warnings.push("Hydrogenated / trans fats detected — strongly linked to cardiovascular disease.");
+  if (hasArtificialColor) warnings.push("Artificial food colors found — linked to hyperactivity in children and allergic reactions.");
+  if (hasArtificialFlavor) warnings.push("Artificial flavors present — synthetic compounds of unknown long-term effects.");
+  if (hasPreservative) warnings.push("Harmful chemical preservatives detected — may cause adverse reactions in sensitive individuals.");
   if (hasArtificialSweetener) warnings.push("Artificial sweeteners present — may affect gut microbiome and metabolic health.");
-  if (harmfulCount >= 3) warnings.push("Multiple harmful ingredients detected — this is a highly processed product.");
+  if (hasRefinedGrain) warnings.push("Refined / highly processed flour detected — very low fiber and high glycemic index.");
+  if (hasMaltodextrin) warnings.push("Maltodextrin found — ultra-processed carb with glycemic index higher than table sugar.");
+
+  const combinationWarnings: string[] = [];
+  if (hasSugar && hasPalmOil) combinationWarnings.push("Sugar + Palm Oil combination: classic ultra-processed food signature — empty calories with harmful saturated fat.");
+  if (hasSugar && hasMaltodextrin) combinationWarnings.push("Sugar + Maltodextrin combination: extremely high glycemic load — dangerous for diabetics and people managing weight.");
+  if (hasArtificialFlavor && hasArtificialColor) combinationWarnings.push("Artificial flavor + Artificial color combination: heavily additive-laden product — not suitable for children.");
 
   const positives = analyzed
     .filter((i) => i.healthImpact === "healthy")
-    .map((i) => `${i.name.charAt(0).toUpperCase() + i.name.slice(1)} — ${i.explanation}`);
+    .map((i) => {
+      const name = i.originalName.charAt(0).toUpperCase() + i.originalName.slice(1);
+      return `${name} — ${i.explanation}`;
+    });
 
   const dietWarnings: string[] = [];
-  if (hasSugar || hasHighGlycemic || hasArtificialSweetener)
+  if (hasSugar || hasMaltodextrin || hasArtificialSweetener || hasRefinedGrain)
     dietWarnings.push("Diabetics and pre-diabetics (high sugar / high glycemic load)");
-  if (hasSugar || hasTransFat || harmfulCount >= 2)
+  if (hasSugar || hasTransFat || hasPalmOil)
     dietWarnings.push("People on weight-loss diets (calorie-dense and nutrient-poor)");
   if (hasArtificialColor || hasArtificialFlavor)
-    dietWarnings.push("Children (artificial additives linked to behavioral issues)");
-  if (hasPreservative || hasTransFat)
-    dietWarnings.push("People with cardiovascular conditions (harmful fats and preservatives)");
-  if (harmfulCount >= 2 || hasTransFat || hasArtificialFlavor)
+    dietWarnings.push("Children (artificial additives linked to behavioural issues)");
+  if (hasTransFat || hasPreservative)
+    dietWarnings.push("People with cardiovascular conditions (trans fats and chemical preservatives)");
+  if (hasTransFat || hasArtificialFlavor || hasArtificialColor || hasMaltodextrin)
     dietWarnings.push("People avoiding ultra-processed foods");
 
   let verdict: string;
-  if (score >= 80) {
-    verdict = "This product appears to be largely healthy with mostly natural, wholesome ingredients. Suitable for regular consumption as part of a balanced diet.";
-  } else if (score >= 60) {
-    verdict = "This product is moderately healthy. It contains mostly good ingredients with some processed elements. Suitable for occasional consumption.";
-  } else if (score >= 40) {
-    verdict = "This product is moderately processed and contains several ingredients of concern. Consume in moderation and consider healthier alternatives.";
-  } else if (score >= 20) {
-    verdict = "This product is unhealthy. It contains multiple harmful ingredients including artificial additives, excess sugars, or harmful fats. Minimize consumption.";
-  } else {
-    verdict = "This product is highly unhealthy. It is loaded with harmful ingredients — artificial additives, trans fats, excessive sugar, or chemical preservatives. Avoid or replace with a whole food alternative.";
-  }
+  if (score >= 80) verdict = "This product is very healthy. It is made up of natural, wholesome ingredients with minimal processing. Excellent for regular consumption as part of a balanced diet.";
+  else if (score >= 60) verdict = "This product is generally healthy. It contains mostly good ingredients with some processed elements. Suitable for regular consumption with moderation.";
+  else if (score >= 40) verdict = "This product is moderately processed. It contains a mix of acceptable and concerning ingredients. Consume occasionally and consider healthier alternatives.";
+  else if (score >= 20) verdict = "This product is unhealthy. It contains multiple harmful ingredients such as artificial additives, excessive sugars, or harmful fats. Minimize consumption.";
+  else verdict = "This product is highly unhealthy. It is loaded with harmful ingredients — trans fats, artificial additives, excessive sugar, or chemical preservatives. Avoid or replace with a whole food alternative.";
 
-  return { ingredients: analyzed, warnings, positives, score, scoreLabel, dietWarnings, verdict };
+  const healthyCount = analyzed.filter((i) => i.healthImpact === "healthy").length;
+  const moderateCount = analyzed.filter((i) => i.healthImpact === "moderate").length;
+  const harmfulCount = analyzed.filter((i) => i.healthImpact === "harmful").length;
+  const unknownCount = cappedUnknowns.length;
+
+  return {
+    report: {
+      ingredients: allIngredients,
+      warnings,
+      combinationWarnings,
+      positives,
+      score,
+      dietWarnings,
+      verdict,
+      healthyCount,
+      moderateCount,
+      harmfulCount,
+      unknownCount,
+    },
+  };
 }
 
-function ScoreRing({ score }: { score: number }) {
-  const getColor = () => {
-    if (score >= 80) return "text-green-500";
-    if (score >= 60) return "text-lime-500";
-    if (score >= 40) return "text-yellow-500";
-    if (score >= 20) return "text-orange-500";
-    return "text-red-500";
-  };
-  const getBg = () => {
-    if (score >= 80) return "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800";
-    if (score >= 60) return "bg-lime-50 dark:bg-lime-950/30 border-lime-200 dark:border-lime-800";
-    if (score >= 40) return "bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800";
-    if (score >= 20) return "bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800";
-    return "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800";
-  };
+function ScoreDisplay({ score }: { score: number }) {
+  const color = score >= 80 ? "text-green-600 dark:text-green-400"
+    : score >= 60 ? "text-lime-600 dark:text-lime-400"
+    : score >= 40 ? "text-yellow-600 dark:text-yellow-400"
+    : score >= 20 ? "text-orange-600 dark:text-orange-400"
+    : "text-red-600 dark:text-red-400";
+  const bg = score >= 80 ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800"
+    : score >= 60 ? "bg-lime-50 dark:bg-lime-950/30 border-lime-200 dark:border-lime-800"
+    : score >= 40 ? "bg-yellow-50 dark:bg-yellow-950/30 border-yellow-200 dark:border-yellow-800"
+    : score >= 20 ? "bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800"
+    : "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800";
+  const bar = score >= 80 ? "bg-green-500" : score >= 60 ? "bg-lime-500" : score >= 40 ? "bg-yellow-500" : score >= 20 ? "bg-orange-500" : "bg-red-500";
+  const label = score >= 80 ? "Excellent / Very Healthy" : score >= 60 ? "Healthy" : score >= 40 ? "Moderate / Processed" : score >= 20 ? "Unhealthy" : "Highly Unhealthy / Avoid";
 
   return (
-    <div className={`rounded-xl border-2 p-6 text-center ${getBg()}`}>
+    <div className={`rounded-xl border-2 p-6 text-center ${bg}`}>
       <p className="text-sm font-medium text-muted-foreground mb-1">Overall Health Score</p>
-      <p className={`text-6xl font-extrabold tracking-tight ${getColor()}`} data-testid="text-health-score">{score}</p>
+      <p className={`text-6xl font-extrabold tracking-tight ${color}`} data-testid="text-health-score">{score}</p>
       <p className="text-xs text-muted-foreground mt-1">out of 100</p>
-      <div className="mt-3 h-2 rounded-full bg-muted overflow-hidden">
-        <div
-          className={`h-full rounded-full transition-all duration-700 ${score >= 80 ? "bg-green-500" : score >= 60 ? "bg-lime-500" : score >= 40 ? "bg-yellow-500" : score >= 20 ? "bg-orange-500" : "bg-red-500"}`}
-          style={{ width: `${score}%` }}
-        />
+      <div className="mt-3 h-2.5 rounded-full bg-muted overflow-hidden">
+        <div className={`h-full rounded-full transition-all duration-700 ${bar}`} style={{ width: `${score}%` }} />
       </div>
-      <p className={`mt-2 text-sm font-semibold ${getColor()}`} data-testid="text-score-label">{score >= 80 ? "Excellent" : score >= 60 ? "Good" : score >= 40 ? "Moderate" : score >= 20 ? "Unhealthy" : "Highly Unhealthy"}</p>
+      <p className={`mt-2 text-sm font-semibold ${color}`} data-testid="text-score-label">{label}</p>
     </div>
   );
 }
 
 function ImpactBadge({ impact }: { impact: HealthImpact }) {
-  const map: Record<HealthImpact, { label: string; className: string }> = {
-    healthy: { label: "Healthy", className: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700" },
-    moderate: { label: "Moderate", className: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 border-yellow-200 dark:border-yellow-700" },
-    harmful: { label: "Harmful", className: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700" },
-    unknown: { label: "Unknown", className: "bg-muted text-muted-foreground border-border" },
+  const map: Record<HealthImpact, { label: string; cls: string }> = {
+    healthy:  { label: "Healthy",  cls: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-700" },
+    moderate: { label: "Moderate", cls: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-700" },
+    harmful:  { label: "Harmful",  cls: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700" },
+    unknown:  { label: "Unknown",  cls: "bg-muted text-muted-foreground border border-border" },
   };
-  const { label, className } = map[impact];
-  return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold border ${className}`}>
-      {label}
-    </span>
-  );
+  const { label, cls } = map[impact];
+  return <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${cls}`}>{label}</span>;
 }
 
 export default function IngredientHealthAnalyzer() {
   const [input, setInput] = useState("");
   const [report, setReport] = useState<HealthReport | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
 
   useSEO({
     title: "Ingredient Health Analyzer | Food Label Checker | Pixocraft Tools",
-    description: "Paste any food product ingredient list and instantly get a detailed health report — ingredient risk levels, health score, warnings, and diet suitability.",
+    description: "Paste any food product ingredient list and instantly get a detailed health report — ingredient risk levels, weighted health score, warnings, and diet suitability. 100% private & offline.",
     keywords: "ingredient health analyzer, food label checker, ingredient scanner, healthy food checker, food additive checker, ingredient risk analysis",
     canonicalUrl: "https://tools.pixocraft.in/tools/ingredient-health-analyzer",
   });
 
   const handleAnalyze = () => {
-    if (!input.trim()) return;
     const result = analyzeIngredients(input);
-    setReport(result);
+    if ("error" in result) {
+      setError(result.error);
+      setReport(null);
+    } else {
+      setError(null);
+      setReport(result.report);
+      setExpanded({});
+    }
+  };
+
+  const handleReset = () => {
+    setInput("");
+    setReport(null);
+    setError(null);
     setExpanded({});
   };
 
-  const toggleExpand = (i: number) => setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
+  const toggleExpand = (i: number) => setExpanded((p) => ({ ...p, [i]: !p[i] }));
 
   const faqItems: FAQItem[] = [
-    {
-      question: "How does the Ingredient Health Analyzer work?",
-      answer: "Paste the ingredient list from any food product label. The tool parses and identifies each ingredient, checks it against a health database, assigns a risk level, and calculates an overall health score from 0 to 100.",
-    },
-    {
-      question: "What does the health score mean?",
-      answer: "The score ranges from 0 to 100. 80–100 means Excellent/Healthy, 60–79 means Good/Mostly Healthy, 40–59 means Moderate/Processed, 20–39 means Unhealthy, and 0–19 means Highly Unhealthy/Avoid.",
-    },
-    {
-      question: "Is my ingredient data stored or sent to a server?",
-      answer: "No. All analysis is done directly in your browser. Your ingredient data is never sent to any server — it's completely private and offline-friendly.",
-    },
-    {
-      question: "Which ingredients are considered harmful?",
-      answer: "Harmful ingredients include trans fats (hydrogenated oils), artificial colors and flavors, chemical preservatives like sodium benzoate and BHA/BHT, high-fructose corn syrup, maltodextrin, and artificial sweeteners like aspartame and saccharin.",
-    },
-    {
-      question: "Can I use this for packaged foods or restaurant ingredients?",
-      answer: "Yes! Just copy the ingredient list exactly as it appears on the food label or menu description and paste it into the analyzer.",
-    },
+    { question: "How does the Ingredient Health Analyzer work?", answer: "Paste the ingredient list from any food product label. The tool parses and identifies each ingredient, checks it against a health database with position-weighted scoring, and generates an overall health score from 0 to 100." },
+    { question: "What does the health score mean?", answer: "80–100 = Excellent/Very Healthy, 60–79 = Healthy, 40–59 = Moderate/Processed, 20–39 = Unhealthy, 0–19 = Highly Unhealthy. Ingredients listed first on food labels are present in larger quantities and affect the score more." },
+    { question: "Is my data sent to a server?", answer: "No. All analysis is done entirely in your browser. Your ingredient data is never sent to any server — completely private and offline-friendly." },
+    { question: "What ingredients are considered harmful?", answer: "Trans fats (hydrogenated oils), artificial colors and flavors, chemical preservatives like sodium benzoate and BHA/BHT, high-fructose corn syrup, maltodextrin, and artificial sweeteners like aspartame and saccharin." },
+    { question: "Why does the score weigh first ingredients more?", answer: "Food labels list ingredients in descending order by quantity. So the first ingredient is present in the largest amount, and should have the highest influence on the overall health score." },
   ];
 
   const faqSchema = generateFAQSchema(faqItems);
-
   const howItWorks = [
     { step: 1, title: "Paste Ingredients", description: "Copy the ingredient list from any food label exactly as printed." },
-    { step: 2, title: "Click Analyze", description: "Our smart parser identifies and evaluates each ingredient." },
-    { step: 3, title: "Get Your Report", description: "Receive an instant health score, warnings, and diet suitability guide." },
+    { step: 2, title: "Click Analyze", description: "The smart parser normalizes, deduplicates, and evaluates each ingredient with position-based weighting." },
+    { step: 3, title: "Get Your Report", description: "Receive an instant health score, warnings, combination alerts, and diet suitability guide." },
   ];
-
   const benefits = [
-    { icon: <Heart className="h-5 w-5" />, title: "Instant Analysis", description: "Get a full health report in seconds without any sign-up." },
-    { icon: <Leaf className="h-5 w-5" />, title: "Ingredient-by-Ingredient", description: "Every ingredient is individually evaluated with an explanation." },
-    { icon: <AlertTriangle className="h-5 w-5" />, title: "Clear Warnings", description: "Harmful additives, trans fats, and artificial ingredients are flagged." },
+    { icon: <Heart className="h-5 w-5" />, title: "Weighted Scoring", description: "Ingredients listed first carry more weight — just like real food labels." },
+    { icon: <Leaf className="h-5 w-5" />, title: "Ingredient-by-Ingredient", description: "Every ingredient individually evaluated with a plain-English explanation." },
+    { icon: <AlertTriangle className="h-5 w-5" />, title: "Combination Warnings", description: "Detects risky ingredient combinations like sugar + palm oil or sugar + maltodextrin." },
     { icon: <CheckCircle className="h-5 w-5" />, title: "Diet Suitability", description: "Know who should avoid the product — diabetics, children, and more." },
   ];
 
   const impactOrder: HealthImpact[] = ["harmful", "moderate", "unknown", "healthy"];
   const sortedIngredients = report
-    ? [...report.ingredients].sort(
-        (a, b) => impactOrder.indexOf(a.healthImpact) - impactOrder.indexOf(b.healthImpact)
-      )
+    ? [...report.ingredients].sort((a, b) => impactOrder.indexOf(a.healthImpact) - impactOrder.indexOf(b.healthImpact))
     : [];
 
   return (
@@ -396,7 +578,7 @@ export default function IngredientHealthAnalyzer() {
       <StructuredData data={faqSchema} />
       <ToolLayout
         title="Ingredient Health Analyzer"
-        description="Paste any food ingredient list and instantly receive a detailed health report with risk levels, warnings, and an overall health score."
+        description="Paste any food ingredient list and instantly receive a detailed health report with weighted risk scores, combination warnings, and diet suitability."
         icon={<Heart className="h-8 w-8" />}
         howItWorks={howItWorks}
         benefits={benefits}
@@ -407,73 +589,78 @@ export default function IngredientHealthAnalyzer() {
           <Card>
             <CardContent className="p-6 space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="ingredient-input" className="text-sm font-semibold">
-                  Paste Ingredient List
-                </Label>
+                <Label htmlFor="ingredient-input" className="text-sm font-semibold">Paste Ingredient List</Label>
                 <Textarea
                   id="ingredient-input"
                   data-testid="textarea-ingredients"
-                  placeholder={`Paste the ingredient list from the food label here. For example:\n\nWhole wheat flour, sugar, palm oil, salt, glucose syrup, artificial flavor, sodium benzoate, red 40, xanthan gum`}
+                  placeholder={`Paste the ingredient list from the food label here. For example:\n\nSugar, Palm Oil, Cocoa Powder, Flavor Enhancer (MSG), Salt, Artificial Flavor, Red 40`}
                   className="min-h-36 text-sm leading-relaxed font-mono resize-y"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={(e) => { setInput(e.target.value); setError(null); }}
                 />
-                <p className="text-xs text-muted-foreground">
-                  Copy the ingredients exactly as shown on the food label — commas, brackets and all.
-                </p>
+                <p className="text-xs text-muted-foreground">Copy the ingredients exactly as shown on the food label — commas, brackets and all. The tool handles different formats automatically.</p>
               </div>
-              <Button
-                onClick={handleAnalyze}
-                disabled={!input.trim()}
-                size="lg"
-                className="w-full"
-                data-testid="button-analyze"
-              >
+              <Button onClick={handleAnalyze} disabled={!input.trim()} size="lg" className="w-full" data-testid="button-analyze">
                 <Heart className="mr-2 h-5 w-5" />
                 Analyze Ingredients
               </Button>
             </CardContent>
           </Card>
 
+          {error && (
+            <Card className="border-yellow-300 dark:border-yellow-700">
+              <CardContent className="p-5 flex items-start gap-3">
+                <ShieldAlert className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5 shrink-0" />
+                <p className="text-sm" data-testid="text-error">{error}</p>
+              </CardContent>
+            </Card>
+          )}
+
           {report && (
             <div className="space-y-5" data-testid="section-report">
-              <ScoreRing score={report.score} />
+              <ScoreDisplay score={report.score} />
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { label: "Detected", value: report.ingredients.length, cls: "text-foreground" },
+                  { label: "Healthy", value: report.healthyCount, cls: "text-green-600 dark:text-green-400" },
+                  { label: "Moderate", value: report.moderateCount, cls: "text-yellow-600 dark:text-yellow-400" },
+                  { label: "Harmful", value: report.harmfulCount, cls: "text-red-600 dark:text-red-400" },
+                ].map(({ label, value, cls }) => (
+                  <div key={label} className="rounded-lg bg-muted/60 p-3 text-center">
+                    <p className={`text-2xl font-bold ${cls}`}>{value}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{label}</p>
+                  </div>
+                ))}
+              </div>
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Info className="h-4 w-4 text-primary" />
-                    Final Verdict
-                  </CardTitle>
+                  <CardTitle className="text-base flex items-center gap-2"><Info className="h-4 w-4 text-primary" />Final Verdict</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm leading-relaxed" data-testid="text-verdict">{report.verdict}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <Badge variant="outline">{report.ingredients.filter(i => i.healthImpact === "healthy").length} Healthy</Badge>
-                    <Badge variant="outline">{report.ingredients.filter(i => i.healthImpact === "moderate").length} Moderate</Badge>
-                    <Badge variant="outline">{report.ingredients.filter(i => i.healthImpact === "harmful").length} Harmful</Badge>
-                    <Badge variant="outline">{report.ingredients.filter(i => i.healthImpact === "unknown").length} Unknown</Badge>
-                  </div>
                 </CardContent>
               </Card>
 
-              {report.warnings.length > 0 && (
+              {(report.warnings.length > 0 || report.combinationWarnings.length > 0) && (
                 <Card className="border-red-200 dark:border-red-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2 text-red-600 dark:text-red-400">
-                      <AlertTriangle className="h-4 w-4" />
-                      Ingredient Warnings
-                    </CardTitle>
+                    <CardTitle className="text-base flex items-center gap-2 text-red-600 dark:text-red-400"><AlertTriangle className="h-4 w-4" />Ingredient Warnings</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {report.warnings.map((w, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm" data-testid={`text-warning-${i}`}>
-                          <XCircle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
-                          <span>{w}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <CardContent className="space-y-2">
+                    {report.warnings.map((w, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm" data-testid={`text-warning-${i}`}>
+                        <XCircle className="h-4 w-4 text-red-500 mt-0.5 shrink-0" />
+                        <span>{w}</span>
+                      </div>
+                    ))}
+                    {report.combinationWarnings.map((w, i) => (
+                      <div key={`c${i}`} className="flex items-start gap-2 text-sm mt-1" data-testid={`text-combo-warning-${i}`}>
+                        <ShieldAlert className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
+                        <span className="font-medium text-orange-700 dark:text-orange-300">{w}</span>
+                      </div>
+                    ))}
                   </CardContent>
                 </Card>
               )}
@@ -481,20 +668,15 @@ export default function IngredientHealthAnalyzer() {
               {report.positives.length > 0 && (
                 <Card className="border-green-200 dark:border-green-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2 text-green-600 dark:text-green-400">
-                      <Leaf className="h-4 w-4" />
-                      Positive Ingredients
-                    </CardTitle>
+                    <CardTitle className="text-base flex items-center gap-2 text-green-600 dark:text-green-400"><Leaf className="h-4 w-4" />Positive Ingredients</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {report.positives.map((p, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm" data-testid={`text-positive-${i}`}>
-                          <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <CardContent className="space-y-2">
+                    {report.positives.map((p, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm" data-testid={`text-positive-${i}`}>
+                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                        <span>{p}</span>
+                      </div>
+                    ))}
                   </CardContent>
                 </Card>
               )}
@@ -502,57 +684,39 @@ export default function IngredientHealthAnalyzer() {
               {report.dietWarnings.length > 0 && (
                 <Card className="border-orange-200 dark:border-orange-800">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2 text-orange-600 dark:text-orange-400">
-                      <AlertTriangle className="h-4 w-4" />
-                      Who Should Avoid This Product
-                    </CardTitle>
+                    <CardTitle className="text-base flex items-center gap-2 text-orange-600 dark:text-orange-400"><AlertTriangle className="h-4 w-4" />Who Should Avoid This Product</CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {report.dietWarnings.map((d, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm" data-testid={`text-diet-warning-${i}`}>
-                          <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
-                          <span>{d}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <CardContent className="space-y-2">
+                    {report.dietWarnings.map((d, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm" data-testid={`text-diet-warning-${i}`}>
+                        <AlertTriangle className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
+                        <span>{d}</span>
+                      </div>
+                    ))}
                   </CardContent>
                 </Card>
               )}
 
               <Card>
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Info className="h-4 w-4 text-primary" />
-                    Detected Ingredients ({report.ingredients.length})
-                  </CardTitle>
+                  <CardTitle className="text-base flex items-center gap-2"><Info className="h-4 w-4 text-primary" />Detected Ingredients ({report.ingredients.length})</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="divide-y">
                     {sortedIngredients.map((ing, i) => (
                       <div key={i} className="p-4" data-testid={`ingredient-item-${i}`}>
-                        <button
-                          className="w-full text-left"
-                          onClick={() => toggleExpand(i)}
-                          data-testid={`button-toggle-ingredient-${i}`}
-                        >
+                        <button className="w-full text-left" onClick={() => toggleExpand(i)} data-testid={`button-toggle-ingredient-${i}`}>
                           <div className="flex items-center justify-between gap-3 flex-wrap">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-sm font-medium capitalize">{ing.name}</span>
+                              <span className="text-sm font-medium capitalize">{ing.originalName}</span>
                               <ImpactBadge impact={ing.healthImpact} />
                               <span className="text-xs text-muted-foreground capitalize">{ing.category}</span>
                             </div>
-                            {expanded[i] ? (
-                              <ChevronUp className="h-4 w-4 text-muted-foreground shrink-0" />
-                            ) : (
-                              <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />
-                            )}
+                            {expanded[i] ? <ChevronUp className="h-4 w-4 text-muted-foreground shrink-0" /> : <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0" />}
                           </div>
                         </button>
                         {expanded[i] && (
-                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed pl-0">
-                            {ing.explanation}
-                          </p>
+                          <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{ing.explanation}</p>
                         )}
                       </div>
                     ))}
@@ -561,13 +725,7 @@ export default function IngredientHealthAnalyzer() {
               </Card>
 
               <div className="text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => { setReport(null); setInput(""); setExpanded({}); }}
-                  data-testid="button-analyze-another"
-                >
-                  Analyze Another Product
-                </Button>
+                <Button variant="outline" onClick={handleReset} data-testid="button-analyze-another">Analyze Another Product</Button>
               </div>
             </div>
           )}
