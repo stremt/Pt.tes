@@ -440,6 +440,7 @@ const SitemapXmlGenerator = lazy(() => import("@/pages/tools/SitemapXmlGenerator
 const MetaRobotsTagGenerator = lazy(() => import("@/pages/tools/MetaRobotsTagGenerator"));
 const CanonicalUrlGenerator = lazy(() => import("@/pages/tools/CanonicalUrlGenerator"));
 const OpenGraphTagGenerator = lazy(() => import("@/pages/tools/OpenGraphTagGenerator"));
+const IngredientHealthAnalyzer = lazy(() => import("@/pages/tools/IngredientHealthAnalyzer"));
 
 // Lazily load blog pages
 const Blogs = lazy(() => import("@/pages/Blogs"));
@@ -831,6 +832,7 @@ function Router() {
         <Route path="/tools/meta-robots-tag-generator" component={MetaRobotsTagGenerator} />
         <Route path="/tools/canonical-url-generator" component={CanonicalUrlGenerator} />
         <Route path="/tools/open-graph-tag-generator" component={OpenGraphTagGenerator} />
+        <Route path="/tools/ingredient-health-analyzer" component={IngredientHealthAnalyzer} />
         <Route path="/tools/audio-noise-remover" component={AudioNoiseRemover} />
         <Route path="/tools/gif-to-mp4" component={GIFtoMP4} />
         <Route path="/tools/mp4-to-mp3" component={MP4toMP3} />

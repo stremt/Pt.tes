@@ -1766,6 +1766,15 @@ export const tools: ToolMetadata[] = [
     category: "developer",
     keywords: ["open graph generator", "og tags", "social media tags", "meta tags generator", "facebook og tags", "twitter card tags"],
   },
+  {
+    id: "ingredient-health-analyzer",
+    name: "Ingredient Health Analyzer",
+    description: "Paste any food product ingredient list and get an instant health report — risk levels, health score 0–100, warnings, and diet suitability. 100% private & offline.",
+    icon: "Heart",
+    path: "/tools/ingredient-health-analyzer",
+    category: "utility",
+    keywords: ["ingredient health analyzer", "food label checker", "ingredient scanner", "food additive checker", "healthy food analyzer", "ingredient risk checker"],
+  },
 ];
 
 export const getToolIcon = (iconName: string) => {
