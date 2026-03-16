@@ -1,0 +1,72 @@
+Create a powerful web tool called **“Ingredient Health Analyzer”** that helps users check whether a food product is healthy or unhealthy based on its ingredient list.
+
+The tool should work directly in the browser and feel fast, simple, and intelligent.
+
+The user will paste or type the ingredient list of any food product exactly as written on the product label. The tool should analyze the ingredients and generate a detailed health report.
+
+The system must first **detect and extract individual ingredients** from the text input. Ingredients may be separated by commas, brackets, percentages, or mixed formatting, so the parser should intelligently normalize and clean the text before analysis.
+
+After detecting the ingredients, the tool must analyze them individually and also evaluate their **combined health impact**.
+
+For each ingredient, the system should identify:
+• Ingredient name
+• Ingredient category (sweetener, oil, preservative, stabilizer, additive, whole food, etc.)
+• Health impact level (healthy, moderate, harmful, unknown)
+• Short explanation of why it is considered healthy or risky
+
+The tool must also detect **high-risk ingredient patterns**, such as:
+• High sugar combinations
+• Ultra-processed food indicators
+• Artificial additives
+• Excessive preservatives
+• High glycemic ingredients
+• Hydrogenated oils or unhealthy fats
+
+The analyzer should then calculate an **overall product health score from 0 to 100**.
+
+Score ranges should represent:
+
+• 80–100 → Excellent / Healthy
+• 60–79 → Good / Mostly Healthy
+• 40–59 → Moderate / Processed
+• 20–39 → Unhealthy
+• 0–19 → Highly Unhealthy / Avoid
+
+The report should include the following sections:
+
+1. **Detected Ingredients List**
+   Each ingredient should be shown with a small explanation and risk level.
+
+2. **Ingredient Warnings**
+   Show clear warnings for things like:
+   • High sugar content
+   • Artificial colors
+   • Artificial flavors
+   • Chemical preservatives
+   • Ultra-processed ingredients
+
+3. **Health Score**
+   Display a large score indicator showing the overall product rating.
+
+4. **Diet Suitability Analysis**
+   The tool should identify which people should avoid the product, such as:
+   • Diabetics
+   • People on weight-loss diets
+   • Children
+   • People with high blood pressure
+   • People avoiding processed foods
+
+5. **Positive Ingredients**
+   Highlight any beneficial ingredients like whole grains, nuts, oats, fiber sources, or natural ingredients.
+
+6. **Final Verdict**
+   Provide a short summary explaining whether the product is healthy, moderately safe, or unhealthy.
+
+The tool should present the result in a clear and visually structured way so users can understand the health impact instantly.
+
+The user experience should be extremely simple:
+• Input ingredient list
+• Click analyze
+• Instantly receive a detailed health report
+
+Make the tool feel like a **smart food label interpreter** that helps people quickly understand what they are actually eating.
