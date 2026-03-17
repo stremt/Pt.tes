@@ -1,0 +1,201 @@
+You are a senior frontend engineer and UI/UX expert.
+
+Your task is to rebuild and upgrade an existing basic "Signature Pad Tool" into a premium-level "Online Signature Generator" that is highly accurate, smooth, fast, and production-ready.
+
+⚠️ IMPORTANT GOALS:
+
+* Smooth and realistic signature drawing (no jagged lines)
+* Multiple signature creation methods (Draw, Type, Upload)
+* Professional UI/UX like top tools (Signaturely, SignWell, Docusign)
+* Fully responsive (mobile + tablet + desktop)
+* 100% client-side (no backend, no API, no storage)
+* Fast, lightweight, and clean code
+
+---
+
+# 🧠 CORE FEATURES TO BUILD
+
+## 1. TAB SYSTEM (MAIN STRUCTURE)
+
+Create 3 tabs:
+
+* Draw Signature
+* Type Signature
+* Upload Signature
+
+Switching tabs should feel instant and smooth.
+
+---
+
+## 2. DRAW SIGNATURE (ADVANCED CANVAS)
+
+Use HTML5 Canvas.
+
+Implement:
+
+* Smooth drawing using quadratic curves (Bezier smoothing)
+* Adjustable stroke thickness (range slider)
+* Color picker
+* Undo / Redo functionality
+* Clear canvas button
+
+Improve accuracy by:
+
+* Capturing last points and smoothing curves
+* Avoid straight-line jagged strokes
+
+Support:
+
+* Mouse input
+* Touch input (mobile)
+
+---
+
+## 3. TYPE SIGNATURE (HIGH CONVERSION FEATURE)
+
+Add:
+
+* Input field: "Enter your name"
+* Display preview in real-time
+
+Include:
+
+* 15–25 handwritten-style fonts (Google Fonts)
+* Font selector dropdown
+* Font size slider
+* Letter spacing control
+
+Render typed signature on canvas or export layer.
+
+---
+
+## 4. UPLOAD SIGNATURE (PRO FEATURE)
+
+Allow:
+
+* Upload image (PNG/JPG)
+
+Add processing:
+
+* Remove white background (basic threshold logic)
+* Improve contrast
+* Convert to transparent PNG
+
+Preview uploaded signature cleanly.
+
+---
+
+## 5. EXPORT SYSTEM (CRITICAL)
+
+Provide download options:
+
+* PNG (transparent background)
+* JPG (white background)
+* SVG (vector version if possible)
+
+Include:
+
+* High resolution export (2x or 4x scaling)
+* Clean edges
+
+---
+
+## 6. LIVE PREVIEW SYSTEM
+
+Show signature in:
+
+* Document mockup
+* PDF style preview
+* Email signature preview
+
+This should update in real-time.
+
+---
+
+## 7. UI / UX DESIGN
+
+Design must feel premium:
+
+Layout:
+
+* Hero title: "Create Your Digital Signature Online"
+* Tab buttons (Draw / Type / Upload)
+* Main workspace (canvas or preview)
+* Controls panel (right or below)
+
+Style:
+
+* Clean white + subtle shadows
+* Rounded corners
+* Smooth transitions
+* No clutter
+
+---
+
+## 8. PERFORMANCE
+
+* No external heavy libraries
+* Use vanilla JS or lightweight utilities
+* Fast load time (<1s)
+* No lag while drawing
+
+---
+
+## 9. PRIVACY
+
+Add note:
+
+* "Your signature is never stored. Everything runs in your browser."
+
+Ensure:
+
+* No network requests
+* No data storage
+
+---
+
+## 10. RESPONSIVENESS
+
+Ensure:
+
+* Works perfectly on mobile touch
+* No horizontal scroll
+* Canvas adjusts properly
+
+---
+
+
+---
+
+# 🎯 OUTPUT REQUIREMENT
+
+Return:
+
+* Complete working code 
+* Clean, modular structure
+* Comments for key logic
+* Ready to deploy static file
+
+---
+
+# ⚡ EXTRA (IF POSSIBLE)
+
+* Add "Download with transparent background" toggle
+* Add watermark toggle (optional branding)
+* Add signature name label option
+
+---
+
+# 🚨 QUALITY STANDARD
+
+This should NOT feel like a basic tool.
+
+It must feel like:
+
+* A professional SaaS-grade tool
+* Smooth, accurate, and visually premium
+* Better than typical free tools online
+
+---
+
+Build this as if it will compete for #1 position globally.
