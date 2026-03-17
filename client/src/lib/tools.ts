@@ -1246,12 +1246,12 @@ export const tools: ToolMetadata[] = [
   },
   {
     id: "signature-pad-tool",
-    name: "Signature Pad Tool",
-    description: "Draw your signature and download it as a PNG file. Offline.",
+    name: "Online Signature Generator",
+    description: "Create your digital signature online — draw, type, or upload. Export as transparent PNG, JPG, or SVG. Free and 100% private.",
     icon: "PenTool",
     path: "/tools/signature-pad-tool",
     category: "utility",
-    keywords: ["signature maker", "draw signature online"],
+    keywords: ["online signature generator", "draw signature online", "create e-signature", "digital signature maker", "free signature tool"],
   },
   {
     id: "prime-number-checker",
