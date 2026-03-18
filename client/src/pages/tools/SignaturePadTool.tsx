@@ -493,11 +493,11 @@ export default function SignaturePadTool() {
   // ── SEO ───────────────────────────────────────────────────────────────────
   const CANONICAL = "https://tools.pixocraft.in/tools/signature-pad-tool";
   useSEO({
-    title: "Online Signature Generator (Draw, Type, Upload) – Free PNG Download | Pixocraft",
+    title: "Free Online Signature Generator — Instant PNG Download | No Signup | Pixocraft",
     description:
-      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. 100% free, private, and runs entirely in your browser. No signup required.",
+      "Create a professional signature online in seconds — free, instant, and 100% private. Draw, type, or upload. Download as transparent PNG or JPG. No signup required.",
     keywords:
-      "online signature generator, signature maker free, digital signature online, handwritten signature generator, e signature maker, create signature online, draw signature, type signature, free e-signature",
+      "online signature generator, free signature maker, digital signature online, handwritten signature generator, e signature maker, create signature online, instant signature download, signature no signup, free e-signature",
     canonicalUrl: CANONICAL,
   });
 
@@ -566,9 +566,9 @@ export default function SignaturePadTool() {
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
   const webPageSchema = generateWebPageSchema({
-    name: "Online Signature Generator (Draw, Type, Upload) – Free PNG Download | Pixocraft",
+    name: "Free Online Signature Generator — Instant PNG Download | No Signup | Pixocraft",
     description:
-      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. 100% free and private.",
+      "Create a professional signature online in seconds — free, instant, and 100% private. Draw, type, or upload. Download as transparent PNG or JPG. No signup required.",
     url: CANONICAL,
   });
 
@@ -582,8 +582,8 @@ export default function SignaturePadTool() {
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={webPageSchema} />
       <ToolLayout
-        title="Online Signature Generator (Free & Private)"
-        description="Create your digital signature online. Draw, type, or upload — export as transparent PNG or JPG. Free and 100% private."
+        title="Free Online Signature Generator — Instant PNG Download"
+        description="Create your professional signature in seconds. Draw with your mouse, type in a handwritten font, or upload a photo. No signup required — 100% private, works on any device."
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"
         category="utility"
