@@ -22,37 +22,74 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
 
-// ─── Visually diverse signature fonts (each looks distinct) ──────────────────
+// ─── 40+ visually diverse signature fonts ────────────────────────────────────
 const HANDWRITTEN_FONTS = [
-  // Elegant thin scripts
-  { label: "Great Vibes", value: "Great Vibes", style: "italic" },
-  { label: "Sacramento", value: "Sacramento", style: "normal" },
-  { label: "Pinyon Script", value: "Pinyon Script", style: "normal" },
-  { label: "Allura", value: "Allura", style: "normal" },
-  // Flowing classic cursive
-  { label: "Dancing Script", value: "Dancing Script", style: "normal" },
-  { label: "Parisienne", value: "Parisienne", style: "normal" },
-  { label: "Alex Brush", value: "Alex Brush", style: "normal" },
-  // Bold brush / chunky
-  { label: "Pacifico", value: "Pacifico", style: "normal" },
-  { label: "Lobster", value: "Lobster", style: "normal" },
-  { label: "Righteous", value: "Righteous", style: "normal" },
-  // Casual handwriting
-  { label: "Caveat", value: "Caveat", style: "normal" },
-  { label: "Patrick Hand", value: "Patrick Hand", style: "normal" },
-  { label: "Indie Flower", value: "Indie Flower", style: "normal" },
-  // Marker / rough
-  { label: "Permanent Marker", value: "Permanent Marker", style: "normal" },
-  { label: "Rock Salt", value: "Rock Salt", style: "normal" },
-  // Airy / light
-  { label: "Shadows Into Light", value: "Shadows Into Light", style: "normal" },
-  { label: "Nothing You Could Do", value: "Nothing You Could Do", style: "normal" },
-  // Condensed / tall
-  { label: "Amatic SC", value: "Amatic SC", style: "normal" },
-  // Retro / vintage
-  { label: "Yellowtail", value: "Yellowtail", style: "normal" },
-  { label: "Courgette", value: "Courgette", style: "normal" },
+  // ── Ultra-thin elegant scripts ──────────────────────────────────────────
+  { label: "Great Vibes",          value: "Great Vibes",          size: "lg" },
+  { label: "Sacramento",           value: "Sacramento",           size: "lg" },
+  { label: "Pinyon Script",        value: "Pinyon Script",        size: "lg" },
+  { label: "Allura",               value: "Allura",               size: "lg" },
+  { label: "Tangerine",            value: "Tangerine",            size: "xl" },
+  { label: "Herr Von Muellerhoff", value: "Herr Von Muellerhoff", size: "xl" },
+  { label: "Ruthie",               value: "Ruthie",               size: "xl" },
+  { label: "Waterfall",            value: "Waterfall",            size: "lg" },
+  { label: "Euphoria Script",      value: "Euphoria Script",      size: "lg" },
+  { label: "Qwigley",              value: "Qwigley",              size: "xl" },
+  // ── Classic flowing cursive ─────────────────────────────────────────────
+  { label: "Dancing Script",       value: "Dancing Script",       size: "md" },
+  { label: "Parisienne",           value: "Parisienne",           size: "md" },
+  { label: "Alex Brush",           value: "Alex Brush",           size: "lg" },
+  { label: "Satisfy",              value: "Satisfy",              size: "md" },
+  { label: "Kaushan Script",       value: "Kaushan Script",       size: "md" },
+  { label: "Cookie",               value: "Cookie",               size: "md" },
+  { label: "Clicker Script",       value: "Clicker Script",       size: "md" },
+  { label: "Marck Script",         value: "Marck Script",         size: "md" },
+  { label: "Niconne",              value: "Niconne",              size: "md" },
+  { label: "Merienda",             value: "Merienda",             size: "md" },
+  // ── Bold / chunky scripts ───────────────────────────────────────────────
+  { label: "Pacifico",             value: "Pacifico",             size: "sm" },
+  { label: "Lobster",              value: "Lobster",              size: "sm" },
+  { label: "Righteous",            value: "Righteous",            size: "sm" },
+  { label: "Berkshire Swash",      value: "Berkshire Swash",      size: "sm" },
+  { label: "Seaweed Script",       value: "Seaweed Script",       size: "sm" },
+  { label: "Grand Hotel",          value: "Grand Hotel",          size: "md" },
+  { label: "Rochester",            value: "Rochester",            size: "md" },
+  { label: "Playball",             value: "Playball",             size: "md" },
+  // ── Casual handwriting ──────────────────────────────────────────────────
+  { label: "Caveat",               value: "Caveat",               size: "md" },
+  { label: "Patrick Hand",         value: "Patrick Hand",         size: "md" },
+  { label: "Indie Flower",         value: "Indie Flower",         size: "md" },
+  { label: "Handlee",              value: "Handlee",              size: "md" },
+  { label: "Courgette",            value: "Courgette",            size: "md" },
+  { label: "Bad Script",           value: "Bad Script",           size: "md" },
+  { label: "Kristi",               value: "Kristi",               size: "lg" },
+  // ── Marker / rough / textured ───────────────────────────────────────────
+  { label: "Permanent Marker",     value: "Permanent Marker",     size: "sm" },
+  { label: "Rock Salt",            value: "Rock Salt",            size: "sm" },
+  { label: "Gloria Hallelujah",    value: "Gloria Hallelujah",    size: "sm" },
+  // ── Light & airy ────────────────────────────────────────────────────────
+  { label: "Shadows Into Light",   value: "Shadows Into Light",   size: "md" },
+  { label: "Nothing You Could Do", value: "Nothing You Could Do", size: "md" },
+  { label: "La Belle Aurore",      value: "La Belle Aurore",      size: "md" },
+  { label: "Give You Glory",       value: "Give You Glory",       size: "md" },
+  // ── Condensed / tall ────────────────────────────────────────────────────
+  { label: "Amatic SC",            value: "Amatic SC",            size: "sm" },
+  { label: "Yellowtail",           value: "Yellowtail",           size: "sm" },
+  // ── Formal calligraphy ──────────────────────────────────────────────────
+  { label: "Petit Formal Script",  value: "Petit Formal Script",  size: "md" },
+  { label: "Norican",              value: "Norican",              size: "md" },
+  { label: "Stalemate",            value: "Stalemate",            size: "lg" },
+  { label: "Lovers Quartet",       value: "Lovers Quartet",       size: "md" },
+  { label: "Engagement",           value: "Engagement",           size: "xl" },
 ];
+
+// Font size px values for card previews and canvas export
+const FONT_SIZE: Record<string, { card: string; canvas: number }> = {
+  xl: { card: "clamp(32px, 6vw, 54px)", canvas: 82 },
+  lg: { card: "clamp(26px, 5vw, 44px)", canvas: 68 },
+  md: { card: "clamp(22px, 4vw, 36px)", canvas: 56 },
+  sm: { card: "clamp(16px, 3vw, 26px)", canvas: 40 },
+};
 
 type Tab = "draw" | "type" | "upload";
 type Point = { x: number; y: number };
@@ -283,13 +320,9 @@ export default function SignaturePadTool() {
       const ctx = oc.getContext("2d")!;
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, CW, CH);
-      // Find font metadata to apply correct style and size
       const fontMeta = HANDWRITTEN_FONTS.find((f) => f.value === font);
-      const fStyle = fontMeta?.style ?? "normal";
-      const smallFonts = ["Rock Salt", "Permanent Marker", "Amatic SC", "Righteous", "Pacifico", "Lobster"];
-      const largeFonts = ["Great Vibes", "Sacramento", "Pinyon Script", "Allura", "Alex Brush", "Parisienne"];
-      const size = smallFonts.includes(font) ? 42 : largeFonts.includes(font) ? 72 : 58;
-      ctx.font = `${fStyle} ${size}px '${font}', cursive`;
+      const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas;
+      ctx.font = `${sizePx}px '${font}', cursive`;
       ctx.fillStyle = color;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -629,12 +662,12 @@ export default function SignaturePadTool() {
                     key={font.value}
                     onClick={() => setSelectedFont(font.value)}
                     data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
-                    className={[
-                      "relative flex flex-col items-center justify-center px-4 py-5 rounded-xl border-2 transition-all cursor-pointer text-center",
-                      isSelected
-                        ? "border-primary bg-primary/8 shadow-sm"
-                        : "border-border bg-card hover-elevate",
-                    ].join(" ")}
+                    className="relative flex flex-col items-center justify-center px-4 py-5 rounded-xl border-2 transition-all cursor-pointer text-center hover-elevate"
+                    style={{
+                      backgroundColor: "white",
+                      borderColor: isSelected ? "var(--primary)" : undefined,
+                      boxShadow: isSelected ? "0 0 0 2px var(--primary, #6366f1)22" : undefined,
+                    }}
                   >
                     {isSelected && (
                       <span className="absolute top-2 right-2 bg-primary rounded-full p-0.5">
@@ -644,16 +677,7 @@ export default function SignaturePadTool() {
                     <span
                       style={{
                         fontFamily: `'${font.value}', cursive`,
-                        fontStyle: font.style as "normal" | "italic",
-                        // Smaller size for wide/chunky fonts, larger for thin elegant ones
-                        fontSize: (() => {
-                          const small = ["Rock Salt", "Permanent Marker", "Amatic SC", "Righteous", "Pacifico", "Lobster"];
-                          const large = ["Great Vibes", "Sacramento", "Pinyon Script", "Allura", "Alex Brush", "Parisienne"];
-                          const name = font.value;
-                          if (small.includes(name)) return typedName ? "clamp(16px, 3vw, 24px)" : "22px";
-                          if (large.includes(name)) return typedName ? "clamp(26px, 5vw, 44px)" : "38px";
-                          return typedName ? "clamp(20px, 4vw, 34px)" : "30px";
-                        })(),
+                        fontSize: FONT_SIZE[font.size].card,
                         color: typeColor,
                         lineHeight: 1.4,
                         display: "block",
@@ -662,7 +686,7 @@ export default function SignaturePadTool() {
                     >
                       {typedName || "Your Name"}
                     </span>
-                    <span className="mt-2 text-[11px] text-muted-foreground">{font.label}</span>
+                    <span className="mt-2 text-[11px]" style={{ color: "#888" }}>{font.label}</span>
                   </button>
                 );
               })}
