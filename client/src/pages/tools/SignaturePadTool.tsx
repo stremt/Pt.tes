@@ -33,6 +33,8 @@ import {
   ArrowRight,
   ClipboardCheck,
   Search,
+  Maximize2,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -214,6 +216,28 @@ const CH = 260;
 // Export scale: internal buffer is EXPORT_SCALE × larger → high-res downloads
 const EXPORT_SCALE = 4; // 3200 × 1040 px output
 
+// ─── Apply scale + margin to a canvas ────────────────────────────────────
+function buildAdjustedCanvas(
+  src: HTMLCanvasElement,
+  scalePct: number,
+  marginPx: number
+): HTMLCanvasElement {
+  const scale = scalePct / 100;
+  const margin = Math.round(marginPx * EXPORT_SCALE);
+  const drawW = Math.round(src.width * scale);
+  const drawH = Math.round(src.height * scale);
+  const totalW = Math.max(1, drawW + margin * 2);
+  const totalH = Math.max(1, drawH + margin * 2);
+  const oc = document.createElement("canvas");
+  oc.width = totalW;
+  oc.height = totalH;
+  const ctx = oc.getContext("2d")!;
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, totalW, totalH);
+  ctx.drawImage(src, margin, margin, drawW, drawH);
+  return oc;
+}
+
 // ─── FontCard: reusable font preview card ─────────────────────────────────
 function FontCard({
   font,
@@ -313,6 +337,13 @@ export default function SignaturePadTool() {
 
   // ── Preview ───────────────────────────────────────────────────────────────
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const liveRafRef = useRef<number | null>(null);
+
+  // ── Resize & Margin ───────────────────────────────────────────────────────
+  const [sigScale, setSigScale] = useState(100);   // 50–200 %
+  const [sigMargin, setSigMargin] = useState(0);   // 0–60 logical px
+  const sigScaleRef = useRef(100);
+  const sigMarginRef = useRef(0);
 
   // ── Gmail copy ────────────────────────────────────────────────────────────
   const [showGmailGuide, setShowGmailGuide] = useState(false);
@@ -456,6 +487,15 @@ export default function SignaturePadTool() {
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
+
+      // Throttled live preview update
+      if (liveRafRef.current === null) {
+        liveRafRef.current = requestAnimationFrame(() => {
+          liveRafRef.current = null;
+          const c = canvasRef.current;
+          if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
+        });
+      }
     },
     []
   );
@@ -474,6 +514,12 @@ export default function SignaturePadTool() {
           ctx.stroke();
         }
       }
+      // Cancel any pending rAF and do final preview sync
+      if (liveRafRef.current !== null) {
+        cancelAnimationFrame(liveRafRef.current);
+        liveRafRef.current = null;
+      }
+      setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     }
     isDrawingRef.current = false;
     pointsRef.current = [];
@@ -538,6 +584,34 @@ export default function SignaturePadTool() {
     [typedName]
   );
 
+  // ── Keep refs in sync with state ─────────────────────────────────────────
+  useEffect(() => { sigScaleRef.current = sigScale; }, [sigScale]);
+  useEffect(() => { sigMarginRef.current = sigMargin; }, [sigMargin]);
+
+  // ── Auto live preview: type tab ───────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab !== "type") return;
+    if (!typedName || !selectedFont) { setPreviewUrl(null); return; }
+    const raw = renderTypeCanvas(selectedFont, typeColor);
+    if (raw) setPreviewUrl(buildAdjustedCanvas(raw, sigScale, sigMargin).toDataURL("image/png"));
+  }, [activeTab, typedName, selectedFont, typeColor, renderTypeCanvas, sigScale, sigMargin]);
+
+  // ── Auto live preview: upload tab ────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab !== "upload") return;
+    const canvas = uploadCanvasRef.current;
+    if (canvas && uploadedImage) setPreviewUrl(buildAdjustedCanvas(canvas, sigScale, sigMargin).toDataURL("image/png"));
+    else if (!uploadedImage) setPreviewUrl(null);
+  }, [activeTab, uploadedImage, bgRemoved, sigScale, sigMargin]);
+
+  // ── Auto live preview: draw tab when switching back ───────────────────────
+  useEffect(() => {
+    if (activeTab !== "draw") return;
+    const canvas = canvasRef.current;
+    if (canvas && hasDrawn) setPreviewUrl(buildAdjustedCanvas(canvas, sigScale, sigMargin).toDataURL("image/png"));
+    else if (!hasDrawn) setPreviewUrl(null);
+  }, [activeTab, hasDrawn, sigScale, sigMargin]);
+
   // ── Upload image ──────────────────────────────────────────────────────────
   const handleUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -575,6 +649,7 @@ export default function SignaturePadTool() {
       const w = img.width * ratio;
       const h = img.height * ratio;
       ctx.drawImage(img, (BW - w) / 2, (BH - h) / 2, w, h);
+      setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     };
     img.src = uploadedImage;
   }, [uploadedImage]);
@@ -592,6 +667,7 @@ export default function SignaturePadTool() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(id, 0, 0);
     setBgRemoved(true);
+    setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     toast({ title: "Done!", description: "White background removed." });
   }, [toast]);
 
@@ -645,48 +721,48 @@ export default function SignaturePadTool() {
 
   // ── Download helpers ──────────────────────────────────────────────────────
   const downloadPNG = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) {
+    const raw = getExportCanvas();
+    if (!raw) {
       toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." });
       return;
     }
+    const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
     const formats = buildFormats(src);
     pendingFormatsRef.current = formats;
-    // Trigger download
     const a = document.createElement("a");
     a.href = formats.png;
     a.download = `signature-${Date.now()}.png`;
     a.click();
     toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
     setShowSavePrompt(true);
-  }, [getExportCanvas, toast, buildFormats]);
+  }, [getExportCanvas, toast, buildFormats, sigScale, sigMargin]);
 
   const downloadJPG = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) {
+    const raw = getExportCanvas();
+    if (!raw) {
       toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." });
       return;
     }
+    const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
     const formats = buildFormats(src);
     pendingFormatsRef.current = formats;
-    // Trigger download
     const a = document.createElement("a");
     a.href = formats.jpg;
     a.download = `signature-${Date.now()}.jpg`;
     a.click();
     toast({ title: "Downloaded!", description: "Saved as JPG." });
     setShowSavePrompt(true);
-  }, [getExportCanvas, toast, buildFormats]);
+  }, [getExportCanvas, toast, buildFormats, sigScale, sigMargin]);
 
   // ── Preview ───────────────────────────────────────────────────────────────
   const generatePreview = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) {
+    const raw = getExportCanvas();
+    if (!raw) {
       toast({ title: "Nothing to preview", description: "Draw, type, or upload a signature first." });
       return;
     }
-    setPreviewUrl(src.toDataURL("image/png"));
-  }, [getExportCanvas, toast]);
+    setPreviewUrl(buildAdjustedCanvas(raw, sigScale, sigMargin).toDataURL("image/png"));
+  }, [getExportCanvas, toast, sigScale, sigMargin]);
 
   // ── Copy for Gmail ────────────────────────────────────────────────────────
   const copyForGmail = useCallback(async () => {
@@ -1058,7 +1134,7 @@ export default function SignaturePadTool() {
               </div>
 
               {/* Canvas */}
-              <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
+              <div className="relative rounded-lg border border-border overflow-hidden bg-white dark:bg-zinc-900" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
                 {/* Subtle horizontal guide lines rendered behind the canvas */}
                 <div
                   aria-hidden="true"
@@ -1348,6 +1424,64 @@ export default function SignaturePadTool() {
             </div>
           )}
 
+          {/* ── RESIZE & MARGIN ───────────────────────────────────────────── */}
+          <div className="rounded-lg border p-4 space-y-4" data-testid="section-resize-margin">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-semibold flex items-center gap-2">
+                <Maximize2 className="h-4 w-4 text-primary" />
+                Resize &amp; Margin
+              </p>
+              {(sigScale !== 100 || sigMargin !== 0) && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { setSigScale(100); setSigMargin(0); }}
+                  data-testid="button-reset-resize"
+                  className="text-xs text-muted-foreground"
+                >
+                  <RotateCcw className="h-3 w-3 mr-1" />
+                  Reset
+                </Button>
+              )}
+            </div>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Scale</Label>
+                  <span className="text-xs font-medium tabular-nums text-foreground" data-testid="text-scale-value">{sigScale}%</span>
+                </div>
+                <Slider
+                  min={50}
+                  max={200}
+                  step={5}
+                  value={[sigScale]}
+                  onValueChange={([v]) => setSigScale(v)}
+                  data-testid="slider-scale"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground/60">
+                  <span>50%</span><span>100%</span><span>200%</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground">Margin (padding)</Label>
+                  <span className="text-xs font-medium tabular-nums text-foreground" data-testid="text-margin-value">{sigMargin}px</span>
+                </div>
+                <Slider
+                  min={0}
+                  max={60}
+                  step={2}
+                  value={[sigMargin]}
+                  onValueChange={([v]) => setSigMargin(v)}
+                  data-testid="slider-margin"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground/60">
+                  <span>0px</span><span>30px</span><span>60px</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* ── EXPORT PANEL ──────────────────────────────────────────────── */}
           <div className="rounded-lg border bg-gradient-to-r from-primary/5 to-transparent p-4 space-y-3">
             <div className="flex items-center justify-between flex-wrap gap-2">
@@ -1429,12 +1563,12 @@ export default function SignaturePadTool() {
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="shrink-0 w-52 rounded-xl border bg-white overflow-hidden group cursor-pointer hover-elevate transition-all"
+                    className="shrink-0 w-52 rounded-xl border bg-white dark:bg-zinc-900 overflow-hidden group cursor-pointer hover-elevate transition-all"
                     onClick={() => setSelectedHistoryItem(item)}
                     data-testid={`history-item-${item.id}`}
                   >
                     {/* Thumbnail */}
-                    <div className="relative h-24 bg-[#f9f9f9] border-b flex items-center justify-center p-3">
+                    <div className="relative h-24 bg-[#f9f9f9] dark:bg-zinc-800 border-b flex items-center justify-center p-3">
                       <img
                         src={item.thumbUrl}
                         alt={item.label}
@@ -1452,7 +1586,7 @@ export default function SignaturePadTool() {
                       </button>
                       {/* View hint */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-semibold text-foreground/70 bg-white/90 px-2 py-0.5 rounded-full shadow-sm">
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-semibold text-foreground/70 bg-white/90 dark:bg-zinc-800/90 px-2 py-0.5 rounded-full shadow-sm">
                           Click to view
                         </span>
                       </div>
@@ -1510,22 +1644,22 @@ export default function SignaturePadTool() {
           {/* Document mockup */}
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Document / Contract</p>
-            <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
+            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-6 shadow-sm space-y-3">
               <div className="space-y-2">
                 {[3, 4, 3.5, 2.5].map((w, i) => (
-                  <div key={i} className="h-2 rounded-full bg-zinc-100" style={{ width: `${w / 4 * 100}%` }} />
+                  <div key={i} className="h-2 rounded-full bg-zinc-100 dark:bg-zinc-700" style={{ width: `${w / 4 * 100}%` }} />
                 ))}
               </div>
-              <div className="border-t border-zinc-100 pt-4">
-                <p className="text-[10px] text-zinc-400 mb-2">Authorized Signature</p>
+              <div className="border-t border-zinc-100 dark:border-zinc-700 pt-4">
+                <p className="text-[10px] text-zinc-400 dark:text-zinc-500 mb-2">Authorized Signature</p>
                 {previewUrl ? (
                   <img src={previewUrl} alt="Signature preview" className="h-16 object-contain" data-testid="img-preview-doc" />
                 ) : (
-                  <div className="h-16 w-52 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center">
-                    <span className="text-[10px] text-zinc-300 select-none">Your signature</span>
+                  <div className="h-16 w-52 rounded-lg border-2 border-dashed border-zinc-200 dark:border-zinc-700 flex items-center justify-center">
+                    <span className="text-[10px] text-zinc-300 dark:text-zinc-600 select-none">Your signature</span>
                   </div>
                 )}
-                <div className="mt-2 h-px w-40 bg-zinc-200" />
+                <div className="mt-2 h-px w-40 bg-zinc-200 dark:bg-zinc-700" />
               </div>
             </div>
           </div>
@@ -1533,19 +1667,19 @@ export default function SignaturePadTool() {
           {/* Email mockup */}
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Email Footer</p>
-            <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
+            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
               <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                 <PenTool className="h-5 w-5 text-primary/60" />
               </div>
               <div className="space-y-1.5 flex-1 min-w-0">
-                <div className="h-2 w-28 rounded-full bg-zinc-200" />
-                <div className="h-2 w-20 rounded-full bg-zinc-100" />
+                <div className="h-2 w-28 rounded-full bg-zinc-200 dark:bg-zinc-700" />
+                <div className="h-2 w-20 rounded-full bg-zinc-100 dark:bg-zinc-700/60" />
               </div>
               {previewUrl ? (
                 <img src={previewUrl} alt="Email signature" className="h-10 object-contain" data-testid="img-preview-email" />
               ) : (
-                <div className="h-10 w-28 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center shrink-0">
-                  <span className="text-[9px] text-zinc-300 select-none">Signature</span>
+                <div className="h-10 w-28 rounded-lg border-2 border-dashed border-zinc-200 dark:border-zinc-700 flex items-center justify-center shrink-0">
+                  <span className="text-[9px] text-zinc-300 dark:text-zinc-600 select-none">Signature</span>
                 </div>
               )}
             </div>
@@ -1997,7 +2131,7 @@ export default function SignaturePadTool() {
             </DialogHeader>
 
             {/* Large signature preview */}
-            <div className="rounded-xl border bg-white p-6 flex items-center justify-center min-h-[140px]">
+            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-6 flex items-center justify-center min-h-[140px]">
               <img
                 src={selectedHistoryItem.pngDataUrl}
                 alt="Saved signature"
@@ -2007,17 +2141,17 @@ export default function SignaturePadTool() {
             </div>
 
             {/* Signature on document preview */}
-            <div className="rounded-xl border bg-white p-5 space-y-3">
+            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 space-y-3">
               <p className="text-xs text-muted-foreground font-medium">Preview on document</p>
               <div className="space-y-2">
                 {[3, 4, 2.5].map((w, i) => (
-                  <div key={i} className="h-1.5 rounded-full bg-zinc-100" style={{ width: `${w / 4 * 100}%` }} />
+                  <div key={i} className="h-1.5 rounded-full bg-zinc-100 dark:bg-zinc-700" style={{ width: `${w / 4 * 100}%` }} />
                 ))}
               </div>
-              <div className="border-t border-zinc-100 pt-3">
-                <p className="text-[9px] text-zinc-400 mb-1.5 uppercase tracking-wider">Authorized Signature</p>
+              <div className="border-t border-zinc-100 dark:border-zinc-700 pt-3">
+                <p className="text-[9px] text-zinc-400 dark:text-zinc-500 mb-1.5 uppercase tracking-wider">Authorized Signature</p>
                 <img src={selectedHistoryItem.pngDataUrl} alt="doc preview" className="h-12 object-contain" />
-                <div className="mt-1.5 h-px w-36 bg-zinc-200" />
+                <div className="mt-1.5 h-px w-36 bg-zinc-200 dark:bg-zinc-700" />
               </div>
             </div>
 

@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import {
   PenTool, Download, Eraser, Type, Upload, Undo2, Redo2,
   Trash2, ImageIcon, Shield, Check, Eye, Zap, Smartphone, Star,
-  Mail, Copy, X, ClipboardCheck, ArrowRight,
+  Mail, Copy, X, ClipboardCheck, ArrowRight, Maximize2, RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -110,6 +110,27 @@ const CW = 800;
 const CH = 260;
 const EXPORT_SCALE = 4;
 
+function buildAdjustedCanvas(
+  src: HTMLCanvasElement,
+  scalePct: number,
+  marginPx: number
+): HTMLCanvasElement {
+  const scale = scalePct / 100;
+  const margin = Math.round(marginPx * EXPORT_SCALE);
+  const drawW = Math.round(src.width * scale);
+  const drawH = Math.round(src.height * scale);
+  const totalW = Math.max(1, drawW + margin * 2);
+  const totalH = Math.max(1, drawH + margin * 2);
+  const oc = document.createElement("canvas");
+  oc.width = totalW;
+  oc.height = totalH;
+  const ctx = oc.getContext("2d")!;
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, totalW, totalH);
+  ctx.drawImage(src, margin, margin, drawW, drawH);
+  return oc;
+}
+
 interface SignaturePadWidgetProps {
   initialTab?: Tab;
   initialFont?: string;
@@ -150,6 +171,12 @@ export default function SignaturePadWidget({
   const [bgRemoved, setBgRemoved] = useState(false);
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const liveRafRef = useRef<number | null>(null);
+
+  const [sigScale, setSigScale] = useState(100);
+  const [sigMargin, setSigMargin] = useState(0);
+  const sigScaleRef = useRef(100);
+  const sigMarginRef = useRef(0);
 
   const [showGmailGuide, setShowGmailGuide] = useState(false);
   const [fallbackHtml, setFallbackHtml] = useState<string | null>(null);
@@ -291,6 +318,14 @@ export default function SignaturePadWidget({
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
+      // Throttled live preview update
+      if (liveRafRef.current === null) {
+        liveRafRef.current = requestAnimationFrame(() => {
+          liveRafRef.current = null;
+          const c = canvasRef.current;
+          if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
+        });
+      }
     },
     []
   );
@@ -304,6 +339,12 @@ export default function SignaturePadWidget({
         const pts = pointsRef.current;
         if (pts.length) { const last = pts[pts.length - 1]; ctx.lineTo(last.x, last.y); ctx.stroke(); }
       }
+      // Cancel any pending rAF and do final preview sync
+      if (liveRafRef.current !== null) {
+        cancelAnimationFrame(liveRafRef.current);
+        liveRafRef.current = null;
+      }
+      setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     }
     isDrawingRef.current = false;
     pointsRef.current = [];
@@ -363,6 +404,34 @@ export default function SignaturePadWidget({
     [typedName]
   );
 
+  // ── Keep refs in sync ─────────────────────────────────────────────────────
+  useEffect(() => { sigScaleRef.current = sigScale; }, [sigScale]);
+  useEffect(() => { sigMarginRef.current = sigMargin; }, [sigMargin]);
+
+  // ── Auto live preview: type tab ───────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab !== "type") return;
+    if (!typedName || !selectedFont) { setPreviewUrl(null); return; }
+    const raw = renderTypeCanvas(selectedFont, typeColor);
+    if (raw) setPreviewUrl(buildAdjustedCanvas(raw, sigScale, sigMargin).toDataURL("image/png"));
+  }, [activeTab, typedName, selectedFont, typeColor, renderTypeCanvas, sigScale, sigMargin]);
+
+  // ── Auto live preview: upload tab ────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab !== "upload") return;
+    const canvas = uploadCanvasRef.current;
+    if (canvas && uploadedImage) setPreviewUrl(buildAdjustedCanvas(canvas, sigScale, sigMargin).toDataURL("image/png"));
+    else if (!uploadedImage) setPreviewUrl(null);
+  }, [activeTab, uploadedImage, bgRemoved, sigScale, sigMargin]);
+
+  // ── Auto live preview: draw tab when switching back ───────────────────────
+  useEffect(() => {
+    if (activeTab !== "draw") return;
+    const canvas = canvasRef.current;
+    if (canvas && hasDrawn) setPreviewUrl(buildAdjustedCanvas(canvas, sigScale, sigMargin).toDataURL("image/png"));
+    else if (!hasDrawn) setPreviewUrl(null);
+  }, [activeTab, hasDrawn, sigScale, sigMargin]);
+
   const handleUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -390,6 +459,7 @@ export default function SignaturePadWidget({
       const ratio = Math.min((BW * 0.85) / img.width, (BH * 0.85) / img.height);
       const w = img.width * ratio; const h = img.height * ratio;
       ctx.drawImage(img, (BW - w) / 2, (BH - h) / 2, w, h);
+      setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     };
     img.src = uploadedImage;
   }, [uploadedImage]);
@@ -406,6 +476,7 @@ export default function SignaturePadWidget({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(id, 0, 0);
     setBgRemoved(true);
+    setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     toast({ title: "Done!", description: "White background removed." });
   }, [toast]);
 
@@ -420,8 +491,9 @@ export default function SignaturePadWidget({
   }, [activeTab, selectedFont, typedName, typeColor, renderTypeCanvas]);
 
   const downloadPNG = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    const raw = getExportCanvas();
+    if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
     const oc = document.createElement("canvas");
     oc.width = src.width; oc.height = src.height;
     const ctx = oc.getContext("2d")!;
@@ -441,11 +513,12 @@ export default function SignaturePadWidget({
       URL.revokeObjectURL(url);
       toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
     }, "image/png");
-  }, [getExportCanvas, toast]);
+  }, [getExportCanvas, toast, sigScale, sigMargin]);
 
   const downloadJPG = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    const raw = getExportCanvas();
+    if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
     const oc = document.createElement("canvas");
     oc.width = src.width; oc.height = src.height;
     const ctx = oc.getContext("2d")!;
@@ -459,13 +532,13 @@ export default function SignaturePadWidget({
       URL.revokeObjectURL(url);
       toast({ title: "Downloaded!", description: "Saved as JPG." });
     }, "image/jpeg", 0.95);
-  }, [getExportCanvas, toast]);
+  }, [getExportCanvas, toast, sigScale, sigMargin]);
 
   const generatePreview = useCallback(() => {
-    const src = getExportCanvas();
-    if (!src) { toast({ title: "Nothing to preview", description: "Draw, type, or upload a signature first." }); return; }
-    setPreviewUrl(src.toDataURL("image/png"));
-  }, [getExportCanvas, toast]);
+    const raw = getExportCanvas();
+    if (!raw) { toast({ title: "Nothing to preview", description: "Draw, type, or upload a signature first." }); return; }
+    setPreviewUrl(buildAdjustedCanvas(raw, sigScale, sigMargin).toDataURL("image/png"));
+  }, [getExportCanvas, toast, sigScale, sigMargin]);
 
   const copyForGmail = useCallback(async () => {
     const src = getExportCanvas();
@@ -673,7 +746,7 @@ export default function SignaturePadWidget({
               </div>
             </div>
 
-            <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
+            <div className="relative rounded-lg border border-border overflow-hidden bg-white dark:bg-zinc-900" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
               <div
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none"
@@ -740,7 +813,7 @@ export default function SignaturePadWidget({
                     onClick={() => setSelectedFont(font.value)}
                     data-testid={`widget-font-${font.value.replace(/ /g, "-")}`}
                     className={[
-                      "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center bg-white",
+                      "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center bg-white dark:bg-zinc-900",
                       isSelected
                         ? "border-primary shadow-sm ring-2 ring-primary/40"
                         : "border-border hover-elevate dark:border-zinc-300/20",
@@ -797,7 +870,7 @@ export default function SignaturePadWidget({
                 {bgRemoved ? "Background Removed" : "Remove White Background"}
               </Button>
             )}
-            <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white">
+            <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white dark:bg-zinc-900">
               <canvas ref={uploadCanvasRef} style={canvasStyle} className="block" data-testid="widget-canvas-upload" />
               {!uploadedImage && (
                 <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 select-none">
@@ -808,6 +881,64 @@ export default function SignaturePadWidget({
             </div>
           </div>
         )}
+
+        {/* ── RESIZE & MARGIN ─────────────────────────────────────────── */}
+        <div className="rounded-lg border p-4 space-y-4" data-testid="widget-section-resize-margin">
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-sm font-semibold flex items-center gap-2">
+              <Maximize2 className="h-4 w-4 text-primary" />
+              Resize &amp; Margin
+            </p>
+            {(sigScale !== 100 || sigMargin !== 0) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => { setSigScale(100); setSigMargin(0); }}
+                data-testid="widget-button-reset-resize"
+                className="text-xs text-muted-foreground"
+              >
+                <RotateCcw className="h-3 w-3 mr-1" />
+                Reset
+              </Button>
+            )}
+          </div>
+          <div className="space-y-3">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs text-muted-foreground">Scale</Label>
+                <span className="text-xs font-medium tabular-nums text-foreground" data-testid="widget-text-scale-value">{sigScale}%</span>
+              </div>
+              <Slider
+                min={50}
+                max={200}
+                step={5}
+                value={[sigScale]}
+                onValueChange={([v]) => setSigScale(v)}
+                data-testid="widget-slider-scale"
+              />
+              <div className="flex justify-between text-[10px] text-muted-foreground/60">
+                <span>50%</span><span>100%</span><span>200%</span>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs text-muted-foreground">Margin (padding)</Label>
+                <span className="text-xs font-medium tabular-nums text-foreground" data-testid="widget-text-margin-value">{sigMargin}px</span>
+              </div>
+              <Slider
+                min={0}
+                max={60}
+                step={2}
+                value={[sigMargin]}
+                onValueChange={([v]) => setSigMargin(v)}
+                data-testid="widget-slider-margin"
+              />
+              <div className="flex justify-between text-[10px] text-muted-foreground/60">
+                <span>0px</span><span>30px</span><span>60px</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="rounded-lg border bg-gradient-to-r from-primary/5 to-transparent p-4 space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
@@ -880,28 +1011,28 @@ export default function SignaturePadWidget({
           </p>
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Document / Contract</p>
-            <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
+            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-6 shadow-sm space-y-3">
               <div className="space-y-2">
                 {[3, 4, 3.5, 2.5].map((w, i) => (
-                  <div key={i} className="h-2 rounded-full bg-zinc-200" style={{ width: `${w / 4 * 100}%` }} />
+                  <div key={i} className="h-2 rounded-full bg-zinc-200 dark:bg-zinc-700" style={{ width: `${w / 4 * 100}%` }} />
                 ))}
               </div>
-              <div className="border-t border-zinc-200 pt-4">
-                <p className="text-[10px] text-zinc-400 mb-1">Authorized Signature</p>
+              <div className="border-t border-zinc-200 dark:border-zinc-700 pt-4">
+                <p className="text-[10px] text-zinc-400 dark:text-zinc-500 mb-1">Authorized Signature</p>
                 <img src={previewUrl} alt="Signature preview on document" className="h-16 object-contain" data-testid="widget-img-preview-doc" />
-                <div className="mt-1 h-px w-40 bg-zinc-200" />
+                <div className="mt-1 h-px w-40 bg-zinc-200 dark:bg-zinc-700" />
               </div>
             </div>
           </div>
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Email Footer</p>
-            <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
+            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
               <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                 <PenTool className="h-5 w-5 text-primary" />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <div className="h-2 w-28 rounded-full bg-zinc-200" />
-                <div className="h-2 w-20 rounded-full bg-zinc-100" />
+                <div className="h-2 w-28 rounded-full bg-zinc-200 dark:bg-zinc-700" />
+                <div className="h-2 w-20 rounded-full bg-zinc-100 dark:bg-zinc-700/60" />
               </div>
               <img src={previewUrl} alt="Email signature preview" className="h-10 object-contain" data-testid="widget-img-preview-email" />
             </div>

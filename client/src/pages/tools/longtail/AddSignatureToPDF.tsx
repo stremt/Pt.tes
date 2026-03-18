@@ -35,10 +35,10 @@ const FAQS = [
 ];
 
 const HOW_TO_STEPS = [
-  { step: 1, title: "Create your signature",    description: "Draw freehand or type your name in a handwriting font. Click Confirm Signature when done." },
-  { step: 2, title: "Upload your PDF",           description: "Click Upload PDF or drag and drop your file. The PDF preview loads instantly — all processing happens in your browser." },
-  { step: 3, title: "Click to place signature", description: "Click anywhere on the PDF page preview to position your signature. Use the page navigator for multi-page documents." },
-  { step: 4, title: "Download signed PDF",       description: "Click Download Signed PDF. pdf-lib embeds your signature at the exact position and outputs a clean, ready-to-use PDF." },
+  { step: 1, title: "Create your signature",          description: "Draw freehand or type your name in a handwriting font. Click Confirm Signature when done." },
+  { step: 2, title: "Upload your PDF or image",       description: "Click Upload or drag and drop a PDF, PNG, or JPG file (max 10MB). The preview loads instantly — all processing is 100% local in your browser." },
+  { step: 3, title: "Drag, resize & rotate",          description: "Click Add Signature, then drag it anywhere on the document. Use corner handles to resize (aspect ratio locked) and the circle handle to rotate. Add multiple signatures for multi-page signing." },
+  { step: 4, title: "Download signed document",       description: "Click Download. For PDFs, pdf-lib embeds your signature at the exact position with correct rotation. For images, the signature is composited and exported as a PNG." },
 ];
 
 const USE_CASES = [
