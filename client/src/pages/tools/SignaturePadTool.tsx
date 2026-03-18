@@ -1,6 +1,13 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "wouter";
-import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema } from "@/lib/seo";
+import {
+  useSEO,
+  StructuredData,
+  generateFAQSchema,
+  generateSoftwareApplicationSchema,
+  generateBreadcrumbSchema,
+  generateWebPageSchema,
+} from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import {
   PenTool,
@@ -549,10 +556,21 @@ export default function SignaturePadTool() {
       "Create your digital signature online for free. Draw, type, or upload and download as transparent PNG or JPG. 100% private — runs entirely in your browser.",
     url: CANONICAL,
     applicationCategory: "UtilityApplication",
-    operatingSystem: "Any",
+    operatingSystem: "Web",
     offers: { price: "0", priceCurrency: "USD" },
   });
   const faqSchema = generateFAQSchema(faqs);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home",                        url: "https://tools.pixocraft.in/" },
+    { name: "Utilities",                   url: "https://tools.pixocraft.in/category/utility" },
+    { name: "Online Signature Generator",  url: CANONICAL },
+  ]);
+  const webPageSchema = generateWebPageSchema({
+    name: "Online Signature Generator (Draw, Type, Upload) – Free PNG Download | Pixocraft",
+    description:
+      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. 100% free and private.",
+    url: CANONICAL,
+  });
 
   // ── Shared canvas style ───────────────────────────────────────────────────
   const canvasStyle: React.CSSProperties = { width: "100%", height: CH, display: "block" };
@@ -561,8 +579,10 @@ export default function SignaturePadTool() {
     <>
       <StructuredData data={softwareSchema} />
       <StructuredData data={faqSchema} />
+      <StructuredData data={breadcrumbSchema} />
+      <StructuredData data={webPageSchema} />
       <ToolLayout
-        title="Online Signature Generator (Free &amp; Private)"
+        title="Online Signature Generator (Free & Private)"
         description="Create your digital signature online. Draw, type, or upload — export as transparent PNG or JPG. Free and 100% private."
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"

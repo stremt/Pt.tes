@@ -1,0 +1,195 @@
+You are a senior frontend developer and technical SEO expert.
+
+Your task is to upgrade an existing "Online Signature Generator" webpage by implementing complete structured data (schema markup) and fixing all SEO issues properly.
+
+⚠️ This must be production-ready, clean, and error-free.
+
+---
+
+# 🔥 PART 1: ADD SCHEMA MARKUP (VERY IMPORTANT)
+
+Add the following JSON-LD schemas inside the HTML (preferably in <head> or end of <body>):
+
+---
+
+## 1. SoftwareApplication Schema
+
+Use this exact structure but ensure URL is dynamic if needed:
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Online Signature Generator",
+ "url": "https://tools.pixocraft.in/signature-generator",
+ "applicationCategory": "UtilityApplication",
+ "operatingSystem": "Web",
+ "description": "Create your digital signature online by drawing, typing, or uploading. Download as PNG or JPG. 100% free and private.",
+ "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+ }
+}
+</script>
+
+---
+
+## 2. FAQPage Schema
+
+Match FAQs with actual visible FAQ section on the page:
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+   {
+     "@type": "Question",
+     "name": "Is my signature stored anywhere?",
+     "acceptedAnswer": {
+       "@type": "Answer",
+       "text": "No, your signature is never stored. Everything runs in your browser."
+     }
+   },
+   {
+     "@type": "Question",
+     "name": "Is an online signature legally valid?",
+     "acceptedAnswer": {
+       "@type": "Answer",
+       "text": "Yes, electronic signatures are legally valid in many countries depending on regulations."
+     }
+   },
+   {
+     "@type": "Question",
+     "name": "Can I use this tool on mobile?",
+     "acceptedAnswer": {
+       "@type": "Answer",
+       "text": "Yes, the tool works on all mobile devices with touch support."
+     }
+   },
+   {
+     "@type": "Question",
+     "name": "What formats can I download?",
+     "acceptedAnswer": {
+       "@type": "Answer",
+       "text": "You can download your signature as PNG or JPG."
+     }
+   }
+ ]
+}
+</script>
+
+---
+
+## 3. Breadcrumb Schema
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+   {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://tools.pixocraft.in/"
+   },
+   {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Utilities",
+     "item": "https://tools.pixocraft.in/utilities"
+   },
+   {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Online Signature Generator",
+     "item": "https://tools.pixocraft.in/signature-generator"
+   }
+ ]
+}
+</script>
+
+---
+
+## 4. WebPage Schema
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Online Signature Generator",
+ "url": "https://tools.pixocraft.in/signature-generator",
+ "description": "Free online signature generator to draw, type or upload and download signature instantly."
+}
+</script>
+
+---
+
+# 🔥 PART 2: SEO FIXES
+
+Ensure:
+
+1. Title tag exists and is optimized:
+   Online Signature Generator (Draw, Type, Upload) – Free PNG Download | Pixocraft
+
+2. Meta description exists and is optimized
+
+3. Only ONE H1 exists:
+   Online Signature Generator (Free & Private)
+
+4. Proper H2 structure for:
+
+   * What is signature generator
+   * How to create signature
+   * Features
+   * FAQ
+
+---
+
+# 🔥 PART 3: INTERNAL LINKING
+
+Add links inside content to:
+
+* PDF tools
+* Image tools
+* Background remover
+
+Use anchor text naturally.
+
+---
+
+# 🔥 PART 4: PERFORMANCE
+
+Ensure:
+
+* No duplicate scripts
+* No blocking JS
+* Fast load time
+* No console errors
+
+---
+
+# 🔥 PART 5: VALIDATION
+
+After implementation:
+
+* Validate schema using Google Rich Results Test
+* Ensure no errors
+* Ensure FAQs match visible content
+
+---
+
+# 🎯 OUTPUT REQUIREMENT
+
+Return updated full HTML with:
+
+* Schema added
+* SEO fixed
+* Clean structure
+* No errors
+
+---
+
+This must be implemented like a production-level SEO optimized page ready to rank on Google.
