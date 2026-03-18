@@ -204,6 +204,7 @@ export default function SignaturePadTool() {
   const [showSavePrompt, setShowSavePrompt] = useState(false);
   const [history, setHistory] = useState<SigHistoryItem[]>(loadHistory);
   const pendingFormatsRef = useRef<{ png: string; jpg: string; thumb: string } | null>(null);
+  const [selectedHistoryItem, setSelectedHistoryItem] = useState<SigHistoryItem | null>(null);
 
   const { toast } = useToast();
 
@@ -1157,54 +1158,70 @@ export default function SignaturePadTool() {
                   <p className="text-sm font-semibold flex items-center gap-2">
                     <ClipboardCheck className="h-4 w-4 text-primary" />
                     Saved Signatures
+                    <span className="text-xs font-normal text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{history.length}</span>
                   </p>
-                  <p className="text-xs text-muted-foreground">Stored locally in your browser · click to re-download</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Click any signature to view &amp; download</p>
                 </div>
-                <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{history.length}</span>
               </div>
               <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="shrink-0 w-44 rounded-lg border bg-white overflow-hidden group"
+                    className="shrink-0 w-52 rounded-xl border bg-white overflow-hidden group cursor-pointer hover-elevate transition-all"
+                    onClick={() => setSelectedHistoryItem(item)}
                     data-testid={`history-item-${item.id}`}
                   >
-                    <div className="relative h-16 bg-white border-b flex items-center justify-center px-2">
+                    {/* Thumbnail */}
+                    <div className="relative h-24 bg-[#f9f9f9] border-b flex items-center justify-center p-3">
                       <img
                         src={item.thumbUrl}
                         alt={item.label}
                         className="max-h-full max-w-full object-contain"
+                        style={{ imageRendering: "auto" }}
                       />
+                      {/* Delete on hover */}
                       <button
-                        onClick={() => deleteFromHistory(item.id)}
-                        className="absolute top-1 right-1 h-5 w-5 rounded-full bg-destructive/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={(e) => { e.stopPropagation(); deleteFromHistory(item.id); }}
+                        className="absolute top-1.5 right-1.5 h-6 w-6 rounded-full bg-destructive text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow"
                         title="Delete"
                         data-testid={`button-delete-history-${item.id}`}
                       >
-                        <Trash2 className="h-2.5 w-2.5" />
+                        <Trash2 className="h-3 w-3" />
                       </button>
+                      {/* View hint */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-semibold text-foreground/70 bg-white/90 px-2 py-0.5 rounded-full shadow-sm">
+                          Click to view
+                        </span>
+                      </div>
                     </div>
-                    <div className="p-2 space-y-1.5">
-                      <p className="text-[10px] text-muted-foreground truncate">{item.label}</p>
-                      <div className="flex gap-1">
+                    {/* Info + quick actions */}
+                    <div className="px-3 py-2 space-y-2">
+                      <div>
+                        <p className="text-xs font-medium text-foreground truncate">{item.label}</p>
+                        <p className="text-[10px] text-muted-foreground">
+                          {new Date(item.savedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                        </p>
+                      </div>
+                      <div className="flex gap-1.5">
                         <Button
                           size="sm"
                           variant="outline"
-                          className="flex-1 h-6 text-[10px] px-1.5 gap-1"
-                          onClick={() => reDownload(item, "png")}
+                          className="flex-1 h-7 text-xs gap-1"
+                          onClick={(e) => { e.stopPropagation(); reDownload(item, "png"); }}
                           data-testid={`button-history-png-${item.id}`}
                         >
-                          <Download className="h-2.5 w-2.5" />
+                          <Download className="h-3 w-3" />
                           PNG
                         </Button>
                         <Button
                           size="sm"
                           variant="outline"
-                          className="flex-1 h-6 text-[10px] px-1.5 gap-1"
-                          onClick={() => reDownload(item, "jpg")}
+                          className="flex-1 h-7 text-xs gap-1"
+                          onClick={(e) => { e.stopPropagation(); reDownload(item, "jpg"); }}
                           data-testid={`button-history-jpg-${item.id}`}
                         >
-                          <Download className="h-2.5 w-2.5" />
+                          <Download className="h-3 w-3" />
                           JPG
                         </Button>
                       </div>
@@ -1685,6 +1702,112 @@ export default function SignaturePadTool() {
             Done
           </Button>
         </div>
+      </DialogContent>
+    </Dialog>
+
+    {/* ── HISTORY ITEM DETAIL POPUP ───────────────────────────────────────── */}
+    <Dialog open={!!selectedHistoryItem} onOpenChange={(o) => { if (!o) setSelectedHistoryItem(null); }}>
+      <DialogContent className="max-w-lg">
+        {selectedHistoryItem && (
+          <>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <ClipboardCheck className="h-5 w-5 text-primary" />
+                Saved Signature
+              </DialogTitle>
+              <DialogDescription>
+                {selectedHistoryItem.label}
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* Large signature preview */}
+            <div className="rounded-xl border bg-white p-6 flex items-center justify-center min-h-[140px]">
+              <img
+                src={selectedHistoryItem.pngDataUrl}
+                alt="Saved signature"
+                className="max-h-32 max-w-full object-contain"
+                data-testid="history-detail-img"
+              />
+            </div>
+
+            {/* Signature on document preview */}
+            <div className="rounded-xl border bg-white p-5 space-y-3">
+              <p className="text-xs text-muted-foreground font-medium">Preview on document</p>
+              <div className="space-y-2">
+                {[3, 4, 2.5].map((w, i) => (
+                  <div key={i} className="h-1.5 rounded-full bg-zinc-100" style={{ width: `${w / 4 * 100}%` }} />
+                ))}
+              </div>
+              <div className="border-t border-zinc-100 pt-3">
+                <p className="text-[9px] text-zinc-400 mb-1.5 uppercase tracking-wider">Authorized Signature</p>
+                <img src={selectedHistoryItem.pngDataUrl} alt="doc preview" className="h-12 object-contain" />
+                <div className="mt-1.5 h-px w-36 bg-zinc-200" />
+              </div>
+            </div>
+
+            {/* Save info */}
+            <div className="rounded-lg bg-muted/50 border px-4 py-3 grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <p className="text-muted-foreground">Saved on</p>
+                <p className="font-medium text-foreground mt-0.5">
+                  {new Date(selectedHistoryItem.savedAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Time</p>
+                <p className="font-medium text-foreground mt-0.5">
+                  {new Date(selectedHistoryItem.savedAt).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Storage</p>
+                <p className="font-medium text-foreground mt-0.5">Local browser only</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Formats available</p>
+                <p className="font-medium text-foreground mt-0.5">PNG + JPG</p>
+              </div>
+            </div>
+
+            {/* Download buttons */}
+            <div className="flex gap-2">
+              <Button
+                className="flex-1 gap-2"
+                onClick={() => reDownload(selectedHistoryItem, "png")}
+                data-testid="history-detail-download-png"
+              >
+                <Download className="h-4 w-4" />
+                Download PNG
+                <span className="text-xs opacity-70 ml-1">(Transparent)</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="flex-1 gap-2"
+                onClick={() => reDownload(selectedHistoryItem, "jpg")}
+                data-testid="history-detail-download-jpg"
+              >
+                <Download className="h-4 w-4" />
+                Download JPG
+                <span className="text-xs opacity-70 ml-1">(White BG)</span>
+              </Button>
+            </div>
+
+            <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                className="flex-1 text-destructive/80 hover:text-destructive gap-2 text-sm"
+                onClick={() => { deleteFromHistory(selectedHistoryItem.id); setSelectedHistoryItem(null); }}
+                data-testid="history-detail-delete"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                Delete from history
+              </Button>
+              <Button variant="ghost" className="flex-1" onClick={() => setSelectedHistoryItem(null)}>
+                Close
+              </Button>
+            </div>
+          </>
+        )}
       </DialogContent>
     </Dialog>
 
