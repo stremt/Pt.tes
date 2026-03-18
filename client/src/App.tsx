@@ -348,6 +348,7 @@ const ESignatureMaker = lazy(() => import("@/pages/tools/longtail/ESignatureMake
 const HandwrittenSignatureGenerator = lazy(() => import("@/pages/tools/longtail/HandwrittenSignatureGenerator"));
 const SignatureCreator = lazy(() => import("@/pages/tools/longtail/SignatureCreator"));
 const AddSignatureToPDF = lazy(() => import("@/pages/tools/longtail/AddSignatureToPDF"));
+const SignatureForPDF = lazy(() => import("@/pages/tools/longtail/SignatureForPDF"));
 const PrimeNumberChecker = lazy(() => import("@/pages/tools/PrimeNumberChecker"));
 const PrimeNumberGenerator = lazy(() => import("@/pages/tools/PrimeNumberGenerator"));
 const PrimeFactorization = lazy(() => import("@/pages/tools/PrimeFactorization"));
@@ -775,6 +776,7 @@ function Router() {
         <Route path="/tools/handwritten-signature-generator" component={HandwrittenSignatureGenerator} />
         <Route path="/tools/signature-creator" component={SignatureCreator} />
         <Route path="/tools/add-signature-to-pdf" component={AddSignatureToPDF} />
+        <Route path="/tools/signature-for-pdf" component={SignatureForPDF} />
         <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
         <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
         <Route path="/tools/prime-factorization" component={PrimeFactorization} />
