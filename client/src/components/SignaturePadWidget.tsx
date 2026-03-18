@@ -2,12 +2,16 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import {
   PenTool, Download, Eraser, Type, Upload, Undo2, Redo2,
   Trash2, ImageIcon, Shield, Check, Eye, Zap, Smartphone, Star,
+  Mail, Copy, X, ClipboardCheck, ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
+} from "@/components/ui/dialog";
 
 const HANDWRITTEN_FONTS = [
   { label: "Great Vibes",          value: "Great Vibes",          size: "lg" },
@@ -110,18 +114,27 @@ interface SignaturePadWidgetProps {
   initialTab?: Tab;
   initialFont?: string;
   initialName?: string;
+  savedId?: string;
+}
+
+const LS_PREFIX = "pixocraft_sig_";
+
+function generateId() {
+  return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
 }
 
 export default function SignaturePadWidget({
   initialTab = "draw",
   initialFont = null as string | null,
   initialName = "",
+  savedId,
 }: SignaturePadWidgetProps) {
   const [activeTab, setActiveTab] = useState<Tab>(initialTab);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const pointsRef = useRef<Point[]>([]);
+  const pendingRestoreRef = useRef<string | null>(null);
   const [strokeColor, setStrokeColor] = useState("#111111");
   const [strokeWidth, setStrokeWidth] = useState(2.5);
   const [undoStack, setUndoStack] = useState<ImageData[]>([]);
@@ -137,6 +150,14 @@ export default function SignaturePadWidget({
   const [bgRemoved, setBgRemoved] = useState(false);
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const [showGmailGuide, setShowGmailGuide] = useState(false);
+  const [fallbackHtml, setFallbackHtml] = useState<string | null>(null);
+  const [gmailCopied, setGmailCopied] = useState(false);
+
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [savedLink, setSavedLink] = useState<string | null>(null);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const { toast } = useToast();
 
@@ -164,10 +185,43 @@ export default function SignaturePadWidget({
       ctx.scale(EXPORT_SCALE, EXPORT_SCALE);
       ctx.clearRect(0, 0, CW, CH);
     }
+    if (pendingRestoreRef.current) {
+      const restoreUrl = pendingRestoreRef.current;
+      pendingRestoreRef.current = null;
+      const img = new Image();
+      img.onload = () => {
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+        ctx.drawImage(img, 0, 0, CW, CH);
+        setHasDrawn(true);
+      };
+      img.src = restoreUrl;
+    }
   }, []);
 
   useEffect(() => { initDrawCanvas(); }, [initDrawCanvas]);
   useEffect(() => { if (activeTab === "draw") initDrawCanvas(); }, [activeTab, initDrawCanvas]);
+
+  useEffect(() => {
+    if (!savedId) return;
+    try {
+      const raw = localStorage.getItem(LS_PREFIX + savedId);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      setActiveTab(data.tab ?? "draw");
+      if (data.strokeColor) setStrokeColor(data.strokeColor);
+      if (data.strokeWidth) setStrokeWidth(data.strokeWidth);
+      if (data.typedName !== undefined) setTypedName(data.typedName);
+      if (data.selectedFont) setSelectedFont(data.selectedFont);
+      if (data.typeColor) setTypeColor(data.typeColor);
+      if (data.uploadedImage) { setUploadedImage(data.uploadedImage); setBgRemoved(data.bgRemoved ?? false); }
+      if (data.tab === "draw" && data.drawDataUrl) {
+        pendingRestoreRef.current = data.drawDataUrl;
+      }
+      try { (window as any).gtag?.("event", "edit_link_opened", { id: savedId }); } catch {}
+    } catch {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedId]);
 
   const getPos = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
@@ -413,6 +467,114 @@ export default function SignaturePadWidget({
     setPreviewUrl(src.toDataURL("image/png"));
   }, [getExportCanvas, toast]);
 
+  const copyForGmail = useCallback(async () => {
+    const src = getExportCanvas();
+    if (!src) {
+      toast({ title: "Nothing to copy", description: "Draw, type, or upload a signature first." });
+      return;
+    }
+
+    const oc = document.createElement("canvas");
+    oc.width = src.width; oc.height = src.height;
+    const ctx = oc.getContext("2d")!;
+    ctx.drawImage(src, 0, 0);
+    const id = ctx.getImageData(0, 0, oc.width, oc.height);
+    const d = id.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i] > 240 && d[i + 1] > 240 && d[i + 2] > 240) d[i + 3] = 0;
+    }
+    ctx.clearRect(0, 0, oc.width, oc.height);
+    ctx.putImageData(id, 0, 0);
+
+    const displayW = 200;
+    const displayH = Math.round(oc.height * (displayW / oc.width));
+    const dataUrl = oc.toDataURL("image/png");
+    const html = `<img src="${dataUrl}" width="${displayW}" height="${displayH}" alt="Signature" style="display:block;max-width:${displayW}px;height:auto;border:none;outline:none;" />`;
+
+    try { (window as any).gtag?.("event", "copy_signature_clicked", { method: activeTab }); } catch {}
+
+    try {
+      if (navigator.clipboard && typeof ClipboardItem !== "undefined") {
+        const htmlBlob = new Blob([html], { type: "text/html" });
+        const textBlob = new Blob(["[Signature image — paste into Gmail Signature editor]"], { type: "text/plain" });
+        await navigator.clipboard.write([new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })]);
+        setFallbackHtml(null);
+        setGmailCopied(true);
+        setShowGmailGuide(true);
+        toast({ title: "Signature copied!", description: "Paste it in Gmail Settings → Signature." });
+      } else {
+        throw new Error("ClipboardItem not supported");
+      }
+    } catch {
+      setFallbackHtml(html);
+      setGmailCopied(false);
+      setShowGmailGuide(true);
+    }
+  }, [getExportCanvas, toast, activeTab]);
+
+  const copyFallbackHtml = useCallback(async () => {
+    if (!fallbackHtml) return;
+    try {
+      await navigator.clipboard.writeText(fallbackHtml);
+      setGmailCopied(true);
+      toast({ title: "HTML copied!", description: "Paste it in Gmail Settings → Signature." });
+    } catch {
+      toast({ title: "Copy failed", description: "Please select all text in the box and copy manually." });
+    }
+  }, [fallbackHtml, toast]);
+
+  const saveSignature = useCallback(async () => {
+    const tab = activeTab;
+    const hasContent =
+      (tab === "draw" && hasDrawn) ||
+      (tab === "type" && typedName && selectedFont) ||
+      (tab === "upload" && uploadedImage);
+
+    if (!hasContent) {
+      toast({ title: "Nothing to save", description: "Draw, type, or upload a signature first." });
+      return;
+    }
+
+    try { (window as any).gtag?.("event", "save_signature_clicked", { method: tab }); } catch {}
+
+    let drawDataUrl: string | undefined;
+    if (tab === "draw" && canvasRef.current) {
+      drawDataUrl = canvasRef.current.toDataURL("image/png");
+    }
+
+    const id = generateId();
+    const payload = {
+      tab,
+      strokeColor,
+      strokeWidth,
+      typedName,
+      selectedFont,
+      typeColor,
+      uploadedImage: tab === "upload" ? uploadedImage : undefined,
+      bgRemoved,
+      drawDataUrl,
+      savedAt: Date.now(),
+    };
+
+    localStorage.setItem(LS_PREFIX + id, JSON.stringify(payload));
+
+    const link = `${window.location.origin}/edit/signature-${id}`;
+    setSavedLink(link);
+    setLinkCopied(false);
+    setShowSaveDialog(true);
+  }, [activeTab, hasDrawn, typedName, selectedFont, uploadedImage, strokeColor, strokeWidth, typeColor, bgRemoved, toast]);
+
+  const copyLink = useCallback(async () => {
+    if (!savedLink) return;
+    try {
+      await navigator.clipboard.writeText(savedLink);
+      setLinkCopied(true);
+      toast({ title: "Link copied!", description: "Share this link to edit your signature anytime." });
+    } catch {
+      toast({ title: "Copy failed", description: "Please copy the link manually from the box below." });
+    }
+  }, [savedLink, toast]);
+
   const trySignatureStyle = useCallback(
     (font: string, sampleName: string) => {
       setActiveTab("type");
@@ -425,6 +587,7 @@ export default function SignaturePadWidget({
   const canvasStyle: React.CSSProperties = { width: "100%", height: CH, display: "block" };
 
   return (
+    <>
     <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <div className="px-5 py-3 border-b bg-muted/30 flex flex-wrap items-center gap-x-4 gap-y-2">
         <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 dark:text-green-400">
@@ -651,7 +814,7 @@ export default function SignaturePadWidget({
             <div>
               <p className="text-sm font-semibold flex items-center gap-2">
                 <Download className="h-4 w-4 text-primary" />
-                Download Your Signature
+                Download &amp; Export Your Signature
               </p>
               <p className="text-xs text-muted-foreground">No watermark · Instant · Works offline</p>
             </div>
@@ -661,15 +824,29 @@ export default function SignaturePadWidget({
             </Button>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={downloadPNG} size="lg" className="flex-1 sm:flex-none" data-testid="widget-button-download-png">
+            <Button onClick={copyForGmail} size="lg" className="flex-1 sm:flex-none gap-2" data-testid="widget-button-copy-gmail">
+              <Mail className="h-4 w-4" />
+              Copy for Gmail
+            </Button>
+            <Button onClick={saveSignature} variant="outline" size="lg" className="flex-1 sm:flex-none gap-2" data-testid="widget-button-save-signature">
+              <ClipboardCheck className="h-4 w-4" />
+              Save &amp; Get Edit Link
+            </Button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={downloadPNG} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-download-png">
               <Download className="mr-2 h-4 w-4" />
-              PNG — Transparent
+              Download PNG
             </Button>
             <Button onClick={downloadJPG} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-download-jpg">
               <Download className="mr-2 h-4 w-4" />
-              JPG — White BG
+              JPG
             </Button>
           </div>
+          <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
+            <Mail className="h-3 w-3" />
+            <span><strong>Copy for Gmail</strong> — pastes your signature image directly into Gmail Settings → Signature.</span>
+          </p>
         </div>
 
         <div className="space-y-2.5 pt-1 border-t">
@@ -732,5 +909,132 @@ export default function SignaturePadWidget({
         </div>
       )}
     </div>
+
+    {/* ── GMAIL GUIDE DIALOG ───────────────────────────────────────── */}
+    <Dialog open={showGmailGuide} onOpenChange={(o) => { setShowGmailGuide(o); if (!o) { setFallbackHtml(null); setGmailCopied(false); } }}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Mail className="h-5 w-5 text-primary" />
+            {gmailCopied ? "Signature copied for Gmail!" : "Copy signature for Gmail"}
+          </DialogTitle>
+          <DialogDescription>
+            {gmailCopied
+              ? "Your signature is ready. Follow the steps below to add it to Gmail."
+              : "Your browser requires a manual copy step. Copy the HTML below, then follow the guide."}
+          </DialogDescription>
+        </DialogHeader>
+
+        {!gmailCopied && fallbackHtml && (
+          <div className="space-y-2">
+            <p className="text-xs text-muted-foreground">Copy this HTML and paste it into Gmail's Signature editor (switch editor to HTML mode):</p>
+            <div className="relative">
+              <textarea
+                readOnly
+                value={fallbackHtml}
+                className="w-full h-20 text-xs font-mono rounded-lg border bg-muted p-2 resize-none"
+                onFocus={(e) => e.target.select()}
+                data-testid="widget-textarea-gmail-fallback"
+              />
+              <Button size="sm" variant="outline" className="absolute top-1.5 right-1.5 gap-1.5 h-7 text-xs" onClick={copyFallbackHtml} data-testid="widget-button-copy-fallback-html">
+                {gmailCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                {gmailCopied ? "Copied" : "Copy HTML"}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <div className="space-y-2 pt-1">
+          <p className="text-sm font-semibold">How to add to Gmail:</p>
+          {[
+            "Open Gmail in your browser",
+            "Click the gear icon → See all settings",
+            "Go to the General tab → scroll to Signature",
+            "Click in the signature editor and paste (Ctrl+V / Cmd+V)",
+            "Click Save Changes at the bottom",
+          ].map((step, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <span className="shrink-0 h-6 w-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+              <p className="text-sm text-muted-foreground leading-snug">{step}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex gap-2 pt-1">
+          <Button asChild className="flex-1 gap-2" data-testid="widget-button-open-gmail">
+            <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener noreferrer">
+              <ArrowRight className="h-4 w-4" /> Open Gmail Settings
+            </a>
+          </Button>
+          <Button variant="outline" onClick={() => setShowGmailGuide(false)} data-testid="widget-button-close-gmail-guide">
+            Done
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+
+    {/* ── SAVE & EDIT LINK DIALOG ───────────────────────────────────── */}
+    <Dialog open={showSaveDialog} onOpenChange={(o) => { setShowSaveDialog(o); if (!o) setLinkCopied(false); }}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <ClipboardCheck className="h-5 w-5 text-primary" />
+            Your signature is saved!
+          </DialogTitle>
+          <DialogDescription>
+            You can edit it anytime using the link below — even after closing this tab.
+          </DialogDescription>
+        </DialogHeader>
+
+        {savedLink && (
+          <div className="space-y-2">
+            <p className="text-xs text-muted-foreground font-medium">Your edit link:</p>
+            <div className="relative">
+              <input
+                readOnly
+                value={savedLink}
+                className="w-full text-xs font-mono rounded-lg border bg-muted px-3 py-2.5 pr-24"
+                onFocus={(e) => e.target.select()}
+                data-testid="widget-input-saved-link"
+              />
+              <Button
+                size="sm"
+                variant="outline"
+                className="absolute top-1 right-1 gap-1.5 h-7 text-xs"
+                onClick={copyLink}
+                data-testid="widget-button-copy-link"
+              >
+                {linkCopied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
+                {linkCopied ? "Copied!" : "Copy"}
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <div className="rounded-lg border bg-muted/40 px-4 py-3 text-xs text-muted-foreground space-y-1">
+          <p className="font-medium text-foreground text-sm">What this link does:</p>
+          <p>Opening the link on <strong>this browser</strong> restores your full signature — ready to edit, re-download, or copy for Gmail.</p>
+          <p className="text-muted-foreground/70">Saved locally on this device. Clearing browser data will remove it.</p>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={copyLink} className="flex-1 gap-2" data-testid="widget-button-copy-link-primary">
+            {linkCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {linkCopied ? "Link Copied!" : "Copy Link"}
+          </Button>
+          {savedLink && (
+            <Button asChild variant="outline" className="flex-1 gap-2" data-testid="widget-button-open-link">
+              <a href={savedLink} target="_blank" rel="noopener noreferrer">
+                <ArrowRight className="h-4 w-4" /> Open Link
+              </a>
+            </Button>
+          )}
+          <Button variant="ghost" onClick={() => setShowSaveDialog(false)} className="w-full" data-testid="widget-button-close-save-dialog">
+            Done
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
