@@ -455,7 +455,7 @@ Sitemap: https://tools.pixocraft.in/sitemap.xml`
       "/tools/signature-maker", "/tools/signature-maker-free", "/tools/create-signature-online",
       "/tools/esignature-maker", "/tools/handwritten-signature-generator", "/tools/signature-creator",
       "/tools/add-signature-to-pdf", "/tools/signature-for-pdf", "/tools/mobile-signature-generator",
-      "/tools/gst-invoice-signature"
+      "/tools/gst-invoice-signature", "/tools/email-signature-maker"
     ];
     
     const toolPages = toolPaths.map(path => ({
