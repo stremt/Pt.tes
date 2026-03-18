@@ -355,6 +355,7 @@ const EmailSignatureMaker = lazy(() => import("@/pages/tools/longtail/EmailSigna
 const TransparentSignaturePng = lazy(() => import("@/pages/tools/longtail/TransparentSignaturePng"));
 const SignatureForContracts = lazy(() => import("@/pages/tools/longtail/SignatureForContracts"));
 const HowToCreateDigitalSignatureOnline = lazy(() => import("@/pages/tools/longtail/HowToCreateDigitalSignatureOnline"));
+const FreeSignatureForDocuments = lazy(() => import("@/pages/tools/longtail/FreeSignatureForDocuments"));
 const PrimeNumberChecker = lazy(() => import("@/pages/tools/PrimeNumberChecker"));
 const PrimeNumberGenerator = lazy(() => import("@/pages/tools/PrimeNumberGenerator"));
 const PrimeFactorization = lazy(() => import("@/pages/tools/PrimeFactorization"));
@@ -789,6 +790,7 @@ function Router() {
         <Route path="/tools/transparent-signature-png" component={TransparentSignaturePng} />
         <Route path="/tools/signature-for-contracts" component={SignatureForContracts} />
         <Route path="/tools/how-to-create-digital-signature-online" component={HowToCreateDigitalSignatureOnline} />
+        <Route path="/free-signature-for-documents" component={FreeSignatureForDocuments} />
         <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
         <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
         <Route path="/tools/prime-factorization" component={PrimeFactorization} />
