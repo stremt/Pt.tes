@@ -1,0 +1,178 @@
+You are a professional SEO content writer and UX-focused product copy expert.
+
+Your task is to generate FULL, high-quality SEO content for a tool page:
+"Free Online Signature Generator"
+
+⚠️ IMPORTANT CONTEXT:
+
+* This is NOT a blog post
+* This is a TOOL PAGE
+* Content must be clear, structured, helpful, and conversion-focused
+* Avoid fluff and repetition
+* Write for real users, not just SEO
+
+---
+
+# 🔥 PAGE DETAILS
+
+Keyword:
+online signature generator
+
+Secondary keywords:
+signature maker free, digital signature online, handwritten signature generator, create signature online
+
+Tone:
+Professional, clean, simple, trustworthy
+
+---
+
+# 🔥 STRUCTURE (FOLLOW EXACTLY)
+
+Generate content for these sections:
+
+---
+
+## 1. HERO SECTION
+
+Write:
+
+H1:
+Short, powerful, benefit-driven
+
+Subheading:
+Explain:
+
+* draw, type, upload
+* free
+* no signup
+* private
+
+---
+
+## 2. FEATURES SECTION
+
+Write 6–8 bullet points explaining:
+
+* smooth drawing
+* fonts
+* upload
+* background remover
+* privacy
+* export quality
+
+Each point should be 1–2 lines max
+
+---
+
+## 3. HOW TO USE
+
+Write 4 steps:
+
+* choose method
+* customize
+* preview
+* download
+
+Short and clear
+
+---
+
+## 4. DRAW VS TYPE VS UPLOAD
+
+Write comparison content:
+
+* Draw → natural feel
+* Type → clean & fast
+* Upload → reuse
+
+Explain simply, no table needed
+
+---
+
+## 5. SIGNATURE EXAMPLES SECTION
+
+Write intro paragraph explaining:
+
+* different styles
+* professional vs stylish
+* why examples help
+
+---
+
+## 6. USE CASE SECTION
+
+Explain where signature can be used:
+
+* PDF documents
+* contracts
+* emails
+* forms
+
+Keep it practical
+
+---
+
+## 7. LEGAL SECTION
+
+Explain simply:
+
+* digital signatures are valid
+* mention India IT Act
+* mention global acceptance
+
+No complex legal language
+
+---
+
+## 8. TIPS SECTION
+
+Write 5–7 tips:
+
+* readability
+* stroke thickness
+* consistency
+* style choice
+
+---
+
+## 9. WHY PIXOCRAFT
+
+Explain:
+
+* 100% private
+* browser-based
+* free
+* fast
+
+---
+
+## 10. FAQ SECTION (10 QUESTIONS)
+
+Generate 10 FAQs:
+
+* Is my signature stored?
+* Is it legal?
+* Can I use on mobile?
+* What formats?
+* How to use in PDF?
+
+Answers should be short and clear
+
+---
+
+# 🔥 RULES
+
+* Total content length: 1500–2200 words
+* Use main keyword naturally (5–7 times)
+* Avoid keyword stuffing
+* No duplicate sentences
+* Keep paragraphs short
+* Use simple English
+
+---
+
+# 🎯 OUTPUT
+
+Return ONLY content (no explanations)
+Proper headings + paragraphs
+Ready to paste into HTML
