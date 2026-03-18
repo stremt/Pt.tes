@@ -1,0 +1,251 @@
+You are an expert frontend engineer, technical SEO specialist, and UX designer.
+
+Your task is to fully upgrade an "Online Signature Generator" web page into a TOP #1 ranking, high-performance, SEO-optimized, premium-level tool.
+
+⚠️ This is NOT just a UI task. You must:
+
+* Improve product experience
+* Add missing features
+* Implement full SEO (frontend + backend structure)
+* Optimize performance
+* Make it production-ready and competitive with global tools
+
+---
+
+# 🧠 PART 1: PRODUCT (TOOL IMPROVEMENT)
+
+Upgrade the tool with these features:
+
+## 1. Tabs System
+
+Create 3 tabs:
+
+* Draw Signature
+* Type Signature
+* Upload Signature
+
+Switch instantly with smooth UI transitions.
+
+---
+
+## 2. Draw Signature (Advanced Canvas)
+
+* Use HTML5 Canvas
+* Implement Bezier curve smoothing for natural strokes
+* Support mouse + touch
+* Add:
+
+  * Stroke thickness slider
+  * Color picker
+  * Undo / Redo
+  * Clear button
+
+---
+
+## 3. Type Signature
+
+* Input field for name
+* Real-time preview
+* Add 20+ handwritten fonts (Google Fonts)
+* Controls:
+
+  * Font selector
+  * Font size slider
+  * Letter spacing
+
+---
+
+## 4. Upload Signature
+
+* Upload PNG/JPG
+* Remove white background (threshold logic)
+* Improve contrast
+* Convert to transparent PNG
+
+---
+
+## 5. Export System
+
+* Download as:
+
+  * PNG (transparent)
+  * JPG (white background)
+* High resolution export (2x scaling)
+* Clean edges
+
+---
+
+## 6. Live Preview
+
+Show signature in:
+
+* Document preview
+* Email preview
+* PDF-style preview
+
+---
+
+## 7. UI/UX Design
+
+* Clean, premium layout
+* Responsive (mobile/tablet/desktop)
+* No horizontal scroll
+* Smooth transitions
+* Sections:
+
+  * Hero
+  * Tool
+  * Features
+  * Content
+  * FAQ
+
+---
+
+## 8. Privacy
+
+Add:
+"Your signature is never stored. Everything runs in your browser."
+
+No API calls or backend usage.
+
+---
+
+# 🔥 PART 2: SEO IMPLEMENTATION (CRITICAL)
+
+## 1. Title Tag
+
+Online Signature Generator (Draw, Type, Upload) – Free PNG Download | Pixocraft
+
+---
+
+## 2. Meta Description
+
+Create your digital signature online instantly. Draw, type, or upload and download as PNG or JPG. 100% free and private.
+
+---
+
+## 3. H1
+
+Online Signature Generator (Free & Private)
+
+---
+
+## 4. Full SEO Content Section (1500+ words)
+
+Add structured content with these sections:
+
+* What is an Online Signature Generator
+* How to Create a Digital Signature Online
+* Draw vs Type vs Upload Signature
+* Where Can You Use Digital Signatures
+* Is Online Signature Legal
+* Tips for Professional Signature
+* Why Choose Pixocraft
+
+Each section should be detailed and human-readable.
+
+---
+
+## 5. FAQ Section (Schema Optimized)
+
+Add 6–8 FAQs:
+
+* Is my signature stored?
+* Is it legal?
+* Can I use on mobile?
+* What formats are available?
+* How to add signature to PDF?
+
+---
+
+## 6. Schema Markup (JSON-LD)
+
+Add:
+
+* SoftwareApplication schema
+* FAQPage schema
+
+---
+
+## 7. Internal Linking
+
+Add links to:
+
+* PDF tools
+* Image tools
+* Background remover tool
+
+---
+
+## 8. Keyword Optimization
+
+Naturally include keywords:
+
+* online signature generator
+* signature maker free
+* digital signature online
+* handwritten signature generator
+* e signature maker
+
+Do NOT keyword stuff.
+
+---
+
+# ⚡ PART 3: PERFORMANCE OPTIMIZATION
+
+* Minify CSS & JS
+* Lazy load fonts
+* Avoid heavy libraries
+* Optimize canvas rendering
+* Fast load (<1.5s)
+
+---
+
+# 📱 PART 4: RESPONSIVENESS
+
+* Fully mobile-friendly
+* Touch optimized drawing
+* Proper spacing
+* No overflow issues
+
+---
+
+# 🎯 PART 5: CONVERSION OPTIMIZATION
+
+Add:
+
+* Trust badges:
+
+  * 100% Private
+  * No Signup Required
+  * Free Forever
+
+* CTA:
+  "Download Signature Now"
+
+---
+
+# 🧩 OUTPUT REQUIREMENT
+
+Return:
+
+* Complete HTML file
+* CSS included or separate
+* JavaScript included
+* SEO meta tags included
+* Schema markup included
+* Fully working tool
+
+---
+
+# 🚨 QUALITY STANDARD
+
+This must feel like:
+
+* A professional SaaS tool
+* Better than typical free tools
+* Clean, smooth, and accurate
+
+---
+
+Build this to compete for #1 position on Google.
