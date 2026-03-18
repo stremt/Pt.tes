@@ -338,6 +338,10 @@ const ImageInvertTool = lazy(() => import("@/pages/tools/ImageInvertTool"));
 const ImageGrayscaleTool = lazy(() => import("@/pages/tools/ImageGrayscaleTool"));
 const ImageRotateTool = lazy(() => import("@/pages/tools/ImageRotateTool"));
 const SignaturePadTool = lazy(() => import("@/pages/tools/SignaturePadTool"));
+const OnlineSignatureGenerator = lazy(() => import("@/pages/tools/longtail/OnlineSignatureGenerator"));
+const FreeSignatureGenerator = lazy(() => import("@/pages/tools/longtail/FreeSignatureGenerator"));
+const DigitalSignatureGenerator = lazy(() => import("@/pages/tools/longtail/DigitalSignatureGenerator"));
+const SignatureMaker = lazy(() => import("@/pages/tools/longtail/SignatureMaker"));
 const PrimeNumberChecker = lazy(() => import("@/pages/tools/PrimeNumberChecker"));
 const PrimeNumberGenerator = lazy(() => import("@/pages/tools/PrimeNumberGenerator"));
 const PrimeFactorization = lazy(() => import("@/pages/tools/PrimeFactorization"));
@@ -755,6 +759,10 @@ function Router() {
         <Route path="/tools/image-grayscale-tool" component={ImageGrayscaleTool} />
         <Route path="/tools/image-rotate-tool" component={ImageRotateTool} />
         <Route path="/tools/signature-pad-tool" component={SignaturePadTool} />
+        <Route path="/online-signature-generator" component={OnlineSignatureGenerator} />
+        <Route path="/free-signature-generator" component={FreeSignatureGenerator} />
+        <Route path="/digital-signature-generator" component={DigitalSignatureGenerator} />
+        <Route path="/signature-maker" component={SignatureMaker} />
         <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
         <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
         <Route path="/tools/prime-factorization" component={PrimeFactorization} />

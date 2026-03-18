@@ -1,0 +1,228 @@
+You are an expert SEO content writer and product page specialist.
+
+Generate COMPLETE, READY-TO-PASTE content for a TOOL PAGE.
+
+⚠️ IMPORTANT:
+
+* This is NOT a blog
+* This is a TOOL PAGE
+* Content must be clear, professional, and trust-focused
+* Focus on legal + business users (India priority)
+* Avoid fluff, keep it practical and authoritative
+
+---
+
+# 🔥 INPUT
+
+Keyword: digital signature generator
+Slug: /digital-signature-generator
+
+---
+
+# 🔥 OUTPUT FORMAT (STRICT)
+
+## 1. TITLE TAG (MAX 60 CHAR)
+
+Digital Signature Generator – Legal & Free Online | Pixocraft
+
+---
+
+## 2. META DESCRIPTION (MAX 155 CHAR)
+
+Free digital signature generator online. Create signature for GST, contracts & documents. Draw, type or upload – instant PNG download. Private.
+
+---
+
+## 3. H1
+
+Digital Signature Generator – Create Legal Signature Online
+
+---
+
+## 4. INTRO PARAGRAPH
+
+Write 3–4 lines:
+
+* digital signature online
+* draw, type, upload
+* PNG download
+* free
+* private
+* India legal mention
+
+---
+
+## 5. TRUST BADGES
+
+⭐ Free Forever
+⚡ Instant PNG Download
+🔒 100% Private (Browser Only)
+📱 Mobile Friendly
+🇮🇳 IT Act 2000 Ready
+
+---
+
+## 6. IMPORTANT CLARIFICATION (VERY IMPORTANT)
+
+Write:
+
+This tool creates visual digital signatures (PNG) for documents.
+For certified Digital Signature Certificates (DSC), consult authorized providers.
+
+---
+
+## 7. FEATURES SECTION
+
+H2: Powerful Features of Our Digital Signature Generator
+
+Write 6–8 points:
+
+* smooth drawing
+* fonts
+* upload
+* background remover
+* customization
+* high-res PNG
+* privacy
+* mobile support
+
+---
+
+## 8. HOW TO USE
+
+H2: How to Create Digital Signature Online
+
+4 steps:
+
+* choose method
+* customize
+* preview
+* download
+
+---
+
+## 9. COMPARISON
+
+H2: Draw vs Type vs Upload for Digital Signatures
+
+Explain clearly
+
+---
+
+## 10. NEW SECTION (CRITICAL)
+
+H2: Digital Signature vs DSC (Important Difference)
+
+Explain:
+
+* PNG signature (this tool)
+* DSC (certified signature)
+* when to use which
+
+---
+
+## 11. SIGNATURE EXAMPLES
+
+H2: Professional Signature Examples
+
+Write intro
+
+---
+
+## 12. USE CASES
+
+H2: Where to Use Digital Signature in India
+
+Include:
+
+* GST invoices
+* contracts
+* Aadhaar
+* business documents
+
+---
+
+## 13. LEGAL SECTION
+
+H2: Is Digital Signature Legal in India?
+
+Include:
+
+* IT Act 2000
+* GST usage
+* business acceptance
+
+---
+
+## 14. TIPS
+
+H2: Tips for Professional Digital Signature
+
+Write 5–7 tips
+
+---
+
+## 15. WHY PIXOCRAFT
+
+H2: Why Choose Pixocraft Digital Signature Generator
+
+Include:
+
+* free
+* private
+* fast
+* India-focused
+
+---
+
+## 16. FAQ (10 QUESTIONS)
+
+Include:
+
+* legality
+* GST
+* DSC difference
+* privacy
+* mobile
+* formats
+
+---
+
+## 17. CLUSTER LINKING (VERY IMPORTANT)
+
+H2: Related Signature Tools
+
+* Signature Generator → /signature-generator
+* Online Signature Generator → /online-signature-generator
+* Free Signature Generator → /free-signature-generator
+* Digital Signature Generator → /digital-signature-generator
+
+---
+
+## 18. KEYWORD RULES
+
+* Use "digital signature generator" 5–7 times
+* Add:
+
+  * digital signature for GST
+  * digital signature online India
+  * free digital signature tool
+
+---
+
+## 19. LENGTH
+
+1500–2000 words
+
+---
+
+## 🎯 OUTPUT
+
+Return ONLY final content:
+
+* Title
+* Meta
+* H1
+* Full structured content
+
+No explanation.
