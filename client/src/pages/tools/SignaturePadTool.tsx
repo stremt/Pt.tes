@@ -141,14 +141,6 @@ export default function SignaturePadTool() {
   // ── Preview ───────────────────────────────────────────────────────────────
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  // ── Sticky download visibility ─────────────────────────────────────────────
-  const [showSticky, setShowSticky] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setShowSticky(window.scrollY > 300);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const { toast } = useToast();
 
   // ── Load Google Fonts (v2 API: separate family= param per font) ──────────
@@ -647,27 +639,6 @@ export default function SignaturePadTool() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      {/* ── STICKY DOWNLOAD BUTTON ─────────────────────────────────────────── */}
-      {showSticky && (
-        <div
-          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-1"
-          data-testid="sticky-download-bar"
-        >
-          <Button
-            size="lg"
-            onClick={downloadPNG}
-            className="shadow-lg px-6"
-            data-testid="button-sticky-download"
-          >
-            <Download className="mr-2 h-4 w-4" />
-            Download Your Signature Now
-          </Button>
-          <span className="text-[11px] text-muted-foreground bg-background/80 backdrop-blur-sm rounded-full px-3 py-0.5">
-            No signup &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; Private
-          </span>
-        </div>
-      )}
-
       <ToolLayout
         title="Create Your Signature Online Instantly"
         description="Draw, Type or Upload • Free Forever • No Signup • 100% Private • Instant PNG Download"
@@ -703,7 +674,7 @@ export default function SignaturePadTool() {
         <div className="p-5 space-y-5">
 
           {/* ── TAB SELECTOR ──────────────────────────────────────────────── */}
-          <div className="flex gap-1 p-1 rounded-lg bg-muted/50 border" data-testid="tabs-method">
+          <div className="flex gap-1.5 p-1.5 rounded-xl bg-muted/60 border" data-testid="tabs-method">
             {(
               [
                 { id: "draw",   icon: PenTool, title: "Draw",   desc: "Freehand" },
@@ -716,15 +687,15 @@ export default function SignaturePadTool() {
                 onClick={() => setActiveTab(id)}
                 data-testid={`tab-${id}`}
                 className={[
-                  "flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-md text-sm font-semibold transition-all cursor-pointer select-none",
+                  "flex-1 flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-lg text-base font-semibold transition-all cursor-pointer select-none",
                   activeTab === id
                     ? "bg-background text-foreground shadow-sm border"
                     : "text-muted-foreground hover:text-foreground",
                 ].join(" ")}
               >
-                <Icon className="h-4 w-4 shrink-0" />
+                <Icon className="h-5 w-5 shrink-0" />
                 <span>{title}</span>
-                <span className={`hidden sm:inline text-xs font-normal ${activeTab === id ? "text-muted-foreground" : "text-muted-foreground/60"}`}>· {desc}</span>
+                <span className={`hidden sm:inline text-sm font-normal ${activeTab === id ? "text-muted-foreground" : "text-muted-foreground/60"}`}>· {desc}</span>
               </button>
             ))}
           </div>
@@ -847,10 +818,10 @@ export default function SignaturePadTool() {
                       onClick={() => setSelectedFont(font.value)}
                       data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
                       className={[
-                        "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center",
+                        "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center bg-white",
                         isSelected
-                          ? "border-primary bg-primary/5 shadow-sm ring-1 ring-primary/30"
-                          : "border-border bg-white dark:bg-zinc-950 hover-elevate",
+                          ? "border-primary shadow-sm ring-2 ring-primary/40"
+                          : "border-border hover-elevate dark:border-zinc-300/20",
                       ].join(" ")}
                     >
                       {isSelected && (
@@ -991,16 +962,16 @@ export default function SignaturePadTool() {
             {/* Document mockup */}
             <div className="space-y-1.5">
               <p className="text-xs text-muted-foreground">Document / Contract</p>
-              <div className="bg-white dark:bg-zinc-900 border rounded-xl p-6 shadow-sm space-y-3">
+              <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
                 <div className="space-y-2">
                   {[3, 4, 3.5, 2.5].map((w, i) => (
-                    <div key={i} className="h-2 rounded-full bg-muted" style={{ width: `${w / 4 * 100}%` }} />
+                    <div key={i} className="h-2 rounded-full bg-zinc-200" style={{ width: `${w / 4 * 100}%` }} />
                   ))}
                 </div>
-                <div className="border-t pt-4">
-                  <p className="text-[10px] text-muted-foreground mb-1">Authorized Signature</p>
+                <div className="border-t border-zinc-200 pt-4">
+                  <p className="text-[10px] text-zinc-400 mb-1">Authorized Signature</p>
                   <img src={previewUrl} alt="Signature preview" className="h-16 object-contain" data-testid="img-preview-doc" />
-                  <div className="mt-1 h-px w-40 bg-border" />
+                  <div className="mt-1 h-px w-40 bg-zinc-200" />
                 </div>
               </div>
             </div>
@@ -1008,13 +979,13 @@ export default function SignaturePadTool() {
             {/* Email mockup */}
             <div className="space-y-1.5">
               <p className="text-xs text-muted-foreground">Email Footer</p>
-              <div className="bg-white dark:bg-zinc-900 border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
+              <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
                 <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                   <PenTool className="h-5 w-5 text-primary" />
                 </div>
                 <div className="space-y-1 flex-1 min-w-0">
-                  <div className="h-2 w-28 rounded-full bg-muted" />
-                  <div className="h-2 w-20 rounded-full bg-muted/60" />
+                  <div className="h-2 w-28 rounded-full bg-zinc-200" />
+                  <div className="h-2 w-20 rounded-full bg-zinc-100" />
                 </div>
                 <img src={previewUrl} alt="Email signature" className="h-10 object-contain" data-testid="img-preview-email" />
               </div>
