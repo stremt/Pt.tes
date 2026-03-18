@@ -22,28 +22,36 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
 
-// ─── 20 handwritten Google Fonts ─────────────────────────────────────────────
+// ─── Visually diverse signature fonts (each looks distinct) ──────────────────
 const HANDWRITTEN_FONTS = [
-  { label: "Dancing Script", value: "Dancing Script" },
-  { label: "Great Vibes", value: "Great Vibes" },
-  { label: "Sacramento", value: "Sacramento" },
-  { label: "Satisfy", value: "Satisfy" },
-  { label: "Pacifico", value: "Pacifico" },
-  { label: "Alex Brush", value: "Alex Brush" },
-  { label: "Allura", value: "Allura" },
-  { label: "Clicker Script", value: "Clicker Script" },
-  { label: "Cookie", value: "Cookie" },
-  { label: "Courgette", value: "Courgette" },
-  { label: "Caveat", value: "Caveat" },
-  { label: "Kaushan Script", value: "Kaushan Script" },
-  { label: "Lobster", value: "Lobster" },
-  { label: "Marck Script", value: "Marck Script" },
-  { label: "Parisienne", value: "Parisienne" },
-  { label: "Pinyon Script", value: "Pinyon Script" },
-  { label: "Yellowtail", value: "Yellowtail" },
-  { label: "Playball", value: "Playball" },
-  { label: "Berkshire Swash", value: "Berkshire Swash" },
-  { label: "Norican", value: "Norican" },
+  // Elegant thin scripts
+  { label: "Great Vibes", value: "Great Vibes", style: "italic" },
+  { label: "Sacramento", value: "Sacramento", style: "normal" },
+  { label: "Pinyon Script", value: "Pinyon Script", style: "normal" },
+  { label: "Allura", value: "Allura", style: "normal" },
+  // Flowing classic cursive
+  { label: "Dancing Script", value: "Dancing Script", style: "normal" },
+  { label: "Parisienne", value: "Parisienne", style: "normal" },
+  { label: "Alex Brush", value: "Alex Brush", style: "normal" },
+  // Bold brush / chunky
+  { label: "Pacifico", value: "Pacifico", style: "normal" },
+  { label: "Lobster", value: "Lobster", style: "normal" },
+  { label: "Righteous", value: "Righteous", style: "normal" },
+  // Casual handwriting
+  { label: "Caveat", value: "Caveat", style: "normal" },
+  { label: "Patrick Hand", value: "Patrick Hand", style: "normal" },
+  { label: "Indie Flower", value: "Indie Flower", style: "normal" },
+  // Marker / rough
+  { label: "Permanent Marker", value: "Permanent Marker", style: "normal" },
+  { label: "Rock Salt", value: "Rock Salt", style: "normal" },
+  // Airy / light
+  { label: "Shadows Into Light", value: "Shadows Into Light", style: "normal" },
+  { label: "Nothing You Could Do", value: "Nothing You Could Do", style: "normal" },
+  // Condensed / tall
+  { label: "Amatic SC", value: "Amatic SC", style: "normal" },
+  // Retro / vintage
+  { label: "Yellowtail", value: "Yellowtail", style: "normal" },
+  { label: "Courgette", value: "Courgette", style: "normal" },
 ];
 
 type Tab = "draw" | "type" | "upload";
@@ -82,14 +90,20 @@ export default function SignaturePadTool() {
 
   const { toast } = useToast();
 
-  // ── Load Google Fonts ─────────────────────────────────────────────────────
+  // ── Load Google Fonts (v2 API: separate family= param per font) ──────────
   useEffect(() => {
-    if (document.getElementById("sig-gfonts")) return;
-    const names = HANDWRITTEN_FONTS.map((f) => f.value.replace(/ /g, "+")).join("|");
+    // Remove stale link if present so we always get fresh fonts
+    const existing = document.getElementById("sig-gfonts");
+    if (existing) existing.remove();
+
+    // Build proper v2 URL: family=Font+Name&family=Font+Name2 ...
+    const params = HANDWRITTEN_FONTS.map(
+      (f) => `family=${encodeURIComponent(f.value)}`
+    ).join("&");
     const link = document.createElement("link");
     link.id = "sig-gfonts";
     link.rel = "stylesheet";
-    link.href = `https://fonts.googleapis.com/css2?family=${names}&display=swap`;
+    link.href = `https://fonts.googleapis.com/css2?${params}&display=swap`;
     document.head.appendChild(link);
   }, []);
 
@@ -269,7 +283,13 @@ export default function SignaturePadTool() {
       const ctx = oc.getContext("2d")!;
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, CW, CH);
-      ctx.font = `60px '${font}', cursive`;
+      // Find font metadata to apply correct style and size
+      const fontMeta = HANDWRITTEN_FONTS.find((f) => f.value === font);
+      const fStyle = fontMeta?.style ?? "normal";
+      const smallFonts = ["Rock Salt", "Permanent Marker", "Amatic SC", "Righteous", "Pacifico", "Lobster"];
+      const largeFonts = ["Great Vibes", "Sacramento", "Pinyon Script", "Allura", "Alex Brush", "Parisienne"];
+      const size = smallFonts.includes(font) ? 42 : largeFonts.includes(font) ? 72 : 58;
+      ctx.font = `${fStyle} ${size}px '${font}', cursive`;
       ctx.fillStyle = color;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -624,11 +644,20 @@ export default function SignaturePadTool() {
                     <span
                       style={{
                         fontFamily: `'${font.value}', cursive`,
-                        fontSize: typedName ? "clamp(22px, 4vw, 36px)" : "28px",
+                        fontStyle: font.style as "normal" | "italic",
+                        // Smaller size for wide/chunky fonts, larger for thin elegant ones
+                        fontSize: (() => {
+                          const small = ["Rock Salt", "Permanent Marker", "Amatic SC", "Righteous", "Pacifico", "Lobster"];
+                          const large = ["Great Vibes", "Sacramento", "Pinyon Script", "Allura", "Alex Brush", "Parisienne"];
+                          const name = font.value;
+                          if (small.includes(name)) return typedName ? "clamp(16px, 3vw, 24px)" : "22px";
+                          if (large.includes(name)) return typedName ? "clamp(26px, 5vw, 44px)" : "38px";
+                          return typedName ? "clamp(20px, 4vw, 34px)" : "30px";
+                        })(),
                         color: typeColor,
-                        lineHeight: 1.3,
+                        lineHeight: 1.4,
                         display: "block",
-                        minHeight: "48px",
+                        minHeight: "52px",
                       }}
                     >
                       {typedName || "Your Name"}
