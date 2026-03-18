@@ -1,0 +1,197 @@
+You are a world-class frontend engineer, SEO strategist, and conversion optimization expert.
+
+Your task is to transform an existing "Online Signature Generator" webpage into a TOP #1 ranking, ultra high-performance, high-conversion page.
+
+⚠️ This is a FINAL, PRO MAX optimization. Nothing should be missed.
+
+---
+
+# 🔥 PART 1: TITLE + META (CTR + SEO PERFECT)
+
+Update:
+
+Title:
+Free Online Signature Generator – Draw, Type, Upload PNG | Pixocraft
+
+Meta Description:
+Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, 100% private.
+
+---
+
+# 🔥 PART 2: HERO + ABOVE THE FOLD (CRITICAL)
+
+H1:
+Create Your Signature Online Instantly
+
+Subheading:
+Draw, Type or Upload • Free Forever • No Signup • 100% Private • Instant PNG Download
+
+Immediately below add trust badges:
+
+⭐ Free & No Signup
+⚡ Instant High-Res Download
+🔒 100% Private (Browser-Based)
+📱 Works on Mobile
+🇮🇳 Made in India
+
+⚠️ IMPORTANT:
+The tool MUST be visible immediately (above the fold, no scroll required).
+
+---
+
+# 🔥 PART 3: TOOL EXPERIENCE (ENGAGEMENT BOOST)
+
+Ensure:
+
+* Tabs: Draw / Type / Upload
+* Smooth switching
+* Real-time preview
+* Touch optimized
+* No lag
+
+Add micro copy near buttons:
+
+* No watermark
+* Instant download
+* Works offline
+
+---
+
+# 🔥 PART 4: INTERACTION BOOST (RANKING SIGNAL)
+
+Add new section:
+
+H2: Try Signature Styles Instantly
+
+Include buttons:
+
+* Stylish Signature
+* Minimal Signature
+* Bold Signature
+* Professional Signature
+
+Clicking should auto-fill signature preview.
+
+---
+
+# 🔥 PART 5: SEO CONTENT STRUCTURE
+
+Ensure all sections exist and are detailed:
+
+H2: What is an Online Signature Generator
+H2: How to Create a Digital Signature Online
+H2: Draw vs Type vs Upload – Which is Best
+H2: Create Signature for PDF, Documents & Email
+H2: Where Can You Use Digital Signatures
+H2: Is Online Signature Legal (Include India IT Act)
+H2: Tips for Professional Signature
+H2: Signature Examples & Ideas
+H2: Why Choose Pixocraft Signature Generator
+
+Content must be:
+
+* 2000+ words
+* Human readable
+* Helpful
+
+---
+
+# 🔥 PART 6: FAQ (RICH RESULT BOOST)
+
+Create 12–15 FAQs covering:
+
+* legality
+* privacy
+* formats
+* mobile usage
+* PDF usage
+* background removal
+
+---
+
+# 🔥 PART 7: INTERNAL LINKING (AUTHORITY SIGNAL)
+
+Add contextual links:
+
+* add signature to PDF → PDF tool
+* remove background → image tool
+* convert to PDF → PDF tool
+
+Use natural anchor text.
+
+---
+
+# 🔥 PART 8: SCHEMA (FULL STACK)
+
+Add:
+
+1. SoftwareApplication schema
+2. FAQPage schema
+3. HowTo schema
+4. Breadcrumb schema
+
+Ensure:
+
+* Matches visible content
+* No errors
+
+---
+
+# 🔥 PART 9: UX + PERFORMANCE
+
+Ensure:
+
+* Load time <2 seconds
+* No layout shift
+* Smooth animations
+* Mobile perfect
+* No console errors
+
+---
+
+# 🔥 PART 10: EEAT (TRUST BOOST)
+
+Add:
+
+* Last Updated: March 2026
+* Author: Pixocraft Team
+* Made in India
+
+---
+
+# 🔥 PART 11: CONVERSION OPTIMIZATION
+
+Add:
+
+Sticky button:
+“Download Your Signature Now”
+
+Add trust near CTA:
+
+* No signup
+* Free forever
+* Private
+
+---
+
+# 🔥 PART 12: FINAL QUALITY
+
+Page must feel:
+
+* Premium SaaS tool
+* Fast and smooth
+* Better than competitors
+* Highly engaging
+
+---
+
+# 🎯 OUTPUT
+
+Return complete updated HTML with:
+
+* SEO optimized structure
+* All sections included
+* Schema added
+* Fully working tool UI
+
+No explanations. Only final production-ready output.
