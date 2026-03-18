@@ -141,6 +141,14 @@ export default function SignaturePadTool() {
   // ── Preview ───────────────────────────────────────────────────────────────
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  // ── Sticky download visibility ─────────────────────────────────────────────
+  const [showSticky, setShowSticky] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const { toast } = useToast();
 
   // ── Load Google Fonts (v2 API: separate family= param per font) ──────────
@@ -496,12 +504,28 @@ export default function SignaturePadTool() {
     setPreviewUrl(src.toDataURL("image/png"));
   }, [getExportCanvas, toast]);
 
+  // ── Try signature style shortcut ──────────────────────────────────────────
+  const SIGNATURE_STYLES: Array<{ label: string; font: string; sampleName: string }> = [
+    { label: "Stylish",      font: "Great Vibes",    sampleName: "Alex Johnson" },
+    { label: "Minimal",      font: "Caveat",         sampleName: "Alex Johnson" },
+    { label: "Bold",         font: "Pacifico",       sampleName: "Alex Johnson" },
+    { label: "Professional", font: "Dancing Script", sampleName: "Alex Johnson" },
+  ];
+  const trySignatureStyle = useCallback(
+    (font: string, sampleName: string) => {
+      setActiveTab("type");
+      if (!typedName) setTypedName(sampleName);
+      setSelectedFont(font);
+    },
+    [typedName]
+  );
+
   // ── SEO ───────────────────────────────────────────────────────────────────
   const CANONICAL = "https://tools.pixocraft.in/tools/signature-pad-tool";
   useSEO({
-    title: "Free Online Signature Generator – Draw, Type, Upload (PNG) | Pixocraft",
+    title: "Free Online Signature Generator – Draw, Type, Upload PNG | Pixocraft",
     description:
-      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, and 100% private.",
+      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, 100% private.",
     keywords:
       "online signature generator, free signature maker, digital signature online, handwritten signature generator, e signature maker, create signature online, instant signature download, signature no signup, free e-signature, signature for PDF",
     canonicalUrl: CANONICAL,
@@ -600,9 +624,9 @@ export default function SignaturePadTool() {
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
   const webPageSchema = generateWebPageSchema({
-    name: "Free Online Signature Generator – Draw, Type, Upload (PNG) | Pixocraft",
+    name: "Free Online Signature Generator – Draw, Type, Upload PNG | Pixocraft",
     description:
-      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, and 100% private.",
+      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, 100% private.",
     url: CANONICAL,
   });
   const howToSchema = generateHowToSchema({
@@ -626,9 +650,31 @@ export default function SignaturePadTool() {
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
+
+      {/* ── STICKY DOWNLOAD BUTTON ─────────────────────────────────────────── */}
+      {showSticky && (
+        <div
+          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-1"
+          data-testid="sticky-download-bar"
+        >
+          <Button
+            size="lg"
+            onClick={downloadPNG}
+            className="shadow-lg px-6"
+            data-testid="button-sticky-download"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Download Your Signature Now
+          </Button>
+          <span className="text-[11px] text-muted-foreground bg-background/80 backdrop-blur-sm rounded-full px-3 py-0.5">
+            No signup &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; Private
+          </span>
+        </div>
+      )}
+
       <ToolLayout
         title="Create Your Signature Online Instantly"
-        description="Draw, Type or Upload • Free • No Signup • Instant PNG Download — 100% private, works on any device."
+        description="Draw, Type or Upload • Free Forever • No Signup • 100% Private • Instant PNG Download"
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"
         category="utility"
@@ -648,9 +694,10 @@ export default function SignaturePadTool() {
           <div className="flex flex-wrap gap-2">
             {[
               { icon: <Star className="h-3.5 w-3.5" />, label: "Free & No Signup" },
-              { icon: <Zap className="h-3.5 w-3.5" />, label: "Instant Download" },
-              { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private" },
+              { icon: <Zap className="h-3.5 w-3.5" />, label: "Instant High-Res Download" },
+              { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private (Browser-Based)" },
               { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile" },
+              { icon: <span className="text-[11px] font-bold leading-none">IN</span>, label: "Made in India" },
             ].map(({ icon, label }) => (
               <span
                 key={label}
@@ -887,10 +934,11 @@ export default function SignaturePadTool() {
 
         {/* ── EXPORT ──────────────────────────────────────────────────────── */}
         <div className="border-t pt-5">
-          <p className="text-sm font-semibold mb-3 flex items-center gap-2">
+          <p className="text-sm font-semibold mb-1 flex items-center gap-2">
             <FileImage className="h-4 w-4" />
             Export Your Signature
           </p>
+          <p className="text-xs text-muted-foreground mb-3">No watermark &nbsp;·&nbsp; Instant download &nbsp;·&nbsp; Works offline</p>
           <div className="flex flex-wrap gap-3">
             <Button onClick={downloadPNG} data-testid="button-download-png">
               <Download className="mr-2 h-4 w-4" />
@@ -904,6 +952,26 @@ export default function SignaturePadTool() {
               <Eye className="mr-2 h-4 w-4" />
               Preview
             </Button>
+          </div>
+        </div>
+
+        {/* ── TRY SIGNATURE STYLES ─────────────────────────────────────────── */}
+        <div className="border-t pt-5 space-y-3">
+          <div>
+            <h2 className="text-base font-semibold text-foreground">Try Signature Styles Instantly</h2>
+            <p className="text-xs text-muted-foreground mt-0.5">Click any style to auto-fill a preview — then download.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {SIGNATURE_STYLES.map(({ label, font, sampleName }) => (
+              <Button
+                key={label}
+                variant="outline"
+                onClick={() => trySignatureStyle(font, sampleName)}
+                data-testid={`button-style-${label.toLowerCase()}`}
+              >
+                {label} Signature
+              </Button>
+            ))}
           </div>
         </div>
 
@@ -1122,6 +1190,41 @@ export default function SignaturePadTool() {
               <li>Always download as transparent PNG so your signature adapts to any document background.</li>
               <li>Store your PNG in a secure folder — you'll use it repeatedly for contracts and forms.</li>
             </ul>
+          </section>
+
+          {/* ── Signature Examples ─────────────────────────────────────────── */}
+          <section>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Signature Examples &amp; Ideas</h2>
+            <p className="text-muted-foreground mb-3">
+              Not sure where to start? Here are popular signature styles used by professionals around the world — all achievable with the Type tab above:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { style: "Stylish / Elegant", desc: "Use thin script fonts like Great Vibes or Sacramento. Perfect for artists, designers, and creative professionals who want a sophisticated, flowing mark.", font: "Great Vibes" },
+                { style: "Minimal / Modern", desc: "Clean, legible fonts like Caveat or Handlee. Ideal for tech professionals, consultants, and anyone who values clarity over flourish.", font: "Caveat" },
+                { style: "Bold / Confident", desc: "Strong scripts like Pacifico or Lobster. Great for business owners, executives, and anyone who wants their signature to command attention.", font: "Pacifico" },
+                { style: "Professional / Corporate", desc: "Classic scripts like Dancing Script or Merienda. Universally trusted for contracts, NDAs, and formal correspondence.", font: "Dancing Script" },
+              ].map(({ style, desc, font }) => (
+                <div key={style} className="border rounded-md p-4 space-y-2 bg-card">
+                  <p className="font-semibold text-foreground text-sm">{style}</p>
+                  <p
+                    className="text-muted-foreground"
+                    style={{ fontFamily: `'${font}', cursive`, fontSize: "clamp(22px, 4vw, 32px)", lineHeight: 1.3 }}
+                  >
+                    Alex Johnson
+                  </p>
+                  <p className="text-xs text-muted-foreground">{desc}</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => trySignatureStyle(font, "Alex Johnson")}
+                    data-testid={`button-example-${style.replace(/[^a-z]/gi, "-").toLowerCase()}`}
+                  >
+                    Try This Style
+                  </Button>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* ── Why Pixocraft ──────────────────────────────────────────────── */}
