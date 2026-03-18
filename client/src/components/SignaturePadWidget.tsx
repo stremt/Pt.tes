@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import {
   PenTool, Download, Eraser, Type, Upload, Undo2, Redo2,
   Trash2, ImageIcon, Shield, Check, Eye, Zap, Smartphone, Star,
-  Mail, Copy, X, ClipboardCheck, ArrowRight, Maximize2, RotateCcw,
+  Mail, Copy, X, ClipboardCheck, ArrowRight, Maximize2, RotateCcw, FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
+import { SignDocumentPanel } from "@/components/SignDocumentPanel";
 
 const HANDWRITTEN_FONTS = [
   { label: "Great Vibes",          value: "Great Vibes",          size: "lg" },
@@ -185,6 +186,11 @@ export default function SignaturePadWidget({
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [savedLink, setSavedLink] = useState<string | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
+
+  const [showDownloadDialog, setShowDownloadDialog] = useState(false);
+  const [dlPage, setDlPage] = useState<"options" | "sign-doc">("options");
+  const [dlSignaturePng, setDlSignaturePng] = useState<string | null>(null);
+  const [dlSigAspect, setDlSigAspect] = useState(4);
 
   const { toast } = useToast();
 
@@ -532,6 +538,17 @@ export default function SignaturePadWidget({
       URL.revokeObjectURL(url);
       toast({ title: "Downloaded!", description: "Saved as JPG." });
     }, "image/jpeg", 0.95);
+  }, [getExportCanvas, toast, sigScale, sigMargin]);
+
+  const openDownloadDialog = useCallback(() => {
+    const raw = getExportCanvas();
+    if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
+    const aspect = src.width / src.height;
+    setDlSigAspect(aspect || 4);
+    setDlSignaturePng(src.toDataURL("image/png"));
+    setDlPage("options");
+    setShowDownloadDialog(true);
   }, [getExportCanvas, toast, sigScale, sigMargin]);
 
   const generatePreview = useCallback(() => {
@@ -965,13 +982,21 @@ export default function SignaturePadWidget({
             </Button>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={downloadPNG} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-download-png">
+            <Button onClick={openDownloadDialog} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-download-options">
               <Download className="mr-2 h-4 w-4" />
-              Download PNG
+              Download
             </Button>
-            <Button onClick={downloadJPG} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-download-jpg">
-              <Download className="mr-2 h-4 w-4" />
-              JPG
+            <Button onClick={() => {
+              const raw = getExportCanvas();
+              if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+              const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
+              setDlSigAspect(src.width / src.height || 4);
+              setDlSignaturePng(src.toDataURL("image/png"));
+              setDlPage("sign-doc");
+              setShowDownloadDialog(true);
+            }} variant="outline" className="flex-1 sm:flex-none" data-testid="widget-button-add-to-pdf">
+              <FileText className="mr-2 h-4 w-4" />
+              Add to PDF / Doc
             </Button>
           </div>
           <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
@@ -1164,6 +1189,85 @@ export default function SignaturePadWidget({
             Done
           </Button>
         </div>
+      </DialogContent>
+    </Dialog>
+
+    {/* ── DOWNLOAD DIALOG ──────────────────────────────────────────── */}
+    <Dialog open={showDownloadDialog} onOpenChange={(o) => { setShowDownloadDialog(o); if (!o) setDlPage("options"); }}>
+      <DialogContent className={dlPage === "sign-doc" ? "max-w-4xl max-h-[90vh] overflow-y-auto" : "max-w-sm"}>
+        {dlPage === "options" && (
+          <>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Download className="h-5 w-5 text-primary" />
+                Download Your Signature
+              </DialogTitle>
+              <DialogDescription>
+                Choose how you want to save or use your signature.
+              </DialogDescription>
+            </DialogHeader>
+
+            {dlSignaturePng && (
+              <div className="rounded-lg border bg-muted/30 p-3 flex items-center justify-center">
+                <img src={dlSignaturePng} alt="Signature preview" className="max-h-16 object-contain bg-white dark:bg-zinc-900 rounded" />
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2">
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-3 h-auto py-3"
+                onClick={() => { downloadPNG(); setShowDownloadDialog(false); }}
+                data-testid="dl-dialog-png"
+              >
+                <Download className="h-4 w-4 shrink-0 text-primary" />
+                <div className="text-left">
+                  <p className="font-medium text-sm">Download PNG</p>
+                  <p className="text-xs text-muted-foreground">Transparent background — best for documents &amp; emails</p>
+                </div>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-3 h-auto py-3"
+                onClick={() => { downloadJPG(); setShowDownloadDialog(false); }}
+                data-testid="dl-dialog-jpg"
+              >
+                <Download className="h-4 w-4 shrink-0 text-primary" />
+                <div className="text-left">
+                  <p className="font-medium text-sm">Download JPG</p>
+                  <p className="text-xs text-muted-foreground">White background — smaller file size</p>
+                </div>
+              </Button>
+
+              <Button
+                className="w-full justify-start gap-3 h-auto py-3"
+                onClick={() => setDlPage("sign-doc")}
+                data-testid="dl-dialog-add-to-doc"
+              >
+                <FileText className="h-4 w-4 shrink-0" />
+                <div className="text-left">
+                  <p className="font-medium text-sm">Add to PDF or Document</p>
+                  <p className="text-xs text-primary-foreground/80">Upload a file and place your signature on it</p>
+                </div>
+              </Button>
+            </div>
+          </>
+        )}
+
+        {dlPage === "sign-doc" && dlSignaturePng && (
+          <>
+            <DialogHeader className="sr-only">
+              <DialogTitle>Add Signature to Document</DialogTitle>
+              <DialogDescription>Upload a document and place your signature on it.</DialogDescription>
+            </DialogHeader>
+            <SignDocumentPanel
+              signaturePng={dlSignaturePng}
+              sigAspect={dlSigAspect}
+              onClose={() => setDlPage("options")}
+            />
+          </>
+        )}
       </DialogContent>
     </Dialog>
     </>
