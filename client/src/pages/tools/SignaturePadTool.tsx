@@ -94,9 +94,11 @@ const FONT_SIZE: Record<string, { card: string; canvas: number }> = {
 type Tab = "draw" | "type" | "upload";
 type Point = { x: number; y: number };
 
-// Canvas logical dimensions (no DPR scaling needed — keeps coordinate math simple)
+// Logical canvas dimensions (drawing coordinate space)
 const CW = 800;
 const CH = 260;
+// Export scale: internal buffer is EXPORT_SCALE × larger → high-res downloads
+const EXPORT_SCALE = 4; // 3200 × 1040 px output
 
 export default function SignaturePadTool() {
   // ── Active tab ────────────────────────────────────────────────────────────
@@ -145,16 +147,21 @@ export default function SignaturePadTool() {
   }, []);
 
   // ── Init / reinit draw canvas ─────────────────────────────────────────────
-  // Called on mount and every time we switch back to draw tab
+  // Buffer is EXPORT_SCALE × larger than display; ctx.scale maps drawing
+  // coords to 0–CW × 0–CH while the actual pixel buffer is 4× that.
   const initDrawCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    // Set intrinsic size only if not yet set (avoids clearing user's drawing)
-    if (canvas.width !== CW || canvas.height !== CH) {
-      canvas.width = CW;
-      canvas.height = CH;
+    const BW = CW * EXPORT_SCALE;
+    const BH = CH * EXPORT_SCALE;
+    // Only reinitialise when not yet sized (avoids clearing user's drawing)
+    if (canvas.width !== BW || canvas.height !== BH) {
+      canvas.width = BW;
+      canvas.height = BH;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
+      // Scale so all draw calls use logical 0–CW × 0–CH coordinates
+      ctx.scale(EXPORT_SCALE, EXPORT_SCALE);
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, CW, CH);
     }
@@ -175,9 +182,10 @@ export default function SignaturePadTool() {
     canvas: HTMLCanvasElement
   ): Point => {
     const rect = canvas.getBoundingClientRect();
-    // rect gives CSS display size; canvas.width/height is the buffer size
-    const sx = canvas.width / rect.width;
-    const sy = canvas.height / rect.height;
+    // Map CSS pixels → logical drawing coords (0–CW × 0–CH).
+    // ctx.scale(EXPORT_SCALE) already maps these to the 4× buffer internally.
+    const sx = CW / rect.width;
+    const sy = CH / rect.height;
     if ("touches" in e) {
       return {
         x: (e.touches[0].clientX - rect.left) * sx,
@@ -305,28 +313,32 @@ export default function SignaturePadTool() {
     const ctx = canvas.getContext("2d")!;
     saveState();
     ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Use logical coords — ctx.scale(EXPORT_SCALE) maps to the full buffer
+    ctx.fillRect(0, 0, CW, CH);
     setHasDrawn(false);
     setUndoStack([]);
     setRedoStack([]);
   }, [saveState]);
 
-  // ── Render typed signature on an offscreen canvas ─────────────────────────
+  // ── Render typed signature on a high-res offscreen canvas (4×) ───────────
   const renderTypeCanvas = useCallback(
     (font: string, color: string): HTMLCanvasElement => {
+      const BW = CW * EXPORT_SCALE; // 3200
+      const BH = CH * EXPORT_SCALE; // 1040
       const oc = document.createElement("canvas");
-      oc.width = CW;
-      oc.height = CH;
+      oc.width = BW;
+      oc.height = BH;
       const ctx = oc.getContext("2d")!;
       ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, CW, CH);
+      ctx.fillRect(0, 0, BW, BH);
       const fontMeta = HANDWRITTEN_FONTS.find((f) => f.value === font);
-      const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas;
+      // Multiply canvas size by EXPORT_SCALE for crisp high-res text
+      const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas * EXPORT_SCALE;
       ctx.font = `${sizePx}px '${font}', cursive`;
       ctx.fillStyle = color;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(typedName || "Your Name", CW / 2, CH / 2);
+      ctx.fillText(typedName || "Your Name", BW / 2, BH / 2);
       return oc;
     },
     [typedName]
@@ -355,17 +367,20 @@ export default function SignaturePadTool() {
   useEffect(() => {
     const canvas = uploadCanvasRef.current;
     if (!canvas || !uploadedImage) return;
-    canvas.width = CW;
-    canvas.height = CH;
+    // 4× high-res buffer for crisp exports
+    const BW = CW * EXPORT_SCALE;
+    const BH = CH * EXPORT_SCALE;
+    canvas.width = BW;
+    canvas.height = BH;
     const ctx = canvas.getContext("2d")!;
     const img = new Image();
     img.onload = () => {
       ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, CW, CH);
-      const ratio = Math.min((CW * 0.85) / img.width, (CH * 0.85) / img.height);
+      ctx.fillRect(0, 0, BW, BH);
+      const ratio = Math.min((BW * 0.85) / img.width, (BH * 0.85) / img.height);
       const w = img.width * ratio;
       const h = img.height * ratio;
-      ctx.drawImage(img, (CW - w) / 2, (CH - h) / 2, w, h);
+      ctx.drawImage(img, (BW - w) / 2, (BH - h) / 2, w, h);
     };
     img.src = uploadedImage;
   }, [uploadedImage]);
