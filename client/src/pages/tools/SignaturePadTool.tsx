@@ -138,6 +138,30 @@ const FONT_SIZE: Record<string, { card: string; canvas: number }> = {
 type Tab = "draw" | "type" | "upload";
 type Point = { x: number; y: number };
 
+interface SigHistoryItem {
+  id: string;
+  pngDataUrl: string;
+  jpgDataUrl: string;
+  thumbUrl: string;
+  label: string;
+  savedAt: number;
+}
+
+const SIG_HISTORY_KEY = "pixocraft_sig_history_v2";
+
+function loadHistory(): SigHistoryItem[] {
+  try {
+    const raw = localStorage.getItem(SIG_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function persistHistory(items: SigHistoryItem[]) {
+  try {
+    localStorage.setItem(SIG_HISTORY_KEY, JSON.stringify(items));
+  } catch {}
+}
+
 // Logical canvas dimensions (drawing coordinate space)
 const CW = 800;
 const CH = 260;
@@ -176,10 +200,10 @@ export default function SignaturePadTool() {
   const [fallbackHtml, setFallbackHtml] = useState<string | null>(null);
   const [gmailCopied, setGmailCopied] = useState(false);
 
-  // ── Save & edit link ──────────────────────────────────────────────────────
-  const [showSaveDialog, setShowSaveDialog] = useState(false);
-  const [savedLink, setSavedLink] = useState<string | null>(null);
-  const [linkCopied, setLinkCopied] = useState(false);
+  // ── Save to history ───────────────────────────────────────────────────────
+  const [showSavePrompt, setShowSavePrompt] = useState(false);
+  const [history, setHistory] = useState<SigHistoryItem[]>(loadHistory);
+  const pendingFormatsRef = useRef<{ png: string; jpg: string; thumb: string } | null>(null);
 
   const { toast } = useToast();
 
@@ -462,6 +486,43 @@ export default function SignaturePadTool() {
     return null;
   }, [activeTab, selectedFont, typedName, typeColor, renderTypeCanvas]);
 
+  // ── Build PNG + JPG + thumb from current canvas ───────────────────────────
+  const buildFormats = useCallback((src: HTMLCanvasElement) => {
+    // Transparent PNG
+    const pngC = document.createElement("canvas");
+    pngC.width = src.width; pngC.height = src.height;
+    const pngCtx = pngC.getContext("2d")!;
+    pngCtx.drawImage(src, 0, 0);
+    const id = pngCtx.getImageData(0, 0, pngC.width, pngC.height);
+    const d = id.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i] > 240 && d[i + 1] > 240 && d[i + 2] > 240) d[i + 3] = 0;
+    }
+    pngCtx.clearRect(0, 0, pngC.width, pngC.height);
+    pngCtx.putImageData(id, 0, 0);
+    const png = pngC.toDataURL("image/png");
+
+    // White-BG JPG
+    const jpgC = document.createElement("canvas");
+    jpgC.width = src.width; jpgC.height = src.height;
+    const jpgCtx = jpgC.getContext("2d")!;
+    jpgCtx.fillStyle = "white";
+    jpgCtx.fillRect(0, 0, jpgC.width, jpgC.height);
+    jpgCtx.drawImage(src, 0, 0);
+    const jpg = jpgC.toDataURL("image/jpeg", 0.92);
+
+    // Small thumbnail (400 × 130 px, white BG)
+    const tC = document.createElement("canvas");
+    tC.width = 400; tC.height = 130;
+    const tCtx = tC.getContext("2d")!;
+    tCtx.fillStyle = "white";
+    tCtx.fillRect(0, 0, 400, 130);
+    tCtx.drawImage(src, 0, 0, 400, 130);
+    const thumb = tC.toDataURL("image/jpeg", 0.7);
+
+    return { png, jpg, thumb };
+  }, []);
+
   // ── Download helpers ──────────────────────────────────────────────────────
   const downloadPNG = useCallback(() => {
     const src = getExportCanvas();
@@ -469,29 +530,16 @@ export default function SignaturePadTool() {
       toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." });
       return;
     }
-    const oc = document.createElement("canvas");
-    oc.width = src.width;
-    oc.height = src.height;
-    const ctx = oc.getContext("2d")!;
-    ctx.drawImage(src, 0, 0);
-    const id = ctx.getImageData(0, 0, oc.width, oc.height);
-    const d = id.data;
-    for (let i = 0; i < d.length; i += 4) {
-      if (d[i] > 240 && d[i + 1] > 240 && d[i + 2] > 240) d[i + 3] = 0;
-    }
-    ctx.clearRect(0, 0, oc.width, oc.height);
-    ctx.putImageData(id, 0, 0);
-    oc.toBlob((b) => {
-      if (!b) return;
-      const url = URL.createObjectURL(b);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `signature-${Date.now()}.png`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
-    }, "image/png");
-  }, [getExportCanvas, toast]);
+    const formats = buildFormats(src);
+    pendingFormatsRef.current = formats;
+    // Trigger download
+    const a = document.createElement("a");
+    a.href = formats.png;
+    a.download = `signature-${Date.now()}.png`;
+    a.click();
+    toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
+    setShowSavePrompt(true);
+  }, [getExportCanvas, toast, buildFormats]);
 
   const downloadJPG = useCallback(() => {
     const src = getExportCanvas();
@@ -499,28 +547,16 @@ export default function SignaturePadTool() {
       toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." });
       return;
     }
-    const oc = document.createElement("canvas");
-    oc.width = src.width;
-    oc.height = src.height;
-    const ctx = oc.getContext("2d")!;
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, oc.width, oc.height);
-    ctx.drawImage(src, 0, 0);
-    oc.toBlob(
-      (b) => {
-        if (!b) return;
-        const url = URL.createObjectURL(b);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `signature-${Date.now()}.jpg`;
-        a.click();
-        URL.revokeObjectURL(url);
-        toast({ title: "Downloaded!", description: "Saved as JPG." });
-      },
-      "image/jpeg",
-      0.95
-    );
-  }, [getExportCanvas, toast]);
+    const formats = buildFormats(src);
+    pendingFormatsRef.current = formats;
+    // Trigger download
+    const a = document.createElement("a");
+    a.href = formats.jpg;
+    a.download = `signature-${Date.now()}.jpg`;
+    a.click();
+    toast({ title: "Downloaded!", description: "Saved as JPG." });
+    setShowSavePrompt(true);
+  }, [getExportCanvas, toast, buildFormats]);
 
   // ── Preview ───────────────────────────────────────────────────────────────
   const generatePreview = useCallback(() => {
@@ -588,63 +624,59 @@ export default function SignaturePadTool() {
     }
   }, [fallbackHtml, toast]);
 
-  // ── Save signature & get edit link ────────────────────────────────────────
-  const saveSignature = useCallback(async () => {
-    const tab = activeTab;
-    const hasContent =
-      (tab === "draw" && hasDrawn) ||
-      (tab === "type" && typedName && selectedFont) ||
-      (tab === "upload" && uploadedImage);
+  // ── Save to history ───────────────────────────────────────────────────────
+  const saveToHistory = useCallback((formats: { png: string; jpg: string; thumb: string }) => {
+    const now = new Date();
+    const label = `Signature · ${now.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}`;
+    const item: SigHistoryItem = {
+      id: Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4),
+      pngDataUrl: formats.png,
+      jpgDataUrl: formats.jpg,
+      thumbUrl: formats.thumb,
+      label,
+      savedAt: Date.now(),
+    };
+    setHistory((prev) => {
+      const next = [item, ...prev].slice(0, 12);
+      persistHistory(next);
+      return next;
+    });
+    try { (window as any).gtag?.("event", "save_signature_clicked"); } catch {}
+    toast({ title: "Saved!", description: "Signature added to your local history." });
+  }, [toast]);
 
-    if (!hasContent) {
+  const confirmSaveFromPrompt = useCallback(() => {
+    if (pendingFormatsRef.current) {
+      saveToHistory(pendingFormatsRef.current);
+      pendingFormatsRef.current = null;
+    }
+    setShowSavePrompt(false);
+  }, [saveToHistory]);
+
+  const saveCurrentToHistory = useCallback(() => {
+    const src = getExportCanvas();
+    if (!src) {
       toast({ title: "Nothing to save", description: "Draw, type, or upload a signature first." });
       return;
     }
+    const formats = buildFormats(src);
+    saveToHistory(formats);
+  }, [getExportCanvas, buildFormats, saveToHistory, toast]);
 
-    try { (window as any).gtag?.("event", "save_signature_clicked", { method: tab }); } catch {}
+  const deleteFromHistory = useCallback((id: string) => {
+    setHistory((prev) => {
+      const next = prev.filter((h) => h.id !== id);
+      persistHistory(next);
+      return next;
+    });
+  }, []);
 
-    let drawDataUrl: string | undefined;
-    if (tab === "draw" && canvasRef.current) {
-      drawDataUrl = canvasRef.current.toDataURL("image/png");
-    }
-
-    const uid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
-    const payload = {
-      tab,
-      strokeColor,
-      strokeWidth,
-      typedName,
-      selectedFont,
-      typeColor,
-      uploadedImage: tab === "upload" ? uploadedImage : undefined,
-      bgRemoved,
-      drawDataUrl,
-      savedAt: Date.now(),
-    };
-
-    try {
-      localStorage.setItem("pixocraft_sig_" + uid, JSON.stringify(payload));
-    } catch {
-      toast({ title: "Save failed", description: "Browser storage may be full or disabled." });
-      return;
-    }
-
-    const link = `${window.location.origin}/edit/signature-${uid}`;
-    setSavedLink(link);
-    setLinkCopied(false);
-    setShowSaveDialog(true);
-  }, [activeTab, hasDrawn, typedName, selectedFont, uploadedImage, strokeColor, strokeWidth, typeColor, bgRemoved, toast]);
-
-  const copyLink = useCallback(async () => {
-    if (!savedLink) return;
-    try {
-      await navigator.clipboard.writeText(savedLink);
-      setLinkCopied(true);
-      toast({ title: "Link copied!", description: "Share this link to edit your signature anytime." });
-    } catch {
-      toast({ title: "Copy failed", description: "Please copy the link manually from the box below." });
-    }
-  }, [savedLink, toast]);
+  const reDownload = useCallback((item: SigHistoryItem, format: "png" | "jpg") => {
+    const a = document.createElement("a");
+    a.href = format === "png" ? item.pngDataUrl : item.jpgDataUrl;
+    a.download = `signature-${format === "png" ? "transparent" : "white"}-${item.id}.${format}`;
+    a.click();
+  }, []);
 
   // ── Try signature style shortcut ──────────────────────────────────────────
   const SIGNATURE_STYLES: Array<{ label: string; font: string; sampleName: string }> = [
@@ -1073,24 +1105,24 @@ export default function SignaturePadTool() {
                 <Mail className="h-4 w-4" />
                 Copy for Gmail
               </Button>
-              <Button onClick={saveSignature} variant="outline" size="lg" className="flex-1 sm:flex-none gap-2" data-testid="button-save-signature">
+              <Button onClick={saveCurrentToHistory} variant="outline" size="lg" className="flex-1 sm:flex-none gap-2" data-testid="button-save-history">
                 <ClipboardCheck className="h-4 w-4" />
-                Save &amp; Get Edit Link
+                Save to History
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button onClick={downloadPNG} variant="outline" className="flex-1 sm:flex-none" data-testid="button-download-png">
-                <Download className="mr-2 h-4 w-4" />
+              <Button onClick={downloadPNG} variant="outline" className="flex-1 sm:flex-none gap-2" data-testid="button-download-png">
+                <Download className="h-4 w-4" />
                 Download PNG
               </Button>
-              <Button onClick={downloadJPG} variant="outline" className="flex-1 sm:flex-none" data-testid="button-download-jpg">
-                <Download className="mr-2 h-4 w-4" />
-                JPG
+              <Button onClick={downloadJPG} variant="outline" className="flex-1 sm:flex-none gap-2" data-testid="button-download-jpg">
+                <Download className="h-4 w-4" />
+                Download JPG
               </Button>
             </div>
             <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-              <Mail className="h-3 w-3" />
-              <span><strong>Copy for Gmail</strong> — pastes your signature image directly into Gmail Settings → Signature.</span>
+              <ClipboardCheck className="h-3 w-3" />
+              <span>After downloading, we'll ask if you want to <strong>save locally</strong> for quick access later.</span>
             </p>
           </div>
 
@@ -1116,6 +1148,72 @@ export default function SignaturePadTool() {
               ))}
             </div>
           </div>
+
+          {/* ── SAVED HISTORY ─────────────────────────────────────────────── */}
+          {history.length > 0 && (
+            <div className="space-y-3 pt-1 border-t" data-testid="section-history">
+              <div className="flex items-center justify-between pt-3">
+                <div>
+                  <p className="text-sm font-semibold flex items-center gap-2">
+                    <ClipboardCheck className="h-4 w-4 text-primary" />
+                    Saved Signatures
+                  </p>
+                  <p className="text-xs text-muted-foreground">Stored locally in your browser · click to re-download</p>
+                </div>
+                <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{history.length}</span>
+              </div>
+              <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1">
+                {history.map((item) => (
+                  <div
+                    key={item.id}
+                    className="shrink-0 w-44 rounded-lg border bg-white overflow-hidden group"
+                    data-testid={`history-item-${item.id}`}
+                  >
+                    <div className="relative h-16 bg-white border-b flex items-center justify-center px-2">
+                      <img
+                        src={item.thumbUrl}
+                        alt={item.label}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                      <button
+                        onClick={() => deleteFromHistory(item.id)}
+                        className="absolute top-1 right-1 h-5 w-5 rounded-full bg-destructive/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Delete"
+                        data-testid={`button-delete-history-${item.id}`}
+                      >
+                        <Trash2 className="h-2.5 w-2.5" />
+                      </button>
+                    </div>
+                    <div className="p-2 space-y-1.5">
+                      <p className="text-[10px] text-muted-foreground truncate">{item.label}</p>
+                      <div className="flex gap-1">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1 h-6 text-[10px] px-1.5 gap-1"
+                          onClick={() => reDownload(item, "png")}
+                          data-testid={`button-history-png-${item.id}`}
+                        >
+                          <Download className="h-2.5 w-2.5" />
+                          PNG
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1 h-6 text-[10px] px-1.5 gap-1"
+                          onClick={() => reDownload(item, "jpg")}
+                          data-testid={`button-history-jpg-${item.id}`}
+                        >
+                          <Download className="h-2.5 w-2.5" />
+                          JPG
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
         </div>
       </div>
@@ -1590,64 +1688,29 @@ export default function SignaturePadTool() {
       </DialogContent>
     </Dialog>
 
-    {/* ── SAVE & EDIT LINK DIALOG ─────────────────────────────────────────── */}
-    <Dialog open={showSaveDialog} onOpenChange={(o) => { setShowSaveDialog(o); if (!o) setLinkCopied(false); }}>
-      <DialogContent className="max-w-md">
+    {/* ── SAVE LOCALLY PROMPT (shown after download) ──────────────────────── */}
+    <Dialog open={showSavePrompt} onOpenChange={(o) => { setShowSavePrompt(o); if (!o) pendingFormatsRef.current = null; }}>
+      <DialogContent className="max-w-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <ClipboardCheck className="h-5 w-5 text-primary" />
-            Your signature is saved!
+            Save locally for later?
           </DialogTitle>
           <DialogDescription>
-            You can edit it anytime using the link below — even after closing this tab.
+            We'll keep a copy of your signature (PNG + JPG) right here in this tool so you can re-download anytime without recreating it.
           </DialogDescription>
         </DialogHeader>
-
-        {savedLink && (
-          <div className="space-y-2">
-            <p className="text-xs text-muted-foreground font-medium">Your edit link:</p>
-            <div className="relative">
-              <input
-                readOnly
-                value={savedLink}
-                className="w-full text-xs font-mono rounded-lg border bg-muted px-3 py-2.5 pr-24"
-                onFocus={(e) => e.target.select()}
-                data-testid="input-saved-link"
-              />
-              <Button
-                size="sm"
-                variant="outline"
-                className="absolute top-1 right-1 gap-1.5 h-7 text-xs"
-                onClick={copyLink}
-                data-testid="button-copy-link"
-              >
-                {linkCopied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
-                {linkCopied ? "Copied!" : "Copy"}
-              </Button>
-            </div>
-          </div>
-        )}
-
-        <div className="rounded-lg border bg-muted/40 px-4 py-3 text-xs text-muted-foreground space-y-1">
-          <p className="font-medium text-foreground text-sm">What this link does:</p>
-          <p>Opening the link on <strong>this browser</strong> restores your full signature — ready to edit, re-download, or copy for Gmail.</p>
-          <p className="text-muted-foreground/70">Saved locally on this device. Clearing browser data will remove it.</p>
+        <div className="rounded-lg bg-muted/50 border px-4 py-3 text-xs text-muted-foreground space-y-0.5">
+          <p>Stored in your browser — never uploaded to any server.</p>
+          <p>Appears in the <strong>Saved Signatures</strong> row below the tool.</p>
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          <Button onClick={copyLink} className="flex-1 gap-2" data-testid="button-copy-link-primary">
-            {linkCopied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            {linkCopied ? "Link Copied!" : "Copy Link"}
+        <div className="flex gap-2">
+          <Button onClick={confirmSaveFromPrompt} className="flex-1 gap-2" data-testid="button-confirm-save">
+            <ClipboardCheck className="h-4 w-4" />
+            Yes, Save It
           </Button>
-          {savedLink && (
-            <Button asChild variant="outline" className="flex-1 gap-2" data-testid="button-open-link">
-              <a href={savedLink} target="_blank" rel="noopener noreferrer">
-                <ArrowRight className="h-4 w-4" /> Open Link
-              </a>
-            </Button>
-          )}
-          <Button variant="ghost" onClick={() => setShowSaveDialog(false)} className="w-full" data-testid="button-close-save-dialog">
-            Done
+          <Button variant="outline" onClick={() => { setShowSavePrompt(false); pendingFormatsRef.current = null; }} data-testid="button-skip-save">
+            Skip
           </Button>
         </div>
       </DialogContent>
