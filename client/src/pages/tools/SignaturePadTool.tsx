@@ -36,7 +36,7 @@ import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
 
-// ─── 40+ visually diverse signature fonts ────────────────────────────────────
+// ─── 70+ visually diverse signature fonts ────────────────────────────────────
 const HANDWRITTEN_FONTS = [
   // ── Ultra-thin elegant scripts ──────────────────────────────────────────
   { label: "Great Vibes",          value: "Great Vibes",          size: "lg" },
@@ -49,6 +49,11 @@ const HANDWRITTEN_FONTS = [
   { label: "Waterfall",            value: "Waterfall",            size: "lg" },
   { label: "Euphoria Script",      value: "Euphoria Script",      size: "lg" },
   { label: "Qwigley",              value: "Qwigley",              size: "xl" },
+  { label: "Ms Madi",              value: "Ms Madi",              size: "xl" },
+  { label: "Lavishly Yours",       value: "Lavishly Yours",       size: "xl" },
+  { label: "Monsieur La Doulaise", value: "Monsieur La Doulaise", size: "xl" },
+  { label: "Moon Dance",           value: "Moon Dance",           size: "lg" },
+  { label: "Meie Script",          value: "Meie Script",          size: "lg" },
   // ── Classic flowing cursive ─────────────────────────────────────────────
   { label: "Dancing Script",       value: "Dancing Script",       size: "md" },
   { label: "Parisienne",           value: "Parisienne",           size: "md" },
@@ -60,6 +65,9 @@ const HANDWRITTEN_FONTS = [
   { label: "Marck Script",         value: "Marck Script",         size: "md" },
   { label: "Niconne",              value: "Niconne",              size: "md" },
   { label: "Merienda",             value: "Merienda",             size: "md" },
+  { label: "Italianno",            value: "Italianno",            size: "lg" },
+  { label: "Courgette",            value: "Courgette",            size: "md" },
+  { label: "Rouge Script",         value: "Rouge Script",         size: "lg" },
   // ── Bold / chunky scripts ───────────────────────────────────────────────
   { label: "Pacifico",             value: "Pacifico",             size: "sm" },
   { label: "Lobster",              value: "Lobster",              size: "sm" },
@@ -69,23 +77,34 @@ const HANDWRITTEN_FONTS = [
   { label: "Grand Hotel",          value: "Grand Hotel",          size: "md" },
   { label: "Rochester",            value: "Rochester",            size: "md" },
   { label: "Playball",             value: "Playball",             size: "md" },
+  { label: "Boogaloo",             value: "Boogaloo",             size: "sm" },
+  { label: "Ruge Boogie",          value: "Ruge Boogie",          size: "sm" },
+  { label: "Lobster Two",          value: "Lobster Two",          size: "sm" },
   // ── Casual handwriting ──────────────────────────────────────────────────
   { label: "Caveat",               value: "Caveat",               size: "md" },
   { label: "Patrick Hand",         value: "Patrick Hand",         size: "md" },
   { label: "Indie Flower",         value: "Indie Flower",         size: "md" },
   { label: "Handlee",              value: "Handlee",              size: "md" },
-  { label: "Courgette",            value: "Courgette",            size: "md" },
   { label: "Bad Script",           value: "Bad Script",           size: "md" },
   { label: "Kristi",               value: "Kristi",               size: "lg" },
+  { label: "Gochi Hand",           value: "Gochi Hand",           size: "md" },
+  { label: "Itim",                 value: "Itim",                 size: "md" },
+  { label: "Just Another Hand",    value: "Just Another Hand",    size: "md" },
+  { label: "Over the Rainbow",     value: "Over the Rainbow",     size: "md" },
+  { label: "Dekko",                value: "Dekko",                size: "md" },
   // ── Marker / rough / textured ───────────────────────────────────────────
   { label: "Permanent Marker",     value: "Permanent Marker",     size: "sm" },
   { label: "Rock Salt",            value: "Rock Salt",            size: "sm" },
   { label: "Gloria Hallelujah",    value: "Gloria Hallelujah",    size: "sm" },
+  { label: "Rancho",               value: "Rancho",               size: "sm" },
+  { label: "Cabin Sketch",         value: "Cabin Sketch",         size: "sm" },
   // ── Light & airy ────────────────────────────────────────────────────────
   { label: "Shadows Into Light",   value: "Shadows Into Light",   size: "md" },
   { label: "Nothing You Could Do", value: "Nothing You Could Do", size: "md" },
   { label: "La Belle Aurore",      value: "La Belle Aurore",      size: "md" },
   { label: "Give You Glory",       value: "Give You Glory",       size: "md" },
+  { label: "Swanky and Moo Moo",   value: "Swanky and Moo Moo",   size: "md" },
+  { label: "Dawning of a New Day", value: "Dawning of a New Day", size: "lg" },
   // ── Condensed / tall ────────────────────────────────────────────────────
   { label: "Amatic SC",            value: "Amatic SC",            size: "sm" },
   { label: "Yellowtail",           value: "Yellowtail",           size: "sm" },
@@ -95,6 +114,11 @@ const HANDWRITTEN_FONTS = [
   { label: "Stalemate",            value: "Stalemate",            size: "lg" },
   { label: "Lovers Quartet",       value: "Lovers Quartet",       size: "md" },
   { label: "Engagement",           value: "Engagement",           size: "xl" },
+  { label: "Mr De Haviland",       value: "Mr De Haviland",       size: "lg" },
+  { label: "Inspiration",          value: "Inspiration",          size: "lg" },
+  { label: "Fondamento",           value: "Fondamento",           size: "md" },
+  { label: "Quintessential",       value: "Quintessential",       size: "md" },
+  { label: "Bilbo",                value: "Bilbo",                size: "lg" },
 ];
 
 // Font size px values for card previews and canvas export
