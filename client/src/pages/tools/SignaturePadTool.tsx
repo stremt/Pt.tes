@@ -1022,312 +1022,365 @@ export default function SignaturePadTool() {
           </div>
         )}
         {/* ── SEO CONTENT SECTION ──────────────────────────────────────────── */}
-        <div className="border-t pt-8 mt-4 space-y-12 text-sm leading-relaxed">
+        <div className="mt-10 space-y-20 text-base leading-relaxed max-w-4xl mx-auto">
+
+          {/* shared heading style helper — inline for reuse */}
 
           {/* ── Signature Examples & Ideas ─────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-1 text-foreground">Signature Examples &amp; Ideas</h2>
-            <p className="text-muted-foreground mb-5">
-              Not sure what style suits you? Browse these handwritten signature styles — each represents a different aesthetic you can recreate using the Type tab above.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Signature Examples &amp; Ideas</h2>
+              <p className="text-muted-foreground">
+                Not sure what style suits you? Browse these signature styles — each one is live-rendered and clickable.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {([
-                { label: "Stylish Elegant",  font: "Great Vibes",     name: "Alexandra J.",  note: "Flowing thin script — ideal for formal documents" },
-                { label: "Classic Cursive",  font: "Pinyon Script",   name: "David Miller",  note: "Traditional cursive — timeless professional look" },
-                { label: "Bold & Modern",    font: "Pacifico",        name: "Chris Park",    note: "Bold signature — stands out on contracts" },
-                { label: "Minimal Clean",    font: "Satisfy",         name: "Priya Sharma",  note: "Simple and modern — great for email footers" },
-                { label: "Casual Everyday",  font: "Caveat",          name: "Sam Roberts",   note: "Natural handwriting — approachable and personal" },
-                { label: "Formal Calligraphy", font: "IM Fell English", name: "Dr. E. Watson", note: "Formal and authoritative — suits academic use" },
+                { label: "Stylish Elegant",    font: "Great Vibes",   name: "Alexandra J.",  note: "Flowing thin script — ideal for formal documents" },
+                { label: "Classic Cursive",    font: "Pinyon Script", name: "David Miller",  note: "Traditional cursive — timeless professional look" },
+                { label: "Bold & Modern",      font: "Pacifico",      name: "Chris Park",    note: "Bold signature — stands out on contracts" },
+                { label: "Minimal Clean",      font: "Satisfy",       name: "Priya Sharma",  note: "Simple and modern — great for email footers" },
+                { label: "Casual Everyday",    font: "Caveat",        name: "Sam Roberts",   note: "Natural handwriting — approachable and personal" },
+                { label: "Formal Calligraphy", font: "Norican",       name: "Dr. E. Watson", note: "Formal and authoritative — suits academic use" },
               ] as const).map(({ label, font, name, note }) => (
-                <div key={label} className="border rounded-md p-3 bg-card space-y-1">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{label}</p>
+                <div key={label} className="rounded-xl border bg-card p-5 space-y-3 hover-elevate transition-all">
+                  <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest">{label}</p>
                   <p
-                    style={{ fontFamily: `'${font}', cursive`, fontSize: "1.6rem", lineHeight: 1.3 }}
+                    style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }}
                     className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis"
-                  >
-                    {name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{note}</p>
+                  >{name}</p>
+                  <p className="text-sm text-muted-foreground">{note}</p>
                 </div>
               ))}
             </div>
-            <p className="text-muted-foreground mt-4">
-              To recreate any of these styles, switch to the <strong>Type</strong> tab, type your name, and browse the font grid — all 50+ fonts are free and export at full resolution.
+            <p className="text-muted-foreground mt-5 text-sm">
+              Switch to the <strong>Type</strong> tab, type your name, and browse 50+ fonts — all free, all high-resolution.
             </p>
           </section>
 
           {/* ── PDF / Documents / Email guide ──────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-1 text-foreground">Create Signature for PDF, Documents &amp; Email</h2>
-            <p className="text-muted-foreground mb-5">
-              Once you've created your <strong>digital signature online</strong>, here's exactly how to use it across the most common platforms.
-            </p>
-            <div className="space-y-5">
-              <div className="flex gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
-                    <FileText className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Add signature to PDF</p>
-                  <p className="text-muted-foreground">
-                    Download your signature as a transparent PNG. Open your PDF in{" "}
-                    <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">Pixocraft's PDF tools</Link>,
-                    Adobe Acrobat, or Smallpdf. Use the "Insert Image" or "Stamp" feature to place your <strong>signature for PDF</strong> directly onto the document over the signature line. Resize as needed and save.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
-                    <FileImage className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Insert signature into Word or Google Docs</p>
-                  <p className="text-muted-foreground">
-                    Download the transparent PNG and open your document. In <strong>Microsoft Word</strong>: Insert → Pictures → select your file. In <strong>Google Docs</strong>: Insert → Image → Upload from computer. Position the image over the signature area, resize, and set text wrap to "In front of text" for precise placement. Then{" "}
-                    <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">convert to PDF</Link>{" "}
-                    when done.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="shrink-0 mt-0.5">
-                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
-                    <Mail className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground mb-1">Use as an email signature image</p>
-                  <p className="text-muted-foreground">
-                    Your <strong>email signature image</strong> should be a transparent PNG exported at a reasonable display size. In <strong>Gmail</strong>: Settings → See all settings → Signature → Insert image. In <strong>Outlook</strong>: File → Options → Mail → Signatures → insert picture. Keep the height around 60–80 px at display size for a clean look in any inbox.
-                  </p>
-                </div>
-              </div>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Create Signature for PDF, Documents &amp; Email</h2>
+              <p className="text-muted-foreground">Once you've created your signature, here's how to use it across the most common platforms.</p>
             </div>
-          </section>
-
-          {/* ── What is ────────────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">What is an Online Signature Generator?</h2>
-            <p className="text-muted-foreground mb-3">
-              An <strong>online signature generator</strong> is a browser-based tool that lets you create a personal signature digitally — without printing, signing, and scanning. You can draw your signature with a mouse or touchscreen, type your name in a handwritten font, or upload a photo of your existing signature and have the white background automatically removed.
-            </p>
-            <p className="text-muted-foreground">
-              Modern digital signatures are accepted for contracts, agreements, onboarding forms, and email footers worldwide. Pixocraft's <strong>free signature maker</strong> is 100% client-side, meaning your data never leaves your device — making it one of the most privacy-friendly <strong>e-signature makers</strong> available online.
-            </p>
-          </section>
-
-          {/* ── How to ─────────────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">How to Create a Digital Signature Online — Step by Step</h2>
-            <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-              <li><strong>Choose your method:</strong> Select Draw (freehand), Type (50+ fonts), or Upload (from a photo).</li>
-              <li><strong>Customise:</strong> Adjust ink color and stroke thickness for drawing, pick a font for typing, or remove the background for uploads.</li>
-              <li><strong>Preview:</strong> Click Preview to see your <strong>digital signature online</strong> on a simulated document and email footer.</li>
-              <li><strong>Download instantly:</strong> PNG (transparent background) or JPG (white background) — no watermark, no signup.</li>
-            </ol>
-          </section>
-
-          {/* ── Draw vs Type vs Upload vs AI ───────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Draw vs Type vs Upload vs AI – Which One is Best for You?</h2>
-            <p className="text-muted-foreground mb-4">
-              Every user has a different workflow. Here's an honest breakdown so you can pick the right method in seconds:
-            </p>
-            <div className="overflow-x-auto rounded-md border">
-              <table className="w-full text-sm min-w-[520px]">
-                <thead>
-                  <tr className="bg-muted/50 border-b">
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Method</th>
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Best For</th>
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Pros</th>
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Cons</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y text-muted-foreground">
-                  <tr className="hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">Draw</td>
-                    <td className="px-4 py-3">Personal feel</td>
-                    <td className="px-4 py-3">Natural, unique, touchscreen support</td>
-                    <td className="px-4 py-3">Takes more time to perfect</td>
-                  </tr>
-                  <tr className="hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">Type</td>
-                    <td className="px-4 py-3">Consistent &amp; fast</td>
-                    <td className="px-4 py-3">50+ fonts, always legible, reproducible</td>
-                    <td className="px-4 py-3">Less personal than handwriting</td>
-                  </tr>
-                  <tr className="hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">Upload</td>
-                    <td className="px-4 py-3">Reuse existing signature</td>
-                    <td className="px-4 py-3">Background auto-removed, high-res output</td>
-                    <td className="px-4 py-3">Photo quality can affect result</td>
-                  </tr>
-                  <tr className="hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-medium text-foreground">AI <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full font-semibold ml-1">2026</span></td>
-                    <td className="px-4 py-3">Instant 10 styles, zero effort</td>
-                    <td className="px-4 py-3">Beautiful results, Pixocraft exclusive</td>
-                    <td className="px-4 py-3">Style is AI-generated, not hand-drawn</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              <strong>Quick pick:</strong> New user? Start with Type. Have an existing signature? Use Upload. Want maximum personalisation? Draw it. Looking for the most beautiful result instantly? Try AI styles.
-            </p>
-          </section>
-
-          {/* ── Where to use ───────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Where to Use Your Pixocraft Signature</h2>
-            <p className="text-muted-foreground mb-3">
-              Your downloaded PNG works everywhere a physical signature would — and in many more places besides. Here are the most common use cases:
-            </p>
-            <ul className="space-y-2.5 text-muted-foreground">
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>GST Invoices &amp; E-way Bills</strong> — Paste your signature image onto GST invoices in Tally, Zoho Books, or any billing software that supports image insertion.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>NDAs, Offer Letters &amp; Contracts</strong> — Download as transparent PNG and insert into any Word or Google Docs contract. <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">Convert to PDF</Link> when done.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>PDF Documents</strong> — Use <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">Pixocraft PDF tools</Link> or Adobe Acrobat's "Insert Image" to place your signature directly over a signature line.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Google Docs &amp; Microsoft Word</strong> — Insert → Image → Upload from computer. Set text wrap to "In front of text" for precise placement.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Email Footers (Gmail, Outlook)</strong> — A transparent PNG in your email signature adds professionalism to every message you send.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Online Forms &amp; Aadhaar-Linked Services</strong> — Many government portals and HR onboarding flows accept image-based signatures in PNG format.</span></li>
-              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Creative Branding &amp; Watermarks</strong> — Use your signature as a logo watermark on photos, portfolios, and design work. <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline">Remove background</Link> first for the cleanest result.</span></li>
-            </ul>
-          </section>
-
-          {/* ── Legality ───────────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Is Online Signature Legal in India &amp; Worldwide?</h2>
-            <p className="text-muted-foreground mb-4">
-              Yes — in most jurisdictions an electronic signature image carries the same legal weight as a handwritten one for routine business documents. Here's what the law says by region:
-            </p>
-            <div className="space-y-2.5 text-muted-foreground mb-4">
-              <div className="border rounded-md p-3 bg-card space-y-1">
-                <p className="font-semibold text-foreground">India 🇮🇳</p>
-                <p><strong>Information Technology Act 2000 + IT (Amendment) Act 2008</strong> — Fully legal for contracts, GST invoices, Aadhaar-linked documents, company agreements, and most commercial transactions. The IT Act defines an "electronic signature" broadly enough to include PNG-based image signatures when both parties consent.</p>
-              </div>
-              <div className="border rounded-md p-3 bg-card space-y-1">
-                <p className="font-semibold text-foreground">United States 🇺🇸</p>
-                <p><strong>ESIGN Act (2000) + UETA</strong> — Electronic signatures have the same legal effect as handwritten ones for most contracts and agreements.</p>
-              </div>
-              <div className="border rounded-md p-3 bg-card space-y-1">
-                <p className="font-semibold text-foreground">European Union 🇪🇺</p>
-                <p><strong>eIDAS Regulation (2016)</strong> — Tiered framework (SES / AES / QES) accepted across all EU member states. Image signatures qualify as Simple Electronic Signatures (SES).</p>
-              </div>
-              <div className="border rounded-md p-3 bg-card space-y-1">
-                <p className="font-semibold text-foreground">United Kingdom 🇬🇧</p>
-                <p><strong>Electronic Communications Act 2000</strong> — Legally binding for most agreements.</p>
-              </div>
-            </div>
-
-            <p className="text-sm font-semibold text-foreground mb-2">Simple Digital Signature vs Qualified Electronic Signature (QES)</p>
-            <div className="overflow-x-auto rounded-md border mb-4">
-              <table className="w-full text-sm min-w-[420px]">
-                <thead>
-                  <tr className="bg-muted/50 border-b">
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Feature</th>
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Simple Digital Signature</th>
-                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Qualified (QES / DSC)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y text-muted-foreground">
-                  <tr><td className="px-4 py-2.5">Cost</td><td className="px-4 py-2.5">Free</td><td className="px-4 py-2.5">Paid CA certificate</td></tr>
-                  <tr><td className="px-4 py-2.5">Setup time</td><td className="px-4 py-2.5">Seconds</td><td className="px-4 py-2.5">Days (KYC required)</td></tr>
-                  <tr><td className="px-4 py-2.5">Use case</td><td className="px-4 py-2.5">Contracts, invoices, HR forms</td><td className="px-4 py-2.5">Govt filings, MCA, court docs</td></tr>
-                  <tr><td className="px-4 py-2.5">India acceptance</td><td className="px-4 py-2.5">Most commercial use</td><td className="px-4 py-2.5">Required for specific govt portals</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="text-muted-foreground text-sm">
-              <strong>Bottom line:</strong> For routine business — NDAs, employment contracts, GST invoices, freelance agreements — this <strong>free signature maker</strong> is entirely sufficient. For court submissions, MCA ROC filings, or property registrations, consult a legal professional and obtain a DSC.
-            </p>
-          </section>
-
-          {/* ── Tips ───────────────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Tips for a Professional Digital Signature</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-4">
               {[
-                { tip: "Use dark blue or black ink", detail: "These colours read best on printed and digital documents alike, and are universally accepted in legal and corporate contexts." },
-                { tip: "Set stroke width to 3–4 px", detail: "For drawn signatures, thicker strokes remain visible when the image is scaled down inside PDFs or email footers." },
-                { tip: "Choose font style by context", detail: "Thin elegant scripts (Great Vibes, Pinyon) suit formal documents. Bold markers (Pacifico, Lobster) work for creative or casual use." },
-                { tip: "Always download as transparent PNG", detail: "A transparent background lets your signature sit cleanly on any document colour — white, cream, or coloured paper." },
-                { tip: "Keep a master copy", detail: "Save your high-resolution PNG (3200×1040 px) in a secure folder. You'll use it repeatedly for contracts, GST invoices, and forms." },
-                { tip: "Test at small sizes", detail: "Before finalising, preview your signature at the size it will appear on documents (roughly 40–80 px tall). Ensure it remains legible." },
-              ].map(({ tip, detail }) => (
-                <div key={tip} className="border rounded-md p-3 bg-card space-y-1">
-                  <p className="font-semibold text-foreground text-sm">{tip}</p>
-                  <p className="text-xs text-muted-foreground">{detail}</p>
+                {
+                  icon: <FileText className="h-5 w-5 text-primary" />,
+                  title: "Add signature to PDF",
+                  body: <>Download your signature as a transparent PNG. Open your PDF in <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline font-medium">Pixocraft's PDF tools</Link>, Adobe Acrobat, or Smallpdf. Use "Insert Image" to place your signature over the signature line.</>
+                },
+                {
+                  icon: <FileImage className="h-5 w-5 text-primary" />,
+                  title: "Insert into Word or Google Docs",
+                  body: <>In <strong>Microsoft Word</strong>: Insert → Pictures → select your file. In <strong>Google Docs</strong>: Insert → Image → Upload from computer. Then <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline font-medium">convert to PDF</Link> when done.</>
+                },
+                {
+                  icon: <Mail className="h-5 w-5 text-primary" />,
+                  title: "Use as an email signature",
+                  body: <>In <strong>Gmail</strong>: Settings → Signature → Insert image. In <strong>Outlook</strong>: File → Options → Mail → Signatures → insert picture. Keep height around 60–80 px for a clean inbox look.</>
+                },
+              ].map(({ icon, title, body }) => (
+                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                  <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
+                  <div className="space-y-1.5">
+                    <p className="font-semibold text-foreground">{title}</p>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* ── Signature Examples ─────────────────────────────────────────── */}
+          {/* ── What is ────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Signature Examples &amp; Ideas</h2>
-            <p className="text-muted-foreground mb-3">
-              Not sure where to start? Here are popular signature styles used by professionals around the world — all achievable with the Type tab above:
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">What is an Online Signature Generator?</h2>
+            </div>
+            <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-5">
+              <p className="text-foreground font-medium">
+                An <strong>online signature generator</strong> lets you create a personal digital signature in seconds — no printing, no scanning, no software to install.
+              </p>
+            </div>
+            <p className="text-muted-foreground mb-4">
+              You can draw with a mouse or touchscreen, type your name in a handwritten font, or upload a photo of your existing signature and remove the background automatically.
             </p>
+            <p className="text-muted-foreground">
+              Pixocraft's <strong>free signature maker</strong> is 100% client-side — your data never leaves your device, making it one of the most privacy-friendly <strong>e-signature makers</strong> available.
+            </p>
+          </section>
+
+          {/* ── How to ─────────────────────────────────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online</h2>
+              <p className="text-muted-foreground">Step by step — done in under 60 seconds.</p>
+            </div>
+            <ol className="space-y-3">
+              {[
+                { n: 1, t: "Choose your method", d: "Select Draw (freehand with mouse or touch), Type (50+ handwritten fonts), or Upload (from an existing photo)." },
+                { n: 2, t: "Customise it",       d: "Adjust ink color and stroke thickness for drawing, pick a font style for typing, or remove the white background for an upload." },
+                { n: 3, t: "Preview",             d: "Click Preview to see your signature on a simulated document and email footer mockup." },
+                { n: 4, t: "Download instantly",  d: "PNG (transparent background) or JPG (white background) — no watermark, no signup, no waiting." },
+              ].map(({ n, t, d }) => (
+                <li key={n} className="flex gap-4 p-4 rounded-xl border bg-card">
+                  <span className="shrink-0 h-8 w-8 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">{n}</span>
+                  <div>
+                    <p className="font-semibold text-foreground">{t}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{d}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* ── Draw vs Type vs Upload vs AI ───────────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload vs AI — Which is Best for You?</h2>
+              <p className="text-muted-foreground">Every user has a different workflow. Pick the right method in seconds:</p>
+            </div>
+            <div className="overflow-x-auto rounded-xl border">
+              <table className="w-full text-sm min-w-[520px]">
+                <thead>
+                  <tr className="bg-primary/5 border-b">
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Method</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Best For</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Pros</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Cons</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {[
+                    { method: "Draw",   best: "Personal feel",              pros: "Natural, unique, touchscreen support",       cons: "Takes more time to perfect" },
+                    { method: "Type",   best: "Consistent & fast",          pros: "50+ fonts, always legible, reproducible",   cons: "Less personal than handwriting" },
+                    { method: "Upload", best: "Reuse existing signature",   pros: "Background auto-removed, high-res output",  cons: "Photo quality can affect result" },
+                  ].map(({ method, best, pros, cons }) => (
+                    <tr key={method} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-5 py-3.5 font-medium text-foreground">{method}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{best}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{pros}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{cons}</td>
+                    </tr>
+                  ))}
+                  <tr className="hover:bg-muted/30 transition-colors">
+                    <td className="px-5 py-3.5 font-medium text-foreground">AI <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full font-semibold ml-1">2026</span></td>
+                    <td className="px-5 py-3.5 text-muted-foreground">Instant 10 styles, zero effort</td>
+                    <td className="px-5 py-3.5 text-muted-foreground">Beautiful results, Pixocraft exclusive</td>
+                    <td className="px-5 py-3.5 text-muted-foreground">AI-generated, not hand-drawn</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm text-muted-foreground mt-3 px-1">
+              <strong>Quick pick:</strong> New user → Type. Have a signature → Upload. Want it personal → Draw. Want instant beauty → AI.
+            </p>
+          </section>
+
+          {/* ── Where to use ───────────────────────────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use Your Pixocraft Signature</h2>
+              <p className="text-muted-foreground">Your downloaded PNG works everywhere a physical signature would — and more.</p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { style: "Stylish / Elegant", desc: "Use thin script fonts like Great Vibes or Sacramento. Perfect for artists, designers, and creative professionals who want a sophisticated, flowing mark.", font: "Great Vibes" },
-                { style: "Minimal / Modern", desc: "Clean, legible fonts like Caveat or Handlee. Ideal for tech professionals, consultants, and anyone who values clarity over flourish.", font: "Caveat" },
-                { style: "Bold / Confident", desc: "Strong scripts like Pacifico or Lobster. Great for business owners, executives, and anyone who wants their signature to command attention.", font: "Pacifico" },
-                { style: "Professional / Corporate", desc: "Classic scripts like Dancing Script or Merienda. Universally trusted for contracts, NDAs, and formal correspondence.", font: "Dancing Script" },
+                { title: "GST Invoices & E-way Bills",         body: "Paste directly into Tally, Zoho Books, or any billing software that supports image insertion." },
+                { title: "NDAs, Offer Letters & Contracts",    body: <>Insert into Word or Google Docs. <Link href="/tools/image-to-pdf" className="text-primary hover:underline underline-offset-2">Convert to PDF</Link> when done.</> },
+                { title: "PDF Documents",                      body: <>Use <Link href="/tools/pdf-merger" className="text-primary hover:underline underline-offset-2">Pixocraft PDF tools</Link> or Acrobat's "Insert Image" to place over a signature line.</> },
+                { title: "Google Docs & Microsoft Word",       body: 'Insert → Image → Upload from computer. Set text wrap to "In front of text" for precise placement.' },
+                { title: "Email Footers (Gmail, Outlook)",     body: "A transparent PNG signature adds a professional, personal touch to every email you send." },
+                { title: "Online Forms & Aadhaar Services",   body: "Many government portals and HR onboarding flows accept image-based signatures in PNG format." },
+                { title: "Creative Branding & Watermarks",    body: <><Link href="/tools/background-remover" className="text-primary hover:underline underline-offset-2">Remove background</Link> first, then use as a watermark on photos or design work.</> },
+              ].map(({ title, body }) => (
+                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                  <span className="shrink-0 mt-0.5 h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-primary" />
+                  </span>
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">{title}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5 leading-snug">{body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Legality ───────────────────────────────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Is Online Signature Legal in India &amp; Worldwide?</h2>
+              <p className="text-muted-foreground">Yes — in most jurisdictions an electronic signature has the same legal weight as a handwritten one.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              {[
+                { flag: "🇮🇳", country: "India",          law: "IT Act 2000 + Amendment 2008",         desc: "Valid for contracts, GST invoices, Aadhaar docs, company agreements." },
+                { flag: "🇺🇸", country: "United States",  law: "ESIGN Act + UETA",                     desc: "Same legal effect as handwritten for most contracts and agreements." },
+                { flag: "🇪🇺", country: "European Union", law: "eIDAS Regulation (2016)",              desc: "SES / AES / QES tiered framework — image signatures qualify as SES." },
+                { flag: "🇬🇧", country: "United Kingdom", law: "Electronic Communications Act 2000",  desc: "Legally binding for most business agreements." },
+              ].map(({ flag, country, law, desc }) => (
+                <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
+                  <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
+                  <p className="text-xs font-medium text-primary">{law}</p>
+                  <p className="text-sm text-muted-foreground">{desc}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm font-semibold text-foreground mb-3">Simple Digital Signature vs Qualified (QES / DSC)</p>
+            <div className="overflow-x-auto rounded-xl border mb-5">
+              <table className="w-full text-sm min-w-[380px]">
+                <thead>
+                  <tr className="bg-primary/5 border-b">
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Simple (Pixocraft)</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Qualified (DSC)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {[
+                    ["Cost",             "Free",                   "Paid CA certificate"],
+                    ["Setup time",       "Seconds",                "Days (KYC required)"],
+                    ["Use case",         "Contracts, invoices, HR","Govt filings, MCA, court"],
+                    ["India acceptance", "Most commercial use",    "Specific govt portals"],
+                  ].map(([feat, a, b]) => (
+                    <tr key={feat} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-5 py-3 text-muted-foreground">{feat}</td>
+                      <td className="px-5 py-3 text-foreground font-medium">{a}</td>
+                      <td className="px-5 py-3 text-muted-foreground">{b}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 px-5 py-4 text-sm text-amber-900 dark:text-amber-200">
+              <strong>Bottom line:</strong> For NDAs, employment contracts, GST invoices, and freelance agreements — Pixocraft is entirely sufficient. For court submissions, MCA ROC filings, or property registrations — consult a legal professional and obtain a DSC.
+            </div>
+          </section>
+
+          {/* ── Tips ───────────────────────────────────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Tips for a Professional Digital Signature</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { tip: "Use dark blue or black ink",          detail: "These colours are universally accepted in legal and corporate contexts and read best on any background." },
+                { tip: "Set stroke width to 3–4 px",         detail: "Thicker strokes stay visible when the image is scaled down inside PDFs or email footers." },
+                { tip: "Match font style to context",         detail: "Thin elegant scripts suit formal documents. Bold markers work well for creative or casual use." },
+                { tip: "Always download as transparent PNG",  detail: "A transparent background lets your signature sit cleanly on any document colour or background." },
+                { tip: "Keep a master copy",                  detail: "Save your 3200×1040 px PNG in a secure folder — you'll use it repeatedly across contracts and forms." },
+                { tip: "Test at small sizes",                 detail: "Preview at 40–80 px tall (the typical document signature size) to ensure it remains readable." },
+              ].map(({ tip, detail }) => (
+                <div key={tip} className="rounded-xl border bg-card p-4 space-y-1.5">
+                  <p className="font-semibold text-foreground text-sm">{tip}</p>
+                  <p className="text-sm text-muted-foreground">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Signature Examples (second instance) ────────────────────────── */}
+          <section>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Signature Styles — Try Them Live</h2>
+              <p className="text-muted-foreground">Click any card to auto-load that style in the tool above.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { style: "Stylish / Elegant",      desc: "Flowing thin script — perfect for artists and designers.", font: "Great Vibes" },
+                { style: "Minimal / Modern",       desc: "Clean and legible — ideal for tech professionals and consultants.", font: "Caveat" },
+                { style: "Bold / Confident",       desc: "Strong presence — great for executives and business owners.", font: "Pacifico" },
+                { style: "Professional / Classic", desc: "Universally trusted for contracts, NDAs, and formal use.", font: "Dancing Script" },
               ].map(({ style, desc, font }) => (
-                <div key={style} className="border rounded-md p-4 space-y-2 bg-card">
-                  <p className="font-semibold text-foreground text-sm">{style}</p>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontFamily: `'${font}', cursive`, fontSize: "clamp(22px, 4vw, 32px)", lineHeight: 1.3 }}
-                  >
+                <button
+                  key={style}
+                  onClick={() => trySignatureStyle(font, "Alex Johnson")}
+                  data-testid={`button-example-${style.replace(/[^a-z]/gi, "-").toLowerCase()}`}
+                  className="rounded-xl border bg-card p-5 text-left space-y-2 hover-elevate transition-all cursor-pointer"
+                >
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">{style}</p>
+                  <p style={{ fontFamily: `'${font}', cursive`, fontSize: "clamp(22px, 4vw, 32px)", lineHeight: 1.2 }} className="text-foreground">
                     Alex Johnson
                   </p>
-                  <p className="text-xs text-muted-foreground">{desc}</p>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => trySignatureStyle(font, "Alex Johnson")}
-                    data-testid={`button-example-${style.replace(/[^a-z]/gi, "-").toLowerCase()}`}
-                  >
-                    Try This Style
-                  </Button>
-                </div>
+                  <p className="text-sm text-muted-foreground">{desc}</p>
+                  <p className="text-xs text-primary font-medium">Try This Style →</p>
+                </button>
               ))}
             </div>
           </section>
 
           {/* ── Why Pixocraft ──────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Why Use This Online Signature Generator?</h2>
-            <p className="text-muted-foreground mb-3">
-              Unlike most <strong>signature maker free</strong> tools, Pixocraft's <strong>online signature generator</strong> runs entirely in your browser — no server uploads, no data collection, no paywalls.
-            </p>
-            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li><strong>3200×1040 px output</strong> — 4× scale for crisp print and screen quality.</li>
-              <li><strong>50+ fonts in 7 categories</strong> — covers every professional style need.</li>
-              <li><strong>Bezier smoothing</strong> — drawn strokes look natural, not pixelated.</li>
-              <li><strong>No account required</strong> — open, create, download in under 60 seconds.</li>
-              <li><strong>Free forever</strong> — no watermarks, no limits, no hidden fees.</li>
-              <li><strong>Privacy by design</strong> — your signature never touches any server.</li>
-            </ul>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft Beats Signaturely, Canva &amp; DocuSign</h2>
+              <p className="text-muted-foreground">Free, private, and India-focused — here's how we compare:</p>
+            </div>
+            <div className="overflow-x-auto rounded-xl border mb-6">
+              <table className="w-full text-sm min-w-[480px]">
+                <thead>
+                  <tr className="bg-primary/5 border-b">
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-5 py-3 font-semibold text-primary">Pixocraft</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Signaturely</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Canva</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">DocuSign</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {[
+                    ["100% Free Forever",       "Yes", "Limited", "Pro needed", "Limited"],
+                    ["No Signup",               "Yes", "Yes",     "Yes",        "Yes"],
+                    ["Browser-Only (No Server)","Yes", "Partial", "Partial",    "Partial"],
+                    ["AI Generator",            "Yes", "No",      "No",         "No"],
+                    ["India IT Act Focus",      "Yes", "No",      "No",         "No"],
+                    ["Made in India",           "Yes", "US",      "Global",     "US"],
+                  ].map(([feat, pixo, sig, canva, docu]) => (
+                    <tr key={feat} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-5 py-3 text-muted-foreground">{feat}</td>
+                      <td className="px-5 py-3 font-semibold text-primary">{pixo}</td>
+                      <td className="px-5 py-3 text-muted-foreground">{sig}</td>
+                      <td className="px-5 py-3 text-muted-foreground">{canva}</td>
+                      <td className="px-5 py-3 text-muted-foreground">{docu}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { title: "3200 × 1040 px output", desc: "4× scale — crisp on screen, in documents, and in print." },
+                { title: "50+ Handwritten Fonts", desc: "7 style categories covering every professional use case." },
+                { title: "Privacy by Design",      desc: "Your signature never touches any server — ever." },
+              ].map(({ title, desc }) => (
+                <div key={title} className="rounded-xl border bg-primary/5 p-4 space-y-1">
+                  <p className="font-semibold text-foreground text-sm">{title}</p>
+                  <p className="text-sm text-muted-foreground">{desc}</p>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* ── Related tools + EEAT footer ────────────────────────────────── */}
-          <section className="border rounded-md p-4 bg-muted/30 space-y-3">
-            <p className="font-semibold text-foreground">Related Tools</p>
-            <div className="flex flex-wrap gap-x-5 gap-y-1.5">
-              <Link href="/tools/pdf-merger"          className="text-primary underline-offset-2 hover:underline text-sm">PDF Merger</Link>
-              <Link href="/tools/pdf-to-image"        className="text-primary underline-offset-2 hover:underline text-sm">PDF to Image</Link>
-              <Link href="/tools/image-to-pdf"        className="text-primary underline-offset-2 hover:underline text-sm">Image to PDF</Link>
-              <Link href="/tools/background-remover"  className="text-primary underline-offset-2 hover:underline text-sm">Background Remover</Link>
-              <Link href="/tools/pdf-compressor"      className="text-primary underline-offset-2 hover:underline text-sm">PDF Compressor</Link>
-              <Link href="/tools/pdf-watermark-adder" className="text-primary underline-offset-2 hover:underline text-sm">PDF Watermark</Link>
+          <section className="rounded-xl border bg-muted/30 p-6 space-y-4">
+            <p className="font-semibold text-foreground text-base">Related Tools</p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { href: "/tools/pdf-merger",          label: "PDF Merger" },
+                { href: "/tools/pdf-to-image",        label: "PDF to Image" },
+                { href: "/tools/image-to-pdf",        label: "Image to PDF" },
+                { href: "/tools/background-remover",  label: "Background Remover" },
+                { href: "/tools/pdf-compressor",      label: "PDF Compressor" },
+                { href: "/tools/pdf-watermark-adder", label: "PDF Watermark" },
+              ].map(({ href, label }) => (
+                <Link key={href} href={href}>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border bg-background text-sm font-medium hover-elevate transition-all text-foreground">
+                    {label}
+                  </span>
+                </Link>
+              ))}
             </div>
-            <p className="text-xs text-muted-foreground pt-1 border-t">
+            <p className="text-xs text-muted-foreground pt-2 border-t">
               Last Updated: March 2026 &nbsp;·&nbsp; Made in India &nbsp;·&nbsp; By the Pixocraft Team
             </p>
           </section>
