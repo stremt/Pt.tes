@@ -360,6 +360,7 @@ const IndianDigitalSignature = lazy(() => import("@/pages/tools/longtail/IndianD
 const HowToAddSignatureInWord = lazy(() => import("@/pages/tools/longtail/HowToAddSignatureInWord"));
 const HowToSignPdfOnline = lazy(() => import("@/pages/tools/longtail/HowToSignPdfOnline"));
 const HowToAddSignatureInGoogleDocs = lazy(() => import("@/pages/tools/longtail/HowToAddSignatureInGoogleDocs"));
+const HowToSignPdfOnMobile = lazy(() => import("@/pages/tools/longtail/HowToSignPdfOnMobile"));
 const PrimeNumberChecker = lazy(() => import("@/pages/tools/PrimeNumberChecker"));
 const PrimeNumberGenerator = lazy(() => import("@/pages/tools/PrimeNumberGenerator"));
 const PrimeFactorization = lazy(() => import("@/pages/tools/PrimeFactorization"));
@@ -799,6 +800,7 @@ function Router() {
         <Route path="/tools/how-to-add-signature-in-word" component={HowToAddSignatureInWord} />
         <Route path="/tools/how-to-sign-pdf-online" component={HowToSignPdfOnline} />
         <Route path="/tools/how-to-add-signature-in-google-docs" component={HowToAddSignatureInGoogleDocs} />
+        <Route path="/how-to-sign-pdf-on-mobile" component={HowToSignPdfOnMobile} />
         <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
         <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
         <Route path="/tools/prime-factorization" component={PrimeFactorization} />

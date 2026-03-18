@@ -412,6 +412,7 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/signature-pad-tool", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/how-to-sign-pdf-online", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/how-to-add-signature-in-google-docs", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
+  { loc: "/how-to-sign-pdf-on-mobile", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/silent-text", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/simple-interest-calculator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/slug-generator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
