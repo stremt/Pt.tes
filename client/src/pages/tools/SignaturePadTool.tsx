@@ -7,6 +7,7 @@ import {
   generateSoftwareApplicationSchema,
   generateBreadcrumbSchema,
   generateWebPageSchema,
+  generateHowToSchema,
 } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import {
@@ -23,6 +24,11 @@ import {
   Shield,
   Check,
   Eye,
+  Zap,
+  Smartphone,
+  Star,
+  FileText,
+  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -493,25 +499,25 @@ export default function SignaturePadTool() {
   // ── SEO ───────────────────────────────────────────────────────────────────
   const CANONICAL = "https://tools.pixocraft.in/tools/signature-pad-tool";
   useSEO({
-    title: "Free Online Signature Generator — Instant PNG Download | No Signup | Pixocraft",
+    title: "Free Online Signature Generator – Draw, Type, Upload (PNG) | Pixocraft",
     description:
-      "Create a professional signature online in seconds — free, instant, and 100% private. Draw, type, or upload. Download as transparent PNG or JPG. No signup required.",
+      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, and 100% private.",
     keywords:
-      "online signature generator, free signature maker, digital signature online, handwritten signature generator, e signature maker, create signature online, instant signature download, signature no signup, free e-signature",
+      "online signature generator, free signature maker, digital signature online, handwritten signature generator, e signature maker, create signature online, instant signature download, signature no signup, free e-signature, signature for PDF",
     canonicalUrl: CANONICAL,
   });
 
   const howItWorks = [
-    { step: 1, title: "Choose a Method", description: "Draw with your mouse/finger, type your name in a handwritten font, or upload a photo of your existing signature." },
+    { step: 1, title: "Choose a Method", description: "Draw with your mouse or finger, type your name in a handwritten font, or upload a photo of your existing signature." },
     { step: 2, title: "Customize", description: "Adjust color, stroke thickness, font style, and more until it looks exactly right." },
-    { step: 3, title: "Download", description: "Export as transparent PNG or white-background JPG — high-resolution and ready to use." },
+    { step: 3, title: "Download Instantly", description: "Export as transparent PNG or white-background JPG — high-resolution (3200×1040 px) and ready to use anywhere." },
   ];
 
   const benefits = [
-    { icon: <PenTool className="h-5 w-5" />, title: "Smooth Drawing", description: "Bezier curve smoothing for natural, professional-looking signatures." },
-    { icon: <Type className="h-5 w-5" />, title: "50+ Handwritten Fonts", description: "Type your name and instantly see it in 50+ beautiful calligraphic styles." },
-    { icon: <ImageIcon className="h-5 w-5" />, title: "Upload & Clean", description: "Upload a signature photo and automatically remove the white background." },
-    { icon: <Shield className="h-5 w-5" />, title: "100% Private", description: "Your signature never leaves your browser. Zero data storage, zero uploads." },
+    { icon: <PenTool className="h-5 w-5" />, title: "Natural Drawing", description: "Bezier curve smoothing gives hand-drawn strokes a natural, professional look." },
+    { icon: <Type className="h-5 w-5" />, title: "50+ Handwritten Fonts", description: "Type your name and instantly preview it in 50+ beautiful calligraphic styles." },
+    { icon: <ImageIcon className="h-5 w-5" />, title: "Upload & Clean", description: "Upload a signature photo and remove the white background automatically." },
+    { icon: <Shield className="h-5 w-5" />, title: "100% Private", description: "Your signature never leaves your browser. Zero storage, zero uploads, ever." },
   ];
 
   const faqs = [
@@ -524,28 +530,56 @@ export default function SignaturePadTool() {
       answer: "In many countries, yes. Electronic signatures are legally recognized under laws such as the US ESIGN Act, EU eIDAS Regulation, and India's IT Act 2000. However, legal validity depends on context and jurisdiction — for high-stakes documents, consider a qualified electronic signature service.",
     },
     {
+      question: "Is an online signature valid in India?",
+      answer: "Yes. The Information Technology Act 2000 and IT (Amendment) Act 2008 recognise electronic signatures as legally valid for most contracts, agreements, and business documents in India. For government forms requiring a Digital Signature Certificate (DSC), a certified CA-issued DSC is required.",
+    },
+    {
       question: "Can I use this on my phone or tablet?",
-      answer: "Yes! Touch input is fully supported for drawing signatures on mobile and tablet devices. The canvas recognizes multi-touch and single-touch strokes for a natural feel.",
+      answer: "Yes! Touch input is fully supported for drawing signatures on mobile and tablet devices. The drawing canvas recognizes single-touch strokes for a natural, accurate feel on any touchscreen.",
     },
     {
       question: "What file formats can I download?",
-      answer: "You can download your signature as a transparent PNG (ideal for overlaying on documents and images) or a white-background JPG (best for email footers and documents that don't support transparency).",
-    },
-    {
-      question: "How do I remove the background from an uploaded signature?",
-      answer: "Switch to the Upload tab, upload your PNG or JPG image, then click 'Remove White Background'. The tool uses pixel-level threshold logic to make white and near-white areas transparent.",
-    },
-    {
-      question: "Can I undo mistakes while drawing?",
-      answer: "Yes! Use the Undo and Redo buttons to step back and forward through your drawing history at any point during your session.",
+      answer: "You can download your signature as a transparent PNG (ideal for overlaying on any document or image) or a white-background JPG (best for email footers and platforms that don't support transparency).",
     },
     {
       question: "How do I add my signature to a PDF?",
-      answer: "Download your signature as a transparent PNG, then use a PDF editor (such as Adobe Acrobat, PDFescape, or Pixocraft's PDF tools) to insert the image onto your document.",
+      answer: "Download your signature as a transparent PNG, then open your PDF in any editor (Adobe Acrobat, Smallpdf, or Pixocraft's PDF tools). Use Insert → Image to place the PNG over the signature line.",
+    },
+    {
+      question: "How do I insert a signature into Word or Google Docs?",
+      answer: "Download your signature as a transparent PNG. In Microsoft Word, go to Insert → Pictures → This Device and select the file. In Google Docs, go to Insert → Image → Upload from computer. Resize and position it over the signature area.",
+    },
+    {
+      question: "How do I use my signature in an email?",
+      answer: "Download your signature as a PNG. In Gmail, go to Settings → See all settings → Signature, click Insert image, and upload your PNG. In Outlook, paste the image directly into your signature editor under File → Options → Mail → Signatures.",
+    },
+    {
+      question: "How do I remove the background from an uploaded signature?",
+      answer: "Switch to the Upload tab, upload your PNG or JPG image, then click 'Remove White Background'. The tool uses pixel-level threshold analysis to make white and near-white pixels fully transparent.",
+    },
+    {
+      question: "Can I undo mistakes while drawing?",
+      answer: "Yes! Use the Undo and Redo buttons to step back and forward through your drawing history at any point during your session. Each stroke is saved as a separate history state.",
     },
     {
       question: "What resolution is the downloaded signature?",
-      answer: "Exports are rendered at 4× the display resolution (3200×1040 px) for crisp, print-quality output suitable for both digital and printed documents.",
+      answer: "Exports are rendered at 4× the display resolution — 3200×1040 px — for crisp, print-quality output that looks sharp on screen, in documents, and in print.",
+    },
+    {
+      question: "How many fonts are available in the Type tab?",
+      answer: "There are 50+ handwritten fonts across 7 style categories: ultra-thin elegant scripts, classic cursive, bold chunky styles, casual everyday handwriting, marker styles, airy fonts, and formal calligraphy.",
+    },
+    {
+      question: "Do I need to create an account?",
+      answer: "No. There is no registration, login, or account required. Open the tool, create your signature, and download — completely free.",
+    },
+    {
+      question: "Can I use the downloaded signature commercially?",
+      answer: "Yes. Since you are creating the signature yourself and it is your own personal mark, you may use it for commercial documents, contracts, and professional correspondence.",
+    },
+    {
+      question: "Is this online signature generator really free?",
+      answer: "Yes, completely. There are no hidden fees, no watermarks, no trial periods, and no premium tiers. This online signature generator is free forever.",
     },
   ];
 
@@ -566,10 +600,20 @@ export default function SignaturePadTool() {
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
   const webPageSchema = generateWebPageSchema({
-    name: "Free Online Signature Generator — Instant PNG Download | No Signup | Pixocraft",
+    name: "Free Online Signature Generator – Draw, Type, Upload (PNG) | Pixocraft",
     description:
-      "Create a professional signature online in seconds — free, instant, and 100% private. Draw, type, or upload. Download as transparent PNG or JPG. No signup required.",
+      "Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, and 100% private.",
     url: CANONICAL,
+  });
+  const howToSchema = generateHowToSchema({
+    name: "How to Create a Digital Signature Online",
+    description: "Use Pixocraft's free online signature generator to draw, type, or upload a signature and download it as a transparent PNG or JPG in seconds.",
+    steps: [
+      { name: "Choose your method", text: "Select the Draw tab to freehand draw with mouse or touch, the Type tab to pick a handwritten font, or the Upload tab to upload a photo of your signature." },
+      { name: "Customize your signature", text: "Adjust ink color and stroke thickness for drawing, choose from 50+ fonts for typing, or remove the background for an uploaded image." },
+      { name: "Preview your signature", text: "Click the Preview button to see how your signature looks on a document and in an email footer." },
+      { name: "Download your signature", text: "Click 'PNG (Transparent)' for a clear background file or 'JPG (White BG)' for a white background version. The file downloads instantly." },
+    ],
   });
 
   // ── Shared canvas style ───────────────────────────────────────────────────
@@ -581,9 +625,10 @@ export default function SignaturePadTool() {
       <StructuredData data={faqSchema} />
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={webPageSchema} />
+      <StructuredData data={howToSchema} />
       <ToolLayout
-        title="Free Online Signature Generator — Instant PNG Download"
-        description="Create your professional signature in seconds. Draw with your mouse, type in a handwritten font, or upload a photo. No signup required — 100% private, works on any device."
+        title="Create Your Signature Online Instantly"
+        description="Draw, Type or Upload • Free • No Signup • Instant PNG Download — 100% private, works on any device."
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"
         category="utility"
@@ -602,10 +647,10 @@ export default function SignaturePadTool() {
           </div>
           <div className="flex flex-wrap gap-2">
             {[
+              { icon: <Star className="h-3.5 w-3.5" />, label: "Free & No Signup" },
+              { icon: <Zap className="h-3.5 w-3.5" />, label: "Instant Download" },
               { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private" },
-              { icon: <Check className="h-3.5 w-3.5" />, label: "No Signup Required" },
-              { icon: <Check className="h-3.5 w-3.5" />, label: "Free Forever" },
-              { icon: <Check className="h-3.5 w-3.5" />, label: "High-Res Export" },
+              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile" },
             ].map(({ icon, label }) => (
               <span
                 key={label}
@@ -903,125 +948,212 @@ export default function SignaturePadTool() {
           </div>
         )}
         {/* ── SEO CONTENT SECTION ──────────────────────────────────────────── */}
-        <div className="border-t pt-8 mt-4 space-y-10 text-sm leading-relaxed">
+        <div className="border-t pt-8 mt-4 space-y-12 text-sm leading-relaxed">
 
-          {/* H2 - What is */}
+          {/* ── Signature Examples & Ideas ─────────────────────────────────── */}
+          <section>
+            <h2 className="text-xl font-bold mb-1 text-foreground">Signature Examples &amp; Ideas</h2>
+            <p className="text-muted-foreground mb-5">
+              Not sure what style suits you? Browse these handwritten signature styles — each represents a different aesthetic you can recreate using the Type tab above.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {([
+                { label: "Stylish Elegant",  font: "Great Vibes",     name: "Alexandra J.",  note: "Flowing thin script — ideal for formal documents" },
+                { label: "Classic Cursive",  font: "Pinyon Script",   name: "David Miller",  note: "Traditional cursive — timeless professional look" },
+                { label: "Bold & Modern",    font: "Pacifico",        name: "Chris Park",    note: "Bold signature — stands out on contracts" },
+                { label: "Minimal Clean",    font: "Satisfy",         name: "Priya Sharma",  note: "Simple and modern — great for email footers" },
+                { label: "Casual Everyday",  font: "Caveat",          name: "Sam Roberts",   note: "Natural handwriting — approachable and personal" },
+                { label: "Formal Calligraphy", font: "IM Fell English", name: "Dr. E. Watson", note: "Formal and authoritative — suits academic use" },
+              ] as const).map(({ label, font, name, note }) => (
+                <div key={label} className="border rounded-md p-3 bg-card space-y-1">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{label}</p>
+                  <p
+                    style={{ fontFamily: `'${font}', cursive`, fontSize: "1.6rem", lineHeight: 1.3 }}
+                    className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis"
+                  >
+                    {name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">{note}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-muted-foreground mt-4">
+              To recreate any of these styles, switch to the <strong>Type</strong> tab, type your name, and browse the font grid — all 50+ fonts are free and export at full resolution.
+            </p>
+          </section>
+
+          {/* ── PDF / Documents / Email guide ──────────────────────────────── */}
+          <section>
+            <h2 className="text-xl font-bold mb-1 text-foreground">Create Signature for PDF, Documents &amp; Email</h2>
+            <p className="text-muted-foreground mb-5">
+              Once you've created your <strong>digital signature online</strong>, here's exactly how to use it across the most common platforms.
+            </p>
+            <div className="space-y-5">
+              <div className="flex gap-3">
+                <div className="shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+                    <FileText className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Add signature to PDF</p>
+                  <p className="text-muted-foreground">
+                    Download your signature as a transparent PNG. Open your PDF in{" "}
+                    <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">Pixocraft's PDF tools</Link>,
+                    Adobe Acrobat, or Smallpdf. Use the "Insert Image" or "Stamp" feature to place your <strong>signature for PDF</strong> directly onto the document over the signature line. Resize as needed and save.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+                    <FileImage className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Insert signature into Word or Google Docs</p>
+                  <p className="text-muted-foreground">
+                    Download the transparent PNG and open your document. In <strong>Microsoft Word</strong>: Insert → Pictures → select your file. In <strong>Google Docs</strong>: Insert → Image → Upload from computer. Position the image over the signature area, resize, and set text wrap to "In front of text" for precise placement. Then{" "}
+                    <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">convert to PDF</Link>{" "}
+                    when done.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-md bg-primary/10 flex items-center justify-center">
+                    <Mail className="h-4 w-4 text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground mb-1">Use as an email signature image</p>
+                  <p className="text-muted-foreground">
+                    Your <strong>email signature image</strong> should be a transparent PNG exported at a reasonable display size. In <strong>Gmail</strong>: Settings → See all settings → Signature → Insert image. In <strong>Outlook</strong>: File → Options → Mail → Signatures → insert picture. Keep the height around 60–80 px at display size for a clean look in any inbox.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── What is ────────────────────────────────────────────────────── */}
           <section>
             <h2 className="text-xl font-bold mb-3 text-foreground">What is an Online Signature Generator?</h2>
             <p className="text-muted-foreground mb-3">
-              An <strong>online signature generator</strong> is a browser-based tool that lets you create a personal signature digitally — without needing to print, sign, and scan a document. You can draw your signature with a mouse or touchscreen, type your name in a handwritten font, or upload a photo of your existing signature and have the white background automatically removed.
+              An <strong>online signature generator</strong> is a browser-based tool that lets you create a personal signature digitally — without printing, signing, and scanning. You can draw your signature with a mouse or touchscreen, type your name in a handwritten font, or upload a photo of your existing signature and have the white background automatically removed.
             </p>
             <p className="text-muted-foreground">
-              Modern digital signatures are widely accepted for contracts, agreements, onboarding forms, and email footers. Pixocraft's <strong>signature maker</strong> is 100% client-side, meaning your data never leaves your device — making it one of the most privacy-friendly <strong>e-signature makers</strong> available.
+              Modern digital signatures are accepted for contracts, agreements, onboarding forms, and email footers worldwide. Pixocraft's <strong>free signature maker</strong> is 100% client-side, meaning your data never leaves your device — making it one of the most privacy-friendly <strong>e-signature makers</strong> available online.
             </p>
           </section>
 
-          {/* H2 - How to */}
+          {/* ── How to ─────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">How to Create a Digital Signature Online</h2>
+            <h2 className="text-xl font-bold mb-3 text-foreground">How to Create a Digital Signature Online — Step by Step</h2>
             <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
-              <li><strong>Choose your method:</strong> Select the Draw, Type, or Upload tab depending on how you want to create your signature.</li>
-              <li><strong>Customise appearance:</strong> For drawing — adjust stroke thickness and ink color. For typing — pick one of 50+ handwritten fonts. For uploads — remove the background automatically.</li>
-              <li><strong>Preview your signature:</strong> Hit the Preview button to see how it looks in a document or email footer context.</li>
-              <li><strong>Download:</strong> Click "PNG (Transparent)" for a clear-background file ready to overlay on any document, or "JPG (White BG)" for standard use.</li>
+              <li><strong>Choose your method:</strong> Select Draw (freehand), Type (50+ fonts), or Upload (from a photo).</li>
+              <li><strong>Customise:</strong> Adjust ink color and stroke thickness for drawing, pick a font for typing, or remove the background for uploads.</li>
+              <li><strong>Preview:</strong> Click Preview to see your <strong>digital signature online</strong> on a simulated document and email footer.</li>
+              <li><strong>Download instantly:</strong> PNG (transparent background) or JPG (white background) — no watermark, no signup.</li>
             </ol>
           </section>
 
-          {/* H2 - Draw vs Type vs Upload */}
+          {/* ── Draw vs Type vs Upload ──────────────────────────────────────── */}
           <section>
             <h2 className="text-xl font-bold mb-3 text-foreground">Draw vs. Type vs. Upload — Which Method Should You Use?</h2>
             <div className="space-y-3 text-muted-foreground">
               <div>
                 <p className="font-semibold text-foreground mb-1">Draw Signature</p>
-                <p>Best for users who want a personal, handwritten feel. Use a mouse on desktop or your finger on a touchscreen device. Bezier curve smoothing makes your strokes look natural and polished, unlike the jagged lines you get from raw mouse input. Undo/redo support means you can refine until it's perfect.</p>
+                <p>Best for a personal, unique feel. Use your mouse on desktop or finger on touchscreen. Bezier smoothing makes strokes look natural. Undo/redo lets you refine until it's perfect. Ideal for contracts, legal forms, and anything where your actual handwriting matters.</p>
               </div>
               <div>
-                <p className="font-semibold text-foreground mb-1">Type Signature</p>
-                <p>Ideal when you want a consistent, legible signature across multiple documents without the variability of hand-drawing. Choose from 50+ handwritten fonts spanning elegant thin scripts, bold marker styles, casual everyday handwriting, and formal calligraphy. The font is rendered at 4× resolution so it's always crisp.</p>
+                <p className="font-semibold text-foreground mb-1">Type Signature — <em>Handwritten Signature Generator</em></p>
+                <p>Ideal for a consistent, reproducible signature across many documents. Choose from 50+ fonts spanning elegant scripts, bold markers, casual writing, and formal calligraphy. The <strong>handwritten signature generator</strong> renders text at 4× resolution for crisp, professional output every time.</p>
               </div>
               <div>
                 <p className="font-semibold text-foreground mb-1">Upload Signature</p>
-                <p>Perfect if you already have a physical signature you love. Photograph or scan it, upload the image, and use the white background removal feature to extract just the ink — giving you a clean transparent PNG suitable for any document or colour background.</p>
+                <p>Perfect if you already have a physical signature. Photograph or scan it, upload the image, and{" "}
+                  <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline">remove the background</Link>{" "}
+                  to extract clean ink on a transparent canvas — ready for any document or background colour.</p>
               </div>
             </div>
           </section>
 
-          {/* H2 - Where to use */}
+          {/* ── Where to use ───────────────────────────────────────────────── */}
           <section>
             <h2 className="text-xl font-bold mb-3 text-foreground">Where Can You Use Digital Signatures?</h2>
             <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li><strong>PDF documents:</strong> Insert your downloaded PNG into contracts, NDAs, offer letters, and invoices using a PDF editor or{" "}
-                <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">Pixocraft's PDF tools</Link>.
-              </li>
-              <li><strong>Email footers:</strong> Add a personal touch to your professional email sign-off with a transparent PNG signature.</li>
-              <li><strong>Google Docs / Word:</strong> Insert → Image to place your signature on any document.</li>
-              <li><strong>Online forms:</strong> Many web-based forms accept an uploaded image as a signature field.</li>
-              <li><strong>Images and graphics:</strong> Combine your signature with{" "}
-                <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline">background removal</Link>{" "}
-                or{" "}
+              <li><strong>PDF documents:</strong> Contracts, NDAs, invoices — use the{" "}
+                <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">PDF tools</Link>{" "}
+                to merge your signed page or add signature to PDF directly.</li>
+              <li><strong>Email footers:</strong> A transparent PNG signature adds a personal, professional touch to every email.</li>
+              <li><strong>Google Docs / Microsoft Word:</strong> Insert → Image to place your signature anywhere in any document.</li>
+              <li><strong>Scanned documents:</strong> Use{" "}
                 <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">image-to-PDF conversion</Link>{" "}
-                for professional output.
-              </li>
-              <li><strong>Social profiles and branding:</strong> Use your signature as a watermark on photos or creative work.</li>
+                after adding your signature image to a scanned page.</li>
+              <li><strong>Online forms and HR onboarding:</strong> Upload the PNG to any form that accepts an image as a signature field.</li>
+              <li><strong>Creative branding:</strong> Use your signature as a watermark or brand mark on photos and graphics.</li>
             </ul>
           </section>
 
-          {/* H2 - Legality */}
+          {/* ── Legality ───────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Is an Online Signature Legal?</h2>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Is an Online Signature Legally Valid?</h2>
             <p className="text-muted-foreground mb-3">
-              In many jurisdictions, yes. Electronic signatures carry legal weight under multiple international laws:
+              In most jurisdictions, yes. Electronic signatures have legal weight under multiple international laws:
             </p>
             <ul className="list-disc list-inside space-y-1.5 text-muted-foreground mb-3">
-              <li><strong>USA:</strong> ESIGN Act (2000) and UETA grant e-signatures the same legal effect as handwritten signatures for most commercial and personal contracts.</li>
-              <li><strong>European Union:</strong> eIDAS Regulation (2016) establishes a tiered framework of electronic signatures accepted across all EU member states.</li>
-              <li><strong>India:</strong> The Information Technology Act 2000 and the IT (Amendment) Act 2008 recognise electronic signatures for contracts and agreements.</li>
-              <li><strong>UK:</strong> Electronic Communications Act 2000 and subsequent guidance confirm that e-signatures are legally binding.</li>
+              <li><strong>India:</strong> IT Act 2000 & IT (Amendment) Act 2008 — valid for most commercial contracts.</li>
+              <li><strong>USA:</strong> ESIGN Act (2000) & UETA — same legal effect as a handwritten signature.</li>
+              <li><strong>European Union:</strong> eIDAS Regulation (2016) — tiered framework accepted across all EU states.</li>
+              <li><strong>UK:</strong> Electronic Communications Act 2000 — legally binding for most agreements.</li>
             </ul>
             <p className="text-muted-foreground">
-              For routine business documents, a simple digital signature generated here is generally sufficient. For high-value legal documents — such as wills, real estate deeds, or notarised agreements — consult a legal professional and consider a qualified electronic signature (QES) platform.
+              For routine business documents this <strong>free signature maker</strong> is entirely sufficient. For wills, real estate deeds, or court documents — consult a legal professional.
             </p>
           </section>
 
-          {/* H2 - Tips */}
+          {/* ── Tips ───────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Tips for Creating a Professional Digital Signature</h2>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Tips for a Professional Digital Signature</h2>
             <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li>Use a consistent ink color — dark blue or black reads best on printed and digital documents.</li>
-              <li>Keep it concise — a shorter, flowing signature is more legible and harder to forge.</li>
-              <li>For drawn signatures, increase stroke thickness slightly (3–4 px) to ensure it remains visible when scaled down.</li>
-              <li>For typed signatures, try the ultra-thin elegant script fonts for a formal tone, or marker-style fonts for a casual professional look.</li>
-              <li>Always export as PNG with transparent background so your signature looks natural on any document background colour.</li>
-              <li>Save your exported file in a secure location — you may need it repeatedly for contracts and forms.</li>
+              <li>Use dark blue or black ink — it reads best on both printed and digital documents.</li>
+              <li>For drawn signatures, set stroke width to 3–4 px so it stays visible when scaled down.</li>
+              <li>For typed signatures, thin elegant script fonts suit formal documents; bold marker fonts suit creative work.</li>
+              <li>Always download as transparent PNG so your signature adapts to any document background.</li>
+              <li>Store your PNG in a secure folder — you'll use it repeatedly for contracts and forms.</li>
             </ul>
           </section>
 
-          {/* H2 - Why Pixocraft */}
+          {/* ── Why Pixocraft ──────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Why Use Pixocraft's Signature Generator?</h2>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Why Use This Online Signature Generator?</h2>
             <p className="text-muted-foreground mb-3">
-              Unlike many online <strong>signature maker free</strong> tools, Pixocraft's generator runs entirely in your browser using the HTML5 Canvas API. There are no server uploads, no third-party analytics on your signature data, and no paywalls.
+              Unlike most <strong>signature maker free</strong> tools, Pixocraft's <strong>online signature generator</strong> runs entirely in your browser — no server uploads, no data collection, no paywalls.
             </p>
             <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li><strong>High-resolution output</strong> — exports at 3200×1040 px (4× scale) for crisp results on screen and in print.</li>
-              <li><strong>50+ diverse fonts</strong> — spanning 7 style categories to cover every professional need.</li>
-              <li><strong>Bezier smoothing</strong> — hand-drawn strokes look natural, not blocky.</li>
-              <li><strong>No account needed</strong> — open the tool, create, download. Done.</li>
-              <li><strong>Completely free</strong> — no hidden costs, no watermarks, no trial periods.</li>
-              <li><strong>Privacy first</strong> — your signature never touches our servers.</li>
+              <li><strong>3200×1040 px output</strong> — 4× scale for crisp print and screen quality.</li>
+              <li><strong>50+ fonts in 7 categories</strong> — covers every professional style need.</li>
+              <li><strong>Bezier smoothing</strong> — drawn strokes look natural, not pixelated.</li>
+              <li><strong>No account required</strong> — open, create, download in under 60 seconds.</li>
+              <li><strong>Free forever</strong> — no watermarks, no limits, no hidden fees.</li>
+              <li><strong>Privacy by design</strong> — your signature never touches any server.</li>
             </ul>
           </section>
 
-          {/* Internal links */}
-          <section className="border rounded-md p-4 bg-muted/30">
-            <p className="font-semibold text-foreground mb-2">Related Tools</p>
-            <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-muted-foreground">
-              <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline text-sm">PDF Merger</Link>
-              <Link href="/tools/pdf-to-image" className="text-primary underline-offset-2 hover:underline text-sm">PDF to Image</Link>
-              <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline text-sm">Image to PDF</Link>
-              <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline text-sm">Background Remover</Link>
-              <Link href="/tools/pdf-compressor" className="text-primary underline-offset-2 hover:underline text-sm">PDF Compressor</Link>
+          {/* ── Related tools + EEAT footer ────────────────────────────────── */}
+          <section className="border rounded-md p-4 bg-muted/30 space-y-3">
+            <p className="font-semibold text-foreground">Related Tools</p>
+            <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+              <Link href="/tools/pdf-merger"          className="text-primary underline-offset-2 hover:underline text-sm">PDF Merger</Link>
+              <Link href="/tools/pdf-to-image"        className="text-primary underline-offset-2 hover:underline text-sm">PDF to Image</Link>
+              <Link href="/tools/image-to-pdf"        className="text-primary underline-offset-2 hover:underline text-sm">Image to PDF</Link>
+              <Link href="/tools/background-remover"  className="text-primary underline-offset-2 hover:underline text-sm">Background Remover</Link>
+              <Link href="/tools/pdf-compressor"      className="text-primary underline-offset-2 hover:underline text-sm">PDF Compressor</Link>
+              <Link href="/tools/pdf-watermark-adder" className="text-primary underline-offset-2 hover:underline text-sm">PDF Watermark</Link>
             </div>
+            <p className="text-xs text-muted-foreground pt-1 border-t">
+              Last Updated: March 2026 &nbsp;·&nbsp; Made in India &nbsp;·&nbsp; By the Pixocraft Team
+            </p>
           </section>
 
         </div>

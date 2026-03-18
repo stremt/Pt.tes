@@ -1,0 +1,184 @@
+You are a senior frontend engineer, conversion rate optimizer, and advanced SEO expert.
+
+Your task is to fully optimize an existing "Online Signature Generator" webpage to compete for the #1 position on Google.
+
+⚠️ This is a FINAL optimization pass. Do not miss anything.
+The output must be production-ready, clean, and high-converting.
+
+---
+
+# 🔥 PART 1: TITLE + META (CTR OPTIMIZED)
+
+Update:
+
+Title:
+Free Online Signature Generator – Draw, Type, Upload (PNG) | Pixocraft
+
+Meta Description:
+Create your digital signature online instantly. Draw, type, or upload and download as transparent PNG or JPG. Free, no signup, and 100% private.
+
+---
+
+# 🔥 PART 2: HERO SECTION (HIGH CONVERSION)
+
+Replace hero with:
+
+H1:
+Create Your Signature Online Instantly
+
+Subheading:
+Draw, Type or Upload • Free • No Signup • Download PNG
+
+Add trust badges directly below:
+
+⭐ Free & No Signup
+⚡ Instant Download
+🔒 100% Private
+📱 Works on Mobile
+
+---
+
+# 🔥 PART 3: TOOL SECTION IMPROVEMENT
+
+Keep existing tool but ensure:
+
+* Smooth tab switching (Draw / Type / Upload)
+* Real-time preview
+* Clean UI spacing
+* Mobile touch optimized
+
+---
+
+# 🔥 PART 4: ADD ENGAGEMENT SECTION (VERY IMPORTANT)
+
+Add new section:
+
+H2: Signature Examples & Ideas
+
+Include:
+
+* Stylish signature examples
+* Minimal signature styles
+* Bold signature styles
+* Professional signature samples
+
+This section should increase time on page and engagement.
+
+---
+
+# 🔥 PART 5: ADD NEW SEO SECTION
+
+Add:
+
+H2: Create Signature for PDF, Documents & Email
+
+Content should explain:
+
+* How to use signature in PDF
+* How to insert in Word/Docs
+* How to use in email signature
+
+Naturally include keywords like:
+
+* signature for PDF
+* add signature to document
+* email signature image
+
+---
+
+# 🔥 PART 6: CONTENT OPTIMIZATION
+
+Optimize full content:
+
+* Include "online signature generator" 6–8 times
+* Include variations:
+
+  * signature maker free
+  * digital signature online
+  * handwritten signature generator
+* Maintain natural readability
+
+---
+
+# 🔥 PART 7: FAQ EXPANSION
+
+Expand FAQ to 12–15 questions:
+
+Include:
+
+* legality in India
+* mobile usage
+* formats (PNG/JPG)
+* privacy
+* PDF usage
+* background removal
+
+Ensure answers are clear and helpful.
+
+---
+
+# 🔥 PART 8: INTERNAL LINKING
+
+Add contextual links inside content:
+
+* "add signature to PDF" → PDF tools
+* "remove background" → background remover
+* "convert to PDF" → PDF tools
+
+Use natural anchor text.
+
+---
+
+# 🔥 PART 9: SCHEMA MARKUP
+
+Add:
+
+1. SoftwareApplication schema
+2. FAQPage schema
+3. HowTo schema
+4. Breadcrumb schema
+
+Ensure:
+
+* No errors
+* Matches visible content
+
+---
+
+# 🔥 PART 10: UX + PERFORMANCE
+
+Ensure:
+
+* No layout shift (CLS = 0)
+* Fast loading (<2s)
+* Smooth animations
+* No console errors
+
+---
+
+# 🔥 PART 11: TRUST + EEAT
+
+Add:
+
+* "Last Updated: March 2026"
+* "Made in India"
+* "Pixocraft Team"
+
+---
+
+# 🔥 PART 12: FINAL QUALITY CHECK
+
+Ensure page feels:
+
+* Premium
+* Fast
+* Useful
+* Better than competitors
+
+---
+
+# 🎯 OUTPUT
+
+Return full updated HTML with all improvements applied.
+
+No explanations. Only final production-ready code.
