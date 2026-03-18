@@ -1333,7 +1333,6 @@ export default function SignaturePadTool() {
           </section>
 
         </div>
-      </div>
     </ToolLayout>
     </>
   );
