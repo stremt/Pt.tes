@@ -1184,112 +1184,115 @@ export default function SignaturePadTool() {
                 ))}
               </div>
 
-              {/* ── Recently Used ── */}
-              {recentFontMeta && !fontSearch && fontCategory === "all" && (
-                <div className="space-y-1.5">
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5">
-                    <span className="h-px flex-1 bg-border" />
-                    Recently Used
-                    <span className="h-px flex-1 bg-border" />
-                  </p>
-                  <FontCard
-                    font={recentFontMeta}
-                    isSelected={selectedFont === recentFontMeta.value}
-                    typedName={typedName}
-                    typeColor={typeColor}
-                    onClick={handleFontSelect}
-                    badge="Recent"
-                    badgeCls="bg-muted text-muted-foreground"
-                  />
-                </div>
-              )}
+              {/* ── Scrollable font list ── */}
+              <div className="max-h-[520px] overflow-y-auto space-y-4 pr-1 rounded-md">
 
-              {/* ── Top Picks ── */}
-              {!fontSearch && fontCategory === "all" && (
-                <div className="space-y-2">
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5">
-                    <span className="h-px flex-1 bg-border" />
-                    Top Picks
-                    <span className="h-px flex-1 bg-border" />
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {topPickFonts.map((font) => (
-                      <FontCard
-                        key={font.value}
-                        font={font}
-                        isSelected={selectedFont === font.value}
-                        typedName={typedName}
-                        typeColor={typeColor}
-                        onClick={handleFontSelect}
-                        badge="Top Pick"
-                        badgeCls="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
-                      />
-                    ))}
+                {/* Recently Used */}
+                {recentFontMeta && !fontSearch && fontCategory === "all" && (
+                  <div className="space-y-1.5">
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5 sticky top-0 bg-background py-1 z-10">
+                      <span className="h-px flex-1 bg-border" />
+                      Recently Used
+                      <span className="h-px flex-1 bg-border" />
+                    </p>
+                    <FontCard
+                      font={recentFontMeta}
+                      isSelected={selectedFont === recentFontMeta.value}
+                      typedName={typedName}
+                      typeColor={typeColor}
+                      onClick={handleFontSelect}
+                      badge="Recent"
+                      badgeCls="bg-muted text-muted-foreground"
+                    />
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* ── Main font grid ── */}
-              {(() => {
-                const showAll = !fontSearch && fontCategory === "all";
-                // When showing "All" unfiltered, group by category order
-                if (showAll) {
-                  const cats: FontCategory[] = ["signature", "elegant", "professional", "creative", "handwritten", "casual", "rare"];
-                  return (
-                    <div className="space-y-4">
-                      {cats.map((cat) => {
-                        const fonts = ALL_FONTS.filter((f) => f.category === cat);
-                        return (
-                          <div key={cat} className="space-y-2">
-                            <p className="text-[10px] uppercase tracking-widest font-semibold flex items-center gap-2 text-muted-foreground">
-                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${CATEGORY_COLORS[cat]}`}>
-                                {CATEGORY_LABELS[cat]}
-                              </span>
-                              <span className="h-px flex-1 bg-border" />
-                              <span className="text-[9px]">{fonts.length} fonts</span>
-                            </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              {fonts.map((font) => (
-                                <FontCard
-                                  key={font.value}
-                                  font={font}
-                                  isSelected={selectedFont === font.value}
-                                  typedName={typedName}
-                                  typeColor={typeColor}
-                                  onClick={handleFontSelect}
-                                />
-                              ))}
+                {/* Top Picks */}
+                {!fontSearch && fontCategory === "all" && (
+                  <div className="space-y-2">
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5 sticky top-0 bg-background py-1 z-10">
+                      <span className="h-px flex-1 bg-border" />
+                      Top Picks
+                      <span className="h-px flex-1 bg-border" />
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {topPickFonts.map((font) => (
+                        <FontCard
+                          key={font.value}
+                          font={font}
+                          isSelected={selectedFont === font.value}
+                          typedName={typedName}
+                          typeColor={typeColor}
+                          onClick={handleFontSelect}
+                          badge="Top Pick"
+                          badgeCls="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Main font grid */}
+                {(() => {
+                  const showAll = !fontSearch && fontCategory === "all";
+                  if (showAll) {
+                    const cats: FontCategory[] = ["signature", "elegant", "professional", "creative", "handwritten", "casual", "rare"];
+                    return (
+                      <div className="space-y-4">
+                        {cats.map((cat) => {
+                          const fonts = ALL_FONTS.filter((f) => f.category === cat);
+                          return (
+                            <div key={cat} className="space-y-2">
+                              <p className="text-[10px] uppercase tracking-widest font-semibold flex items-center gap-2 text-muted-foreground sticky top-0 bg-background py-1 z-10">
+                                <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${CATEGORY_COLORS[cat]}`}>
+                                  {CATEGORY_LABELS[cat]}
+                                </span>
+                                <span className="h-px flex-1 bg-border" />
+                                <span className="text-[9px]">{fonts.length} fonts</span>
+                              </p>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                {fonts.map((font) => (
+                                  <FontCard
+                                    key={font.value}
+                                    font={font}
+                                    isSelected={selectedFont === font.value}
+                                    typedName={typedName}
+                                    typeColor={typeColor}
+                                    onClick={handleFontSelect}
+                                  />
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  );
-                }
+                          );
+                        })}
+                      </div>
+                    );
+                  }
 
-                // Filtered view
-                if (filtered.length === 0) {
+                  if (filtered.length === 0) {
+                    return (
+                      <div className="py-10 text-center text-sm text-muted-foreground">
+                        No fonts match &ldquo;{fontSearch}&rdquo;
+                      </div>
+                    );
+                  }
                   return (
-                    <div className="py-10 text-center text-sm text-muted-foreground">
-                      No fonts match &ldquo;{fontSearch}&rdquo;
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {filtered.map((font) => (
+                        <FontCard
+                          key={font.value}
+                          font={font}
+                          isSelected={selectedFont === font.value}
+                          typedName={typedName}
+                          typeColor={typeColor}
+                          onClick={handleFontSelect}
+                        />
+                      ))}
                     </div>
                   );
-                }
-                return (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {filtered.map((font) => (
-                      <FontCard
-                        key={font.value}
-                        font={font}
-                        isSelected={selectedFont === font.value}
-                        typedName={typedName}
-                        typeColor={typeColor}
-                        onClick={handleFontSelect}
-                      />
-                    ))}
-                  </div>
-                );
-              })()}
+                })()}
+
+              </div>
 
             </div>
             );
@@ -1333,7 +1336,7 @@ export default function SignaturePadTool() {
                 </Button>
               )}
 
-              <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white">
+              <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white dark:bg-zinc-900">
                 <canvas ref={uploadCanvasRef} style={canvasStyle} className="block" data-testid="canvas-upload" />
                 {!uploadedImage && (
                   <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 select-none">
