@@ -450,7 +450,11 @@ Sitemap: https://tools.pixocraft.in/sitemap.xml`
       "/tools/convert-pdf-to-image", "/tools/convert-image-to-pdf", "/tools/convert-jpg-to-pdf", "/tools/combine-images-to-pdf",
       "/tools/convert-jpg-to-png", "/tools/convert-png-to-jpg", "/tools/invoice-generator/freelance",
       "/tools/invoice-generator/professional", "/tools/invoice-generator/small-business", "/tools/invoice-generator/simple",
-      "/tools/pdf-merger/online", "/tools/pdf-splitter/online", "/tools/pdf-compressor/online", "/tools/pdf-watermark/online"
+      "/tools/pdf-merger/online", "/tools/pdf-splitter/online", "/tools/pdf-compressor/online", "/tools/pdf-watermark/online",
+      "/tools/online-signature-generator", "/tools/free-signature-generator", "/tools/digital-signature-generator",
+      "/tools/signature-maker", "/tools/signature-maker-free", "/tools/create-signature-online",
+      "/tools/esignature-maker", "/tools/handwritten-signature-generator", "/tools/signature-creator",
+      "/tools/add-signature-to-pdf", "/tools/signature-for-pdf", "/tools/mobile-signature-generator"
     ];
     
     const toolPages = toolPaths.map(path => ({
