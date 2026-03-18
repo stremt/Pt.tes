@@ -182,10 +182,8 @@ export default function SignaturePadTool() {
       canvas.height = BH;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      // Scale so all draw calls use logical 0–CW × 0–CH coordinates
       ctx.scale(EXPORT_SCALE, EXPORT_SCALE);
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, CW, CH);
+      ctx.clearRect(0, 0, CW, CH);
     }
   }, []);
 
@@ -334,9 +332,7 @@ export default function SignaturePadTool() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
     saveState();
-    ctx.fillStyle = "white";
-    // Use logical coords — ctx.scale(EXPORT_SCALE) maps to the full buffer
-    ctx.fillRect(0, 0, CW, CH);
+    ctx.clearRect(0, 0, CW, CH);
     setHasDrawn(false);
     setUndoStack([]);
     setRedoStack([]);
@@ -682,298 +678,308 @@ export default function SignaturePadTool() {
         benefits={benefits}
         faqs={faqs}
       >
-      <div className="space-y-6">
-        {/* Trust badges + privacy notice */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/40 rounded-md px-4 py-2.5">
-            <Shield className="h-4 w-4 shrink-0 text-green-600 dark:text-green-400" />
-            <span>
-              Your signature is <strong>never stored</strong>. Everything runs entirely in your browser — no uploads, no servers.
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
+      {/* ── TOOL CARD ───────────────────────────────────────────────────────── */}
+      <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
+
+        {/* Card header: trust badges */}
+        <div className="px-5 py-3 border-b bg-muted/30 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-700 dark:text-green-400">
+            <Shield className="h-3.5 w-3.5" /> 100% Private — runs in your browser
+          </span>
+          <div className="flex flex-wrap gap-2 ml-auto">
             {[
-              { icon: <Star className="h-3.5 w-3.5" />, label: "Free & No Signup" },
-              { icon: <Zap className="h-3.5 w-3.5" />, label: "Instant High-Res Download" },
-              { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private (Browser-Based)" },
-              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile" },
-              { icon: <span className="text-[11px] font-bold leading-none">IN</span>, label: "Made in India" },
+              { icon: <Star className="h-3 w-3" />, label: "Free Forever" },
+              { icon: <Zap className="h-3 w-3" />, label: "Instant Download" },
+              { icon: <Smartphone className="h-3 w-3" />, label: "Mobile Ready" },
+              { icon: <span className="text-[9px] font-bold leading-none">IN</span>, label: "Made in India" },
             ].map(({ icon, label }) => (
-              <span
-                key={label}
-                className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
-              >
-                {icon}
-                {label}
+              <span key={label} className="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
+                {icon}{label}
               </span>
             ))}
           </div>
         </div>
 
-        {/* ── TAB SELECTOR (large cards) ──────────────────────────────────── */}
-        <div className="grid grid-cols-3 gap-3" data-testid="tabs-method">
-          {(
-            [
-              { id: "draw", icon: PenTool, title: "Draw", desc: "Freehand drawing" },
-              { id: "type", icon: Type, title: "Type", desc: "Pick a font style" },
-              { id: "upload", icon: Upload, title: "Upload", desc: "Upload an image" },
-            ] as const
-          ).map(({ id, icon: Icon, title, desc }) => (
-            <button
-              key={id}
-              onClick={() => setActiveTab(id)}
-              data-testid={`tab-${id}`}
-              className={[
-                "flex flex-col items-center justify-center gap-2 py-5 px-3 rounded-xl border-2 transition-all",
-                "font-medium text-center cursor-pointer select-none",
-                activeTab === id
-                  ? "border-primary bg-primary/8 text-primary shadow-sm"
-                  : "border-border bg-card text-muted-foreground hover-elevate",
-              ].join(" ")}
-            >
-              <Icon className={`h-7 w-7 ${activeTab === id ? "text-primary" : ""}`} />
-              <span className="text-base font-semibold">{title}</span>
-              <span className="text-xs hidden sm:block">{desc}</span>
-            </button>
-          ))}
-        </div>
+        <div className="p-5 space-y-5">
 
-        {/* ── DRAW TAB ────────────────────────────────────────────────────── */}
-        {activeTab === "draw" && (
-          <div className="space-y-4">
-            {/* Controls row */}
-            <div className="flex flex-wrap gap-4 items-end">
-              <div className="space-y-1.5">
-                <Label htmlFor="ink-color">Ink Color</Label>
+          {/* ── TAB SELECTOR ──────────────────────────────────────────────── */}
+          <div className="flex gap-1 p-1 rounded-lg bg-muted/50 border" data-testid="tabs-method">
+            {(
+              [
+                { id: "draw",   icon: PenTool, title: "Draw",   desc: "Freehand" },
+                { id: "type",   icon: Type,    title: "Type",   desc: "50+ Fonts" },
+                { id: "upload", icon: Upload,   title: "Upload", desc: "From photo" },
+              ] as const
+            ).map(({ id, icon: Icon, title, desc }) => (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                data-testid={`tab-${id}`}
+                className={[
+                  "flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-md text-sm font-semibold transition-all cursor-pointer select-none",
+                  activeTab === id
+                    ? "bg-background text-foreground shadow-sm border"
+                    : "text-muted-foreground hover:text-foreground",
+                ].join(" ")}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                <span>{title}</span>
+                <span className={`hidden sm:inline text-xs font-normal ${activeTab === id ? "text-muted-foreground" : "text-muted-foreground/60"}`}>· {desc}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* ── DRAW TAB ──────────────────────────────────────────────────── */}
+          {activeTab === "draw" && (
+            <div className="space-y-3">
+              {/* Toolbar */}
+              <div className="flex flex-wrap items-center gap-3 px-3 py-2.5 rounded-lg bg-muted/40 border">
                 <div className="flex items-center gap-2">
+                  <Label htmlFor="ink-color" className="text-xs whitespace-nowrap">Ink</Label>
                   <input
                     id="ink-color"
                     type="color"
                     value={strokeColor}
                     onChange={(e) => setStrokeColor(e.target.value)}
-                    className="h-9 w-14 rounded-md border border-border cursor-pointer bg-transparent p-0.5"
+                    className="h-8 w-10 rounded-md border border-border cursor-pointer bg-transparent p-0.5"
                     data-testid="input-stroke-color"
                   />
-                  <span className="text-xs text-muted-foreground font-mono">{strokeColor}</span>
+                  <span className="text-xs text-muted-foreground font-mono hidden sm:inline">{strokeColor}</span>
+                </div>
+                <div className="w-px h-5 bg-border hidden sm:block" />
+                <div className="flex items-center gap-2 flex-1 min-w-32">
+                  <Label className="text-xs whitespace-nowrap">Width: <span className="font-mono">{strokeWidth.toFixed(1)}</span></Label>
+                  <Slider
+                    min={1} max={8} step={0.5}
+                    value={[strokeWidth]}
+                    onValueChange={([v]) => setStrokeWidth(v)}
+                    data-testid="slider-stroke-width"
+                    className="flex-1"
+                  />
+                </div>
+                <div className="w-px h-5 bg-border hidden sm:block" />
+                <div className="flex items-center gap-1 ml-auto">
+                  <Button size="icon" variant="ghost" onClick={undo} disabled={undoStack.length === 0} title="Undo" data-testid="button-undo">
+                    <Undo2 className="h-4 w-4" />
+                  </Button>
+                  <Button size="icon" variant="ghost" onClick={redo} disabled={redoStack.length === 0} title="Redo" data-testid="button-redo">
+                    <Redo2 className="h-4 w-4" />
+                  </Button>
+                  <div className="w-px h-5 bg-border mx-1" />
+                  <Button size="icon" variant="ghost" onClick={clearDraw} disabled={!hasDrawn && undoStack.length === 0} title="Clear canvas" data-testid="button-clear" className="text-destructive/70 hover:text-destructive">
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
 
-              <div className="space-y-1.5 flex-1 min-w-40">
-                <Label>Stroke: {strokeWidth.toFixed(1)}px</Label>
-                <Slider
-                  min={1}
-                  max={8}
-                  step={0.5}
-                  value={[strokeWidth]}
-                  onValueChange={([v]) => setStrokeWidth(v)}
-                  data-testid="slider-stroke-width"
+              {/* Canvas */}
+              <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
+                {/* Subtle horizontal guide lines rendered behind the canvas */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: "repeating-linear-gradient(180deg, transparent 0px, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)",
+                    opacity: 0.5,
+                  }}
                 />
-              </div>
-
-              <div className="flex items-center gap-1.5">
-                <Button size="icon" variant="outline" onClick={undo} disabled={undoStack.length === 0} title="Undo" data-testid="button-undo">
-                  <Undo2 className="h-4 w-4" />
-                </Button>
-                <Button size="icon" variant="outline" onClick={redo} disabled={redoStack.length === 0} title="Redo" data-testid="button-redo">
-                  <Redo2 className="h-4 w-4" />
-                </Button>
-                <Button size="icon" variant="outline" onClick={clearDraw} disabled={!hasDrawn && undoStack.length === 0} title="Clear" data-testid="button-clear">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                <canvas
+                  ref={canvasRef}
+                  style={{ ...canvasStyle, background: "transparent" }}
+                  className="cursor-crosshair touch-none block relative z-10"
+                  onMouseDown={startDrawing}
+                  onMouseMove={draw}
+                  onMouseUp={stopDrawing}
+                  onMouseLeave={stopDrawing}
+                  onTouchStart={startDrawing}
+                  onTouchMove={draw}
+                  onTouchEnd={stopDrawing}
+                  data-testid="canvas-draw"
+                />
+                {!hasDrawn && (
+                  <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-1.5 select-none">
+                    <PenTool className="h-6 w-6 text-muted-foreground/20" />
+                    <span className="text-sm text-muted-foreground/35">Draw your signature here</span>
+                  </div>
+                )}
               </div>
             </div>
+          )}
 
-            {/* Canvas */}
-            <div className="relative rounded-xl border-2 border-dashed border-border overflow-hidden bg-white">
-              <canvas
-                ref={canvasRef}
-                style={canvasStyle}
-                className="cursor-crosshair touch-none block"
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={stopDrawing}
-                onMouseLeave={stopDrawing}
-                onTouchStart={startDrawing}
-                onTouchMove={draw}
-                onTouchEnd={stopDrawing}
-                data-testid="canvas-draw"
-              />
-              {!hasDrawn && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-muted-foreground/40 text-sm select-none">
-                  Draw your signature here
+          {/* ── TYPE TAB ──────────────────────────────────────────────────── */}
+          {activeTab === "type" && (
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-3 items-end">
+                <div className="space-y-1.5 flex-1 min-w-52">
+                  <Label htmlFor="typed-name" className="text-xs">Your Name</Label>
+                  <Input
+                    id="typed-name"
+                    placeholder="e.g. Alex Johnson"
+                    value={typedName}
+                    onChange={(e) => setTypedName(e.target.value)}
+                    className="text-base"
+                    data-testid="input-typed-name"
+                  />
                 </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ── TYPE TAB ────────────────────────────────────────────────────── */}
-        {activeTab === "type" && (
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-4 items-end">
-              <div className="space-y-1.5 flex-1 min-w-52">
-                <Label htmlFor="typed-name">Your Name</Label>
-                <Input
-                  id="typed-name"
-                  placeholder="e.g. Alex Johnson"
-                  value={typedName}
-                  onChange={(e) => setTypedName(e.target.value)}
-                  className="text-base"
-                  data-testid="input-typed-name"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="type-color">Ink Color</Label>
-                <div className="flex items-center gap-2">
+                <div className="space-y-1.5">
+                  <Label htmlFor="type-color" className="text-xs">Ink Color</Label>
                   <input
                     id="type-color"
                     type="color"
                     value={typeColor}
                     onChange={(e) => setTypeColor(e.target.value)}
-                    className="h-9 w-14 rounded-md border border-border cursor-pointer bg-transparent p-0.5"
+                    className="h-9 w-14 rounded-md border border-border cursor-pointer bg-transparent p-0.5 block"
                     data-testid="input-type-color"
                   />
                 </div>
               </div>
-            </div>
 
-            {/* Font card grid */}
-            <p className="text-sm text-muted-foreground">
-              {typedName
-                ? `Click a style to select it, then download below.`
-                : `Type your name above to preview all styles.`}
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[520px] overflow-y-auto pr-1">
-              {HANDWRITTEN_FONTS.map((font) => {
-                const isSelected = selectedFont === font.value;
-                return (
-                  <button
-                    key={font.value}
-                    onClick={() => setSelectedFont(font.value)}
-                    data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
-                    className="relative flex flex-col items-center justify-center px-4 py-5 rounded-xl border-2 transition-all cursor-pointer text-center hover-elevate"
-                    style={{
-                      backgroundColor: "white",
-                      borderColor: isSelected ? "var(--primary)" : undefined,
-                      boxShadow: isSelected ? "0 0 0 2px var(--primary, #6366f1)22" : undefined,
-                    }}
-                  >
-                    {isSelected && (
-                      <span className="absolute top-2 right-2 bg-primary rounded-full p-0.5">
-                        <Check className="h-3 w-3 text-primary-foreground" />
-                      </span>
-                    )}
-                    <span
-                      style={{
-                        fontFamily: `'${font.value}', cursive`,
-                        fontSize: FONT_SIZE[font.size].card,
-                        color: typeColor,
-                        lineHeight: 1.4,
-                        display: "block",
-                        minHeight: "52px",
-                      }}
+              <p className="text-xs text-muted-foreground">
+                {typedName ? "Click a style to select it, then download below." : "Type your name above to preview all 50+ styles."}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[480px] overflow-y-auto pr-1 rounded-md">
+                {HANDWRITTEN_FONTS.map((font) => {
+                  const isSelected = selectedFont === font.value;
+                  return (
+                    <button
+                      key={font.value}
+                      onClick={() => setSelectedFont(font.value)}
+                      data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
+                      className={[
+                        "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center",
+                        isSelected
+                          ? "border-primary bg-primary/5 shadow-sm ring-1 ring-primary/30"
+                          : "border-border bg-white dark:bg-zinc-950 hover-elevate",
+                      ].join(" ")}
                     >
-                      {typedName || "Your Name"}
-                    </span>
-                    <span className="mt-2 text-[11px]" style={{ color: "#888" }}>{font.label}</span>
-                  </button>
-                );
-              })}
+                      {isSelected && (
+                        <span className="absolute top-2 right-2 bg-primary rounded-full p-0.5">
+                          <Check className="h-3 w-3 text-primary-foreground" />
+                        </span>
+                      )}
+                      <span
+                        style={{
+                          fontFamily: `'${font.value}', cursive`,
+                          fontSize: FONT_SIZE[font.size].card,
+                          color: typeColor,
+                          lineHeight: 1.3,
+                          display: "block",
+                          minHeight: "46px",
+                        }}
+                      >
+                        {typedName || "Your Name"}
+                      </span>
+                      <span className="mt-1.5 text-[10px] text-muted-foreground">{font.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ── UPLOAD TAB ──────────────────────────────────────────────────── */}
-        {activeTab === "upload" && (
-          <div className="space-y-4">
-            <label
-              htmlFor="upload-input"
-              className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-border rounded-xl px-6 py-12 cursor-pointer hover-elevate transition-colors text-center bg-card"
-              data-testid="label-upload"
-            >
-              <Upload className="h-9 w-9 text-muted-foreground" />
-              <span className="text-base font-medium">Click to upload or drag & drop</span>
-              <span className="text-xs text-muted-foreground/70">PNG, JPG up to 10 MB</span>
-              <input
-                id="upload-input"
-                type="file"
-                accept="image/png,image/jpeg,image/jpg"
-                className="sr-only"
-                onChange={handleUpload}
-                data-testid="input-upload"
-              />
-            </label>
-
-            {uploadedImage && (
-              <Button
-                variant="outline"
-                onClick={removeBackground}
-                disabled={bgRemoved}
-                data-testid="button-remove-bg"
+          {/* ── UPLOAD TAB ────────────────────────────────────────────────── */}
+          {activeTab === "upload" && (
+            <div className="space-y-3">
+              <label
+                htmlFor="upload-input"
+                className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-border rounded-lg px-6 py-10 cursor-pointer hover-elevate transition-colors text-center bg-muted/20"
+                data-testid="label-upload"
               >
-                <Eraser className="mr-2 h-4 w-4" />
-                {bgRemoved ? "Background Removed" : "Remove White Background"}
-              </Button>
-            )}
-
-            <div className="relative rounded-xl border-2 border-dashed border-border overflow-hidden bg-white">
-              <canvas
-                ref={uploadCanvasRef}
-                style={canvasStyle}
-                className="block"
-                data-testid="canvas-upload"
-              />
-              {!uploadedImage && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-muted-foreground/40 text-sm select-none">
-                  Upload preview will appear here
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Upload className="h-5 w-5 text-primary" />
                 </div>
+                <div>
+                  <p className="text-sm font-semibold">Click to upload or drag &amp; drop</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">PNG or JPG — up to 10 MB</p>
+                </div>
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept="image/png,image/jpeg,image/jpg"
+                  className="sr-only"
+                  onChange={handleUpload}
+                  data-testid="input-upload"
+                />
+              </label>
+
+              {uploadedImage && (
+                <Button
+                  variant="outline"
+                  onClick={removeBackground}
+                  disabled={bgRemoved}
+                  data-testid="button-remove-bg"
+                  className={bgRemoved ? "text-green-700 dark:text-green-400 border-green-300 dark:border-green-700" : ""}
+                >
+                  <Eraser className="mr-2 h-4 w-4" />
+                  {bgRemoved ? "Background Removed" : "Remove White Background"}
+                </Button>
               )}
+
+              <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white">
+                <canvas ref={uploadCanvasRef} style={canvasStyle} className="block" data-testid="canvas-upload" />
+                {!uploadedImage && (
+                  <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 select-none">
+                    <ImageIcon className="h-6 w-6" />
+                    <span className="text-sm">Upload preview will appear here</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── EXPORT PANEL ──────────────────────────────────────────────── */}
+          <div className="rounded-lg border bg-gradient-to-r from-primary/5 to-transparent p-4 space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <p className="text-sm font-semibold flex items-center gap-2">
+                  <Download className="h-4 w-4 text-primary" />
+                  Download Your Signature
+                </p>
+                <p className="text-xs text-muted-foreground">No watermark · Instant · Works offline</p>
+              </div>
+              <Button onClick={generatePreview} variant="ghost" size="sm" data-testid="button-preview">
+                <Eye className="mr-1.5 h-3.5 w-3.5" />
+                Preview
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button onClick={downloadPNG} size="lg" className="flex-1 sm:flex-none" data-testid="button-download-png">
+                <Download className="mr-2 h-4 w-4" />
+                PNG — Transparent
+              </Button>
+              <Button onClick={downloadJPG} variant="outline" className="flex-1 sm:flex-none" data-testid="button-download-jpg">
+                <Download className="mr-2 h-4 w-4" />
+                JPG — White BG
+              </Button>
             </div>
           </div>
-        )}
 
-        {/* ── EXPORT ──────────────────────────────────────────────────────── */}
-        <div className="border-t pt-5">
-          <p className="text-sm font-semibold mb-1 flex items-center gap-2">
-            <FileImage className="h-4 w-4" />
-            Export Your Signature
-          </p>
-          <p className="text-xs text-muted-foreground mb-3">No watermark &nbsp;·&nbsp; Instant download &nbsp;·&nbsp; Works offline</p>
-          <div className="flex flex-wrap gap-3">
-            <Button onClick={downloadPNG} data-testid="button-download-png">
-              <Download className="mr-2 h-4 w-4" />
-              PNG (Transparent)
-            </Button>
-            <Button onClick={downloadJPG} variant="outline" data-testid="button-download-jpg">
-              <Download className="mr-2 h-4 w-4" />
-              JPG (White BG)
-            </Button>
-            <Button onClick={generatePreview} variant="ghost" data-testid="button-preview">
-              <Eye className="mr-2 h-4 w-4" />
-              Preview
-            </Button>
+          {/* ── TRY SIGNATURE STYLES ──────────────────────────────────────── */}
+          <div className="space-y-2.5 pt-1 border-t">
+            <div className="flex items-center justify-between flex-wrap gap-2 pt-3">
+              <div>
+                <p className="text-sm font-semibold">Try Signature Styles Instantly</p>
+                <p className="text-xs text-muted-foreground">Auto-fills a preview — just download after.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {SIGNATURE_STYLES.map(({ label, font, sampleName }) => (
+                <Button
+                  key={label}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => trySignatureStyle(font, sampleName)}
+                  data-testid={`button-style-${label.toLowerCase()}`}
+                >
+                  {label}
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* ── TRY SIGNATURE STYLES ─────────────────────────────────────────── */}
-        <div className="border-t pt-5 space-y-3">
-          <div>
-            <h2 className="text-base font-semibold text-foreground">Try Signature Styles Instantly</h2>
-            <p className="text-xs text-muted-foreground mt-0.5">Click any style to auto-fill a preview — then download.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {SIGNATURE_STYLES.map(({ label, font, sampleName }) => (
-              <Button
-                key={label}
-                variant="outline"
-                onClick={() => trySignatureStyle(font, sampleName)}
-                data-testid={`button-style-${label.toLowerCase()}`}
-              >
-                {label} Signature
-              </Button>
-            ))}
-          </div>
         </div>
+      </div>
 
         {/* ── LIVE PREVIEW ─────────────────────────────────────────────────── */}
         {previewUrl && (
@@ -1125,71 +1131,138 @@ export default function SignaturePadTool() {
             </ol>
           </section>
 
-          {/* ── Draw vs Type vs Upload ──────────────────────────────────────── */}
+          {/* ── Draw vs Type vs Upload vs AI ───────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Draw vs. Type vs. Upload — Which Method Should You Use?</h2>
-            <div className="space-y-3 text-muted-foreground">
-              <div>
-                <p className="font-semibold text-foreground mb-1">Draw Signature</p>
-                <p>Best for a personal, unique feel. Use your mouse on desktop or finger on touchscreen. Bezier smoothing makes strokes look natural. Undo/redo lets you refine until it's perfect. Ideal for contracts, legal forms, and anything where your actual handwriting matters.</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground mb-1">Type Signature — <em>Handwritten Signature Generator</em></p>
-                <p>Ideal for a consistent, reproducible signature across many documents. Choose from 50+ fonts spanning elegant scripts, bold markers, casual writing, and formal calligraphy. The <strong>handwritten signature generator</strong> renders text at 4× resolution for crisp, professional output every time.</p>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground mb-1">Upload Signature</p>
-                <p>Perfect if you already have a physical signature. Photograph or scan it, upload the image, and{" "}
-                  <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline">remove the background</Link>{" "}
-                  to extract clean ink on a transparent canvas — ready for any document or background colour.</p>
-              </div>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Draw vs Type vs Upload vs AI – Which One is Best for You?</h2>
+            <p className="text-muted-foreground mb-4">
+              Every user has a different workflow. Here's an honest breakdown so you can pick the right method in seconds:
+            </p>
+            <div className="overflow-x-auto rounded-md border">
+              <table className="w-full text-sm min-w-[520px]">
+                <thead>
+                  <tr className="bg-muted/50 border-b">
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Method</th>
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Best For</th>
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Pros</th>
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Cons</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y text-muted-foreground">
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">Draw</td>
+                    <td className="px-4 py-3">Personal feel</td>
+                    <td className="px-4 py-3">Natural, unique, touchscreen support</td>
+                    <td className="px-4 py-3">Takes more time to perfect</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">Type</td>
+                    <td className="px-4 py-3">Consistent &amp; fast</td>
+                    <td className="px-4 py-3">50+ fonts, always legible, reproducible</td>
+                    <td className="px-4 py-3">Less personal than handwriting</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">Upload</td>
+                    <td className="px-4 py-3">Reuse existing signature</td>
+                    <td className="px-4 py-3">Background auto-removed, high-res output</td>
+                    <td className="px-4 py-3">Photo quality can affect result</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">AI <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full font-semibold ml-1">2026</span></td>
+                    <td className="px-4 py-3">Instant 10 styles, zero effort</td>
+                    <td className="px-4 py-3">Beautiful results, Pixocraft exclusive</td>
+                    <td className="px-4 py-3">Style is AI-generated, not hand-drawn</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              <strong>Quick pick:</strong> New user? Start with Type. Have an existing signature? Use Upload. Want maximum personalisation? Draw it. Looking for the most beautiful result instantly? Try AI styles.
+            </p>
           </section>
 
           {/* ── Where to use ───────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Where Can You Use Digital Signatures?</h2>
-            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li><strong>PDF documents:</strong> Contracts, NDAs, invoices — use the{" "}
-                <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">PDF tools</Link>{" "}
-                to merge your signed page or add signature to PDF directly.</li>
-              <li><strong>Email footers:</strong> A transparent PNG signature adds a personal, professional touch to every email.</li>
-              <li><strong>Google Docs / Microsoft Word:</strong> Insert → Image to place your signature anywhere in any document.</li>
-              <li><strong>Scanned documents:</strong> Use{" "}
-                <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">image-to-PDF conversion</Link>{" "}
-                after adding your signature image to a scanned page.</li>
-              <li><strong>Online forms and HR onboarding:</strong> Upload the PNG to any form that accepts an image as a signature field.</li>
-              <li><strong>Creative branding:</strong> Use your signature as a watermark or brand mark on photos and graphics.</li>
+            <h2 className="text-xl font-bold mb-3 text-foreground">Where to Use Your Pixocraft Signature</h2>
+            <p className="text-muted-foreground mb-3">
+              Your downloaded PNG works everywhere a physical signature would — and in many more places besides. Here are the most common use cases:
+            </p>
+            <ul className="space-y-2.5 text-muted-foreground">
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>GST Invoices &amp; E-way Bills</strong> — Paste your signature image onto GST invoices in Tally, Zoho Books, or any billing software that supports image insertion.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>NDAs, Offer Letters &amp; Contracts</strong> — Download as transparent PNG and insert into any Word or Google Docs contract. <Link href="/tools/image-to-pdf" className="text-primary underline-offset-2 hover:underline">Convert to PDF</Link> when done.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>PDF Documents</strong> — Use <Link href="/tools/pdf-merger" className="text-primary underline-offset-2 hover:underline">Pixocraft PDF tools</Link> or Adobe Acrobat's "Insert Image" to place your signature directly over a signature line.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Google Docs &amp; Microsoft Word</strong> — Insert → Image → Upload from computer. Set text wrap to "In front of text" for precise placement.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Email Footers (Gmail, Outlook)</strong> — A transparent PNG in your email signature adds professionalism to every message you send.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Online Forms &amp; Aadhaar-Linked Services</strong> — Many government portals and HR onboarding flows accept image-based signatures in PNG format.</span></li>
+              <li className="flex gap-2"><span className="shrink-0 mt-0.5 text-primary font-bold">✓</span><span><strong>Creative Branding &amp; Watermarks</strong> — Use your signature as a logo watermark on photos, portfolios, and design work. <Link href="/tools/background-remover" className="text-primary underline-offset-2 hover:underline">Remove background</Link> first for the cleanest result.</span></li>
             </ul>
           </section>
 
           {/* ── Legality ───────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-xl font-bold mb-3 text-foreground">Is an Online Signature Legally Valid?</h2>
-            <p className="text-muted-foreground mb-3">
-              In most jurisdictions, yes. Electronic signatures have legal weight under multiple international laws:
+            <h2 className="text-xl font-bold mb-3 text-foreground">Is Online Signature Legal in India &amp; Worldwide?</h2>
+            <p className="text-muted-foreground mb-4">
+              Yes — in most jurisdictions an electronic signature image carries the same legal weight as a handwritten one for routine business documents. Here's what the law says by region:
             </p>
-            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground mb-3">
-              <li><strong>India:</strong> IT Act 2000 & IT (Amendment) Act 2008 — valid for most commercial contracts.</li>
-              <li><strong>USA:</strong> ESIGN Act (2000) & UETA — same legal effect as a handwritten signature.</li>
-              <li><strong>European Union:</strong> eIDAS Regulation (2016) — tiered framework accepted across all EU states.</li>
-              <li><strong>UK:</strong> Electronic Communications Act 2000 — legally binding for most agreements.</li>
-            </ul>
-            <p className="text-muted-foreground">
-              For routine business documents this <strong>free signature maker</strong> is entirely sufficient. For wills, real estate deeds, or court documents — consult a legal professional.
+            <div className="space-y-2.5 text-muted-foreground mb-4">
+              <div className="border rounded-md p-3 bg-card space-y-1">
+                <p className="font-semibold text-foreground">India 🇮🇳</p>
+                <p><strong>Information Technology Act 2000 + IT (Amendment) Act 2008</strong> — Fully legal for contracts, GST invoices, Aadhaar-linked documents, company agreements, and most commercial transactions. The IT Act defines an "electronic signature" broadly enough to include PNG-based image signatures when both parties consent.</p>
+              </div>
+              <div className="border rounded-md p-3 bg-card space-y-1">
+                <p className="font-semibold text-foreground">United States 🇺🇸</p>
+                <p><strong>ESIGN Act (2000) + UETA</strong> — Electronic signatures have the same legal effect as handwritten ones for most contracts and agreements.</p>
+              </div>
+              <div className="border rounded-md p-3 bg-card space-y-1">
+                <p className="font-semibold text-foreground">European Union 🇪🇺</p>
+                <p><strong>eIDAS Regulation (2016)</strong> — Tiered framework (SES / AES / QES) accepted across all EU member states. Image signatures qualify as Simple Electronic Signatures (SES).</p>
+              </div>
+              <div className="border rounded-md p-3 bg-card space-y-1">
+                <p className="font-semibold text-foreground">United Kingdom 🇬🇧</p>
+                <p><strong>Electronic Communications Act 2000</strong> — Legally binding for most agreements.</p>
+              </div>
+            </div>
+
+            <p className="text-sm font-semibold text-foreground mb-2">Simple Digital Signature vs Qualified Electronic Signature (QES)</p>
+            <div className="overflow-x-auto rounded-md border mb-4">
+              <table className="w-full text-sm min-w-[420px]">
+                <thead>
+                  <tr className="bg-muted/50 border-b">
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Simple Digital Signature</th>
+                    <th className="text-left px-4 py-2.5 font-semibold text-foreground">Qualified (QES / DSC)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y text-muted-foreground">
+                  <tr><td className="px-4 py-2.5">Cost</td><td className="px-4 py-2.5">Free</td><td className="px-4 py-2.5">Paid CA certificate</td></tr>
+                  <tr><td className="px-4 py-2.5">Setup time</td><td className="px-4 py-2.5">Seconds</td><td className="px-4 py-2.5">Days (KYC required)</td></tr>
+                  <tr><td className="px-4 py-2.5">Use case</td><td className="px-4 py-2.5">Contracts, invoices, HR forms</td><td className="px-4 py-2.5">Govt filings, MCA, court docs</td></tr>
+                  <tr><td className="px-4 py-2.5">India acceptance</td><td className="px-4 py-2.5">Most commercial use</td><td className="px-4 py-2.5">Required for specific govt portals</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-muted-foreground text-sm">
+              <strong>Bottom line:</strong> For routine business — NDAs, employment contracts, GST invoices, freelance agreements — this <strong>free signature maker</strong> is entirely sufficient. For court submissions, MCA ROC filings, or property registrations, consult a legal professional and obtain a DSC.
             </p>
           </section>
 
           {/* ── Tips ───────────────────────────────────────────────────────── */}
           <section>
             <h2 className="text-xl font-bold mb-3 text-foreground">Tips for a Professional Digital Signature</h2>
-            <ul className="list-disc list-inside space-y-1.5 text-muted-foreground">
-              <li>Use dark blue or black ink — it reads best on both printed and digital documents.</li>
-              <li>For drawn signatures, set stroke width to 3–4 px so it stays visible when scaled down.</li>
-              <li>For typed signatures, thin elegant script fonts suit formal documents; bold marker fonts suit creative work.</li>
-              <li>Always download as transparent PNG so your signature adapts to any document background.</li>
-              <li>Store your PNG in a secure folder — you'll use it repeatedly for contracts and forms.</li>
-            </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { tip: "Use dark blue or black ink", detail: "These colours read best on printed and digital documents alike, and are universally accepted in legal and corporate contexts." },
+                { tip: "Set stroke width to 3–4 px", detail: "For drawn signatures, thicker strokes remain visible when the image is scaled down inside PDFs or email footers." },
+                { tip: "Choose font style by context", detail: "Thin elegant scripts (Great Vibes, Pinyon) suit formal documents. Bold markers (Pacifico, Lobster) work for creative or casual use." },
+                { tip: "Always download as transparent PNG", detail: "A transparent background lets your signature sit cleanly on any document colour — white, cream, or coloured paper." },
+                { tip: "Keep a master copy", detail: "Save your high-resolution PNG (3200×1040 px) in a secure folder. You'll use it repeatedly for contracts, GST invoices, and forms." },
+                { tip: "Test at small sizes", detail: "Before finalising, preview your signature at the size it will appear on documents (roughly 40–80 px tall). Ensure it remains legible." },
+              ].map(({ tip, detail }) => (
+                <div key={tip} className="border rounded-md p-3 bg-card space-y-1">
+                  <p className="font-semibold text-foreground text-sm">{tip}</p>
+                  <p className="text-xs text-muted-foreground">{detail}</p>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* ── Signature Examples ─────────────────────────────────────────── */}
