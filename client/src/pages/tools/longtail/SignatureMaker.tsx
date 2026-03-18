@@ -34,7 +34,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const CANONICAL = "https://tools.pixocraft.in/signature-maker";
+const CANONICAL = "https://tools.pixocraft.in/tools/signature-maker";
 const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
@@ -520,9 +520,9 @@ export default function SignatureMaker() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/signature-pad-tool",      title: "Signature Generator (Main Tool)",      desc: "The full-featured tool with all options, undo/redo, and advanced controls." },
-                { href: "/online-signature-generator",    title: "Online Signature Generator",            desc: "Create any signature online — fast and free, directly in your browser." },
-                { href: "/free-signature-generator",      title: "Free Signature Generator",              desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
-                { href: "/digital-signature-generator",   title: "Digital Signature Generator",           desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },
+                { href: "/tools/online-signature-generator",    title: "Online Signature Generator",            desc: "Create any signature online — fast and free, directly in your browser." },
+                { href: "/tools/free-signature-generator",      title: "Free Signature Generator",              desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
+                { href: "/tools/digital-signature-generator",   title: "Digital Signature Generator",           desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },
                 { href: "/tools/pdf-merger",              title: "PDF Merger",                            desc: "Merge signed PDFs into one clean, professional file." },
                 { href: "/tools/image-to-pdf",            title: "Image to PDF Converter",                desc: "Convert your signed document into a professional PDF instantly." },
               ].map(({ href, title, desc }) => (

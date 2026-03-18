@@ -759,10 +759,10 @@ function Router() {
         <Route path="/tools/image-grayscale-tool" component={ImageGrayscaleTool} />
         <Route path="/tools/image-rotate-tool" component={ImageRotateTool} />
         <Route path="/tools/signature-pad-tool" component={SignaturePadTool} />
-        <Route path="/online-signature-generator" component={OnlineSignatureGenerator} />
-        <Route path="/free-signature-generator" component={FreeSignatureGenerator} />
-        <Route path="/digital-signature-generator" component={DigitalSignatureGenerator} />
-        <Route path="/signature-maker" component={SignatureMaker} />
+        <Route path="/tools/online-signature-generator" component={OnlineSignatureGenerator} />
+        <Route path="/tools/free-signature-generator" component={FreeSignatureGenerator} />
+        <Route path="/tools/digital-signature-generator" component={DigitalSignatureGenerator} />
+        <Route path="/tools/signature-maker" component={SignatureMaker} />
         <Route path="/tools/prime-number-checker" component={PrimeNumberChecker} />
         <Route path="/tools/prime-number-generator" component={PrimeNumberGenerator} />
         <Route path="/tools/prime-factorization" component={PrimeFactorization} />

@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const CANONICAL = "https://tools.pixocraft.in/free-signature-generator";
+const CANONICAL = "https://tools.pixocraft.in/tools/free-signature-generator";
 const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
@@ -456,11 +456,12 @@ export default function FreeSignatureGenerator() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-pad-tool",      title: "Full Signature Generator",         desc: "The complete tool with AI styles, full undo/redo, and advanced options." },
-                { href: "/online-signature-generator",    title: "Online Signature Generator",       desc: "Keyword-specific page for creating signatures online, fast." },
-                { href: "/tools/pdf-merger",              title: "PDF Merger",                       desc: "Merge multiple PDFs after signing — essential for multi-page contracts." },
-                { href: "/tools/image-to-pdf",            title: "Image to PDF Converter",           desc: "Convert your signed document image into a professional PDF." },
-                { href: "/tools/background-remover",      title: "Background Remover",               desc: "Remove any background from images — useful for signature photo cleanup." },
+                { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, full undo/redo, and advanced options." },
+                { href: "/tools/online-signature-generator",    title: "Online Signature Generator",      desc: "Create any signature online — fast and free, directly in your browser." },
+                { href: "/tools/digital-signature-generator",   title: "Digital Signature Generator",     desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },
+                { href: "/tools/signature-maker",               title: "Signature Maker",                 desc: "Full creative control — custom colour, stroke, and 50+ fonts." },
+                { href: "/tools/pdf-merger",                    title: "PDF Merger",                      desc: "Merge multiple PDFs after signing — essential for multi-page contracts." },
+                { href: "/tools/background-remover",            title: "Background Remover",              desc: "Remove any background from images — useful for signature photo cleanup." },
               ].map(({ href, title, desc }) => (
                 <Link key={href} href={href} className="flex items-center gap-3 p-4 rounded-xl border bg-card hover-elevate transition-all group">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">

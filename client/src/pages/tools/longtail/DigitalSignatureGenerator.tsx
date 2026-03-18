@@ -34,7 +34,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const CANONICAL = "https://tools.pixocraft.in/digital-signature-generator";
+const CANONICAL = "https://tools.pixocraft.in/tools/digital-signature-generator";
 const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
@@ -513,12 +513,12 @@ export default function DigitalSignatureGenerator() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-pad-tool",      title: "Signature Generator (Main Tool)",   desc: "The full-featured tool with all options, AI styles, and advanced controls." },
-                { href: "/online-signature-generator",    title: "Online Signature Generator",         desc: "Create any signature online — fast and free, directly in your browser." },
-                { href: "/free-signature-generator",      title: "Free Signature Generator",           desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
-                { href: "/tools/pdf-merger",              title: "PDF Merger",                         desc: "Merge signed PDFs and other documents into one clean file." },
-                { href: "/tools/image-to-pdf",            title: "Image to PDF Converter",             desc: "Convert your signed document image into a professional PDF." },
-                { href: "/tools/background-remover",      title: "Background Remover",                 desc: "Clean up signature images — remove any background with precision." },
+                { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The full-featured tool with all options, AI styles, and advanced controls." },
+                { href: "/tools/online-signature-generator",    title: "Online Signature Generator",      desc: "Create any signature online — fast and free, directly in your browser." },
+                { href: "/tools/free-signature-generator",      title: "Free Signature Generator",        desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
+                { href: "/tools/signature-maker",               title: "Signature Maker",                 desc: "Full creative control — custom colour, stroke width, and 50+ fonts." },
+                { href: "/tools/pdf-merger",                    title: "PDF Merger",                      desc: "Merge signed PDFs and other documents into one clean file." },
+                { href: "/tools/background-remover",            title: "Background Remover",              desc: "Clean up signature images — remove any background with precision." },
               ].map(({ href, title, desc }) => (
                 <Link key={href} href={href} className="flex items-center gap-3 p-4 rounded-xl border bg-card hover-elevate transition-all group">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
