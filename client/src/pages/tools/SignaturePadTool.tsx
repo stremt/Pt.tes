@@ -32,6 +32,7 @@ import {
   Copy,
   ArrowRight,
   ClipboardCheck,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -42,90 +43,135 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
 
+// ─── Font categories ────────────────────────────────────────────────────────
+type FontCategory = "signature" | "elegant" | "professional" | "creative" | "handwritten" | "casual" | "rare";
+
+const CATEGORY_LABELS: Record<FontCategory, string> = {
+  signature:    "Signature",
+  elegant:      "Elegant",
+  professional: "Professional",
+  creative:     "Creative",
+  handwritten:  "Handwritten",
+  casual:       "Casual",
+  rare:         "Rare",
+};
+
+const CATEGORY_COLORS: Record<FontCategory, string> = {
+  signature:    "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300",
+  elegant:      "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
+  professional: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+  creative:     "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300",
+  handwritten:  "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  casual:       "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
+  rare:         "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300",
+};
+
 // ─── 70+ visually diverse signature fonts ────────────────────────────────────
-const HANDWRITTEN_FONTS = [
-  // ── Ultra-thin elegant scripts ──────────────────────────────────────────
-  { label: "Great Vibes",          value: "Great Vibes",          size: "lg" },
-  { label: "Sacramento",           value: "Sacramento",           size: "lg" },
-  { label: "Pinyon Script",        value: "Pinyon Script",        size: "lg" },
-  { label: "Allura",               value: "Allura",               size: "lg" },
-  { label: "Tangerine",            value: "Tangerine",            size: "xl" },
-  { label: "Herr Von Muellerhoff", value: "Herr Von Muellerhoff", size: "xl" },
-  { label: "Ruthie",               value: "Ruthie",               size: "xl" },
-  { label: "Waterfall",            value: "Waterfall",            size: "lg" },
-  { label: "Euphoria Script",      value: "Euphoria Script",      size: "lg" },
-  { label: "Qwigley",              value: "Qwigley",              size: "xl" },
-  { label: "Ms Madi",              value: "Ms Madi",              size: "xl" },
-  { label: "Lavishly Yours",       value: "Lavishly Yours",       size: "xl" },
-  { label: "Monsieur La Doulaise", value: "Monsieur La Doulaise", size: "xl" },
-  { label: "Moon Dance",           value: "Moon Dance",           size: "lg" },
-  { label: "Meie Script",          value: "Meie Script",          size: "lg" },
-  // ── Classic flowing cursive ─────────────────────────────────────────────
-  { label: "Dancing Script",       value: "Dancing Script",       size: "md" },
-  { label: "Parisienne",           value: "Parisienne",           size: "md" },
-  { label: "Alex Brush",           value: "Alex Brush",           size: "lg" },
-  { label: "Satisfy",              value: "Satisfy",              size: "md" },
-  { label: "Kaushan Script",       value: "Kaushan Script",       size: "md" },
-  { label: "Cookie",               value: "Cookie",               size: "md" },
-  { label: "Clicker Script",       value: "Clicker Script",       size: "md" },
-  { label: "Marck Script",         value: "Marck Script",         size: "md" },
-  { label: "Niconne",              value: "Niconne",              size: "md" },
-  { label: "Merienda",             value: "Merienda",             size: "md" },
-  { label: "Italianno",            value: "Italianno",            size: "lg" },
-  { label: "Courgette",            value: "Courgette",            size: "md" },
-  { label: "Rouge Script",         value: "Rouge Script",         size: "lg" },
-  // ── Bold / chunky scripts ───────────────────────────────────────────────
-  { label: "Pacifico",             value: "Pacifico",             size: "sm" },
-  { label: "Lobster",              value: "Lobster",              size: "sm" },
-  { label: "Righteous",            value: "Righteous",            size: "sm" },
-  { label: "Berkshire Swash",      value: "Berkshire Swash",      size: "sm" },
-  { label: "Seaweed Script",       value: "Seaweed Script",       size: "sm" },
-  { label: "Grand Hotel",          value: "Grand Hotel",          size: "md" },
-  { label: "Rochester",            value: "Rochester",            size: "md" },
-  { label: "Playball",             value: "Playball",             size: "md" },
-  { label: "Boogaloo",             value: "Boogaloo",             size: "sm" },
-  { label: "Ruge Boogie",          value: "Ruge Boogie",          size: "sm" },
-  { label: "Lobster Two",          value: "Lobster Two",          size: "sm" },
-  // ── Casual handwriting ──────────────────────────────────────────────────
-  { label: "Caveat",               value: "Caveat",               size: "md" },
-  { label: "Patrick Hand",         value: "Patrick Hand",         size: "md" },
-  { label: "Indie Flower",         value: "Indie Flower",         size: "md" },
-  { label: "Handlee",              value: "Handlee",              size: "md" },
-  { label: "Bad Script",           value: "Bad Script",           size: "md" },
-  { label: "Kristi",               value: "Kristi",               size: "lg" },
-  { label: "Gochi Hand",           value: "Gochi Hand",           size: "md" },
-  { label: "Itim",                 value: "Itim",                 size: "md" },
-  { label: "Just Another Hand",    value: "Just Another Hand",    size: "md" },
-  { label: "Over the Rainbow",     value: "Over the Rainbow",     size: "md" },
-  { label: "Dekko",                value: "Dekko",                size: "md" },
-  // ── Marker / rough / textured ───────────────────────────────────────────
-  { label: "Permanent Marker",     value: "Permanent Marker",     size: "sm" },
-  { label: "Rock Salt",            value: "Rock Salt",            size: "sm" },
-  { label: "Gloria Hallelujah",    value: "Gloria Hallelujah",    size: "sm" },
-  { label: "Rancho",               value: "Rancho",               size: "sm" },
-  { label: "Cabin Sketch",         value: "Cabin Sketch",         size: "sm" },
-  // ── Light & airy ────────────────────────────────────────────────────────
-  { label: "Shadows Into Light",   value: "Shadows Into Light",   size: "md" },
-  { label: "Nothing You Could Do", value: "Nothing You Could Do", size: "md" },
-  { label: "La Belle Aurore",      value: "La Belle Aurore",      size: "md" },
-  { label: "Give You Glory",       value: "Give You Glory",       size: "md" },
-  { label: "Swanky and Moo Moo",   value: "Swanky and Moo Moo",   size: "md" },
-  { label: "Dawning of a New Day", value: "Dawning of a New Day", size: "lg" },
-  // ── Condensed / tall ────────────────────────────────────────────────────
-  { label: "Amatic SC",            value: "Amatic SC",            size: "sm" },
-  { label: "Yellowtail",           value: "Yellowtail",           size: "sm" },
-  // ── Formal calligraphy ──────────────────────────────────────────────────
-  { label: "Petit Formal Script",  value: "Petit Formal Script",  size: "md" },
-  { label: "Norican",              value: "Norican",              size: "md" },
-  { label: "Stalemate",            value: "Stalemate",            size: "lg" },
-  { label: "Lovers Quartet",       value: "Lovers Quartet",       size: "md" },
-  { label: "Engagement",           value: "Engagement",           size: "xl" },
-  { label: "Mr De Haviland",       value: "Mr De Haviland",       size: "lg" },
-  { label: "Inspiration",          value: "Inspiration",          size: "lg" },
-  { label: "Fondamento",           value: "Fondamento",           size: "md" },
-  { label: "Quintessential",       value: "Quintessential",       size: "md" },
-  { label: "Bilbo",                value: "Bilbo",                size: "lg" },
+const HANDWRITTEN_FONTS: Array<{ label: string; value: string; size: string; category: FontCategory }> = [
+  // ── SIGNATURE ──────────────────────────────────────────────────────────
+  { label: "Great Vibes",          value: "Great Vibes",          size: "lg", category: "signature" },
+  { label: "Allura",               value: "Allura",               size: "lg", category: "signature" },
+  { label: "Sacramento",           value: "Sacramento",           size: "lg", category: "signature" },
+  { label: "Tangerine",            value: "Tangerine",            size: "xl", category: "signature" },
+  { label: "Alex Brush",           value: "Alex Brush",           size: "lg", category: "signature" },
+  { label: "Parisienne",           value: "Parisienne",           size: "md", category: "signature" },
+  { label: "Qwigley",              value: "Qwigley",              size: "xl", category: "signature" },
+  { label: "Mr De Haviland",       value: "Mr De Haviland",       size: "lg", category: "signature" },
+  { label: "Engagement",           value: "Engagement",           size: "xl", category: "signature" },
+  { label: "Yellowtail",           value: "Yellowtail",           size: "sm", category: "signature" },
+  { label: "Norican",              value: "Norican",              size: "md", category: "signature" },
+  { label: "Petit Formal Script",  value: "Petit Formal Script",  size: "md", category: "signature" },
+  // ── ELEGANT / LUXURY ───────────────────────────────────────────────────
+  { label: "Playball",             value: "Playball",             size: "md", category: "elegant" },
+  { label: "Rochester",            value: "Rochester",            size: "md", category: "elegant" },
+  { label: "Grand Hotel",          value: "Grand Hotel",          size: "md", category: "elegant" },
+  { label: "Monsieur La Doulaise", value: "Monsieur La Doulaise", size: "xl", category: "elegant" },
+  { label: "Lavishly Yours",       value: "Lavishly Yours",       size: "xl", category: "elegant" },
+  { label: "Lovers Quarrel",       value: "Lovers Quarrel",       size: "xl", category: "elegant" },
+  { label: "Quintessential",       value: "Quintessential",       size: "md", category: "elegant" },
+  // ── PROFESSIONAL ───────────────────────────────────────────────────────
+  { label: "Satisfy",              value: "Satisfy",              size: "md", category: "professional" },
+  { label: "Marck Script",         value: "Marck Script",         size: "md", category: "professional" },
+  { label: "Courgette",            value: "Courgette",            size: "md", category: "professional" },
+  { label: "Merienda",             value: "Merienda",             size: "md", category: "professional" },
+  { label: "Kaushan Script",       value: "Kaushan Script",       size: "md", category: "professional" },
+  { label: "Niconne",              value: "Niconne",              size: "md", category: "professional" },
+  // ── CREATIVE / STYLISH ─────────────────────────────────────────────────
+  { label: "Pacifico",             value: "Pacifico",             size: "sm", category: "creative" },
+  { label: "Lobster",              value: "Lobster",              size: "sm", category: "creative" },
+  { label: "Lobster Two",          value: "Lobster Two",          size: "sm", category: "creative" },
+  { label: "Berkshire Swash",      value: "Berkshire Swash",      size: "sm", category: "creative" },
+  { label: "Righteous",            value: "Righteous",            size: "sm", category: "creative" },
+  { label: "Boogaloo",             value: "Boogaloo",             size: "sm", category: "creative" },
+  { label: "Ruge Boogie",          value: "Ruge Boogie",          size: "sm", category: "creative" },
+  // ── HANDWRITTEN ────────────────────────────────────────────────────────
+  { label: "Caveat",               value: "Caveat",               size: "md", category: "handwritten" },
+  { label: "Patrick Hand",         value: "Patrick Hand",         size: "md", category: "handwritten" },
+  { label: "Indie Flower",         value: "Indie Flower",         size: "md", category: "handwritten" },
+  { label: "Shadows Into Light",   value: "Shadows Into Light",   size: "md", category: "handwritten" },
+  { label: "Gloria Hallelujah",    value: "Gloria Hallelujah",    size: "sm", category: "handwritten" },
+  { label: "Just Another Hand",    value: "Just Another Hand",    size: "md", category: "handwritten" },
+  { label: "Gochi Hand",           value: "Gochi Hand",           size: "md", category: "handwritten" },
+  // ── CASUAL / FUN ───────────────────────────────────────────────────────
+  { label: "Amatic SC",            value: "Amatic SC",            size: "sm", category: "casual" },
+  { label: "Rock Salt",            value: "Rock Salt",            size: "sm", category: "casual" },
+  { label: "Permanent Marker",     value: "Permanent Marker",     size: "sm", category: "casual" },
+  { label: "Cabin Sketch",         value: "Cabin Sketch",         size: "sm", category: "casual" },
+  { label: "Dekko",                value: "Dekko",                size: "md", category: "casual" },
+  { label: "Itim",                 value: "Itim",                 size: "md", category: "casual" },
+  // ── RARE / UNIQUE ──────────────────────────────────────────────────────
+  { label: "Euphoria Script",      value: "Euphoria Script",      size: "lg", category: "rare" },
+  { label: "Meie Script",          value: "Meie Script",          size: "lg", category: "rare" },
+  { label: "Bilbo",                value: "Bilbo",                size: "lg", category: "rare" },
+  { label: "Fondamento",           value: "Fondamento",           size: "md", category: "rare" },
+  { label: "Rancho",               value: "Rancho",               size: "sm", category: "rare" },
+  { label: "Over the Rainbow",     value: "Over the Rainbow",     size: "md", category: "rare" },
+  { label: "Give You Glory",       value: "Give You Glory",       size: "md", category: "rare" },
+  // ── Extras kept for variety ────────────────────────────────────────────
+  { label: "Pinyon Script",        value: "Pinyon Script",        size: "lg", category: "signature" },
+  { label: "Dancing Script",       value: "Dancing Script",       size: "md", category: "professional" },
+  { label: "Cookie",               value: "Cookie",               size: "md", category: "handwritten" },
+  { label: "Italianno",            value: "Italianno",            size: "lg", category: "elegant" },
+  { label: "Seaweed Script",       value: "Seaweed Script",       size: "sm", category: "creative" },
+  { label: "Handlee",              value: "Handlee",              size: "md", category: "handwritten" },
+  { label: "Stalemate",            value: "Stalemate",            size: "lg", category: "rare" },
+  { label: "Moon Dance",           value: "Moon Dance",           size: "lg", category: "elegant" },
+  { label: "Ms Madi",              value: "Ms Madi",              size: "xl", category: "elegant" },
+  { label: "Clicker Script",       value: "Clicker Script",       size: "md", category: "professional" },
+  { label: "Rouge Script",         value: "Rouge Script",         size: "lg", category: "signature" },
+  { label: "Herr Von Muellerhoff", value: "Herr Von Muellerhoff", size: "xl", category: "rare" },
+  { label: "Waterfall",            value: "Waterfall",            size: "lg", category: "elegant" },
+  { label: "Kristi",               value: "Kristi",               size: "lg", category: "handwritten" },
+  { label: "Bad Script",           value: "Bad Script",           size: "md", category: "handwritten" },
+  { label: "Swanky and Moo Moo",   value: "Swanky and Moo Moo",   size: "md", category: "rare" },
+  { label: "Dawning of a New Day", value: "Dawning of a New Day", size: "lg", category: "rare" },
+  { label: "Nothing You Could Do", value: "Nothing You Could Do", size: "md", category: "handwritten" },
+  { label: "La Belle Aurore",      value: "La Belle Aurore",      size: "md", category: "elegant" },
 ];
+
+// De-duplicate by value (safety guard)
+const FONT_MAP = new Map(HANDWRITTEN_FONTS.map((f) => [f.value, f]));
+const ALL_FONTS = Array.from(FONT_MAP.values());
+
+const TOP_PICKS = ["Great Vibes", "Allura", "Alex Brush", "Sacramento", "Parisienne", "Pacifico", "Caveat", "Yellowtail"];
+
+const FILTER_TABS: Array<{ id: "all" | FontCategory; label: string }> = [
+  { id: "all",          label: "All" },
+  { id: "signature",    label: "Signature" },
+  { id: "elegant",      label: "Elegant" },
+  { id: "professional", label: "Professional" },
+  { id: "handwritten",  label: "Handwritten" },
+  { id: "creative",     label: "Creative" },
+];
+
+const RECENTLY_USED_FONT_KEY = "pixocraft_recent_font_v1";
+
+function loadRecentFont(): string | null {
+  try { return localStorage.getItem(RECENTLY_USED_FONT_KEY); } catch { return null; }
+}
+function saveRecentFont(font: string) {
+  try { localStorage.setItem(RECENTLY_USED_FONT_KEY, font); } catch {}
+}
 
 // Font size px values for card previews and canvas export
 const FONT_SIZE: Record<string, { card: string; canvas: number }> = {
@@ -168,6 +214,74 @@ const CH = 260;
 // Export scale: internal buffer is EXPORT_SCALE × larger → high-res downloads
 const EXPORT_SCALE = 4; // 3200 × 1040 px output
 
+// ─── FontCard: reusable font preview card ─────────────────────────────────
+function FontCard({
+  font,
+  isSelected,
+  typedName,
+  typeColor,
+  onClick,
+  badge,
+  badgeCls,
+}: {
+  font: { label: string; value: string; size: string; category: FontCategory };
+  isSelected: boolean;
+  typedName: string;
+  typeColor: string;
+  onClick: (v: string) => void;
+  badge?: string;
+  badgeCls?: string;
+}) {
+  return (
+    <button
+      key={font.value}
+      onClick={() => onClick(font.value)}
+      data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
+      className={[
+        "relative flex flex-col items-start justify-between w-full px-4 py-3 rounded-xl border transition-all cursor-pointer text-left bg-white dark:bg-zinc-900/60",
+        isSelected
+          ? "border-primary shadow-sm ring-2 ring-primary/30"
+          : "border-border hover-elevate dark:border-zinc-700",
+      ].join(" ")}
+    >
+      {/* Selected check */}
+      {isSelected && (
+        <span className="absolute top-2 right-2 bg-primary rounded-full p-0.5 z-10">
+          <Check className="h-3 w-3 text-primary-foreground" />
+        </span>
+      )}
+
+      {/* Font preview */}
+      <span
+        style={{
+          fontFamily: `'${font.value}', cursive`,
+          fontSize: FONT_SIZE[font.size].card,
+          color: typeColor,
+          lineHeight: 1.3,
+          display: "block",
+          minHeight: "44px",
+          width: "100%",
+        }}
+      >
+        {typedName || "Your Name"}
+      </span>
+
+      {/* Footer row: name + tags */}
+      <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+        <span className="text-[10px] text-muted-foreground font-medium">{font.label}</span>
+        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-semibold ${CATEGORY_COLORS[font.category]}`}>
+          {CATEGORY_LABELS[font.category]}
+        </span>
+        {badge && (
+          <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-semibold ${badgeCls}`}>
+            {badge}
+          </span>
+        )}
+      </div>
+    </button>
+  );
+}
+
 export default function SignaturePadTool() {
   // ── Active tab ────────────────────────────────────────────────────────────
   const [activeTab, setActiveTab] = useState<Tab>("draw");
@@ -186,6 +300,11 @@ export default function SignaturePadTool() {
   const [typedName, setTypedName] = useState("");
   const [selectedFont, setSelectedFont] = useState<string | null>(null);
   const [typeColor, setTypeColor] = useState("#111111");
+  // Font selector state
+  const [fontCategory, setFontCategory] = useState<"all" | FontCategory>("all");
+  const [fontSearch, setFontSearch] = useState("");
+  const [fontSort, setFontSort] = useState<"popular" | "az">("popular");
+  const [recentFont, setRecentFont] = useState<string | null>(loadRecentFont);
 
   // ── Upload tab ────────────────────────────────────────────────────────────
   const uploadCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -215,7 +334,7 @@ export default function SignaturePadTool() {
     if (existing) existing.remove();
 
     // Build proper v2 URL: family=Font+Name&family=Font+Name2 ...
-    const params = HANDWRITTEN_FONTS.map(
+    const params = ALL_FONTS.map(
       (f) => `family=${encodeURIComponent(f.value)}`
     ).join("&");
     const link = document.createElement("link");
@@ -406,7 +525,7 @@ export default function SignaturePadTool() {
       const ctx = oc.getContext("2d")!;
       ctx.fillStyle = "white";
       ctx.fillRect(0, 0, BW, BH);
-      const fontMeta = HANDWRITTEN_FONTS.find((f) => f.value === font);
+      const fontMeta = FONT_MAP.get(font);
       // Multiply canvas size by EXPORT_SCALE for crisp high-res text
       const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas * EXPORT_SCALE;
       ctx.font = `${sizePx}px '${font}', cursive`;
@@ -691,9 +810,17 @@ export default function SignaturePadTool() {
       setActiveTab("type");
       if (!typedName) setTypedName(sampleName);
       setSelectedFont(font);
+      setRecentFont(font);
+      saveRecentFont(font);
     },
     [typedName]
   );
+
+  const handleFontSelect = useCallback((fontValue: string) => {
+    setSelectedFont(fontValue);
+    setRecentFont(fontValue);
+    saveRecentFont(fontValue);
+  }, []);
 
   // ── SEO ───────────────────────────────────────────────────────────────────
   const CANONICAL = "https://tools.pixocraft.in/tools/signature-pad-tool";
@@ -965,8 +1092,24 @@ export default function SignaturePadTool() {
           )}
 
           {/* ── TYPE TAB ──────────────────────────────────────────────────── */}
-          {activeTab === "type" && (
+          {activeTab === "type" && (() => {
+            // Compute filtered + sorted font list
+            const q = fontSearch.toLowerCase().trim();
+            let filtered = ALL_FONTS.filter((f) => {
+              const matchCat = fontCategory === "all" || f.category === fontCategory;
+              const matchQ   = !q || f.label.toLowerCase().includes(q);
+              return matchCat && matchQ;
+            });
+            if (fontSort === "az") {
+              filtered = [...filtered].sort((a, b) => a.label.localeCompare(b.label));
+            }
+
+            const recentFontMeta = recentFont ? FONT_MAP.get(recentFont) : null;
+            const topPickFonts   = TOP_PICKS.map((v) => FONT_MAP.get(v)).filter(Boolean) as typeof ALL_FONTS;
+
+            return (
             <div className="space-y-4">
+              {/* ── Name + Color row ── */}
               <div className="flex flex-wrap gap-3 items-end">
                 <div className="space-y-1.5 flex-1 min-w-52">
                   <Label htmlFor="typed-name" className="text-xs">Your Name</Label>
@@ -992,49 +1135,165 @@ export default function SignaturePadTool() {
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground">
-                {typedName ? "Click a style to select it, then download below." : "Type your name above to preview all 50+ styles."}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[480px] overflow-y-auto pr-1 rounded-md">
-                {HANDWRITTEN_FONTS.map((font) => {
-                  const isSelected = selectedFont === font.value;
-                  return (
-                    <button
-                      key={font.value}
-                      onClick={() => setSelectedFont(font.value)}
-                      data-testid={`font-card-${font.value.replace(/ /g, "-")}`}
-                      className={[
-                        "relative flex flex-col items-center justify-center px-4 py-4 rounded-lg border transition-all cursor-pointer text-center bg-white",
-                        isSelected
-                          ? "border-primary shadow-sm ring-2 ring-primary/40"
-                          : "border-border hover-elevate dark:border-zinc-300/20",
-                      ].join(" ")}
-                    >
-                      {isSelected && (
-                        <span className="absolute top-2 right-2 bg-primary rounded-full p-0.5">
-                          <Check className="h-3 w-3 text-primary-foreground" />
-                        </span>
-                      )}
-                      <span
-                        style={{
-                          fontFamily: `'${font.value}', cursive`,
-                          fontSize: FONT_SIZE[font.size].card,
-                          color: typeColor,
-                          lineHeight: 1.3,
-                          display: "block",
-                          minHeight: "46px",
-                        }}
-                      >
-                        {typedName || "Your Name"}
-                      </span>
-                      <span className="mt-1.5 text-[10px] text-muted-foreground">{font.label}</span>
-                    </button>
-                  );
-                })}
+              {/* ── Search + Sort row ── */}
+              <div className="flex gap-2 items-center flex-wrap">
+                <div className="relative flex-1 min-w-40">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+                  <Input
+                    placeholder="Search fonts…"
+                    value={fontSearch}
+                    onChange={(e) => setFontSearch(e.target.value)}
+                    className="pl-8 h-9 text-sm"
+                    data-testid="input-font-search"
+                  />
+                </div>
+                <div className="flex rounded-lg border overflow-hidden shrink-0">
+                  <button
+                    onClick={() => setFontSort("popular")}
+                    className={`px-3 py-1.5 text-xs font-medium transition-colors ${fontSort === "popular" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                    data-testid="sort-popular"
+                  >
+                    Popular
+                  </button>
+                  <button
+                    onClick={() => setFontSort("az")}
+                    className={`px-3 py-1.5 text-xs font-medium border-l transition-colors ${fontSort === "az" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-muted"}`}
+                    data-testid="sort-az"
+                  >
+                    A–Z
+                  </button>
+                </div>
               </div>
+
+              {/* ── Category filter tabs ── */}
+              <div className="flex gap-1.5 flex-wrap">
+                {FILTER_TABS.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setFontCategory(tab.id)}
+                    data-testid={`filter-tab-${tab.id}`}
+                    className={[
+                      "px-3 py-1 rounded-full text-xs font-medium transition-all",
+                      fontCategory === tab.id
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "bg-muted text-muted-foreground hover:bg-muted/80",
+                    ].join(" ")}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* ── Recently Used ── */}
+              {recentFontMeta && !fontSearch && fontCategory === "all" && (
+                <div className="space-y-1.5">
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5">
+                    <span className="h-px flex-1 bg-border" />
+                    Recently Used
+                    <span className="h-px flex-1 bg-border" />
+                  </p>
+                  <FontCard
+                    font={recentFontMeta}
+                    isSelected={selectedFont === recentFontMeta.value}
+                    typedName={typedName}
+                    typeColor={typeColor}
+                    onClick={handleFontSelect}
+                    badge="Recent"
+                    badgeCls="bg-muted text-muted-foreground"
+                  />
+                </div>
+              )}
+
+              {/* ── Top Picks ── */}
+              {!fontSearch && fontCategory === "all" && (
+                <div className="space-y-2">
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold flex items-center gap-1.5">
+                    <span className="h-px flex-1 bg-border" />
+                    Top Picks
+                    <span className="h-px flex-1 bg-border" />
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {topPickFonts.map((font) => (
+                      <FontCard
+                        key={font.value}
+                        font={font}
+                        isSelected={selectedFont === font.value}
+                        typedName={typedName}
+                        typeColor={typeColor}
+                        onClick={handleFontSelect}
+                        badge="Top Pick"
+                        badgeCls="bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ── Main font grid ── */}
+              {(() => {
+                const showAll = !fontSearch && fontCategory === "all";
+                // When showing "All" unfiltered, group by category order
+                if (showAll) {
+                  const cats: FontCategory[] = ["signature", "elegant", "professional", "creative", "handwritten", "casual", "rare"];
+                  return (
+                    <div className="space-y-4">
+                      {cats.map((cat) => {
+                        const fonts = ALL_FONTS.filter((f) => f.category === cat);
+                        return (
+                          <div key={cat} className="space-y-2">
+                            <p className="text-[10px] uppercase tracking-widest font-semibold flex items-center gap-2 text-muted-foreground">
+                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold ${CATEGORY_COLORS[cat]}`}>
+                                {CATEGORY_LABELS[cat]}
+                              </span>
+                              <span className="h-px flex-1 bg-border" />
+                              <span className="text-[9px]">{fonts.length} fonts</span>
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {fonts.map((font) => (
+                                <FontCard
+                                  key={font.value}
+                                  font={font}
+                                  isSelected={selectedFont === font.value}
+                                  typedName={typedName}
+                                  typeColor={typeColor}
+                                  onClick={handleFontSelect}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+
+                // Filtered view
+                if (filtered.length === 0) {
+                  return (
+                    <div className="py-10 text-center text-sm text-muted-foreground">
+                      No fonts match &ldquo;{fontSearch}&rdquo;
+                    </div>
+                  );
+                }
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {filtered.map((font) => (
+                      <FontCard
+                        key={font.value}
+                        font={font}
+                        isSelected={selectedFont === font.value}
+                        typedName={typedName}
+                        typeColor={typeColor}
+                        onClick={handleFontSelect}
+                      />
+                    ))}
+                  </div>
+                );
+              })()}
+
             </div>
-          )}
+            );
+          })()}
 
           {/* ── UPLOAD TAB ────────────────────────────────────────────────── */}
           {activeTab === "upload" && (
@@ -1236,45 +1495,59 @@ export default function SignaturePadTool() {
       </div>
 
         {/* ── LIVE PREVIEW ─────────────────────────────────────────────────── */}
-        {previewUrl && (
-          <div className="space-y-4 border-t pt-5">
-            <p className="text-sm font-semibold flex items-center gap-2">
-              <Eye className="h-4 w-4" />
-              Live Preview
-            </p>
-            {/* Document mockup */}
-            <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">Document / Contract</p>
-              <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
-                <div className="space-y-2">
-                  {[3, 4, 3.5, 2.5].map((w, i) => (
-                    <div key={i} className="h-2 rounded-full bg-zinc-200" style={{ width: `${w / 4 * 100}%` }} />
-                  ))}
-                </div>
-                <div className="border-t border-zinc-200 pt-4">
-                  <p className="text-[10px] text-zinc-400 mb-1">Authorized Signature</p>
-                  <img src={previewUrl} alt="Signature preview" className="h-16 object-contain" data-testid="img-preview-doc" />
-                  <div className="mt-1 h-px w-40 bg-zinc-200" />
-                </div>
-              </div>
-            </div>
+        <div className="space-y-4 border-t pt-5">
+          <p className="text-sm font-semibold flex items-center gap-2">
+            <Eye className="h-4 w-4 text-primary" />
+            Live Preview
+            {!previewUrl && (
+              <span className="text-xs font-normal text-muted-foreground">— draw, type, or upload a signature to see it here</span>
+            )}
+          </p>
 
-            {/* Email mockup */}
-            <div className="space-y-1.5">
-              <p className="text-xs text-muted-foreground">Email Footer</p>
-              <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
-                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                  <PenTool className="h-5 w-5 text-primary" />
-                </div>
-                <div className="space-y-1 flex-1 min-w-0">
-                  <div className="h-2 w-28 rounded-full bg-zinc-200" />
-                  <div className="h-2 w-20 rounded-full bg-zinc-100" />
-                </div>
-                <img src={previewUrl} alt="Email signature" className="h-10 object-contain" data-testid="img-preview-email" />
+          {/* Document mockup */}
+          <div className="space-y-1.5">
+            <p className="text-xs text-muted-foreground">Document / Contract</p>
+            <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
+              <div className="space-y-2">
+                {[3, 4, 3.5, 2.5].map((w, i) => (
+                  <div key={i} className="h-2 rounded-full bg-zinc-100" style={{ width: `${w / 4 * 100}%` }} />
+                ))}
+              </div>
+              <div className="border-t border-zinc-100 pt-4">
+                <p className="text-[10px] text-zinc-400 mb-2">Authorized Signature</p>
+                {previewUrl ? (
+                  <img src={previewUrl} alt="Signature preview" className="h-16 object-contain" data-testid="img-preview-doc" />
+                ) : (
+                  <div className="h-16 w-52 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center">
+                    <span className="text-[10px] text-zinc-300 select-none">Your signature</span>
+                  </div>
+                )}
+                <div className="mt-2 h-px w-40 bg-zinc-200" />
               </div>
             </div>
           </div>
-        )}
+
+          {/* Email mockup */}
+          <div className="space-y-1.5">
+            <p className="text-xs text-muted-foreground">Email Footer</p>
+            <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <PenTool className="h-5 w-5 text-primary/60" />
+              </div>
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <div className="h-2 w-28 rounded-full bg-zinc-200" />
+                <div className="h-2 w-20 rounded-full bg-zinc-100" />
+              </div>
+              {previewUrl ? (
+                <img src={previewUrl} alt="Email signature" className="h-10 object-contain" data-testid="img-preview-email" />
+              ) : (
+                <div className="h-10 w-28 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center shrink-0">
+                  <span className="text-[9px] text-zinc-300 select-none">Signature</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
         {/* ── SEO CONTENT SECTION ──────────────────────────────────────────── */}
         <div className="mt-10 space-y-20 text-base leading-relaxed max-w-4xl mx-auto">
 
