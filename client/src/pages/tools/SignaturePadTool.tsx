@@ -355,7 +355,7 @@ export default function SignaturePadTool() {
   const [showSavePrompt, setShowSavePrompt] = useState(false);
 
   const [showDownloadDialog, setShowDownloadDialog] = useState(false);
-  const [dlPage, setDlPage] = useState<"options" | "sign-doc">("options");
+  const [dlPage, setDlPage] = useState<"options" | "sign-doc" | "need-sig">("options");
   const [dlSignaturePng, setDlSignaturePng] = useState<string | null>(null);
   const [dlSigAspect, setDlSigAspect] = useState(4);
   const [history, setHistory] = useState<SigHistoryItem[]>(loadHistory);
@@ -762,14 +762,18 @@ export default function SignaturePadTool() {
 
   const openDownloadDialog = useCallback(() => {
     const raw = getExportCanvas();
-    if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+    if (!raw) {
+      setDlPage("need-sig");
+      setShowDownloadDialog(true);
+      return;
+    }
     const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
     const aspect = src.width / src.height;
     setDlSigAspect(aspect || 4);
     setDlSignaturePng(src.toDataURL("image/png"));
     setDlPage("options");
     setShowDownloadDialog(true);
-  }, [getExportCanvas, toast, sigScale, sigMargin]);
+  }, [getExportCanvas, sigScale, sigMargin]);
 
   // ── Preview ───────────────────────────────────────────────────────────────
   const generatePreview = useCallback(() => {
@@ -1442,7 +1446,7 @@ export default function SignaturePadTool() {
           )}
 
           {/* ── RESIZE & MARGIN ───────────────────────────────────────────── */}
-          <div className="rounded-lg border p-4 space-y-4" data-testid="section-resize-margin">
+          <div className="hidden rounded-lg border p-4 space-y-4" data-testid="section-resize-margin">
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-semibold flex items-center gap-2">
                 <Maximize2 className="h-4 w-4 text-primary" />
@@ -1500,52 +1504,54 @@ export default function SignaturePadTool() {
           </div>
 
           {/* ── EXPORT PANEL ──────────────────────────────────────────────── */}
-          <div className="rounded-lg border bg-gradient-to-r from-primary/5 to-transparent p-4 space-y-3">
+          <div className="rounded-lg border p-4 space-y-3">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
                 <p className="text-sm font-semibold flex items-center gap-2">
                   <Download className="h-4 w-4 text-primary" />
-                  Download &amp; Export Your Signature
+                  Export &amp; Download
                 </p>
-                <p className="text-xs text-muted-foreground">No watermark · Instant · Works offline</p>
+                <p className="text-xs text-muted-foreground">No watermark · Instant · 100% private</p>
               </div>
               <Button onClick={generatePreview} variant="ghost" size="sm" data-testid="button-preview">
                 <Eye className="mr-1.5 h-3.5 w-3.5" />
                 Preview
               </Button>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={copyForGmail} size="lg" className="flex-1 sm:flex-none gap-2" data-testid="button-copy-gmail">
-                <Mail className="h-4 w-4" />
-                Copy for Gmail
-              </Button>
-              <Button onClick={saveCurrentToHistory} variant="outline" size="lg" className="flex-1 sm:flex-none gap-2" data-testid="button-save-history">
-                <ClipboardCheck className="h-4 w-4" />
-                Save to History
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={openDownloadDialog} variant="outline" className="flex-1 sm:flex-none gap-2" data-testid="button-download-options">
+
+            <div className="grid grid-cols-2 gap-2">
+              <Button onClick={openDownloadDialog} className="gap-2" data-testid="button-download-options">
                 <Download className="h-4 w-4" />
                 Download
               </Button>
               <Button onClick={() => {
                 const raw = getExportCanvas();
-                if (!raw) { toast({ title: "Nothing to export", description: "Draw, type, or upload a signature first." }); return; }
+                if (!raw) {
+                  setDlPage("need-sig");
+                  setShowDownloadDialog(true);
+                  return;
+                }
                 const src = buildAdjustedCanvas(raw, sigScale, sigMargin);
                 setDlSigAspect(src.width / src.height || 4);
                 setDlSignaturePng(src.toDataURL("image/png"));
                 setDlPage("sign-doc");
                 setShowDownloadDialog(true);
-              }} variant="outline" className="flex-1 sm:flex-none gap-2" data-testid="button-add-to-pdf">
+              }} variant="outline" className="gap-2" data-testid="button-add-to-pdf">
                 <FileText className="h-4 w-4" />
-                Add to PDF / Doc
+                Add to Doc
               </Button>
             </div>
-            <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
-              <ClipboardCheck className="h-3 w-3" />
-              <span>After downloading, we'll ask if you want to <strong>save locally</strong> for quick access later.</span>
-            </p>
+
+            <div className="border-t pt-3 grid grid-cols-2 gap-2">
+              <Button onClick={copyForGmail} variant="outline" size="sm" className="gap-2" data-testid="button-copy-gmail">
+                <Mail className="h-3.5 w-3.5" />
+                Copy for Gmail
+              </Button>
+              <Button onClick={saveCurrentToHistory} variant="ghost" size="sm" className="gap-2" data-testid="button-save-history">
+                <ClipboardCheck className="h-3.5 w-3.5" />
+                Save to History
+              </Button>
+            </div>
           </div>
 
           {/* ── TRY SIGNATURE STYLES ──────────────────────────────────────── */}
@@ -1669,22 +1675,22 @@ export default function SignaturePadTool() {
           {/* Document mockup */}
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Document / Contract</p>
-            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-6 shadow-sm space-y-3">
+            <div className="bg-white border rounded-xl p-6 shadow-sm space-y-3">
               <div className="space-y-2">
                 {[3, 4, 3.5, 2.5].map((w, i) => (
-                  <div key={i} className="h-2 rounded-full bg-zinc-100 dark:bg-zinc-700" style={{ width: `${w / 4 * 100}%` }} />
+                  <div key={i} className="h-2 rounded-full bg-zinc-100" style={{ width: `${w / 4 * 100}%` }} />
                 ))}
               </div>
-              <div className="border-t border-zinc-100 dark:border-zinc-700 pt-4">
-                <p className="text-[10px] text-zinc-400 dark:text-zinc-500 mb-2">Authorized Signature</p>
+              <div className="border-t border-zinc-100 pt-4">
+                <p className="text-[10px] text-zinc-400 mb-2">Authorized Signature</p>
                 {previewUrl ? (
                   <img src={previewUrl} alt="Signature preview" className="h-16 object-contain" data-testid="img-preview-doc" />
                 ) : (
-                  <div className="h-16 w-52 rounded-lg border-2 border-dashed border-zinc-200 dark:border-zinc-700 flex items-center justify-center">
-                    <span className="text-[10px] text-zinc-300 dark:text-zinc-600 select-none">Your signature</span>
+                  <div className="h-16 w-52 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center">
+                    <span className="text-[10px] text-zinc-300 select-none">Your signature</span>
                   </div>
                 )}
-                <div className="mt-2 h-px w-40 bg-zinc-200 dark:bg-zinc-700" />
+                <div className="mt-2 h-px w-40 bg-zinc-200" />
               </div>
             </div>
           </div>
@@ -1692,19 +1698,19 @@ export default function SignaturePadTool() {
           {/* Email mockup */}
           <div className="space-y-1.5">
             <p className="text-xs text-muted-foreground">Email Footer</p>
-            <div className="bg-white dark:bg-zinc-900 border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
+            <div className="bg-white border rounded-xl p-4 shadow-sm flex items-center gap-4 flex-wrap">
               <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                 <PenTool className="h-5 w-5 text-primary/60" />
               </div>
               <div className="space-y-1.5 flex-1 min-w-0">
-                <div className="h-2 w-28 rounded-full bg-zinc-200 dark:bg-zinc-700" />
-                <div className="h-2 w-20 rounded-full bg-zinc-100 dark:bg-zinc-700/60" />
+                <div className="h-2 w-28 rounded-full bg-zinc-200" />
+                <div className="h-2 w-20 rounded-full bg-zinc-100" />
               </div>
               {previewUrl ? (
                 <img src={previewUrl} alt="Email signature" className="h-10 object-contain" data-testid="img-preview-email" />
               ) : (
-                <div className="h-10 w-28 rounded-lg border-2 border-dashed border-zinc-200 dark:border-zinc-700 flex items-center justify-center shrink-0">
-                  <span className="text-[9px] text-zinc-300 dark:text-zinc-600 select-none">Signature</span>
+                <div className="h-10 w-28 rounded-lg border-2 border-dashed border-zinc-200 flex items-center justify-center shrink-0">
+                  <span className="text-[9px] text-zinc-300 select-none">Signature</span>
                 </div>
               )}
             </div>
@@ -2332,6 +2338,31 @@ export default function SignaturePadTool() {
                   <p className="font-medium text-sm">Add to PDF or Document</p>
                   <p className="text-xs text-primary-foreground/80">Upload a file and place your signature on it</p>
                 </div>
+              </Button>
+            </div>
+          </>
+        )}
+
+        {dlPage === "need-sig" && (
+          <>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                No Signature Yet
+              </DialogTitle>
+              <DialogDescription>
+                Please draw or type your signature first, then add it to your document.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="rounded-lg border bg-muted/30 p-5 flex flex-col items-center gap-3 text-center">
+              <PenTool className="h-10 w-10 text-primary/40" />
+              <div>
+                <p className="font-medium text-sm">Create your signature first</p>
+                <p className="text-xs text-muted-foreground mt-1">Use the <strong>Draw</strong> tab to sign with your mouse/finger, or the <strong>Type</strong> tab to generate one from your name.</p>
+              </div>
+              <Button onClick={() => setShowDownloadDialog(false)} className="gap-2" data-testid="dl-need-sig-go-back">
+                <ArrowRight className="h-4 w-4 rotate-180" />
+                Go Back &amp; Create Signature
               </Button>
             </div>
           </>
