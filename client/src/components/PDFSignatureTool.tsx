@@ -315,10 +315,10 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
     const sig = ds.startSig;
 
     if (ds.action === "move") {
-      const maxX = 1 - sig.width;
-      const maxY = 1 - sig.width / ds.sigAspect;
+      const newX = Math.max(-0.8, Math.min(1.0, sig.x + dx));
+      const newY = Math.max(-0.8, Math.min(1.0, sig.y + dy));
       setInstances((p) => p.map((s) => s.id === ds.sigId
-        ? { ...s, x: Math.max(0, Math.min(sig.x + dx, maxX)), y: Math.max(0, Math.min(sig.y + dy, maxY)) }
+        ? { ...s, x: newX, y: newY }
         : s));
     } else if (ds.action === "rotate") {
       const cx = ds.containerW * (sig.x + sig.width / 2);
@@ -338,7 +338,7 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
       else if (ds.action === "resize-tl") { nw = Math.max(0.05, sig.width - dx); nx = origR - nw; ny = origB - nw / ds.sigAspect; }
 
       setInstances((p) => p.map((s) => s.id === ds.sigId
-        ? { ...s, x: Math.max(0, nx), y: Math.max(0, ny), width: Math.min(nw, 0.95) }
+        ? { ...s, x: nx, y: ny, width: Math.min(nw, 1.5) }
         : s));
     }
   }, []);

@@ -210,13 +210,16 @@ export default function SignaturePadWidget({
   const initDrawCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    // 1× canvas for smooth real-time drawing; upscaled to 4× only at export
-    if (canvas.width !== CW || canvas.height !== CH) {
-      canvas.width = CW;
-      canvas.height = CH;
+    // DPR-scaled canvas for crisp HiDPI rendering; upscaled to 4× only at export
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const physW = CW * dpr;
+    const physH = CH * dpr;
+    if (canvas.width !== physW || canvas.height !== physH) {
+      canvas.width = physW;
+      canvas.height = physH;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      ctx.clearRect(0, 0, CW, CH);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     if (pendingRestoreRef.current) {
       const restoreUrl = pendingRestoreRef.current;

@@ -387,17 +387,20 @@ export default function SignaturePadTool() {
   }, []);
 
   // ── Init / reinit draw canvas ─────────────────────────────────────────────
-  // Draw canvas is 1× (CW×CH) for smooth real-time drawing.
+  // Draw canvas is scaled by devicePixelRatio for crisp HiDPI rendering.
   // Export upscales to 4× via drawImage only when saving/downloading.
   const initDrawCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    if (canvas.width !== CW || canvas.height !== CH) {
-      canvas.width = CW;
-      canvas.height = CH;
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const physW = CW * dpr;
+    const physH = CH * dpr;
+    if (canvas.width !== physW || canvas.height !== physH) {
+      canvas.width = physW;
+      canvas.height = physH;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      ctx.clearRect(0, 0, CW, CH);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
   }, []);
 
