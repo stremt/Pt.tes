@@ -154,6 +154,9 @@ export default function SignaturePadWidget({
   const [activeTab, setActiveTab] = useState<Tab>(initialTab);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+  const canvasLogicalWRef = useRef(CW);
+  const hasDrawnRef = useRef(false);
   const isDrawingRef = useRef(false);
   const pointsRef = useRef<Point[]>([]);
   const pendingRestoreRef = useRef<string | null>(null);
@@ -164,6 +167,8 @@ export default function SignaturePadWidget({
   const [undoStack, setUndoStack] = useState<ImageData[]>([]);
   const [redoStack, setRedoStack] = useState<ImageData[]>([]);
   const [hasDrawn, setHasDrawn] = useState(false);
+  // Keep ref in sync for use in ResizeObserver closure
+  useEffect(() => { hasDrawnRef.current = hasDrawn; }, [hasDrawn]);
 
   const [typedName, setTypedName] = useState(initialName);
   const [selectedFont, setSelectedFont] = useState<string | null>(initialFont);
@@ -207,36 +212,69 @@ export default function SignaturePadWidget({
     document.head.appendChild(link);
   }, []);
 
-  const initDrawCanvas = useCallback(() => {
+  const resizeCanvasToContainer = useCallback((logW: number, restoreUrl?: string | null) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    // DPR-scaled canvas for crisp HiDPI rendering; upscaled to 4× only at export
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const physW = CW * dpr;
-    const physH = CH * dpr;
-    if (canvas.width !== physW || canvas.height !== physH) {
-      canvas.width = physW;
-      canvas.height = physH;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const newPhysW = Math.round(logW * dpr);
+    const newPhysH = Math.round(CH * dpr);
+    // Save current drawing before resize if content exists
+    let savedUrl: string | null = restoreUrl ?? null;
+    if (!savedUrl && hasDrawnRef.current) {
+      savedUrl = canvas.toDataURL("image/png");
     }
-    if (pendingRestoreRef.current) {
-      const restoreUrl = pendingRestoreRef.current;
-      pendingRestoreRef.current = null;
+    canvasLogicalWRef.current = logW;
+    canvas.width = newPhysW;
+    canvas.height = newPhysH;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (savedUrl) {
       const img = new Image();
       img.onload = () => {
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-        ctx.drawImage(img, 0, 0, CW, CH);
-        setHasDrawn(true);
+        const c = canvasRef.current;
+        if (!c) return;
+        const cx = c.getContext("2d");
+        if (!cx) return;
+        cx.drawImage(img, 0, 0, logW, CH);
       };
-      img.src = restoreUrl;
+      img.src = savedUrl;
     }
   }, []);
 
-  useEffect(() => { initDrawCanvas(); }, [initDrawCanvas]);
-  useEffect(() => { if (activeTab === "draw") initDrawCanvas(); }, [activeTab, initDrawCanvas]);
+  // ResizeObserver: keeps canvas pixel buffer exactly matching its CSS display size
+  useEffect(() => {
+    const wrapper = canvasWrapperRef.current;
+    if (!wrapper) return;
+    let firstRun = true;
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width;
+      if (!w || w <= 0) return;
+      if (firstRun) {
+        firstRun = false;
+        // On first run, also handle pendingRestore
+        resizeCanvasToContainer(w, pendingRestoreRef.current);
+        if (pendingRestoreRef.current) {
+          pendingRestoreRef.current = null;
+          setHasDrawn(true);
+        }
+      } else {
+        resizeCanvasToContainer(w);
+      }
+    });
+    ro.observe(wrapper);
+    return () => ro.disconnect();
+  }, [resizeCanvasToContainer]);
+
+  // When switching back to the draw tab, re-apply the transform (canvas may have been reset)
+  useEffect(() => {
+    if (activeTab !== "draw") return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const ctx = canvas.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, [activeTab]);
 
   // Keep stroke refs in sync
   useEffect(() => { strokeColorRef.current = strokeColor; }, [strokeColor]);
@@ -282,7 +320,8 @@ export default function SignaturePadWidget({
 
     const getPt = (e: PointerEvent): Point => {
       const rect = canvas.getBoundingClientRect();
-      const sx = CW / rect.width;
+      const logW = canvasLogicalWRef.current;
+      const sx = logW / rect.width;
       const sy = CH / rect.height;
       return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
     };
@@ -379,7 +418,7 @@ export default function SignaturePadWidget({
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
     saveState();
-    ctx.clearRect(0, 0, CW, CH);
+    ctx.clearRect(0, 0, canvasLogicalWRef.current, CH);
     setHasDrawn(false);
     setUndoStack([]);
     setRedoStack([]);
@@ -487,9 +526,9 @@ export default function SignaturePadWidget({
       const display = canvasRef.current;
       if (!display) return null;
       if (!hasDrawn) return null;
-      // Upscale 1× draw canvas to 4× for high-res export
+      const logW = canvasLogicalWRef.current;
       const exp = document.createElement("canvas");
-      exp.width = CW * EXPORT_SCALE;
+      exp.width = logW * EXPORT_SCALE;
       exp.height = CH * EXPORT_SCALE;
       const ctx = exp.getContext("2d")!;
       ctx.imageSmoothingEnabled = true;
@@ -782,12 +821,14 @@ export default function SignaturePadWidget({
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: "repeating-linear-gradient(180deg, transparent 0px, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)", opacity: 0.5 }}
               />
-              <canvas
-                ref={canvasRef}
-                style={{ ...canvasStyle, background: "transparent" }}
-                className="cursor-crosshair touch-none block relative z-10"
-                data-testid="widget-canvas-draw"
-              />
+              <div ref={canvasWrapperRef} style={{ width: "100%", height: CH, position: "relative", zIndex: 10 }}>
+                <canvas
+                  ref={canvasRef}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", background: "transparent" }}
+                  className="cursor-crosshair touch-none block"
+                  data-testid="widget-canvas-draw"
+                />
+              </div>
               {!hasDrawn && (
                 <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-1.5 select-none">
                   <PenTool className="h-6 w-6 text-muted-foreground/20" />
