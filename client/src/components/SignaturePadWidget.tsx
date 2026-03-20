@@ -1295,6 +1295,7 @@ export default function SignaturePadWidget({
               signaturePng={dlSignaturePng}
               sigAspect={dlSigAspect}
               onClose={() => setDlPage("options")}
+              hideClose
             />
           </>
         )}

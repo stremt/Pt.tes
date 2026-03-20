@@ -2383,6 +2383,7 @@ export default function SignaturePadTool() {
               signaturePng={dlSignaturePng}
               sigAspect={dlSigAspect}
               onClose={() => setDlPage("options")}
+              hideClose
             />
           </>
         )}

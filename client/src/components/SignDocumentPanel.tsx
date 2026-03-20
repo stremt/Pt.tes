@@ -41,6 +41,7 @@ interface SignDocumentPanelProps {
   signaturePng: string;
   sigAspect: number;
   onClose: () => void;
+  hideClose?: boolean;
 }
 
 function loadImg(src: string): Promise<HTMLImageElement> {
@@ -74,7 +75,7 @@ function removeWhiteBgFromPng(dataUrl: string): Promise<string> {
   });
 }
 
-export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: SignDocumentPanelProps) {
+export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose, hideClose = false }: SignDocumentPanelProps) {
   const { toast } = useToast();
   const nextId = useRef(1);
 
@@ -407,9 +408,11 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
           <p className="text-sm font-semibold text-foreground">Add Signature to Document</p>
           <p className="text-xs text-muted-foreground">Upload a PDF or image — 100% private, processed locally</p>
         </div>
-        <Button type="button" size="icon" variant="ghost" onClick={onClose} data-testid="button-close-sign-doc">
-          <X className="h-4 w-4" />
-        </Button>
+        {!hideClose && (
+          <Button type="button" size="icon" variant="ghost" onClick={onClose} data-testid="button-close-sign-doc">
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </div>
 
       {/* Remove white bg toggle */}
@@ -519,13 +522,13 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
           )}
 
           <div className="flex flex-col sm:flex-row gap-4">
-            {/* Document canvas – overflow visible so sig can extend past edge */}
+            {/* Document canvas */}
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-muted-foreground mb-2">Drag to move · corner handles to resize · circle to rotate · can drag past edges</p>
+              <p className="text-xs text-muted-foreground mb-2">Drag to move · corner handles to resize · circle to rotate</p>
               <div
                 ref={containerRef}
-                className="relative w-full rounded-xl border bg-muted/30 select-none"
-                style={{ minHeight: 200, overflow: "visible" }}
+                className="relative w-full rounded-xl border bg-muted/30 select-none overflow-hidden"
+                style={{ minHeight: 200 }}
                 onClick={(e) => { if (e.target === containerRef.current) setSelectedId(null); }}
                 data-testid="div-sign-doc-preview"
               >
