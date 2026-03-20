@@ -2136,7 +2136,7 @@ export default function SignaturePadTool() {
 
     {/* ── HISTORY ITEM DETAIL POPUP ───────────────────────────────────────── */}
     <Dialog open={!!selectedHistoryItem} onOpenChange={(o) => { if (!o) setSelectedHistoryItem(null); }}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
         {selectedHistoryItem && (
           <>
             <DialogHeader>
@@ -2287,7 +2287,7 @@ export default function SignaturePadTool() {
 
     {/* ── DOWNLOAD DIALOG ──────────────────────────────────────────────────── */}
     <Dialog open={showDownloadDialog} onOpenChange={(o) => { setShowDownloadDialog(o); if (!o) setDlPage("options"); }}>
-      <DialogContent className={dlPage === "sign-doc" ? "max-w-4xl max-h-[90vh] overflow-y-auto" : "max-w-sm"}>
+      <DialogContent className={dlPage === "sign-doc" ? "max-w-4xl max-h-[90vh] overflow-y-auto" : "max-w-md"}>
         {dlPage === "options" && (
           <>
             <DialogHeader>

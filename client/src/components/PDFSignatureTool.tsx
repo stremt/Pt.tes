@@ -630,7 +630,7 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
               {/* Document + overlaid signatures */}
               <div
                 ref={containerRef}
-                className="relative w-full rounded-xl border bg-muted/30 select-none"
+                className="relative w-full rounded-xl border bg-muted/30 select-none overflow-hidden"
                 style={{ minHeight: 200 }}
                 onClick={(e) => { if (e.target === containerRef.current) setSelectedId(null); }}
                 data-testid="div-doc-preview"

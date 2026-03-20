@@ -1199,7 +1199,7 @@ export default function SignaturePadWidget({
 
     {/* ── DOWNLOAD DIALOG ──────────────────────────────────────────── */}
     <Dialog open={showDownloadDialog} onOpenChange={(o) => { setShowDownloadDialog(o); if (!o) setDlPage("options"); }}>
-      <DialogContent className={dlPage === "sign-doc" ? "max-w-4xl max-h-[90vh] overflow-y-auto" : "max-w-sm"}>
+      <DialogContent className={dlPage === "sign-doc" ? "max-w-4xl max-h-[90vh] overflow-y-auto" : "max-w-md"}>
         {dlPage === "options" && (
           <>
             <DialogHeader>
