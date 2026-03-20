@@ -154,7 +154,6 @@ export default function SignaturePadWidget({
   const [activeTab, setActiveTab] = useState<Tab>(initialTab);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const canvasLogicalWRef = useRef(CW);
   const hasDrawnRef = useRef(false);
   const isDrawingRef = useRef(false);
@@ -212,69 +211,53 @@ export default function SignaturePadWidget({
     document.head.appendChild(link);
   }, []);
 
-  const resizeCanvasToContainer = useCallback((logW: number, restoreUrl?: string | null) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const newPhysW = Math.round(logW * dpr);
-    const newPhysH = Math.round(CH * dpr);
-    // Save current drawing before resize if content exists
-    let savedUrl: string | null = restoreUrl ?? null;
-    if (!savedUrl && hasDrawnRef.current) {
-      savedUrl = canvas.toDataURL("image/png");
-    }
+  const applyCanvasSize = useCallback((canvas: HTMLCanvasElement, savedUrl?: string | null) => {
+    const dpr = window.devicePixelRatio || 1;
+    const logW = canvas.offsetWidth || CW;
+    const logH = canvas.offsetHeight || CH;
     canvasLogicalWRef.current = logW;
-    canvas.width = newPhysW;
-    canvas.height = newPhysH;
+    canvas.width = Math.round(logW * dpr);
+    canvas.height = Math.round(logH * dpr);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.scale(dpr, dpr);
     if (savedUrl) {
       const img = new Image();
       img.onload = () => {
         const c = canvasRef.current;
-        if (!c) return;
-        const cx = c.getContext("2d");
-        if (!cx) return;
-        cx.drawImage(img, 0, 0, logW, CH);
+        const cx = c?.getContext("2d");
+        if (cx) cx.drawImage(img, 0, 0, logW, logH);
       };
       img.src = savedUrl;
     }
   }, []);
 
-  // ResizeObserver: keeps canvas pixel buffer exactly matching its CSS display size
-  useEffect(() => {
-    const wrapper = canvasWrapperRef.current;
-    if (!wrapper) return;
-    let firstRun = true;
-    const ro = new ResizeObserver((entries) => {
-      const w = entries[0]?.contentRect.width;
-      if (!w || w <= 0) return;
-      if (firstRun) {
-        firstRun = false;
-        // On first run, also handle pendingRestore
-        resizeCanvasToContainer(w, pendingRestoreRef.current);
-        if (pendingRestoreRef.current) {
-          pendingRestoreRef.current = null;
-          setHasDrawn(true);
-        }
-      } else {
-        resizeCanvasToContainer(w);
-      }
-    });
-    ro.observe(wrapper);
-    return () => ro.disconnect();
-  }, [resizeCanvasToContainer]);
-
-  // When switching back to the draw tab, re-apply the transform (canvas may have been reset)
+  // Initialize canvas whenever the draw tab becomes active
   useEffect(() => {
     if (activeTab !== "draw") return;
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const ctx = canvas.getContext("2d");
-    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }, [activeTab]);
+
+    // Restore pending saved signature (from edit link)
+    const pending = pendingRestoreRef.current;
+    if (pending) {
+      pendingRestoreRef.current = null;
+      applyCanvasSize(canvas, pending);
+      setHasDrawn(true);
+    } else {
+      applyCanvasSize(canvas);
+    }
+
+    // Keep canvas pixel-perfect on window resize
+    const onResize = () => {
+      const c = canvasRef.current;
+      if (!c) return;
+      const saved = hasDrawnRef.current ? c.toDataURL() : null;
+      applyCanvasSize(c, saved);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [activeTab, applyCanvasSize]);
 
   // Keep stroke refs in sync
   useEffect(() => { strokeColorRef.current = strokeColor; }, [strokeColor]);
@@ -313,14 +296,17 @@ export default function SignaturePadWidget({
   const saveStateRef = useRef<() => void>(() => {});
   useEffect(() => { saveStateRef.current = saveState; }, [saveState]);
 
-  // Native pointer-event drawing — bypasses React batching for butter-smooth strokes
+  // Native pointer-event drawing with velocity-based stroke width
+  const currentWidthRef = useRef(2.5);
+  const lastTimestampRef = useRef(0);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const getPt = (e: PointerEvent): Point => {
       const rect = canvas.getBoundingClientRect();
-      const logW = canvasLogicalWRef.current;
+      const logW = canvasLogicalWRef.current || rect.width;
       const sx = logW / rect.width;
       const sy = CH / rect.height;
       return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
@@ -331,15 +317,17 @@ export default function SignaturePadWidget({
       e.preventDefault();
       canvas.setPointerCapture(e.pointerId);
       saveStateRef.current();
-      const ctx = canvas.getContext("2d")!;
-      ctx.strokeStyle = strokeColorRef.current;
-      ctx.lineWidth = strokeWidthRef.current;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
+      currentWidthRef.current = strokeWidthRef.current;
+      lastTimestampRef.current = e.timeStamp;
       const pos = getPt(e);
       pointsRef.current = [pos];
       isDrawingRef.current = true;
       setHasDrawn(true);
+      const ctx = canvas.getContext("2d")!;
+      ctx.strokeStyle = strokeColorRef.current;
+      ctx.lineWidth = currentWidthRef.current;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
     };
@@ -351,15 +339,32 @@ export default function SignaturePadWidget({
       const pos = getPt(e);
       pointsRef.current.push(pos);
       const pts = pointsRef.current;
+
+      // Compute velocity → vary stroke width (fast = thin, slow = thick)
+      const dt = Math.max(1, e.timeStamp - lastTimestampRef.current);
+      lastTimestampRef.current = e.timeStamp;
+      if (pts.length >= 2) {
+        const prev = pts[pts.length - 2];
+        const dist = Math.hypot(pos.x - prev.x, pos.y - prev.y);
+        const velocity = dist / dt; // px/ms
+        const base = strokeWidthRef.current;
+        // target width: slow strokes = 1.4× base, fast strokes = 0.5× base
+        const target = Math.max(base * 0.5, Math.min(base * 1.4, base * (1.4 - velocity * 0.6)));
+        // Smooth interpolation to avoid abrupt jumps
+        currentWidthRef.current = currentWidthRef.current * 0.75 + target * 0.25;
+      }
+
       if (pts.length >= 3) {
         const p1 = pts[pts.length - 2];
         const p2 = pts[pts.length - 1];
         const mid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+        ctx.lineWidth = currentWidthRef.current;
         ctx.quadraticCurveTo(p1.x, p1.y, mid.x, mid.y);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(mid.x, mid.y);
       } else {
+        ctx.lineWidth = currentWidthRef.current;
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
         ctx.beginPath();
@@ -821,14 +826,12 @@ export default function SignaturePadWidget({
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: "repeating-linear-gradient(180deg, transparent 0px, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)", opacity: 0.5 }}
               />
-              <div ref={canvasWrapperRef} style={{ width: "100%", height: CH, position: "relative", zIndex: 10 }}>
-                <canvas
-                  ref={canvasRef}
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", background: "transparent" }}
-                  className="cursor-crosshair touch-none block"
-                  data-testid="widget-canvas-draw"
-                />
-              </div>
+              <canvas
+                ref={canvasRef}
+                style={{ width: "100%", height: CH, display: "block", background: "transparent", position: "relative", zIndex: 10 }}
+                className="cursor-crosshair touch-none"
+                data-testid="widget-canvas-draw"
+              />
               {!hasDrawn && (
                 <div className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-1.5 select-none">
                   <PenTool className="h-6 w-6 text-muted-foreground/20" />
