@@ -323,13 +323,6 @@ export default function SignaturePadWidget({
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
-      if (liveRafRef.current === null) {
-        liveRafRef.current = requestAnimationFrame(() => {
-          liveRafRef.current = null;
-          const c = canvasRef.current;
-          if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
-        });
-      }
     };
 
     const onUp = (e: PointerEvent) => {
@@ -338,7 +331,6 @@ export default function SignaturePadWidget({
       const ctx = canvas.getContext("2d")!;
       const pts = pointsRef.current;
       if (pts.length) { const last = pts[pts.length - 1]; ctx.lineTo(last.x, last.y); ctx.stroke(); }
-      if (liveRafRef.current !== null) { cancelAnimationFrame(liveRafRef.current); liveRafRef.current = null; }
       setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
       isDrawingRef.current = false;
       pointsRef.current = [];

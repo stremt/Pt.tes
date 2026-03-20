@@ -108,6 +108,23 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
+  // ── Pre-load signature from history (via sessionStorage) ─────────────────
+  useEffect(() => {
+    try {
+      const preloaded = sessionStorage.getItem("pixocraft_preload_sig_png");
+      if (!preloaded) return;
+      sessionStorage.removeItem("pixocraft_preload_sig_png");
+      const img = new Image();
+      img.onload = () => {
+        setSigAspect(img.naturalWidth / Math.max(img.naturalHeight, 1));
+        setSignaturePng(preloaded);
+        setStep(2);
+      };
+      img.src = preloaded;
+    } catch (_) {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const saveHistory = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");

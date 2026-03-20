@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import {
   useSEO,
   StructuredData,
@@ -35,6 +35,7 @@ import {
   Search,
   Maximize2,
   RotateCcw,
+  FilePlus2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -366,6 +367,7 @@ export default function SignaturePadTool() {
   const [selectedHistoryItem, setSelectedHistoryItem] = useState<SigHistoryItem | null>(null);
 
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   // ── Load Google Fonts (v2 API: separate family= param per font) ──────────
   useEffect(() => {
@@ -480,15 +482,6 @@ export default function SignaturePadTool() {
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
-
-      // Throttled live preview — doesn't block the stroke path
-      if (liveRafRef.current === null) {
-        liveRafRef.current = requestAnimationFrame(() => {
-          liveRafRef.current = null;
-          const c = canvasRef.current;
-          if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
-        });
-      }
     };
 
     const onUp = (e: PointerEvent) => {
@@ -500,10 +493,6 @@ export default function SignaturePadTool() {
         const last = pts[pts.length - 1];
         ctx.lineTo(last.x, last.y);
         ctx.stroke();
-      }
-      if (liveRafRef.current !== null) {
-        cancelAnimationFrame(liveRafRef.current);
-        liveRafRef.current = null;
       }
       setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
       isDrawingRef.current = false;
@@ -2231,6 +2220,23 @@ export default function SignaturePadTool() {
                 <span className="text-xs opacity-70 ml-1">(White BG)</span>
               </Button>
             </div>
+
+            {/* Add to document */}
+            <Button
+              variant="outline"
+              className="w-full gap-2"
+              data-testid="history-detail-add-to-doc"
+              onClick={() => {
+                try {
+                  sessionStorage.setItem("pixocraft_preload_sig_png", selectedHistoryItem.pngDataUrl);
+                } catch (_) {}
+                setSelectedHistoryItem(null);
+                setLocation("/tools/add-signature-to-pdf");
+              }}
+            >
+              <FilePlus2 className="h-4 w-4" />
+              Add to Document
+            </Button>
 
             <div className="flex gap-2">
               <Button
