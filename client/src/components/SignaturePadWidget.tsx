@@ -159,6 +159,8 @@ export default function SignaturePadWidget({
   const pendingRestoreRef = useRef<string | null>(null);
   const [strokeColor, setStrokeColor] = useState("#111111");
   const [strokeWidth, setStrokeWidth] = useState(2.5);
+  const strokeColorRef = useRef("#111111");
+  const strokeWidthRef = useRef(2.5);
   const [undoStack, setUndoStack] = useState<ImageData[]>([]);
   const [redoStack, setRedoStack] = useState<ImageData[]>([]);
   const [hasDrawn, setHasDrawn] = useState(false);
@@ -235,6 +237,10 @@ export default function SignaturePadWidget({
   useEffect(() => { initDrawCanvas(); }, [initDrawCanvas]);
   useEffect(() => { if (activeTab === "draw") initDrawCanvas(); }, [activeTab, initDrawCanvas]);
 
+  // Keep stroke refs in sync
+  useEffect(() => { strokeColorRef.current = strokeColor; }, [strokeColor]);
+  useEffect(() => { strokeWidthRef.current = strokeWidth; }, [strokeWidth]);
+
   useEffect(() => {
     if (!savedId) return;
     try {
@@ -256,19 +262,6 @@ export default function SignaturePadWidget({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savedId]);
 
-  const getPos = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
-    canvas: HTMLCanvasElement
-  ): Point => {
-    const rect = canvas.getBoundingClientRect();
-    const sx = CW / rect.width;
-    const sy = CH / rect.height;
-    if ("touches" in e) {
-      return { x: (e.touches[0].clientX - rect.left) * sx, y: (e.touches[0].clientY - rect.top) * sy };
-    }
-    return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
-  };
-
   const saveState = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -278,36 +271,44 @@ export default function SignaturePadWidget({
     setUndoStack((prev) => [...prev.slice(-19), snap]);
     setRedoStack([]);
   }, []);
+  const saveStateRef = useRef<() => void>(() => {});
+  useEffect(() => { saveStateRef.current = saveState; }, [saveState]);
 
-  const startDrawing = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      if ("touches" in e) e.preventDefault();
-      saveState();
-      const pos = getPos(e, canvas);
+  // Native pointer-event drawing — bypasses React batching for butter-smooth strokes
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const getPt = (e: PointerEvent): Point => {
+      const rect = canvas.getBoundingClientRect();
+      const sx = CW / rect.width;
+      const sy = CH / rect.height;
+      return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
+    };
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      saveStateRef.current();
+      const ctx = canvas.getContext("2d")!;
+      ctx.strokeStyle = strokeColorRef.current;
+      ctx.lineWidth = strokeWidthRef.current;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      const pos = getPt(e);
       pointsRef.current = [pos];
       isDrawingRef.current = true;
       setHasDrawn(true);
-      const ctx = canvas.getContext("2d")!;
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = strokeWidth;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
-    },
-    [saveState, strokeColor, strokeWidth]
-  );
+    };
 
-  const draw = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    const onMove = (e: PointerEvent) => {
       if (!isDrawingRef.current) return;
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      if ("touches" in e) e.preventDefault();
-      const pos = getPos(e, canvas);
+      e.preventDefault();
       const ctx = canvas.getContext("2d")!;
+      const pos = getPt(e);
       pointsRef.current.push(pos);
       const pts = pointsRef.current;
       if (pts.length >= 3) {
@@ -324,7 +325,6 @@ export default function SignaturePadWidget({
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       }
-      // Throttled live preview update
       if (liveRafRef.current === null) {
         liveRafRef.current = requestAnimationFrame(() => {
           liveRafRef.current = null;
@@ -332,28 +332,31 @@ export default function SignaturePadWidget({
           if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
         });
       }
-    },
-    []
-  );
+    };
 
-  const stopDrawing = useCallback(() => {
-    if (!isDrawingRef.current) return;
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        const pts = pointsRef.current;
-        if (pts.length) { const last = pts[pts.length - 1]; ctx.lineTo(last.x, last.y); ctx.stroke(); }
-      }
-      // Cancel any pending rAF and do final preview sync
-      if (liveRafRef.current !== null) {
-        cancelAnimationFrame(liveRafRef.current);
-        liveRafRef.current = null;
-      }
+    const onUp = (e: PointerEvent) => {
+      if (!isDrawingRef.current) return;
+      e.preventDefault();
+      const ctx = canvas.getContext("2d")!;
+      const pts = pointsRef.current;
+      if (pts.length) { const last = pts[pts.length - 1]; ctx.lineTo(last.x, last.y); ctx.stroke(); }
+      if (liveRafRef.current !== null) { cancelAnimationFrame(liveRafRef.current); liveRafRef.current = null; }
       setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
-    }
-    isDrawingRef.current = false;
-    pointsRef.current = [];
+      isDrawingRef.current = false;
+      pointsRef.current = [];
+    };
+
+    canvas.addEventListener("pointerdown", onDown, { passive: false });
+    canvas.addEventListener("pointermove", onMove, { passive: false });
+    canvas.addEventListener("pointerup", onUp);
+    canvas.addEventListener("pointercancel", onUp);
+    return () => {
+      canvas.removeEventListener("pointerdown", onDown);
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerup", onUp);
+      canvas.removeEventListener("pointercancel", onUp);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const undo = useCallback(() => {
@@ -767,7 +770,7 @@ export default function SignaturePadWidget({
               </div>
             </div>
 
-            <div className="relative rounded-lg border border-border overflow-hidden bg-white dark:bg-zinc-900" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
+            <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
               <div
                 aria-hidden="true"
                 className="absolute inset-0 pointer-events-none"
@@ -777,13 +780,6 @@ export default function SignaturePadWidget({
                 ref={canvasRef}
                 style={{ ...canvasStyle, background: "transparent" }}
                 className="cursor-crosshair touch-none block relative z-10"
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={stopDrawing}
-                onMouseLeave={stopDrawing}
-                onTouchStart={startDrawing}
-                onTouchMove={draw}
-                onTouchEnd={stopDrawing}
                 data-testid="widget-canvas-draw"
               />
               {!hasDrawn && (

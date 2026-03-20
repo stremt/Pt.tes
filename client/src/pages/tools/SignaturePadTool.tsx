@@ -317,6 +317,9 @@ export default function SignaturePadTool() {
   const pointsRef = useRef<Point[]>([]);
   const [strokeColor, setStrokeColor] = useState("#111111");
   const [strokeWidth, setStrokeWidth] = useState(2.5);
+  // Refs for stroke settings so native event handlers always have current values
+  const strokeColorRef = useRef(strokeColor);
+  const strokeWidthRef = useRef(strokeWidth);
   const [undoStack, setUndoStack] = useState<ImageData[]>([]);
   const [redoStack, setRedoStack] = useState<ImageData[]>([]);
   const [hasDrawn, setHasDrawn] = useState(false);
@@ -409,29 +412,12 @@ export default function SignaturePadTool() {
     if (activeTab === "draw") initDrawCanvas();
   }, [activeTab, initDrawCanvas]);
 
-  // ── Get canvas-space coordinates from mouse/touch event ───────────────────
-  const getPos = (
-    e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>,
-    canvas: HTMLCanvasElement
-  ): Point => {
-    const rect = canvas.getBoundingClientRect();
-    // Map CSS pixels → logical drawing coords (0–CW × 0–CH).
-    // ctx.scale(EXPORT_SCALE) already maps these to the 4× buffer internally.
-    const sx = CW / rect.width;
-    const sy = CH / rect.height;
-    if ("touches" in e) {
-      return {
-        x: (e.touches[0].clientX - rect.left) * sx,
-        y: (e.touches[0].clientY - rect.top) * sy,
-      };
-    }
-    return {
-      x: (e.clientX - rect.left) * sx,
-      y: (e.clientY - rect.top) * sy,
-    };
-  };
+  // ── Keep stroke setting refs in sync with state ───────────────────────────
+  useEffect(() => { strokeColorRef.current = strokeColor; }, [strokeColor]);
+  useEffect(() => { strokeWidthRef.current = strokeWidth; }, [strokeWidth]);
 
-  // ── Save imageData for undo ───────────────────────────────────────────────
+  // ── Save imageData for undo (stable ref so draw handler never needs to re-register) ──
+  const saveStateRef = useRef<() => void>(() => {});
   const saveState = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -441,41 +427,46 @@ export default function SignaturePadTool() {
     setUndoStack((prev) => [...prev.slice(-19), snap]);
     setRedoStack([]);
   }, []);
+  useEffect(() => { saveStateRef.current = saveState; }, [saveState]);
 
-  // ── Draw: pointer down ────────────────────────────────────────────────────
-  const startDrawing = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      if ("touches" in e) e.preventDefault();
+  // ── Native pointer-event drawing (bypasses React batching for max smoothness) ──
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-      saveState();
-      const pos = getPos(e, canvas);
+    const getPt = (e: PointerEvent): Point => {
+      const rect = canvas.getBoundingClientRect();
+      const sx = CW / rect.width;
+      const sy = CH / rect.height;
+      return {
+        x: (e.clientX - rect.left) * sx,
+        y: (e.clientY - rect.top) * sy,
+      };
+    };
+
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+      e.preventDefault();
+      canvas.setPointerCapture(e.pointerId);
+      saveStateRef.current();
+      const ctx = canvas.getContext("2d")!;
+      ctx.strokeStyle = strokeColorRef.current;
+      ctx.lineWidth = strokeWidthRef.current;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      const pos = getPt(e);
       pointsRef.current = [pos];
       isDrawingRef.current = true;
       setHasDrawn(true);
-
-      const ctx = canvas.getContext("2d")!;
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = strokeWidth;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
-    },
-    [saveState, strokeColor, strokeWidth]
-  );
+    };
 
-  // ── Draw: pointer move (quadratic Bezier smoothing) ───────────────────────
-  const draw = useCallback(
-    (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    const onMove = (e: PointerEvent) => {
       if (!isDrawingRef.current) return;
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-      if ("touches" in e) e.preventDefault();
-
-      const pos = getPos(e, canvas);
+      e.preventDefault();
       const ctx = canvas.getContext("2d")!;
+      const pos = getPt(e);
       pointsRef.current.push(pos);
       const pts = pointsRef.current;
 
@@ -494,7 +485,7 @@ export default function SignaturePadTool() {
         ctx.moveTo(pos.x, pos.y);
       }
 
-      // Throttled live preview update
+      // Throttled live preview — doesn't block the stroke path
       if (liveRafRef.current === null) {
         liveRafRef.current = requestAnimationFrame(() => {
           liveRafRef.current = null;
@@ -502,33 +493,39 @@ export default function SignaturePadTool() {
           if (c) setPreviewUrl(buildAdjustedCanvas(c, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
         });
       }
-    },
-    []
-  );
+    };
 
-  // ── Draw: pointer up ──────────────────────────────────────────────────────
-  const stopDrawing = useCallback(() => {
-    if (!isDrawingRef.current) return;
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        const pts = pointsRef.current;
-        if (pts.length) {
-          const last = pts[pts.length - 1];
-          ctx.lineTo(last.x, last.y);
-          ctx.stroke();
-        }
+    const onUp = (e: PointerEvent) => {
+      if (!isDrawingRef.current) return;
+      e.preventDefault();
+      const ctx = canvas.getContext("2d")!;
+      const pts = pointsRef.current;
+      if (pts.length) {
+        const last = pts[pts.length - 1];
+        ctx.lineTo(last.x, last.y);
+        ctx.stroke();
       }
-      // Cancel any pending rAF and do final preview sync
       if (liveRafRef.current !== null) {
         cancelAnimationFrame(liveRafRef.current);
         liveRafRef.current = null;
       }
       setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
-    }
-    isDrawingRef.current = false;
-    pointsRef.current = [];
+      isDrawingRef.current = false;
+      pointsRef.current = [];
+    };
+
+    canvas.addEventListener("pointerdown", onDown, { passive: false });
+    canvas.addEventListener("pointermove", onMove, { passive: false });
+    canvas.addEventListener("pointerup", onUp);
+    canvas.addEventListener("pointercancel", onUp);
+
+    return () => {
+      canvas.removeEventListener("pointerdown", onDown);
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerup", onUp);
+      canvas.removeEventListener("pointercancel", onUp);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── Undo / Redo ───────────────────────────────────────────────────────────
@@ -1155,7 +1152,7 @@ export default function SignaturePadTool() {
               </div>
 
               {/* Canvas */}
-              <div className="relative rounded-lg border border-border overflow-hidden bg-white dark:bg-zinc-900" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
+              <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
                 {/* Subtle horizontal guide lines rendered behind the canvas */}
                 <div
                   aria-hidden="true"
@@ -1169,13 +1166,6 @@ export default function SignaturePadTool() {
                   ref={canvasRef}
                   style={{ ...canvasStyle, background: "transparent" }}
                   className="cursor-crosshair touch-none block relative z-10"
-                  onMouseDown={startDrawing}
-                  onMouseMove={draw}
-                  onMouseUp={stopDrawing}
-                  onMouseLeave={stopDrawing}
-                  onTouchStart={startDrawing}
-                  onTouchMove={draw}
-                  onTouchEnd={stopDrawing}
                   data-testid="canvas-draw"
                 />
                 {!hasDrawn && (
