@@ -3,6 +3,7 @@ import {
   PenTool, Download, Eraser, Type, Upload, Undo2, Redo2,
   Trash2, ImageIcon, Shield, Check, Eye, Zap, Smartphone, Star,
   Mail, Copy, X, ClipboardCheck, ArrowRight, Maximize2, RotateCcw, FileText,
+  SlidersHorizontal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -169,6 +170,47 @@ export default function SignaturePadWidget({
   // Keep ref in sync for use in ResizeObserver closure
   useEffect(() => { hasDrawnRef.current = hasDrawn; }, [hasDrawn]);
 
+  // Advanced draw settings
+  type DrawPreset = "default" | "elegant" | "bold" | "quick";
+  const DRAW_PRESETS: Record<DrawPreset, { width: number; smoothing: number; thinning: number; streamline: number; angle: number }> = {
+    default:  { width: 2.5, smoothing: 0.50, thinning: 0.50, streamline: 0.20, angle: 0 },
+    elegant:  { width: 6.0, smoothing: 0.75, thinning: 0.50, streamline: 0.20, angle: 0 },
+    bold:     { width: 8.0, smoothing: 0.30, thinning: 0.20, streamline: 0.10, angle: 0 },
+    quick:    { width: 1.5, smoothing: 0.60, thinning: 0.70, streamline: 0.50, angle: 0 },
+  };
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [activePreset, setActivePreset] = useState<DrawPreset>("default");
+  const [drawSmoothing, setDrawSmoothing] = useState(0.50);
+  const [drawThinning, setDrawThinning] = useState(0.50);
+  const [drawStreamline, setDrawStreamline] = useState(0.20);
+  const [drawAngle, setDrawAngle] = useState(0);
+  const drawSmoothingRef = useRef(0.50);
+  const drawThinningRef = useRef(0.50);
+  const drawStreamlineRef = useRef(0.20);
+  const drawAngleRef = useRef(0);
+  const streamlinedPosRef = useRef<Point>({ x: 0, y: 0 });
+
+  useEffect(() => { drawSmoothingRef.current = drawSmoothing; }, [drawSmoothing]);
+  useEffect(() => { drawThinningRef.current = drawThinning; }, [drawThinning]);
+  useEffect(() => { drawStreamlineRef.current = drawStreamline; }, [drawStreamline]);
+  useEffect(() => { drawAngleRef.current = drawAngle; }, [drawAngle]);
+
+  const applyPreset = useCallback((preset: DrawPreset) => {
+    const p = DRAW_PRESETS[preset];
+    setActivePreset(preset);
+    setStrokeWidth(p.width);
+    setDrawSmoothing(p.smoothing);
+    setDrawThinning(p.thinning);
+    setDrawStreamline(p.streamline);
+    setDrawAngle(p.angle);
+    strokeWidthRef.current = p.width;
+    drawSmoothingRef.current = p.smoothing;
+    drawThinningRef.current = p.thinning;
+    drawStreamlineRef.current = p.streamline;
+    drawAngleRef.current = p.angle;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [typedName, setTypedName] = useState(initialName);
   const [selectedFont, setSelectedFont] = useState<string | null>(initialFont);
   const [typeColor, setTypeColor] = useState("#111111");
@@ -320,6 +362,7 @@ export default function SignaturePadWidget({
       currentWidthRef.current = strokeWidthRef.current;
       lastTimestampRef.current = e.timeStamp;
       const pos = getPt(e);
+      streamlinedPosRef.current = pos;
       pointsRef.current = [pos];
       isDrawingRef.current = true;
       setHasDrawn(true);
@@ -336,11 +379,21 @@ export default function SignaturePadWidget({
       if (!isDrawingRef.current) return;
       e.preventDefault();
       const ctx = canvas.getContext("2d")!;
-      const pos = getPt(e);
+      const rawPos = getPt(e);
+
+      // Streamline: exponential moving average of input positions
+      const sl = drawStreamlineRef.current;
+      const filteredPos: Point = {
+        x: streamlinedPosRef.current.x * sl + rawPos.x * (1 - sl),
+        y: streamlinedPosRef.current.y * sl + rawPos.y * (1 - sl),
+      };
+      streamlinedPosRef.current = filteredPos;
+      const pos = filteredPos;
+
       pointsRef.current.push(pos);
       const pts = pointsRef.current;
 
-      // Compute velocity → vary stroke width (fast = thin, slow = thick)
+      // Velocity → thinning-based width variation
       const dt = Math.max(1, e.timeStamp - lastTimestampRef.current);
       lastTimestampRef.current = e.timeStamp;
       if (pts.length >= 2) {
@@ -348,10 +401,26 @@ export default function SignaturePadWidget({
         const dist = Math.hypot(pos.x - prev.x, pos.y - prev.y);
         const velocity = dist / dt; // px/ms
         const base = strokeWidthRef.current;
-        // target width: slow strokes = 1.4× base, fast strokes = 0.5× base
-        const target = Math.max(base * 0.5, Math.min(base * 1.4, base * (1.4 - velocity * 0.6)));
-        // Smooth interpolation to avoid abrupt jumps
-        currentWidthRef.current = currentWidthRef.current * 0.75 + target * 0.25;
+        const thinning = drawThinningRef.current;
+        // target: slow=thick, fast=thin, scaled by thinning factor
+        const target = Math.max(base * (1 - thinning * 0.6), base * (1 + thinning * 0.4 - velocity * thinning * 1.5));
+
+        // Angle: calligraphic tilt — modulate width by stroke direction vs pen angle
+        let angleMultiplier = 1;
+        if (drawAngleRef.current !== 0 && pts.length >= 2) {
+          const dx = pos.x - prev.x;
+          const dy = pos.y - prev.y;
+          const strokeAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+          const diff = Math.abs(((strokeAngle - drawAngleRef.current + 360) % 360) - 180);
+          // 0° diff = stroke along pen angle → thinnest (0.5×), 90° diff → thickest (1×)
+          angleMultiplier = 0.5 + 0.5 * (diff / 180);
+        }
+
+        // Smoothing: controls how gradually width changes (high = smoother transitions)
+        const smoothing = drawSmoothingRef.current;
+        const lerpFactor = 0.08 + (1 - smoothing) * 0.67; // smoothing=0 → fast lerp, smoothing=1 → slow lerp
+        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * angleMultiplier * lerpFactor;
+        currentWidthRef.current = Math.max(0.5, currentWidthRef.current);
       }
 
       if (pts.length >= 3) {
@@ -814,11 +883,67 @@ export default function SignaturePadWidget({
                   <Redo2 className="h-4 w-4" />
                 </Button>
                 <div className="w-px h-5 bg-border mx-1" />
+                <Button
+                  size="icon" variant="ghost"
+                  onClick={() => setShowAdvanced((v) => !v)}
+                  title="Advanced settings"
+                  data-testid="widget-button-advanced"
+                  className={showAdvanced ? "text-primary bg-primary/10" : ""}
+                >
+                  <SlidersHorizontal className="h-4 w-4" />
+                </Button>
+                <div className="w-px h-5 bg-border mx-1" />
                 <Button size="icon" variant="ghost" onClick={clearDraw} disabled={!hasDrawn && undoStack.length === 0} title="Clear" data-testid="widget-button-clear" className="text-destructive/70 hover:text-destructive">
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
             </div>
+
+            {showAdvanced && (
+              <div className="rounded-lg border border-border bg-muted/20 p-4 space-y-4" data-testid="widget-advanced-panel">
+                {/* Style presets */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs font-medium text-muted-foreground w-20 shrink-0">Style</span>
+                  <div className="flex flex-wrap gap-2">
+                    {(["default", "elegant", "bold", "quick"] as DrawPreset[]).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => applyPreset(p)}
+                        data-testid={`widget-preset-${p}`}
+                        className={[
+                          "px-3 py-1.5 rounded-full text-xs font-semibold border transition-all capitalize",
+                          activePreset === p
+                            ? "bg-foreground text-background border-foreground"
+                            : "bg-background text-foreground border-border hover-elevate",
+                        ].join(" ")}
+                      >
+                        {p.charAt(0).toUpperCase() + p.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Sliders */}
+                {([
+                  { label: "Smoothing",  value: drawSmoothing,  min: 0, max: 1,   step: 0.05, set: setDrawSmoothing,  ref: drawSmoothingRef,  fmt: (v: number) => v.toFixed(2), testId: "smoothing" },
+                  { label: "Thinning",   value: drawThinning,   min: 0, max: 1,   step: 0.05, set: setDrawThinning,   ref: drawThinningRef,   fmt: (v: number) => v.toFixed(2), testId: "thinning"  },
+                  { label: "Streamline", value: drawStreamline, min: 0, max: 0.9, step: 0.05, set: setDrawStreamline, ref: drawStreamlineRef, fmt: (v: number) => v.toFixed(2), testId: "streamline" },
+                  { label: "Angle",      value: drawAngle,      min: -90, max: 90, step: 5,  set: setDrawAngle,      ref: drawAngleRef,      fmt: (v: number) => `${v}°`,      testId: "angle" },
+                ] as const).map(({ label, value, min, max, step, set, ref, fmt, testId }) => (
+                  <div key={label} className="flex items-center gap-3">
+                    <span className="text-xs font-medium text-muted-foreground w-20 shrink-0">{label}</span>
+                    <Slider
+                      min={min} max={max} step={step}
+                      value={[value]}
+                      onValueChange={([v]) => { set(v as any); (ref as any).current = v; setActivePreset("default"); }}
+                      data-testid={`widget-slider-${testId}`}
+                      className="flex-1"
+                    />
+                    <span className="text-xs font-mono text-muted-foreground w-10 text-right shrink-0">{fmt(value)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
               <div
