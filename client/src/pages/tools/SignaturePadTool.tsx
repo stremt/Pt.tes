@@ -277,7 +277,7 @@ function FontCard({
         </span>
       )}
 
-      {/* Font preview */}
+      {/* Font preview — always white bg so ink colour is visible in dark mode */}
       <span
         style={{
           fontFamily: `'${font.value}', cursive`,
@@ -287,6 +287,9 @@ function FontCard({
           display: "block",
           minHeight: "44px",
           width: "100%",
+          backgroundColor: "#ffffff",
+          borderRadius: "6px",
+          padding: "4px 6px",
         }}
       >
         {typedName || "Your Name"}
@@ -513,8 +516,9 @@ export default function SignaturePadTool() {
       canvas.removeEventListener("pointerup", onUp);
       canvas.removeEventListener("pointercancel", onUp);
     };
+  // Re-run when switching back to draw tab so fresh canvas element gets listeners
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeTab]);
 
   // ── Undo / Redo ───────────────────────────────────────────────────────────
   const undo = useCallback(() => {
