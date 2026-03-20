@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import {
   Upload, Download, Trash2, Plus, Copy, RotateCcw,
-  MousePointer, Lock, X,
+  MousePointer, Lock, X, ChevronLeft, ChevronRight, Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -90,11 +90,28 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
   const [docLoading, setDocLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
-  const [instances, setInstances] = useState<SigInstance[]>([]);
+  // Per-page signature instances: pageInstances[pageNum] = SigInstance[]
+  const [pageInstances, setPageInstances] = useState<Record<number, SigInstance[]>>({});
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<DragState | null>(null);
+
+  // Current page's signatures (derived)
+  const instances: SigInstance[] = pageInstances[currentPage] ?? [];
   const selectedSig = instances.find((s) => s.id === selectedId) ?? null;
+
+  // Helper to update instances for a specific page
+  const setInstancesForPage = useCallback((page: number, updater: SigInstance[] | ((prev: SigInstance[]) => SigInstance[])) => {
+    setPageInstances((prev) => {
+      const current = prev[page] ?? [];
+      const next = typeof updater === "function" ? updater(current) : updater;
+      return { ...prev, [page]: next };
+    });
+  }, []);
+
+  const setInstances = useCallback((updater: SigInstance[] | ((prev: SigInstance[]) => SigInstance[])) => {
+    setInstancesForPage(currentPage, updater);
+  }, [currentPage, setInstancesForPage]);
 
   useEffect(() => {
     if (removeWhiteBg) {
@@ -126,17 +143,18 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
       toast({ title: "Unsupported file type", description: "Please upload a PDF, PNG, JPG, or other image format.", variant: "destructive" }); return;
     }
     setDocLoading(true);
-    setInstances([]); setSelectedId(null);
+    setPageInstances({}); setSelectedId(null);
     try {
       if (isImg) {
         const url = URL.createObjectURL(file);
         setDocType("image"); setDocFile(file); setDocImageUrl(url);
-        setPdfPreviews({}); setPdfPageCount(0);
+        setPdfPreviews({}); setPdfPageCount(0); setCurrentPage(1);
       } else {
-        const dataUrl = await renderPdfPage(file, 1);
         const buf = await file.arrayBuffer();
         const pdfDoc = await getDocument({ data: buf }).promise;
-        setPdfPageCount(pdfDoc.numPages);
+        const numPages = pdfDoc.numPages;
+        const dataUrl = await renderPdfPage(file, 1);
+        setPdfPageCount(numPages);
         setDocType("pdf"); setDocFile(file); setDocImageUrl(null);
         setCurrentPage(1);
         setPdfPreviews({ 1: dataUrl });
@@ -151,6 +169,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
   const goToPage = useCallback(async (page: number) => {
     if (!docFile || docType !== "pdf") return;
     setCurrentPage(page);
+    setSelectedId(null);
     if (!pdfPreviews[page]) {
       try {
         const dataUrl = await renderPdfPage(docFile, page);
@@ -170,7 +189,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
     const orig = instances.find((s) => s.id === sigId);
     if (!orig) return;
     const id = nextId.current++;
-    setInstances((p) => [...p, { ...orig, id, x: Math.min(orig.x + 0.05, 0.65), y: Math.min(orig.y + 0.05, 0.65) }]);
+    setInstances((p) => [...p, { ...orig, id, x: orig.x + 0.05, y: orig.y + 0.05 }]);
     setSelectedId(id);
   };
 
@@ -183,6 +202,27 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
     setInstances((p) => p.map((s) => s.id === id ? { ...s, ...upd } : s));
   };
 
+  // Copy current page sigs to ALL other pages
+  const applyToAllPages = () => {
+    if (!instances.length) { toast({ title: "No signatures on this page to copy", variant: "destructive" }); return; }
+    setPageInstances((prev) => {
+      const result: Record<number, SigInstance[]> = {};
+      for (let p = 1; p <= pdfPageCount; p++) {
+        result[p] = instances.map((s) => ({ ...s, id: nextId.current++ }));
+      }
+      return result;
+    });
+    toast({ title: `Copied to all ${pdfPageCount} pages` });
+  };
+
+  // Copy sigs from another specific page to current page
+  const copyFromPage = (fromPage: number) => {
+    const sourceSigs = pageInstances[fromPage] ?? [];
+    if (!sourceSigs.length) { toast({ title: `Page ${fromPage} has no signatures`, variant: "destructive" }); return; }
+    setInstances((p) => [...p, ...sourceSigs.map((s) => ({ ...s, id: nextId.current++ }))]);
+    toast({ title: `Copied from page ${fromPage} to page ${currentPage}` });
+  };
+
   const onPointerMove = useCallback((e: PointerEvent) => {
     const ds = dragRef.current;
     if (!ds) return;
@@ -191,31 +231,53 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
     const sig = ds.startSig;
 
     if (ds.action === "move") {
-      const maxX = 1 - sig.width;
-      const maxY = 1 - sig.width / ds.sigAspect;
-      setInstances((p) => p.map((s) => s.id === ds.sigId
-        ? { ...s, x: Math.max(0, Math.min(sig.x + dx, maxX)), y: Math.max(0, Math.min(sig.y + dy, maxY)) }
-        : s));
+      // Allow free movement including outside the page (clamped loosely to prevent total escape)
+      const newX = Math.max(-0.8, Math.min(1.0, sig.x + dx));
+      const newY = Math.max(-0.8, Math.min(1.0, sig.y + dy));
+      setPageInstances((prev) => {
+        const page = Object.keys(prev).find(
+          (k) => (prev[Number(k)] ?? []).some((s) => s.id === ds.sigId)
+        );
+        if (!page) return prev;
+        const pg = Number(page);
+        return {
+          ...prev,
+          [pg]: (prev[pg] ?? []).map((s) => s.id === ds.sigId ? { ...s, x: newX, y: newY } : s),
+        };
+      });
     } else if (ds.action === "rotate") {
       const cx = ds.containerW * (sig.x + sig.width / 2);
       const cy = ds.containerH * (sig.y + (sig.width / ds.sigAspect) / 2);
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
       const angle = Math.atan2(e.clientY - (rect.top + cy), e.clientX - (rect.left + cx)) * (180 / Math.PI) + 90;
-      setInstances((p) => p.map((s) => s.id === ds.sigId ? { ...s, rotation: angle } : s));
+      setPageInstances((prev) => {
+        const page = Object.keys(prev).find((k) => (prev[Number(k)] ?? []).some((s) => s.id === ds.sigId));
+        if (!page) return prev;
+        const pg = Number(page);
+        return { ...prev, [pg]: (prev[pg] ?? []).map((s) => s.id === ds.sigId ? { ...s, rotation: angle } : s) };
+      });
     } else {
       const origR = sig.x + sig.width;
       const origB = sig.y + sig.width / ds.sigAspect;
       let nw = sig.width, nx = sig.x, ny = sig.y;
 
-      if (ds.action === "resize-br")      { nw = Math.max(0.05, sig.width + dx); }
-      else if (ds.action === "resize-bl") { nw = Math.max(0.05, sig.width - dx); nx = origR - nw; }
-      else if (ds.action === "resize-tr") { nw = Math.max(0.05, sig.width + dx); ny = origB - nw / ds.sigAspect; }
-      else if (ds.action === "resize-tl") { nw = Math.max(0.05, sig.width - dx); nx = origR - nw; ny = origB - nw / ds.sigAspect; }
+      if (ds.action === "resize-br")      { nw = Math.max(0.04, sig.width + dx); }
+      else if (ds.action === "resize-bl") { nw = Math.max(0.04, sig.width - dx); nx = origR - nw; }
+      else if (ds.action === "resize-tr") { nw = Math.max(0.04, sig.width + dx); ny = origB - nw / ds.sigAspect; }
+      else if (ds.action === "resize-tl") { nw = Math.max(0.04, sig.width - dx); nx = origR - nw; ny = origB - nw / ds.sigAspect; }
 
-      setInstances((p) => p.map((s) => s.id === ds.sigId
-        ? { ...s, x: Math.max(0, nx), y: Math.max(0, ny), width: Math.min(nw, 0.95) }
-        : s));
+      setPageInstances((prev) => {
+        const page = Object.keys(prev).find((k) => (prev[Number(k)] ?? []).some((s) => s.id === ds.sigId));
+        if (!page) return prev;
+        const pg = Number(page);
+        return {
+          ...prev,
+          [pg]: (prev[pg] ?? []).map((s) =>
+            s.id === ds.sigId ? { ...s, x: nx, y: ny, width: Math.min(nw, 1.5) } : s
+          ),
+        };
+      });
     }
   }, []);
 
@@ -249,7 +311,8 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
   };
 
   const downloadSigned = useCallback(async () => {
-    if (!instances.length) { toast({ title: "Add at least one signature first", variant: "destructive" }); return; }
+    const totalSigs = Object.values(pageInstances).reduce((s, arr) => s + arr.length, 0);
+    if (totalSigs === 0) { toast({ title: "Add at least one signature first", variant: "destructive" }); return; }
     setDownloading(true);
     try {
       const sigImg = await loadImg(processedPng);
@@ -289,29 +352,33 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
         const sigRes = await fetch(processedPng);
         const sigBytes = await sigRes.arrayBuffer();
         const sigEmbedded = await pdfDoc.embedPng(new Uint8Array(sigBytes));
-        const pages = pdfDoc.getPages();
-        const pdfPage = pages[currentPage - 1];
-        if (!pdfPage) throw new Error("Page not found");
+        const pdfPages = pdfDoc.getPages();
 
-        const { width: pw, height: ph } = pdfPage.getSize();
+        for (let p = 1; p <= pdfPageCount; p++) {
+          const pageSigs = pageInstances[p] ?? [];
+          if (!pageSigs.length) continue;
+          const pdfPage = pdfPages[p - 1];
+          if (!pdfPage) continue;
+          const { width: pw, height: ph } = pdfPage.getSize();
 
-        for (const sig of instances) {
-          const sw = sig.width * pw;
-          const sh = sw / sigAspect;
-          const cx = sig.x * pw + sw / 2;
-          const cy = ph - sig.y * ph - sh / 2;
+          for (const sig of pageSigs) {
+            const sw = sig.width * pw;
+            const sh = sw / sigAspect;
+            const cx = sig.x * pw + sw / 2;
+            const cy = ph - sig.y * ph - sh / 2;
 
-          const rad = -(sig.rotation * Math.PI / 180);
-          const cosA = Math.cos(rad); const sinA = Math.sin(rad);
-          const ox = -sw / 2; const oy = -sh / 2;
-          const fx = cx + cosA * ox - sinA * oy;
-          const fy = cy + sinA * ox + cosA * oy;
+            const rad = -(sig.rotation * Math.PI / 180);
+            const cosA = Math.cos(rad); const sinA = Math.sin(rad);
+            const ox = -sw / 2; const oy = -sh / 2;
+            const fx = cx + cosA * ox - sinA * oy;
+            const fy = cy + sinA * ox + cosA * oy;
 
-          pdfPage.drawImage(sigEmbedded, {
-            x: fx, y: fy, width: sw, height: sh,
-            rotate: degrees(-sig.rotation),
-            opacity: sig.opacity,
-          });
+            pdfPage.drawImage(sigEmbedded, {
+              x: fx, y: fy, width: sw, height: sh,
+              rotate: degrees(-sig.rotation),
+              opacity: sig.opacity,
+            });
+          }
         }
 
         const blob = new Blob([await pdfDoc.save()], { type: "application/pdf" });
@@ -327,9 +394,10 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
     } finally {
       setDownloading(false);
     }
-  }, [instances, processedPng, docType, docFile, docImageUrl, currentPage, sigAspect, toast]);
+  }, [pageInstances, instances, processedPng, docType, docFile, docImageUrl, pdfPageCount, sigAspect, toast]);
 
   const hasDoc = docType !== null && !docLoading;
+  const totalSignedPages = Object.values(pageInstances).filter((arr) => arr.length > 0).length;
 
   return (
     <div className="flex flex-col gap-4">
@@ -339,7 +407,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
           <p className="text-sm font-semibold text-foreground">Add Signature to Document</p>
           <p className="text-xs text-muted-foreground">Upload a PDF or image — 100% private, processed locally</p>
         </div>
-        <Button size="icon" variant="ghost" onClick={onClose} data-testid="button-close-sign-doc">
+        <Button type="button" size="icon" variant="ghost" onClick={onClose} data-testid="button-close-sign-doc">
           <X className="h-4 w-4" />
         </Button>
       </div>
@@ -347,22 +415,26 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
       {/* Remove white bg toggle */}
       <div className="flex items-center gap-3 rounded-lg border bg-muted/30 px-3 py-2">
         <button
+          type="button"
           role="switch"
           aria-checked={removeWhiteBg}
           onClick={() => setRemoveWhiteBg((v) => !v)}
           data-testid="toggle-remove-white-bg"
-          className={`relative h-5 w-9 rounded-full transition-colors shrink-0 ${removeWhiteBg ? "bg-primary" : "bg-muted-foreground/30"}`}
+          className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${removeWhiteBg ? "bg-primary" : "bg-input"}`}
         >
-          <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${removeWhiteBg ? "translate-x-4" : "translate-x-0.5"}`} />
+          <span
+            aria-hidden="true"
+            className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${removeWhiteBg ? "translate-x-4" : "translate-x-0"}`}
+          />
         </button>
-        <div>
+        <div className="flex-1">
           <p className="text-xs font-medium">Remove white background</p>
           <p className="text-xs text-muted-foreground">Makes the signature transparent — recommended</p>
         </div>
         <img
           src={processedPng}
           alt="Signature preview"
-          className="ml-auto h-8 rounded border bg-white dark:bg-zinc-900 object-contain shrink-0"
+          className="h-8 rounded border bg-white object-contain shrink-0"
           style={{ maxWidth: 80 }}
         />
       </div>
@@ -400,24 +472,60 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
 
       {/* Document + signature placement */}
       {hasDoc && (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           {/* Page nav (PDF only) */}
           {docType === "pdf" && pdfPageCount > 1 && (
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <button onClick={() => currentPage > 1 && goToPage(currentPage - 1)} disabled={currentPage <= 1} className="disabled:opacity-30 px-2 py-1 rounded border hover-elevate" data-testid="button-prev-page">‹ Prev</button>
-              <span>Page {currentPage} / {pdfPageCount}</span>
-              <button onClick={() => currentPage < pdfPageCount && goToPage(currentPage + 1)} disabled={currentPage >= pdfPageCount} className="disabled:opacity-30 px-2 py-1 rounded border hover-elevate" data-testid="button-next-page">Next ›</button>
+            <div className="flex items-center justify-between gap-2 rounded-lg border bg-muted/20 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button" variant="outline" size="icon"
+                  onClick={() => currentPage > 1 && goToPage(currentPage - 1)}
+                  disabled={currentPage <= 1}
+                  data-testid="button-prev-page"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <span className="text-sm font-medium tabular-nums">
+                  Page {currentPage} <span className="text-muted-foreground font-normal">/ {pdfPageCount}</span>
+                </span>
+                <Button
+                  type="button" variant="outline" size="icon"
+                  onClick={() => currentPage < pdfPageCount && goToPage(currentPage + 1)}
+                  disabled={currentPage >= pdfPageCount}
+                  data-testid="button-next-page"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                {totalSignedPages > 0 && (
+                  <span className="rounded-full bg-primary/10 text-primary px-2 py-0.5 font-medium">
+                    {totalSignedPages} page{totalSignedPages !== 1 ? "s" : ""} signed
+                  </span>
+                )}
+                {instances.length > 0 && (
+                  <Button
+                    type="button" variant="outline" size="sm"
+                    onClick={applyToAllPages}
+                    className="gap-1 text-xs h-7"
+                    data-testid="button-apply-all-pages"
+                  >
+                    <Layers className="h-3 w-3" />
+                    Apply to all
+                  </Button>
+                )}
+              </div>
             </div>
           )}
 
           <div className="flex flex-col sm:flex-row gap-4">
-            {/* Document canvas */}
+            {/* Document canvas – overflow visible so sig can extend past edge */}
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-muted-foreground mb-2">Drag to move · corner handles to resize · circle to rotate</p>
+              <p className="text-xs text-muted-foreground mb-2">Drag to move · corner handles to resize · circle to rotate · can drag past edges</p>
               <div
                 ref={containerRef}
                 className="relative w-full rounded-xl border bg-muted/30 select-none"
-                style={{ minHeight: 200 }}
+                style={{ minHeight: 200, overflow: "visible" }}
                 onClick={(e) => { if (e.target === containerRef.current) setSelectedId(null); }}
                 data-testid="div-sign-doc-preview"
               >
@@ -486,6 +594,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
                           </div>
 
                           <button
+                            type="button"
                             className="absolute flex items-center justify-center h-5 w-5 rounded-full bg-destructive border-2 border-white shadow-md text-white text-xs font-bold leading-none"
                             style={{ top: -10, right: -10, zIndex: 30 }}
                             onClick={(e) => { e.stopPropagation(); deleteSig(sig.id); }}
@@ -501,7 +610,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="rounded-xl bg-black/50 text-white text-sm px-5 py-3 flex items-center gap-2">
                       <MousePointer className="h-4 w-4" />
-                      Click "Add Signature" to place it
+                      Click &ldquo;Add Signature&rdquo; to place it
                     </div>
                   </div>
                 )}
@@ -512,19 +621,57 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
             <div className="w-full sm:w-52 shrink-0 space-y-3">
               <div className="rounded-lg border p-3 bg-muted/20 space-y-2">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Signature</p>
-                <img src={processedPng} alt="Signature" className="w-full rounded border bg-white dark:bg-zinc-900 object-contain" style={{ maxHeight: 44 }} />
+                <img src={processedPng} alt="Signature" className="w-full rounded border bg-white object-contain" style={{ maxHeight: 44 }} />
                 <div className="flex gap-2">
-                  <Button size="sm" onClick={addSig} className="flex-1 gap-1" data-testid="button-add-sig">
+                  <Button type="button" size="sm" onClick={addSig} className="flex-1 gap-1" data-testid="button-add-sig">
                     <Plus className="h-3.5 w-3.5" />
                     Add
                   </Button>
                   {selectedId !== null && (
-                    <Button size="icon" variant="outline" onClick={() => duplicateSig(selectedId)} title="Duplicate" data-testid="button-duplicate-sig">
+                    <Button type="button" size="icon" variant="outline" onClick={() => duplicateSig(selectedId)} title="Duplicate" data-testid="button-duplicate-sig">
                       <Copy className="h-3.5 w-3.5" />
                     </Button>
                   )}
                 </div>
               </div>
+
+              {/* Per-page copy controls for PDF */}
+              {docType === "pdf" && pdfPageCount > 1 && (
+                <div className="rounded-lg border p-3 bg-muted/20 space-y-2">
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Pages</p>
+                  {instances.length > 0 && (
+                    <Button
+                      type="button" variant="outline" size="sm"
+                      onClick={applyToAllPages}
+                      className="w-full gap-1.5 text-xs"
+                      data-testid="button-apply-all-pages-sidebar"
+                    >
+                      <Layers className="h-3.5 w-3.5" />
+                      Copy to all {pdfPageCount} pages
+                    </Button>
+                  )}
+                  {/* Buttons to copy sigs from any signed page to current page */}
+                  {Object.entries(pageInstances)
+                    .filter(([pg, sigs]) => Number(pg) !== currentPage && sigs.length > 0)
+                    .slice(0, 3)
+                    .map(([pg, sigs]) => (
+                      <Button
+                        key={pg}
+                        type="button" variant="ghost" size="sm"
+                        onClick={() => copyFromPage(Number(pg))}
+                        className="w-full gap-1.5 text-xs justify-start"
+                        data-testid={`button-copy-from-page-${pg}`}
+                      >
+                        <Copy className="h-3 w-3" />
+                        Copy from page {pg} ({sigs.length} sig{sigs.length !== 1 ? "s" : ""})
+                      </Button>
+                    ))
+                  }
+                  {instances.length === 0 && Object.values(pageInstances).every((a) => !a.length) && (
+                    <p className="text-xs text-muted-foreground">Add a signature, then copy it to other pages.</p>
+                  )}
+                </div>
+              )}
 
               {selectedSig && (
                 <div className="rounded-lg border p-3 space-y-3">
@@ -535,7 +682,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
                       <Label className="text-xs text-muted-foreground">Size</Label>
                       <span className="text-xs font-medium tabular-nums">{Math.round(selectedSig.width * 100)}%</span>
                     </div>
-                    <Slider min={5} max={80} step={1} value={[Math.round(selectedSig.width * 100)]} onValueChange={([v]) => updateSig(selectedSig.id, { width: v / 100 })} data-testid="slider-sig-size" />
+                    <Slider min={5} max={120} step={1} value={[Math.round(selectedSig.width * 100)]} onValueChange={([v]) => updateSig(selectedSig.id, { width: v / 100 })} data-testid="slider-sig-size" />
                   </div>
 
                   <div className="space-y-1.5">
@@ -555,6 +702,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
                   </div>
 
                   <Button
+                    type="button"
                     variant="outline" size="sm"
                     onClick={() => deleteSig(selectedSig.id)}
                     className="w-full gap-1.5 text-destructive border-destructive/30"
@@ -567,8 +715,9 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
               )}
 
               <Button
+                type="button"
                 onClick={downloadSigned}
-                disabled={downloading || !instances.length}
+                disabled={downloading || totalSignedPages === 0}
                 className="w-full gap-2"
                 data-testid="button-download-signed"
               >
@@ -578,8 +727,15 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose }: 
                 Save &amp; Download
               </Button>
 
+              {docType === "pdf" && pdfPageCount > 1 && totalSignedPages > 0 && (
+                <p className="text-xs text-muted-foreground text-center">
+                  {totalSignedPages} of {pdfPageCount} pages have signatures
+                </p>
+              )}
+
               <button
-                onClick={() => { setDocFile(null); setDocType(null); setDocImageUrl(null); setPdfPreviews({}); setInstances([]); setSelectedId(null); }}
+                type="button"
+                onClick={() => { setDocFile(null); setDocType(null); setDocImageUrl(null); setPdfPreviews({}); setPageInstances({}); setSelectedId(null); }}
                 className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors text-center"
                 data-testid="button-change-doc"
               >
