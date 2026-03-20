@@ -385,20 +385,16 @@ export default function SignaturePadTool() {
   }, []);
 
   // ── Init / reinit draw canvas ─────────────────────────────────────────────
-  // Buffer is EXPORT_SCALE × larger than display; ctx.scale maps drawing
-  // coords to 0–CW × 0–CH while the actual pixel buffer is 4× that.
+  // Draw canvas is 1× (CW×CH) for smooth real-time drawing.
+  // Export upscales to 4× via drawImage only when saving/downloading.
   const initDrawCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const BW = CW * EXPORT_SCALE;
-    const BH = CH * EXPORT_SCALE;
-    // Only reinitialise when not yet sized (avoids clearing user's drawing)
-    if (canvas.width !== BW || canvas.height !== BH) {
-      canvas.width = BW;
-      canvas.height = BH;
+    if (canvas.width !== CW || canvas.height !== CH) {
+      canvas.width = CW;
+      canvas.height = CH;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      ctx.scale(EXPORT_SCALE, EXPORT_SCALE);
       ctx.clearRect(0, 0, CW, CH);
     }
   }, []);
@@ -676,14 +672,27 @@ export default function SignaturePadTool() {
 
   // ── Get the active canvas for export ─────────────────────────────────────
   const getExportCanvas = useCallback((): HTMLCanvasElement | null => {
-    if (activeTab === "draw") return canvasRef.current;
+    if (activeTab === "draw") {
+      const display = canvasRef.current;
+      if (!display) return null;
+      if (!hasDrawn) return null;
+      // Upscale the 1× display canvas to 4× for high-res download
+      const exp = document.createElement("canvas");
+      exp.width = CW * EXPORT_SCALE;
+      exp.height = CH * EXPORT_SCALE;
+      const ctx = exp.getContext("2d")!;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(display, 0, 0, exp.width, exp.height);
+      return exp;
+    }
     if (activeTab === "type") {
       if (!selectedFont || !typedName) return null;
       return renderTypeCanvas(selectedFont, typeColor);
     }
     if (activeTab === "upload") return uploadCanvasRef.current;
     return null;
-  }, [activeTab, selectedFont, typedName, typeColor, renderTypeCanvas]);
+  }, [activeTab, hasDrawn, selectedFont, typedName, typeColor, renderTypeCanvas]);
 
   // ── Build PNG + JPG + thumb from current canvas ───────────────────────────
   const buildFormats = useCallback((src: HTMLCanvasElement) => {
