@@ -245,8 +245,7 @@ function buildAdjustedCanvas(
   oc.width = totalW;
   oc.height = totalH;
   const ctx = oc.getContext("2d")!;
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, totalW, totalH);
+  ctx.clearRect(0, 0, totalW, totalH);
   ctx.drawImage(src, margin, margin, drawW, drawH);
   return oc;
 }
@@ -661,8 +660,7 @@ export default function SignaturePadTool() {
       oc.width = BW;
       oc.height = BH;
       const ctx = oc.getContext("2d")!;
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, BW, BH);
+      ctx.clearRect(0, 0, BW, BH);
       const fontMeta = FONT_MAP.get(font);
       // Multiply canvas size by EXPORT_SCALE for crisp high-res text
       const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas * EXPORT_SCALE;
@@ -754,8 +752,7 @@ export default function SignaturePadTool() {
     const ctx = canvas.getContext("2d")!;
     const img = new Image();
     img.onload = () => {
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, BW, BH);
+      ctx.clearRect(0, 0, BW, BH);
       const ratio = Math.min((BW * 0.85) / img.width, (BH * 0.85) / img.height);
       const w = img.width * ratio;
       const h = img.height * ratio;
@@ -1679,7 +1676,7 @@ export default function SignaturePadTool() {
                 </Button>
               )}
 
-              <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white dark:bg-zinc-900">
+              <div className="relative rounded-lg border-2 border-dashed border-border overflow-hidden bg-white">
                 <canvas ref={uploadCanvasRef} style={canvasStyle} className="block" data-testid="canvas-upload" />
                 {!uploadedImage && (
                   <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-muted-foreground/40 select-none">

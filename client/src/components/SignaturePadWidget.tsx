@@ -127,8 +127,7 @@ function buildAdjustedCanvas(
   oc.width = totalW;
   oc.height = totalH;
   const ctx = oc.getContext("2d")!;
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, totalW, totalH);
+  ctx.clearRect(0, 0, totalW, totalH);
   ctx.drawImage(src, margin, margin, drawW, drawH);
   return oc;
 }
@@ -509,8 +508,7 @@ export default function SignaturePadWidget({
       const oc = document.createElement("canvas");
       oc.width = BW; oc.height = BH;
       const ctx = oc.getContext("2d")!;
-      ctx.fillStyle = "white";
-      ctx.fillRect(0, 0, BW, BH);
+      ctx.clearRect(0, 0, BW, BH);
       const fontMeta = HANDWRITTEN_FONTS.find((f) => f.value === font);
       const sizePx = FONT_SIZE[fontMeta?.size ?? "md"].canvas * EXPORT_SCALE;
       ctx.font = `${sizePx}px '${font}', cursive`;
@@ -595,7 +593,7 @@ export default function SignaturePadWidget({
     const ctx = canvas.getContext("2d")!;
     const img = new Image();
     img.onload = () => {
-      ctx.fillStyle = "white"; ctx.fillRect(0, 0, BW, BH);
+      ctx.clearRect(0, 0, BW, BH);
       const ratio = Math.min((BW * 0.85) / img.width, (BH * 0.85) / img.height);
       const w = img.width * ratio; const h = img.height * ratio;
       ctx.drawImage(img, (BW - w) / 2, (BH - h) / 2, w, h);
