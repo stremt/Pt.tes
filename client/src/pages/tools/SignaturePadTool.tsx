@@ -1840,12 +1840,12 @@ export default function SignaturePadTool() {
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="shrink-0 w-52 rounded-xl border bg-white dark:bg-zinc-900 overflow-hidden group cursor-pointer hover-elevate transition-all"
+                    className="shrink-0 w-52 rounded-xl border bg-white overflow-hidden group cursor-pointer hover-elevate transition-all"
                     onClick={() => setSelectedHistoryItem(item)}
                     data-testid={`history-item-${item.id}`}
                   >
                     {/* Thumbnail */}
-                    <div className="relative h-24 bg-[#f9f9f9] dark:bg-zinc-800 border-b flex items-center justify-center p-3">
+                    <div className="relative h-24 bg-white border-b flex items-center justify-center p-3">
                       <img
                         src={item.thumbUrl}
                         alt={item.label}
@@ -1863,7 +1863,7 @@ export default function SignaturePadTool() {
                       </button>
                       {/* View hint */}
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-semibold text-foreground/70 bg-white/90 dark:bg-zinc-800/90 px-2 py-0.5 rounded-full shadow-sm">
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] font-semibold text-zinc-600 bg-white/90 px-2 py-0.5 rounded-full shadow-sm">
                           Click to view
                         </span>
                       </div>
@@ -2408,27 +2408,27 @@ export default function SignaturePadTool() {
             </DialogHeader>
 
             {/* Large signature preview */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-6 flex items-center justify-center min-h-[140px]">
+            <div className="rounded-xl border bg-white p-6 flex items-center justify-center min-h-[140px]">
               <img
                 src={selectedHistoryItem.pngDataUrl}
                 alt="Saved signature"
-                className="max-h-32 max-w-full object-contain"
+                className="max-h-32 max-w-full object-contain bg-white"
                 data-testid="history-detail-img"
               />
             </div>
 
             {/* Signature on document preview */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 p-5 space-y-3">
+            <div className="rounded-xl border bg-white p-5 space-y-3">
               <p className="text-xs text-muted-foreground font-medium">Preview on document</p>
               <div className="space-y-2">
                 {[3, 4, 2.5].map((w, i) => (
-                  <div key={i} className="h-1.5 rounded-full bg-zinc-100 dark:bg-zinc-700" style={{ width: `${w / 4 * 100}%` }} />
+                  <div key={i} className="h-1.5 rounded-full bg-zinc-200" style={{ width: `${w / 4 * 100}%` }} />
                 ))}
               </div>
-              <div className="border-t border-zinc-100 dark:border-zinc-700 pt-3">
-                <p className="text-[9px] text-zinc-400 dark:text-zinc-500 mb-1.5 uppercase tracking-wider">Authorized Signature</p>
-                <img src={selectedHistoryItem.pngDataUrl} alt="doc preview" className="h-12 object-contain" />
-                <div className="mt-1.5 h-px w-36 bg-zinc-200 dark:bg-zinc-700" />
+              <div className="border-t border-zinc-100 pt-3">
+                <p className="text-[9px] text-zinc-400 mb-1.5 uppercase tracking-wider">Authorized Signature</p>
+                <img src={selectedHistoryItem.pngDataUrl} alt="doc preview" className="h-12 object-contain bg-white" />
+                <div className="mt-1.5 h-px w-36 bg-zinc-200" />
               </div>
             </div>
 
