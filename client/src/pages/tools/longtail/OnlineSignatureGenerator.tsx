@@ -98,21 +98,21 @@ const FAQS = [
 ];
 
 const HOW_IT_WORKS_STEPS = [
-  { step: 1, title: "Choose your method", description: "Select Draw to sketch freehand with a mouse or finger, Type to pick from 50+ handwritten fonts, or Upload to digitise an existing signature." },
-  { step: 2, title: "Customise it", description: "Adjust ink colour and stroke thickness for drawing, choose a font and colour for typing, or remove the white background for an uploaded photo." },
-  { step: 3, title: "Preview", description: "Hit Preview to see your signature on a document mockup and email footer — so you know exactly how it will look in context." },
-  { step: 4, title: "Download instantly", description: "Save as transparent PNG or JPG — no watermark, no signup, no waiting. Done in under 60 seconds." },
+  { step: 1, title: "Choose Draw, Type, Upload or AI", description: "Select Draw to sketch freehand with a mouse or finger, Type to pick from 50+ handwritten fonts, Upload to digitise an existing signature, or AI for instant beautiful styles." },
+  { step: 2, title: "Customise your signature style", description: "Adjust ink colour and stroke thickness for drawing, choose a font and colour for typing, or remove the white background for an uploaded photo." },
+  { step: 3, title: "Preview your signature live", description: "See your signature on a document mockup and email footer — so you know exactly how it will look in context before downloading." },
+  { step: 4, title: "Download as PNG or JPG instantly", description: "Save as transparent PNG or JPG — no watermark, no signup, no waiting. Done in under 60 seconds." },
 ];
 
 export default function OnlineSignatureGenerator() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useSEO({
-    title: "Online Signature Generator – Draw, Type, Upload PNG | Pixocraft",
+    title: "Free Online Signature Generator – Draw, Type & Download PNG (No Signup)",
     description:
-      "Free online signature generator — draw, type, or upload your signature and download as transparent PNG. No signup, 100% private, instant. Works on mobile.",
+      "Create your digital signature online for free. Draw, type (50+ fonts), upload or use AI styles and download transparent PNG instantly. 100% private, no signup, offline. Works for PDF, GST invoices, email & documents. Made in India.",
     keywords:
-      "online signature generator, free online signature, digital signature online, create signature online, e-signature maker, handwritten signature generator, draw signature online, signature PNG download, free e-signature India, online signature no signup",
+      "signature generator, online signature maker, digital signature online, free signature generator, create signature online, e signature maker, signature for pdf, email signature generator, online signature no signup, free e-signature India",
     canonicalUrl: CANONICAL,
     ogImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&h=630&fit=crop",
   });
@@ -175,24 +175,24 @@ export default function OnlineSignatureGenerator() {
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
-                Online Signature Generator
+                Free Online Signature Generator (Draw, Type, Upload &amp; Download PNG)
               </h1>
-              <p className="text-sm text-muted-foreground">Free · No Signup · 100% Private · Instant PNG Download</p>
+              <p className="text-sm text-muted-foreground">No Signup · No Watermark · 100% Private · Made in India</p>
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
-            Create a professional digital signature online in seconds. <strong>Draw</strong> with your mouse or finger,
-            <strong> type</strong> your name in 50+ handwritten fonts, or <strong>upload</strong> an existing signature and
-            remove the background. Download as a crisp transparent PNG or JPG — free forever, no account needed.
+          <p className="text-base text-muted-foreground mb-4 leading-relaxed">
+            Create a digital signature online in seconds. <strong>Draw</strong> with your mouse or finger,
+            <strong> type</strong> your name in 50+ handwritten fonts, <strong>upload</strong> an existing signature and
+            remove the background, or use <strong>AI styles</strong> for instant results. Download high-quality transparent PNG — free forever, no account needed.
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-5">
             {[
-              { icon: <Star className="h-3.5 w-3.5" />, label: "Free & No Signup" },
-              { icon: <Zap className="h-3.5 w-3.5" />, label: "Instant Download" },
-              { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private" },
-              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile" },
+              { icon: <Check className="h-3.5 w-3.5" />, label: "No Signup · No Watermark" },
+              { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private (Runs in Browser)" },
+              { icon: <Lock className="h-3.5 w-3.5" />, label: "Save & Reuse Locally (Offline)" },
+              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works for PDF, GST & Email" },
             ].map(({ icon, label }) => (
               <span key={label} className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border bg-muted text-muted-foreground">
                 {icon}{label}
@@ -217,8 +217,9 @@ export default function OnlineSignatureGenerator() {
             <h2 className="text-2xl font-bold text-foreground mb-4">What is an Online Signature Generator?</h2>
             <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-4">
               <p className="text-foreground font-medium">
-                An <strong>online signature generator</strong> is a browser-based tool that lets you create a personal
-                digital signature in seconds — no printing, no scanning, and no software to install.
+                An <strong>online signature generator</strong> is a free tool that lets you create a digital signature by drawing,
+                typing in 50+ handwritten fonts, uploading a signature image, or using AI-generated styles. Download it as a
+                transparent PNG and use it in PDF, Word, email, or anywhere else.
               </p>
             </div>
             <p className="text-muted-foreground mb-4">
@@ -261,9 +262,31 @@ export default function OnlineSignatureGenerator() {
             </p>
           </section>
 
-          {/* Draw vs Type vs Upload */}
+          {/* Save & Reuse */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload — Which Should You Choose?</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Save &amp; Reuse Your Signature (100% Private &amp; Offline)</h2>
+            <p className="text-muted-foreground mb-5">
+              Unlike other tools, Pixocraft lets you save your signature locally in your browser using secure LocalStorage.
+              Your data never leaves your device — no server, no login, no tracking.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+              {[
+                { icon: <Lock className="h-5 w-5 text-primary" />,    title: "Saved locally in your browser", body: "Your signature lives only on your device — it never touches any server." },
+                { icon: <Shield className="h-5 w-5 text-primary" />,  title: "No server upload — fully private", body: "100% offline after page load. Works without internet for every reuse." },
+                { icon: <Zap className="h-5 w-5 text-primary" />,     title: "Reuse instantly anywhere", body: "Load it again for PDF, Word, Gmail, Tally — ready in one click." },
+              ].map(({ icon, title, body }) => (
+                <div key={title} className="flex flex-col gap-2 p-4 rounded-xl border bg-card">
+                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">{icon}</div>
+                  <p className="font-semibold text-foreground text-sm">{title}</p>
+                  <p className="text-sm text-muted-foreground leading-snug">{body}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Draw vs Type vs Upload vs AI */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload vs AI Signature</h2>
             <p className="text-muted-foreground mb-5">Every workflow is different. Here's a quick comparison to help you pick:</p>
             <div className="overflow-x-auto rounded-xl border mb-4">
               <table className="w-full text-sm min-w-[520px]">
@@ -277,9 +300,10 @@ export default function OnlineSignatureGenerator() {
                 </thead>
                 <tbody className="divide-y">
                   {[
-                    { method: "Draw",   best: "Unique personal feel",        pros: "Natural, one-of-a-kind, touch-optimised",      cons: "Takes a few tries to perfect" },
-                    { method: "Type",   best: "Consistent & fast output",    pros: "50+ fonts, always legible, reproducible",     cons: "Less personal than hand-drawn" },
-                    { method: "Upload", best: "Reusing an existing sig",     pros: "Auto background removal, high-res output",    cons: "Photo quality affects result" },
+                    { method: "Draw",   best: "Personal feel",               pros: "Natural, unique, touch-optimised",             cons: "Takes a few tries to perfect" },
+                    { method: "Type",   best: "Fast & clean output",         pros: "50+ fonts, consistent, reproducible",          cons: "Less personal than hand-drawn" },
+                    { method: "Upload", best: "Existing signature",          pros: "Reuse easily, auto background removal",        cons: "Quality depends on photo" },
+                    { method: "AI",     best: "Instant styles",              pros: "Beautiful, quick, no effort",                  cons: "Not truly hand-drawn" },
                   ].map(({ method, best, pros, cons }) => (
                     <tr key={method} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{method}</td>
@@ -292,7 +316,7 @@ export default function OnlineSignatureGenerator() {
               </table>
             </div>
             <p className="text-sm text-muted-foreground px-1">
-              <strong>Quick pick:</strong> First time? → <strong>Type</strong>. Already have a signature? → <strong>Upload</strong>. Want it completely personal? → <strong>Draw</strong>.
+              <strong>Quick pick:</strong> New user → <strong>Type</strong>. Already have a signature → <strong>Upload</strong>. Want it personal → <strong>Draw</strong>. Want it fast → <strong>AI</strong>.
             </p>
           </section>
 
