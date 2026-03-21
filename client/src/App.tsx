@@ -341,6 +341,7 @@ const SignaturePadTool = lazy(() => import("@/pages/tools/SignaturePadTool"));
 const OnlineSignatureGenerator = lazy(() => import("@/pages/tools/longtail/OnlineSignatureGenerator"));
 const FreeSignatureGenerator = lazy(() => import("@/pages/tools/longtail/FreeSignatureGenerator"));
 const DigitalSignatureGenerator = lazy(() => import("@/pages/tools/longtail/DigitalSignatureGenerator"));
+const CreateDigitalSignature = lazy(() => import("@/pages/tools/longtail/CreateDigitalSignature"));
 const SignatureMaker = lazy(() => import("@/pages/tools/longtail/SignatureMaker"));
 const SignatureMakerFree = lazy(() => import("@/pages/tools/longtail/SignatureMakerFree"));
 const CreateSignatureOnline = lazy(() => import("@/pages/tools/longtail/CreateSignatureOnline"));
@@ -782,6 +783,7 @@ function Router() {
         <Route path="/tools/online-signature-generator" component={OnlineSignatureGenerator} />
         <Route path="/tools/free-signature-generator" component={FreeSignatureGenerator} />
         <Route path="/tools/digital-signature-generator" component={DigitalSignatureGenerator} />
+        <Route path="/tools/create-digital-signature" component={CreateDigitalSignature} />
         <Route path="/tools/signature-maker" component={SignatureMaker} />
         <Route path="/tools/signature-maker-free" component={SignatureMakerFree} />
         <Route path="/tools/create-signature-online" component={CreateSignatureOnline} />
