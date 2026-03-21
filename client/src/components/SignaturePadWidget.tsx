@@ -547,16 +547,37 @@ export default function SignaturePadWidget({
     else if (!hasDrawn) setPreviewUrl(null);
   }, [activeTab, hasDrawn, sigScale, sigMargin]);
 
+  const [uploadProcessing, setUploadProcessing] = useState(false);
+  const [uploadEstimate, setUploadEstimate] = useState<string | null>(null);
+
   const handleUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
       if (!file.type.startsWith("image/")) {
-        toast({ title: "Invalid file", description: "Please upload a PNG or JPG image." });
+        toast({ title: "Invalid file", description: "Please upload an image file (PNG, JPG, WebP, etc.)." });
         return;
       }
+      const sizeMB = file.size / (1024 * 1024);
+      let estimate: string | null = null;
+      if (sizeMB > 50) estimate = "~10–30 seconds";
+      else if (sizeMB > 20) estimate = "~5–10 seconds";
+      else if (sizeMB > 10) estimate = "~2–5 seconds";
+      else if (sizeMB > 5) estimate = "~1–2 seconds";
+      setUploadEstimate(estimate);
+      setUploadProcessing(true);
       const reader = new FileReader();
-      reader.onload = (ev) => { setUploadedImage(ev.target?.result as string); setBgRemoved(false); };
+      reader.onload = (ev) => {
+        setUploadedImage(ev.target?.result as string);
+        setBgRemoved(false);
+        setUploadProcessing(false);
+        setUploadEstimate(null);
+      };
+      reader.onerror = () => {
+        setUploadProcessing(false);
+        setUploadEstimate(null);
+        toast({ title: "Upload failed", description: "Could not read the file. Please try again." });
+      };
       reader.readAsDataURL(file);
     },
     [toast]
@@ -1039,17 +1060,28 @@ export default function SignaturePadWidget({
               </div>
               <div>
                 <p className="text-sm font-semibold">Click to upload or drag &amp; drop</p>
-                <p className="text-xs text-muted-foreground mt-0.5">PNG or JPG — up to 10 MB</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Any image format — no size limit</p>
               </div>
               <input
                 id="w-upload-input"
                 type="file"
-                accept="image/png,image/jpeg,image/jpg"
+                accept="image/*"
                 className="sr-only"
                 onChange={handleUpload}
                 data-testid="widget-input-upload"
               />
             </label>
+            {uploadProcessing && (
+              <div className="flex items-center gap-2.5 px-4 py-3 rounded-lg border bg-muted/40 text-sm text-muted-foreground" data-testid="widget-upload-processing">
+                <Upload className="h-4 w-4 shrink-0 animate-pulse text-primary" />
+                <span>
+                  Loading image…
+                  {uploadEstimate && (
+                    <span className="ml-1 font-medium text-foreground">Estimated time: {uploadEstimate}</span>
+                  )}
+                </span>
+              </div>
+            )}
             {uploadedImage && (
               <Button
                 variant="outline"

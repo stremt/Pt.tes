@@ -36,6 +36,8 @@ import {
   Maximize2,
   RotateCcw,
   FilePlus2,
+  SlidersHorizontal,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -156,6 +158,15 @@ const HANDWRITTEN_FONTS: Array<{ label: string; value: string; size: string; cat
 // De-duplicate by value (safety guard)
 const FONT_MAP = new Map(HANDWRITTEN_FONTS.map((f) => [f.value, f]));
 const ALL_FONTS = Array.from(FONT_MAP.values());
+
+// ─── Advanced draw presets (defined outside component so they're stable) ────
+type DrawPreset = "default" | "elegant" | "bold" | "quick";
+const DRAW_PRESETS: Record<DrawPreset, { width: number; smoothing: number; thinning: number; streamline: number; angle: number }> = {
+  default:  { width: 2.5, smoothing: 0.50, thinning: 0.50, streamline: 0.20, angle: 0 },
+  elegant:  { width: 6.0, smoothing: 0.75, thinning: 0.50, streamline: 0.20, angle: 0 },
+  bold:     { width: 8.0, smoothing: 0.30, thinning: 0.20, streamline: 0.10, angle: 0 },
+  quick:    { width: 1.5, smoothing: 0.60, thinning: 0.70, streamline: 0.50, angle: 0 },
+};
 
 const TOP_PICKS = ["Great Vibes", "Allura", "Alex Brush", "Sacramento", "Parisienne", "Pacifico", "Caveat", "Yellowtail"];
 
@@ -328,6 +339,21 @@ export default function SignaturePadTool() {
   const [redoStack, setRedoStack] = useState<ImageData[]>([]);
   const [hasDrawn, setHasDrawn] = useState(false);
 
+  // ── Advanced draw settings ─────────────────────────────────────────────────
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [activePreset, setActivePreset] = useState<DrawPreset>("default");
+  const [drawSmoothing, setDrawSmoothing] = useState(0.50);
+  const [drawThinning, setDrawThinning] = useState(0.50);
+  const [drawStreamline, setDrawStreamline] = useState(0.20);
+  const [drawAngle, setDrawAngle] = useState(0);
+  const drawSmoothingRef = useRef(0.50);
+  const drawThinningRef = useRef(0.50);
+  const drawStreamlineRef = useRef(0.20);
+  const drawAngleRef = useRef(0);
+  const streamlinedPosRef = useRef<Point>({ x: 0, y: 0 });
+  const currentWidthRef = useRef(2.5);
+  const lastTimestampRef = useRef(0);
+
   // ── Type tab ──────────────────────────────────────────────────────────────
   const [typedName, setTypedName] = useState("");
   const [selectedFont, setSelectedFont] = useState<string | null>(null);
@@ -419,6 +445,26 @@ export default function SignaturePadTool() {
   // ── Keep stroke setting refs in sync with state ───────────────────────────
   useEffect(() => { strokeColorRef.current = strokeColor; }, [strokeColor]);
   useEffect(() => { strokeWidthRef.current = strokeWidth; }, [strokeWidth]);
+  useEffect(() => { drawSmoothingRef.current = drawSmoothing; }, [drawSmoothing]);
+  useEffect(() => { drawThinningRef.current = drawThinning; }, [drawThinning]);
+  useEffect(() => { drawStreamlineRef.current = drawStreamline; }, [drawStreamline]);
+  useEffect(() => { drawAngleRef.current = drawAngle; }, [drawAngle]);
+
+  const applyPreset = useCallback((preset: DrawPreset) => {
+    const p = DRAW_PRESETS[preset];
+    setActivePreset(preset);
+    setStrokeWidth(p.width);
+    setDrawSmoothing(p.smoothing);
+    setDrawThinning(p.thinning);
+    setDrawStreamline(p.streamline);
+    setDrawAngle(p.angle);
+    strokeWidthRef.current = p.width;
+    drawSmoothingRef.current = p.smoothing;
+    drawThinningRef.current = p.thinning;
+    drawStreamlineRef.current = p.streamline;
+    drawAngleRef.current = p.angle;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ── Save imageData for undo (stable ref so draw handler never needs to re-register) ──
   const saveStateRef = useRef<() => void>(() => {});
@@ -433,7 +479,7 @@ export default function SignaturePadTool() {
   }, []);
   useEffect(() => { saveStateRef.current = saveState; }, [saveState]);
 
-  // ── Native pointer-event drawing (bypasses React batching for max smoothness) ──
+  // ── Native pointer-event drawing with velocity-based stroke width ──────────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -453,15 +499,18 @@ export default function SignaturePadTool() {
       e.preventDefault();
       canvas.setPointerCapture(e.pointerId);
       saveStateRef.current();
-      const ctx = canvas.getContext("2d")!;
-      ctx.strokeStyle = strokeColorRef.current;
-      ctx.lineWidth = strokeWidthRef.current;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
+      currentWidthRef.current = strokeWidthRef.current;
+      lastTimestampRef.current = e.timeStamp;
       const pos = getPt(e);
+      streamlinedPosRef.current = pos;
       pointsRef.current = [pos];
       isDrawingRef.current = true;
       setHasDrawn(true);
+      const ctx = canvas.getContext("2d")!;
+      ctx.strokeStyle = strokeColorRef.current;
+      ctx.lineWidth = currentWidthRef.current;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
       ctx.beginPath();
       ctx.moveTo(pos.x, pos.y);
     };
@@ -470,19 +519,58 @@ export default function SignaturePadTool() {
       if (!isDrawingRef.current) return;
       e.preventDefault();
       const ctx = canvas.getContext("2d")!;
-      const pos = getPt(e);
+      const rawPos = getPt(e);
+
+      // Streamline: exponential moving average of input positions
+      const sl = drawStreamlineRef.current;
+      const filteredPos: Point = {
+        x: streamlinedPosRef.current.x * sl + rawPos.x * (1 - sl),
+        y: streamlinedPosRef.current.y * sl + rawPos.y * (1 - sl),
+      };
+      streamlinedPosRef.current = filteredPos;
+      const pos = filteredPos;
+
       pointsRef.current.push(pos);
       const pts = pointsRef.current;
+
+      // Velocity → thinning-based width variation
+      const dt = Math.max(1, e.timeStamp - lastTimestampRef.current);
+      lastTimestampRef.current = e.timeStamp;
+      if (pts.length >= 2) {
+        const prev = pts[pts.length - 2];
+        const dist = Math.hypot(pos.x - prev.x, pos.y - prev.y);
+        const velocity = dist / dt;
+        const base = strokeWidthRef.current;
+        const thinning = drawThinningRef.current;
+        const target = Math.max(base * (1 - thinning * 0.6), base * (1 + thinning * 0.4 - velocity * thinning * 1.5));
+
+        // Calligraphic angle modulation
+        let angleMultiplier = 1;
+        if (drawAngleRef.current !== 0) {
+          const dx = pos.x - prev.x;
+          const dy = pos.y - prev.y;
+          const strokeAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+          const diff = Math.abs(((strokeAngle - drawAngleRef.current + 360) % 360) - 180);
+          angleMultiplier = 0.5 + 0.5 * (diff / 180);
+        }
+
+        const smoothing = drawSmoothingRef.current;
+        const lerpFactor = 0.08 + (1 - smoothing) * 0.67;
+        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * angleMultiplier * lerpFactor;
+        currentWidthRef.current = Math.max(0.5, currentWidthRef.current);
+      }
 
       if (pts.length >= 3) {
         const p1 = pts[pts.length - 2];
         const p2 = pts[pts.length - 1];
         const mid = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+        ctx.lineWidth = currentWidthRef.current;
         ctx.quadraticCurveTo(p1.x, p1.y, mid.x, mid.y);
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(mid.x, mid.y);
       } else {
+        ctx.lineWidth = currentWidthRef.current;
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
         ctx.beginPath();
@@ -607,19 +695,38 @@ export default function SignaturePadTool() {
     else if (!hasDrawn) setPreviewUrl(null);
   }, [activeTab, hasDrawn, sigScale, sigMargin]);
 
-  // ── Upload image ──────────────────────────────────────────────────────────
+  // ── Upload image (no size limit — show time estimate for large files) ──────
+  const [uploadProcessing, setUploadProcessing] = useState(false);
+  const [uploadEstimate, setUploadEstimate] = useState<string | null>(null);
+
   const handleUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
       if (!file.type.startsWith("image/")) {
-        toast({ title: "Invalid file", description: "Please upload a PNG or JPG image." });
+        toast({ title: "Invalid file", description: "Please upload an image file (PNG, JPG, WebP, etc.)." });
         return;
       }
+      // Estimate processing time for large files
+      const sizeMB = file.size / (1024 * 1024);
+      let estimate: string | null = null;
+      if (sizeMB > 50) estimate = "~10–30 seconds";
+      else if (sizeMB > 20) estimate = "~5–10 seconds";
+      else if (sizeMB > 10) estimate = "~2–5 seconds";
+      else if (sizeMB > 5) estimate = "~1–2 seconds";
+      setUploadEstimate(estimate);
+      setUploadProcessing(true);
       const reader = new FileReader();
       reader.onload = (ev) => {
         setUploadedImage(ev.target?.result as string);
         setBgRemoved(false);
+        setUploadProcessing(false);
+        setUploadEstimate(null);
+      };
+      reader.onerror = () => {
+        setUploadProcessing(false);
+        setUploadEstimate(null);
+        toast({ title: "Upload failed", description: "Could not read the file. Please try again." });
       };
       reader.readAsDataURL(file);
     },
@@ -1150,11 +1257,79 @@ export default function SignaturePadTool() {
                     <Redo2 className="h-4 w-4" />
                   </Button>
                   <div className="w-px h-5 bg-border mx-1" />
+                  <Button
+                    size="icon" variant="ghost"
+                    onClick={() => setShowAdvanced((v) => !v)}
+                    title="Advanced draw settings"
+                    data-testid="button-advanced"
+                    className={showAdvanced ? "text-primary bg-primary/10" : ""}
+                  >
+                    <SlidersHorizontal className="h-4 w-4" />
+                  </Button>
+                  <div className="w-px h-5 bg-border mx-1" />
                   <Button size="icon" variant="ghost" onClick={clearDraw} disabled={!hasDrawn && undoStack.length === 0} title="Clear canvas" data-testid="button-clear" className="text-destructive/70 hover:text-destructive">
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
+
+              {/* Advanced Draw Panel */}
+              {showAdvanced && (
+                <div className="rounded-lg border border-border bg-muted/20 p-4 space-y-4" data-testid="advanced-draw-panel">
+                  {/* Style presets */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">Styles</span>
+                    <div className="flex flex-wrap gap-2">
+                      {(["default", "elegant", "bold", "quick"] as DrawPreset[]).map((p) => (
+                        <button
+                          key={p}
+                          onClick={() => applyPreset(p)}
+                          data-testid={`preset-${p}`}
+                          className={[
+                            "px-3 py-1.5 rounded-full text-xs font-semibold border transition-all capitalize",
+                            activePreset === p
+                              ? "bg-foreground text-background border-foreground"
+                              : "bg-background text-foreground border-border hover-elevate",
+                          ].join(" ")}
+                        >
+                          {p.charAt(0).toUpperCase() + p.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Stroke Width */}
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">Stroke Width</span>
+                    <Slider
+                      min={1} max={20} step={0.5}
+                      value={[strokeWidth]}
+                      onValueChange={([v]) => { setStrokeWidth(v); strokeWidthRef.current = v; setActivePreset("default"); }}
+                      data-testid="slider-stroke-width-adv"
+                      className="flex-1"
+                    />
+                    <span className="text-xs font-mono text-muted-foreground w-10 text-right shrink-0">{strokeWidth.toFixed(1)}px</span>
+                  </div>
+                  {/* Other sliders */}
+                  {([
+                    { label: "Smoothing",  value: drawSmoothing,  min: 0,   max: 1,   step: 0.05, set: setDrawSmoothing,  ref: drawSmoothingRef,  fmt: (v: number) => v.toFixed(2), testId: "smoothing" },
+                    { label: "Thinning",   value: drawThinning,   min: 0,   max: 1,   step: 0.05, set: setDrawThinning,   ref: drawThinningRef,   fmt: (v: number) => v.toFixed(2), testId: "thinning"  },
+                    { label: "Streamline", value: drawStreamline, min: 0,   max: 0.9, step: 0.05, set: setDrawStreamline, ref: drawStreamlineRef, fmt: (v: number) => v.toFixed(2), testId: "streamline" },
+                    { label: "Angle",      value: drawAngle,      min: -90, max: 90,  step: 5,    set: setDrawAngle,      ref: drawAngleRef,      fmt: (v: number) => `${v}°`,      testId: "angle" },
+                  ] as const).map(({ label, value, min, max, step, set, ref, fmt, testId }) => (
+                    <div key={label} className="flex items-center gap-3">
+                      <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">{label}</span>
+                      <Slider
+                        min={min} max={max} step={step}
+                        value={[value]}
+                        onValueChange={([v]) => { (set as (v: number) => void)(v); (ref as { current: number }).current = v; setActivePreset("default"); }}
+                        data-testid={`slider-${testId}`}
+                        className="flex-1"
+                      />
+                      <span className="text-xs font-mono text-muted-foreground w-10 text-right shrink-0">{fmt(value)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Canvas */}
               <div className="relative rounded-lg border border-border overflow-hidden bg-white" style={{ boxShadow: "inset 0 2px 8px rgba(0,0,0,0.04)" }}>
@@ -1403,17 +1578,30 @@ export default function SignaturePadTool() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold">Click to upload or drag &amp; drop</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">PNG or JPG — up to 10 MB</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Any image format — no size limit</p>
                 </div>
                 <input
                   id="upload-input"
                   type="file"
-                  accept="image/png,image/jpeg,image/jpg"
+                  accept="image/*"
                   className="sr-only"
                   onChange={handleUpload}
                   data-testid="input-upload"
                 />
               </label>
+
+              {/* Processing indicator for large files */}
+              {uploadProcessing && (
+                <div className="flex items-center gap-2.5 px-4 py-3 rounded-lg border bg-muted/40 text-sm text-muted-foreground" data-testid="upload-processing">
+                  <Clock className="h-4 w-4 shrink-0 animate-pulse text-primary" />
+                  <span>
+                    Loading image…
+                    {uploadEstimate && (
+                      <span className="ml-1 font-medium text-foreground">Estimated time: {uploadEstimate}</span>
+                    )}
+                  </span>
+                </div>
+              )}
 
               {uploadedImage && (
                 <Button
