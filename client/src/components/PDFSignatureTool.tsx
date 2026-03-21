@@ -14,7 +14,6 @@ import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
-const MAX_MB = 10;
 
 const FONTS = [
   "Great Vibes", "Sacramento", "Dancing Script", "Pinyon Script",
@@ -237,9 +236,6 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
   }, []);
 
   const handleDocUpload = useCallback(async (file: File) => {
-    if (file.size > MAX_MB * 1024 * 1024) {
-      toast({ title: `File too large`, description: `Maximum ${MAX_MB}MB allowed.`, variant: "destructive" }); return;
-    }
     const isPDF = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
     const isImg = file.type.startsWith("image/");
     if (!isPDF && !isImg) {
@@ -572,7 +568,7 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
         {step === 2 && (
           <div>
             <p className="text-sm font-semibold text-foreground mb-1">Step 2 — Upload your document</p>
-            <p className="text-xs text-muted-foreground mb-4">PDF, PNG, or JPG — max {MAX_MB}MB. Nothing is uploaded to any server.</p>
+            <p className="text-xs text-muted-foreground mb-4">PDF, PNG, or JPG — no size limit. Nothing is uploaded to any server.</p>
 
             {signaturePng && (
               <div className="mb-4 flex items-center gap-3 p-3 rounded-lg border bg-muted/30">
@@ -593,7 +589,7 @@ export function PDFSignatureTool({ ctaLabel = "Download Signed Document" }: PDFS
               <Upload className="h-8 w-8 text-primary" />
               <div className="text-center">
                 <p className="font-semibold text-foreground text-sm">Upload PDF, PNG, or JPG</p>
-                <p className="text-xs text-muted-foreground mt-1">Click or drag & drop · Max {MAX_MB}MB · 100% local</p>
+                <p className="text-xs text-muted-foreground mt-1">Click or drag &amp; drop · No size limit · 100% local</p>
               </div>
               <input type="file" accept=".pdf,application/pdf,.png,.jpg,.jpeg,image/png,image/jpeg" className="hidden" onChange={(e) => e.target.files?.[0] && handleDocUpload(e.target.files[0])} data-testid="input-doc-upload" />
             </label>

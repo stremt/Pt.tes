@@ -13,7 +13,6 @@ import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
 GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
-const MAX_MB = 20;
 
 interface SigInstance {
   id: number;
@@ -135,9 +134,6 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose, hi
   }, []);
 
   const handleDocUpload = useCallback(async (file: File) => {
-    if (file.size > MAX_MB * 1024 * 1024) {
-      toast({ title: `File too large`, description: `Maximum ${MAX_MB}MB allowed.`, variant: "destructive" }); return;
-    }
     const isPDF = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
     const isImg = file.type.startsWith("image/");
     if (!isPDF && !isImg) {
@@ -454,7 +450,7 @@ export function SignDocumentPanel({ signaturePng: rawPng, sigAspect, onClose, hi
             <Upload className="h-8 w-8 text-primary" />
             <div className="text-center">
               <p className="font-semibold text-foreground text-sm">Upload PDF, PNG, JPG or any image</p>
-              <p className="text-xs text-muted-foreground mt-1">Click or drag &amp; drop · Max {MAX_MB}MB · 100% local</p>
+              <p className="text-xs text-muted-foreground mt-1">Click or drag &amp; drop · No size limit · 100% local</p>
             </div>
             <input
               type="file"
