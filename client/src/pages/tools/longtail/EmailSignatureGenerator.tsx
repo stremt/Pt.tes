@@ -33,7 +33,6 @@ import {
   Settings,
   Star,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/email-signature-generator";
 const LAST_UPDATED = "March 21, 2026";
@@ -142,7 +141,51 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function SectionSubtext({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-muted-foreground text-base leading-relaxed mb-7">{children}</p>
+    <p className="text-muted-foreground text-base leading-relaxed mb-6">{children}</p>
+  );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  body,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="flex gap-4 p-5 rounded-xl border bg-card">
+      <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+        {icon}
+      </div>
+      <div>
+        <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
+        <p className="text-sm text-muted-foreground leading-snug">{body}</p>
+      </div>
+    </div>
+  );
+}
+
+function FeatureCardStacked({
+  icon,
+  title,
+  body,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  body: string;
+}) {
+  return (
+    <div className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
+      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+        {icon}
+      </div>
+      <div>
+        <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
+        <p className="text-sm text-muted-foreground leading-snug">{body}</p>
+      </div>
+    </div>
   );
 }
 
@@ -210,8 +253,8 @@ export default function EmailSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8 pt-2">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="mb-10 pt-2">
+          <div className="flex items-center gap-2 mb-5">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="h-5 w-5 text-primary" />
             </div>
@@ -220,15 +263,15 @@ export default function EmailSignatureGenerator() {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-3">
             Free Email Signature Generator
-            <span className="block text-xl sm:text-2xl font-medium text-muted-foreground mt-1">
-              Handwritten PNG for Gmail &amp; Outlook — No Signup
-            </span>
           </h1>
+          <p className="text-lg sm:text-xl font-medium text-muted-foreground mb-5">
+            Handwritten PNG for Gmail &amp; Outlook — No Signup Required
+          </p>
 
-          <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
-            Create a professional email signature online using Pixocraft's free email signature generator.{" "}
+          <p className="text-base text-muted-foreground leading-relaxed mb-7 max-w-2xl">
+            Create a professional email signature using Pixocraft's free generator.{" "}
             <strong className="text-foreground">Draw</strong> with your mouse or finger,{" "}
             <strong className="text-foreground">type</strong> in 50+ calligraphic fonts,{" "}
             <strong className="text-foreground">upload</strong> your existing signature, or use{" "}
@@ -236,14 +279,14 @@ export default function EmailSignatureGenerator() {
             Download high-quality transparent PNG instantly — no signup, no watermark, 100% private.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { icon: <Check className="h-3.5 w-3.5 text-primary" />,      label: "No Signup · No Watermark" },
               { icon: <Shield className="h-3.5 w-3.5 text-primary" />,     label: "100% Private & Offline" },
               { icon: <Mail className="h-3.5 w-3.5 text-primary" />,       label: "Works in Gmail & Outlook" },
               { icon: <Smartphone className="h-3.5 w-3.5 text-primary" />, label: "Mobile Friendly" },
             ].map(({ icon, label }) => (
-              <div key={label} className="flex items-center gap-2 rounded-lg bg-muted/60 border px-3 py-2">
+              <div key={label} className="flex items-center gap-2 rounded-lg bg-muted/50 border px-3 py-2.5">
                 <span className="shrink-0">{icon}</span>
                 <span className="text-xs font-medium text-foreground leading-tight">{label}</span>
               </div>
@@ -251,14 +294,9 @@ export default function EmailSignatureGenerator() {
           </div>
         </div>
 
-        {/* ── POWER LINE ───────────────────────────────────────────────────── */}
-        <p className="text-sm sm:text-base font-semibold text-foreground mb-8">
-          <strong>Create your email signature in under 60 seconds — no signup, no watermark, and no data tracking.</strong>
-        </p>
-
         {/* ── FEATURED SNIPPET BLOCK ────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-10">
-          <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2">
+        <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-10">
+          <h2 className="text-base sm:text-lg font-bold text-foreground mb-1.5">
             Free Email Signature Generator for Gmail &amp; Outlook
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -269,7 +307,7 @@ export default function EmailSignatureGenerator() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-14">
+        <div id="tool" className="mb-16">
           <SignaturePadWidget />
           <p className="text-xs text-muted-foreground text-center mt-3">
             No watermark · No upload to server · Download transparent PNG instantly
@@ -277,14 +315,14 @@ export default function EmailSignatureGenerator() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-20">
+        <div className="space-y-16">
 
           {/* ── WHAT IS ── */}
           <section>
             <SectionLabel>Overview</SectionLabel>
             <SectionHeading>What is an Email Signature Generator?</SectionHeading>
 
-            <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-6">
+            <div className="rounded-xl border bg-muted/40 px-6 py-5 mb-6">
               <p className="text-foreground font-medium leading-relaxed">
                 An <strong>email signature generator</strong> is an online tool that creates a high-quality image of your
                 handwritten or typed signature — specifically sized and formatted to be inserted into Gmail, Outlook,
@@ -333,21 +371,9 @@ export default function EmailSignatureGenerator() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { icon: <Check className="h-4 w-4 text-primary" />,   title: "Consistent branding",    body: "Same signature on every email — professional, repeatable, and instantly recognisable." },
-                { icon: <Zap className="h-4 w-4 text-primary" />,     title: "Ready in 60 seconds",    body: "Faster than any alternative. No design software, no templates, no learning curve." },
-                { icon: <Shield className="h-4 w-4 text-primary" />,  title: "100% browser-private",   body: "No account needed. Your signature data never leaves your device. Works offline." },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground leading-snug">{body}</p>
-                  </div>
-                </div>
-              ))}
+              <FeatureCard icon={<Check className="h-4 w-4 text-primary" />}   title="Consistent branding"    body="Same signature on every email — professional, repeatable, and instantly recognisable." />
+              <FeatureCard icon={<Zap className="h-4 w-4 text-primary" />}     title="Ready in 60 seconds"    body="Faster than any alternative. No design software, no templates, no learning curve." />
+              <FeatureCard icon={<Shield className="h-4 w-4 text-primary" />}  title="100% browser-private"   body="No account needed. Your signature data never leaves your device. Works offline." />
             </div>
           </section>
 
@@ -359,13 +385,13 @@ export default function EmailSignatureGenerator() {
               From blank canvas to Gmail or Outlook in under a minute.
             </SectionSubtext>
 
-            <ol className="space-y-4">
+            <ol className="space-y-3">
               {HOW_IT_WORKS_STEPS.map(({ step, title, description }) => (
                 <li key={step} className="flex gap-5 p-5 rounded-xl border bg-card">
-                  <span className="shrink-0 h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
+                  <span className="shrink-0 h-9 w-9 rounded-full bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center">
                     {step}
                   </span>
-                  <div className="space-y-1">
+                  <div className="space-y-1 pt-0.5">
                     <p className="font-semibold text-foreground">{title}</p>
                     <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
                   </div>
@@ -382,34 +408,10 @@ export default function EmailSignatureGenerator() {
               A professional email signature is more than just your name — it's your personal brand in every inbox.
             </SectionSubtext>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-              {[
-                {
-                  icon: <Briefcase className="h-5 w-5 text-primary" />,
-                  title: "First Impressions",
-                  body: "Every email you send is an introduction. A clean, handwritten signature immediately signals professionalism and attention to detail.",
-                },
-                {
-                  icon: <Palette className="h-5 w-5 text-primary" />,
-                  title: "Personal Branding",
-                  body: "Your signature is an extension of your identity. A consistent handwritten mark reinforces your personal or business brand across every communication.",
-                },
-                {
-                  icon: <Users className="h-5 w-5 text-primary" />,
-                  title: "Trust & Credibility",
-                  body: "Emails with a handwritten signature are perceived as more personal, more trustworthy, and more human — especially in client-facing communications.",
-                },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground leading-snug">{body}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              <FeatureCardStacked icon={<Briefcase className="h-5 w-5 text-primary" />} title="First Impressions" body="Every email you send is an introduction. A clean, handwritten signature immediately signals professionalism and attention to detail." />
+              <FeatureCardStacked icon={<Palette className="h-5 w-5 text-primary" />} title="Personal Branding" body="Your signature is an extension of your identity. A consistent handwritten mark reinforces your personal or business brand across every communication." />
+              <FeatureCardStacked icon={<Users className="h-5 w-5 text-primary" />} title="Trust & Credibility" body="Emails with a handwritten signature are perceived as more personal, more trustworthy, and more human — especially in client-facing communications." />
             </div>
 
             <div className="rounded-xl bg-muted/40 border px-5 py-4 text-sm text-muted-foreground leading-relaxed">
@@ -427,43 +429,15 @@ export default function EmailSignatureGenerator() {
             </SectionSubtext>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              {[
-                {
-                  icon: <Type className="h-4 w-4 text-primary" />,
-                  title: "Ideal display height: 60–80px",
-                  body: "This is the standard email signature height. Your Pixocraft PNG is exported at 3200×1040px so it scales perfectly — sharp on all screens including Retina.",
-                },
-                {
-                  icon: <Palette className="h-4 w-4 text-primary" />,
-                  title: "Use black or dark blue ink",
-                  body: "These colours read clearly on white and light backgrounds used by most email clients. Avoid light grey or coloured inks that can become invisible on certain displays.",
-                },
-                {
-                  icon: <PenTool className="h-4 w-4 text-primary" />,
-                  title: "Stroke width: 3–4px",
-                  body: "Thicker strokes remain legible when the image is displayed at small sizes in Gmail or Outlook. Too thin and the signature disappears into the background.",
-                },
-                {
-                  icon: <ImageIcon className="h-4 w-4 text-primary" />,
-                  title: "Always download as transparent PNG",
-                  body: "Transparent PNG removes the white box that appears around JPG images in many email clients. Your signature will sit cleanly on any email background.",
-                },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground leading-snug">{body}</p>
-                  </div>
-                </div>
-              ))}
+              <FeatureCard icon={<Type className="h-4 w-4 text-primary" />}      title="Ideal display height: 60–80px"      body="This is the standard email signature height. Your Pixocraft PNG is exported at 3200×1040px so it scales perfectly — sharp on all screens including Retina." />
+              <FeatureCard icon={<Palette className="h-4 w-4 text-primary" />}   title="Use black or dark blue ink"         body="These colours read clearly on white and light backgrounds used by most email clients. Avoid light grey or coloured inks that can become invisible on certain displays." />
+              <FeatureCard icon={<PenTool className="h-4 w-4 text-primary" />}   title="Stroke width: 3–4px"                body="Thicker strokes remain legible when the image is displayed at small sizes in Gmail or Outlook. Too thin and the signature disappears into the background." />
+              <FeatureCard icon={<ImageIcon className="h-4 w-4 text-primary" />} title="Always download as transparent PNG" body="Transparent PNG removes the white box that appears around JPG images in many email clients. Your signature will sit cleanly on any email background." />
             </div>
 
             <div className="rounded-xl border bg-card p-5">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Recommended fonts for email signatures</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {[
                   { label: "Elegant & Formal",  font: "Great Vibes",   name: "Sarah Mitchell",  note: "Best for executives, consultants, legal professionals." },
                   { label: "Clean & Modern",     font: "Satisfy",       name: "Priya Sharma",    note: "Best for tech, design, and startup professionals." },
@@ -494,7 +468,7 @@ export default function EmailSignatureGenerator() {
               your last signature loads instantly. No login, no server, 100% private. Works even offline after first load.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-card px-6 py-5 mb-6">
+            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
               <ul className="space-y-3">
                 {[
                   "Stored locally in your browser only — never uploaded to any server",
@@ -511,33 +485,9 @@ export default function EmailSignatureGenerator() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                {
-                  icon: <Lock className="h-5 w-5 text-primary" />,
-                  title: "Saved in your browser only",
-                  body: "Your signature is stored in localStorage — only accessible by you, on your device. No cloud sync, no server storage.",
-                },
-                {
-                  icon: <Shield className="h-5 w-5 text-primary" />,
-                  title: "Zero data collection",
-                  body: "We collect no signature data. No analytics on your signature content. No tracking of what you type or draw.",
-                },
-                {
-                  icon: <Zap className="h-5 w-5 text-primary" />,
-                  title: "Ready when you return",
-                  body: "Your last signature loads automatically next time. Update it instantly when you change roles or companies.",
-                },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground leading-snug">{body}</p>
-                  </div>
-                </div>
-              ))}
+              <FeatureCardStacked icon={<Lock className="h-5 w-5 text-primary" />}   title="Saved in your browser only"  body="Your signature is stored in localStorage — only accessible by you, on your device. No cloud sync, no server storage." />
+              <FeatureCardStacked icon={<Shield className="h-5 w-5 text-primary" />} title="Zero data collection"        body="We collect no signature data. No analytics on your signature content. No tracking of what you type or draw." />
+              <FeatureCardStacked icon={<Zap className="h-5 w-5 text-primary" />}    title="Ready when you return"       body="Your last signature loads automatically next time. Update it instantly when you change roles or companies." />
             </div>
           </section>
 
@@ -657,22 +607,10 @@ export default function EmailSignatureGenerator() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { icon: <Lock className="h-4 w-4 text-primary" />,     title: "Zero data collection",    body: "Unlike HubSpot and WiseStamp, Pixocraft never stores or analyses your signature content." },
-                { icon: <Sparkles className="h-4 w-4 text-primary" />, title: "Draw + Type + AI",        body: "Three creation methods in one free tool — no other free alternative offers all three." },
-                { icon: <Download className="h-4 w-4 text-primary" />, title: "Print-quality PNG",       body: "3200×1040px export — sharper than Canva's standard export at the same display size." },
-                { icon: <Zap className="h-4 w-4 text-primary" />,      title: "No signup friction",      body: "Open the page, create your signature, download. No account. No email verification." },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground">{body}</p>
-                  </div>
-                </div>
-              ))}
+              <FeatureCard icon={<Lock className="h-4 w-4 text-primary" />}     title="Zero data collection"    body="Unlike HubSpot and WiseStamp, Pixocraft never stores or analyses your signature content." />
+              <FeatureCard icon={<Sparkles className="h-4 w-4 text-primary" />} title="Draw + Type + AI"        body="Three creation methods in one free tool — no other free alternative offers all three." />
+              <FeatureCard icon={<Download className="h-4 w-4 text-primary" />} title="Print-quality PNG"       body="3200×1040px export — sharper than Canva's standard export at the same display size." />
+              <FeatureCard icon={<Zap className="h-4 w-4 text-primary" />}      title="No signup friction"      body="Open the page, create your signature, download. No account. No email verification." />
             </div>
           </section>
 
@@ -702,15 +640,7 @@ export default function EmailSignatureGenerator() {
                   body: "Make your application emails memorable. A handwritten signature on your cover letter email adds a professional touch that most applicants overlook.",
                 },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
-                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-2">{title}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
-                  </div>
-                </div>
+                <FeatureCardStacked key={title} icon={icon} title={title} body={body} />
               ))}
             </div>
           </section>
@@ -747,7 +677,7 @@ export default function EmailSignatureGenerator() {
               privacy and zero data tracking.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-6">
+            <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-5">
               <p className="text-foreground font-semibold leading-relaxed text-sm sm:text-base">
                 No signup, no watermark, and no data tracking — your email signature is created and stored
                 entirely in your browser.
@@ -755,22 +685,10 @@ export default function EmailSignatureGenerator() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { icon: <Shield className="h-4 w-4 text-primary" />,  title: "No server-side processing", body: "All drawing, typing, font rendering, and background removal happens inside your browser using HTML5 Canvas and JavaScript." },
-                { icon: <Lock className="h-4 w-4 text-primary" />,    title: "No login, no account",       body: "There is no user account system. You are completely anonymous. We have nothing to leak or breach." },
-                { icon: <Zap className="h-4 w-4 text-primary" />,     title: "Works offline",              body: "After the page loads once, you can disconnect from the internet and the tool continues to function perfectly." },
-                { icon: <Star className="h-4 w-4 text-primary" />,    title: "No watermark, ever",         body: "Your downloaded PNG is clean and unmarked. No Pixocraft branding is added to your signature — it is yours entirely." },
-              ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground">{body}</p>
-                  </div>
-                </div>
-              ))}
+              <FeatureCard icon={<Shield className="h-4 w-4 text-primary" />}  title="No server-side processing" body="All drawing, typing, font rendering, and background removal happens inside your browser using HTML5 Canvas and JavaScript." />
+              <FeatureCard icon={<Lock className="h-4 w-4 text-primary" />}    title="No login, no account"       body="There is no user account system. You are completely anonymous. We have nothing to leak or breach." />
+              <FeatureCard icon={<Zap className="h-4 w-4 text-primary" />}     title="Works offline"              body="After the page loads once, you can disconnect from the internet and the tool continues to function perfectly." />
+              <FeatureCard icon={<Star className="h-4 w-4 text-primary" />}    title="No watermark, ever"         body="Your downloaded PNG is clean and unmarked. No Pixocraft branding is added to your signature — it is yours entirely." />
             </div>
           </section>
 
@@ -868,22 +786,6 @@ export default function EmailSignatureGenerator() {
           </section>
 
         </div>
-      </div>
-
-      {/* ── STICKY CTA ──────────────────────────────────────────────────────── */}
-      <div className="sticky bottom-0 z-[9999] w-full border-t bg-background/95 backdrop-blur-sm py-3 px-4 flex items-center justify-between gap-4 flex-wrap">
-        <div>
-          <p className="font-semibold text-foreground text-sm">Create Your Email Signature Now</p>
-          <p className="text-xs text-muted-foreground">Free · No Signup · Works for Gmail &amp; Outlook</p>
-        </div>
-        <Button
-          size="default"
-          onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })}
-          data-testid="button-sticky-cta"
-        >
-          <Download className="mr-2 h-4 w-4" />
-          Download PNG Free
-        </Button>
       </div>
     </>
   );
