@@ -10,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { PDFSignatureTool } from "@/components/PDFSignatureTool";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool, Shield, Zap, Smartphone, Star, Check, FileText, Mail, Globe,
   ChevronDown, ChevronUp, ArrowRight, Lock, AlertCircle, BadgeCheck,
@@ -197,12 +197,11 @@ export default function SignatureForPDF() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-16">
-          <PDFSignatureTool ctaLabel="Insert Signature into PDF" />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No upload to server · Signed PDF downloads instantly
-          </p>
-        </div>
+        <SignatureToolSection
+          mode="pdf"
+          pdfCtaLabel="Insert Signature into PDF"
+          caption="No watermark · No server upload · Signed PDF downloads instantly"
+        />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16">

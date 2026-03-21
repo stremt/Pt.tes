@@ -10,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool,
   Shield,
@@ -296,12 +296,10 @@ export default function CreateDigitalSignature() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No server upload · Works offline after first load · Transparent PNG export
-          </p>
-        </div>
+        <SignatureToolSection
+          mode="draw"
+          caption="No watermark · No server upload · Works offline after first load · Transparent PNG export"
+        />
 
         {/* ── FEATURED SNIPPET BLOCK ─────────────────────────────────────── */}
         <section className="mb-12 rounded-xl border-2 border-primary/20 bg-primary/5 p-6">

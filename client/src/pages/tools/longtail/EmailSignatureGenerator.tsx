@@ -10,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool,
   Shield,
@@ -307,12 +307,10 @@ export default function EmailSignatureGenerator() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-16">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No upload to server · Download transparent PNG instantly
-          </p>
-        </div>
+        <SignatureToolSection
+          mode="draw"
+          caption="No watermark · No server upload · Download transparent PNG instantly"
+        />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16">
