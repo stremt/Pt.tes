@@ -793,6 +793,7 @@ function Router() {
         <Route path="/tools/mobile-signature-generator" component={MobileSignatureGenerator} />
         <Route path="/tools/gst-invoice-signature" component={GstInvoiceSignature} />
         <Route path="/tools/email-signature-maker" component={EmailSignatureMaker} />
+        <Route path="/tools/email-signature-generator" component={EmailSignatureGenerator} />
         <Route path="/tools/transparent-signature-png" component={TransparentSignaturePng} />
         <Route path="/tools/signature-for-contracts" component={SignatureForContracts} />
         <Route path="/tools/how-to-create-digital-signature-online" component={HowToCreateDigitalSignatureOnline} />

@@ -1,0 +1,207 @@
+Create a production-ready, SEO-optimized landing page for Pixocraft Tools.
+
+===============================
+PAGE DETAILS
+============
+
+Page URL:
+https://tools.pixocraft.in/tools/email-signature-generator
+
+Parent Page:
+https://tools.pixocraft.in/tools/signature-generator
+
+Page Type:
+Child SEO landing page (NOT homepage)
+
+Primary Goal:
+Rank #1 on Google for:
+
+* email signature generator
+* free email signature generator
+* gmail signature generator
+* outlook email signature image
+
+Secondary Goal:
+
+* High CTR (60–90%)
+* Convert users to use tool
+* Strengthen authority of parent page
+
+===============================
+CORE RULES (VERY IMPORTANT)
+===========================
+
+1. This is a CHILD PAGE → clearly show hierarchy
+2. Content MUST be UNIQUE (not copied from main tool page)
+3. SAME tool UI must be embedded ABOVE THE FOLD
+4. Focus ONLY on email use-case (Gmail, Outlook, business emails)
+5. Maintain Pixocraft USP:
+
+   * 100% browser-only (no server)
+   * no login
+   * offline save (localStorage)
+   * transparent PNG download
+   * 50+ fonts + AI styles
+
+===============================
+SEO REQUIREMENTS
+================
+
+Title:
+Free Email Signature Generator – Handwritten PNG for Gmail & Outlook (No Signup)
+
+Meta Description:
+Create professional handwritten email signature online free. Draw, type (50+ fonts), upload or AI styles. Download transparent PNG instantly. No login, 100% private. Works for Gmail & Outlook.
+
+Keywords to naturally include:
+
+* email signature generator
+* gmail signature
+* outlook signature
+* professional email signature
+* signature image for email
+
+===============================
+PAGE STRUCTURE (STRICT)
+=======================
+
+1. Breadcrumb (VERY IMPORTANT)
+   Home > Tools > Signature Generator > Email Signature Generator
+
+2. HERO SECTION (ABOVE THE FOLD)
+
+* H1 with primary keyword
+* Short intro (email-focused)
+* Trust badges:
+  ✔ No Signup
+  ✔ No Watermark
+  ✔ 100% Private
+  ✔ Works in Gmail & Outlook
+* TOOL UI immediately visible
+
+3. FEATURED SNIPPET BLOCK (CRITICAL)
+   Explain clearly:
+   “What is an email signature generator?”
+
+4. HOW IT WORKS (4 steps)
+
+5. EMAIL-SPECIFIC VALUE SECTION
+   Explain:
+
+* why email signature matters
+* branding + professionalism
+
+6. BEST SIGNATURE STYLE FOR EMAIL
+   Include:
+
+* ideal size (60–80px)
+* color
+* readability
+
+7. SAVE & REUSE SECTION (USP)
+   Explain localStorage + privacy
+
+8. HOW TO ADD SIGNATURE
+
+* Gmail steps
+* Outlook steps
+
+9. WHY PIXOCRAFT (COMPARISON)
+   Compare with:
+
+* Canva
+* HubSpot
+* WiseStamp
+
+10. USE CASES
+
+* freelancers
+* business owners
+* students
+
+11. TRUST / AUTHORITY SECTION
+    Mention:
+
+* privacy
+* no login
+* browser-only
+
+12. FAQ SECTION (10 questions)
+    Focus on:
+
+* Gmail
+* Outlook
+* PNG size
+* privacy
+* free usage
+
+13. INTERNAL LINKING
+    Add links to:
+
+* /tools/signature-generator
+* /tools/signature-for-pdf
+* /tools/signature-for-gst-invoice
+
+===============================
+BACKEND SEO (MUST ADD)
+======================
+
+Add JSON-LD schema:
+
+1. FAQPage schema
+2. HowTo schema (email signature creation)
+3. SoftwareApplication schema
+
+===============================
+TECHNICAL REQUIREMENTS
+======================
+
+* Fast loading (<1.5s)
+* Mobile optimized
+* Clean HTML structure
+* Proper H1-H3 hierarchy
+* Lazy loading images
+* Alt text for images:
+  "free email signature generator gmail png"
+
+===============================
+CONTENT RULES
+=============
+
+* Write natural, human-friendly content
+* Avoid keyword stuffing
+* Each section must be clearly different
+* Avoid repeating homepage wording
+* Focus on solving email signature problem
+
+===============================
+OUTPUT FORMAT
+=============
+
+Return full HTML structure with:
+
+* Head (title + meta + schema)
+* Body (all sections properly structured)
+* Clean, readable code
+
+===============================
+FINAL GOAL
+==========
+
+Create a page that:
+
+* Feels like a dedicated email signature solution
+* Outperforms Canva, HubSpot, WiseStamp
+* Ranks #1 for email signature keywords
+* Drives high CTR and conversions
+
+===============================
+IMPORTANT
+=========
+
+DO NOT skip any section.
+DO NOT shorten content.
+DO NOT duplicate main page content.
+Make this page complete, authoritative, and ranking-ready.
+
+===============================
