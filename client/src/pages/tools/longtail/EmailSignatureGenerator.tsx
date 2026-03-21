@@ -251,6 +251,11 @@ export default function EmailSignatureGenerator() {
           </div>
         </div>
 
+        {/* ── POWER LINE ───────────────────────────────────────────────────── */}
+        <p className="text-sm sm:text-base font-semibold text-foreground mb-8">
+          <strong>Create your email signature in under 60 seconds — no signup, no watermark, and no data tracking.</strong>
+        </p>
+
         {/* ── FEATURED SNIPPET BLOCK ────────────────────────────────────────── */}
         <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-10">
           <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2">
@@ -469,7 +474,7 @@ export default function EmailSignatureGenerator() {
                     <p
                       style={{ fontFamily: `'${font}', cursive`, fontSize: "1.6rem", lineHeight: 1.3 }}
                       className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis"
-                      aria-label={`free email signature generator handwritten png for gmail — ${name}`}
+                      aria-label={`free email signature generator handwritten png gmail outlook — ${name}`}
                     >
                       {name}
                     </p>
@@ -707,6 +712,28 @@ export default function EmailSignatureGenerator() {
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* ── KEYWORD H2 ── */}
+          <section>
+            <SectionLabel>Top Rated</SectionLabel>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug mb-4">
+              Best Free Email Signature Generator Online
+            </h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Pixocraft is rated among the best free email signature generators online because it combines
+                four creation modes — Draw, Type, Upload, and AI — into a single tool that works entirely
+                in your browser. No other free alternative offers handwritten drawing, 50+ calligraphic fonts,
+                and AI-generated styles together with zero data collection and no login requirement.
+              </p>
+              <p>
+                Whether you need a <strong className="text-foreground">Gmail signature generator</strong>,
+                an <strong className="text-foreground">Outlook email signature image</strong>, or a clean
+                transparent PNG for business emails, Pixocraft delivers all three in one place —
+                free, fast, and 100% private.
+              </p>
             </div>
           </section>
 
