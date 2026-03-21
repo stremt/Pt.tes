@@ -1840,7 +1840,7 @@ export default function SignaturePadTool() {
                 {history.map((item) => (
                   <div
                     key={item.id}
-                    className="shrink-0 w-52 rounded-xl border bg-white overflow-hidden group cursor-pointer hover-elevate transition-all"
+                    className="shrink-0 w-52 rounded-xl border bg-card overflow-hidden group cursor-pointer hover-elevate transition-all"
                     onClick={() => setSelectedHistoryItem(item)}
                     data-testid={`history-item-${item.id}`}
                   >
