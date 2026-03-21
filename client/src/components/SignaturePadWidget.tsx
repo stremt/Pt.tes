@@ -399,28 +399,32 @@ export default function SignaturePadWidget({
       if (pts.length >= 2) {
         const prev = pts[pts.length - 2];
         const dist = Math.hypot(pos.x - prev.x, pos.y - prev.y);
-        const velocity = dist / dt; // px/ms
+        const velocity = dist / dt; // logical px per ms
+
         const base = strokeWidthRef.current;
         const thinning = drawThinningRef.current;
-        // target: slow=thick, fast=thin, scaled by thinning factor
-        const target = Math.max(base * (1 - thinning * 0.6), base * (1 + thinning * 0.4 - velocity * thinning * 1.5));
 
-        // Angle: calligraphic tilt — modulate width by stroke direction vs pen angle
-        let angleMultiplier = 1;
-        if (drawAngleRef.current !== 0 && pts.length >= 2) {
+        // Thick (slow) vs thin (fast) — dramatic visible range
+        const thick = base * (1 + thinning * 1.2);
+        const thin  = Math.max(base * (1 - thinning * 0.95), 0.3);
+        const velFactor = Math.min(velocity / 3, 1);
+        let target = thick * (1 - velFactor) + thin * velFactor;
+
+        // Calligraphic angle modulation — 0.1× to 1.0×
+        if (drawAngleRef.current !== 0) {
           const dx = pos.x - prev.x;
           const dy = pos.y - prev.y;
           const strokeAngle = Math.atan2(dy, dx) * (180 / Math.PI);
           const diff = Math.abs(((strokeAngle - drawAngleRef.current + 360) % 360) - 180);
-          // 0° diff = stroke along pen angle → thinnest (0.5×), 90° diff → thickest (1×)
-          angleMultiplier = 0.5 + 0.5 * (diff / 180);
+          const angleMultiplier = 0.1 + 0.9 * (diff / 180);
+          target *= angleMultiplier;
         }
 
-        // Smoothing: controls how gradually width changes (high = smoother transitions)
+        // Smoothing: how fast width catches up to target
         const smoothing = drawSmoothingRef.current;
-        const lerpFactor = 0.08 + (1 - smoothing) * 0.67; // smoothing=0 → fast lerp, smoothing=1 → slow lerp
-        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * angleMultiplier * lerpFactor;
-        currentWidthRef.current = Math.max(0.5, currentWidthRef.current);
+        const lerpFactor = 0.02 + (1 - smoothing) * 0.88;
+        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * lerpFactor;
+        currentWidthRef.current = Math.max(0.3, currentWidthRef.current);
       }
 
       if (pts.length >= 3) {

@@ -539,25 +539,34 @@ export default function SignaturePadTool() {
       if (pts.length >= 2) {
         const prev = pts[pts.length - 2];
         const dist = Math.hypot(pos.x - prev.x, pos.y - prev.y);
-        const velocity = dist / dt;
+        const velocity = dist / dt; // logical px per ms
+
         const base = strokeWidthRef.current;
         const thinning = drawThinningRef.current;
-        const target = Math.max(base * (1 - thinning * 0.6), base * (1 + thinning * 0.4 - velocity * thinning * 1.5));
 
-        // Calligraphic angle modulation
-        let angleMultiplier = 1;
+        // Thick (slow stroke) vs thin (fast stroke) — very dramatic range
+        const thick = base * (1 + thinning * 1.2);
+        const thin  = Math.max(base * (1 - thinning * 0.95), 0.3);
+        // Normalise velocity: typical fast stroke ≈ 3 logical px/ms → vel factor 1
+        const velFactor = Math.min(velocity / 3, 1);
+        let target = thick * (1 - velFactor) + thin * velFactor;
+
+        // Calligraphic angle modulation — much more dramatic (0.1× to 1.0×)
         if (drawAngleRef.current !== 0) {
           const dx = pos.x - prev.x;
           const dy = pos.y - prev.y;
           const strokeAngle = Math.atan2(dy, dx) * (180 / Math.PI);
           const diff = Math.abs(((strokeAngle - drawAngleRef.current + 360) % 360) - 180);
-          angleMultiplier = 0.5 + 0.5 * (diff / 180);
+          const angleMultiplier = 0.1 + 0.9 * (diff / 180);
+          target *= angleMultiplier;
         }
 
+        // Smoothing: how fast the width catches up to target
+        // smoothing=0 → instant (harsh), smoothing=1 → very slow (silky)
         const smoothing = drawSmoothingRef.current;
-        const lerpFactor = 0.08 + (1 - smoothing) * 0.67;
-        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * angleMultiplier * lerpFactor;
-        currentWidthRef.current = Math.max(0.5, currentWidthRef.current);
+        const lerpFactor = 0.02 + (1 - smoothing) * 0.88; // 0.02 … 0.90
+        currentWidthRef.current = currentWidthRef.current * (1 - lerpFactor) + target * lerpFactor;
+        currentWidthRef.current = Math.max(0.3, currentWidthRef.current);
       }
 
       if (pts.length >= 3) {
@@ -1277,57 +1286,111 @@ export default function SignaturePadTool() {
               {showAdvanced && (
                 <div className="rounded-lg border border-border bg-muted/20 p-4 space-y-4" data-testid="advanced-draw-panel">
                   {/* Style presets */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">Styles</span>
+                  <div>
+                    <p className="text-xs font-semibold mb-2">Quick Presets</p>
                     <div className="flex flex-wrap gap-2">
-                      {(["default", "elegant", "bold", "quick"] as DrawPreset[]).map((p) => (
+                      {([
+                        { id: "default" as DrawPreset, label: "Default",     desc: "Balanced" },
+                        { id: "elegant" as DrawPreset, label: "Elegant",     desc: "Wide & smooth" },
+                        { id: "bold"    as DrawPreset, label: "Bold",        desc: "Thick brush" },
+                        { id: "quick"   as DrawPreset, label: "Quick",       desc: "Thin & fast" },
+                      ]).map(({ id, label, desc }) => (
                         <button
-                          key={p}
-                          onClick={() => applyPreset(p)}
-                          data-testid={`preset-${p}`}
+                          key={id}
+                          onClick={() => applyPreset(id)}
+                          data-testid={`preset-${id}`}
                           className={[
-                            "px-3 py-1.5 rounded-full text-xs font-semibold border transition-all capitalize",
-                            activePreset === p
+                            "flex flex-col items-start px-3 py-2 rounded-lg text-xs font-semibold border transition-all",
+                            activePreset === id
                               ? "bg-foreground text-background border-foreground"
                               : "bg-background text-foreground border-border hover-elevate",
                           ].join(" ")}
                         >
-                          {p.charAt(0).toUpperCase() + p.slice(1)}
+                          <span>{label}</span>
+                          <span className={`text-[10px] font-normal mt-0.5 ${activePreset === id ? "opacity-70" : "text-muted-foreground"}`}>{desc}</span>
                         </button>
                       ))}
                     </div>
                   </div>
+
+                  <div className="h-px bg-border" />
+
                   {/* Stroke Width */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">Stroke Width</span>
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold">Stroke Width</span>
+                      <span className="text-xs font-mono text-muted-foreground">{strokeWidth.toFixed(1)}px</span>
+                    </div>
                     <Slider
-                      min={1} max={20} step={0.5}
+                      min={0.5} max={30} step={0.5}
                       value={[strokeWidth]}
                       onValueChange={([v]) => { setStrokeWidth(v); strokeWidthRef.current = v; setActivePreset("default"); }}
                       data-testid="slider-stroke-width-adv"
-                      className="flex-1"
                     />
-                    <span className="text-xs font-mono text-muted-foreground w-10 text-right shrink-0">{strokeWidth.toFixed(1)}px</span>
+                    <p className="text-[10px] text-muted-foreground">Base thickness of every stroke</p>
                   </div>
-                  {/* Other sliders */}
-                  {([
-                    { label: "Smoothing",  value: drawSmoothing,  min: 0,   max: 1,   step: 0.05, set: setDrawSmoothing,  ref: drawSmoothingRef,  fmt: (v: number) => v.toFixed(2), testId: "smoothing" },
-                    { label: "Thinning",   value: drawThinning,   min: 0,   max: 1,   step: 0.05, set: setDrawThinning,   ref: drawThinningRef,   fmt: (v: number) => v.toFixed(2), testId: "thinning"  },
-                    { label: "Streamline", value: drawStreamline, min: 0,   max: 0.9, step: 0.05, set: setDrawStreamline, ref: drawStreamlineRef, fmt: (v: number) => v.toFixed(2), testId: "streamline" },
-                    { label: "Angle",      value: drawAngle,      min: -90, max: 90,  step: 5,    set: setDrawAngle,      ref: drawAngleRef,      fmt: (v: number) => `${v}°`,      testId: "angle" },
-                  ] as const).map(({ label, value, min, max, step, set, ref, fmt, testId }) => (
-                    <div key={label} className="flex items-center gap-3">
-                      <span className="text-xs font-medium text-muted-foreground w-24 shrink-0">{label}</span>
-                      <Slider
-                        min={min} max={max} step={step}
-                        value={[value]}
-                        onValueChange={([v]) => { (set as (v: number) => void)(v); (ref as { current: number }).current = v; setActivePreset("default"); }}
-                        data-testid={`slider-${testId}`}
-                        className="flex-1"
-                      />
-                      <span className="text-xs font-mono text-muted-foreground w-10 text-right shrink-0">{fmt(value)}</span>
+
+                  {/* Thinning */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold">Thinning</span>
+                      <span className="text-xs font-mono text-muted-foreground">{drawThinning.toFixed(2)}</span>
                     </div>
-                  ))}
+                    <Slider
+                      min={0} max={1} step={0.05}
+                      value={[drawThinning]}
+                      onValueChange={([v]) => { setDrawThinning(v); drawThinningRef.current = v; setActivePreset("default"); }}
+                      data-testid="slider-thinning"
+                    />
+                    <p className="text-[10px] text-muted-foreground">Fast strokes get thin, slow strokes get thick — like real ink</p>
+                  </div>
+
+                  {/* Smoothing */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold">Smoothing</span>
+                      <span className="text-xs font-mono text-muted-foreground">{drawSmoothing.toFixed(2)}</span>
+                    </div>
+                    <Slider
+                      min={0} max={1} step={0.05}
+                      value={[drawSmoothing]}
+                      onValueChange={([v]) => { setDrawSmoothing(v); drawSmoothingRef.current = v; setActivePreset("default"); }}
+                      data-testid="slider-smoothing"
+                    />
+                    <p className="text-[10px] text-muted-foreground">How gradually the width transitions — high = silky, low = instant</p>
+                  </div>
+
+                  {/* Streamline */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold">Streamline</span>
+                      <span className="text-xs font-mono text-muted-foreground">{drawStreamline.toFixed(2)}</span>
+                    </div>
+                    <Slider
+                      min={0} max={0.9} step={0.05}
+                      value={[drawStreamline]}
+                      onValueChange={([v]) => { setDrawStreamline(v); drawStreamlineRef.current = v; setActivePreset("default"); }}
+                      data-testid="slider-streamline"
+                    />
+                    <p className="text-[10px] text-muted-foreground">Smooths out shaky paths — high removes wobble, low follows every tremor</p>
+                  </div>
+
+                  {/* Angle */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold">Pen Angle</span>
+                      <span className="text-xs font-mono text-muted-foreground">{drawAngle}°</span>
+                    </div>
+                    <Slider
+                      min={-90} max={90} step={5}
+                      value={[drawAngle]}
+                      onValueChange={([v]) => { setDrawAngle(v); drawAngleRef.current = v; setActivePreset("default"); }}
+                      data-testid="slider-angle"
+                    />
+                    <p className="text-[10px] text-muted-foreground">Calligraphic tilt — strokes parallel to this angle become thin, perpendicular become thick</p>
+                  </div>
+
+                  <p className="text-[10px] text-primary/70 font-medium pt-1">Tip: Thinning works best with Stroke Width 4px or higher</p>
                 </div>
               )}
 
