@@ -31,6 +31,7 @@ import {
   Type,
   ImageIcon,
   Settings,
+  Star,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -39,9 +40,9 @@ const LAST_UPDATED = "March 21, 2026";
 
 const FAQS = [
   {
-    question: "How do I add a handwritten signature image to Gmail?",
+    question: "How to create an email signature in Gmail?",
     answer:
-      "Open Gmail → click the gear icon → See all settings → General → scroll to Signature → Create new. Type your name and title. To insert your signature image, click the image icon in the editor, choose 'Upload from computer', and select your PNG from Pixocraft. Click Save Changes. It will now appear automatically on every new email.",
+      "Download your PNG from Pixocraft → open Gmail → click the gear icon → See all settings → General → scroll to Signature → Create new → click the image icon in the editor → Upload from computer → select your PNG → click Save Changes. Your handwritten signature will now appear automatically on every new email.",
   },
   {
     question: "How do I add a signature image to Outlook?",
@@ -49,14 +50,19 @@ const FAQS = [
       "Outlook desktop: File → Options → Mail → Signatures → New. Type your details, then click the image icon to insert your Pixocraft PNG. Outlook Web (outlook.com): Settings → View all Outlook settings → Compose and reply → Email signature. Use the image insert button to upload your PNG. Both methods work with transparent PNG exports from Pixocraft.",
   },
   {
+    question: "What size should my email signature image be?",
+    answer:
+      "Recommended height is 60–80 pixels for the best display in Gmail and Outlook. Pixocraft exports at 3200×1040px (print quality), so you can scale it down after inserting without any loss of sharpness. In Gmail, drag the corner of the inserted image to resize it to your preference.",
+  },
+  {
+    question: "Can I use a PNG signature in Gmail?",
+    answer:
+      "Yes, Gmail fully supports transparent PNG images as signature attachments. PNG is the recommended format because it removes the white background box that appears with JPG images — making your signature look clean on any email background colour.",
+  },
+  {
     question: "Is this email signature generator completely free?",
     answer:
       "Yes — 100% free forever. No subscription, no login, no watermark on the downloaded PNG. You can create unlimited email signatures at zero cost. Pixocraft's tool is funded by display ads and stays free for all users indefinitely.",
-  },
-  {
-    question: "What size should my email signature image be?",
-    answer:
-      "For the best results, keep your signature image at 60–80px height when inserted into Gmail or Outlook. Pixocraft exports at 3200×1040px (print quality), so you can scale it down without any loss of sharpness. In Gmail, drag the corner of the image to resize after inserting.",
   },
   {
     question: "Should I use PNG or JPG for my email signature?",
@@ -66,7 +72,7 @@ const FAQS = [
   {
     question: "Will my email signature work on mobile email apps?",
     answer:
-      "Yes. Gmail and Outlook mobile apps both support image-based signatures. Once you set your signature in the web settings, it will sync to the mobile app automatically. The PNG from Pixocraft renders sharply on all screen resolutions including Retina and high-DPI displays.",
+      "Yes. Gmail and Outlook mobile apps both support image-based signatures. Once you set your signature in the web settings, it syncs to the mobile app automatically. The PNG from Pixocraft renders sharply on all screen resolutions including Retina and high-DPI displays.",
   },
   {
     question: "Is my signature data private? Is anything stored on a server?",
@@ -87,6 +93,11 @@ const FAQS = [
     question: "Can I use this on my phone to set up my email signature?",
     answer:
       "Absolutely. The tool is fully mobile-optimised. Open this page on Chrome or Safari on your phone, draw or type your signature, and download the PNG. You can then go directly to Gmail Settings or Outlook Settings on your mobile browser to insert the image into your email signature.",
+  },
+  {
+    question: "Does Pixocraft add a watermark to the downloaded signature?",
+    answer:
+      "No. Your downloaded PNG is completely clean — no Pixocraft branding, no watermark, no hidden text. The signature image belongs entirely to you and is ready to use in Gmail, Outlook, or any document.",
   },
 ];
 
@@ -141,7 +152,7 @@ export default function EmailSignatureGenerator() {
   useSEO({
     title: "Free Email Signature Generator – Handwritten PNG for Gmail & Outlook (No Signup)",
     description:
-      "Create professional handwritten email signature online free. Draw, type (50+ fonts), upload or AI styles. Download transparent PNG instantly. No login, 100% private. Works for Gmail & Outlook.",
+      "Create professional handwritten email signature online free. Draw, type (50+ fonts), upload or AI styles. Download transparent PNG instantly. Save locally, no login. Perfect for Gmail, Outlook & business emails. Made in India.",
     keywords:
       "email signature generator, free email signature generator, gmail signature generator, outlook email signature image, professional email signature, signature image for email, handwritten email signature",
     canonicalUrl: CANONICAL,
@@ -149,11 +160,11 @@ export default function EmailSignatureGenerator() {
   });
 
   const softwareSchema = generateSoftwareApplicationSchema({
-    name: "Email Signature Generator – Pixocraft",
+    name: "Pixocraft Email Signature Generator",
     description:
       "Create a professional handwritten email signature image online for free. Draw, type in 50+ fonts, or upload. Download transparent PNG for Gmail, Outlook, and any email client. 100% private, no login required.",
     url: CANONICAL,
-    applicationCategory: "UtilityApplication",
+    applicationCategory: "WebApplication",
     operatingSystem: "Web",
     offers: { price: "0", priceCurrency: "USD" },
   });
@@ -199,7 +210,7 @@ export default function EmailSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-10 pt-2">
+        <div className="mb-8 pt-2">
           <div className="flex items-center gap-2 mb-4">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="h-5 w-5 text-primary" />
@@ -217,19 +228,19 @@ export default function EmailSignatureGenerator() {
           </h1>
 
           <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
-            Create a professional handwritten email signature in seconds.{" "}
+            Create a professional email signature online using Pixocraft's free email signature generator.{" "}
             <strong className="text-foreground">Draw</strong> with your mouse or finger,{" "}
             <strong className="text-foreground">type</strong> in 50+ calligraphic fonts,{" "}
             <strong className="text-foreground">upload</strong> your existing signature, or use{" "}
             <strong className="text-foreground">AI styles</strong> for an instant result.
-            Download as a crisp transparent PNG — ready to drop into Gmail, Outlook, or any email client.
+            Download high-quality transparent PNG instantly — no signup, no watermark, 100% private.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
             {[
-              { icon: <Check className="h-3.5 w-3.5 text-primary" />,     label: "No Signup · No Watermark" },
-              { icon: <Shield className="h-3.5 w-3.5 text-primary" />,    label: "100% Private & Offline" },
-              { icon: <Mail className="h-3.5 w-3.5 text-primary" />,      label: "Works in Gmail & Outlook" },
+              { icon: <Check className="h-3.5 w-3.5 text-primary" />,      label: "No Signup · No Watermark" },
+              { icon: <Shield className="h-3.5 w-3.5 text-primary" />,     label: "100% Private & Offline" },
+              { icon: <Mail className="h-3.5 w-3.5 text-primary" />,       label: "Works in Gmail & Outlook" },
               { icon: <Smartphone className="h-3.5 w-3.5 text-primary" />, label: "Mobile Friendly" },
             ].map(({ icon, label }) => (
               <div key={label} className="flex items-center gap-2 rounded-lg bg-muted/60 border px-3 py-2">
@@ -238,6 +249,18 @@ export default function EmailSignatureGenerator() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* ── FEATURED SNIPPET BLOCK ────────────────────────────────────────── */}
+        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-10">
+          <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2">
+            Free Email Signature Generator for Gmail &amp; Outlook
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+            Pixocraft is a free email signature generator that helps you create a professional handwritten
+            signature for Gmail and Outlook. Draw, type (50+ fonts), upload or use AI styles and download
+            a transparent PNG instantly. No signup required, 100% private and works offline in your browser.
+          </p>
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
@@ -279,6 +302,47 @@ export default function EmailSignatureGenerator() {
                 Whether you're a freelancer, business professional, or student, a handwritten email signature adds
                 a personal, authoritative touch to every message you send — and takes less than 60 seconds to create here.
               </p>
+            </div>
+          </section>
+
+          {/* ── WHY USE ── */}
+          <section>
+            <SectionLabel>Why It Helps</SectionLabel>
+            <SectionHeading>Why Use an Email Signature Generator?</SectionHeading>
+            <SectionSubtext>
+              A consistent, professional signature in every email builds trust and reinforces your personal brand.
+            </SectionSubtext>
+
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-6">
+              <p>
+                An <strong className="text-foreground">email signature generator</strong> helps you create a consistent and
+                professional signature for every email you send. Instead of typing your name manually at the end of each
+                message, you can use a high-quality signature image that looks clean across Gmail, Outlook, and mobile
+                email apps — on any device, any screen size.
+              </p>
+              <p>
+                For businesses, a unified email signature reinforces brand identity. For freelancers, it signals
+                professionalism in client proposals. For students and job seekers, it adds a personal touch that
+                distinguishes your application emails from the crowd.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { icon: <Check className="h-4 w-4 text-primary" />,   title: "Consistent branding",    body: "Same signature on every email — professional, repeatable, and instantly recognisable." },
+                { icon: <Zap className="h-4 w-4 text-primary" />,     title: "Ready in 60 seconds",    body: "Faster than any alternative. No design software, no templates, no learning curve." },
+                { icon: <Shield className="h-4 w-4 text-primary" />,  title: "100% browser-private",   body: "No account needed. Your signature data never leaves your device. Works offline." },
+              ].map(({ icon, title, body }) => (
+                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                    {icon}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
+                    <p className="text-sm text-muted-foreground leading-snug">{body}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -392,7 +456,6 @@ export default function EmailSignatureGenerator() {
               ))}
             </div>
 
-            {/* Font style preview */}
             <div className="rounded-xl border bg-card p-5">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Recommended fonts for email signatures</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -406,6 +469,7 @@ export default function EmailSignatureGenerator() {
                     <p
                       style={{ fontFamily: `'${font}', cursive`, fontSize: "1.6rem", lineHeight: 1.3 }}
                       className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis"
+                      aria-label={`free email signature generator handwritten png for gmail — ${name}`}
                     >
                       {name}
                     </p>
@@ -421,9 +485,25 @@ export default function EmailSignatureGenerator() {
             <SectionLabel>Privacy-First</SectionLabel>
             <SectionHeading>Save &amp; Reuse Your Email Signature — Offline Forever</SectionHeading>
             <SectionSubtext>
-              Pixocraft is the only free email signature tool that saves your work locally and works offline —
-              with zero data leaving your device.
+              Pixocraft automatically saves your signature in your browser. Close the tab and come back anytime —
+              your last signature loads instantly. No login, no server, 100% private. Works even offline after first load.
             </SectionSubtext>
+
+            <div className="rounded-xl border bg-card px-6 py-5 mb-6">
+              <ul className="space-y-3">
+                {[
+                  "Stored locally in your browser only — never uploaded to any server",
+                  "No server upload, no tracking, no analytics on your signature content",
+                  "Reuse instantly for Gmail, Outlook, documents, and PDF signatures",
+                  "Update it in seconds when you change roles, companies, or style",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
@@ -524,7 +604,7 @@ export default function EmailSignatureGenerator() {
 
             <div className="rounded-xl bg-muted/40 border px-5 py-4 text-sm text-muted-foreground leading-relaxed">
               <strong className="text-foreground">Tip:</strong> After inserting your image in Gmail, right-click it and select
-              'Size & Position' to lock it to a specific height (60–80px recommended). This prevents the image from
+              'Size &amp; Position' to lock it to a specific height (60–80px recommended). This prevents the image from
               appearing too large on mobile email clients.
             </div>
           </section>
@@ -633,17 +713,26 @@ export default function EmailSignatureGenerator() {
           {/* ── TRUST ── */}
           <section>
             <SectionLabel>Trust & Privacy</SectionLabel>
-            <SectionHeading>Built on Privacy-First Principles</SectionHeading>
+            <SectionHeading>Trusted Email Signature Generator</SectionHeading>
             <SectionSubtext>
-              Pixocraft is 100% browser-based. There is no backend that processes your signature data.
+              Pixocraft is trusted by freelancers, professionals, and businesses to create secure and
+              professional email signatures. Our tool runs entirely in your browser, ensuring complete
+              privacy and zero data tracking.
             </SectionSubtext>
+
+            <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-6">
+              <p className="text-foreground font-semibold leading-relaxed text-sm sm:text-base">
+                No signup, no watermark, and no data tracking — your email signature is created and stored
+                entirely in your browser.
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { icon: <Shield className="h-4 w-4 text-primary" />,  title: "No server-side processing", body: "All drawing, typing, font rendering, and background removal happens inside your browser using HTML5 Canvas and JavaScript." },
                 { icon: <Lock className="h-4 w-4 text-primary" />,    title: "No login, no account",       body: "There is no user account system. You are completely anonymous. We have nothing to leak or breach." },
                 { icon: <Zap className="h-4 w-4 text-primary" />,     title: "Works offline",              body: "After the page loads once, you can disconnect from the internet and the tool continues to function perfectly." },
-                { icon: <Check className="h-4 w-4 text-primary" />,   title: "No watermark, ever",         body: "Your downloaded PNG is clean and unmarked. No Pixocraft branding is added to your signature — it is yours entirely." },
+                { icon: <Star className="h-4 w-4 text-primary" />,    title: "No watermark, ever",         body: "Your downloaded PNG is clean and unmarked. No Pixocraft branding is added to your signature — it is yours entirely." },
               ].map(({ icon, title, body }) => (
                 <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -662,15 +751,29 @@ export default function EmailSignatureGenerator() {
           <section>
             <SectionLabel>Related Tools</SectionLabel>
             <SectionHeading>More Signature &amp; Document Tools</SectionHeading>
+            <SectionSubtext>
+              You can also use our{" "}
+              <Link href="/tools/signature-generator" className="text-primary hover:underline underline-offset-2 font-medium">
+                online signature generator
+              </Link>{" "}
+              to create signatures for documents, sign files using our{" "}
+              <Link href="/tools/signature-for-pdf" className="text-primary hover:underline underline-offset-2 font-medium">
+                PDF signature tool
+              </Link>
+              , or add your mark to business invoices with our{" "}
+              <Link href="/tools/signature-for-gst-invoice" className="text-primary hover:underline underline-offset-2 font-medium">
+                GST invoice signature tool
+              </Link>.
+            </SectionSubtext>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-generator",        title: "Signature Generator (Main Tool)",  desc: "The full-featured tool — Draw, Type, Upload, AI with undo/redo and advanced options." },
-                { href: "/tools/signature-for-pdf",          title: "Signature for PDF",                desc: "Sign PDF documents directly — place your signature over any PDF page." },
-                { href: "/tools/gst-invoice-signature",      title: "GST Invoice Signature",            desc: "Add your signature to GST invoices for Tally, Zoho Books, and other Indian billing software." },
-                { href: "/tools/email-signature-maker",      title: "Email Signature Maker",            desc: "Alternate email signature tool with HTML preview and contact block layout." },
-                { href: "/tools/digital-signature-generator",title: "Digital Signature Generator",      desc: "India IT Act 2000 ready — for contracts, NDAs, and business documents." },
-                { href: "/tools/background-remover",         title: "Background Remover",               desc: "Remove any background from an uploaded signature image instantly." },
+                { href: "/tools/signature-generator",         title: "Signature Generator (Main Tool)",  desc: "The full-featured tool — Draw, Type, Upload, AI with undo/redo and advanced options." },
+                { href: "/tools/signature-for-pdf",           title: "Signature for PDF",                desc: "Sign PDF documents directly — place your signature over any PDF page." },
+                { href: "/tools/signature-for-gst-invoice",   title: "GST Invoice Signature",            desc: "Add your signature to GST invoices for Tally, Zoho Books, and other Indian billing software." },
+                { href: "/tools/email-signature-maker",       title: "Email Signature Maker",            desc: "Alternate email signature tool with HTML preview and contact block layout." },
+                { href: "/tools/digital-signature-generator", title: "Digital Signature Generator",      desc: "India IT Act 2000 ready — for contracts, NDAs, and business documents." },
+                { href: "/tools/background-remover",          title: "Background Remover",               desc: "Remove any background from an uploaded signature image instantly." },
               ].map(({ href, title, desc }) => (
                 <Link
                   key={href}
