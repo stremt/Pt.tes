@@ -352,6 +352,7 @@ const SignatureForPDF = lazy(() => import("@/pages/tools/longtail/SignatureForPD
 const MobileSignatureGenerator = lazy(() => import("@/pages/tools/longtail/MobileSignatureGenerator"));
 const GstInvoiceSignature = lazy(() => import("@/pages/tools/longtail/GstInvoiceSignature"));
 const EmailSignatureMaker = lazy(() => import("@/pages/tools/longtail/EmailSignatureMaker"));
+const EmailSignatureGenerator = lazy(() => import("@/pages/tools/longtail/EmailSignatureGenerator"));
 const TransparentSignaturePng = lazy(() => import("@/pages/tools/longtail/TransparentSignaturePng"));
 const SignatureForContracts = lazy(() => import("@/pages/tools/longtail/SignatureForContracts"));
 const HowToCreateDigitalSignatureOnline = lazy(() => import("@/pages/tools/longtail/HowToCreateDigitalSignatureOnline"));
