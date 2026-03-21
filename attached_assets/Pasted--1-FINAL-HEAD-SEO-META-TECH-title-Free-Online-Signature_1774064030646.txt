@@ -1,0 +1,177 @@
+🔥 1. FINAL HEAD (SEO + META + TECH)
+<title>Free Online Signature Generator – Draw, Type & Download PNG (No Signup)</title>
+
+<meta name="description" content="Create your digital signature online for free. Draw, type (50+ fonts), upload or use AI styles and download transparent PNG instantly. 100% private, no signup, offline. Works for PDF, GST invoices, email & documents. Made in India.">
+
+<meta name="keywords" content="signature generator, online signature maker, digital signature online, free signature generator, create signature online, e signature maker, signature for pdf, email signature generator">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/signature-generator">
+🔥 2. HERO SECTION (ABOVE THE FOLD)
+<h1>Free Online Signature Generator (Draw, Type, Upload & Download PNG)</h1>
+
+<p>Create digital signature online in seconds. Draw, type (50+ fonts), upload or use AI styles. Download high-quality transparent PNG instantly.</p>
+
+<div>
+✔ No Signup • No Watermark  
+✔ 100% Private (Runs in Browser Only)  
+✔ Save & Reuse Locally (Offline Forever)  
+✔ Works for PDF, GST & Email • Made in India
+</div>
+
+<!-- TOOL UI HERE (canvas + tabs) -->
+🔥 3. FEATURED SNIPPET SECTION
+<h2>What is an Online Signature Generator?</h2>
+
+<p>An online signature generator is a free tool that lets you create a digital signature by drawing, typing in 50+ handwritten fonts, uploading a signature image, or using AI-generated styles. You can download it as a transparent PNG and use it in PDF, Word, or email.</p>
+🔥 4. HOW IT WORKS
+<h2>How to Create a Digital Signature Online</h2>
+
+<ol>
+<li>Choose Draw, Type, Upload or AI</li>
+<li>Customize your signature style</li>
+<li>Preview your signature live</li>
+<li>Download as PNG or JPG instantly</li>
+</ol>
+🔥 5. SAVE FEATURE (USP SECTION)
+<h2>Save & Reuse Your Signature (100% Private & Offline)</h2>
+
+<p>Unlike other tools, Pixocraft lets you save your signature locally in your browser using secure LocalStorage. Your data never leaves your device — no server, no login, no tracking.</p>
+
+<ul>
+<li>✔ Saved locally in your browser</li>
+<li>✔ No server upload – fully private & offline</li>
+<li>✔ Reuse instantly for PDF, Word, Gmail, Tally</li>
+</ul>
+🔥 6. METHODS SECTION
+<h2>Draw vs Type vs Upload vs AI Signature</h2>
+
+<table>
+<tr><th>Method</th><th>Best For</th><th>Pros</th><th>Cons</th></tr>
+<tr><td>Draw</td><td>Personal feel</td><td>Natural, unique</td><td>Takes time</td></tr>
+<tr><td>Type</td><td>Fast & clean</td><td>50+ fonts, consistent</td><td>Less personal</td></tr>
+<tr><td>Upload</td><td>Existing signature</td><td>Reuse easily</td><td>Quality depends</td></tr>
+<tr><td>AI</td><td>Instant styles</td><td>Beautiful, quick</td><td>Not hand-drawn</td></tr>
+</table>
+
+<p><strong>Quick pick:</strong> New user → Type. Existing → Upload. Personal → Draw. Fast → AI.</p>
+🔥 7. USE CASE SECTION
+<h2>Where Can You Use Your Signature?</h2>
+
+<ul>
+<li>GST invoices & e-way bills (Tally Prime, Zoho Books)</li>
+<li>PDF documents and contracts</li>
+<li>Google Docs and Microsoft Word</li>
+<li>Email signature (Gmail & Outlook)</li>
+<li>Aadhaar forms and government portals</li>
+<li>HR onboarding & freelance agreements</li>
+</ul>
+🔥 8. LEGAL SECTION (INDIA SEO BOOST)
+<h2>Is Online Signature Legal in India?</h2>
+
+<p>Yes. Under the IT Act 2000 and its 2008 amendment, electronic signatures are legally valid for most documents including GST invoices, contracts, and HR agreements.</p>
+
+<p>Pixocraft signatures can be used for GST invoices, e-way bills, freelance contracts, and email approvals. For government filings like MCA or court submissions, a DSC may be required.</p>
+🔥 9. COMPARISON SECTION
+<h2>Best Free Signature Generator vs Paid Tools</h2>
+
+<table>
+<tr><th>Feature</th><th>Pixocraft</th><th>Signaturely</th><th>Canva</th><th>DocuSign</th></tr>
+<tr><td>Free Forever</td><td>Yes</td><td>Limited</td><td>Pro</td><td>Limited</td></tr>
+<tr><td>No Signup</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Offline</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+<tr><td>AI Styles</td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+</table>
+🔥 10. TIPS
+<h2>Tips for a Professional Digital Signature</h2>
+
+<ul>
+<li>Use black or dark blue ink</li>
+<li>Keep stroke width 3–4 px</li>
+<li>Download transparent PNG</li>
+<li>Test at small sizes</li>
+</ul>
+🔥 11. FAQ (WITH SCHEMA SUPPORT)
+<h2>Frequently Asked Questions</h2>
+
+<h3>Is online signature legal in India?</h3>
+<p>Yes, under IT Act 2000.</p>
+
+<h3>Can I use this for GST invoices?</h3>
+<p>Yes, image signatures are accepted.</p>
+
+<h3>Is my signature stored anywhere?</h3>
+<p>No, everything is stored locally in your browser.</p>
+
+<h3>Can I use this in Gmail?</h3>
+<p>Yes, upload PNG in Gmail signature settings.</p>
+
+<h3>Is it free forever?</h3>
+<p>Yes, completely free.</p>
+🔥 12. SCHEMA (PUT IN HEAD)
+✅ FAQ SCHEMA
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is online signature legal in India?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes, under IT Act 2000 electronic signatures are valid."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is my signature stored?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "No, it is stored locally in your browser."
+   }
+  }
+ ]
+}
+</script>
+✅ HOWTO SCHEMA
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "Create Digital Signature Online",
+ "step": [
+  {"@type":"HowToStep","name":"Choose method"},
+  {"@type":"HowToStep","name":"Customize"},
+  {"@type":"HowToStep","name":"Preview"},
+  {"@type":"HowToStep","name":"Download"}
+ ]
+}
+</script>
+✅ SOFTWARE SCHEMA
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "SoftwareApplication",
+ "name": "Pixocraft Signature Generator",
+ "applicationCategory": "WebApplication",
+ "operatingSystem": "All",
+ "offers": {
+   "@type": "Offer",
+   "price": "0"
+ }
+}
+</script>
+🔥 FINAL STRUCTURE (LOCK THIS)
+
+👉 Hero + Tool
+👉 What is
+👉 How it works
+👉 Save feature
+👉 Methods
+👉 Use cases
+👉 Legal
+👉 Comparison
+👉 Tips
+👉 FAQ
