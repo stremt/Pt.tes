@@ -170,6 +170,14 @@ const TOOLS = [
     tags: ["GST", "CGST Rule 46", "India"],
   },
   {
+    href: "/tools/signature-for-tally",
+    icon: Receipt,
+    title: "Signature for Tally",
+    badge: "India",
+    desc: "Create a transparent PNG signature and configure it in TallyPrime once — every future invoice prints signed automatically. No DSC needed.",
+    tags: ["Tally", "GST", "Invoice"],
+  },
+  {
     href: "/tools/signature-for-contracts",
     icon: FileText,
     title: "Signature for Contracts",
@@ -422,6 +430,7 @@ export default function SignatureToolsCategory() {
                   ["Sign a PDF online (step-by-step guide)",     "/tools/how-to-sign-pdf-online",              "How to Sign PDF Online"],
                   ["Sign a PDF on mobile / phone",               "/how-to-sign-pdf-on-mobile",                 "How to Sign PDF on Mobile"],
                   ["Add signature to a GST invoice",             "/tools/signature-for-gst-invoice",           "Signature for GST Invoice"],
+                  ["Add signature in Tally Prime invoice",       "/tools/signature-for-tally",                 "Signature for Tally"],
                   ["Create a signature for email footer",        "/tools/email-signature-generator",           "Email Signature Generator"],
                   ["Sign a contract or NDA",                     "/tools/signature-for-contracts",             "Signature for Contracts"],
                   ["Remove white background from my signature",  "/tools/transparent-signature-png",           "Transparent Signature PNG"],
