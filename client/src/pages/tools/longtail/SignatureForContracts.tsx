@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -21,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/signature-for-contracts";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const FAQS = [
   {
@@ -156,7 +156,7 @@ export default function SignatureForContracts() {
     { name: "Home",                      url: "https://tools.pixocraft.in/" },
     { name: "Tools",                     url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Signature for Contracts",   url: CANONICAL },
   ]);
 
@@ -189,11 +189,6 @@ export default function SignatureForContracts() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Signature for Contracts" },
         ]} />
-
-        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
-        <div className="mt-4 mb-2">
-          <SignatureTopPromo />
-        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -547,7 +542,7 @@ export default function SignatureForContracts() {
 
           {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
           <SignatureRelatedTools links={[
-            { href: "/tools/signature-generator",        label: "Signature Generator",        desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-pad-tool",        label: "Signature Generator",        desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
             { href: "/tools/signature-for-pdf",          label: "Signature for PDF",          desc: "Place your signature directly onto any contract PDF in your browser." },
             { href: "/tools/esignature-maker",           label: "E-Signature Maker",          desc: "Create a professional e-signature for digital document signing." },
             { href: "/tools/signature-for-gst-invoice",  label: "Signature for GST Invoice",  desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax." },

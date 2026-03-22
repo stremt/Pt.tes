@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -21,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/signature-for-gst-invoice";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 2026";
 
 const FAQS = [
@@ -173,7 +174,7 @@ export default function SignatureForGstInvoice() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
             { label: "Signature for GST Invoice" },
           ]}
         />
@@ -708,7 +709,7 @@ export default function SignatureForGstInvoice() {
           <p className="font-semibold text-foreground text-base">Related Tools</p>
           <div className="flex flex-wrap gap-3">
             {[
-              { href: "/tools/signature-generator",       label: "Signature Generator" },
+              { href: "/tools/signature-pad-tool",       label: "Signature Generator" },
               { href: "/tools/add-signature-to-pdf",      label: "Add Signature to PDF" },
               { href: "/tools/signature-for-pdf",         label: "Signature for PDF" },
               { href: "/tools/create-digital-signature",  label: "Digital Signature" },

@@ -10,6 +10,7 @@ import {
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { PDFSignatureTool } from "@/components/PDFSignatureTool";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   Shield, Zap, Smartphone, Lock, BadgeCheck, ArrowRight,
   ChevronDown, ChevronUp, FileCheck, FileText, Receipt,
@@ -20,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/how-to-sign-pdf-on-mobile";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const HOW_TO_STEPS = [
   {
@@ -196,7 +197,7 @@ export default function HowToSignPdfOnMobile() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "How to Sign PDF on Mobile" },
         ]} />
 
@@ -518,7 +519,7 @@ export default function HowToSignPdfOnMobile() {
                 { label: "Transparent Signature PNG", href: "/tools/transparent-signature-png", desc: "Create a transparent PNG signature to use in any app or document." },
                 { label: "Signature for Contracts", href: "/tools/signature-for-contracts", desc: "Professional signature created specifically for contracts and NDAs." },
                 { label: "Free Signature for Documents", href: "/tools/free-signature-for-documents", desc: "General-purpose digital signature for any document type." },
-                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full signature pad — draw, type, or upload on any device." },
+                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full signature pad — draw, type, or upload on any device." },
               ].map(({ label, href, desc }) => (
                 <Link key={label} href={href} data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -158,7 +159,7 @@ export default function SignatureFontGenerator() {
     generateBreadcrumbSchema([
       { name: "Home",                     url: "https://tools.pixocraft.in" },
       { name: "Signature Tools",          url: "https://tools.pixocraft.in/tools/signature-tools" },
-      { label: "Signature Generator", url: "/tools/signature-generator" },
+      { label: "Signature Generator", url: "/tools/signature-pad-tool" },
       { name: "Signature Font Generator", url: CANONICAL },
     ]),
     generateWebPageSchema({

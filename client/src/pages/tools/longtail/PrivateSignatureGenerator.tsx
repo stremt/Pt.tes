@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -181,7 +182,7 @@ const COMPARISON = [
 ];
 
 const RELATED_TOOLS = [
-  { href: "/tools/signature-generator", label: "Signature Generator", desc: "The main signature tool with advanced controls and 50+ fonts." },
+  { href: "/tools/signature-pad-tool", label: "Signature Generator", desc: "The main signature tool with advanced controls and 50+ fonts." },
   { href: "/tools/online-signature-generator-without-upload", label: "Signature Generator Without Upload", desc: "Emphasises zero-upload — no data leaves your device in any form." },
   { href: "/tools/free-signature-generator-no-login", label: "Free Signature Generator No Login", desc: "Zero-signup, instant access — no email or password needed." },
   { href: "/tools/signature-for-pdf", label: "Signature for PDF", desc: "Insert your private PNG signature directly into any PDF document." },
@@ -264,7 +265,7 @@ export default function PrivateSignatureGenerator() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "Private Signature Generator" },
         ]} />
 

@@ -10,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignaturePadWidget from "@/components/SignaturePadWidget";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -21,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/gst-invoice-signature";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const FAQS = [
   {
@@ -183,7 +183,7 @@ export default function GstInvoiceSignature() {
     { name: "Home",                    url: "https://tools.pixocraft.in/" },
     { name: "Tools",                   url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "GST Invoice Signature",   url: CANONICAL },
   ]);
 
@@ -216,11 +216,6 @@ export default function GstInvoiceSignature() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "GST Invoice Signature" },
         ]} />
-
-        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
-        <div className="mt-4 mb-2">
-          <SignatureTopPromo />
-        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -588,7 +583,7 @@ export default function GstInvoiceSignature() {
 
           {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
           <SignatureRelatedTools links={[
-            { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
             { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Create signatures optimised for all Indian business and government documents." },
             { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Step-by-step guide to inserting your PNG signature into TallyPrime invoices." },
             { href: "/tools/signature-for-contracts",      label: "Signature for Contracts",      desc: "Sign NDAs, employment letters, and business agreements digitally." },

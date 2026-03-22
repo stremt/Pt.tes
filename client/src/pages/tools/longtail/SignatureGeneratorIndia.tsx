@@ -10,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignaturePadWidget from "@/components/SignaturePadWidget";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -21,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/signature-generator-india";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const FAQS = [
   {
@@ -197,14 +197,9 @@ export default function SignatureGeneratorIndia() {
           { label: "Home",                      url: "https://tools.pixocraft.in/" },
           { label: "Tools",                     url: "/tools" },
           { label: "Signature Tools",           url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "Signature Generator India" },
         ]} />
-
-        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
-        <div className="mt-4 mb-2">
-          <SignatureTopPromo />
-        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -650,7 +645,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
           <SignatureRelatedTools links={[
-            { href: "/tools/signature-generator",              label: "Signature Generator",              desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-pad-tool",              label: "Signature Generator",              desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
             { href: "/tools/signature-for-aadhaar",            label: "Signature for Aadhaar",            desc: "Create and use signatures specifically for Aadhaar KYC forms and UIDAI processes." },
             { href: "/tools/signature-for-gst-invoice",        label: "Signature for GST Invoice",        desc: "Step-by-step guide to signing GST invoices in TallyPrime, Zoho Books, and ClearTax." },
             { href: "/tools/signature-for-tally",              label: "Signature for Tally",              desc: "Insert your PNG signature into TallyPrime invoices with a simple setup guide." },

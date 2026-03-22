@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -219,7 +219,7 @@ export default function EmailSignatureGenerator() {
     { name: "Home",                       url: "https://tools.pixocraft.in/" },
     { name: "Tools",                      url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Email Signature Generator",  url: CANONICAL },
   ]);
 
@@ -253,11 +253,6 @@ export default function EmailSignatureGenerator() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Email Signature Generator" },
         ]} />
-
-        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
-        <div className="mt-4 mb-2">
-          <SignatureTopPromo />
-        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-10 pt-2">
@@ -699,7 +694,7 @@ export default function EmailSignatureGenerator() {
 
           {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
           <SignatureRelatedTools links={[
-            { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
             { href: "/tools/signature-for-pdf",            label: "Signature for PDF",            desc: "Sign PDF documents directly — place your signature over any PDF page." },
             { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Add your signature to GST invoices for Tally, Zoho Books, and Indian billing software." },
             { href: "/tools/email-signature-maker",        label: "Email Signature Maker",        desc: "Alternate email signature tool with HTML preview and contact block layout." },

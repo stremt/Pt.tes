@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -100,7 +101,7 @@ export default function SignatureForPDF() {
     { name: "Home",               url: "https://tools.pixocraft.in/" },
     { name: "Tools",              url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Sign PDF Online",    url: CANONICAL },
   ]);
 
@@ -588,7 +589,7 @@ export default function SignatureForPDF() {
             <SectionHeading>More Signature &amp; Document Tools</SectionHeading>
             <SectionSubtext>
               Also use our{" "}
-              <Link href="/tools/signature-generator" className="text-primary hover:underline underline-offset-2 font-medium">
+              <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
                 online signature generator
               </Link>{" "}
               to create reusable signatures,{" "}
@@ -605,7 +606,7 @@ export default function SignatureForPDF() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/add-signature-to-pdf",               title: "Add Signature to PDF",              desc: "Alternate PDF signing tool — direct upload-and-place signature workflow." },
-                { href: "/tools/signature-generator",                  title: "Signature Generator",               desc: "The full-featured tool — Draw, Type, Upload, AI with undo/redo and advanced options." },
+                { href: "/tools/signature-pad-tool",                  title: "Signature Generator",               desc: "The full-featured tool — Draw, Type, Upload, AI with undo/redo and advanced options." },
                 { href: "/tools/email-signature-generator",            title: "Email Signature Generator",         desc: "Create handwritten PNG signatures for Gmail and Outlook. No signup required." },
                 { href: "/tools/signature-for-gst-invoice",            title: "GST Invoice Signature",             desc: "Add your signature to GST invoices for Tally, Zoho Books, and custom billing software." },
                 { href: "/tools/digital-signature-generator",          title: "Digital Signature Generator",       desc: "India IT Act 2000 ready — for contracts, NDAs, and business documents." },

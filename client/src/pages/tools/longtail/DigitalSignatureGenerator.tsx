@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -35,7 +36,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/digital-signature-generator";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
 const FAQS = [
@@ -128,7 +129,7 @@ export default function DigitalSignatureGenerator() {
     { name: "Home",                         url: "https://tools.pixocraft.in/" },
     { name: "Tools", url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Digital Signature Generator",  url: CANONICAL },
   ]);
 
@@ -514,7 +515,7 @@ export default function DigitalSignatureGenerator() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-generator",            title: "Signature Generator (Main Tool)",  desc: "The full-featured tool with all options, AI styles, and advanced controls." },
+                { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The full-featured tool with all options, AI styles, and advanced controls." },
                 { href: "/tools/online-signature-generator",    title: "Online Signature Generator",      desc: "Create any signature online — fast and free, directly in your browser." },
                 { href: "/tools/free-signature-generator",      title: "Free Signature Generator",        desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
                 { href: "/tools/signature-maker",               title: "Signature Maker",                 desc: "Full creative control — custom colour, stroke width, and 50+ fonts." },

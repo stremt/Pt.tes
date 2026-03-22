@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -43,7 +44,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/signature-creator";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
 const FAQS = [
@@ -285,7 +286,7 @@ export default function SignatureCreator() {
     { name: "Home",                url: "https://tools.pixocraft.in/" },
     { name: "Tools",               url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Signature Creator",   url: CANONICAL },
   ]);
 
@@ -473,7 +474,7 @@ export default function SignatureCreator() {
             </ol>
             <p className="text-sm text-muted-foreground">
               Want the full tool with additional options?{" "}
-              <Link href="/tools/signature-generator" className="text-primary hover:underline underline-offset-2 font-medium">
+              <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
                 Visit the main Signature Generator
               </Link>.
             </p>
@@ -766,7 +767,7 @@ export default function SignatureCreator() {
                 { href: "/tools/free-signature-generator",          title: "Free Signature Generator",        desc: "100% free signature creation with no hidden costs or premium tiers." },
                 { href: "/tools/signature-maker",                   title: "Signature Maker",                 desc: "The flagship maker tool — all features, maximum control." },
                 { href: "/tools/digital-signature-generator",       title: "Digital Signature Generator",     desc: "Detailed DSC vs eSignature guidance for compliance-focused users." },
-                { href: "/tools/signature-generator",                title: "Signature Pad Tool",              desc: "The core signature pad powering all Pixocraft signature tools." },
+                { href: "/tools/signature-pad-tool",                title: "Signature Pad Tool",              desc: "The core signature pad powering all Pixocraft signature tools." },
               ].map(({ href, title, desc }) => (
                 <Link key={href} href={href}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">

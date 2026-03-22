@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -255,7 +256,7 @@ const FAQS = [
 ];
 
 const RELATED_TOOLS = [
-  { href: "/tools/signature-generator", label: "Signature Generator", desc: "The main Pixocraft tool — full controls, 50+ fonts, instant download." },
+  { href: "/tools/signature-pad-tool", label: "Signature Generator", desc: "The main Pixocraft tool — full controls, 50+ fonts, instant download." },
   { href: "/tools/free-signature-generator-no-login", label: "Free Signature Generator No Login", desc: "Zero-signup, privacy-first signature creation." },
   { href: "/tools/online-signature-generator-without-upload", label: "Signature Generator Without Upload", desc: "Fully client-side — no data leaves your device in any form." },
   { href: "/tools/high-quality-signature-png-generator", label: "High Quality Signature PNG Generator", desc: "Max-resolution transparent PNG for print-quality signatures." },
@@ -335,7 +336,7 @@ export default function BestSignatureGeneratorFree() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "Best Signature Generator Free" },
         ]} />
 

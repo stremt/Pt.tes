@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -19,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/add-signature-to-pdf";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const FAQS = [
   { question: "How do I sign a PDF online?", answer: "Use this tool's four-step workflow: (1) Create your signature by drawing or typing your name. (2) Upload your PDF file. (3) Click the location on the PDF preview where you want your signature placed. (4) Click Download Signed PDF to get your finished document. The entire process takes under 30 seconds." },
@@ -89,7 +90,7 @@ export default function AddSignatureToPDF() {
     { name: "Home",                 url: "https://tools.pixocraft.in/" },
     { name: "Tools",                url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Add Signature to PDF", url: CANONICAL },
   ]);
 
@@ -413,7 +414,7 @@ export default function AddSignatureToPDF() {
                 { href: "/tools/signature-creator",                   title: "Signature Creator",               desc: "Full creative control to design a unique signature that represents you." },
                 { href: "/tools/handwritten-signature-generator",    title: "Handwritten Signature Generator", desc: "50+ real handwriting styles for an authentic pen-on-paper look." },
                 { href: "/tools/signature-maker",                    title: "Signature Maker",                  desc: "The flagship signature maker — all methods, maximum control." },
-                { href: "/tools/signature-generator",                 title: "Signature Pad Tool",               desc: "The core signature pad powering all Pixocraft signature tools." },
+                { href: "/tools/signature-pad-tool",                 title: "Signature Pad Tool",               desc: "The core signature pad powering all Pixocraft signature tools." },
               ].map(({ href, title, desc }) => (
                 <Link key={href} href={href}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">

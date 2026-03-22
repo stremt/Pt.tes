@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -214,7 +215,7 @@ export default function HowToAddSignatureInGmail() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "How to Add Signature in Gmail" },
         ]} />
 
@@ -653,7 +654,7 @@ export default function HowToAddSignatureInGmail() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
+                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
                 { label: "Email Signature Generator", href: "/tools/email-signature-generator", desc: "Create a complete HTML email signature with logo and links." },
                 { label: "Signature for Word", href: "/tools/signature-for-word", desc: "Add your signature to Word documents without printing." },
                 { label: "Signature for PDF", href: "/tools/signature-for-pdf", desc: "Sign PDF documents online in seconds — no software needed." },

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -33,7 +34,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/free-signature-generator";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 18, 2026";
 
 const FAQS = [
@@ -126,7 +127,7 @@ export default function FreeSignatureGenerator() {
     { name: "Home",                      url: "https://tools.pixocraft.in/" },
     { name: "Tools", url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Free Signature Generator",  url: CANONICAL },
   ]);
 
@@ -457,7 +458,7 @@ export default function FreeSignatureGenerator() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-generator",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, full undo/redo, and advanced options." },
+                { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, full undo/redo, and advanced options." },
                 { href: "/tools/online-signature-generator",    title: "Online Signature Generator",      desc: "Create any signature online — fast and free, directly in your browser." },
                 { href: "/tools/digital-signature-generator",   title: "Digital Signature Generator",     desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },
                 { href: "/tools/signature-maker",               title: "Signature Maker",                 desc: "Full creative control — custom colour, stroke, and 50+ fonts." },

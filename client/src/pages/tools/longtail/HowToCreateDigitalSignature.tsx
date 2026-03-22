@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -191,7 +192,7 @@ const COMPARISON_ROWS = [
 ];
 
 const INTERNAL_LINKS = [
-  { href: "/tools/signature-generator",             label: "Signature Generator" },
+  { href: "/tools/signature-pad-tool",             label: "Signature Generator" },
   { href: "/tools/signature-for-pdf",               label: "Signature for PDF" },
   { href: "/tools/signature-for-word",              label: "Signature in Word Document" },
   { href: "/tools/signature-for-aadhaar",           label: "Signature for Aadhaar" },
@@ -252,7 +253,7 @@ export default function HowToCreateDigitalSignature() {
             { label: "Home",                          url: "/" },
             { label: "Tools",                         url: "/tools" },
             { label: "Signature Tools",               url: "/tools/signature-tools" },
-            { label: "Signature Generator", url: "/tools/signature-generator" },
+            { label: "Signature Generator", url: "/tools/signature-pad-tool" },
             { label: "How to Create Digital Signature" },
           ]}
         />

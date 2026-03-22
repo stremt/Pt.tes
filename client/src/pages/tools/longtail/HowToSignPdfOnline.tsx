@@ -11,6 +11,7 @@ import {
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { PDFSignatureTool } from "@/components/PDFSignatureTool";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   Shield, Zap, Smartphone, Lock, BadgeCheck, ArrowRight,
   ChevronDown, ChevronUp, FileCheck, FileText, Receipt,
@@ -21,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/how-to-sign-pdf-online";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 
 const HOW_TO_STEPS = [
   {
@@ -199,7 +200,7 @@ export default function HowToSignPdfOnline() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "How to Sign PDF Online" },
         ]} />
 
@@ -697,7 +698,7 @@ export default function HowToSignPdfOnline() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
+                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
                 { label: "Signature for PDF", href: "/tools/signature-for-pdf", desc: "Create the perfect signature specifically designed for PDF documents." },
                 { label: "Signature for Word", href: "/tools/signature-for-word", desc: "Add your signature to Word documents easily without printing." },
                 { label: "How to Create a Digital Signature", href: "/tools/how-to-create-digital-signature", desc: "Step-by-step guide to creating a digital signature online." },

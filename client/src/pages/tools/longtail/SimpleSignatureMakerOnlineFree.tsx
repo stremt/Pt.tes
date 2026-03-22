@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -203,7 +204,7 @@ const COMPARISON = [
 ];
 
 const RELATED_TOOLS = [
-  { href: "/tools/signature-generator", label: "Signature Generator", desc: "The main signature tool with advanced controls and 50+ fonts." },
+  { href: "/tools/signature-pad-tool", label: "Signature Generator", desc: "The main signature tool with advanced controls and 50+ fonts." },
   { href: "/tools/free-signature-generator-no-login", label: "Free Signature Generator No Login", desc: "Zero-signup, privacy-first signature creation." },
   { href: "/tools/signature-font-generator", label: "Signature Font Generator", desc: "Generate stylish signatures from curated script fonts." },
   { href: "/tools/add-signature-to-pdf", label: "Add Signature to PDF", desc: "Place your transparent PNG directly into any PDF." },
@@ -286,7 +287,7 @@ export default function SimpleSignatureMakerOnlineFree() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "Simple Signature Maker Online Free" },
         ]} />
 
@@ -427,7 +428,7 @@ export default function SimpleSignatureMakerOnlineFree() {
           </p>
           <p className="text-muted-foreground text-sm leading-relaxed">
             If you want a more advanced version with 50+ fonts, stroke controls, and style presets, try our{" "}
-            <Link href="/tools/signature-generator" className="text-primary underline underline-offset-2">
+            <Link href="/tools/signature-pad-tool" className="text-primary underline underline-offset-2">
               main signature generator
             </Link>
             . For a strictly zero-login version emphasising privacy, see the{" "}

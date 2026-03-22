@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -220,7 +221,7 @@ export default function FreeSignatureGeneratorNoLogin() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
           { label: "Free Signature Generator No Login" },
         ]} />
 
@@ -537,7 +538,7 @@ export default function FreeSignatureGeneratorNoLogin() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
+                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
                 { label: "Signature Font Generator", href: "/tools/signature-font-generator", desc: "Generate a stylish typed signature using premium handwriting fonts." },
                 { label: "Handwritten Signature Generator", href: "/tools/handwritten-signature-generator", desc: "Create a natural freehand signature that looks authentically handwritten." },
                 { label: "Signature for PDF", href: "/tools/signature-for-pdf", desc: "Embed your signature directly into a PDF — no printing required." },

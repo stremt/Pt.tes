@@ -9,7 +9,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -183,7 +183,7 @@ const COMPARISON_ROWS = [
 ];
 
 const INTERNAL_LINKS = [
-  { href: "/tools/signature-generator",         label: "Signature Generator" },
+  { href: "/tools/signature-pad-tool",         label: "Signature Generator" },
   { href: "/tools/signature-for-pdf",           label: "Signature for PDF" },
   { href: "/tools/email-signature-generator",   label: "Email Signature Generator" },
   { href: "/tools/signature-font-generator",    label: "Signature Font Generator" },
@@ -244,13 +244,10 @@ export default function SignatureForAadhaar() {
             { label: "Home",                  url: "/" },
             { label: "Tools",                 url: "/tools" },
             { label: "Signature Tools",       url: "/tools/signature-tools" },
-            { label: "Signature Generator", url: "/tools/signature-generator" },
+            { label: "Signature Generator", url: "/tools/signature-pad-tool" },
             { label: "Signature for Aadhaar" },
           ]}
         />
-
-        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
-        <SignatureTopPromo />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="space-y-4">
@@ -606,7 +603,7 @@ export default function SignatureForAadhaar() {
 
         {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
         <SignatureRelatedTools links={[
-          { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+          { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
           { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Optimised for Indian business, GST, banking, and government document workflows." },
           { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax with a transparent PNG." },
           { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Add your signature to TallyPrime invoices using the built-in image insertion feature." },

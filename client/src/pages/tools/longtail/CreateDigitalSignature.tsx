@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -42,7 +43,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/create-digital-signature";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
 const LAST_UPDATED = "March 21, 2026";
 
 const FAQS = [
@@ -208,7 +209,7 @@ export default function CreateDigitalSignature() {
     { name: "Home", url: "https://tools.pixocraft.in/" },
     { name: "Tools", url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
-    { label: "Signature Generator", url: "/tools/signature-generator" },
+    { label: "Signature Generator", url: "/tools/signature-pad-tool" },
     { name: "Create Digital Signature", url: CANONICAL },
   ]);
 
@@ -692,7 +693,7 @@ export default function CreateDigitalSignature() {
             <h2 className="text-2xl font-bold text-foreground mb-4">More Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-generator", title: "Signature Generator", desc: "The main tool — full features, all options, advanced controls." },
+                { href: "/tools/signature-pad-tool", title: "Signature Generator", desc: "The main tool — full features, all options, advanced controls." },
                 { href: "/tools/signature-for-pdf", title: "Signature for PDF", desc: "Place and position your signature directly on a PDF document." },
                 { href: "/tools/email-signature-generator", title: "Email Signature Generator", desc: "Create a branded HTML email signature for Gmail and Outlook." },
                 { href: "/tools/digital-signature-generator", title: "Digital Signature Generator", desc: "Focused on India IT Act legal digital signatures with compliance info." },
