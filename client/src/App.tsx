@@ -338,6 +338,8 @@ const ImageInvertTool = lazy(() => import("@/pages/tools/ImageInvertTool"));
 const ImageGrayscaleTool = lazy(() => import("@/pages/tools/ImageGrayscaleTool"));
 const ImageRotateTool = lazy(() => import("@/pages/tools/ImageRotateTool"));
 const SignaturePadTool = lazy(() => import("@/pages/tools/SignaturePadTool"));
+const SignatureToolsCategory = lazy(() => import("@/pages/tools/SignatureToolsCategory"));
+const SignatureFontGenerator = lazy(() => import("@/pages/tools/longtail/SignatureFontGenerator"));
 const OnlineSignatureGenerator = lazy(() => import("@/pages/tools/longtail/OnlineSignatureGenerator"));
 const FreeSignatureGenerator = lazy(() => import("@/pages/tools/longtail/FreeSignatureGenerator"));
 const DigitalSignatureGenerator = lazy(() => import("@/pages/tools/longtail/DigitalSignatureGenerator"));
@@ -781,6 +783,8 @@ function Router() {
         <Route path="/tools/image-grayscale-tool" component={ImageGrayscaleTool} />
         <Route path="/tools/image-rotate-tool" component={ImageRotateTool} />
         <Route path="/tools/signature-pad-tool" component={SignaturePadTool} />
+        <Route path="/tools/signature-tools" component={SignatureToolsCategory} />
+        <Route path="/tools/signature-font-generator" component={SignatureFontGenerator} />
         <Route path="/tools/online-signature-generator" component={OnlineSignatureGenerator} />
         <Route path="/tools/free-signature-generator" component={FreeSignatureGenerator} />
         <Route path="/tools/digital-signature-generator" component={DigitalSignatureGenerator} />
