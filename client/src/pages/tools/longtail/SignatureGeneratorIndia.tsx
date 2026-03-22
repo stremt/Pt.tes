@@ -86,10 +86,11 @@ const FAQS = [
 ];
 
 const HOW_TO_STEPS = [
-  { n: 1, title: "Open the signature generator tool", desc: "Scroll to the tool below — no login, no registration, no software installation needed. Works in any browser on desktop, tablet, or mobile." },
-  { n: 2, title: "Draw, type, or upload your signature", desc: "Draw with your mouse or finger (mobile-friendly), type your name and choose from professional handwriting fonts, or upload an existing physical signature image to digitise it." },
-  { n: 3, title: "Customise for Indian documents", desc: "Set your ink colour to black or dark navy — standard for GST invoices, government forms, contracts, and banking documents. Adjust the stroke width for the right look." },
-  { n: 4, title: "Download as transparent PNG", desc: "Click 'Download Signature' — your high-resolution transparent PNG saves instantly to your device. Insert it into any GST invoice, Aadhaar form, bank document, or contract." },
+  { n: 1, title: "Open the free India signature generator", desc: "Scroll to the tool on this page — no login, no registration, no software installation needed. Works in any browser on desktop, tablet, or mobile in India." },
+  { n: 2, title: "Draw, type, or upload your signature", desc: "Draw with your mouse or finger (touch-optimised for Indian Android and iOS users), type your name and choose from professional handwriting fonts, or upload an existing physical signature to digitise it." },
+  { n: 3, title: "Customise for Indian documents", desc: "Set your ink colour to black or dark navy — the standard accepted colour for GST invoices, government forms, Aadhaar declarations, banking documents, and contracts in India. Adjust stroke width for the right look." },
+  { n: 4, title: "Download as transparent PNG", desc: "Click 'Download Signature' — your high-resolution transparent PNG saves instantly to your device. Ready to insert into any GST invoice in Tally or Zoho Books, any Aadhaar-linked form, bank KYC document, or business contract in India." },
+  { n: 5, title: "Use in GST invoice or document", desc: "Open your GST invoice template in TallyPrime, Zoho Books, ClearTax, or any billing software. Insert the PNG at the authorised signatory field. The transparent background overlays cleanly on any Indian invoice format." },
 ];
 
 const COMPARISON_ROWS = [
@@ -116,12 +117,14 @@ const USE_CASES = [
 ];
 
 const FEATURES = [
-  { icon: <Lock className="h-5 w-5 text-primary" />,        title: "No Login Required",     desc: "Open the tool and start creating immediately. No email, no account, no subscription — ever." },
-  { icon: <Shield className="h-5 w-5 text-primary" />,      title: "100% Private",          desc: "Your signature is processed entirely in your browser. Nothing is uploaded or stored on any server." },
-  { icon: <Download className="h-5 w-5 text-primary" />,    title: "Transparent PNG",       desc: "Downloads as a high-resolution transparent PNG — overlays cleanly on any document, form, or invoice." },
-  { icon: <Smartphone className="h-5 w-5 text-primary" />,  title: "Mobile Friendly",       desc: "Fully touch-optimised. Draw your signature with your finger on any Android or iOS device." },
-  { icon: <Zap className="h-5 w-5 text-primary" />,         title: "Instant & Fast",        desc: "Create, customise, and download your signature in under 60 seconds — no loading, no waiting." },
-  { icon: <Star className="h-5 w-5 text-primary" />,        title: "India-Specific",        desc: "Built for Indian use cases — GST invoices, Aadhaar forms, banking documents, and contracts." },
+  { icon: <Lock className="h-5 w-5 text-primary" />,        title: "No Login Required",              desc: "Open the tool and start creating immediately. No email, no account, no subscription — ever." },
+  { icon: <Shield className="h-5 w-5 text-primary" />,      title: "100% Private & Secure",          desc: "Your signature is processed entirely in your browser. Nothing is uploaded or stored on any server — safe for Indian business documents, GST data, and Aadhaar-linked forms." },
+  { icon: <Download className="h-5 w-5 text-primary" />,    title: "Transparent PNG Download",       desc: "Downloads as a high-resolution transparent PNG — overlays cleanly on any GST invoice, Aadhaar form, bank document, or contract in India." },
+  { icon: <Smartphone className="h-5 w-5 text-primary" />,  title: "Mobile Friendly for India",      desc: "Fully touch-optimised for Indian Android and iOS users. Draw your signature with your finger — sign from anywhere, even during client visits." },
+  { icon: <Zap className="h-5 w-5 text-primary" />,         title: "Instant & Fast",                 desc: "Create, customise, and download your signature in under 60 seconds — no loading, no waiting, no redirects." },
+  { icon: <Star className="h-5 w-5 text-primary" />,        title: "India-Specific Tool",            desc: "Built for Indian users — used for GST invoices, Aadhaar forms, banking KYC, Tally billing, government documents, and contracts." },
+  { icon: <FileCheck className="h-5 w-5 text-primary" />,   title: "GST & Aadhaar Compatible",       desc: "Designed around the most common Indian signature needs — GST invoice authorisation, Aadhaar KYC declarations, and CGST Act 2017 document requirements." },
+  { icon: <BadgeCheck className="h-5 w-5 text-primary" />,  title: "Secure for Indian Documents",    desc: "100% browser-based processing means your GST data, Aadhaar-linked information, banking details, and contract contents never leave your device." },
 ];
 
 export default function SignatureGeneratorIndia() {
@@ -143,7 +146,19 @@ export default function SignatureGeneratorIndia() {
       "Create signature online in India for GST, Aadhaar, banking, and documents. Free, secure, no login required. Transparent PNG download in seconds.",
     url: CANONICAL,
     applicationCategory: "UtilityApplication",
+    applicationSubCategory: "Signature Generator India",
     operatingSystem: "Web, iOS, Android",
+    featureList: [
+      "Free signature generator India",
+      "No login required",
+      "No upload needed",
+      "Works for GST and Aadhaar in India",
+      "Fast and private — 100% browser-based",
+      "Transparent PNG download",
+      "Mobile-friendly touch drawing",
+      "Secure for Indian business documents",
+    ],
+    areaServed: { "@type": "Country", "name": "India" },
     offers: { price: "0", priceCurrency: "INR" },
   });
 
@@ -265,8 +280,18 @@ export default function SignatureGeneratorIndia() {
         <div id="tool" className="mb-12">
           <SignaturePadWidget />
           <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No server upload · Transparent PNG · GST &amp; Aadhaar ready
+            No watermark · No server upload · Transparent PNG · GST &amp; Aadhaar ready · Secure for Indian documents
           </p>
+          <div className="mt-6 rounded-xl overflow-hidden border">
+            <img
+              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop"
+              alt="Signature generator India GST Aadhaar example — free online tool by Pixocraft"
+              width={600}
+              height={300}
+              loading="lazy"
+              className="w-full object-cover"
+            />
+          </div>
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
@@ -619,8 +644,20 @@ export default function SignatureGeneratorIndia() {
           {/* ── INTERNAL LINKING ─────────────────────────────────────────────── */}
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
-            <p className="text-muted-foreground mb-5">
+            <p className="text-muted-foreground mb-3">
               Explore more free signature tools from Pixocraft built specifically for Indian document workflows:
+            </p>
+            <p className="text-muted-foreground mb-5">
+              For GST use in India, check our{" "}
+              <Link href="/tools/signature-for-gst-invoice">
+                <span className="text-primary underline underline-offset-2 font-medium cursor-pointer">Signature for GST Invoice tool</span>
+              </Link>{" "}
+              — a step-by-step guide tailored for Indian GST invoice signing in TallyPrime, Zoho Books, and ClearTax.
+              For Aadhaar-related forms, see our{" "}
+              <Link href="/tools/signature-for-aadhaar">
+                <span className="text-primary underline underline-offset-2 font-medium cursor-pointer">Signature for Aadhaar tool</span>
+              </Link>
+              .
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
               {[

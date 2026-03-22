@@ -221,6 +221,7 @@ export interface SoftwareApplicationSchemaProps {
   applicationSubCategory?: string;
   operatingSystem?: string;
   featureList?: string[];
+  areaServed?: { "@type": string; name: string };
   offers?: {
     price: string;
     priceCurrency: string;
@@ -235,6 +236,7 @@ export function generateSoftwareApplicationSchema({
   applicationSubCategory,
   operatingSystem = "Any",
   featureList,
+  areaServed,
   offers = { price: "0", priceCurrency: "INR" }
 }: SoftwareApplicationSchemaProps) {
   return {
@@ -247,6 +249,7 @@ export function generateSoftwareApplicationSchema({
     ...(applicationSubCategory && { "applicationSubCategory": applicationSubCategory }),
     "operatingSystem": operatingSystem,
     ...(featureList && featureList.length > 0 && { "featureList": featureList }),
+    ...(areaServed && { "areaServed": areaServed }),
     "offers": {
       "@type": "Offer",
       "price": offers.price,
