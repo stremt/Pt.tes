@@ -1,0 +1,181 @@
+1. META TAGS (CRITICAL)
+
+Make sure these are EXACT:
+
+<title>Signature for Aadhaar Online Free – Create & Download</title>
+
+<meta name="description" content="Create Aadhaar-ready signature online free. Download PNG, use for KYC, forms, and UIDAI updates. No login, private & secure tool.">
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/signature-for-aadhaar" />
+
+👉 Mistake to avoid:
+
+Don’t reuse meta from other pages
+Don’t exceed length
+2. OPEN GRAPH (SOCIAL SEO)
+<meta property="og:title" content="Signature for Aadhaar Online Free">
+<meta property="og:description" content="Create Aadhaar signature for KYC, forms & UIDAI use. Free, private, no login.">
+<meta property="og:url" content="https://tools.pixocraft.in/tools/signature-for-aadhaar">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tools.pixocraft.in/images/aadhaar-signature-tool.png">
+
+👉 This boosts:
+
+CTR from WhatsApp, Facebook, etc.
+3. TWITTER CARD (OPTIONAL BUT GOOD)
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Signature for Aadhaar Online Free">
+<meta name="twitter:description" content="Create Aadhaar-ready signature instantly. Download PNG, use anywhere.">
+4. SCHEMA MARKUP (VERY IMPORTANT)
+✅ A. SoftwareApplication (MAIN POWER)
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Signature for Aadhaar Tool",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Web",
+  "url": "https://tools.pixocraft.in/tools/signature-for-aadhaar",
+  "description": "Free online Aadhaar signature generator. Create, download, and use signature for KYC, forms, and UIDAI processes.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+</script>
+✅ B. FAQ SCHEMA (RANKING BOOST)
+
+👉 MUST match your FAQ content
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is Aadhaar signature required?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Aadhaar itself does not store a signature, but many KYC, banking, and government forms require a signature along with Aadhaar details."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is Aadhaar eSign?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Aadhaar eSign is a digital signature service by UIDAI used for secure online verification. It is different from a normal handwritten signature image."
+   }
+  }
+ ]
+}
+</script>
+
+👉 Add 8–12 questions total
+
+✅ C. HOWTO SCHEMA (UNDERRATED BOOST)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to create signature for Aadhaar",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "name": "Open the tool",
+   "text": "Visit the Pixocraft Aadhaar signature generator tool."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Create signature",
+   "text": "Draw, type, or upload your signature."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Download",
+   "text": "Download your signature as PNG."
+  }
+ ]
+}
+</script>
+✅ D. BREADCRUMB SCHEMA (CLUSTER SIGNAL)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://tools.pixocraft.in/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools",
+   "item": "https://tools.pixocraft.in/tools/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Signature Tools",
+   "item": "https://tools.pixocraft.in/tools/signature-tools"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "name": "Signature for Aadhaar",
+   "item": "https://tools.pixocraft.in/tools/signature-for-aadhaar"
+  }
+ ]
+}
+</script>
+
+👉 This tells Google:
+“This is part of a bigger authority cluster”
+
+5. INTERNAL LINKING (VERY IMPORTANT)
+
+Inside content, ensure:
+
+<a href="/tools/signature-generator">signature generator</a>
+<a href="/tools/signature-for-pdf">sign PDF online</a>
+<a href="/tools/email-signature-generator">email signature tool</a>
+<a href="/tools/signature-font-generator">signature fonts</a>
+
+👉 Anchor text MUST be natural
+
+6. IMAGE SEO (IGNORED BY MOST — BIG OPPORTUNITY)
+<img src="aadhaar-signature-example.png" alt="Aadhaar signature example PNG for KYC form">
+
+👉 Add 2–3 images minimum
+
+7. PAGE SPEED + TECH SEO
+
+Since your tool is static:
+
+✔ No render blocking JS
+✔ Lazy load images
+✔ Minify JS/CSS
+✔ Mobile-first responsive
+
+👉 This is your BIGGEST ADVANTAGE vs competitors
+
+8. KEYWORD PLACEMENT (SMART, NOT SPAM)
+
+Must appear naturally in:
+
+H1
+First 100 words
+H2s
+FAQ
+
+Keywords:
+
+signature for aadhaar
+aadhaar signature online
+aadhaar signature size
+aadhaar esign
