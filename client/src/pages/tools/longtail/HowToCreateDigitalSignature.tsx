@@ -208,7 +208,7 @@ export default function HowToCreateDigitalSignature() {
       "Learn how to create digital signature online free. Create simple signature or understand DSC and Aadhaar eSign. No login tool.",
     canonicalUrl: CANONICAL,
     ogType: "website",
-    ogImage: "https://tools.pixocraft.in/images/how-to-create-digital-signature.png",
+    ogImage: "https://tools.pixocraft.in/images/digital-signature-tool.png",
     keywords:
       "how to create digital signature, create digital signature online, digital signature how to make, esign online free, digital signature vs electronic signature",
   });
@@ -222,9 +222,9 @@ export default function HowToCreateDigitalSignature() {
       steps: EASY_STEPS,
     }),
     generateSoftwareApplicationSchema({
-      name: "How to Create Digital Signature Tool",
+      name: "Digital Signature Generator Tool",
       description:
-        "Free online tool to create digital signature. Draw, type, or upload — download transparent PNG instantly. No login required.",
+        "Free tool to create digital signature online. Supports handwritten, typed, and image signatures for documents.",
       url: CANONICAL,
       applicationCategory: "UtilityApplication",
       operatingSystem: "Web",
