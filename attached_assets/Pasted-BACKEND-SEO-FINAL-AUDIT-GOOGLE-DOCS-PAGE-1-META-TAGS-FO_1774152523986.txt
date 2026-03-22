@@ -1,0 +1,182 @@
+BACKEND SEO — FINAL AUDIT (GOOGLE DOCS PAGE)
+1. META TAGS (FOUNDATION)
+<title>Signature in Google Docs – Add & Insert Signature Free</title>
+
+<meta name="description" content="Learn how to add signature in Google Docs easily. Create, download, and insert signature using PNG. Free tool, no login required.">
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/signature-for-google-docs" />
+
+👉 Check:
+
+No duplicate titles across pages
+Canonical EXACT match (very important)
+2. OPEN GRAPH (SOCIAL CTR BOOST)
+<meta property="og:title" content="Signature in Google Docs – Free Tool">
+<meta property="og:description" content="Create and insert signature in Google Docs easily. No login, private, free tool.">
+<meta property="og:url" content="https://tools.pixocraft.in/tools/signature-for-google-docs">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tools.pixocraft.in/images/google-docs-signature.png">
+3. TWITTER CARD (OPTIONAL)
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Signature in Google Docs">
+<meta name="twitter:description" content="Add signature in Google Docs easily using PNG. Free & private tool.">
+🔥 4. SCHEMA (RANKING ENGINE)
+✅ A. SoftwareApplication (MAIN SIGNAL)
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Signature for Google Docs Tool",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Web",
+  "url": "https://tools.pixocraft.in/tools/signature-for-google-docs",
+  "description": "Free online tool to create and insert signature in Google Docs. Download PNG signature and use instantly.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+</script>
+✅ B. FAQ SCHEMA (PAA DOMINATION)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do I insert a signature in Google Docs?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Create a signature image, open Google Docs, go to Insert > Image, upload your signature, and place it in the document."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I draw a signature in Google Docs?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes, you can use Insert > Drawing > Scribble to draw a signature directly inside Google Docs."
+   }
+  }
+ ]
+}
+</script>
+
+👉 Expand to 10–12 questions (important)
+
+✅ C. HOWTO SCHEMA (BIG BOOST)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to add signature in Google Docs",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "name": "Create signature",
+   "text": "Use Pixocraft tool to create and download your signature as PNG."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Open Google Docs",
+   "text": "Open your document in Google Docs."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Insert image",
+   "text": "Click Insert > Image and upload your signature file."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Adjust position",
+   "text": "Resize and place the signature in the desired location."
+  }
+ ]
+}
+</script>
+✅ D. BREADCRUMB SCHEMA (CLUSTER AUTHORITY)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://tools.pixocraft.in/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools",
+   "item": "https://tools.pixocraft.in/tools/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Signature Tools",
+   "item": "https://tools.pixocraft.in/tools/signature-tools"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "name": "Signature in Google Docs",
+   "item": "https://tools.pixocraft.in/tools/signature-for-google-docs"
+  }
+ ]
+}
+</script>
+
+👉 This connects your entire cluster
+
+🔗 5. INTERNAL LINKING (POWER FLOW)
+
+Inside content:
+
+<a href="/tools/signature-generator">signature generator</a>
+<a href="/tools/signature-for-word">signature in Word</a>
+<a href="/tools/signature-for-pdf">sign PDF online</a>
+<a href="/tools/handwritten-signature-generator">handwritten signature</a>
+
+👉 Keep anchors natural (not spammy)
+
+🖼️ 6. IMAGE SEO (EASY BOOST)
+<img src="google-docs-signature-example.png" alt="Add signature in Google Docs example">
+
+👉 Add 2–3 images minimum
+
+⚡ 7. TECH SEO (YOU HAVE ADVANTAGE)
+
+✔ Static page = fast
+✔ No backend = no delay
+
+Just ensure:
+
+images compressed
+lazy loading
+no heavy scripts
+🎯 8. KEYWORD DISTRIBUTION
+
+Must appear naturally:
+
+H1
+first paragraph
+2–3 H2s
+FAQ
+
+Keywords:
+
+signature in google docs
+how to add signature in google docs
+insert signature google docs
+sign google docs
+🚨 FINAL VERDICT
+
+If everything above is implemented:
+
+✅ Backend SEO = 100% covered
+✅ Schema = perfect
+✅ Google clarity = strong
