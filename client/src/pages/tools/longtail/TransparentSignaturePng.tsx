@@ -90,6 +90,7 @@ const HOW_TO_STEPS = [
   { step: 2, title: "Background removed automatically", description: "For the Draw tab, the canvas is transparent by default — no removal needed. For uploaded images, the tool's algorithm detects signature strokes and removes the white or coloured background automatically." },
   { step: 3, title: "Preview your transparent PNG", description: "Review your signature against the canvas. The absence of a white background is confirmed by the canvas showing only your strokes. Try drawing on a darker tab background to verify transparency." },
   { step: 4, title: "Download the transparent PNG", description: "Click 'Download Signature' to save the transparent PNG to your device at 3200×1040 px resolution. Place it on any GST invoice, PDF, email signature, or document immediately." },
+  { step: 5, title: "Insert in documents with sharp edges", description: "Place the high-resolution transparent PNG into Word, PDF editors, Google Docs, or email clients. The lossless PNG format ensures sharp edges, high DPI clarity, and zero pixelation at any document scale — from email footer to A4 letterhead." },
 ];
 
 const PNG_VS_JPG = [
@@ -138,7 +139,11 @@ export default function TransparentSignaturePng() {
     keywords:
       "transparent signature png, free transparent signature png, transparent png signature, png signature transparent background, signature png download, remove background signature, transparent signature for pdf, signature without background",
     canonicalUrl: CANONICAL,
-    ogImage: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&h=630&fit=crop",
+    ogImage: "https://tools.pixocraft.in/images/transparent-signature-png.png",
+    ogTitle: "Transparent Signature PNG – No Background",
+    ogDescription: "Create transparent signature PNG online free. High resolution, sharp, no blur. Perfect for GST, PDF & email.",
+    twitterTitle: "Transparent Signature PNG Free",
+    twitterDescription: "Create signature PNG with transparent background. High quality, no blur, instant download.",
   });
 
   const softwareSchema = generateSoftwareApplicationSchema({
@@ -147,8 +152,20 @@ export default function TransparentSignaturePng() {
       "Create or upload a signature and download it as a transparent PNG — no white background, print-resolution, instantly. Free, no login, 100% private browser-based tool.",
     url: CANONICAL,
     applicationCategory: "UtilityApplication",
+    applicationSubCategory: "Signature PNG Generator",
     operatingSystem: "Web, iOS, Android",
-    offers: { price: "0", priceCurrency: "USD" },
+    featureList: [
+      "High resolution output",
+      "Transparent PNG",
+      "No blur",
+      "Instant download",
+      "No login required",
+      "Background removal",
+      "Lossless PNG export",
+      "Sharp edges",
+      "High DPI output",
+    ],
+    offers: { price: "0", priceCurrency: "INR" },
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -297,6 +314,14 @@ export default function TransparentSignaturePng() {
                 surrounding it.
               </p>
             </div>
+            <img
+              src="https://tools.pixocraft.in/images/high-quality-signature-png.png"
+              alt="High quality signature PNG transparent example no blur sharp edges high DPI"
+              loading="lazy"
+              width={600}
+              height={300}
+              className="w-full rounded-xl border mb-5 object-cover"
+            />
             <p className="text-muted-foreground mb-4">
               The key technical element is the <strong>alpha channel</strong> — an additional data layer in PNG images that
               stores opacity information for every pixel. Pixels inside the signature strokes have full opacity (visible).
@@ -393,7 +418,7 @@ export default function TransparentSignaturePng() {
               {[
                 { icon: <Layers className="h-5 w-5 text-primary" />,    title: "Transparent canvas by default",      desc: "The Draw tab creates signatures on a transparent HTML5 Canvas. No background removal step needed — the PNG is transparent from the first stroke." },
                 { icon: <Upload className="h-5 w-5 text-primary" />,    title: "Upload & auto remove background",    desc: "Upload any existing signature JPG or PNG. The tool's client-side algorithm detects signature strokes and removes the white or coloured background automatically." },
-                { icon: <ImageIcon className="h-5 w-5 text-primary" />, title: "3200×1040 px resolution",            desc: "Print-resolution export — four times display resolution — ensuring crisp, sharp strokes at any document size from email footer to A3 poster." },
+                { icon: <ImageIcon className="h-5 w-5 text-primary" />, title: "High DPI — 3200×1040 px resolution",  desc: "Print-resolution export at high DPI — four times display resolution. Sharp edges, no pixelation, and lossless PNG quality ensure crisp strokes at any document size from email footer to A3 poster." },
                 { icon: <Eye className="h-5 w-5 text-primary" />,       title: "Preview before download",           desc: "Review your transparent signature against the canvas before downloading. The transparent area shows no background, confirming clean removal." },
                 { icon: <Smartphone className="h-5 w-5 text-primary" />, title: "Mobile-optimised upload and draw", desc: "Photograph your signature with your phone camera and upload directly. Or draw with your finger on the touch canvas for instant transparent creation." },
                 { icon: <Zap className="h-5 w-5 text-primary" />,       title: "Instant — no server wait",          desc: "All processing — drawing, background removal, and PNG export — happens locally in your browser. Zero upload time, zero server latency." },
@@ -577,7 +602,11 @@ export default function TransparentSignaturePng() {
           <section>
             <h2 className="text-2xl font-bold text-foreground mb-2">Complete Document Signature Workflow — Related Tools</h2>
             <p className="text-muted-foreground mb-4">
-              After creating your transparent PNG signature, use these tools to complete your document workflow:
+              After creating your transparent PNG signature, use these tools to complete your document workflow. For fast creation without signup, try our{" "}
+              <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">no login signature generator</Link>
+              . For a fully private, zero-upload experience, see our{" "}
+              <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">signature generator without upload</Link>
+              .
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
