@@ -154,8 +154,7 @@ export default function TransparentSignaturePng() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                      url: "https://tools.pixocraft.in/" },
     { name: "Tools",                     url: "https://tools.pixocraft.in/tools" },
-    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
-    { name: "Signature Generator",       url: PARENT_URL },
+    { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
     { name: "Transparent Signature PNG", url: CANONICAL },
   ]);
 
@@ -185,8 +184,7 @@ export default function TransparentSignaturePng() {
         <Breadcrumb items={[
           { label: "Home",                  url: "https://tools.pixocraft.in/" },
           { label: "Tools",                 url: "/tools" },
-          { label: "Productivity", url: "/tools/productivity" },
-          { label: "Signature Generator",   url: "/tools/signature-generator" },
+          { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Transparent Signature PNG" },
         ]} />
 

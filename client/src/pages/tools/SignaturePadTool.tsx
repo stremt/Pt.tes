@@ -1136,7 +1136,7 @@ export default function SignaturePadTool() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                        url: "https://tools.pixocraft.in/" },
     { name: "Tools",                       url: "https://tools.pixocraft.in/tools" },
-    { name: "Productivity",               url: "https://tools.pixocraft.in/tools/productivity" },
+    { name: "Signature Tools",            url: "https://tools.pixocraft.in/tools/signature-tools" },
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
   const webPageSchema = generateWebPageSchema({
@@ -1171,7 +1171,7 @@ export default function SignaturePadTool() {
         <Breadcrumb items={[
           { label: "Home",                  url: "https://tools.pixocraft.in/" },
           { label: "Tools",                 url: "/tools" },
-          { label: "Productivity",          url: "/tools/productivity" },
+          { label: "Signature Tools",       url: "/tools/signature-tools" },
           { label: "Signature Generator" },
         ]} />
       </div>
@@ -1181,7 +1181,7 @@ export default function SignaturePadTool() {
         description="Draw, Type or Upload • Free Forever • No Signup • 100% Private • Instant PNG Download"
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"
-        category="productivity"
+        category="signature-tools"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
@@ -2339,7 +2339,7 @@ export default function SignaturePadTool() {
             <Breadcrumb items={[
               { label: "Home",                  url: "https://tools.pixocraft.in/" },
               { label: "Tools",                 url: "/tools" },
-              { label: "Productivity",          url: "/tools/productivity" },
+              { label: "Signature Tools",       url: "/tools/signature-tools" },
               { label: "Signature Generator" },
             ]} />
           </div>

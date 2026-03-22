@@ -184,8 +184,7 @@ export default function HowToCreateDigitalSignatureOnline() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                                    url: "https://tools.pixocraft.in/" },
     { name: "Tools",                                   url: "https://tools.pixocraft.in/tools" },
-    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
-    { name: "Signature Generator",                     url: PARENT_URL },
+    { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
     { name: "How to Create Digital Signature Online",  url: CANONICAL },
   ]);
 
@@ -215,8 +214,7 @@ export default function HowToCreateDigitalSignatureOnline() {
         <Breadcrumb items={[
           { label: "Home",                               url: "https://tools.pixocraft.in/" },
           { label: "Tools",                             url: "/tools" },
-          { label: "Productivity", url: "/tools/productivity" },
-          { label: "Signature Generator",               url: "/tools/signature-generator" },
+          { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "How to Create Digital Signature Online" },
         ]} />
 

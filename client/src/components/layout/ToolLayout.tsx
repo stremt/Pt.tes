@@ -117,6 +117,7 @@ const categoryMap: Record<string, { name: string; path: string }> = {
   "calculator": { name: "Calculators", path: "/tools/calculator" },
   "utility": { name: "Utilities", path: "/tools/utility" },
   "productivity": { name: "Productivity", path: "/tools/productivity" },
+  "signature-tools": { name: "Signature Tools", path: "/tools/signature-tools" },
 };
 
 export function ToolLayout({

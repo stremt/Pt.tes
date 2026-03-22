@@ -176,8 +176,7 @@ export default function HandwrittenSignatureGenerator() {
     generateBreadcrumbSchema([
       { name: "Home",                             url: "https://tools.pixocraft.in/" },
       { name: "Tools",                            url: "https://tools.pixocraft.in/tools" },
-    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
-      { name: "Signature Generator",              url: PARENT_URL },
+    { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
       { name: "Handwritten Signature Generator",  url: CANONICAL },
     ]),
     generateWebPageSchema({
@@ -202,8 +201,7 @@ export default function HandwrittenSignatureGenerator() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-          { label: "Productivity", url: "/tools/productivity" },
-            { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Tools", url: "/tools/signature-tools" },
             { label: "Handwritten Signature Generator" },
           ]}
         />

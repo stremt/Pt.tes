@@ -99,8 +99,7 @@ export default function SignatureForPDF() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",               url: "https://tools.pixocraft.in/" },
     { name: "Tools",              url: "https://tools.pixocraft.in/tools" },
-    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
-    { name: "Signature Generator", url: "https://tools.pixocraft.in/tools/signature-generator" },
+    { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
     { name: "Sign PDF Online",    url: CANONICAL },
   ]);
 
@@ -128,8 +127,7 @@ export default function SignatureForPDF() {
         <Breadcrumb items={[
           { label: "Home",               url: "https://tools.pixocraft.in/" },
           { label: "Tools",              url: "/tools" },
-          { label: "Productivity", url: "/tools/productivity" },
-          { label: "Signature Generator", url: "/tools/signature-generator" },
+          { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Sign PDF Online" },
         ]} />
 
