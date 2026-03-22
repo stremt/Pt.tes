@@ -1,0 +1,261 @@
+You are building a production-grade SEO page for a large-scale tool platform.
+
+=====================================
+PROJECT: PIXOCRAFT TOOLS
+========================
+
+Website:
+https://tools.pixocraft.in
+
+This page is a **CHILD PAGE** of:
+→ /tools/signature-generator
+
+Category:
+→ /tools/signature-tools
+
+Breadcrumb MUST be:
+Home > Tools > Signature Tools > Signature Generator India
+
+---
+
+PRIMARY GOAL:
+Rank #1 on Google India for:
+
+* "signature generator India"
+* "create signature online India"
+* "digital signature India free"
+* "esign India online"
+* "signature for GST India"
+
+---
+
+SECONDARY GOAL:
+Position Pixocraft as #1 signature tool for Indian users
+
+---
+
+CORE STRATEGY:
+
+This page must dominate by:
+
+✔ India-specific use cases
+✔ Government + business relevance
+✔ Aadhaar, GST, banking context
+✔ Local trust signals
+
+---
+
+CORE USER INTENT:
+
+User wants to:
+
+✔ Create signature for Indian documents
+✔ Use in GST, Aadhaar, bank forms
+✔ Understand digital vs normal signature
+✔ Get free tool
+
+---
+
+# PAGE STRUCTURE (STRICT)
+
+1. HERO SECTION
+
+H1:
+Signature Generator India (Free & Easy Online Tool)
+
+Subtext:
+Create signature online for GST, Aadhaar, banking, and documents in India. No login, no upload, fully secure.
+
+→ Embed SAME signature tool UI
+
+👉 Add trust badges:
+
+* India ready
+* GST compatible
+* Aadhaar use
+* No login
+
+---
+
+2. FEATURED SNIPPET (CRITICAL)
+
+Answer in 40–50 words:
+
+"What is a signature generator in India?"
+
+Include:
+
+* online tool
+* Indian use cases
+* free creation
+
+---
+
+3. WHY SIGNATURE IS IMPORTANT IN INDIA (UNIQUE)
+
+Explain:
+
+* GST invoices
+* Aadhaar KYC
+* bank forms
+* government documents
+
+---
+
+4. WHERE SIGNATURE IS USED IN INDIA
+
+* GST filing
+* Tally invoices
+* Aadhaar updates
+* bank KYC
+* contracts
+
+---
+
+5. HOW TO CREATE SIGNATURE ONLINE IN INDIA
+
+Steps:
+
+1. Open tool
+2. Draw or type signature
+3. Customize
+4. Download PNG
+
+---
+
+6. DIGITAL SIGNATURE VS NORMAL SIGNATURE (INDIA CONTEXT)
+
+Explain:
+
+* DSC for GST, MCA
+* simple signature for documents
+
+---
+
+7. AADHAAR ESIGN (IMPORTANT INDIA BOOST)
+
+Explain:
+
+* OTP-based signing
+* government use
+
+---
+
+8. FEATURES OF THIS TOOL
+
+* no login
+* no upload
+* private
+* fast
+* free
+
+---
+
+9. BEST FORMAT FOR SIGNATURE IN INDIA
+
+* PNG
+* transparent
+* clear
+
+---
+
+10. USE CASES (INDIA FOCUSED)
+
+* GST invoices
+* Tally
+* bank forms
+* government forms
+* contracts
+
+---
+
+11. COMPARISON (PIXOCraft vs Others)
+
+Others:
+
+* login required
+* upload needed
+
+Pixocraft:
+
+* no login
+* no upload
+* fast
+
+---
+
+12. FAQ SECTION (10–12 QUESTIONS)
+
+Examples:
+
+* Is digital signature required in India?
+* Can I use signature for GST?
+* What is Aadhaar eSign?
+* Is online signature valid in India?
+* How to create signature for bank use?
+
+---
+
+13. INTERNAL LINKING
+
+Link to:
+
+* /tools/signature-generator
+* /tools/signature-for-aadhaar
+* /tools/signature-for-gst-invoice
+* /tools/how-to-create-digital-signature
+
+---
+
+=====================================
+SEO META
+========
+
+Title:
+Signature Generator India Free (GST, Aadhaar & Banking)
+
+Meta Description:
+Create signature online in India for GST, Aadhaar, banking, and documents. Free, secure, and no login required.
+
+---
+
+=====================================
+SCHEMA (MANDATORY)
+==================
+
+Include:
+
+1. FAQPage
+2. HowTo
+3. Breadcrumb
+4. SoftwareApplication
+
+---
+
+=====================================
+CONTENT RULES
+=============
+
+* DO NOT make it generic
+* Must feel India-specific
+* Use simple English
+* Add real use cases
+* Optimize for featured snippet + AI overview
+
+---
+
+=====================================
+FINAL OUTPUT
+============
+
+Return full HTML-ready structured content:
+
+* Proper H1–H3
+* Clean formatting
+* SEO optimized
+* FAQ included
+* Schema included
+
+=====================================
+END
+===
