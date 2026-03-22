@@ -209,6 +209,30 @@ const TOOLS = [
     desc: "Step-by-step guide to adding your handwritten signature to Google Docs. Covers insert image, drawing tool, and add-on methods.",
     tags: ["Google Docs", "Guide"],
   },
+  {
+    href: "/tools/how-to-sign-pdf-online",
+    icon: FileText,
+    title: "How to Sign PDF Online",
+    badge: "Guide",
+    desc: "Complete guide to signing a PDF online — draw, type, or upload your signature and place it directly on the PDF in your browser. No software needed.",
+    tags: ["PDF", "Guide", "Free"],
+  },
+  {
+    href: "/how-to-sign-pdf-on-mobile",
+    icon: Smartphone,
+    title: "How to Sign PDF on Mobile",
+    badge: "Guide",
+    desc: "Step-by-step guide to signing a PDF on Android or iPhone. Covers touch drawing, font typing, and upload methods — all optimised for mobile.",
+    tags: ["Mobile", "Android", "iPhone"],
+  },
+  {
+    href: "/free-signature-for-documents",
+    icon: FileText,
+    title: "Free Signature for Documents",
+    badge: "",
+    desc: "Create a free digital signature for any document — contracts, forms, HR letters, and more. Transparent PNG download, no login, no watermark.",
+    tags: ["Free", "All Documents", "PNG"],
+  },
 ];
 
 const BENEFITS = [
@@ -392,8 +416,11 @@ export default function SignatureToolsCategory() {
               </thead>
               <tbody className="divide-y">
                 {[
+                  ["Generate signature from fonts online",         "/tools/signature-font-generator",            "Signature Font Generator"],
                   ["Create a stylish handwritten signature",     "/tools/handwritten-signature-generator",     "Handwritten Signature Generator"],
                   ["Sign a PDF document in my browser",          "/tools/signature-for-pdf",                   "Signature for PDF"],
+                  ["Sign a PDF online (step-by-step guide)",     "/tools/how-to-sign-pdf-online",              "How to Sign PDF Online"],
+                  ["Sign a PDF on mobile / phone",               "/how-to-sign-pdf-on-mobile",                 "How to Sign PDF on Mobile"],
                   ["Add signature to a GST invoice",             "/tools/signature-for-gst-invoice",           "Signature for GST Invoice"],
                   ["Create a signature for email footer",        "/tools/email-signature-generator",           "Email Signature Generator"],
                   ["Sign a contract or NDA",                     "/tools/signature-for-contracts",             "Signature for Contracts"],
@@ -402,6 +429,7 @@ export default function SignatureToolsCategory() {
                   ["Add signature in Google Docs",               "/tools/how-to-add-signature-in-google-docs", "How to Add in Google Docs"],
                   ["Add signature in Word",                      "/tools/how-to-add-signature-in-word",        "How to Add in Word"],
                   ["Create legal e-signature for India",         "/tools/indian-digital-signature",            "Indian Digital Signature"],
+                  ["Free signature for any document type",       "/free-signature-for-documents",              "Free Signature for Documents"],
                 ].map(([need, href, label]) => (
                   <tr key={href} className="hover:bg-muted/30 transition-colors">
                     <td className="px-5 py-3 text-muted-foreground">{need}</td>
