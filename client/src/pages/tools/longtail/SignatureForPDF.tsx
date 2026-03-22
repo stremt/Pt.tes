@@ -198,11 +198,7 @@ export default function SignatureForPDF() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <SignatureToolSection
-          mode="pdf"
-          pdfCtaLabel="Insert Signature into PDF"
-          caption="No watermark · No server upload · Signed PDF downloads instantly"
-        />
+        <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16">
