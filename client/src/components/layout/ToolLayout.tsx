@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Breadcrumb } from "./Breadcrumb";
 
@@ -116,6 +116,7 @@ const categoryMap: Record<string, { name: string; path: string }> = {
   "converter": { name: "Converters", path: "/tools/converter" },
   "calculator": { name: "Calculators", path: "/tools/calculator" },
   "utility": { name: "Utilities", path: "/tools/utility" },
+  "productivity": { name: "Productivity", path: "/tools/productivity" },
 };
 
 export function ToolLayout({
@@ -171,18 +172,23 @@ export function ToolLayout({
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               {description}
             </p>
-            <Link href={categoryInfo.path} data-testid={`button-view-all-${category}`}>
-              <Button variant="outline" className="mt-4">
-                View All {categoryInfo.name}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            <Button
+              variant="outline"
+              className="mt-4"
+              data-testid={`button-scroll-to-tool-${category}`}
+              onClick={() => {
+                document.getElementById("tool-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              Use Tool
+              <ChevronDown className="ml-2 h-4 w-4 animate-bounce" />
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Main Tool Interface - Priority Rendering */}
-      <section className="py-12 md:py-16">
+      <section id="tool-section" className="py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-7xl">
           {children}
         </div>

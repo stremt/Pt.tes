@@ -10,6 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { ToolLayout } from "@/components/layout/ToolLayout";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   PenTool,
   Download,
@@ -1134,7 +1135,8 @@ export default function SignaturePadTool() {
   const faqSchema = generateFAQSchema(faqs);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                        url: "https://tools.pixocraft.in/" },
-    { name: "Utilities",                   url: "https://tools.pixocraft.in/category/utility" },
+    { name: "Tools",                       url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity",               url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
   const webPageSchema = generateWebPageSchema({
@@ -1165,12 +1167,21 @@ export default function SignaturePadTool() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
+      <div className="container mx-auto px-4 max-w-7xl pt-4">
+        <Breadcrumb items={[
+          { label: "Home",                  url: "https://tools.pixocraft.in/" },
+          { label: "Tools",                 url: "/tools" },
+          { label: "Productivity",          url: "/tools/productivity" },
+          { label: "Signature Generator" },
+        ]} />
+      </div>
+
       <ToolLayout
         title="Create Your Signature Online Instantly"
         description="Draw, Type or Upload • Free Forever • No Signup • 100% Private • Instant PNG Download"
         icon={<PenTool className="h-8 w-8" />}
         toolId="signature-pad-tool"
-        category="utility"
+        category="productivity"
         howItWorks={howItWorks}
         benefits={benefits}
         faqs={faqs}
@@ -2322,6 +2333,16 @@ export default function SignaturePadTool() {
               Last Updated: March 2026 &nbsp;·&nbsp; Made in India &nbsp;·&nbsp; By the Pixocraft Team
             </p>
           </section>
+
+          {/* ── BOTTOM BREADCRUMB ─────────────────────────────────────────── */}
+          <div className="mt-6 pb-2">
+            <Breadcrumb items={[
+              { label: "Home",                  url: "https://tools.pixocraft.in/" },
+              { label: "Tools",                 url: "/tools" },
+              { label: "Productivity",          url: "/tools/productivity" },
+              { label: "Signature Generator" },
+            ]} />
+          </div>
 
         </div>
     </ToolLayout>
