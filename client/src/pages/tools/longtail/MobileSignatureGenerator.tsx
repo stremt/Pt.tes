@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/mobile-signature-generator";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 
 const FAQS = [
   {
@@ -131,6 +131,7 @@ export default function MobileSignatureGenerator() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                       url: "https://tools.pixocraft.in/" },
     { name: "Tools",                      url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator",        url: PARENT_URL },
     { name: "Mobile Signature Generator", url: CANONICAL },
   ]);
@@ -159,7 +160,8 @@ export default function MobileSignatureGenerator() {
         <Breadcrumb items={[
           { label: "Home",                 url: "https://tools.pixocraft.in/" },
           { label: "Tools",                url: "/tools" },
-          { label: "Signature Generator",  url: "/tools/signature-pad-tool" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator",  url: "/tools/signature-generator" },
           { label: "Mobile Signature Generator" },
         ]} />
 

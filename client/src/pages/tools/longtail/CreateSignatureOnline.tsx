@@ -35,7 +35,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/create-signature-online";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 const LAST_UPDATED = "March 18, 2026";
 
 const FAQS = [
@@ -135,7 +135,8 @@ export default function CreateSignatureOnline() {
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                    url: "https://tools.pixocraft.in/" },
-    { name: "Utilities",               url: "https://tools.pixocraft.in/category/utility" },
+    { name: "Tools", url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator",     url: PARENT_URL },
     { name: "Create Signature Online", url: CANONICAL },
   ]);
@@ -166,8 +167,9 @@ export default function CreateSignatureOnline() {
 
         <Breadcrumb items={[
           { label: "Home",                    url: "https://tools.pixocraft.in/" },
-          { label: "Utilities",               url: "/category/utility" },
-          { label: "Signature Generator",     url: "/tools/signature-pad-tool" },
+          { label: "Tools", url: "/tools" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator",     url: "/tools/signature-generator" },
           { label: "Create Signature Online" },
         ]} />
 
@@ -435,7 +437,7 @@ export default function CreateSignatureOnline() {
             <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, undo/redo, and advanced options." },
+                { href: "/tools/signature-generator",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, undo/redo, and advanced options." },
                 { href: "/tools/online-signature-generator",    title: "Online Signature Generator",        desc: "Create any signature online — fast, free, directly in your browser." },
                 { href: "/tools/free-signature-generator",      title: "Free Signature Generator",          desc: "Emphasis on free — no cost, no watermark, unlimited downloads." },
                 { href: "/tools/digital-signature-generator",   title: "Digital Signature Generator",       desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },

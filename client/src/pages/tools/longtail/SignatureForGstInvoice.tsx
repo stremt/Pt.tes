@@ -147,6 +147,7 @@ export default function SignatureForGstInvoice() {
     generateBreadcrumbSchema([
       { name: "Home", url: "https://tools.pixocraft.in/" },
       { name: "Tools", url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
       { name: "Signature Generator", url: PARENT_URL },
       { name: "Signature for GST Invoice", url: CANONICAL },
     ]),
@@ -170,9 +171,10 @@ export default function SignatureForGstInvoice() {
         {/* ── BREADCRUMB ──────────────────────────────────────────────────── */}
         <Breadcrumb
           items={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "Signature Generator", href: "/tools/signature-generator" },
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+          { label: "Productivity", url: "/tools/productivity" },
+            { label: "Signature Generator", url: "/tools/signature-generator" },
             { label: "Signature for GST Invoice" },
           ]}
         />

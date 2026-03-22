@@ -35,7 +35,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/online-signature-generator";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 const LAST_UPDATED = "March 21, 2026";
 
 const FAQS = [
@@ -153,7 +153,8 @@ export default function OnlineSignatureGenerator() {
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                        url: "https://tools.pixocraft.in/" },
-    { name: "Utilities",                   url: "https://tools.pixocraft.in/category/utility" },
+    { name: "Tools", url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator",         url: PARENT_URL },
     { name: "Online Signature Generator",  url: CANONICAL },
   ]);
@@ -184,8 +185,9 @@ export default function OnlineSignatureGenerator() {
 
         <Breadcrumb items={[
           { label: "Home",                        url: "https://tools.pixocraft.in/" },
-          { label: "Utilities",                   url: "/category/utility" },
-          { label: "Signature Generator",         url: "/tools/signature-pad-tool" },
+          { label: "Tools", url: "/tools" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator",         url: "/tools/signature-generator" },
           { label: "Online Signature Generator" },
         ]} />
 
@@ -292,7 +294,7 @@ export default function OnlineSignatureGenerator() {
 
             <p className="text-sm text-muted-foreground mt-5">
               Want even more options?{" "}
-              <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
+              <Link href="/tools/signature-generator" className="text-primary hover:underline underline-offset-2 font-medium">
                 Visit the full Signature Generator
               </Link>
               .
@@ -612,7 +614,7 @@ export default function OnlineSignatureGenerator() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { href: "/tools/signature-pad-tool",          title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, undo/redo, and advanced options." },
+                { href: "/tools/signature-generator",          title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, undo/redo, and advanced options." },
                 { href: "/tools/free-signature-generator",    title: "Free Signature Generator",         desc: "No cost, no watermark, unlimited downloads." },
                 { href: "/tools/digital-signature-generator", title: "Digital Signature Generator",      desc: "India IT Act 2000 ready — for GST, contracts, and business documents." },
                 { href: "/tools/signature-maker",             title: "Signature Maker",                  desc: "Full creative control — custom colour, stroke, and 50+ fonts." },

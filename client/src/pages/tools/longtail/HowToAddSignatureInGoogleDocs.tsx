@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/how-to-add-signature-in-google-docs";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 
 const HOW_TO_STEPS = [
   {
@@ -172,6 +172,7 @@ export default function HowToAddSignatureInGoogleDocs() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "https://tools.pixocraft.in/" },
     { name: "Tools", url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator", url: PARENT_URL },
     { name: "How to Add Signature in Google Docs", url: CANONICAL },
   ]);
@@ -200,7 +201,8 @@ export default function HowToAddSignatureInGoogleDocs() {
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
-          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "How to Add Signature in Google Docs" },
         ]} />
 
@@ -551,7 +553,7 @@ export default function HowToAddSignatureInGoogleDocs() {
                 { label: "Free Signature for Documents", href: "/tools/free-signature-for-documents", desc: "General-purpose digital signature for any document type." },
                 { label: "Transparent Signature PNG", href: "/tools/transparent-signature-png", desc: "Create a transparent background signature PNG to use anywhere." },
                 { label: "Signature for Contracts", href: "/tools/signature-for-contracts", desc: "Professional signature specifically for contracts and NDAs." },
-                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
+                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
               ].map(({ label, href, desc }) => (
                 <Link key={label} href={href} data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">

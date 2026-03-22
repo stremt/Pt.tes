@@ -176,6 +176,7 @@ export default function HandwrittenSignatureGenerator() {
     generateBreadcrumbSchema([
       { name: "Home",                             url: "https://tools.pixocraft.in/" },
       { name: "Tools",                            url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
       { name: "Signature Generator",              url: PARENT_URL },
       { name: "Handwritten Signature Generator",  url: CANONICAL },
     ]),
@@ -199,9 +200,10 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
           items={[
-            { label: "Home",                            href: "/" },
-            { label: "Tools",                           href: "/tools" },
-            { label: "Signature Generator",             href: "/tools/signature-generator" },
+            { label: "Home", url: "/" },
+            { label: "Tools", url: "/tools" },
+          { label: "Productivity", url: "/tools/productivity" },
+            { label: "Signature Generator", url: "/tools/signature-generator" },
             { label: "Handwritten Signature Generator" },
           ]}
         />

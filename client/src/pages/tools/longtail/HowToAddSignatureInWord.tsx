@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/how-to-add-signature-in-word";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 
 const FAQS = [
   {
@@ -173,6 +173,7 @@ export default function HowToAddSignatureInWord() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home",                          url: "https://tools.pixocraft.in/" },
     { name: "Tools",                         url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator",           url: PARENT_URL },
     { name: "How to Add Signature in Word",  url: CANONICAL },
   ]);
@@ -203,7 +204,8 @@ export default function HowToAddSignatureInWord() {
         <Breadcrumb items={[
           { label: "Home",                        url: "https://tools.pixocraft.in/" },
           { label: "Tools",                       url: "/tools" },
-          { label: "Signature Generator",         url: "/tools/signature-pad-tool" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator",         url: "/tools/signature-generator" },
           { label: "How to Add Signature in Word" },
         ]} />
 

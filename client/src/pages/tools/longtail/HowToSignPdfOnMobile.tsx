@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CANONICAL = "https://tools.pixocraft.in/how-to-sign-pdf-on-mobile";
-const PARENT_URL = "https://tools.pixocraft.in/tools/signature-pad-tool";
+const PARENT_URL = "https://tools.pixocraft.in/tools/signature-generator";
 
 const HOW_TO_STEPS = [
   {
@@ -167,6 +167,7 @@ export default function HowToSignPdfOnMobile() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "https://tools.pixocraft.in/" },
     { name: "Tools", url: "https://tools.pixocraft.in/tools" },
+    { name: "Productivity", url: "https://tools.pixocraft.in/tools/productivity" },
     { name: "Signature Generator", url: PARENT_URL },
     { name: "How to Sign PDF on Mobile", url: CANONICAL },
   ]);
@@ -195,7 +196,8 @@ export default function HowToSignPdfOnMobile() {
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
-          { label: "Signature Generator", url: "/tools/signature-pad-tool" },
+          { label: "Productivity", url: "/tools/productivity" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "How to Sign PDF on Mobile" },
         ]} />
 
@@ -517,7 +519,7 @@ export default function HowToSignPdfOnMobile() {
                 { label: "Transparent Signature PNG", href: "/tools/transparent-signature-png", desc: "Create a transparent PNG signature to use in any app or document." },
                 { label: "Signature for Contracts", href: "/tools/signature-for-contracts", desc: "Professional signature created specifically for contracts and NDAs." },
                 { label: "Free Signature for Documents", href: "/tools/free-signature-for-documents", desc: "General-purpose digital signature for any document type." },
-                { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full signature pad — draw, type, or upload on any device." },
+                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full signature pad — draw, type, or upload on any device." },
               ].map(({ label, href, desc }) => (
                 <Link key={label} href={href} data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">
