@@ -365,6 +365,7 @@ const SignatureForTally = lazy(() => import("@/pages/tools/longtail/SignatureFor
 const SignatureForAadhaar = lazy(() => import("@/pages/tools/longtail/SignatureForAadhaar"));
 const SignatureInWordDocument = lazy(() => import("@/pages/tools/longtail/SignatureInWordDocument"));
 const SignatureInGoogleDocs = lazy(() => import("@/pages/tools/longtail/SignatureInGoogleDocs"));
+const HowToCreateDigitalSignature = lazy(() => import("@/pages/tools/longtail/HowToCreateDigitalSignature"));
 const IndianDigitalSignature = lazy(() => import("@/pages/tools/longtail/IndianDigitalSignature"));
 const HowToAddSignatureInWord = lazy(() => import("@/pages/tools/longtail/HowToAddSignatureInWord"));
 const HowToSignPdfOnline = lazy(() => import("@/pages/tools/longtail/HowToSignPdfOnline"));
@@ -812,6 +813,7 @@ function Router() {
         <Route path="/tools/signature-for-aadhaar" component={SignatureForAadhaar} />
         <Route path="/tools/signature-for-word" component={SignatureInWordDocument} />
         <Route path="/tools/signature-for-google-docs" component={SignatureInGoogleDocs} />
+        <Route path="/tools/how-to-create-digital-signature" component={HowToCreateDigitalSignature} />
         <Route path="/tools/how-to-create-digital-signature-online" component={HowToCreateDigitalSignatureOnline} />
         <Route path="/free-signature-for-documents" component={FreeSignatureForDocuments} />
         <Route path="/tools/indian-digital-signature" component={IndianDigitalSignature} />

@@ -1,0 +1,273 @@
+You are building a production-grade SEO page for a large-scale tool platform.
+
+=====================================
+PROJECT: PIXOCRAFT TOOLS
+========================
+
+Website:
+https://tools.pixocraft.in
+
+This page is a **CHILD PAGE** of:
+→ /tools/signature-generator
+
+Category:
+→ /tools/signature-tools
+
+Breadcrumb MUST be:
+Home > Tools > Signature Tools > How to Create Digital Signature
+
+---
+
+GOAL:
+Rank #1 on Google for:
+
+* "how to create digital signature"
+* "create digital signature online"
+* "digital signature how to make"
+* "esign online free"
+* "digital signature vs electronic signature"
+
+---
+
+IMPORTANT STRATEGY:
+
+This page MUST cover TWO INTENTS:
+
+1. Simple Digital Signature (image-based)
+2. Real Digital Signature (DSC, Aadhaar eSign, etc.)
+
+👉 This is CRITICAL for ranking
+
+---
+
+CORE USER INTENT:
+
+User wants to:
+
+✔ Create digital signature online
+✔ Understand what digital signature means
+✔ Know difference between e-sign and DSC
+✔ Use signature in documents (PDF, Word, forms)
+
+---
+
+# PAGE STRUCTURE (STRICT)
+
+1. HERO SECTION
+
+H1:
+How to Create Digital Signature Online (Free & Easy)
+
+Subtext:
+Create your digital signature instantly or learn how official digital signatures work. No login, private tool.
+
+→ Embed SAME signature tool UI
+
+---
+
+2. FEATURED SNIPPET (VERY IMPORTANT)
+
+Answer in 40–50 words:
+
+"How to create a digital signature?"
+
+Include BOTH:
+
+* simple method (tool)
+* advanced method (DSC / eSign)
+
+---
+
+3. WHAT IS A DIGITAL SIGNATURE (CLEAR + DIFFERENT)
+
+Explain clearly:
+
+* Digital signature has 2 meanings:
+  → simple signature image
+  → encrypted digital certificate (DSC)
+
+Explain in simple language.
+
+---
+
+4. TYPES OF DIGITAL SIGNATURE (VERY IMPORTANT)
+
+Break into:
+
+A. Electronic Signature (simple image)
+B. Digital Signature Certificate (DSC)
+
+Explain use cases:
+
+* DSC → government, GST, MCA
+* e-sign → documents, agreements
+
+---
+
+5. HOW TO CREATE DIGITAL SIGNATURE (EASY METHOD)
+
+Tool-based:
+
+1. Open Pixocraft tool
+2. Draw / type / upload
+3. Customize
+4. Download PNG
+5. Use anywhere
+
+---
+
+6. HOW TO CREATE REAL DIGITAL SIGNATURE (DSC)
+
+Explain:
+
+* Buy from certifying authority
+* Install USB token
+* Use software
+
+Keep it simple (don’t go too technical)
+
+---
+
+7. AADHAAR ESIGN (INDIA SEO BOOST)
+
+Explain:
+
+* Aadhaar OTP based signing
+* Used in many portals
+* Fast & secure
+
+---
+
+8. WHERE DIGITAL SIGNATURE IS USED
+
+* PDFs
+* Word docs
+* GST filing
+* MCA filings
+* Contracts
+* Agreements
+
+---
+
+9. DIGITAL SIGNATURE VS ELECTRONIC SIGNATURE
+
+Table comparison:
+
+* security
+* usage
+* complexity
+
+---
+
+10. BEST FORMAT FOR DIGITAL SIGNATURE IMAGE
+
+* PNG transparent
+* high resolution
+* clean edges
+
+---
+
+11. SAVE & REUSE (USP)
+
+* No login
+* Local storage
+* Offline usage
+
+---
+
+12. LEGAL CLARITY (VERY IMPORTANT)
+
+Explain:
+
+* image signature ≠ DSC
+* DSC required for legal filings
+* image signature valid for general use
+
+---
+
+13. COMPARISON (PIXOCraft vs Others)
+
+Highlight:
+
+* free
+* private
+* no upload
+* faster
+
+---
+
+14. FAQ SECTION (10–12 QUESTIONS)
+
+Examples:
+
+* What is digital signature?
+* How to create digital signature online?
+* Is digital signature legally valid?
+* What is difference between DSC and e-sign?
+* Can I create digital signature for free?
+
+---
+
+15. INTERNAL LINKING
+
+Link to:
+
+* /tools/signature-generator
+* /tools/signature-for-pdf
+* /tools/signature-for-word
+* /tools/signature-for-aadhaar
+
+---
+
+=====================================
+SEO META
+========
+
+Title:
+How to Create Digital Signature Online Free (Easy Guide)
+
+Meta Description:
+Learn how to create digital signature online free. Create simple signature or understand DSC and Aadhaar eSign. No login tool.
+
+---
+
+=====================================
+SCHEMA (MANDATORY)
+==================
+
+Include:
+
+1. FAQPage
+2. HowTo
+3. Breadcrumb
+4. SoftwareApplication
+
+---
+
+=====================================
+CONTENT RULES
+=============
+
+* DO NOT copy from other pages
+* Explain clearly (beginner friendly)
+* Cover BOTH types of digital signature
+* Optimize for featured snippet + AI overview
+* Use simple English
+
+---
+
+=====================================
+FINAL OUTPUT
+============
+
+Return full HTML-ready structured content:
+
+* Proper H1–H3
+* Clean formatting
+* SEO optimized content
+* FAQ included
+* Schema included
+
+=====================================
+END
+===
