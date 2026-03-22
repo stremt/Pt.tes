@@ -218,7 +218,9 @@ export interface SoftwareApplicationSchemaProps {
   description: string;
   url: string;
   applicationCategory: string;
+  applicationSubCategory?: string;
   operatingSystem?: string;
+  featureList?: string[];
   offers?: {
     price: string;
     priceCurrency: string;
@@ -230,7 +232,9 @@ export function generateSoftwareApplicationSchema({
   description,
   url,
   applicationCategory = "UtilityApplication",
+  applicationSubCategory,
   operatingSystem = "Any",
+  featureList,
   offers = { price: "0", priceCurrency: "INR" }
 }: SoftwareApplicationSchemaProps) {
   return {
@@ -240,11 +244,18 @@ export function generateSoftwareApplicationSchema({
     "description": description,
     "url": url,
     "applicationCategory": applicationCategory,
+    ...(applicationSubCategory && { "applicationSubCategory": applicationSubCategory }),
     "operatingSystem": operatingSystem,
+    ...(featureList && featureList.length > 0 && { "featureList": featureList }),
     "offers": {
       "@type": "Offer",
       "price": offers.price,
       "priceCurrency": offers.priceCurrency
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Pixocraft Tools",
+      "url": "https://tools.pixocraft.in"
     },
     "publisher": {
       "@type": "Organization",

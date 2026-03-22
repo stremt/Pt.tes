@@ -43,6 +43,11 @@ const HOW_TO_STEPS = [
     title: "Download your signature instantly",
     desc: "Click Download. Your signature saves as a transparent PNG directly to your device. No upload, no waiting, no watermark.",
   },
+  {
+    step: 5,
+    title: "Use your signature anywhere",
+    desc: "Insert the downloaded transparent PNG into Word documents, Google Docs, PDF editors, or email clients. The file is yours permanently — no server access or re-login needed to reuse it.",
+  },
 ];
 
 const FEATURES = [
@@ -188,7 +193,17 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
     description: "Browser-based signature generator that creates signatures without uploading any files. 100% private, runs locally.",
     url: CANONICAL,
     applicationCategory: "Utility",
+    applicationSubCategory: "Signature Generator",
     operatingSystem: "Web",
+    featureList: [
+      "No upload required",
+      "No login",
+      "Works offline",
+      "Instant download",
+      "100% private",
+      "Transparent PNG export",
+      "Browser-based processing",
+    ],
     offers: { price: "0", priceCurrency: "INR" },
   });
 
@@ -488,6 +503,14 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
                 Your signature is created entirely inside your browser. No file, image, drawing stroke, or personal data is ever sent to Pixocraft's servers — or any server.
               </p>
             </div>
+            <img
+              src="https://tools.pixocraft.in/images/signature-no-upload-example.png"
+              alt="Create signature online without upload — private browser-based tool example"
+              loading="lazy"
+              width={600}
+              height={300}
+              className="w-full rounded-xl border mb-5 object-cover"
+            />
             <div className="space-y-3">
               {[
                 { icon: <EyeOff className="h-5 w-5 text-primary" />, title: "Nothing is observed or tracked", desc: "Standard analytics tools do not capture canvas content. Pixocraft does not use any form of session recording or canvas monitoring. Your drawing strokes exist only on your screen." },
@@ -544,7 +567,14 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <p className="text-muted-foreground mb-5">
+              Need a no-login option instead? Try our{" "}
+              <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">free signature generator with no login</Link>
+              {" "}— same private, browser-based approach. Want a stylish typed style?{" "}
+              <Link href="/tools/signature-font-generator" className="text-primary underline underline-offset-2">Signature Font Generator</Link>
+              {" "}lets you pick from 50+ handwriting fonts instantly.
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },

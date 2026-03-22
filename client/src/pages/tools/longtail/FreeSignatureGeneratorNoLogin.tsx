@@ -42,6 +42,11 @@ const HOW_TO_STEPS = [
     title: "Download PNG instantly",
     desc: "Click Download. Your signature saves as a high-resolution transparent PNG to your device — no watermark, no login, no waiting.",
   },
+  {
+    step: 5,
+    title: "Reuse across unlimited documents",
+    desc: "Save the PNG file to your device and insert it into any Word document, PDF, Google Doc, or email footer. No need to recreate it or log in again — the file is yours permanently.",
+  },
 ];
 
 const SIGNATURE_TYPES = [
@@ -187,7 +192,17 @@ export default function FreeSignatureGeneratorNoLogin() {
     description: "Free online signature generator with no login required. Create, customise, and download a transparent PNG signature instantly.",
     url: CANONICAL,
     applicationCategory: "Utility",
+    applicationSubCategory: "Signature Generator",
     operatingSystem: "Web",
+    featureList: [
+      "No login required",
+      "No signup",
+      "Works offline",
+      "Instant download",
+      "100% private",
+      "Transparent PNG export",
+      "No watermark",
+    ],
     offers: { price: "0", priceCurrency: "INR" },
   });
 
@@ -447,6 +462,14 @@ export default function FreeSignatureGeneratorNoLogin() {
                 Your signature is created entirely inside your browser. No file, image, or personal data is ever sent to Pixocraft's servers — or any server.
               </p>
             </div>
+            <img
+              src="https://tools.pixocraft.in/images/signature-no-login-example.png"
+              alt="Free signature generator no login — private browser-based tool example"
+              loading="lazy"
+              width={600}
+              height={300}
+              className="w-full rounded-xl border mb-5 object-cover"
+            />
             <div className="space-y-3">
               {[
                 { icon: <Shield className="h-5 w-5 text-primary" />, title: "No data stored", desc: "When you close the tab, your signature is gone. Nothing is saved, logged, or retained anywhere except on your own device (when you download it)." },
@@ -503,7 +526,14 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <p className="text-muted-foreground mb-5">
+              Need privacy as well as no-login? Our{" "}
+              <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">signature generator without upload</Link>
+              {" "}ensures no file ever touches a server. Want to embed your signature in a PDF?{" "}
+              <Link href="/tools/signature-for-pdf" className="text-primary underline underline-offset-2">Signature for PDF</Link>
+              {" "}handles that in one step.
+            </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
