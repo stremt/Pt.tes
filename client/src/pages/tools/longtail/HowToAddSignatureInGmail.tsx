@@ -228,7 +228,7 @@ export default function HowToAddSignatureInGmail() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Add Signature in Gmail (Step-by-Step Guide)
               </h1>
-              <p className="text-sm text-muted-foreground">Create and add a professional signature in Gmail easily. Covers desktop and mobile. Free tool, no login.</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Create and add a professional signature in Gmail easily. Covers desktop and mobile. Free tool, no login.</p>
             </div>
           </div>
 

@@ -562,7 +562,7 @@ export default function CreateDigitalSignature() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   India — Information Technology Act 2000
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="hidden sm:block text-sm text-muted-foreground">
                   Section 5 of the IT Act 2000 grants electronic signatures the same legal validity as handwritten signatures for any
                   law requiring a document to be signed. The IT (Amendment) Act 2008 further expanded this framework. A PNG signature
                   from this tool qualifies as a Simple Electronic Signature (SES) under this Act.
@@ -573,7 +573,7 @@ export default function CreateDigitalSignature() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   India — When DSC is Required (Exceptions)
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="hidden sm:block text-sm text-muted-foreground">
                   A certified DSC (Class 2 or Class 3) is required for: MCA ROC company filings, income tax portal DSC-based
                   verification, property and land registration on government portals, court e-filings, and specific government
                   tenders. For all other commercial uses, a PNG signature is sufficient.
@@ -584,7 +584,7 @@ export default function CreateDigitalSignature() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   USA — ESIGN Act & UETA
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="hidden sm:block text-sm text-muted-foreground">
                   The Electronic Signatures in Global and National Commerce (ESIGN) Act and Uniform Electronic Transactions Act (UETA)
                   recognise electronic signatures — including image-based signatures — as legally binding for most commercial contracts
                   across the United States.
@@ -595,7 +595,7 @@ export default function CreateDigitalSignature() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   European Union — eIDAS Regulation
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className="hidden sm:block text-sm text-muted-foreground">
                   The EU's eIDAS Regulation recognises Simple Electronic Signatures (SES) as legally valid for most commercial
                   and business transactions across all EU member states. Higher-risk transactions may require Advanced or Qualified
                   Electronic Signatures (AES/QES).
@@ -650,7 +650,7 @@ export default function CreateDigitalSignature() {
               </table>
             </div>
 
-            <p className="text-sm text-muted-foreground">
+            <p className="hidden sm:block text-sm text-muted-foreground">
               <strong className="text-foreground">Note:</strong> DocuSign, Adobe Sign, and similar platforms are excellent for enterprise
               workflow management — multi-party signing, audit trails, and contract lifecycle management. Pixocraft is built for
               individuals, freelancers, and small businesses who need to create a professional signature image quickly, privately, and free.

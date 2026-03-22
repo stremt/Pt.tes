@@ -210,7 +210,7 @@ export default function HowToSignPdfOnMobile() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Sign PDF on Mobile Free – Android & iPhone (2026 Guide)
               </h1>
-              <p className="text-sm text-muted-foreground">Free · No App Download · Android + iPhone · GST on the Go · Aadhaar Ready</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Free · No App Download · Android + iPhone · GST on the Go · Aadhaar Ready</p>
             </div>
           </div>
 

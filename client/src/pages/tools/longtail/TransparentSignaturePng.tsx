@@ -216,7 +216,7 @@ export default function TransparentSignaturePng() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Transparent Signature PNG Free – Remove Background &amp; Download Instantly
               </h1>
-              <p className="text-sm text-muted-foreground">Auto Background Removal · No Signup · High-Resolution PNG · 100% Private</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Auto Background Removal · No Signup · High-Resolution PNG · 100% Private</p>
             </div>
           </div>
 
@@ -245,7 +245,7 @@ export default function TransparentSignaturePng() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5 text-primary" />,    label: "No Photoshop needed" },
               { icon: <Check className="h-3.5 w-3.5 text-primary" />,  label: "Instant clean result" },
@@ -258,7 +258,7 @@ export default function TransparentSignaturePng() {
           </div>
 
           {/* Action flow */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Upload or Draw" },
               { n: 2, label: "Auto Remove Background" },

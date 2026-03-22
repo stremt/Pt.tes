@@ -191,7 +191,7 @@ export default function FreeSignatureForDocuments() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature for Documents – PDF, Word &amp; More
               </h1>
-              <p className="text-sm text-muted-foreground">PDF · Word · Google Docs · Excel · 100% Private · IT Act Compliant</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">PDF · Word · Google Docs · Excel · 100% Private · IT Act Compliant</p>
             </div>
           </div>
 

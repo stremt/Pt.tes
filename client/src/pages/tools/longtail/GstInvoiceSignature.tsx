@@ -226,7 +226,7 @@ export default function GstInvoiceSignature() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 GST Invoice Signature Free – Legal Digital Signature for GST
               </h1>
-              <p className="text-sm text-muted-foreground">IT Act 2000 Compliant · No Login · 100% Private · Works with Tally, Zoho & More</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">IT Act 2000 Compliant · No Login · 100% Private · Works with Tally, Zoho & More</p>
             </div>
           </div>
 
@@ -254,7 +254,7 @@ export default function GstInvoiceSignature() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Users className="h-3.5 w-3.5 text-primary" />,    label: "Trusted by MSMEs & CAs" },
               { icon: <Check className="h-3.5 w-3.5 text-primary" />,    label: "Works with real GST software" },
@@ -267,7 +267,7 @@ export default function GstInvoiceSignature() {
           </div>
 
           {/* Action flow */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Create Signature" },
               { n: 2, label: "Download PNG" },

@@ -278,7 +278,7 @@ export default function PrivateSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Private Signature Generator (100% Secure &amp; Safe)
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="hidden sm:block text-sm text-muted-foreground">
                 Create your signature privately — no data stored, no upload, no login, runs entirely in your browser.
               </p>
             </div>
@@ -600,7 +600,7 @@ export default function PrivateSignatureGenerator() {
                 key={row.feature}
                 className={`grid grid-cols-3 px-4 py-3 ${i < COMPARISON.length - 1 ? "border-b" : ""}`}
               >
-                <p className="text-sm text-muted-foreground">{row.feature}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{row.feature}</p>
                 <p className="text-sm font-medium text-primary text-center">{row.pixocraft}</p>
                 <p className="text-sm text-muted-foreground text-center">{row.others}</p>
               </div>

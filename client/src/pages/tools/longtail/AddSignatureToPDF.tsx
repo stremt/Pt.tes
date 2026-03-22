@@ -131,7 +131,7 @@ export default function AddSignatureToPDF() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Add Signature to PDF Free Online – Sign PDF in Seconds
               </h1>
-              <p className="text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Contract Ready</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Contract Ready</p>
             </div>
           </div>
 
@@ -154,7 +154,7 @@ export default function AddSignatureToPDF() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
             {HOW_TO_STEPS.map(({ step, title }) => (
               <div key={step} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border bg-card text-center">
                 <span className="h-7 w-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">{step}</span>
@@ -301,7 +301,7 @@ export default function AddSignatureToPDF() {
                 </tbody>
               </table>
             </div>
-            <p className="text-sm text-muted-foreground">In everyday usage, "add signature to PDF" and "eSign PDF" are used interchangeably. The distinction only matters in formal legal or compliance contexts.</p>
+            <p className="hidden sm:block text-sm text-muted-foreground">In everyday usage, "add signature to PDF" and "eSign PDF" are used interchangeably. The distinction only matters in formal legal or compliance contexts.</p>
           </section>
 
           <section>

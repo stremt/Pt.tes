@@ -234,7 +234,7 @@ export default function FreeSignatureGeneratorNoLogin() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature Generator (No Login Required)
               </h1>
-              <p className="text-sm text-muted-foreground">Create your signature instantly without login or signup. 100% free, private, and works offline.</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Create your signature instantly without login or signup. 100% free, private, and works offline.</p>
             </div>
           </div>
 

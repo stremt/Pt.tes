@@ -182,7 +182,7 @@ export default function CreateSignatureOnline() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Create Signature Online Free – Instant PNG in Seconds
               </h1>
-              <p className="text-sm text-muted-foreground">Create in &lt;60 sec · No Signup · No Watermark · 100% Private · GST Ready</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Create in &lt;60 sec · No Signup · No Watermark · 100% Private · GST Ready</p>
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export default function CreateSignatureOnline() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -301,7 +301,7 @@ export default function CreateSignatureOnline() {
                   <p style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }} className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis">
                     {name}
                   </p>
-                  <p className="text-sm text-muted-foreground">{note}</p>
+                  <p className="hidden sm:block text-sm text-muted-foreground">{note}</p>
                   <button
                     onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })}
                     className="text-xs text-primary font-semibold hover:underline underline-offset-2 cursor-pointer"
@@ -416,7 +416,7 @@ export default function CreateSignatureOnline() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

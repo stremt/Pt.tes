@@ -300,7 +300,7 @@ export default function SimpleSignatureMakerOnlineFree() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Maker Online Free (Fast &amp; Easy)
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="hidden sm:block text-sm text-muted-foreground">
                 Create your signature in seconds. No login, no complexity, instant download.
               </p>
             </div>
@@ -610,7 +610,7 @@ export default function SimpleSignatureMakerOnlineFree() {
                 key={row.feature}
                 className={`grid grid-cols-3 px-4 py-3 ${i < COMPARISON.length - 1 ? "border-b" : ""}`}
               >
-                <p className="text-sm text-muted-foreground">{row.feature}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{row.feature}</p>
                 <p className="text-sm font-medium text-primary text-center">{row.pixocraft}</p>
                 <p className="text-sm text-muted-foreground text-center">{row.others}</p>
               </div>

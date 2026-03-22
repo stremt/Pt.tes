@@ -213,7 +213,7 @@ export default function HowToSignPdfOnline() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Sign PDF Online (Free &amp; Instant)
               </h1>
-              <p className="text-sm text-muted-foreground">Sign PDF documents online in seconds. No login, no upload, fully private and secure.</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Sign PDF documents online in seconds. No login, no upload, fully private and secure.</p>
             </div>
           </div>
 
@@ -651,7 +651,7 @@ export default function HowToSignPdfOnline() {
                 </tbody>
               </table>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="hidden sm:block text-sm text-muted-foreground">
               Unlike DocuSign, Smallpdf, and Adobe — which upload your documents to their servers — Pixocraft processes everything locally in your browser. Your PDF never leaves your device.
             </p>
           </section>

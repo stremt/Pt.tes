@@ -307,11 +307,11 @@ export default function HandwrittenSignatureGenerator() {
                 >
                   Your Name
                 </p>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="hidden sm:block text-sm text-muted-foreground">
             Switch to the <strong>Type</strong> tab, type your name, and browse all 50+ fonts — each renders live so you see exactly your signature.
           </p>
         </section>
@@ -440,7 +440,7 @@ export default function HandwrittenSignatureGenerator() {
             {TIPS.map(({ title, body }) => (
               <div key={title} className="rounded-xl border bg-card p-4 space-y-1.5">
                 <p className="font-semibold text-foreground text-sm">{title}</p>
-                <p className="text-sm text-muted-foreground">{body}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
               </div>
             ))}
           </div>
@@ -483,7 +483,7 @@ export default function HandwrittenSignatureGenerator() {
               <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
                 <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
                 <p className="text-xs font-medium text-primary">{law}</p>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>

@@ -199,7 +199,7 @@ export default function SignatureForContracts() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature for Contracts Free – Legal Digital Signature for Agreements
               </h1>
-              <p className="text-sm text-muted-foreground">IT Act 2000 Compliant · Indian Contract Act Valid · No Signup · 100% Private</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">IT Act 2000 Compliant · Indian Contract Act Valid · No Signup · 100% Private</p>
             </div>
           </div>
 
@@ -228,7 +228,7 @@ export default function SignatureForContracts() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <FileText className="h-3.5 w-3.5 text-primary" />, label: "Used in NDAs & business agreements" },
               { icon: <Users className="h-3.5 w-3.5 text-primary" />,   label: "Trusted by freelancers & lawyers" },
@@ -241,7 +241,7 @@ export default function SignatureForContracts() {
           </div>
 
           {/* Action flow */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Create Signature" },
               { n: 2, label: "Download PNG" },

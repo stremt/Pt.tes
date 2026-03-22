@@ -284,11 +284,11 @@ export default function SignatureFontGenerator() {
                 >
                   Your Name
                 </p>
-                <p className="text-sm text-muted-foreground">{desc}</p>
+                <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="hidden sm:block text-sm text-muted-foreground">
             Switch to the <strong>Type</strong> tab in the tool above, type your name, and browse all 50+ fonts — each renders live.
           </p>
         </section>

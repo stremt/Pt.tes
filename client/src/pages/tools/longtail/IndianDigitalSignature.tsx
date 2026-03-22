@@ -198,7 +198,7 @@ export default function IndianDigitalSignature() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Indian Digital Signature Free – IT Act 2000 Compliant
               </h1>
-              <p className="text-sm text-muted-foreground">IT Act 2000 · GST &amp; Aadhaar Ready · Made in India · No Signup · 100% Private</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">IT Act 2000 · GST &amp; Aadhaar Ready · Made in India · No Signup · 100% Private</p>
             </div>
           </div>
 
@@ -242,7 +242,7 @@ export default function IndianDigitalSignature() {
           </div>
 
           {/* E-E-A-T micro-trust */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Users className="h-3.5 w-3.5 text-primary" />,   label: "Used by Indian businesses & CAs" },
               { icon: <Receipt className="h-3.5 w-3.5 text-primary" />, label: "Works with GST, Tally & government portals" },

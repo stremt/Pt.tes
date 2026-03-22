@@ -529,7 +529,7 @@ export default function OnlineSignatureGenerator() {
                   </div>
                   <div>
                     <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

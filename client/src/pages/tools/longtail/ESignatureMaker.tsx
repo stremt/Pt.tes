@@ -290,7 +290,7 @@ export default function ESignatureMaker() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 eSignature Maker Free – Create Electronic Signature Online
               </h1>
-              <p className="text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Legal Ready</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Legal Ready</p>
             </div>
           </div>
 
@@ -394,7 +394,7 @@ export default function ESignatureMaker() {
                 </li>
               ))}
             </ol>
-            <p className="text-sm text-muted-foreground">
+            <p className="hidden sm:block text-sm text-muted-foreground">
               Need the full tool with additional options?{" "}
               <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
                 Visit the main Signature Generator
@@ -582,7 +582,7 @@ export default function ESignatureMaker() {
                 <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
                   <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
                   <p className="text-xs font-medium text-primary">{law}</p>
-                  <p className="text-sm text-muted-foreground">{desc}</p>
+                  <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
                 </div>
               ))}
             </div>

@@ -349,7 +349,7 @@ export default function BestSignatureGeneratorFree() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Best Signature Generator Free (Top Tools Compared)
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="hidden sm:block text-sm text-muted-foreground">
                 Compare the fastest, most private, and easiest free signature generators — and choose the right one for you.
               </p>
             </div>

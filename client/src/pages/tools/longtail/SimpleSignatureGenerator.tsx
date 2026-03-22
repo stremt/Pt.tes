@@ -210,7 +210,7 @@ export default function SimpleSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Generator Online – Create in Seconds
               </h1>
-              <p className="text-sm text-muted-foreground">100% Free · No Login · No Complicated Settings · One-Click Download · Works on Mobile</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">100% Free · No Login · No Complicated Settings · One-Click Download · Works on Mobile</p>
             </div>
           </div>
 

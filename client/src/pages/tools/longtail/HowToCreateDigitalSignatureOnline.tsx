@@ -229,7 +229,7 @@ export default function HowToCreateDigitalSignatureOnline() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Create Digital Signature Online Free (Step-by-Step Guide)
               </h1>
-              <p className="text-sm text-muted-foreground">60 Seconds · No Signup · Works on Mobile · GST &amp; Contract Ready</p>
+              <p className="hidden sm:block text-sm text-muted-foreground">60 Seconds · No Signup · Works on Mobile · GST &amp; Contract Ready</p>
             </div>
           </div>
 
@@ -274,7 +274,7 @@ export default function HowToCreateDigitalSignatureOnline() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5 text-primary" />,    label: "Most users finish in under 60 seconds" },
               { icon: <Check className="h-3.5 w-3.5 text-primary" />,  label: "No technical skills required" },
