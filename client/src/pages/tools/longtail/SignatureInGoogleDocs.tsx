@@ -291,7 +291,7 @@ export default function SignatureInGoogleDocs() {
               <span className="text-primary">Add & Insert Signature Free</span>
             </h1>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create your signature and insert it into <strong>Google Docs</strong> in under 60 seconds.
             Download a <strong>transparent PNG</strong> — the cleanest format for Google Docs — and place it
             precisely on any signature line. No add-ons, no login, no upload to any server.
@@ -299,7 +299,7 @@ export default function SignatureInGoogleDocs() {
           <p className="text-base font-semibold text-foreground">
             <strong>Add your Google Docs signature in under 60 seconds — no add-on, no login, fully private.</strong>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Login" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Transparent PNG" },
@@ -319,7 +319,7 @@ export default function SignatureInGoogleDocs() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add a signature in Google Docs?
@@ -327,7 +327,7 @@ export default function SignatureInGoogleDocs() {
           <p className="text-sm text-foreground leading-relaxed">
             Create your signature as a transparent PNG on Pixocraft (draw or type — no login). In Google Docs, click <strong>Insert → Image → Upload from computer</strong>, select your PNG, and insert it. Drag to your signature line, resize from a corner handle, set to <strong>Inline</strong> alignment, and you're done.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Best format",     value: "Transparent PNG" },
               { label: "Ideal width",     value: "3–5 cm in Docs" },
@@ -400,7 +400,7 @@ export default function SignatureInGoogleDocs() {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="hidden sm:flex flex-wrap gap-2">
                   {pros.map((pro) => (
                     <span key={pro} className="inline-flex items-center gap-1 text-xs text-muted-foreground bg-muted/50 border rounded-full px-2.5 py-1">
                       <Check className="h-3 w-3 text-primary" />{pro}

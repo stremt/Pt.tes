@@ -234,7 +234,7 @@ export default function SignatureForTally() {
               (Free)
             </h1>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a professional signature and add it to your <strong>Tally Prime invoices</strong> in minutes.
             Download a crisp <strong>transparent PNG</strong> — the exact format Tally requires — and configure it once
             so every future invoice is automatically signed. No DSC needed. No login. 100% private.
@@ -242,7 +242,7 @@ export default function SignatureForTally() {
           <p className="text-base font-semibold text-foreground">
             <strong>Add your Tally signature in under 60 seconds — no login, no upload, fully private.</strong>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Signup" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Tally Ready PNG" },
@@ -262,7 +262,7 @@ export default function SignatureForTally() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add signature in Tally invoice?
@@ -281,7 +281,7 @@ export default function SignatureForTally() {
               </li>
             ))}
           </ol>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Format",     value: "Transparent PNG" },
               { label: "Size",       value: "150–300px width" },

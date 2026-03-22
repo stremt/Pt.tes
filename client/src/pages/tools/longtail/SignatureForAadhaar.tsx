@@ -259,14 +259,14 @@ export default function SignatureForAadhaar() {
               <span className="text-primary">Create & Download Free Online</span>
             </h1>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create an Aadhaar-ready signature instantly — for KYC forms, UIDAI updates, bank verification, and government scheme applications.
             Download a <strong>transparent PNG</strong> with no watermark, no login, and no data upload. Works offline.
           </p>
           <p className="text-base font-semibold text-foreground">
             <strong>Create your Aadhaar signature in under 60 seconds — no login, no upload, fully private.</strong>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Login" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Transparent PNG" },
@@ -286,7 +286,7 @@ export default function SignatureForAadhaar() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             What is a signature for Aadhaar and how to create it online?
@@ -294,7 +294,7 @@ export default function SignatureForAadhaar() {
           <p className="text-sm text-foreground leading-relaxed">
             A signature for Aadhaar is a handwritten or digital signature image used on Aadhaar-linked forms — such as KYC documents, bank applications, and UIDAI update requests. Aadhaar card itself does not carry a signature. Use Pixocraft to draw your signature and download a transparent PNG in under 60 seconds — free, no login required.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Format",        value: "PNG (Transparent)" },
               { label: "Ideal size",    value: "140–200px width" },

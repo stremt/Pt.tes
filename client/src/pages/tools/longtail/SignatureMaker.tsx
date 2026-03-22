@@ -172,7 +172,7 @@ export default function SignatureMaker() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Sliders className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -185,7 +185,7 @@ export default function SignatureMaker() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             The most customisable <strong>signature maker online</strong> — free, private, and built for anyone who
             wants more than just a quick download. <strong>Draw</strong> freehand with precise stroke control,{" "}
             <strong>type</strong> your name across 50+ premium calligraphic fonts, or <strong>upload</strong> an
@@ -193,7 +193,7 @@ export default function SignatureMaker() {
             style — then download a crisp transparent PNG instantly. No account, no watermark, no cost.
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Free Signature Maker" },
               { icon: <Sliders className="h-3.5 w-3.5" />,    label: "Full Customisation" },

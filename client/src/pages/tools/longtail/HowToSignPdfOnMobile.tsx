@@ -201,7 +201,7 @@ export default function HowToSignPdfOnMobile() {
         ]} />
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -223,7 +223,7 @@ export default function HowToSignPdfOnMobile() {
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />, label: "Sign PDF in 40 Seconds on Phone" },
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No Data Saved" },

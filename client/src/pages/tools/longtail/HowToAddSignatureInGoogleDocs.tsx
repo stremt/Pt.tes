@@ -206,7 +206,7 @@ export default function HowToAddSignatureInGoogleDocs() {
         ]} />
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <FileImage className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -228,7 +228,7 @@ export default function HowToAddSignatureInGoogleDocs() {
           </div>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Check className="h-3.5 w-3.5" />, label: "35-Second Method" },
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No Extension Required" },

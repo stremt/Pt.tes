@@ -182,7 +182,7 @@ export default function FreeSignatureForDocuments() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -195,14 +195,14 @@ export default function FreeSignatureForDocuments() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Get <strong>free signature for documents</strong> in seconds. Create a professional digital signature for documents
             and insert it into <strong>PDF, Word, Google Docs, Excel</strong> or any file instantly. Transparent PNG,
             no signup, no watermark, 100% private and legally valid for GST, contracts and daily business use in India.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,        label: "Free Signature for Documents" },
               { icon: <Layers className="h-3.5 w-3.5" />,      label: "PDF, Word, Google Docs Ready" },
@@ -220,7 +220,7 @@ export default function FreeSignatureForDocuments() {
           </div>
 
           {/* Doc type quick links */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {["PDF", "Word", "Google Docs", "Excel", "GST Invoice", "Contracts"].map((doc) => (
               <span key={doc} className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary">
                 <Check className="h-3 w-3" />{doc}

@@ -185,14 +185,14 @@ export default function SignatureForGstInvoice() {
             <span className="text-primary">Create &amp; Download PNG</span>{" "}
             (Free, No Signup)
           </h1>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create your authorised signatory signature online and add it to GST invoices in
             TallyPrime, Zoho Books, Vyapar, Marg ERP, or any PDF — in under 2 minutes. 100%
             free, no login, no watermark.
           </p>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No Signup" },
               { icon: <BadgeCheck className="h-3.5 w-3.5" />, label: "GST Ready" },
@@ -213,7 +213,7 @@ export default function SignatureForGstInvoice() {
         </div>
 
         {/* ── FEATURED SNIPPET ────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">What signature is required for a GST invoice?</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -224,7 +224,7 @@ export default function SignatureForGstInvoice() {
             submissions (GSTR-1, GSTR-3B filings on the GST portal) — not for the invoice document
             itself given to your buyer.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Format",         value: "Transparent PNG" },
               { label: "Recommended Size", value: "800 × 300 px" },

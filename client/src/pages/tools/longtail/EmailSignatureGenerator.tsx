@@ -254,7 +254,7 @@ export default function EmailSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-6 sm:mb-10 pt-1">
+        <div className="mb-3 sm:mb-10 pt-1">
           <div className="flex items-center gap-2 mb-5">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="h-5 w-5 text-primary" />
@@ -271,7 +271,7 @@ export default function EmailSignatureGenerator() {
             Handwritten PNG for Gmail &amp; Outlook — No Signup Required
           </p>
 
-          <p className="text-base text-muted-foreground leading-relaxed mb-7 max-w-2xl">
+          <p className="hidden sm:block text-base text-muted-foreground leading-relaxed mb-7 max-w-2xl">
             Create a professional email signature using Pixocraft's free generator.{" "}
             <strong className="text-foreground">Draw</strong> with your mouse or finger,{" "}
             <strong className="text-foreground">type</strong> in 50+ calligraphic fonts,{" "}
@@ -300,7 +300,7 @@ export default function EmailSignatureGenerator() {
           <h2 className="text-base sm:text-lg font-bold text-foreground mb-1.5">
             Free Email Signature Generator for Gmail &amp; Outlook
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Pixocraft is a free email signature generator that helps you create a professional handwritten
             signature for Gmail and Outlook. Draw, type (50+ fonts), upload or use AI styles and download
             a transparent PNG instantly. No signup required, 100% private and works offline in your browser.

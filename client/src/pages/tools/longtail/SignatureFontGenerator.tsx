@@ -200,12 +200,12 @@ export default function SignatureFontGenerator() {
               for Name (Free)
             </h1>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a stylish signature using <strong>cursive and calligraphy fonts</strong>.
             Choose from <strong>50+ signature fonts</strong>, preview your name instantly, and download as a transparent PNG.
             No login required — 100% private and free.
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Signup" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "50+ Fonts" },
@@ -225,7 +225,7 @@ export default function SignatureFontGenerator() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             How do I create a stylish signature using fonts?
@@ -235,7 +235,7 @@ export default function SignatureFontGenerator() {
             — each previewed live with your actual name. Click the font you like, then click <strong>Download → PNG</strong> for
             a <strong>transparent high-resolution PNG (3200×1040 px)</strong>. Done in under 60 seconds. No login, no watermark.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Fonts",      value: "50+ Cursive" },
               { label: "Export",     value: "Transparent PNG" },

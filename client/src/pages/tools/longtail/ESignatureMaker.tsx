@@ -281,7 +281,7 @@ export default function ESignatureMaker() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -294,14 +294,14 @@ export default function ESignatureMaker() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create your professional <strong>eSignature</strong> in seconds. <strong>Draw</strong> with your mouse or finger,
             <strong> type</strong> your name in 50+ handwritten fonts, or <strong>upload</strong> an existing signature and remove
             the background automatically. Download as a crisp transparent PNG — no login, no watermark, 100% private.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,        label: "Free Forever" },
               { icon: <Lock className="h-3.5 w-3.5" />,        label: "No Signup" },

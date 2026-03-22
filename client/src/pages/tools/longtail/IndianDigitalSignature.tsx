@@ -189,7 +189,7 @@ export default function IndianDigitalSignature() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -202,14 +202,14 @@ export default function IndianDigitalSignature() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a <strong>legally valid Indian digital signature</strong> in seconds. Fully compliant with
             <strong> IT Act 2000</strong> and accepted for GST invoices, Aadhaar-linked forms, business contracts,
             and government documents across India. No login. 100% private. Instant transparent PNG download.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <BadgeCheck className="h-3.5 w-3.5" />,  label: "IT Act 2000 Compliant" },
               { icon: <Receipt className="h-3.5 w-3.5" />,     label: "GST & Aadhaar Ready" },

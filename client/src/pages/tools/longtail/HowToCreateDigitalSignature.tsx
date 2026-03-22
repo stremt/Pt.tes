@@ -268,7 +268,7 @@ export default function HowToCreateDigitalSignature() {
               <span className="text-primary">Free & Easy</span>
             </h1>
           </div>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             <strong>Create your digital signature instantly</strong> using the free tool below — or learn how official
             <strong> DSC and Aadhaar eSign</strong> work for government and legal filings. Both methods explained
             clearly. No login, fully private.
@@ -276,7 +276,7 @@ export default function HowToCreateDigitalSignature() {
           <p className="text-base font-semibold text-foreground">
             <strong>Create digital signature in under 60 seconds — no login, no software, 100% free.</strong>
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="hidden sm:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Login" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Transparent PNG" },
@@ -296,7 +296,7 @@ export default function HowToCreateDigitalSignature() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">How to create a digital signature?</h2>
           <div className="space-y-3 text-sm text-foreground leading-relaxed">
@@ -309,7 +309,7 @@ export default function HowToCreateDigitalSignature() {
               <p>For government portals (MCA, income tax courts), purchase a Class 3 DSC from a licensed Certifying Authority like eMudhra or NSDL. Requires identity verification and a USB token. Takes 1–3 working days.</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Image signature cost", value: "Free" },
               { label: "DSC cost",             value: "₹800–₹3,000/yr" },
@@ -385,7 +385,7 @@ export default function HowToCreateDigitalSignature() {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="hidden sm:flex flex-wrap gap-2">
                   {uses.map((u) => (
                     <span key={u} className="inline-flex items-center gap-1 text-xs text-muted-foreground bg-muted/50 border rounded-full px-2.5 py-1">
                       <Check className="h-3 w-3 text-primary" />{u}

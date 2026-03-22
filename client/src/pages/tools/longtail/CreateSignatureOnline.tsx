@@ -173,7 +173,7 @@ export default function CreateSignatureOnline() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Timer className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -186,14 +186,14 @@ export default function CreateSignatureOnline() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             <strong>Create signature online</strong> instantly with our free tool — no software, no signup, and no wait.
             Draw with your mouse or finger, type your name in beautiful handwritten fonts, or upload your existing
             signature and clean the background automatically. Get a high-resolution transparent PNG ready to use
             immediately — no watermark, 100% private, and GST compliant.
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Create Signature Online Free" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Instant Download" },

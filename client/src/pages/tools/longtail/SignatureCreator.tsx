@@ -321,7 +321,7 @@ export default function SignatureCreator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -334,14 +334,14 @@ export default function SignatureCreator() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Design a signature that reflects your identity. <strong>Full creative control</strong>, instant results, no login required.
             <strong> Draw</strong> freehand with a mouse or finger, <strong>type</strong> your name across 50+ curated handwriting fonts,
             or <strong>upload</strong> an existing signature for digital refinement. Download as a crisp transparent PNG — free, private, instantly.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,       label: "Design Signature in 5 Seconds" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "50+ Creative Styles" },

@@ -122,7 +122,7 @@ export default function AddSignatureToPDF() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <FileCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -135,12 +135,12 @@ export default function AddSignatureToPDF() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Add your signature to any PDF instantly. <strong>No login, no software, fully private</strong> — create your signature,
             upload your PDF, click to place, and download your signed document in under 30 seconds.
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,       label: "Add Signature in 30 Seconds" },
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Signup Required" },

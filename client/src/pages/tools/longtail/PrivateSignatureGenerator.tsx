@@ -269,7 +269,7 @@ export default function PrivateSignatureGenerator() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -314,7 +314,7 @@ export default function PrivateSignatureGenerator() {
             ))}
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Most signature tools upload your data to a server — putting your signature at risk of storage,
             tracking, or breach. This <strong>private signature generator</strong> works differently.{" "}
             <strong>Your data never leaves your device.</strong> There is{" "}
@@ -335,14 +335,14 @@ export default function PrivateSignatureGenerator() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────── */}
-        <div id="tool" className="mb-6 sm:mb-10">
+        <div id="tool" className="mb-3 sm:mb-10">
           <SignatureToolSection
             caption="Private · No upload · No data stored · No login · Transparent PNG"
           />
         </div>
 
         {/* ── WHY PRIVACY MATTERS ─────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Privacy Matters When Creating a Signature</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Your signature is one of the most sensitive pieces of personal data you have. Here's why you should
@@ -380,7 +380,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── HOW IT WORKS ────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How This Private Signature Tool Works
           </h2>
@@ -434,7 +434,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── HOW TO ─────────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How to Create a Signature Privately Online
           </h2>
@@ -457,7 +457,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── SECURITY FEATURES ───────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Security Features</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Every feature of this tool is built around one principle: your data never leaves your device.
@@ -524,7 +524,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── USE CASES ──────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             When to Use a Private Signature Generator
           </h2>
@@ -547,7 +547,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── BEST FORMAT ────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             Best Format for a Private Signature
           </h2>
@@ -582,7 +582,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── COMPARISON ─────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Pixocraft vs. Other Signature Tools — Privacy Comparison
           </h2>
@@ -609,7 +609,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Privacy and security questions answered about this private signature generator.
@@ -641,7 +641,7 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── INTERNAL LINKS ────────────────────────────────────── */}
-        <section className="mb-6 sm:mb-10">
+        <section className="mb-3 sm:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Need a different angle? Explore other Pixocraft signature tools — each built with the same

@@ -1,4 +1,4 @@
-import { PenTool, Lock, Zap, Download, Shield, Wifi } from "lucide-react";
+import { PenTool, Lock, Zap, Download, Shield, Wifi, ArrowDown } from "lucide-react";
 import SignaturePadWidget from "@/components/SignaturePadWidget";
 import { PDFSignatureTool } from "@/components/PDFSignatureTool";
 
@@ -9,11 +9,11 @@ interface SignatureToolSectionProps {
 }
 
 const TRUST_BADGES = [
-  { icon: <Lock className="h-3 w-3 sm:h-3.5 sm:w-3.5" />, label: "No Login" },
-  { icon: <Shield className="h-3 w-3 sm:h-3.5 sm:w-3.5" />, label: "100% Private" },
-  { icon: <Wifi className="h-3 w-3 sm:h-3.5 sm:w-3.5" />, label: "Works Offline" },
-  { icon: <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5" />, label: "Instant Download" },
-  { icon: <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5" />, label: "No Watermark" },
+  { icon: <Lock className="h-3 w-3" />, label: "No Login" },
+  { icon: <Shield className="h-3 w-3" />, label: "100% Private" },
+  { icon: <Wifi className="h-3 w-3" />, label: "Works Offline" },
+  { icon: <Download className="h-3 w-3" />, label: "Instant Download" },
+  { icon: <Zap className="h-3 w-3" />, label: "No Watermark" },
 ];
 
 export default function SignatureToolSection({
@@ -26,23 +26,30 @@ export default function SignatureToolSection({
       ? "No watermark · No server upload · Signed PDF downloads instantly"
       : "No watermark · No server upload · Transparent PNG · Works offline";
 
+  const heading =
+    mode === "pdf"
+      ? "Sign Your PDF — Upload, Place & Download"
+      : "Create Your Signature";
+
   return (
-    <section id="tool" className="mb-8 sm:mb-12 rounded-xl sm:rounded-2xl border bg-card overflow-hidden">
-      {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 sm:px-5 py-3 sm:py-3.5 border-b bg-muted/40">
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-6 sm:h-7 sm:w-7 rounded-md sm:rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <PenTool className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+    <section id="tool" className="mb-8 sm:mb-12 rounded-xl sm:rounded-2xl border-2 border-primary/25 bg-card overflow-hidden shadow-sm">
+
+      {/* Prominent header banner */}
+      <div className="bg-primary px-4 sm:px-5 py-3 sm:py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <div className="h-7 w-7 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+            <PenTool className="h-4 w-4 text-white" />
           </div>
-          <span className="text-sm font-semibold text-foreground">
-            {mode === "pdf" ? "Sign PDF — Upload, Place & Download" : "Create Your Signature"}
+          <span className="text-sm sm:text-base font-bold text-white tracking-wide">
+            {heading}
           </span>
+          <ArrowDown className="h-4 w-4 text-white/70 hidden sm:block" />
         </div>
-        <div className="flex flex-nowrap overflow-x-auto sm:flex-wrap gap-1 sm:gap-1.5 pb-0.5 sm:pb-0 scrollbar-none">
+        <div className="flex flex-nowrap overflow-x-auto gap-1.5 pb-0.5 sm:pb-0 scrollbar-none">
           {TRUST_BADGES.map(({ icon, label }) => (
             <span
               key={label}
-              className="inline-flex shrink-0 items-center gap-1 text-[10px] sm:text-[11px] font-medium px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border bg-background text-muted-foreground"
+              className="inline-flex shrink-0 items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30"
             >
               {icon}
               {label}

@@ -226,7 +226,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />

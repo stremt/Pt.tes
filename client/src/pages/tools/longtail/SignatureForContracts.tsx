@@ -190,7 +190,7 @@ export default function SignatureForContracts() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Scale className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -203,14 +203,14 @@ export default function SignatureForContracts() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a <strong>legally valid signature for contracts</strong>, NDAs, and agreements in seconds. Fully compliant
             with <strong>Indian laws</strong> — accepted for business contracts, freelance agreements, employment letters,
             and commercial documents. No login. 100% private. Instant download.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <BadgeCheck className="h-3.5 w-3.5" />, label: "IT Act 2000 Compliant" },
               { icon: <Scale className="h-3.5 w-3.5" />,       label: "Indian Contract Act Valid" },

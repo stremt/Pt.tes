@@ -191,7 +191,7 @@ export default function OnlineSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-6 sm:mb-10 pt-1">
+        <div className="mb-3 sm:mb-10 pt-1">
           <div className="flex items-center gap-2 mb-3">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <PenTool className="h-5 w-5 text-primary" />
@@ -206,7 +206,7 @@ export default function OnlineSignatureGenerator() {
             </span>
           </h1>
 
-          <p className="text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
+          <p className="hidden sm:block text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
             Create a digital signature online in seconds. <strong className="text-foreground">Draw</strong> with your mouse or finger,{" "}
             <strong className="text-foreground">type</strong> in 50+ handwritten fonts,{" "}
             <strong className="text-foreground">upload</strong> an existing signature, or use{" "}
@@ -214,7 +214,7 @@ export default function OnlineSignatureGenerator() {
             Download as a crisp transparent PNG — free forever, 100% private.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2">
+          <div className="hidden sm:grid grid-cols-4 gap-2 mb-2">
             {[
               { icon: <Check className="h-3.5 w-3.5 text-primary" />, label: "No Signup · No Watermark" },
               { icon: <Shield className="h-3.5 w-3.5 text-primary" />, label: "100% Private & Offline" },

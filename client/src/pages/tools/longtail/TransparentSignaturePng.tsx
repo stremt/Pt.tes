@@ -207,7 +207,7 @@ export default function TransparentSignaturePng() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Layers className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -220,14 +220,14 @@ export default function TransparentSignaturePng() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Remove the white background from your signature and get a clean <strong>transparent PNG</strong> in seconds.
             Perfect for <strong>GST invoices, PDFs, and email signatures</strong> — draw, upload, or type your signature
             and download a print-resolution transparent PNG instantly. No Photoshop. No signup. 100% private.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Auto Background Removal in 2 Seconds" },
               { icon: <Lock className="h-3.5 w-3.5" />,        label: "No Signup Required" },

@@ -213,7 +213,7 @@ export default function EmailSignatureMaker() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-5 sm:mb-8">
+        <div className="mb-3 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
             <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -226,14 +226,14 @@ export default function EmailSignatureMaker() {
             </div>
           </div>
 
-          <p className="text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a <strong>premium email signature</strong> that makes every email look professional. Perfect for
             <strong> Gmail, Outlook</strong>, and all business email communication. Draw, type, or upload your signature —
             download as a transparent PNG and paste it directly into your email client in seconds.
           </p>
 
           {/* Trust bar */}
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Mail className="h-3.5 w-3.5" />,      label: "Works with Gmail & Outlook" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Create in Under 30 Seconds" },
