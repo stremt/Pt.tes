@@ -163,7 +163,7 @@ export default function HowToAddSignatureInGmail() {
     keywords: "how to add signature in gmail, gmail signature setup, add signature in gmail app, gmail signature image, email signature gmail, gmail mobile signature, add image to gmail signature",
     canonicalUrl: CANONICAL,
     ogType: "website",
-    ogImage: "https://tools.pixocraft.in/images/gmail-signature-setup.png",
+    ogImage: "https://tools.pixocraft.in/images/gmail-signature-tool.png",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -179,15 +179,21 @@ export default function HowToAddSignatureInGmail() {
     url: CANONICAL,
   });
 
+  const combinedHowToSteps = [
+    ...DESKTOP_STEPS.map((s) => ({ name: s.title, text: s.desc })),
+    { name: "Mobile setup (Android)", text: "Open Gmail app → menu (☰) → Settings → your account → Mobile Signature → type your text → OK." },
+    { name: "Mobile setup (iPhone)", text: "Open Gmail app → menu → Settings → account → Signature Settings → enable toggle → type signature → save." },
+  ];
+
   const howToSchema = generateHowToSchema({
     name: "How to Add Signature in Gmail",
     description: "Step-by-step guide to setting up a Gmail signature on desktop and mobile, including adding an image or logo.",
-    steps: DESKTOP_STEPS.map((s) => ({ name: s.title, text: s.desc })),
+    steps: combinedHowToSteps,
   });
 
   const softwareSchema = generateSoftwareApplicationSchema({
-    name: "Gmail Signature Creator Tool",
-    description: "Free online tool to create a professional signature image for Gmail. Draw, type, or upload — download as transparent PNG. No login required.",
+    name: "Gmail Signature Generator Tool",
+    description: "Free online tool to create Gmail signature and insert into emails. Supports image and text signatures.",
     url: CANONICAL,
     applicationCategory: "Utility",
     operatingSystem: "Web",
@@ -292,7 +298,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Keyword-rich intro paragraph */}
           <p className="text-muted-foreground text-base leading-relaxed -mt-8">
-            Setting up a <strong>Gmail signature</strong> takes under two minutes on desktop and under one minute on mobile. This guide covers <strong>how to add a signature in Gmail</strong> step by step — including the Gmail app on Android and iPhone, how to add an image or logo, and how to fix the most common signature issues. Use the free tool above to create your <strong>email signature for Gmail</strong> instantly.
+            Setting up a <strong>Gmail signature</strong> takes under two minutes on desktop and under one minute on mobile. This guide covers <strong>how to add a signature in Gmail</strong> step by step — for both desktop and the Gmail app on Android and iPhone. Learn how to do a complete <strong>Gmail signature setup</strong>, how to add a <strong>Gmail signature image</strong> (logo or handwritten PNG), and how to fix the most common issues. Use the free tool above to create your <strong>email signature for Gmail</strong> instantly.
           </p>
 
           {/* What is a Gmail signature */}
@@ -363,11 +369,50 @@ export default function HowToAddSignatureInGmail() {
                 </li>
               ))}
             </ol>
-            <div className="rounded-xl border bg-primary/5 border-primary/20 px-5 py-4">
+            <div className="rounded-xl border bg-primary/5 border-primary/20 px-5 py-4 mb-5">
               <p className="text-sm text-foreground font-medium">Pro tip:</p>
               <p className="text-sm text-muted-foreground mt-1">
                 In the signature editor, set "Defaults for new emails" and "Defaults for replies/forwards" both to your new signature so it appears automatically everywhere.
               </p>
+            </div>
+
+            {/* Image SEO — 4 screenshots with descriptive alt text */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                {
+                  src: "https://tools.pixocraft.in/images/gmail-signature-settings.png",
+                  alt: "How to add signature in Gmail settings — gear icon and See all settings",
+                  caption: "Step 1–3: Open Settings",
+                },
+                {
+                  src: "https://tools.pixocraft.in/images/gmail-signature-create-new.png",
+                  alt: "Gmail signature setup — Create new signature button in General settings tab",
+                  caption: "Step 4–5: Create New",
+                },
+                {
+                  src: "https://tools.pixocraft.in/images/gmail-signature-image-upload.png",
+                  alt: "Gmail signature image — uploading PNG image in Gmail signature editor",
+                  caption: "Step 6: Add Image",
+                },
+                {
+                  src: "https://tools.pixocraft.in/images/gmail-signature-save-changes.png",
+                  alt: "Add signature Gmail — clicking Save Changes button to activate Gmail signature",
+                  caption: "Step 7: Save Changes",
+                },
+              ].map(({ src, alt, caption }) => (
+                <figure key={caption} className="rounded-xl border bg-card overflow-hidden">
+                  <img
+                    src={src}
+                    alt={alt}
+                    loading="lazy"
+                    width={300}
+                    height={200}
+                    className="w-full object-cover"
+                    onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+                  />
+                  <figcaption className="px-3 py-2 text-xs text-muted-foreground text-center border-t">{caption}</figcaption>
+                </figure>
+              ))}
             </div>
           </section>
 
