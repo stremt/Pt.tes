@@ -199,8 +199,9 @@ export default function SignatureForAadhaar() {
       "Create Aadhaar-ready signature online free. Download PNG, use for KYC, forms, and UIDAI updates. No login, private & secure tool.",
     canonicalUrl: CANONICAL,
     ogType: "website",
+    ogImage: "https://tools.pixocraft.in/images/aadhaar-signature-tool.png",
     keywords:
-      "signature for aadhaar, aadhaar signature online, how to add signature in aadhaar card, aadhaar signature size, esign aadhaar online free",
+      "signature for aadhaar, aadhaar signature online, aadhaar signature size, aadhaar esign, how to add signature in aadhaar card, esign aadhaar online free",
   });
 
   const schemas = [
@@ -212,16 +213,17 @@ export default function SignatureForAadhaar() {
       steps: HOWTO_STEPS,
     }),
     generateSoftwareApplicationSchema({
-      name: "Pixocraft Aadhaar Signature Generator",
+      name: "Signature for Aadhaar Tool",
       description:
-        "Create a transparent PNG signature for Aadhaar KYC forms, UIDAI updates, and bank verification. Free, no login, 100% private.",
+        "Free online Aadhaar signature generator. Create, download, and use signature for KYC, forms, and UIDAI processes.",
       url: CANONICAL,
-      applicationCategory: "WebApplication",
-      operatingSystem: "All",
+      applicationCategory: "UtilityApplication",
+      operatingSystem: "Web",
       offers: { price: "0", priceCurrency: "INR" },
     }),
     generateBreadcrumbSchema([
       { name: "Home",                   url: "https://tools.pixocraft.in" },
+      { name: "Tools",                  url: "https://tools.pixocraft.in/tools" },
       { name: "Signature Tools",        url: "https://tools.pixocraft.in/tools/signature-tools" },
       { name: "Signature for Aadhaar",  url: CANONICAL },
     ]),
