@@ -157,6 +157,9 @@ export default function FreeSignatureGeneratorNoLogin() {
     canonicalUrl: CANONICAL,
     ogType: "website",
     ogImage: "https://tools.pixocraft.in/images/signature-generator-no-login.png",
+    ogTitle: "Free Signature Generator No Login",
+    twitterTitle: "Signature Generator No Login",
+    twitterDescription: "Create signature instantly. No signup required.",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

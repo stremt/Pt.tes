@@ -7,6 +7,9 @@ export interface SEOProps {
   canonicalUrl?: string;
   ogType?: string;
   ogImage?: string;
+  ogTitle?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
   article?: {
     author?: string;
     publishedTime?: string;
@@ -20,6 +23,9 @@ export function useSEO({
   canonicalUrl,
   ogType = "website",
   ogImage,
+  ogTitle,
+  twitterTitle,
+  twitterDescription,
   article,
 }: SEOProps) {
   useEffect(() => {
@@ -55,8 +61,8 @@ export function useSEO({
       link.setAttribute("href", canonicalUrl);
     }
 
-    // OpenGraph tags
-    setMetaTag("og:title", title, true);
+    // OpenGraph tags — use ogTitle if provided, otherwise fall back to page title
+    setMetaTag("og:title", ogTitle ?? title, true);
     setMetaTag("og:description", description, true);
     setMetaTag("og:type", ogType, true);
     setMetaTag("og:site_name", "Pixocraft Tools", true);
@@ -69,10 +75,10 @@ export function useSEO({
       setMetaTag("og:image:height", "630", true);
     }
 
-    // Twitter Card tags
+    // Twitter Card tags — use twitterTitle/twitterDescription if provided
     setMetaTag("twitter:card", "summary_large_image");
-    setMetaTag("twitter:title", title);
-    setMetaTag("twitter:description", description);
+    setMetaTag("twitter:title", twitterTitle ?? title);
+    setMetaTag("twitter:description", twitterDescription ?? description);
     if (ogImage) {
       setMetaTag("twitter:image", ogImage);
     }
@@ -86,7 +92,7 @@ export function useSEO({
         setMetaTag("article:published_time", article.publishedTime, true);
       }
     }
-  }, [title, description, keywords, canonicalUrl, ogType, ogImage, article]);
+  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, twitterTitle, twitterDescription, article]);
 }
 
 export function StructuredData({ data }: { data: object }) {
