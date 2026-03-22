@@ -11,6 +11,15 @@ interface BreadcrumbProps {
   schemaUrl?: string;
 }
 
+function toRelativeUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    return parsed.pathname + parsed.search + parsed.hash;
+  } catch {
+    return url;
+  }
+}
+
 export function Breadcrumb({ items, schemaUrl = "" }: BreadcrumbProps) {
   useEffect(() => {
     const breadcrumbSchema = {
@@ -41,7 +50,7 @@ export function Breadcrumb({ items, schemaUrl = "" }: BreadcrumbProps) {
           <li key={index} className="flex items-center">
             {item.url ? (
               <div className="flex items-center">
-                <Link href={item.url} className="text-primary hover:text-primary/80 transition-colors whitespace-nowrap">
+                <Link href={toRelativeUrl(item.url)} className="text-primary hover:text-primary/80 transition-colors whitespace-nowrap">
                   {item.label}
                 </Link>
                 {index < items.length - 1 && <span className="mx-2 text-muted-foreground">/</span>}

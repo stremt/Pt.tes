@@ -6,6 +6,15 @@ interface BreadcrumbProps {
   items: BreadcrumbItem[];
 }
 
+function toRelativeUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    return parsed.pathname + parsed.search + parsed.hash;
+  } catch {
+    return url;
+  }
+}
+
 export function Breadcrumb({ items }: BreadcrumbProps) {
   const breadcrumbSchema = generateBreadcrumbSchema(items);
 
@@ -23,7 +32,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                 </span>
               ) : (
                 <Link
-                  href={item.url}
+                  href={toRelativeUrl(item.url)}
                   className="hover:text-foreground transition-colors"
                   data-testid={`breadcrumb-link-${index}`}
                 >
