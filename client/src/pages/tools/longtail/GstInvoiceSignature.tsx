@@ -283,12 +283,7 @@ export default function GstInvoiceSignature() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No upload to server · Transparent PNG · Print-resolution export
-          </p>
-        </div>
+        <SignatureToolSection />
 
         {/* ── GST QUICK USE BLOCK ───────────────────────────────────────────── */}
         <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">

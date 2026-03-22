@@ -213,12 +213,7 @@ export default function SignatureMaker() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            Free forever · No watermark · Nothing sent to any server · Works offline after load
-          </p>
-        </div>
+        <SignatureToolSection />
 
         {/* ── SEO CONTENT ────────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">

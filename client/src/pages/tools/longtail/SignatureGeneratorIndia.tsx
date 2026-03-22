@@ -278,21 +278,16 @@ export default function SignatureGeneratorIndia() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No server upload · Transparent PNG · GST &amp; Aadhaar ready · Secure for Indian documents
-          </p>
-          <div className="mt-6 rounded-xl overflow-hidden border">
-            <img
-              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop"
-              alt="Signature generator India GST Aadhaar example — free online tool by Pixocraft"
-              width={600}
-              height={300}
-              loading="lazy"
-              className="w-full object-cover"
-            />
-          </div>
+        <SignatureToolSection />
+        <div className="mb-12 rounded-xl overflow-hidden border">
+          <img
+            src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop"
+            alt="Signature generator India GST Aadhaar example — free online tool by Pixocraft"
+            width={600}
+            height={300}
+            loading="lazy"
+            className="w-full object-cover"
+          />
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}

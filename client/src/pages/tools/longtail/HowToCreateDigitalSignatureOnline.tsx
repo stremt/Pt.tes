@@ -298,12 +298,7 @@ export default function HowToCreateDigitalSignatureOnline() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-          <p className="text-xs text-muted-foreground text-center mt-3">
-            No watermark · No upload to server · Transparent PNG · Instant download
-          </p>
-        </div>
+        <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">
