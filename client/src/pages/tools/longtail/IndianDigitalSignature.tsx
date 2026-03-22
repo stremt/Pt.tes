@@ -180,7 +180,7 @@ export default function IndianDigitalSignature() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                     url: "https://tools.pixocraft.in/" },
           { label: "Tools",                    url: "/tools" },
@@ -189,13 +189,13 @@ export default function IndianDigitalSignature() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Globe className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Indian Digital Signature Free – IT Act 2000 Compliant
               </h1>
               <p className="text-sm text-muted-foreground">IT Act 2000 · GST &amp; Aadhaar Ready · Made in India · No Signup · 100% Private</p>
@@ -269,12 +269,12 @@ export default function IndianDigitalSignature() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is an Indian Digital Signature?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is an Indian Digital Signature?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 An <strong>Indian digital signature</strong> is an electronic authentication mark used by Indian businesses,
                 professionals, and government entities to verify the identity of the signatory and confirm their intent to
@@ -305,7 +305,7 @@ export default function IndianDigitalSignature() {
 
           {/* Comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Digital Signature vs DSC vs eSign in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Digital Signature vs DSC vs eSign in India</h2>
             <p className="text-muted-foreground mb-5">
               Three types of digital signature solutions are used across Indian business and government workflows —
               each with distinct legal standing, cost, and use cases:
@@ -344,11 +344,11 @@ export default function IndianDigitalSignature() {
 
           {/* How to create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create Indian Digital Signature Online Free</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create Indian Digital Signature Online Free</h2>
             <p className="text-muted-foreground mb-5">Four steps — under 60 seconds — to your IT Act 2000 compliant Indian digital signature:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ n, title, desc }) => (
-                <li key={n} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <li key={n} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <span className="shrink-0 h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">{n}</span>
                   <div>
                     <p className="font-semibold text-foreground mb-1">Step {n}: {title}</p>
@@ -370,7 +370,7 @@ export default function IndianDigitalSignature() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features Built for Indian Digital Signature Needs</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features Built for Indian Digital Signature Needs</h2>
             <p className="text-muted-foreground mb-5">Every feature designed for Indian business document workflows:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -383,7 +383,7 @@ export default function IndianDigitalSignature() {
                 { icon: <FileCheck className="h-5 w-5 text-primary" />, title: "GST invoice ready",        desc: "Designed specifically for Indian invoice workflows — works in TallyPrime, Zoho Books, ClearTax, and all major GST billing tools." },
                 { icon: <Lock className="h-5 w-5 text-primary" />,      title: "No signup, ever",          desc: "Unlike many Indian signature services, Pixocraft requires zero account creation, zero OTP verification, and zero personal data." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -396,11 +396,11 @@ export default function IndianDigitalSignature() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Indian Digital Signature Use Cases — Who Uses It</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Indian Digital Signature Use Cases — Who Uses It</h2>
             <p className="text-muted-foreground mb-5">Every Indian business professional needs a reliable digital signature solution:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -413,7 +413,7 @@ export default function IndianDigitalSignature() {
 
           {/* Legal Validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is Indian Digital Signature Legally Valid? — IT Act 2000 Framework</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is Indian Digital Signature Legally Valid? — IT Act 2000 Framework</h2>
             <p className="text-muted-foreground mb-5">Complete legal framework for digital signatures in India:</p>
             <div className="space-y-4 mb-5">
               {[
@@ -450,7 +450,7 @@ export default function IndianDigitalSignature() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes Indian Users Make with Digital Signatures</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes Indian Users Make with Digital Signatures</h2>
             <p className="text-muted-foreground mb-5">Avoid these errors to ensure your Indian digital signature is professional and legally sound:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -469,7 +469,7 @@ export default function IndianDigitalSignature() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Indian Digital Signature Users</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Indian Digital Signature Users</h2>
             <p className="text-muted-foreground mb-5">Best practices from Indian CAs, freelancers, and business professionals:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -488,7 +488,7 @@ export default function IndianDigitalSignature() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft for Indian Digital Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft for Indian Digital Signature?</h2>
             <p className="text-muted-foreground mb-5">India-first design for Indian business needs:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -499,7 +499,7 @@ export default function IndianDigitalSignature() {
                 { icon: <Receipt className="h-4 w-4 text-primary" />,    title: "GST ready",                    body: "Transparent PNG works seamlessly in TallyPrime, Zoho Books, ClearTax, Vyapar, and every major Indian GST billing tool." },
                 { icon: <Star className="h-4 w-4 text-primary" />,       title: "100% free forever",            body: "No subscription, no per-document charge, no watermark. Unlike paid DSC or per-use eSign services — completely free for every Indian user." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -521,7 +521,7 @@ export default function IndianDigitalSignature() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete Indian Document Signing Workflow — Related Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Complete Indian Document Signing Workflow — Related Tools</h2>
             <p className="text-muted-foreground mb-4">After creating your Indian digital signature, use these tools to complete your document workflow:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -546,7 +546,7 @@ export default function IndianDigitalSignature() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Indian Digital Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Indian Digital Signature</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

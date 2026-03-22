@@ -271,7 +271,7 @@ export default function ESignatureMaker() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                url: "https://tools.pixocraft.in/" },
@@ -281,13 +281,13 @@ export default function ESignatureMaker() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 eSignature Maker Free – Create Electronic Signature Online
               </h1>
               <p className="text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Legal Ready</p>
@@ -323,7 +323,7 @@ export default function ESignatureMaker() {
         <SignatureToolSection />
 
         {/* ── QUICK USE CASE BLOCK ─────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">
+        <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-12">
           <p className="font-semibold text-foreground mb-3">Use your eSignature instantly for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -343,12 +343,12 @@ export default function ESignatureMaker() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is eSignature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What is an eSignature?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What is an eSignature?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 An <strong>eSignature</strong> (electronic signature) is any electronic symbol, process, or sound attached to or logically
                 associated with a document that a person uses to indicate their intent to sign. Under the{" "}
@@ -379,7 +379,7 @@ export default function ESignatureMaker() {
 
           {/* How to Create eSignature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create an eSignature Online — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create an eSignature Online — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Create your electronic signature in four steps — done in under a minute:</p>
             <ol className="space-y-3 mb-6">
               {HOW_IT_WORKS_STEPS.map(({ step, title, description }) => (
@@ -404,14 +404,14 @@ export default function ESignatureMaker() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features of Pixocraft's eSignature Maker</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features of Pixocraft's eSignature Maker</h2>
             <p className="text-muted-foreground mb-5">
               Built for professionals, freelancers, and businesses who need a reliable, fast, and private tool to{" "}
               <strong>create eSignatures online</strong>:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FEATURES.map(({ icon, title, description }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -424,7 +424,7 @@ export default function ESignatureMaker() {
 
           {/* Draw vs Type vs Upload */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw, Type, or Upload — Which eSignature Method Is Right for You?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw, Type, or Upload — Which eSignature Method Is Right for You?</h2>
             <p className="text-muted-foreground mb-5">Every workflow is different. Here is a quick comparison to help you choose the right method:</p>
             <div className="overflow-x-auto rounded-xl border mb-5">
               <table className="w-full text-sm min-w-[540px]">
@@ -459,9 +459,9 @@ export default function ESignatureMaker() {
                   ].map(({ method, best, pros, cons }) => (
                     <tr key={method} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{method}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{best}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{pros}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{cons}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{best}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{pros}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{cons}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -474,13 +474,13 @@ export default function ESignatureMaker() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Real-World Use Cases for Your eSignature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Real-World Use Cases for Your eSignature</h2>
             <p className="text-muted-foreground mb-5">
               Once you have downloaded your eSignature PNG, you can use it across a wide range of professional and business contexts:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, description }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -489,7 +489,7 @@ export default function ESignatureMaker() {
                 </div>
               ))}
             </div>
-            <div className="rounded-xl border bg-card px-6 py-5">
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5">
               <p className="font-semibold text-foreground mb-3 flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
                 Who Uses This eSignature Maker?
@@ -516,7 +516,7 @@ export default function ESignatureMaker() {
 
           {/* Legal Validity in India */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Legal Validity of eSignatures in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Legal Validity of eSignatures in India</h2>
             <p className="text-muted-foreground mb-5">
               India was one of the first countries in Asia to formally recognise electronic signatures in law. Here is what you need to know:
             </p>
@@ -590,7 +590,7 @@ export default function ESignatureMaker() {
 
           {/* eSignature vs Digital Signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">eSignature vs Digital Signature — The Definitive Difference</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">eSignature vs Digital Signature — The Definitive Difference</h2>
             <p className="text-muted-foreground mb-5">
               These two terms are frequently confused — even by professionals. Here is a clear, precise breakdown:
             </p>
@@ -617,15 +617,15 @@ export default function ESignatureMaker() {
                   ].map(({ aspect, esig, dsc }) => (
                     <tr key={aspect} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{aspect}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{esig}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{dsc}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{esig}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{dsc}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="rounded-xl border bg-card px-6 py-5">
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5">
               <p className="font-semibold text-foreground mb-2">When Should You Use Each?</p>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <p>
@@ -644,7 +644,7 @@ export default function ESignatureMaker() {
 
           {/* How to Add eSignature to PDF */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add an eSignature to a PDF</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add an eSignature to a PDF</h2>
             <p className="text-muted-foreground mb-5">
               One of the most common needs is to <strong>add a signature to a PDF</strong> document. Here is the step-by-step process:
             </p>
@@ -669,7 +669,7 @@ export default function ESignatureMaker() {
 
           {/* Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Tips for Creating a Professional eSignature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Tips for Creating a Professional eSignature</h2>
             <p className="text-muted-foreground mb-5">Follow these professional best practices to get the best results from your eSignature:</p>
             <div className="space-y-3">
               {TIPS.map(({ title, body }) => (
@@ -688,7 +688,7 @@ export default function ESignatureMaker() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common eSignature Mistakes to Avoid</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common eSignature Mistakes to Avoid</h2>
             <p className="text-muted-foreground mb-5">Avoid these common errors that make eSignatures look unprofessional or unusable:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -707,7 +707,7 @@ export default function ESignatureMaker() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's eSignature Maker?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's eSignature Maker?</h2>
             <p className="text-muted-foreground mb-5">
               There are dozens of eSignature tools online. Here is what makes Pixocraft's <strong>free electronic signature maker</strong> stand out:
             </p>
@@ -720,7 +720,7 @@ export default function ESignatureMaker() {
                 { icon: <Building2 className="h-4 w-4 text-primary" />,   title: "India-focused design",         body: "Built with Indian business users in mind — GST invoice compatibility, IT Act awareness, rupee invoicing context." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />,  title: "Free forever — genuinely",     body: "Not a freemium bait-and-switch. No watermarks, no usage limits, no hidden upsell for PNG export." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -744,7 +744,7 @@ export default function ESignatureMaker() {
 
           {/* Internal Linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
             <p className="text-muted-foreground mb-5">
               Explore all of Pixocraft's free signature tools — each optimised for a specific signing workflow:
             </p>
@@ -773,7 +773,7 @@ export default function ESignatureMaker() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — eSignature Maker</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — eSignature Maker</h2>
             <p className="text-muted-foreground mb-5">Everything you need to know about creating and using an eSignature online:</p>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
@@ -801,7 +801,7 @@ export default function ESignatureMaker() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <PenTool className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Create Your eSignature?</h2>
             <p className="text-muted-foreground mb-5 max-w-lg mx-auto text-sm">

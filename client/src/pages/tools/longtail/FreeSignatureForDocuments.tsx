@@ -173,7 +173,7 @@ export default function FreeSignatureForDocuments() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                         url: "https://tools.pixocraft.in/" },
           { label: "Tools",                        url: "/tools" },
@@ -182,13 +182,13 @@ export default function FreeSignatureForDocuments() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileText className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature for Documents – PDF, Word &amp; More
               </h1>
               <p className="text-sm text-muted-foreground">PDF · Word · Google Docs · Excel · 100% Private · IT Act Compliant</p>
@@ -243,15 +243,15 @@ export default function FreeSignatureForDocuments() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Powerful Features for Free Signature for Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Powerful Features for Free Signature for Documents</h2>
             <p className="text-muted-foreground mb-5">Everything you need to create and use a professional digital signature for documents:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -264,11 +264,11 @@ export default function FreeSignatureForDocuments() {
 
           {/* How to */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add Free Signature for Documents (4 Simple Steps)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add Free Signature for Documents (4 Simple Steps)</h2>
             <p className="text-muted-foreground mb-5">From creating your signature to inserting it into any document — under 60 seconds total:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ n, title, desc }) => (
-                <li key={n} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <li key={n} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <span className="shrink-0 h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">{n}</span>
                   <div>
                     <p className="font-semibold text-foreground">Step {n}: {title}</p>
@@ -290,14 +290,14 @@ export default function FreeSignatureForDocuments() {
 
           {/* Easy ways to use */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Easy Ways to Use Signature for Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Easy Ways to Use Signature for Documents</h2>
             <p className="text-muted-foreground mb-5">
               Your transparent PNG signature works identically across every document format. Most Indian users create
               one <strong>free signature for documents</strong> and reuse it across all files for years:
             </p>
             <div className="space-y-3">
               {DOC_TYPES.map(({ icon, type, how }) => (
-                <div key={type} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={type} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{type}</p>
@@ -310,7 +310,7 @@ export default function FreeSignatureForDocuments() {
 
           {/* Where Indian users need */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where Indian Users Need Free Signature for Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where Indian Users Need Free Signature for Documents</h2>
             <p className="text-muted-foreground mb-5">
               Every professional and business across India deals with documents that require a signature daily.
               Here are the most common real-world document signing use cases:
@@ -330,7 +330,7 @@ export default function FreeSignatureForDocuments() {
 
           {/* Legal validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is Free Signature for Documents Legal in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is Free Signature for Documents Legal in India?</h2>
             <div className="rounded-xl border bg-card p-5 mb-4">
               <p className="font-medium text-foreground mb-2">Yes — completely legal.</p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
@@ -361,7 +361,7 @@ export default function FreeSignatureForDocuments() {
 
           {/* Pro tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Signature for Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Signature for Documents</h2>
             <p className="text-muted-foreground mb-5">Best practices used by professionals who sign documents daily:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }, i) => (
@@ -378,8 +378,8 @@ export default function FreeSignatureForDocuments() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Use Pixocraft for Free Signature for Documents?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Use Pixocraft for Free Signature for Documents?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium mb-3">
                 Other tools work only for PDF. Pixocraft gives one signature that works perfectly across <strong>PDF, Word,
                 Google Docs</strong> and every document type — completely free.
@@ -414,7 +414,7 @@ export default function FreeSignatureForDocuments() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Document Signing Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Document Signing Tools</h2>
             <p className="text-muted-foreground mb-4">Complete your document signing workflow with these free tools:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -440,7 +440,7 @@ export default function FreeSignatureForDocuments() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Free Signature for Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Free Signature for Documents</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -465,7 +465,7 @@ export default function FreeSignatureForDocuments() {
 
             {/* Bottom CTA */}
             <div className="mt-10 text-center rounded-xl border bg-primary/5 px-6 py-8">
-              <p className="text-lg font-bold text-foreground mb-2">Ready to Add Free Signature for Documents?</p>
+              <p className="text-base sm:text-lg font-bold text-foreground mb-2">Ready to Add Free Signature for Documents?</p>
               <p className="text-sm text-muted-foreground mb-5">
                 Create your signature above and use it in PDF, Word, Google Docs &amp; every file instantly — completely free.
               </p>

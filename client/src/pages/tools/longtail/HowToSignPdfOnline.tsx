@@ -194,7 +194,7 @@ export default function HowToSignPdfOnline() {
       <StructuredData data={howToSchema} />
       <StructuredData data={softwareSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
@@ -204,13 +204,13 @@ export default function HowToSignPdfOnline() {
         ]} />
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileCheck className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Sign PDF Online (Free &amp; Instant)
               </h1>
               <p className="text-sm text-muted-foreground">Sign PDF documents online in seconds. No login, no upload, fully private and secure.</p>
@@ -267,7 +267,7 @@ export default function HowToSignPdfOnline() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ───────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Keyword-rich intro paragraph — targets all 4 primary keywords */}
           <p className="text-muted-foreground text-base leading-relaxed -mt-8">
@@ -276,7 +276,7 @@ export default function HowToSignPdfOnline() {
 
           {/* What does it mean to sign a PDF */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Does It Mean to Sign a PDF?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Does It Mean to Sign a PDF?</h2>
             <p className="text-muted-foreground mb-4">
               Signing a PDF means adding your signature — either as a handwritten-style image or a typed name — directly onto the document file. The signature is embedded as an image layer inside the PDF, making it look exactly like a physically signed document.
             </p>
@@ -303,7 +303,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Methods comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Methods to Sign a PDF Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Methods to Sign a PDF Online</h2>
             <p className="text-muted-foreground mb-5">There are three common methods to sign a PDF. Here is how they compare:</p>
 
             <div className="space-y-4 mb-5">
@@ -330,7 +330,7 @@ export default function HowToSignPdfOnline() {
                   badge: "Advanced",
                 },
               ].map(({ label, title, icon, desc, badge }) => (
-                <div key={label} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={label} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">{label}</div>
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
@@ -363,9 +363,9 @@ export default function HowToSignPdfOnline() {
                   ].map(({ method, speed, cost, use }) => (
                     <tr key={method} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{method}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{speed}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{cost}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{use}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{speed}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{cost}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{use}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -375,7 +375,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Step-by-step guide */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Sign PDF Online — Step-by-Step Guide</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Sign PDF Online — Step-by-Step Guide</h2>
             <p className="text-muted-foreground mb-5">Follow these six steps to sign any PDF in under 60 seconds using Pixocraft:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -397,7 +397,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Image SEO — 3 visuals with descriptive alt text */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Sign PDF Online — Visual Examples</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Sign PDF Online — Visual Examples</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 {
@@ -434,7 +434,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Why use online PDF sign tool */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Sign PDF Online Free — Instead of Printing?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Sign PDF Online Free — Instead of Printing?</h2>
             <p className="text-muted-foreground mb-4">
               The traditional workflow — print, sign with a pen, scan, email — wastes time, paper, and money. When you <strong>sign PDF online free</strong>, every one of those steps disappears.
             </p>
@@ -444,7 +444,7 @@ export default function HowToSignPdfOnline() {
                 { icon: <Zap className="h-5 w-5 text-primary" />, title: "Fast", desc: "The entire process — signature, upload, placement, download — takes under 60 seconds." },
                 { icon: <Globe className="h-5 w-5 text-primary" />, title: "Works Anywhere", desc: "Chrome, Firefox, Edge, Safari — Windows, Mac, Android, iOS. Sign from any device." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -457,7 +457,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Best format for PDF signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Best Format for a PDF Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Best Format for a PDF Signature</h2>
             <p className="text-muted-foreground mb-5">
               The format of your signature image determines how professional the final signed PDF looks. Here is what you need to know:
             </p>
@@ -508,11 +508,11 @@ export default function HowToSignPdfOnline() {
 
           {/* Use cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Use Cases — When to Sign a PDF Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Use Cases — When to Sign a PDF Online</h2>
             <p className="text-muted-foreground mb-5">The most common professional situations where online PDF signing is used:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -525,7 +525,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Save & Reuse USP */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Save &amp; Reuse Your Signature — No Login Needed</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Save &amp; Reuse Your Signature — No Login Needed</h2>
             <p className="text-muted-foreground mb-5">
               One of Pixocraft's biggest advantages over enterprise signing tools is that you can create your signature once and reuse it across unlimited documents — without creating an account or logging in each time.
             </p>
@@ -535,7 +535,7 @@ export default function HowToSignPdfOnline() {
                 { icon: <RefreshCw className="h-5 w-5 text-primary" />, title: "Local Storage", desc: "Your signature can be saved as a PNG to your device and reused instantly on any future document." },
                 { icon: <Shield className="h-5 w-5 text-primary" />, title: "Offline Ready", desc: "Once the page is loaded, signing works even without an active internet connection. All processing is local." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -564,7 +564,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Digital signature vs PDF signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Digital Signature vs PDF Signature — What's the Difference?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Digital Signature vs PDF Signature — What's the Difference?</h2>
             <p className="text-muted-foreground mb-5">
               These two terms are often confused. Understanding the difference helps you choose the right approach for your document type.
             </p>
@@ -619,7 +619,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Pixocraft vs Others */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Other PDF Signing Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pixocraft vs Other PDF Signing Tools</h2>
             <p className="text-muted-foreground mb-5">Here is how Pixocraft compares to popular alternatives:</p>
             <div className="overflow-x-auto rounded-xl border mb-5">
               <table className="w-full text-sm min-w-[560px]">
@@ -643,9 +643,9 @@ export default function HowToSignPdfOnline() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 font-semibold text-primary">{pixo}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{docusign}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{smallpdf}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{adobe}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{docusign}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{smallpdf}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{adobe}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -658,7 +658,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Common mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing PDFs Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing PDFs Online</h2>
             <p className="text-muted-foreground mb-5">Avoid these mistakes for professional, legally presentable results:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -675,7 +675,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Pro tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Signing PDFs Like a Professional</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Signing PDFs Like a Professional</h2>
             <p className="text-muted-foreground mb-5">Small adjustments make a significant difference in how your signed documents look:</p>
             <div className="space-y-3">
               {TIPS.map(({ title, body }) => (
@@ -692,7 +692,7 @@ export default function HowToSignPdfOnline() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
@@ -717,7 +717,7 @@ export default function HowToSignPdfOnline() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-2">
               {FAQS.map(({ question, answer }, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -743,7 +743,7 @@ export default function HowToSignPdfOnline() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <FileCheck className="h-10 w-10 text-primary mx-auto mb-3" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Sign Your PDF?</h2>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">

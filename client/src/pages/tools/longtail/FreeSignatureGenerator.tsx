@@ -152,7 +152,7 @@ export default function FreeSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                      url: "https://tools.pixocraft.in/" },
@@ -162,13 +162,13 @@ export default function FreeSignatureGenerator() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature Generator – Create &amp; Download Instantly
               </h1>
               <p className="text-sm text-muted-foreground">Completely Free · No Signup · No Watermark · 100% Private</p>
@@ -201,14 +201,14 @@ export default function FreeSignatureGenerator() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Powerful Features of Our Free Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Powerful Features of Our Free Signature Generator</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -221,7 +221,7 @@ export default function FreeSignatureGenerator() {
 
           {/* How to use */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Use This Free Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Use This Free Signature Generator</h2>
             <p className="text-muted-foreground mb-5">Four steps. Under 60 seconds. Completely free.</p>
             <ol className="space-y-3">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -238,7 +238,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Draw vs Type vs Upload */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload – Which is Best?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload – Which is Best?</h2>
             <p className="text-muted-foreground mb-5">
               This free signature generator gives you three ways to create your signature — each suited to a different need:
             </p>
@@ -282,7 +282,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Signature Examples */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Signature Examples &amp; Styles</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Signature Examples &amp; Styles</h2>
             <p className="text-muted-foreground mb-5">
               Not sure which style fits you? This free signature generator includes 50+ fonts spanning a range of personalities — from thin elegant scripts for formal documents to bold chunky styles for business confidence to casual everyday handwriting for personal notes. Below are six live-rendered examples. Switch to the Type tab, type your name, and browse them all instantly.
             </p>
@@ -308,9 +308,9 @@ export default function FreeSignatureGenerator() {
 
           {/* Where to use */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use Your Free Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where to Use Your Free Signature</h2>
             <p className="text-muted-foreground mb-5">Your downloaded transparent PNG works anywhere a handwritten signature would:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 {
                   icon: <FileText className="h-5 w-5 text-primary" />,
@@ -333,7 +333,7 @@ export default function FreeSignatureGenerator() {
                   body: "Government portals, HR onboarding platforms, and billing software like Tally or Zoho Books all support image-based signatures. Drop in your free PNG and you're done.",
                 },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div className="space-y-1">
                     <p className="font-semibold text-foreground">{title}</p>
@@ -346,7 +346,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Legal */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legal?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legal?</h2>
             <p className="text-muted-foreground mb-5">
               Yes — in most jurisdictions around the world, a digital or electronic signature carries the same legal weight as a handwritten one.
             </p>
@@ -371,7 +371,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Tips for a Perfect Free Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Tips for a Perfect Free Signature</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { tip: "Use black or dark blue ink",          detail: "These shades are universally accepted in legal and corporate settings and remain legible at any size or resolution." },
@@ -394,7 +394,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Free Signature Generator?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Free Signature Generator?</h2>
             <p className="text-muted-foreground mb-5">
               There are dozens of signature tools online — here's what makes Pixocraft different:
             </p>
@@ -407,7 +407,7 @@ export default function FreeSignatureGenerator() {
                 { icon: <Pencil className="h-4 w-4 text-primary" />,     title: "50+ premium fonts — free",      body: "A library of Google Fonts covering every style from ultra-formal calligraphy to casual everyday handwriting." },
                 { icon: <Smartphone className="h-4 w-4 text-primary" />, title: "Mobile-first experience",       body: "Touch-optimised drawing canvas — works just as well on a phone as on a desktop." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -449,7 +449,7 @@ export default function FreeSignatureGenerator() {
 
           {/* Related tools */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, full undo/redo, and advanced options." },
@@ -474,7 +474,7 @@ export default function FreeSignatureGenerator() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

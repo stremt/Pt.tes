@@ -198,7 +198,7 @@ export default function TransparentSignaturePng() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                  url: "https://tools.pixocraft.in/" },
           { label: "Tools",                 url: "/tools" },
@@ -207,13 +207,13 @@ export default function TransparentSignaturePng() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Layers className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Layers className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Transparent Signature PNG Free – Remove Background &amp; Download Instantly
               </h1>
               <p className="text-sm text-muted-foreground">Auto Background Removal · No Signup · High-Resolution PNG · 100% Private</p>
@@ -277,7 +277,7 @@ export default function TransparentSignaturePng() {
         <SignatureToolSection />
 
         {/* ── QUICK USE BLOCK ──────────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">
+        <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-12">
           <p className="font-semibold text-foreground mb-3">Use your transparent PNG signature for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -297,12 +297,12 @@ export default function TransparentSignaturePng() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is Transparent Signature PNG */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Transparent Signature PNG?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Transparent Signature PNG?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A <strong>transparent signature PNG</strong> is a digital signature image with no background — only the
                 signature strokes are visible, while the area around them is fully transparent. When placed on any document,
@@ -346,7 +346,7 @@ export default function TransparentSignaturePng() {
 
           {/* Why transparent PNG matters */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Transparent PNG Is Essential for Professional Signatures</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Transparent PNG Is Essential for Professional Signatures</h2>
             <p className="text-muted-foreground mb-5">
               The white background problem is more serious than it appears. Here is why using a non-transparent signature
               image creates real problems in professional contexts:
@@ -382,7 +382,7 @@ export default function TransparentSignaturePng() {
 
           {/* How to Create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Transparent Signature PNG — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Transparent Signature PNG — Step by Step</h2>
             <p className="text-muted-foreground mb-5">From creation to transparent PNG download in under 30 seconds:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -408,7 +408,7 @@ export default function TransparentSignaturePng() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features of Pixocraft's Transparent Signature PNG Tool</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features of Pixocraft's Transparent Signature PNG Tool</h2>
             <p className="text-muted-foreground mb-5">Everything built specifically for creating professional transparent signature images:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -421,7 +421,7 @@ export default function TransparentSignaturePng() {
                 { icon: <Shield className="h-5 w-5 text-primary" />,    title: "Zero data storage",                 desc: "Your signature image never leaves your device. No server upload, no account, no data retention — complete privacy by design." },
                 { icon: <PenTool className="h-5 w-5 text-primary" />,   title: "50+ handwriting fonts for Type tab", desc: "For a consistent, font-based transparent signature, choose from 50+ Google handwriting fonts — identical result every time." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -434,7 +434,7 @@ export default function TransparentSignaturePng() {
 
           {/* PNG vs JPG comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Transparent PNG vs JPG for Signatures — Full Comparison</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Transparent PNG vs JPG for Signatures — Full Comparison</h2>
             <p className="text-muted-foreground mb-5">
               PNG and JPG are both common image formats but they are fundamentally different for signature use. Here is
               the complete breakdown:
@@ -453,7 +453,7 @@ export default function TransparentSignaturePng() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 text-primary/80 font-medium">{png}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{jpg}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{jpg}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -471,11 +471,11 @@ export default function TransparentSignaturePng() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use Your Transparent Signature PNG</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where to Use Your Transparent Signature PNG</h2>
             <p className="text-muted-foreground mb-5">Every professional document workflow benefits from a transparent PNG signature:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -488,7 +488,7 @@ export default function TransparentSignaturePng() {
 
           {/* Legal Validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Transparent PNG Signature Legally Valid in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Transparent PNG Signature Legally Valid in India?</h2>
             <p className="text-muted-foreground mb-5">
               Yes — the transparency of the image background has no bearing on the legal status of the signature it contains:
             </p>
@@ -525,7 +525,7 @@ export default function TransparentSignaturePng() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Creating Transparent Signature PNGs</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Creating Transparent Signature PNGs</h2>
             <p className="text-muted-foreground mb-5">Avoid these errors to ensure your transparent PNG signature looks professional in every document:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -544,7 +544,7 @@ export default function TransparentSignaturePng() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for a Perfect Transparent Signature PNG</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for a Perfect Transparent Signature PNG</h2>
             <p className="text-muted-foreground mb-5">Best practices from professionals who use transparent PNG signatures daily:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -563,7 +563,7 @@ export default function TransparentSignaturePng() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft for Transparent Signature PNG?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft for Transparent Signature PNG?</h2>
             <p className="text-muted-foreground mb-5">The fastest, most private, and most reliable way to create transparent PNG signatures online:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -574,7 +574,7 @@ export default function TransparentSignaturePng() {
                 { icon: <PenTool className="h-4 w-4 text-primary" />,    title: "No tools or apps needed",       body: "No Photoshop, no background eraser, no app to download. Open the browser, create, download — done." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />, title: "Completely free",               body: "Draw, upload, remove background, download — all fully free with no watermark and no hidden upgrade." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -596,7 +596,7 @@ export default function TransparentSignaturePng() {
 
           {/* Internal linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete Document Signature Workflow — Related Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Complete Document Signature Workflow — Related Tools</h2>
             <p className="text-muted-foreground mb-4">
               After creating your transparent PNG signature, use these tools to complete your document workflow. For fast creation without signup, try our{" "}
               <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">no login signature generator</Link>
@@ -627,7 +627,7 @@ export default function TransparentSignaturePng() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Transparent Signature PNG</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Transparent Signature PNG</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

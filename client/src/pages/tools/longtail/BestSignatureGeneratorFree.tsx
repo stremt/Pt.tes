@@ -329,7 +329,7 @@ export default function BestSignatureGeneratorFree() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
@@ -340,13 +340,13 @@ export default function BestSignatureGeneratorFree() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Trophy className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Best Signature Generator Free (Top Tools Compared)
               </h1>
               <p className="text-sm text-muted-foreground">
@@ -390,21 +390,21 @@ export default function BestSignatureGeneratorFree() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────── */}
-        <div id="tool" className="mb-10">
+        <div id="tool" className="mb-6 sm:mb-10">
           <SignatureToolSection
             caption="Ranked #1 for free use · No login · No upload · Transparent PNG · Instant download"
           />
         </div>
 
         {/* ── TOP TOOLS COMPARISON ────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Top Free Signature Generators Compared
           </h2>
           <p className="text-muted-foreground mb-6 text-sm">
             An honest look at each tool — pros, cons, and who it is actually best for.
           </p>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {TOOLS.map((tool) => (
               <div
                 key={tool.name}
@@ -450,8 +450,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── COMPARISON TABLE ─────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Signature Generator Comparison Table
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -490,7 +490,7 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── COMPARISON IMAGE ─────────────────────────────────────── */}
-        <div className="mb-10">
+        <div className="mb-6 sm:mb-10">
           <img
             src="https://tools.pixocraft.in/images/best-signature-generator-comparison.png"
             alt="Best signature generator comparison table free tools — Pixocraft vs Canva vs DocuSign vs Smallpdf"
@@ -502,8 +502,8 @@ export default function BestSignatureGeneratorFree() {
         </div>
 
         {/* ── WHY PIXOCRAFT IS BEST ────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Why Pixocraft Is the Best Free Signature Generator
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -546,8 +546,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── HOW TO USE ──────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How to Choose and Use the Best Free Signature Generator
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -569,8 +569,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── FEATURES TO LOOK FOR ────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             What to Look for in a Signature Generator
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -592,8 +592,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── FREE VS PAID ────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             Free vs Paid Signature Tools — When Does It Matter?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -641,8 +641,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── USE CASES ──────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             What Can You Use a Free Signature Generator For?
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -664,11 +664,11 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── BEST FORMAT ────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             Best Format for a Downloaded Signature
           </h2>
-          <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5">
+          <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5">
             <div className="flex items-center gap-2 mb-2">
               <BadgeCheck className="h-5 w-5 text-primary" />
               <p className="font-semibold text-foreground">PNG with transparent background — always</p>
@@ -695,8 +695,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Common questions about choosing and using the best free signature generator.
           </p>
@@ -727,8 +727,8 @@ export default function BestSignatureGeneratorFree() {
         </section>
 
         {/* ── INTERNAL LINKS ────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Explore More Signature Tools</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Explore More Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Every Pixocraft signature tool is free, browser-based, and requires no login — choose the one that fits your specific need. For the most privacy-focused option, try our{" "}
             <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">

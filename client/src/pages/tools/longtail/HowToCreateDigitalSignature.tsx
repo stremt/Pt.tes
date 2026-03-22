@@ -132,7 +132,7 @@ const DSC_STEPS = [
 
 const SIG_TYPES = [
   {
-    icon: <PenTool className="h-6 w-6 text-primary" />,
+    icon: <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Type A",
     title: "Electronic Signature (Image-Based)",
     desc: "A PNG image of your handwritten signature — created on Pixocraft in under 60 seconds. Valid for all commercial and business documents under the IT Act 2000.",
@@ -141,7 +141,7 @@ const SIG_TYPES = [
     color: "primary",
   },
   {
-    icon: <Key className="h-6 w-6 text-primary" />,
+    icon: <Key className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Type B",
     title: "Digital Signature Certificate (DSC)",
     desc: "A cryptographic certificate on a USB token, issued by a licensed Certifying Authority. Required specifically for regulated government portal filings.",
@@ -150,7 +150,7 @@ const SIG_TYPES = [
     color: "primary",
   },
   {
-    icon: <Fingerprint className="h-6 w-6 text-primary" />,
+    icon: <Fingerprint className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Type C",
     title: "Aadhaar eSign",
     desc: "OTP-based signing via UIDAI's Aadhaar infrastructure. Creates a certified electronic signature without a USB token. Available in Aadhaar-integrated portals only.",
@@ -244,7 +244,7 @@ export default function HowToCreateDigitalSignature() {
         <StructuredData key={i} data={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -258,17 +258,17 @@ export default function HowToCreateDigitalSignature() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <BadgeCheck className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <BadgeCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               How to Create Digital Signature Online –{" "}
               <span className="text-primary">Free & Easy</span>
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             <strong>Create your digital signature instantly</strong> using the free tool below — or learn how official
             <strong> DSC and Aadhaar eSign</strong> work for government and legal filings. Both methods explained
             clearly. No login, fully private.
@@ -296,9 +296,9 @@ export default function HowToCreateDigitalSignature() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">How to create a digital signature?</h2>
+          <h2 className="text-base sm:text-lg font-bold text-foreground">How to create a digital signature?</h2>
           <div className="space-y-3 text-sm text-foreground leading-relaxed">
             <div className="flex gap-3 items-start">
               <span className="shrink-0 font-bold text-primary text-xs mt-0.5 uppercase tracking-wider">Simple method</span>
@@ -331,9 +331,9 @@ export default function HowToCreateDigitalSignature() {
         />
 
         {/* ── WHAT IS A DIGITAL SIGNATURE ───────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Digital Signature?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Digital Signature?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground leading-relaxed">
               "Digital signature" means two completely different things depending on context — and confusing them leads to wrong choices:
             </p>
@@ -368,8 +368,8 @@ export default function HowToCreateDigitalSignature() {
 
         {/* ── 3 TYPES ──────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">3 Types of Digital Signature in India</h2>
-          <div className="space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">3 Types of Digital Signature in India</h2>
+          <div className="space-y-3">
             {SIG_TYPES.map(({ icon, label, title, desc, uses, badge }) => (
               <div key={title} className="rounded-xl border bg-card p-5 space-y-3">
                 <div className="flex items-start gap-3">
@@ -398,8 +398,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── HOW TO CREATE — EASY METHOD ───────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create Digital Signature — Easy Method (Image)</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create Digital Signature — Easy Method (Image)</h2>
           <p className="text-muted-foreground leading-relaxed">
             For contracts, PDFs, Word, Google Docs, GST invoices, and all commercial documents. Takes under 60 seconds.
           </p>
@@ -417,8 +417,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── HOW TO GET A DSC ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create a Real Digital Signature (DSC)</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create a Real Digital Signature (DSC)</h2>
           <p className="text-muted-foreground leading-relaxed">
             Only needed for MCA filings, court e-filing, and government portal authentication. Here is the complete process:
           </p>
@@ -444,9 +444,9 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── AADHAAR ESIGN ────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Aadhaar eSign — India's Paperless Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Aadhaar eSign — India's Paperless Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <div className="flex items-start gap-3">
               <Fingerprint className="h-6 w-6 text-primary shrink-0 mt-0.5" />
               <div className="space-y-2">
@@ -475,10 +475,10 @@ export default function HowToCreateDigitalSignature() {
 
         {/* ── WHERE IS DIGITAL SIGNATURE USED ──────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">Where Digital Signature is Used</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Where Digital Signature is Used</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USAGE_PLACES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -490,8 +490,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── DS VS E-SIGN COMPARISON TABLE ────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Digital Signature vs Electronic Signature</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Digital Signature vs Electronic Signature</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -517,9 +517,9 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── BEST FORMAT ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Best Format for Digital Signature Image</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Best Format for Digital Signature Image</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <ul className="space-y-3">
               {[
                 { label: "PNG (not JPEG)", desc: "PNG supports a transparent background. JPEG creates a white box around your signature strokes — looks unprofessional on invoices, letterheads, or any coloured surface." },
@@ -540,9 +540,9 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── SAVE & REUSE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Save & Reuse Your Digital Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Save & Reuse Your Digital Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">Create once, reuse forever across all documents:</p>
             <ul className="space-y-2">
               {[
@@ -576,8 +576,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── LEGAL CLARITY ────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Legal Clarity — Image Signature vs DSC</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Legal Clarity — Image Signature vs DSC</h2>
           <div className="space-y-3">
             {[
               {
@@ -608,8 +608,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── COMPARISON ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -635,8 +635,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div
@@ -666,8 +666,8 @@ export default function HowToCreateDigitalSignature() {
         </section>
 
         {/* ── INTERNAL LINKS ───────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Related Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Related Signature Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {INTERNAL_LINKS.map(({ href, label }) => (
               <Link key={href} href={href}>

@@ -154,7 +154,7 @@ export default function DigitalSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                         url: "https://tools.pixocraft.in/" },
@@ -164,13 +164,13 @@ export default function DigitalSignatureGenerator() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Digital Signature Generator – Create Legal Signature Online
               </h1>
               <p className="text-sm text-muted-foreground">Free · IT Act 2000 Ready · No Signup · 100% Private</p>
@@ -218,14 +218,14 @@ export default function DigitalSignatureGenerator() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Powerful Features of Our Digital Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Powerful Features of Our Digital Signature Generator</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -238,7 +238,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* How to */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online</h2>
             <p className="text-muted-foreground mb-5">Four simple steps. Done in under 60 seconds.</p>
             <ol className="space-y-3">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -255,7 +255,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Draw vs Type vs Upload */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload for Digital Signatures</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload for Digital Signatures</h2>
             <p className="text-muted-foreground mb-5">Each method suits a different use case — pick the one that fits your workflow:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
@@ -294,7 +294,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Digital Signature vs DSC */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Digital Signature vs DSC – Important Difference</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Digital Signature vs DSC – Important Difference</h2>
             <p className="text-muted-foreground mb-5">
               These two terms are often confused in India. Understanding the difference helps you use the right tool for the right situation:
             </p>
@@ -320,7 +320,7 @@ export default function DigitalSignatureGenerator() {
                     <tr key={aspect} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{aspect}</td>
                       <td className="px-5 py-3.5 text-primary font-medium">{png}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{dsc}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{dsc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -333,7 +333,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Signature Examples */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Professional Signature Examples</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Professional Signature Examples</h2>
             <p className="text-muted-foreground mb-5">
               A professional digital signature should be clear, legible, and appropriate to its context. This digital signature generator includes 50+ fonts spanning formal calligraphy, elegant cursive, bold scripts, and casual everyday handwriting. Below are six live-rendered examples — all available free in the Type tab. Click any style to load it instantly in the tool above.
             </p>
@@ -359,7 +359,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Use cases India */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use a Digital Signature in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where to Use a Digital Signature in India</h2>
             <p className="text-muted-foreground mb-5">
               A visual PNG signature from this <strong>digital signature generator</strong> is accepted across a wide range of Indian business and government contexts:
             </p>
@@ -372,7 +372,7 @@ export default function DigitalSignatureGenerator() {
                 { title: "Email Footers (Gmail & Outlook)",         body: "A transparent PNG signature adds a polished, personal touch to every business email you send — instantly recognisable and trustworthy." },
                 { title: "Freelance Proposals & Invoices",          body: "Sign proposals, quotes, and invoices with your digital signature to convey professionalism and speed up client approvals." },
               ].map(({ title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <span className="shrink-0 mt-0.5 h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <Check className="h-3 w-3 text-primary" />
                   </span>
@@ -387,7 +387,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Legal in India */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legal in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legal in India?</h2>
             <p className="text-muted-foreground mb-5">
               Yes. India's legal framework for electronic signatures is well-established and business-friendly:
             </p>
@@ -427,7 +427,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Tips for a Professional Digital Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Tips for a Professional Digital Signature</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { tip: "Use black or dark blue ink",           detail: "These are universally accepted in Indian legal and corporate contexts. They read cleanly on both colour and greyscale document prints." },
@@ -450,7 +450,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Digital Signature Generator?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Digital Signature Generator?</h2>
             <p className="text-muted-foreground mb-5">
               Built specifically for Indian business users — here's what makes Pixocraft the right choice:
             </p>
@@ -463,7 +463,7 @@ export default function DigitalSignatureGenerator() {
                 { icon: <Download className="h-4 w-4 text-primary" />,    title: "Print-quality PNG export",      body: "3200×1040 px — sharper than screen resolution and ready for print, PDF, and web use." },
                 { icon: <Globe className="h-4 w-4 text-primary" />,       title: "Made in India, built for India", body: "Designed with Indian GST, contract, and HR workflows in mind. India-first, privacy-first." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -506,7 +506,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* Related tools / cluster links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The full-featured tool with all options, AI styles, and advanced controls." },
@@ -531,7 +531,7 @@ export default function DigitalSignatureGenerator() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

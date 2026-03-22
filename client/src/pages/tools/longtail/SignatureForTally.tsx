@@ -210,7 +210,7 @@ export default function SignatureForTally() {
         <StructuredData key={i} data={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -223,10 +223,10 @@ export default function SignatureForTally() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Printer className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Printer className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature for Tally –{" "}
@@ -234,7 +234,7 @@ export default function SignatureForTally() {
               (Free)
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a professional signature and add it to your <strong>Tally Prime invoices</strong> in minutes.
             Download a crisp <strong>transparent PNG</strong> — the exact format Tally requires — and configure it once
             so every future invoice is automatically signed. No DSC needed. No login. 100% private.
@@ -262,9 +262,9 @@ export default function SignatureForTally() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add signature in Tally invoice?
           </h2>
           <ol className="space-y-1.5">
@@ -303,8 +303,8 @@ export default function SignatureForTally() {
         />
 
         {/* ── TALLY SIGNATURE REQUIREMENTS ─────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Signature Requirements for Tally Invoices</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Signature Requirements for Tally Invoices</h2>
           <p className="text-muted-foreground leading-relaxed">
             TallyPrime is specific about the image format and quality of signatures embedded in invoice templates.
             Using the wrong format is the most common reason signatures look blurry or show a white box on printed invoices.
@@ -327,7 +327,7 @@ export default function SignatureForTally() {
                 desc: "Position your PNG in the Authorised Signatory section of Tally's invoice layout. Do not place it in the header or logo area.",
               },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex flex-col gap-2 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <p className="font-semibold text-foreground">{title}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
@@ -337,9 +337,9 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── TALLY SIGNATURE SIZE ─────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Tally Signature Size (Best Dimensions)</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Tally Signature Size (Best Dimensions)</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               The ideal signature size for Tally invoices is between <strong>150px to 300px width</strong> with a
               <strong> transparent PNG format</strong>. This ensures clear printing and proper alignment in invoices
@@ -366,8 +366,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── HOW TO ADD IN TALLY PRIME ────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Add Signature in Tally Prime – Step by Step</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Add Signature in Tally Prime – Step by Step</h2>
           <p className="text-muted-foreground">Configure once — every future invoice prints with your signature automatically.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -383,8 +383,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── PDF ALTERNATIVE ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Alternative: Add Signature to Tally PDF Invoice</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Alternative: Add Signature to Tally PDF Invoice</h2>
           <p className="text-muted-foreground leading-relaxed">
             If you prefer to sign each invoice individually — or if your Tally version does not support image insertion —
             export the invoice as a PDF and sign it digitally:
@@ -410,8 +410,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── WHY DIGITAL SIGNATURE IN TALLY ──────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Why Use a Digital Signature in Tally?</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Why Use a Digital Signature in Tally?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { icon: <BadgeCheck className="h-5 w-5 text-primary" />, title: "GST Compliance",      desc: "CBIC requires an authorised signatory on every GST invoice. A PNG signature satisfies this for printed and PDF invoices." },
@@ -419,7 +419,7 @@ export default function SignatureForTally() {
               { icon: <Check className="h-5 w-5 text-primary" />,      title: "Professional Look",    desc: "A consistent, clean signature builds trust with buyers, clients, and auditors. Much more professional than a stamped or scanned image." },
               { icon: <Globe className="h-5 w-5 text-primary" />,      title: "Email & Print Ready",  desc: "The transparent PNG looks great on both emailed PDF invoices and printed paper invoices — same file, both purposes." },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -431,9 +431,9 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── SAVE & REUSE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Save & Reuse Your Signature (Important)</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Save & Reuse Your Signature (Important)</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Download your PNG once and save it in a permanent location — your Desktop, Documents folder, or Google Drive.
               This single file can be reused forever across:
@@ -459,9 +459,9 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── LEGAL SECTION ────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Legal Validity in India – Tally Signatures</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Legal Validity in India – Tally Signatures</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-muted-foreground leading-relaxed">
               Under the <strong>IT Act 2000</strong> (Section 5), an electronic signature that is attached to or associated
               with an electronic record and adopted by a person intending to sign that record is legally valid. A transparent
@@ -488,8 +488,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── COMMON MISTAKES ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
           <div className="space-y-3">
             {COMMON_MISTAKES.map(({ icon, title, desc }) => (
               <div key={title} className="flex gap-4 p-4 rounded-xl border bg-card">
@@ -504,8 +504,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── COMPARISON ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Pixocraft vs Manual vs DSC – Tally Signature Comparison</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pixocraft vs Manual vs DSC – Tally Signature Comparison</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -534,10 +534,10 @@ export default function SignatureForTally() {
 
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">Who Uses This Tool</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Who Uses This Tool</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -549,8 +549,8 @@ export default function SignatureForTally() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div

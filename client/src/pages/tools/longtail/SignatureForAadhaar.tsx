@@ -235,7 +235,7 @@ export default function SignatureForAadhaar() {
         <StructuredData key={i} data={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -249,17 +249,17 @@ export default function SignatureForAadhaar() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileCheck className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature for Aadhaar –{" "}
               <span className="text-primary">Create & Download Free Online</span>
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create an Aadhaar-ready signature instantly — for KYC forms, UIDAI updates, bank verification, and government scheme applications.
             Download a <strong>transparent PNG</strong> with no watermark, no login, and no data upload. Works offline.
           </p>
@@ -286,9 +286,9 @@ export default function SignatureForAadhaar() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             What is a signature for Aadhaar and how to create it online?
           </h2>
           <p className="text-sm text-foreground leading-relaxed">
@@ -316,9 +316,9 @@ export default function SignatureForAadhaar() {
         />
 
         {/* ── WHAT IS AADHAAR SIGNATURE ─────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Signature for Aadhaar?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Signature for Aadhaar?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground leading-relaxed">
               The <strong>Aadhaar card</strong> issued by UIDAI does not contain a signature field — your biometric data (fingerprints and iris scan) serve as your identifier. However, your <strong>handwritten signature</strong> is required in many Aadhaar-related processes:
             </p>
@@ -344,11 +344,11 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── WHERE AADHAAR SIGNATURE IS USED ──────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Where is Aadhaar Signature Required?</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Where is Aadhaar Signature Required?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -360,9 +360,9 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── SIZE & FORMAT ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Aadhaar Signature Size & Format</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Aadhaar Signature Size & Format</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Most Aadhaar-related portals and forms accept a signature image between <strong>140×60 px and 200×80 px</strong> in <strong>PNG or JPEG format</strong>, with a file size under <strong>50 KB</strong>.
             </p>
@@ -385,8 +385,8 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── HOW TO CREATE ────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create Signature for Aadhaar – Step by Step</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create Signature for Aadhaar – Step by Step</h2>
           <p className="text-muted-foreground">The entire process takes under 60 seconds, no account needed.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -402,8 +402,8 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── HOW TO ADD SIGNATURE IN AADHAAR DOCUMENTS ────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Add Signature in Aadhaar-Linked Documents</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Add Signature in Aadhaar-Linked Documents</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
@@ -422,7 +422,7 @@ export default function SignatureForAadhaar() {
                 desc: "Insert your PNG into a Word or Google Doc form template, print it, and submit physically to a bank or government office.",
               },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex flex-col gap-2 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <p className="font-semibold text-foreground">{title}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
@@ -439,9 +439,9 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── SAVE & REUSE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Download your signature PNG once and store it in a permanent folder — your Desktop, Documents, or Google Drive. Reuse it across:
             </p>
@@ -477,9 +477,9 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── LEGAL CLARITY ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Legal Clarity – Aadhaar Signature vs Aadhaar eSign</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-4">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Legal Clarity – Aadhaar Signature vs Aadhaar eSign</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-4">
             <div className="flex gap-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
               <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-sm text-foreground leading-relaxed">
@@ -527,8 +527,8 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── COMMON MISTAKES ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
           <div className="space-y-3">
             {COMMON_MISTAKES.map(({ icon, title, desc }) => (
               <div key={title} className="flex gap-4 p-4 rounded-xl border bg-card">
@@ -543,8 +543,8 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── COMPARISON ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -570,8 +570,8 @@ export default function SignatureForAadhaar() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div

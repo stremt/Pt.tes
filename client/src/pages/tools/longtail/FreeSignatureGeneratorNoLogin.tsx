@@ -215,7 +215,7 @@ export default function FreeSignatureGeneratorNoLogin() {
       <StructuredData data={howToSchema} />
       <StructuredData data={softwareSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
@@ -225,13 +225,13 @@ export default function FreeSignatureGeneratorNoLogin() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature Generator (No Login Required)
               </h1>
               <p className="text-sm text-muted-foreground">Create your signature instantly without login or signup. 100% free, private, and works offline.</p>
@@ -275,14 +275,14 @@ export default function FreeSignatureGeneratorNoLogin() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
+        <div id="tool" className="mb-6 sm:mb-12">
           <SignatureToolSection
             caption="No login · No signup · No watermark · Transparent PNG · Works offline"
           />
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Keyword-rich intro paragraph */}
           <p className="text-muted-foreground text-base leading-relaxed -mt-8">
@@ -291,7 +291,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Why no login */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Choose a Signature Generator with No Login?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Choose a Signature Generator with No Login?</h2>
             <p className="text-muted-foreground mb-5">
               The frustration of being forced to sign up for a tool you just want to use once is universal. Here is why a <strong>no-login signature generator</strong> is the smarter choice:
             </p>
@@ -318,7 +318,7 @@ export default function FreeSignatureGeneratorNoLogin() {
                   desc: "No forms to fill, no passwords to remember, no re-verification. The tool is ready in under 2 seconds. Most users complete their signature and download it in under 30 seconds.",
                 },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground">{title}</p>
@@ -331,7 +331,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* How to create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Signature Online — No Login Needed</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Signature Online — No Login Needed</h2>
             <p className="text-muted-foreground mb-5">Four steps, under 30 seconds, zero accounts:</p>
             <ol className="space-y-3 mb-6">
               {HOW_TO_STEPS.map(({ step, title, desc }) => (
@@ -353,13 +353,13 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Features of This Free Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Features of This Free Signature Generator</h2>
             <p className="text-muted-foreground mb-5">
               Everything is unlocked from the first second — no upgrade required, no premium tier, no account needed to access any feature:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -372,13 +372,13 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Types of signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Types of Signature You Can Create</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Types of Signature You Can Create</h2>
             <p className="text-muted-foreground mb-5">
               Every style is available without login — choose the one that fits your needs:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {SIGNATURE_TYPES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -391,7 +391,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Best format */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Best Format to Download Your Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Best Format to Download Your Signature</h2>
             <p className="text-muted-foreground mb-5">
               The format you choose determines how your signature looks when placed on any document, PDF, or email:
             </p>
@@ -441,10 +441,10 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Use cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Can You Do with Your Downloaded Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Can You Do with Your Downloaded Signature?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -457,8 +457,8 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Privacy & security */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Privacy &amp; Security — How Your Data Is Protected</h2>
-            <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Privacy &amp; Security — How Your Data Is Protected</h2>
+            <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 Your signature is created entirely inside your browser. No file, image, or personal data is ever sent to Pixocraft's servers — or any server.
               </p>
@@ -490,7 +490,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Generators</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Generators</h2>
             <p className="text-muted-foreground mb-5">
               Most signature tools put login requirements and premium paywalls between you and a simple PNG download:
             </p>
@@ -517,7 +517,7 @@ export default function FreeSignatureGeneratorNoLogin() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 font-semibold text-primary">{pixo}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{others}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{others}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -527,7 +527,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
             <p className="text-muted-foreground mb-5">
               Need privacy as well as no-login? Our{" "}
               <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">signature generator without upload</Link>
@@ -557,7 +557,7 @@ export default function FreeSignatureGeneratorNoLogin() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-2">
               {FAQS.map(({ question, answer }, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -583,7 +583,7 @@ export default function FreeSignatureGeneratorNoLogin() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <PenTool className="h-10 w-10 text-primary mx-auto mb-3" />
             <h2 className="text-xl font-bold text-foreground mb-2">Create Your Signature Now — No Login, No Signup</h2>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">

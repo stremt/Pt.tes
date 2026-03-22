@@ -194,7 +194,7 @@ export default function HandwrittenSignatureGenerator() {
         <StructuredData key={i} schema={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -208,10 +208,10 @@ export default function HandwrittenSignatureGenerator() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Feather className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Feather className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Handwritten Signature Generator –{" "}
@@ -219,7 +219,7 @@ export default function HandwrittenSignatureGenerator() {
               (Free)
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a <strong>stylish handwritten signature</strong> online in seconds. Choose from
             <strong> 50+ cursive and handwriting fonts</strong> or draw your own signature freehand.
             Download as a crisp transparent PNG — no login, no watermark, 100% private.
@@ -244,9 +244,9 @@ export default function HandwrittenSignatureGenerator() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             What is the best way to create a handwritten signature online?
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -281,7 +281,7 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── LIVE SIGNATURE STYLE EXAMPLES ────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
               Stylish Signature Styles — Live Preview
             </h2>
             <p className="text-muted-foreground">
@@ -317,9 +317,9 @@ export default function HandwrittenSignatureGenerator() {
         </section>
 
         {/* ── WHAT IS ──────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Handwritten Signature Generator?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Handwritten Signature Generator?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5">
             <p className="text-foreground font-medium">
               A <strong>handwritten signature generator</strong> is a browser-based tool that lets you
               create a natural, realistic-looking signature online — one that closely replicates the look and
@@ -341,8 +341,8 @@ export default function HandwrittenSignatureGenerator() {
         </section>
 
         {/* ── HOW TO ───────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create a Handwritten Signature Online</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create a Handwritten Signature Online</h2>
           <p className="text-muted-foreground">Step by step — done in under 60 seconds.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -360,12 +360,12 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── FEATURES ─────────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features of the Handwritten Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features of the Handwritten Signature Generator</h2>
             <p className="text-muted-foreground">Built for professionals, creatives, and businesses who need an authentic-looking, high-quality handwritten signature.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -379,7 +379,7 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── CURSIVE FONT GUIDE ───────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Cursive Signature Generator — 7 Style Categories</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Cursive Signature Generator — 7 Style Categories</h2>
             <p className="text-muted-foreground">
               Pixocraft's 50+ fonts are organised into 7 categories so you can find your style instantly.
             </p>
@@ -405,8 +405,8 @@ export default function HandwrittenSignatureGenerator() {
                 ].map(([cat, best, examples]) => (
                   <tr key={cat} className="hover:bg-muted/30 transition-colors">
                     <td className="px-5 py-3.5 font-medium text-foreground">{cat}</td>
-                    <td className="px-5 py-3.5 text-muted-foreground">{best}</td>
-                    <td className="px-5 py-3.5 text-muted-foreground text-xs">{examples}</td>
+                    <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{best}</td>
+                    <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground text-xs">{examples}</td>
                   </tr>
                 ))}
               </tbody>
@@ -417,12 +417,12 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use Your Handwritten Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where to Use Your Handwritten Signature</h2>
             <p className="text-muted-foreground">Your downloaded transparent PNG works everywhere a physical signature would — and more.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -434,8 +434,8 @@ export default function HandwrittenSignatureGenerator() {
         </section>
 
         {/* ── TIPS ─────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Tips for a Professional Handwritten Signature</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Tips for a Professional Handwritten Signature</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {TIPS.map(({ title, body }) => (
               <div key={title} className="rounded-xl border bg-card p-4 space-y-1.5">
@@ -449,7 +449,7 @@ export default function HandwrittenSignatureGenerator() {
         {/* ── NAME SIGNATURE DESIGN GUIDE ──────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Name Signature Design — What Makes a Great Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Name Signature Design — What Makes a Great Signature?</h2>
             <p className="text-muted-foreground">Understanding these principles will help you create a signature that's both stylish and functional.</p>
           </div>
           <div className="space-y-3">
@@ -471,8 +471,8 @@ export default function HandwrittenSignatureGenerator() {
         </section>
 
         {/* ── LEGAL VALIDITY ───────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Is a Handwritten Online Signature Legal?</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Is a Handwritten Online Signature Legal?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { flag: "🇮🇳", country: "India",          law: "IT Act 2000 + Amendment 2008",       desc: "Valid for contracts, GST invoices, HR docs, and most commercial agreements." },
@@ -510,9 +510,9 @@ export default function HandwrittenSignatureGenerator() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
+        <section className="space-y-3">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
             <p className="text-muted-foreground">Everything about handwritten signature generators — answered clearly.</p>
           </div>
           <div className="space-y-2">

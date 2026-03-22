@@ -113,7 +113,7 @@ export default function AddSignatureToPDF() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                url: "https://tools.pixocraft.in/" },
           { label: "Tools",               url: "/tools" },
@@ -122,13 +122,13 @@ export default function AddSignatureToPDF() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileCheck className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileCheck className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Add Signature to PDF Free Online – Sign PDF in Seconds
               </h1>
               <p className="text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Contract Ready</p>
@@ -168,11 +168,11 @@ export default function AddSignatureToPDF() {
         <SignatureToolSection mode="pdf" />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Does "Add Signature to PDF" Mean?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Does "Add Signature to PDF" Mean?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 Adding a signature to a PDF means embedding an electronic representation of your handwritten signature
                 directly into the PDF document — so the document reads as officially signed without printing, scanning,
@@ -203,7 +203,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add Signature to PDF — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add Signature to PDF — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Follow these four steps to sign any PDF in under 30 seconds:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -224,7 +224,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Key Features of the PDF Signature Tool</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Key Features of the PDF Signature Tool</h2>
             <p className="text-muted-foreground mb-5">Built for speed, privacy, and professional results:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -235,7 +235,7 @@ export default function AddSignatureToPDF() {
                 { icon: <Zap className="h-5 w-5 text-primary" />,          title: "Multi-page support",         desc: "Navigate between PDF pages and place your signature on multiple pages with independent positioning." },
                 { icon: <Lock className="h-5 w-5 text-primary" />,         title: "100% browser-side privacy",  desc: "PDF and signature are processed entirely in your browser using pdf-lib and PDF.js. No server upload, ever." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -247,9 +247,9 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Three Methods to Add Signature to PDF</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Three Methods to Add Signature to PDF</h2>
             <p className="text-muted-foreground mb-5">Depending on your workflow, choose the method that fits best:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 { label: "Method 1 — Direct (Recommended)", color: "bg-primary/5 border-primary/20", steps: ["Create your signature in the tool above (Draw or Type tab)", "Upload your PDF file in Step 2", "Click to place your signature on the PDF preview", "Download the signed PDF — done in under 30 seconds"], note: "Best for: all users. The fastest, most private, and most professional workflow." },
                 { label: "Method 2 — Download PNG, Insert Manually", color: "bg-muted/30", steps: ["Create your signature using the standalone Signature Generator", "Download as a transparent PNG", "Open your PDF in Adobe Acrobat, Smallpdf, or Google Docs", "Insert the PNG image over the signature line and export as PDF"], note: "Best for: users who need more precise control over signature size in Acrobat's layout tools." },
@@ -272,7 +272,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Add Signature to PDF vs eSignature — What's the Difference?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Add Signature to PDF vs eSignature — What's the Difference?</h2>
             <p className="text-muted-foreground mb-5">These terms describe different parts of the same process:</p>
             <div className="overflow-x-auto rounded-xl border mb-5">
               <table className="w-full text-sm min-w-[480px]">
@@ -294,8 +294,8 @@ export default function AddSignatureToPDF() {
                   ].map(({ a, b, c }) => (
                     <tr key={a} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{a}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{b}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{c}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{b}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{c}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -305,11 +305,11 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Real Use Cases — When to Add Signature to a PDF</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Real Use Cases — When to Add Signature to a PDF</h2>
             <p className="text-muted-foreground mb-5">The most common professional situations where you need to sign a PDF electronically:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -321,7 +321,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is Signing a PDF Online Legally Valid in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is Signing a PDF Online Legally Valid in India?</h2>
             <p className="text-muted-foreground mb-5">Yes — for the vast majority of everyday commercial and personal documents:</p>
             <div className="space-y-4 mb-5">
               {[
@@ -342,7 +342,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Adding Signature to PDF</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Adding Signature to PDF</h2>
             <p className="text-muted-foreground mb-5">Avoid these errors for a professional result:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -358,7 +358,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Signing PDFs Like a Professional</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Signing PDFs Like a Professional</h2>
             <p className="text-muted-foreground mb-5">Best practices that make a visible difference in the final result:</p>
             <div className="space-y-3">
               {TIPS.map(({ title, body }) => (
@@ -374,7 +374,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Use Pixocraft to Add Signature to PDF?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Use Pixocraft to Add Signature to PDF?</h2>
             <p className="text-muted-foreground mb-5">What makes this tool different from other PDF signing options:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -385,7 +385,7 @@ export default function AddSignatureToPDF() {
                 { icon: <FileText className="h-4 w-4 text-primary" />,   title: "Multi-page signing",        body: "Place your signature on multiple pages of the same PDF with independent positioning per page." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />, title: "GST & India ready",        body: "Built with Indian business users in mind. GST invoice signing, IT Act compliance, and practical legal context." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -402,7 +402,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
             <p className="text-muted-foreground mb-5">Create and manage your signature with Pixocraft's full signature toolkit:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
@@ -428,7 +428,7 @@ export default function AddSignatureToPDF() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Add Signature to PDF</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Add Signature to PDF</h2>
             <p className="text-muted-foreground mb-5">Everything you need to know about signing PDFs online:</p>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
@@ -447,7 +447,7 @@ export default function AddSignatureToPDF() {
             </div>
           </section>
 
-          <section className="rounded-xl border bg-primary/5 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <FileCheck className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Sign Your PDF?</h2>
             <p className="text-muted-foreground mb-5 max-w-lg mx-auto text-sm">

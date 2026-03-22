@@ -191,7 +191,7 @@ export default function SignatureGeneratorIndia() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                      url: "https://tools.pixocraft.in/" },
           { label: "Tools",                     url: "/tools" },
@@ -201,13 +201,13 @@ export default function SignatureGeneratorIndia() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature Generator India (Free &amp; Easy Online Tool)
               </h1>
               <p className="text-sm text-muted-foreground">India Ready · GST Compatible · Aadhaar Use · No Login · 100% Free</p>
@@ -291,12 +291,12 @@ export default function SignatureGeneratorIndia() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Signature Generator in India?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Signature Generator in India?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A <strong>signature generator in India</strong> is a free online tool that allows Indian users to create a
                 digital signature for GST invoices, Aadhaar forms, banking documents, and contracts — instantly, without
@@ -319,7 +319,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── WHY SIGNATURE IS IMPORTANT IN INDIA ──────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Is a Signature Important in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Is a Signature Important in India?</h2>
             <p className="text-muted-foreground mb-5">
               In India, a signature is not just a formality — it is a legal requirement across dozens of government,
               financial, and commercial transactions. Here is why Indian businesses and individuals need a digital
@@ -354,7 +354,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── WHERE USED IN INDIA ───────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Where Is a Signature Used in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Where Is a Signature Used in India?</h2>
             <p className="text-muted-foreground mb-5">
               A digital signature created with this free tool can be used across a wide range of Indian business,
               government, and financial contexts:
@@ -383,12 +383,12 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── HOW TO CREATE ─────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">How to Create Signature Online in India (Step by Step)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">How to Create Signature Online in India (Step by Step)</h2>
             <p className="text-muted-foreground mb-5">
               Creating your signature with Pixocraft's free India signature generator takes less than 60 seconds.
               No software, no account, no payment — just open, create, and download:
             </p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {HOW_TO_STEPS.map(({ n, title, desc }) => (
                 <div key={n} className="flex gap-4 rounded-xl border bg-card px-5 py-4">
                   <span className="h-8 w-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center shrink-0 mt-0.5">{n}</span>
@@ -403,7 +403,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── DIGITAL VS NORMAL ─────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Digital Signature vs Normal Signature in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Digital Signature vs Normal Signature in India</h2>
             <p className="text-muted-foreground mb-5">
               Understanding the difference between a digital signature, a DSC, and a normal handwritten signature
               is important for Indian businesses to choose the right method for each document type:
@@ -448,7 +448,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── AADHAAR ESIGN ─────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Aadhaar eSign in India – What You Need to Know</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Aadhaar eSign in India – What You Need to Know</h2>
             <p className="text-muted-foreground mb-4">
               <strong>Aadhaar eSign</strong> is a government-backed electronic signature service from UIDAI (Unique
               Identification Authority of India) that uses your 12-digit Aadhaar number and a one-time password (OTP)
@@ -483,7 +483,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── FEATURES ─────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Features of This Free Signature Generator India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Features of This Free Signature Generator India</h2>
             <p className="text-muted-foreground mb-5">
               Pixocraft's signature generator is built with Indian users in mind — fast, private,
               and ready for every Indian document workflow:
@@ -503,7 +503,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── BEST FORMAT ──────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Best Signature Format for Indian Documents</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Best Signature Format for Indian Documents</h2>
             <p className="text-muted-foreground mb-5">
               Choosing the right format for your digital signature matters — especially when inserting into
               GST invoices, Tally templates, and professional contracts:
@@ -564,7 +564,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── USE CASES ────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">India-Specific Use Cases for This Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">India-Specific Use Cases for This Signature Generator</h2>
             <p className="text-muted-foreground mb-5">
               This tool is purpose-built for the Indian business ecosystem — covering the most common signature
               requirements across Indian industries and professions:
@@ -584,7 +584,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── COMPARISON ───────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Tools in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Tools in India</h2>
             <p className="text-muted-foreground mb-5">
               Most online signature tools are built for global markets — they require logins, charge fees, or upload
               your documents to foreign servers. Pixocraft is different:
@@ -613,7 +613,7 @@ export default function SignatureGeneratorIndia() {
 
           {/* ── FAQ ──────────────────────────────────────────────────────────── */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

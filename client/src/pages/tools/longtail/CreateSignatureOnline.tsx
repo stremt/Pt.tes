@@ -163,7 +163,7 @@ export default function CreateSignatureOnline() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                    url: "https://tools.pixocraft.in/" },
@@ -173,13 +173,13 @@ export default function CreateSignatureOnline() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Timer className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Timer className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Create Signature Online Free – Instant PNG in Seconds
               </h1>
               <p className="text-sm text-muted-foreground">Create in &lt;60 sec · No Signup · No Watermark · 100% Private · GST Ready</p>
@@ -212,14 +212,14 @@ export default function CreateSignatureOnline() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Powerful Features to Create Signature Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Powerful Features to Create Signature Online</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -232,7 +232,7 @@ export default function CreateSignatureOnline() {
 
           {/* How to */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create Signature Online in 4 Simple Steps</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create Signature Online in 4 Simple Steps</h2>
             <p className="text-muted-foreground mb-5">The fastest way to create a professional signature — done in under 60 seconds.</p>
             <ol className="space-y-3">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -249,7 +249,7 @@ export default function CreateSignatureOnline() {
 
           {/* Draw vs Type vs Upload */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw, Type or Upload – Create Signature Online Your Way</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw, Type or Upload – Create Signature Online Your Way</h2>
             <p className="text-muted-foreground mb-5">
               Three methods to create your signature online — pick whichever fits your situation. Most Indian users finish in under 1 minute with any of them.
             </p>
@@ -290,7 +290,7 @@ export default function CreateSignatureOnline() {
 
           {/* Signature examples */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Signature Examples to Help You Create Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Signature Examples to Help You Create Online</h2>
             <p className="text-muted-foreground mb-5">
               Need quick ideas? Browse real examples of signatures created online — tailored for Indian professionals, freelancers, and business owners. From clean GST-ready styles to modern creative looks — pick any, load it in the Type tab, and customise instantly.
             </p>
@@ -316,7 +316,7 @@ export default function CreateSignatureOnline() {
 
           {/* Where to use */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where You Can Use the Signature You Create Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where You Can Use the Signature You Create Online</h2>
             <p className="text-muted-foreground mb-5">
               Create your signature online once and use it everywhere in your daily Indian business workflow:
             </p>
@@ -329,7 +329,7 @@ export default function CreateSignatureOnline() {
                 { title: "Google Docs, Word & Accounting Apps",  body: "Insert → Image in any app. Works with Tally, QuickBooks, FreshBooks, and all major billing software used by Indian businesses." },
                 { title: "Aadhaar & Government E-filing",        body: "Many government portals accept image-based PNG signatures. Always check specific DSC requirements for high-stakes government submissions." },
               ].map(({ title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <span className="shrink-0 mt-0.5 h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <Check className="h-3 w-3 text-primary" />
                   </span>
@@ -344,7 +344,7 @@ export default function CreateSignatureOnline() {
 
           {/* Legal */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is It Safe &amp; Legal to Create Signature Online?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is It Safe &amp; Legal to Create Signature Online?</h2>
             <p className="text-muted-foreground mb-5">
               Yes — signatures you create online here are legally valid in India and internationally for most business and personal use cases.
             </p>
@@ -359,7 +359,7 @@ export default function CreateSignatureOnline() {
                   body: "US ESIGN Act, EU eIDAS (Simple Electronic Signature), and UK Electronic Communications Act 2000 all recognise image-based electronic signatures for most private and commercial agreements internationally.",
                 },
               ].map(({ title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <BadgeCheck className="h-5 w-5 text-primary" />
                   </div>
@@ -377,7 +377,7 @@ export default function CreateSignatureOnline() {
 
           {/* Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pro Tips to Create Signature Online Perfectly</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pro Tips to Create Signature Online Perfectly</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 { tip: "Keep it short for easy reading",         detail: "A signature that's too long becomes illegible when scaled down inside PDFs. Aim for clarity at 60–80 px height." },
@@ -400,7 +400,7 @@ export default function CreateSignatureOnline() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Create Signature Online with Pixocraft?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Create Signature Online with Pixocraft?</h2>
             <p className="text-muted-foreground mb-5">
               Other tools make you wait, add watermarks, or hide features behind a paywall. Pixocraft lets you create your signature online instantly with full freedom:
             </p>
@@ -412,7 +412,7 @@ export default function CreateSignatureOnline() {
                 { icon: <Zap className="h-4 w-4 text-primary" />,        title: "Super fast & mobile ready",       body: "Create your signature online in under 60 seconds — on desktop or phone, no installation needed." },
                 { icon: <Download className="h-4 w-4 text-primary" />,   title: "High-quality output every time",  body: "3200×1040 px transparent PNG — sharper than screen resolution, print-ready, zero watermark." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -428,7 +428,7 @@ export default function CreateSignatureOnline() {
 
           {/* Related tools */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/signature-pad-tool",            title: "Signature Generator (Main Tool)",  desc: "The complete tool with AI styles, undo/redo, and advanced options." },
@@ -453,7 +453,7 @@ export default function CreateSignatureOnline() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

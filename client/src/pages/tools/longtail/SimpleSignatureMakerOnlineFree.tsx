@@ -280,7 +280,7 @@ export default function SimpleSignatureMakerOnlineFree() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
@@ -291,13 +291,13 @@ export default function SimpleSignatureMakerOnlineFree() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Sparkles className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Maker Online Free (Fast &amp; Easy)
               </h1>
               <p className="text-sm text-muted-foreground">
@@ -356,15 +356,15 @@ export default function SimpleSignatureMakerOnlineFree() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────── */}
-        <div id="tool" className="mb-10">
+        <div id="tool" className="mb-6 sm:mb-10">
           <SignatureToolSection
             caption="Simple · Free · No login · Transparent PNG · Instant download"
           />
         </div>
 
         {/* ── WHY USE THIS TOOL ───────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Why Use a Simple Signature Maker?
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -403,8 +403,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── WHAT IS ────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             What Is a Simple Signature Maker Online?
           </h2>
           <p className="text-foreground text-base leading-relaxed mb-4">
@@ -439,8 +439,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── HOW TO ─────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How to Create a Simple Signature Online Free
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -462,8 +462,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── FEATURES ───────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Features of This Simple Signature Maker
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -485,8 +485,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── TYPES OF SIGNATURES ─────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Types of Simple Signatures You Can Create
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -506,11 +506,11 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── BEST FORMAT ────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             Best Format for a Simple Signature
           </h2>
-          <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-4">
+          <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5 mb-4">
             <div className="flex items-center gap-2 mb-2">
               <BadgeCheck className="h-5 w-5 text-primary" />
               <p className="font-semibold text-foreground">PNG with transparent background — recommended</p>
@@ -540,8 +540,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── USE CASES ──────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Where Can You Use a Simple Signature?
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -592,8 +592,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── COMPARISON ─────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Pixocraft vs. Other Signature Makers
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -619,8 +619,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Frequently Asked Questions
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -653,8 +653,8 @@ export default function SimpleSignatureMakerOnlineFree() {
         </section>
 
         {/* ── INTERNAL LINKS ────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Looking for more? Explore other free signature tools from Pixocraft — each one specialised for a
             different use case or preference.

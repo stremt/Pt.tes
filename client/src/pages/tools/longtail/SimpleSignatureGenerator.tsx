@@ -191,7 +191,7 @@ export default function SimpleSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                 url: "https://tools.pixocraft.in/" },
@@ -201,13 +201,13 @@ export default function SimpleSignatureGenerator() {
         ]} />
 
         {/* HERO */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Sparkles className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Generator Online – Create in Seconds
               </h1>
               <p className="text-sm text-muted-foreground">100% Free · No Login · No Complicated Settings · One-Click Download · Works on Mobile</p>
@@ -237,13 +237,13 @@ export default function SimpleSignatureGenerator() {
         </div>
 
         {/* TOOL */}
-        <div className="mb-10">
+        <div className="mb-6 sm:mb-10">
           <SignatureToolSection />
         </div>
 
         {/* HOW TO */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">How to Create Your Signature in Seconds</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create Your Signature in Seconds</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             No tutorials needed. This is genuinely simple — most beginners are done in under 30 seconds.
           </p>
@@ -263,8 +263,8 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* FEATURES */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Why This Is the Simplest Signature Generator</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why This Is the Simplest Signature Generator</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Built for people who just need a signature — fast. No complications, no learning curve.
           </p>
@@ -284,9 +284,9 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* WHAT IS */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Simple Signature Generator?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Simple Signature Generator?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
             <p className="text-foreground font-medium">
               A <strong>simple signature generator</strong> is an online tool that lets you create a professional
               signature with the minimum possible steps — no complicated settings, no design skills, and no prior
@@ -326,8 +326,8 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* SIMPLE UX SIGNALS SECTION */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Designed to Be as Simple as Possible</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Designed to Be as Simple as Possible</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { icon: <MousePointer className="h-5 w-5 text-primary" />, title: "No complicated settings", desc: "Everything works out of the box. No configuration, no preferences to set, no tutorials to read." },
@@ -346,8 +346,8 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* WHO IS THIS FOR */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Who Is This For?</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Who Is This For?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {[
               { icon: <PenTool className="h-4 w-4 text-primary" />,   title: "Beginners",            desc: "First time creating a digital signature? This is the best starting point — no learning curve." },
@@ -397,8 +397,8 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* FAQ */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
           <p className="text-muted-foreground mb-5 text-sm">Quick answers to beginner questions about this simple signature generator.</p>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
@@ -426,8 +426,8 @@ export default function SimpleSignatureGenerator() {
         </section>
 
         {/* INTERNAL LINKS */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Looking for more options? If you want a more advanced version with full customisation controls, try our{" "}
             <Link href="/tools/signature-maker" className="text-primary underline underline-offset-2">main signature maker</Link>

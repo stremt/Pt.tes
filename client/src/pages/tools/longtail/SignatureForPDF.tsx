@@ -54,7 +54,7 @@ const USE_CASES = [
 
 function FeatureCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <div className="flex gap-4 p-5 rounded-xl border bg-card">
+    <div className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
       <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
       <div>
         <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
@@ -69,7 +69,7 @@ function SectionLabel({ children }: { children: string }) {
 }
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>;
+  return <h2 className="text-xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>;
 }
 
 function SectionSubtext({ children }: { children: React.ReactNode }) {
@@ -124,7 +124,7 @@ export default function SignatureForPDF() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",               url: "https://tools.pixocraft.in/" },
           { label: "Tools",              url: "/tools" },
@@ -133,7 +133,7 @@ export default function SignatureForPDF() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-10 pt-2">
+        <div className="mb-6 sm:mb-10 pt-1">
           <div className="flex items-center gap-2 mb-5">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <FileCheck className="h-5 w-5 text-primary" />
@@ -186,7 +186,7 @@ export default function SignatureForPDF() {
         </div>
 
         {/* ── FEATURED SNIPPET BLOCK ────────────────────────────────────────── */}
-        <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-10">
+        <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-10">
           <h2 className="text-base sm:text-lg font-bold text-foreground mb-1.5">
             Sign PDF Online Free Without Upload or Software
           </h2>
@@ -201,14 +201,14 @@ export default function SignatureForPDF() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16">
+        <div className="space-y-8 sm:space-y-16">
 
           {/* ── WHAT IS ── */}
           <section>
             <SectionLabel>Overview</SectionLabel>
             <SectionHeading>What Does "Sign PDF Online Free" Mean?</SectionHeading>
 
-            <div className="rounded-xl border bg-muted/40 px-6 py-5 mb-6">
+            <div className="rounded-xl border bg-muted/40 px-4 py-4 sm:px-6 sm:py-5 mb-6">
               <p className="text-foreground font-medium leading-relaxed">
                 Signing a PDF online free means creating an electronic version of your handwritten signature and embedding it
                 directly into a PDF document — all inside your browser, with no software, no account, and no server upload required.
@@ -276,7 +276,7 @@ export default function SignatureForPDF() {
               Choose the approach that best fits your workflow and device.
             </SectionSubtext>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 {
                   label: "Method 1 — Pixocraft Direct Workflow (Fastest · Recommended)",
@@ -385,7 +385,7 @@ export default function SignatureForPDF() {
               Create your signature once and reuse it on every PDF you ever need to sign — no recreating from scratch each time.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <ul className="space-y-3">
                 {[
                   "Your last signature is automatically saved to your browser's localStorage",
@@ -486,11 +486,11 @@ export default function SignatureForPDF() {
               <table className="w-full text-sm min-w-[560px]">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Feature</th>
                     <th className="text-left px-5 py-3.5 font-semibold text-primary">Pixocraft</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Smallpdf</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Adobe Sign</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">DocuSign</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Smallpdf</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Adobe Sign</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">DocuSign</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -563,7 +563,7 @@ export default function SignatureForPDF() {
               Trusted by freelancers, businesses, and professionals for fast, private, and secure PDF signing.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-5">
+            <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-semibold leading-relaxed text-sm sm:text-base">
                 No signup, no watermark, no server upload — your PDF is signed and processed entirely inside your browser.
                 Nothing leaves your device. Ever.
@@ -654,7 +654,7 @@ export default function SignatureForPDF() {
           </section>
 
           {/* ── FINAL CTA ── */}
-          <section className="rounded-xl border bg-primary/5 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <FileCheck className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Sign Your PDF?</h2>
             <p className="text-muted-foreground mb-5 max-w-lg mx-auto text-sm">
@@ -673,7 +673,7 @@ export default function SignatureForPDF() {
           </section>
 
           {/* ── EEAT ── */}
-          <section className="rounded-xl border bg-muted/30 px-6 py-5 text-sm text-muted-foreground space-y-1.5">
+          <section className="rounded-xl border bg-muted/30 px-4 py-4 sm:px-6 sm:py-5 text-sm text-muted-foreground space-y-1.5">
             <p><strong className="text-foreground">Author:</strong> Pixocraft Team</p>
             <p><strong className="text-foreground">Last Updated:</strong> {LAST_UPDATED}</p>
             <p>

@@ -121,7 +121,7 @@ const HOWTO_STEPS = [
 
 const METHODS = [
   {
-    icon: <ImageIcon className="h-6 w-6 text-primary" />,
+    icon: <ImageIcon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method A",
     title: "Insert Image Signature (Recommended)",
     desc: "Create a transparent PNG on Pixocraft and insert it into Word via Insert → Pictures. This is the fastest, cleanest, and most professional method — works on every Word version, every OS.",
@@ -129,7 +129,7 @@ const METHODS = [
     best: true,
   },
   {
-    icon: <PenTool className="h-6 w-6 text-primary" />,
+    icon: <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method B",
     title: "Draw in Word (Draw Tab)",
     desc: "Word's built-in Draw tab lets you sketch with a mouse or stylus directly on the document. Quick for casual use, but mouse drawings often look irregular. Best combined with a touchscreen or stylus.",
@@ -137,7 +137,7 @@ const METHODS = [
     best: false,
   },
   {
-    icon: <Layers className="h-6 w-6 text-primary" />,
+    icon: <Layers className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method C",
     title: "Digital Signature (Advanced)",
     desc: "Word supports cryptographic digital signatures via a trusted certificate authority. This adds an invisible PKI-based signature for high-security filings. Requires a paid DSC — not needed for most documents.",
@@ -271,7 +271,7 @@ export default function SignatureInWordDocument() {
         <StructuredData key={i} data={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -285,17 +285,17 @@ export default function SignatureInWordDocument() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileText className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature in Word Document –{" "}
               <span className="text-primary">Add & Insert Free</span>
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create and insert your signature into <strong>Microsoft Word</strong> in under 60 seconds.
             Draw or type your signature, download a <strong>transparent PNG</strong>, and place it anywhere
             in your Word document — letters, contracts, forms, or applications. No login, no upload, no printing.
@@ -323,9 +323,9 @@ export default function SignatureInWordDocument() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add a signature in a Word document?
           </h2>
           <p className="text-sm text-foreground leading-relaxed">
@@ -353,9 +353,9 @@ export default function SignatureInWordDocument() {
         />
 
         {/* ── WHAT IS SIGNATURE IN WORD ─────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Signature in Word Document?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Signature in Word Document?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground leading-relaxed">
               Microsoft Word does not generate signatures on its own. It is a word processor —
               to add a signature, you need to either <strong>insert a signature image</strong>, <strong>draw one</strong> using
@@ -384,8 +384,8 @@ export default function SignatureInWordDocument() {
 
         {/* ── 3 METHODS ─────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">3 Ways to Add Signature in Word</h2>
-          <div className="space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">3 Ways to Add Signature in Word</h2>
+          <div className="space-y-3">
             {METHODS.map(({ icon, label, title, desc, pros, best }) => (
               <div
                 key={title}
@@ -419,8 +419,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── HOW TO CREATE SIGNATURE ───────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create Signature for Word (Step by Step)</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create Signature for Word (Step by Step)</h2>
           <p className="text-muted-foreground">Complete process — from creating your signature to inserting it in Word. Takes under 60 seconds.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -436,8 +436,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── HOW TO INSERT IN WORD ─────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Insert Signature in Word – Detailed Guide</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Insert Signature in Word – Detailed Guide</h2>
           <p className="text-muted-foreground leading-relaxed">
             Once you have your transparent PNG from Pixocraft, follow these Word steps for a perfectly placed, professional signature.
           </p>
@@ -486,9 +486,9 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── BEST FORMAT ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Best Format for Signature in Word</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Best Format for Signature in Word</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Always use <strong>PNG with transparent background</strong> for Word signatures. Here is why each attribute matters:
             </p>
@@ -537,10 +537,10 @@ export default function SignatureInWordDocument() {
 
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">Who Uses Signature in Word Documents</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Who Uses Signature in Word Documents</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -552,9 +552,9 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── SAVE & REUSE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Download your PNG once and keep it in a permanent folder. Reuse it across:
             </p>
@@ -590,9 +590,9 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── DIGITAL VS IMAGE ─────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Digital Signature vs Image Signature in Word</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-4">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Digital Signature vs Image Signature in Word</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-4">
             <div className="flex gap-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
               <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-sm text-foreground leading-relaxed">
@@ -639,8 +639,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── COMMON MISTAKES ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
           <div className="space-y-3">
             {COMMON_MISTAKES.map(({ icon, title, desc }) => (
               <div key={title} className="flex gap-4 p-4 rounded-xl border bg-card">
@@ -655,8 +655,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── COMPARISON ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -682,8 +682,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div
@@ -713,8 +713,8 @@ export default function SignatureInWordDocument() {
         </section>
 
         {/* ── INTERNAL LINKS ───────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Related Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Related Signature Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {INTERNAL_LINKS.map(({ href, label }) => (
               <Link key={href} href={href}>

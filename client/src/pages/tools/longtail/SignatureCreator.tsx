@@ -311,7 +311,7 @@ export default function SignatureCreator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                url: "https://tools.pixocraft.in/" },
@@ -321,13 +321,13 @@ export default function SignatureCreator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Sparkles className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature Creator Online Free – Design Your Unique Signature
               </h1>
               <p className="text-sm text-muted-foreground">Free · No Login · 100% Private · Full Creative Control</p>
@@ -363,7 +363,7 @@ export default function SignatureCreator() {
         <SignatureToolSection />
 
         {/* ── QUICK USE BLOCK ──────────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">
+        <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-12">
           <p className="font-semibold text-foreground mb-3">Create signature for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -383,12 +383,12 @@ export default function SignatureCreator() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What is a Signature Creator?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What is a Signature Creator?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A <strong>signature creator</strong> is a digital tool that gives you full creative control over designing your own unique
                 signature — not just generating a quick output, but allowing you to express your personal identity through the art of signing.
@@ -420,8 +420,8 @@ export default function SignatureCreator() {
 
           {/* Why signature matters */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Your Signature Matters — Identity, Memory & Brand</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Your Signature Matters — Identity, Memory & Brand</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A signature is not just a way to authorise a document — it is one of the most ancient and persistent forms of personal identity.
                 Psychologists and brand experts alike recognise that a distinctive signature communicates authority, individuality, and intentionality
@@ -451,7 +451,7 @@ export default function SignatureCreator() {
 
           {/* How to create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create Your Signature — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create Your Signature — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Design your signature in four steps — done in under 60 seconds:</p>
             <ol className="space-y-3 mb-5">
               {HOW_IT_WORKS_STEPS.map(({ step, title, description }) => (
@@ -476,13 +476,13 @@ export default function SignatureCreator() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Core Features of Pixocraft's Signature Creator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Core Features of Pixocraft's Signature Creator</h2>
             <p className="text-muted-foreground mb-5">
               Built for creative professionals, entrepreneurs, and anyone who wants a signature that genuinely represents them:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FEATURES.map(({ icon, title, description }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -495,7 +495,7 @@ export default function SignatureCreator() {
 
           {/* Draw vs Type vs Upload */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw, Type, or Upload — Three Creative Approaches</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw, Type, or Upload — Three Creative Approaches</h2>
             <p className="text-muted-foreground mb-5">
               Each method unlocks a different dimension of creative expression. Here is how to think about them:
             </p>
@@ -538,7 +538,7 @@ export default function SignatureCreator() {
 
           {/* Signature Creator vs Generator */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Signature Creator vs Signature Generator — What's the Difference?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Signature Creator vs Signature Generator — What's the Difference?</h2>
             <p className="text-muted-foreground mb-5">
               The terminology matters. Understanding the difference helps you choose the right tool for your needs:
             </p>
@@ -563,8 +563,8 @@ export default function SignatureCreator() {
                   ].map(({ feature, creator, generator }) => (
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{creator}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{generator}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{creator}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{generator}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -578,11 +578,11 @@ export default function SignatureCreator() {
 
           {/* Design Styles */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Signature Design Styles — Find Your Expression</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Signature Design Styles — Find Your Expression</h2>
             <p className="text-muted-foreground mb-5">
               A great signature design matches both your personality and the professional context in which you use it. Here are five distinct style directions:
             </p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {DESIGN_STYLES.map(({ name, description, best, tip }) => (
                 <div key={name} className="p-5 rounded-xl border bg-card">
                   <p className="font-semibold text-foreground mb-2">{name}</p>
@@ -598,13 +598,13 @@ export default function SignatureCreator() {
 
           {/* Signature for Different Users */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Uses This Signature Creator — and How</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Uses This Signature Creator — and How</h2>
             <p className="text-muted-foreground mb-5">
               Pixocraft's free online signature creator serves a wide range of users, each with different needs and signing contexts:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USER_TYPES.map(({ icon, title, description }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -617,13 +617,13 @@ export default function SignatureCreator() {
 
           {/* Real Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Real Use Cases — Where to Use Your Created Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Real Use Cases — Where to Use Your Created Signature</h2>
             <p className="text-muted-foreground mb-5">
               Your downloaded PNG works across every major professional and personal context:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -636,7 +636,7 @@ export default function SignatureCreator() {
 
           {/* Legal validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Legal Validity of Created Signatures in India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Legal Validity of Created Signatures in India</h2>
             <p className="text-muted-foreground mb-5">
               Signatures created with this tool are legally recognised for a wide range of uses in India:
             </p>
@@ -675,7 +675,7 @@ export default function SignatureCreator() {
 
           {/* Design Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Signature Design Mistakes to Avoid</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Signature Design Mistakes to Avoid</h2>
             <p className="text-muted-foreground mb-5">These are the most common errors that undermine an otherwise well-intentioned signature:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -694,7 +694,7 @@ export default function SignatureCreator() {
 
           {/* Pro Design Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Signature Design Tips</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Signature Design Tips</h2>
             <p className="text-muted-foreground mb-5">Follow these best practices to create a signature that is both professional and authentically yours:</p>
             <div className="space-y-3">
               {TIPS.map(({ title, body }) => (
@@ -713,7 +713,7 @@ export default function SignatureCreator() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Signature Creator?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Choose Pixocraft's Signature Creator?</h2>
             <p className="text-muted-foreground mb-5">
               Many tools claim to help you <strong>create a signature online free</strong>. Here is what sets Pixocraft apart:
             </p>
@@ -726,7 +726,7 @@ export default function SignatureCreator() {
                 { icon: <Globe className="h-4 w-4 text-primary" />,      title: "Any device, any browser",     body: "Desktop, tablet, or smartphone — Chrome, Safari, Firefox — no installation required." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />, title: "Free forever — no catch",    body: "No watermark, no usage limits, no upgrade prompt for PNG export. Free means genuinely free." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -750,7 +750,7 @@ export default function SignatureCreator() {
 
           {/* Internal Linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
             <p className="text-muted-foreground mb-5">
               Explore the full Pixocraft signature ecosystem — each tool built for a specific signing need or keyword intent:
             </p>
@@ -779,7 +779,7 @@ export default function SignatureCreator() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Signature Creator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Signature Creator</h2>
             <p className="text-muted-foreground mb-5">Answers to the most common questions about creating and using signatures online:</p>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
@@ -807,7 +807,7 @@ export default function SignatureCreator() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <Sparkles className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 className="text-xl font-bold text-foreground mb-2">Design Your Signature — It Starts Here</h2>
             <p className="text-muted-foreground mb-5 max-w-lg mx-auto text-sm">

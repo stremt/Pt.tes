@@ -117,7 +117,7 @@ const HOWTO_STEPS = [
 
 const METHODS = [
   {
-    icon: <ImageIcon className="h-6 w-6 text-primary" />,
+    icon: <ImageIcon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method A",
     title: "Insert PNG Image (Recommended)",
     desc: "Create a transparent PNG on Pixocraft and insert it via Insert → Image → Upload from computer. The fastest, cleanest method — consistent results on every device and browser.",
@@ -125,7 +125,7 @@ const METHODS = [
     best: true,
   },
   {
-    icon: <PenTool className="h-6 w-6 text-primary" />,
+    icon: <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method B",
     title: "Drawing Tool (Insert → Drawing)",
     desc: "Google Docs has a built-in Drawing tool (Insert → Drawing → New → Scribble). Draw with your mouse directly in the document. Quick for casual use but mouse-drawn lines are often uneven.",
@@ -133,7 +133,7 @@ const METHODS = [
     best: false,
   },
   {
-    icon: <Layers className="h-6 w-6 text-primary" />,
+    icon: <Layers className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
     label: "Method C",
     title: "Google Docs Add-ons",
     desc: "The Google Workspace Marketplace has add-ons like DocuSign and HelloSign that integrate e-signature workflows into Google Docs. Useful for formal contract workflows — requires installation and account setup.",
@@ -267,7 +267,7 @@ export default function SignatureInGoogleDocs() {
         <StructuredData key={i} data={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -281,17 +281,17 @@ export default function SignatureInGoogleDocs() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <FileText className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <FileText className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature in Google Docs –{" "}
               <span className="text-primary">Add & Insert Signature Free</span>
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create your signature and insert it into <strong>Google Docs</strong> in under 60 seconds.
             Download a <strong>transparent PNG</strong> — the cleanest format for Google Docs — and place it
             precisely on any signature line. No add-ons, no login, no upload to any server.
@@ -319,9 +319,9 @@ export default function SignatureInGoogleDocs() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add a signature in Google Docs?
           </h2>
           <p className="text-sm text-foreground leading-relaxed">
@@ -349,9 +349,9 @@ export default function SignatureInGoogleDocs() {
         />
 
         {/* ── WHAT IS SIGNATURE IN GOOGLE DOCS ─────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Signature in Google Docs?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Signature in Google Docs?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground leading-relaxed">
               Google Docs does not generate signatures on its own. To sign a Google Docs document, you must either
               <strong> insert a signature image</strong>, use the <strong>built-in Drawing tool</strong>, or connect a
@@ -378,8 +378,8 @@ export default function SignatureInGoogleDocs() {
 
         {/* ── 3 METHODS ─────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">3 Ways to Add Signature in Google Docs</h2>
-          <div className="space-y-4">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">3 Ways to Add Signature in Google Docs</h2>
+          <div className="space-y-3">
             {METHODS.map(({ icon, label, title, desc, pros, best }) => (
               <div
                 key={title}
@@ -413,8 +413,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── HOW TO CREATE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create Signature for Google Docs</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create Signature for Google Docs</h2>
           <p className="text-muted-foreground">Complete end-to-end process — from creating your signature to inserting it in Google Docs. Takes under 60 seconds.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -430,8 +430,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── INSERT IN GOOGLE DOCS DETAILED ────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Insert Signature in Google Docs – Detailed Guide</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Insert Signature in Google Docs – Detailed Guide</h2>
           <p className="text-muted-foreground leading-relaxed">
             Once you have your transparent PNG from Pixocraft, follow these Google Docs steps for a precise, professional placement.
           </p>
@@ -486,9 +486,9 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── BEST FORMAT ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Best Format for Google Docs Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Best Format for Google Docs Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Always use <strong>transparent PNG</strong> when inserting a signature into Google Docs. Here is why each attribute matters:
             </p>
@@ -537,10 +537,10 @@ export default function SignatureInGoogleDocs() {
 
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">Who Uses Signature in Google Docs</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Who Uses Signature in Google Docs</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -552,9 +552,9 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── SAVE & REUSE ─────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Save & Reuse Your Signature</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-foreground font-medium">
               Download your PNG once and keep it permanently. Reuse across:
             </p>
@@ -590,8 +590,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── DRAWING TOOL VS IMAGE ─────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Drawing Tool vs Image Signature in Google Docs</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Drawing Tool vs Image Signature in Google Docs</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               {
@@ -634,8 +634,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── COMMON MISTAKES ──────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Common Mistakes to Avoid</h2>
           <div className="space-y-3">
             {COMMON_MISTAKES.map(({ icon, title, desc }) => (
               <div key={title} className="flex gap-4 p-4 rounded-xl border bg-card">
@@ -650,8 +650,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── COMPARISON ───────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Pixocraft vs Other Signature Tools</h2>
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -677,8 +677,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div
@@ -708,8 +708,8 @@ export default function SignatureInGoogleDocs() {
         </section>
 
         {/* ── INTERNAL LINKS ───────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Related Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Related Signature Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {INTERNAL_LINKS.map(({ href, label }) => (
               <Link key={href} href={href}>

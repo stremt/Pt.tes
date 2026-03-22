@@ -191,7 +191,7 @@ export default function HowToSignPdfOnMobile() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
@@ -201,13 +201,13 @@ export default function HowToSignPdfOnMobile() {
         ]} />
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Smartphone className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Sign PDF on Mobile Free – Android & iPhone (2026 Guide)
               </h1>
               <p className="text-sm text-muted-foreground">Free · No App Download · Android + iPhone · GST on the Go · Aadhaar Ready</p>
@@ -264,11 +264,11 @@ export default function HowToSignPdfOnMobile() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ───────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Why mobile PDF signing */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Signing PDF on Mobile is Essential in 2026 India</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Signing PDF on Mobile is Essential in 2026 India</h2>
             <p className="text-muted-foreground mb-4">
               India's mobile-first workforce doesn't wait for a laptop. Delivery agents, sales teams, field executives, freelancers, and small shop owners need to sign documents on the spot — and send them immediately.
             </p>
@@ -279,7 +279,7 @@ export default function HowToSignPdfOnMobile() {
                 { icon: <Globe className="h-5 w-5 text-primary" />, title: "Works with Vyapar & ClearTax", desc: "Export invoice PDFs from Vyapar, Busy, or ClearTax mobile apps and sign them instantly in Pixocraft's tool." },
                 { icon: <CloudUpload className="h-5 w-5 text-primary" />, title: "Google Drive Integration", desc: "Select PDFs directly from Google Drive and upload signed files back — fully cloud-native mobile workflow." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -292,9 +292,9 @@ export default function HowToSignPdfOnMobile() {
 
           {/* 3 ways */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">3 Easy Ways to Sign PDF on Mobile</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">3 Easy Ways to Sign PDF on Mobile</h2>
             <p className="text-muted-foreground mb-5">Choose the method that suits your situation:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 {
                   icon: <PenTool className="h-5 w-5 text-primary" />,
@@ -332,7 +332,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Step-by-step */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Exact 5 Steps: How to Sign PDF on Mobile Free (2026)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Exact 5 Steps: How to Sign PDF on Mobile Free (2026)</h2>
             <p className="text-muted-foreground mb-5">Complete walkthrough — from opening the tool to sharing the signed PDF on WhatsApp:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -360,7 +360,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Android vs iPhone */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Android vs iPhone — Mobile PDF Signing Comparison 2026</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Android vs iPhone — Mobile PDF Signing Comparison 2026</h2>
             <p className="text-muted-foreground mb-5">Pixocraft works identically on both platforms — here is a quick feature comparison:</p>
             <div className="overflow-x-auto rounded-xl border mb-5">
               <table className="w-full text-sm min-w-[440px]">
@@ -383,8 +383,8 @@ export default function HowToSignPdfOnMobile() {
                   ].map(({ feature, android, iphone }) => (
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{android}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{iphone}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{android}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{iphone}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -394,11 +394,11 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Real examples */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Real Examples — Where Indians Sign PDF on Mobile Daily</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Real Examples — Where Indians Sign PDF on Mobile Daily</h2>
             <p className="text-muted-foreground mb-5">Situations where mobile PDF signing saves real time and effort:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {REAL_EXAMPLES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -411,8 +411,8 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Legal validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Is Signing PDF on Mobile Legal in India?</h2>
-            <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Is Signing PDF on Mobile Legal in India?</h2>
+            <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 Haan, bilkul legal hai. Information Technology Act 2000 ke under mobile pe banaya gaya digital signature PDF mein <strong>legally valid</strong> maana jata hai — GST invoices, contracts, bank forms, aur government documents ke liye.
               </p>
@@ -451,7 +451,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing PDFs on Mobile</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing PDFs on Mobile</h2>
             <p className="text-muted-foreground mb-5">Avoid these to get a clean, professional result on your first try:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -468,7 +468,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Pro tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">2026 Pro Tips for Mobile PDF Signing</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">2026 Pro Tips for Mobile PDF Signing</h2>
             <p className="text-muted-foreground mb-5">Power-user habits that save hours every month:</p>
             <div className="space-y-3">
               {TIPS.map(({ title, body }) => (
@@ -485,7 +485,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Pixocraft is the Best Tool to Sign PDF on Mobile?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Pixocraft is the Best Tool to Sign PDF on Mobile?</h2>
             <p className="text-muted-foreground mb-5">
               Other guides recommend app downloads, paid subscriptions, or desktop software. Pixocraft works directly in your phone's browser — zero installation, zero cost, perfect touch experience built for Indian users on every network.
             </p>
@@ -495,7 +495,7 @@ export default function HowToSignPdfOnMobile() {
                 { icon: <Wifi className="h-5 w-5 text-primary" />, title: "Works on Jio & Slow Networks", desc: "Lightweight tool loads fast even on 4G or slow Wi-Fi. Once loaded, works fully offline — network drops don't interrupt signing." },
                 { icon: <Battery className="h-5 w-5 text-primary" />, title: "IT Act Compliant", desc: "Mobile-created signatures are valid under IT Act 2000 for GST invoices, contracts, and Aadhaar-linked documents." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -508,7 +508,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Guides & Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Guides & Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: "How to Sign PDF Online", href: "/tools/how-to-sign-pdf-online", desc: "Full guide for signing PDFs online — desktop and mobile." },
@@ -533,7 +533,7 @@ export default function HowToSignPdfOnMobile() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-2">
               {FAQS.map(({ question, answer }, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -559,7 +559,7 @@ export default function HowToSignPdfOnMobile() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <Smartphone className="h-10 w-10 text-primary mx-auto mb-3" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Sign PDF on Your Phone?</h2>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">

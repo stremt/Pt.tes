@@ -165,7 +165,7 @@ export default function SignatureForGstInvoice() {
         <StructuredData key={i} schema={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ──────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -179,13 +179,13 @@ export default function SignatureForGstInvoice() {
         />
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
             Signature for GST Invoice –{" "}
             <span className="text-primary">Create &amp; Download PNG</span>{" "}
             (Free, No Signup)
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create your authorised signatory signature online and add it to GST invoices in
             TallyPrime, Zoho Books, Vyapar, Marg ERP, or any PDF — in under 2 minutes. 100%
             free, no login, no watermark.
@@ -213,9 +213,9 @@ export default function SignatureForGstInvoice() {
         </div>
 
         {/* ── FEATURED SNIPPET ────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">What signature is required for a GST invoice?</h2>
+          <h2 className="text-base sm:text-lg font-bold text-foreground">What signature is required for a GST invoice?</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
             As per <strong>Rule 46 of the CGST Rules, 2017</strong>, a GST invoice must include the
             <strong> signature or digital signature of the authorised signatory</strong>. For printed
@@ -245,7 +245,7 @@ export default function SignatureForGstInvoice() {
         {/* ── IDEAL SIGNATURE SIZE ────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
               Signature Size for GST Invoice (Best Dimensions)
             </h2>
             <p className="text-muted-foreground">
@@ -254,7 +254,7 @@ export default function SignatureForGstInvoice() {
             </p>
           </div>
 
-          <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5">
+          <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5">
             <p className="text-sm text-muted-foreground leading-relaxed">
               The ideal signature size for GST invoices is between <strong>150 px to 300 px width</strong> on-screen,
               with a <strong>transparent PNG format</strong>. This ensures clarity in printed invoices and
@@ -284,7 +284,7 @@ export default function SignatureForGstInvoice() {
                   <tr key={spec} className="hover:bg-muted/30 transition-colors">
                     <td className="px-5 py-3.5 font-medium text-foreground">{spec}</td>
                     <td className="px-5 py-3.5 text-primary font-semibold">{val}</td>
-                    <td className="px-5 py-3.5 text-muted-foreground">{why}</td>
+                    <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{why}</td>
                   </tr>
                 ))}
               </tbody>
@@ -295,7 +295,7 @@ export default function SignatureForGstInvoice() {
         {/* ── GST REQUIREMENTS ────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">GST Invoice Signature Requirements</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">GST Invoice Signature Requirements</h2>
             <p className="text-muted-foreground">
               Here is everything the law and CBIC guidelines say about signatures on GST invoices.
             </p>
@@ -323,7 +323,7 @@ export default function SignatureForGstInvoice() {
                 body: "If your turnover crosses the e-invoicing threshold (₹5 crore as of FY2023-24), your invoice must be registered on the IRP/NIC portal. The QR code and IRN replace the need for a physical signature on the registered copy — but the copy given to the buyer can still carry your image signature.",
               },
             ].map(({ icon, title, body }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1.5">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -337,7 +337,7 @@ export default function SignatureForGstInvoice() {
         {/* ── HOW TO ADD SIGNATURE TO GST INVOICE ─────────────────────────── */}
         <section className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
               How to Add Signature in GST Invoice
             </h2>
             <p className="text-muted-foreground">
@@ -449,7 +449,7 @@ export default function SignatureForGstInvoice() {
         {/* ── WHY USE DIGITAL SIGNATURE FOR GST ───────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Use a Digital Signature for GST Invoices</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Use a Digital Signature for GST Invoices</h2>
             <p className="text-muted-foreground">Moving from a wet signature to a reusable PNG takes 2 minutes — and saves hours every month.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -461,7 +461,7 @@ export default function SignatureForGstInvoice() {
               { icon: <Smartphone className="h-5 w-5 text-primary" />, title: "Works on Mobile", body: "Draw your signature on a smartphone or tablet. Perfect for business owners who manage invoices on the go using Vyapar or Zoho mobile apps." },
               { icon: <FileCheck className="h-5 w-5 text-primary" />, title: "GST Compliant", body: "Satisfies the Rule 46 requirement for authorised signatory on all types of GST documents: B2B tax invoices, B2C receipts, e-way bills, credit & debit notes." },
             ].map(({ icon, title, body }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1"><p className="font-semibold text-foreground">{title}</p><p className="text-sm text-muted-foreground leading-relaxed">{body}</p></div>
               </div>
@@ -473,7 +473,7 @@ export default function SignatureForGstInvoice() {
         <section className="rounded-xl border bg-primary/5 p-6 space-y-4">
           <div className="flex items-start gap-4">
             <div className="shrink-0 h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <PenTool className="h-6 w-6 text-primary" />
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-foreground">Save Once — Sign 1,000 Invoices</h2>
@@ -501,7 +501,7 @@ export default function SignatureForGstInvoice() {
         {/* ── LEGAL SECTION ────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Legal Validity of Digital Signature on GST Invoice</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Legal Validity of Digital Signature on GST Invoice</h2>
             <p className="text-muted-foreground">
               Is a PNG image signature on a GST invoice legal? Yes — here is the full legal basis.
             </p>
@@ -580,7 +580,7 @@ export default function SignatureForGstInvoice() {
         {/* ── COMMON MISTAKES ─────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes to Avoid</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes to Avoid</h2>
             <p className="text-muted-foreground">These errors can create problems during GST audits or buyer verification.</p>
           </div>
           <div className="space-y-3">
@@ -613,7 +613,7 @@ export default function SignatureForGstInvoice() {
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Needs a GST Invoice Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Needs a GST Invoice Signature?</h2>
             <p className="text-muted-foreground">Every GST-registered business issuing invoices needs an authorised signatory signature.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -649,7 +649,7 @@ export default function SignatureForGstInvoice() {
                 desc: "Chartered Accountants managing GST compliance for multiple clients can create and store clean PNG signatures for each client company in under a minute.",
               },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -677,9 +677,9 @@ export default function SignatureForGstInvoice() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
+        <section className="space-y-3">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
             <p className="text-muted-foreground">GST signature questions answered clearly — no CA jargon.</p>
           </div>
           <div className="space-y-2">

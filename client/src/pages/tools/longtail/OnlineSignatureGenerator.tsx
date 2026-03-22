@@ -116,7 +116,7 @@ function SectionLabel({ children }: { children: string }) {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>
+    <h2 className="text-xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>
   );
 }
 
@@ -181,7 +181,7 @@ export default function OnlineSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                        url: "https://tools.pixocraft.in/" },
@@ -191,8 +191,8 @@ export default function OnlineSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-10 pt-2">
-          <div className="flex items-center gap-2 mb-4">
+        <div className="mb-6 sm:mb-10 pt-1">
+          <div className="flex items-center gap-2 mb-3">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <PenTool className="h-5 w-5 text-primary" />
             </div>
@@ -221,7 +221,7 @@ export default function OnlineSignatureGenerator() {
               { icon: <Lock className="h-3.5 w-3.5 text-primary" />, label: "Save & Reuse Locally" },
               { icon: <Smartphone className="h-3.5 w-3.5 text-primary" />, label: "PDF, GST & Email Ready" },
             ].map(({ icon, label }) => (
-              <div key={label} className="flex items-center gap-2 rounded-lg bg-muted/60 border px-3 py-2">
+              <div key={label} className="flex items-center gap-1.5 rounded-lg bg-muted/60 border px-2.5 sm:px-3 py-2">
                 <span className="shrink-0">{icon}</span>
                 <span className="text-xs font-medium text-foreground leading-tight">{label}</span>
               </div>
@@ -233,14 +233,14 @@ export default function OnlineSignatureGenerator() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-20">
+        <div className="space-y-10 sm:space-y-20">
 
           {/* ── WHAT IS ── */}
           <section>
             <SectionLabel>Overview</SectionLabel>
             <SectionHeading>What is an Online Signature Generator?</SectionHeading>
 
-            <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-6">
+            <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-6">
               <p className="text-foreground font-medium leading-relaxed">
                 An <strong>online signature generator</strong> is a free tool that lets you create a digital signature by drawing,
                 typing in 50+ handwritten fonts, uploading a signature image, or using AI-generated styles —
@@ -272,7 +272,7 @@ export default function OnlineSignatureGenerator() {
             <SectionHeading>How to Create a Digital Signature Online</SectionHeading>
             <SectionSubtext>Four simple steps — done in under a minute.</SectionSubtext>
 
-            <ol className="space-y-4">
+            <ol className="space-y-3">
               {HOW_IT_WORKS_STEPS.map(({ step, title, description }) => (
                 <li key={step} className="flex gap-5 p-5 rounded-xl border bg-card">
                   <span className="shrink-0 h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">
@@ -322,7 +322,7 @@ export default function OnlineSignatureGenerator() {
                   body: "Load it again for PDF, Word, Gmail, or Tally — ready in one click.",
                 },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex flex-col gap-2 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                     {icon}
                   </div>
@@ -347,10 +347,10 @@ export default function OnlineSignatureGenerator() {
               <table className="w-full text-sm min-w-[520px]">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Method</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Best For</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Pros</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Cons</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Method</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Best For</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Pros</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Cons</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -361,10 +361,10 @@ export default function OnlineSignatureGenerator() {
                     { method: "AI",     best: "Instant styles",       pros: "Beautiful, quick, no effort",         cons: "Not truly hand-drawn" },
                   ].map(({ method, best, pros, cons }) => (
                     <tr key={method} className="hover:bg-muted/30 transition-colors">
-                      <td className="px-5 py-3.5 font-semibold text-foreground">{method}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{best}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{pros}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{cons}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">{method}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{best}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{pros}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{cons}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -399,7 +399,7 @@ export default function OnlineSignatureGenerator() {
                 { icon: <Globe className="h-4 w-4 text-primary" />,     title: "Aadhaar & Government Portals",     body: "Many portals, HR platforms, and banking forms accept image-based signatures in PNG format." },
                 { icon: <Users className="h-4 w-4 text-primary" />,     title: "HR Onboarding & Freelance Deals",  body: "Stamp your signature on offer letters or proposals to convey authority and close deals faster." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
                     {icon}
                   </div>
@@ -486,11 +486,11 @@ export default function OnlineSignatureGenerator() {
               <table className="w-full text-sm min-w-[500px]">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Feature</th>
                     <th className="text-left px-5 py-3.5 font-semibold text-primary">Pixocraft</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Signaturely</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Canva</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">DocuSign</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Signaturely</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Canva</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">DocuSign</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -523,7 +523,7 @@ export default function OnlineSignatureGenerator() {
                 { icon: <Download className="h-4 w-4 text-primary" />,   title: "3200×1040 px exports",  body: "Print-quality resolution — four times the screen size, always crisp." },
                 { icon: <Smartphone className="h-4 w-4 text-primary" />, title: "Mobile-first design",    body: "Touch-optimised drawing canvas for a natural signature on any phone or tablet." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
                     {icon}
                   </div>
@@ -553,7 +553,7 @@ export default function OnlineSignatureGenerator() {
                 { tip: "Keep a master copy",            detail: "Save your high-res PNG in a secure folder — you'll reuse it across many documents." },
                 { tip: "Test at 60–80 px height",       detail: "Preview at typical email/document size to ensure it stays readable." },
               ].map(({ tip, detail }) => (
-                <div key={tip} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={tip} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <span className="shrink-0 mt-0.5 h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center">
                     <Check className="h-3 w-3 text-primary" />
                   </span>
@@ -665,7 +665,7 @@ export default function OnlineSignatureGenerator() {
           </section>
 
           {/* ── TRUST / EEAT ── */}
-          <section className="rounded-xl border bg-muted/30 px-6 py-5 text-sm text-muted-foreground space-y-1.5">
+          <section className="rounded-xl border bg-muted/30 px-4 py-4 sm:px-6 sm:py-5 text-sm text-muted-foreground space-y-1.5">
             <p><strong className="text-foreground">Author:</strong> Pixocraft Team</p>
             <p><strong className="text-foreground">Last Updated:</strong> {LAST_UPDATED}</p>
             <p><strong className="text-foreground">Made in India</strong> — Built with privacy-first principles. Your data never leaves your browser.</p>

@@ -216,7 +216,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
       <StructuredData data={howToSchema} />
       <StructuredData data={softwareSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
@@ -226,13 +226,13 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Shield className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Online Signature Generator Without Upload (100% Private)
               </h1>
               <p className="text-sm text-muted-foreground">Create your signature without uploading any files. Fully private, secure, and works directly in your browser.</p>
@@ -276,14 +276,14 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
+        <div id="tool" className="mb-6 sm:mb-12">
           <SignatureToolSection
             caption="No upload · No login · No watermark · Transparent PNG · 100% private"
           />
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Keyword-rich intro */}
           <p className="text-muted-foreground text-base leading-relaxed -mt-8">
@@ -292,7 +292,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Why no upload matters */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Choose a Signature Generator Without Upload?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why Choose a Signature Generator Without Upload?</h2>
             <p className="text-muted-foreground mb-5">
               Uploading your signature to any server — even a reputable one — creates privacy and security risks that simply do not need to exist. Here is why <strong>no-upload signature creation</strong> is the right choice:
             </p>
@@ -319,7 +319,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
                   desc: "Upload tools are slow — your file must travel to a server, be processed, and travel back. A no-upload tool renders your signature instantly on your local hardware, giving you a result in milliseconds rather than seconds.",
                 },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground">{title}</p>
@@ -332,7 +332,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* How to create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Signature Without Uploading Files</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Signature Without Uploading Files</h2>
             <p className="text-muted-foreground mb-5">Four steps, under 30 seconds, zero server interaction:</p>
             <ol className="space-y-3 mb-6">
               {HOW_TO_STEPS.map(({ step, title, desc }) => (
@@ -354,7 +354,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* How the tool works */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">How This Tool Works (No Server, No Upload)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">How This Tool Works (No Server, No Upload)</h2>
             <p className="text-muted-foreground mb-5">
               Understanding how Pixocraft works explains why it is genuinely private — not just a marketing claim:
             </p>
@@ -394,13 +394,13 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Features of This No-Upload Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Features of This No-Upload Signature Generator</h2>
             <p className="text-muted-foreground mb-5">
               Every feature works without uploading anything — no exceptions, no hidden requirements:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FEATURES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -413,13 +413,13 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Types of signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Types of Signature You Can Create Without Uploading</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Types of Signature You Can Create Without Uploading</h2>
             <p className="text-muted-foreground mb-5">
               All styles are available without uploading any file to a server:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {SIGNATURE_TYPES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -432,7 +432,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Best format */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Best Format to Download Your Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Best Format to Download Your Signature</h2>
             <p className="text-muted-foreground mb-5">
               The format you choose affects how your signature looks when placed on documents, PDFs, or emails:
             </p>
@@ -482,10 +482,10 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Use cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Where Can You Use Your Downloaded Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Where Can You Use Your Downloaded Signature?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -498,8 +498,8 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Privacy & security */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Privacy &amp; Security — How Your Data Is Protected</h2>
-            <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Privacy &amp; Security — How Your Data Is Protected</h2>
+            <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 Your signature is created entirely inside your browser. No file, image, drawing stroke, or personal data is ever sent to Pixocraft's servers — or any server.
               </p>
@@ -531,7 +531,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Upload-Based Signature Generators</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pixocraft vs Upload-Based Signature Generators</h2>
             <p className="text-muted-foreground mb-5">
               Most signature tools send your data to a server for processing. Here is how Pixocraft's no-upload approach compares:
             </p>
@@ -558,7 +558,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 font-semibold text-primary">{pixo}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{others}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{others}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -568,7 +568,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
             <p className="text-muted-foreground mb-5">
               Need a no-login option instead? Try our{" "}
               <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">free signature generator with no login</Link>
@@ -598,7 +598,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-2">
               {FAQS.map(({ question, answer }, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -624,7 +624,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <Shield className="h-10 w-10 text-primary mx-auto mb-3" />
             <h2 className="text-xl font-bold text-foreground mb-2">Create Your Signature Now — No Upload, No Server, 100% Private</h2>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">

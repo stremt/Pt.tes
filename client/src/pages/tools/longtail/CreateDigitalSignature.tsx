@@ -234,7 +234,7 @@ export default function CreateDigitalSignature() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         {/* Breadcrumb */}
         <Breadcrumb items={[
@@ -245,13 +245,13 @@ export default function CreateDigitalSignature() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Create Digital Signature Online Free (No Signup, Instant PNG)
               </h1>
               <p className="text-sm text-muted-foreground mt-0.5">Free · No Login · 100% Private · Works Offline</p>
@@ -328,11 +328,11 @@ export default function CreateDigitalSignature() {
         </section>
 
         {/* ── SEO CONTENT ────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is a Digital Signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-3">What is a Digital Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">What is a Digital Signature?</h2>
             <p className="text-muted-foreground mb-4">
               A <strong>digital signature</strong> is an electronic representation of your consent or approval on a document.
               In everyday use, it refers to a visual image of your handwritten signature that you can insert into PDFs, invoices,
@@ -353,7 +353,7 @@ export default function CreateDigitalSignature() {
 
           {/* Types of Signatures — CRITICAL TABLE */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Types of Digital Signatures Explained</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Types of Digital Signatures Explained</h2>
             <p className="text-muted-foreground mb-5">
               This is the most important thing to understand. There are <strong>three types</strong> of signatures used in
               digital documents — they are very different and used in different situations:
@@ -383,8 +383,8 @@ export default function CreateDigitalSignature() {
                     <tr key={aspect} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{aspect}</td>
                       <td className="px-5 py-3.5 text-primary font-medium">{esig}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{dsc}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{otp}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{dsc}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{otp}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -400,7 +400,7 @@ export default function CreateDigitalSignature() {
 
           {/* How to Create Steps */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Five steps. Done in under 60 seconds. No download, no software, no account.</p>
             <ol className="space-y-3">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -454,7 +454,7 @@ export default function CreateDigitalSignature() {
 
           {/* Where to Use */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where Can You Use a Digital Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where Can You Use a Digital Signature?</h2>
             <p className="text-muted-foreground mb-5">
               Once you've created your transparent PNG signature, you can instantly use it across all of these:
             </p>
@@ -467,7 +467,7 @@ export default function CreateDigitalSignature() {
                 { icon: <Users className="h-4 w-4 text-primary" />, title: "HR Documents", body: "Offer letters, appointment orders, experience certificates, appraisal letters — sign and send instantly. No printing, no scanning." },
                 { icon: <Globe className="h-4 w-4 text-primary" />, title: "International Contracts", body: "Valid in the US (ESIGN Act), EU (eIDAS Simple Electronic Signature), and most countries for standard commercial agreements between private parties." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -480,7 +480,7 @@ export default function CreateDigitalSignature() {
 
           {/* Save & Reuse — USP */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Save Your Signature Once — Reuse It Forever</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Save Your Signature Once — Reuse It Forever</h2>
             <p className="text-muted-foreground mb-5">
               One of the biggest advantages of a digital signature is that you create it once and use it thousands of times —
               no reprinting, no rescanning, no reuploading.
@@ -526,7 +526,7 @@ export default function CreateDigitalSignature() {
 
           {/* Use Cases by User Type */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Uses This Digital Signature Tool?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Uses This Digital Signature Tool?</h2>
             <p className="text-muted-foreground mb-5">
               Pixocraft's free digital signature creator is used by millions of people across India and globally:
             </p>
@@ -552,7 +552,7 @@ export default function CreateDigitalSignature() {
 
           {/* Legal Section */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Legal Validity — India & Global</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Legal Validity — India & Global</h2>
             <p className="text-muted-foreground mb-5">
               An electronic signature image (PNG) created with this tool is legally recognised in India and most countries worldwide:
             </p>
@@ -610,7 +610,7 @@ export default function CreateDigitalSignature() {
 
           {/* Why Pixocraft vs Competitors */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft vs DocuSign, Adobe Sign & Others?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft vs DocuSign, Adobe Sign & Others?</h2>
             <p className="text-muted-foreground mb-5">
               Most digital signature tools are built for enterprises — they require accounts, charge per document, and collect your data.
               Pixocraft is built differently:
@@ -659,21 +659,21 @@ export default function CreateDigitalSignature() {
 
           {/* Trust Section */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why You Can Trust Pixocraft</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Why You Can Trust Pixocraft</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 {
-                  icon: <Shield className="h-6 w-6 text-primary" />,
+                  icon: <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
                   title: "Zero data collection",
                   body: "Your signature is processed entirely in your browser using HTML5 Canvas. Nothing is sent to any server — ever. We have no way to see your signature even if we wanted to.",
                 },
                 {
-                  icon: <Star className="h-6 w-6 text-primary" />,
+                  icon: <Star className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
                   title: "Free without strings",
                   body: "No trial period, no credit card, no hidden upgrade prompts. Every feature — including high-resolution PNG export, all 50+ fonts, and the Upload background remover — is free.",
                 },
                 {
-                  icon: <Globe className="h-6 w-6 text-primary" />,
+                  icon: <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />,
                   title: "Made in India",
                   body: "Built for Indian users, Indian workflows (GST, HR, IT Act), and Indian privacy expectations. Your data is yours — no cloud sync, no account, no risk.",
                 },
@@ -689,7 +689,7 @@ export default function CreateDigitalSignature() {
 
           {/* Internal Links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">More Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">More Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { href: "/tools/signature-pad-tool", title: "Signature Generator", desc: "The main tool — full features, all options, advanced controls." },
@@ -729,7 +729,7 @@ export default function CreateDigitalSignature() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

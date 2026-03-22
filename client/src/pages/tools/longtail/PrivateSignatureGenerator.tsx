@@ -258,7 +258,7 @@ export default function PrivateSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
@@ -269,13 +269,13 @@ export default function PrivateSignatureGenerator() {
         ]} />
 
         {/* ── HERO ───────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Shield className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Private Signature Generator (100% Secure &amp; Safe)
               </h1>
               <p className="text-sm text-muted-foreground">
@@ -335,15 +335,15 @@ export default function PrivateSignatureGenerator() {
         </div>
 
         {/* ── TOOL ───────────────────────────────────────────────── */}
-        <div id="tool" className="mb-10">
+        <div id="tool" className="mb-6 sm:mb-10">
           <SignatureToolSection
             caption="Private · No upload · No data stored · No login · Transparent PNG"
           />
         </div>
 
         {/* ── WHY PRIVACY MATTERS ─────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Why Privacy Matters When Creating a Signature</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Privacy Matters When Creating a Signature</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Your signature is one of the most sensitive pieces of personal data you have. Here's why you should
             never use a tool that uploads it to a server:
@@ -380,15 +380,15 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── HOW IT WORKS ────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How This Private Signature Tool Works
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Understanding the technical reason this tool is private — no trust-me policy required:
           </p>
           <div className="rounded-xl border bg-card p-6 mb-5">
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 {
                   icon: <Wifi className="h-5 w-5 text-primary" />,
@@ -434,8 +434,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── HOW TO ─────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             How to Create a Signature Privately Online
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -457,8 +457,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── SECURITY FEATURES ───────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Security Features</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Security Features</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Every feature of this tool is built around one principle: your data never leaves your device.
           </p>
@@ -524,8 +524,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── USE CASES ──────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             When to Use a Private Signature Generator
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -547,11 +547,11 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── BEST FORMAT ────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-4">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">
             Best Format for a Private Signature
           </h2>
-          <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-4">
+          <div className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-4 sm:px-6 sm:py-5 mb-4">
             <div className="flex items-center gap-2 mb-2">
               <BadgeCheck className="h-5 w-5 text-primary" />
               <p className="font-semibold text-foreground">PNG with transparent background — recommended</p>
@@ -582,8 +582,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── COMPARISON ─────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
             Pixocraft vs. Other Signature Tools — Privacy Comparison
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
@@ -609,8 +609,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
           <p className="text-muted-foreground mb-5 text-sm">
             Privacy and security questions answered about this private signature generator.
           </p>
@@ -641,8 +641,8 @@ export default function PrivateSignatureGenerator() {
         </section>
 
         {/* ── INTERNAL LINKS ────────────────────────────────────── */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
+        <section className="mb-6 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Related Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
             Need a different angle? Explore other Pixocraft signature tools — each built with the same
             zero-upload, zero-storage architecture.

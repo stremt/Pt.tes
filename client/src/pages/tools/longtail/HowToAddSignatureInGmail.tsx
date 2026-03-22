@@ -209,7 +209,7 @@ export default function HowToAddSignatureInGmail() {
       <StructuredData data={howToSchema} />
       <StructuredData data={softwareSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
@@ -219,13 +219,13 @@ export default function HowToAddSignatureInGmail() {
         ]} />
 
         {/* ── HERO ────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Mail className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Add Signature in Gmail (Step-by-Step Guide)
               </h1>
               <p className="text-sm text-muted-foreground">Create and add a professional signature in Gmail easily. Covers desktop and mobile. Free tool, no login.</p>
@@ -287,7 +287,7 @@ export default function HowToAddSignatureInGmail() {
         </div>
 
         {/* ── TOOL ────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
+        <div id="tool" className="mb-6 sm:mb-12">
           <SignatureToolSection
             title="Create Your Gmail Signature"
             description="Draw, type, or upload your signature — download as a transparent PNG ready to insert into Gmail."
@@ -295,7 +295,7 @@ export default function HowToAddSignatureInGmail() {
         </div>
 
         {/* ── SEO CONTENT ─────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* Keyword-rich intro paragraph */}
           <p className="text-muted-foreground text-base leading-relaxed -mt-8">
@@ -304,7 +304,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* What is a Gmail signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Gmail Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Gmail Signature?</h2>
             <p className="text-muted-foreground mb-4">
               A Gmail signature is a block of text — and optionally an image — that is automatically appended to the bottom of every email you send. It acts as a digital business card, giving recipients all the information they need to identify and contact you.
             </p>
@@ -331,7 +331,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* How to create with tool */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">How to Create a Gmail Signature Image (Using Pixocraft)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">How to Create a Gmail Signature Image (Using Pixocraft)</h2>
             <p className="text-muted-foreground mb-5">
               Before adding a signature image to Gmail, you need to create one. Use the free tool above — it takes under 60 seconds:
             </p>
@@ -355,7 +355,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Desktop guide */}
           <section id="desktop">
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add Signature in Gmail — Desktop (Step-by-Step)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add Signature in Gmail — Desktop (Step-by-Step)</h2>
             <p className="text-muted-foreground mb-5">
               Setting up a <strong>Gmail signature</strong> on desktop takes about 2 minutes. Follow these steps exactly:
             </p>
@@ -419,7 +419,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Mobile guide */}
           <section id="mobile">
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add Signature in Gmail App (Mobile)</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add Signature in Gmail App (Mobile)</h2>
             <p className="text-muted-foreground mb-5">
               The Gmail mobile app has a separate signature setting from the desktop version. The steps differ slightly between Android and iPhone:
             </p>
@@ -462,7 +462,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Image signature */}
           <section id="image">
-            <h2 className="text-2xl font-bold text-foreground mb-4">How to Add an Image Signature in Gmail</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">How to Add an Image Signature in Gmail</h2>
             <p className="text-muted-foreground mb-5">
               Adding an image or logo to your <strong>Gmail signature</strong> makes it look polished and professional. Here is the exact process:
             </p>
@@ -490,7 +490,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Best format */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Best Format for a Gmail Signature Image</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Best Format for a Gmail Signature Image</h2>
             <p className="text-muted-foreground mb-5">Not all image formats work equally well in Gmail. Here is what to use:</p>
             <div className="space-y-4 mb-5">
               {[
@@ -555,10 +555,10 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Use cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Who Should Add a Gmail Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Who Should Add a Gmail Signature?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -571,7 +571,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Save & Reuse */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Save &amp; Reuse Your Signature — No Login Needed</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Save &amp; Reuse Your Signature — No Login Needed</h2>
             <p className="text-muted-foreground mb-5">
               Once you create your signature PNG with Pixocraft, you can save it to your device and reuse it across Gmail, Outlook, Word, and any other platform — without recreating it each time.
             </p>
@@ -581,7 +581,7 @@ export default function HowToAddSignatureInGmail() {
                 { icon: <RefreshCw className="h-5 w-5 text-primary" />, title: "Reuse Anytime", desc: "Save the PNG to your device and upload it wherever you need — Gmail, Outlook, Word, and more." },
                 { icon: <Shield className="h-5 w-5 text-primary" />, title: "100% Private", desc: "Your signature is created locally in your browser. Nothing is stored on our servers." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -594,7 +594,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Common issues */}
           <section id="issues">
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Gmail Signature Issues — and How to Fix Them</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Gmail Signature Issues — and How to Fix Them</h2>
             <p className="text-muted-foreground mb-5">These are the most frequent problems users encounter when setting up a Gmail signature, with their exact fixes:</p>
             <div className="space-y-3">
               {COMMON_ISSUES.map(({ issue, fix }) => (
@@ -614,7 +614,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Creation Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Pixocraft vs Other Signature Creation Tools</h2>
             <div className="overflow-x-auto rounded-xl border mb-4">
               <table className="w-full text-sm min-w-[520px]">
                 <thead>
@@ -638,9 +638,9 @@ export default function HowToAddSignatureInGmail() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 font-semibold text-primary">{pixo}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{hub}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{canva}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{wise}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{hub}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{canva}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{wise}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -650,7 +650,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
                 { label: "Signature Generator", href: "/tools/signature-pad-tool", desc: "Full-featured signature pad — draw, type, or upload your signature." },
@@ -673,7 +673,7 @@ export default function HowToAddSignatureInGmail() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
             <div className="space-y-2">
               {FAQS.map(({ question, answer }, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">
@@ -699,7 +699,7 @@ export default function HowToAddSignatureInGmail() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 border-primary/20 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <Mail className="h-10 w-10 text-primary mx-auto mb-3" />
             <h2 className="text-xl font-bold text-foreground mb-2">Create Your Gmail Signature Now</h2>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">

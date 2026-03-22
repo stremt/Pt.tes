@@ -176,7 +176,7 @@ export default function SignatureFontGenerator() {
         <StructuredData key={i} schema={schema} />
       ))}
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-4xl mx-auto px-4 py-5 sm:py-8 space-y-6 sm:space-y-10">
 
         {/* ── BREADCRUMB ───────────────────────────────────────────────────── */}
         <Breadcrumb
@@ -189,10 +189,10 @@ export default function SignatureFontGenerator() {
         />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Type className="h-6 w-6 text-primary" />
+        <div className="space-y-3">
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="h-9 w-9 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Type className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature Font Generator –{" "}
@@ -200,7 +200,7 @@ export default function SignatureFontGenerator() {
               for Name (Free)
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a stylish signature using <strong>cursive and calligraphy fonts</strong>.
             Choose from <strong>50+ signature fonts</strong>, preview your name instantly, and download as a transparent PNG.
             No login required — 100% private and free.
@@ -225,9 +225,9 @@ export default function SignatureFontGenerator() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
+        <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
-          <h2 className="text-lg font-bold text-foreground">
+          <h2 className="text-base sm:text-lg font-bold text-foreground">
             How do I create a stylish signature using fonts?
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -259,7 +259,7 @@ export default function SignatureFontGenerator() {
         {/* ── FONT EXAMPLES ────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
               Popular Signature Font Styles — Live Preview
             </h2>
             <p className="text-muted-foreground">
@@ -294,9 +294,9 @@ export default function SignatureFontGenerator() {
         </section>
 
         {/* ── WHAT IS ──────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">What is a Signature Font Generator?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">What is a Signature Font Generator?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5">
             <p className="text-foreground font-medium">
               A <strong>signature font generator</strong> allows you to create stylish handwritten signatures using
               cursive and calligraphy fonts. Type your name, choose a font, and download your signature as a
@@ -319,9 +319,9 @@ export default function SignatureFontGenerator() {
         </section>
 
         {/* ── WHICH FONT IS BEST (visible FAQ answer for Google) ───────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Which Font is Best for Signature?</h2>
-          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Which Font is Best for Signature?</h2>
+          <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 space-y-3">
             <p className="text-muted-foreground leading-relaxed">
               <strong>Cursive and calligraphy fonts are best</strong> because they look natural and professional —
               closely replicating the feel of ink on paper. For formal documents, contracts, and GST invoices,
@@ -345,8 +345,8 @@ export default function SignatureFontGenerator() {
         </section>
 
         {/* ── HOW TO ───────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Create Signature Using Fonts</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">How to Create Signature Using Fonts</h2>
           <p className="text-muted-foreground">Step by step — done in under 60 seconds.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -364,12 +364,12 @@ export default function SignatureFontGenerator() {
         {/* ── FEATURES ─────────────────────────────────────────────────────── */}
         <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features</h2>
             <p className="text-muted-foreground">Everything you need to create a professional cursive signature — free.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -382,10 +382,10 @@ export default function SignatureFontGenerator() {
 
         {/* ── USE CASES ────────────────────────────────────────────────────── */}
         <section className="space-y-5">
-          <h2 className="text-2xl font-bold text-foreground">Where to Use Your Font Signature</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Where to Use Your Font Signature</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {USE_CASES.map(({ icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+              <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                 <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                 <div className="space-y-1">
                   <p className="font-semibold text-foreground">{title}</p>
@@ -397,8 +397,8 @@ export default function SignatureFontGenerator() {
         </section>
 
         {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {FAQS.map((faq, i) => (
               <div
@@ -428,8 +428,8 @@ export default function SignatureFontGenerator() {
         </section>
 
         {/* ── RELATED TOOLS ────────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Related Signature Tools</h2>
+        <section className="space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-foreground">Related Signature Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {SIGNATURE_CATEGORY_LINKS.map(({ href, label }) => (
               <Link key={href} href={href}>

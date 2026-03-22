@@ -204,7 +204,7 @@ export default function EmailSignatureMaker() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                url: "https://tools.pixocraft.in/" },
           { label: "Tools",              url: "/tools" },
@@ -213,13 +213,13 @@ export default function EmailSignatureMaker() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Mail className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Email Signature Maker Free – Professional Signature for Gmail &amp; Outlook
               </h1>
               <p className="text-sm text-muted-foreground">Works with Gmail &amp; Outlook · No Signup · 100% Private · Instant PNG</p>
@@ -283,7 +283,7 @@ export default function EmailSignatureMaker() {
         <SignatureToolSection />
 
         {/* ── QUICK USE BLOCK ──────────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">
+        <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-12">
           <p className="font-semibold text-foreground mb-3">Use your email signature for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -303,12 +303,12 @@ export default function EmailSignatureMaker() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is Email Signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is an Email Signature?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is an Email Signature?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 An <strong>email signature</strong> is the block of text, images, and contact information that appears
                 automatically at the bottom of every email you send. It serves as your digital business card — providing
@@ -341,7 +341,7 @@ export default function EmailSignatureMaker() {
 
           {/* Why email signature is important */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why a Professional Email Signature Matters</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why a Professional Email Signature Matters</h2>
             <p className="text-muted-foreground mb-5">
               In business communication, first impressions happen through email before they happen in person. Here is why a
               professional email signature is worth investing 30 seconds in:
@@ -355,7 +355,7 @@ export default function EmailSignatureMaker() {
                 { icon: <Briefcase className="h-5 w-5 text-primary" />,  title: "Professionalism by default",  desc: "Even a simple, well-designed signature elevates the tone of casual emails. It signals respect for the recipient and attention to the details of professional communication." },
                 { icon: <Zap className="h-5 w-5 text-primary" />,        title: "Set once, use forever",       desc: "Configure your email signature once in Gmail or Outlook and it appears on every email automatically — zero additional effort for maximum ongoing benefit." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -368,7 +368,7 @@ export default function EmailSignatureMaker() {
 
           {/* How to Create */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Professional Email Signature — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Professional Email Signature — Step by Step</h2>
             <p className="text-muted-foreground mb-5">From creation to live in Gmail or Outlook in under 2 minutes:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -394,7 +394,7 @@ export default function EmailSignatureMaker() {
 
           {/* Gmail Setup */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add a Signature in Gmail — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add a Signature in Gmail — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Once you have downloaded your PNG from Pixocraft, adding it to Gmail takes about 60 seconds:</p>
             <ol className="space-y-3 mb-5">
               {[
@@ -417,7 +417,7 @@ export default function EmailSignatureMaker() {
 
           {/* Outlook Setup */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Add a Signature in Outlook — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Add a Signature in Outlook — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Adding your PNG email signature to Outlook desktop or Outlook web:</p>
             <div className="space-y-4 mb-5">
               <div className="rounded-xl border bg-card p-5">
@@ -459,7 +459,7 @@ export default function EmailSignatureMaker() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features of Pixocraft's Email Signature Maker</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features of Pixocraft's Email Signature Maker</h2>
             <p className="text-muted-foreground mb-5">Everything you need to create a professional email signature in seconds:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -472,7 +472,7 @@ export default function EmailSignatureMaker() {
                 { icon: <Zap className="h-5 w-5 text-primary" />,       title: "Instant — no waiting",        desc: "No server processing, no upload spinner. Create and download your signature entirely in your browser in under 30 seconds." },
                 { icon: <Shield className="h-5 w-5 text-primary" />,    title: "Zero data storage",           desc: "Your signature never leaves your device. 100% browser-based — no account, no server upload, no privacy risk." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -485,7 +485,7 @@ export default function EmailSignatureMaker() {
 
           {/* PNG vs HTML comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Email Signature PNG vs HTML — Which Should You Use?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Email Signature PNG vs HTML — Which Should You Use?</h2>
             <p className="text-muted-foreground mb-5">
               Two approaches to email signatures, each with distinct advantages. Here is a direct comparison to help you decide:
             </p>
@@ -503,7 +503,7 @@ export default function EmailSignatureMaker() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 text-primary/80 font-medium">{png}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{html}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{html}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -521,9 +521,9 @@ export default function EmailSignatureMaker() {
 
           {/* Signature Styles */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Email Signature Styles — Which One Fits You?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Email Signature Styles — Which One Fits You?</h2>
             <p className="text-muted-foreground mb-5">Different industries and roles call for different signature aesthetics:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {SIGNATURE_STYLES.map(({ name, desc, when }) => (
                 <div key={name} className="rounded-xl border bg-card p-5">
                   <div className="flex items-center gap-2 mb-2">
@@ -538,11 +538,11 @@ export default function EmailSignatureMaker() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Uses Email Signatures — Real Use Cases</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Uses Email Signatures — Real Use Cases</h2>
             <p className="text-muted-foreground mb-5">An email signature serves professionals across every industry and role:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -555,7 +555,7 @@ export default function EmailSignatureMaker() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Email Signature Mistakes to Avoid</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Email Signature Mistakes to Avoid</h2>
             <p className="text-muted-foreground mb-5">These errors undermine professionalism and reduce the effectiveness of your email signature:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -574,7 +574,7 @@ export default function EmailSignatureMaker() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for a Perfect Professional Email Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for a Perfect Professional Email Signature</h2>
             <p className="text-muted-foreground mb-5">Best practices used by professionals and business email experts:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -593,7 +593,7 @@ export default function EmailSignatureMaker() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft for Your Email Signature?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft for Your Email Signature?</h2>
             <p className="text-muted-foreground mb-5">What makes this the best free email signature maker for professionals:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -604,7 +604,7 @@ export default function EmailSignatureMaker() {
                 { icon: <Smartphone className="h-4 w-4 text-primary" />, title: "Works on any device",        body: "Create your email signature from a phone, tablet, or desktop. Full touch support for mobile drawing." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />, title: "Completely free",            body: "No freemium, no watermark, no hidden upgrade. Draw, type, upload, and download — all fully free forever." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -626,7 +626,7 @@ export default function EmailSignatureMaker() {
 
           {/* Internal linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete Signature Workflow — Related Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Complete Signature Workflow — Related Tools</h2>
             <p className="text-muted-foreground mb-4">
               After creating your email signature, use these tools to complete your professional signature workflow:
             </p>
@@ -653,7 +653,7 @@ export default function EmailSignatureMaker() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Email Signature Maker</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Email Signature Maker</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

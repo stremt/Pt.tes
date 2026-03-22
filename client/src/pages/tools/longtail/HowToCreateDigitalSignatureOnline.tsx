@@ -211,7 +211,7 @@ export default function HowToCreateDigitalSignatureOnline() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                               url: "https://tools.pixocraft.in/" },
           { label: "Tools",                             url: "/tools" },
@@ -220,13 +220,13 @@ export default function HowToCreateDigitalSignatureOnline() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Create Digital Signature Online Free (Step-by-Step Guide)
               </h1>
               <p className="text-sm text-muted-foreground">60 Seconds · No Signup · Works on Mobile · GST &amp; Contract Ready</p>
@@ -234,7 +234,7 @@ export default function HowToCreateDigitalSignatureOnline() {
           </div>
 
           {/* Snippet-optimised answer */}
-          <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-5">
+          <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-5">
             <p className="text-foreground font-medium leading-relaxed">
               You can create a digital signature online in <strong>under 60 seconds</strong> by drawing, typing, or uploading
               your signature and downloading it as a <strong>transparent PNG</strong> — no login, no software, no cost. The
@@ -301,12 +301,12 @@ export default function HowToCreateDigitalSignatureOnline() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is Digital Signature */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Digital Signature?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Digital Signature?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A <strong>digital signature</strong> is an electronic representation of your handwritten signature — used
                 to authenticate documents, confirm agreement to contracts, and verify that a document was signed by the
@@ -336,13 +336,13 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Step-by-step guide */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online Free — Complete Step-by-Step Guide</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Digital Signature Online Free — Complete Step-by-Step Guide</h2>
             <p className="text-muted-foreground mb-5">
               Follow these six steps to create, customise, and download your digital signature. Total time: under 60 seconds.
             </p>
             <ol className="space-y-4 mb-6">
               {SIX_STEPS.map(({ n, title, desc }) => (
-                <li key={n} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <li key={n} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <span className="shrink-0 h-9 w-9 rounded-full bg-primary/10 text-primary font-bold text-sm flex items-center justify-center">{n}</span>
                   <div>
                     <p className="font-semibold text-foreground mb-1">Step {n}: {title}</p>
@@ -364,7 +364,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Comparison: PNG vs eSign vs DSC */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Digital Signature vs eSignature vs DSC — What's the Difference?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Digital Signature vs eSignature vs DSC — What's the Difference?</h2>
             <p className="text-muted-foreground mb-5">
               Three types of electronic signatures are used in Indian business and legal contexts. Understanding the
               differences helps you choose the right approach for your documents:
@@ -404,9 +404,9 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Which method */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload — Which Method Should You Choose?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload — Which Method Should You Choose?</h2>
             <p className="text-muted-foreground mb-5">Three methods for creating your digital signature online — each suited to different users and needs:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {METHODS.map(({ method, icon, when, pros, cons, tip }) => (
                 <div key={method} className="rounded-xl border bg-card p-5">
                   <div className="flex items-center gap-3 mb-2">
@@ -448,11 +448,11 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Where to Use Your Digital Signature — Real-World Use Cases</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Where to Use Your Digital Signature — Real-World Use Cases</h2>
             <p className="text-muted-foreground mb-5">A digital signature created with this tool works across every common professional document workflow:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -465,7 +465,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Legal Validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Digital Signature Created Online Legally Valid in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Digital Signature Created Online Legally Valid in India?</h2>
             <p className="text-muted-foreground mb-5">Yes — here is the complete legal framework:</p>
             <div className="space-y-4 mb-5">
               {[
@@ -500,7 +500,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Creating Digital Signatures Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Creating Digital Signatures Online</h2>
             <p className="text-muted-foreground mb-5">These are the most frequent errors that result in unprofessional or unusable digital signatures:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -519,7 +519,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Creating the Perfect Digital Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Creating the Perfect Digital Signature</h2>
             <p className="text-muted-foreground mb-5">Best practices from professionals who use digital signatures every day:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -538,7 +538,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Use Pixocraft to Create Your Digital Signature Online?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Use Pixocraft to Create Your Digital Signature Online?</h2>
             <p className="text-muted-foreground mb-5">What makes this the best free digital signature tool for Indian users:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -549,7 +549,7 @@ export default function HowToCreateDigitalSignatureOnline() {
                 { icon: <Smartphone className="h-4 w-4 text-primary" />, title: "Works on any device",          body: "Full touch support for mobile drawing. Upload from phone camera. Create your signature on phone, tablet, or desktop." },
                 { icon: <Layers className="h-4 w-4 text-primary" />,     title: "Completely free",              body: "Draw, type, upload, remove background, download — all fully free forever. No freemium lock, no watermark." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -571,7 +571,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* Internal linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Next Steps — Use Your Digital Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Next Steps — Use Your Digital Signature</h2>
             <p className="text-muted-foreground mb-4">
               Once you have created your digital signature, use these tools to put it to work:
             </p>
@@ -598,7 +598,7 @@ export default function HowToCreateDigitalSignatureOnline() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — How to Create Digital Signature Online</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — How to Create Digital Signature Online</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

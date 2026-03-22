@@ -181,7 +181,7 @@ export default function SignatureForContracts() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                  url: "https://tools.pixocraft.in/" },
           { label: "Tools",                 url: "/tools" },
@@ -190,13 +190,13 @@ export default function SignatureForContracts() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Scale className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Scale className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature for Contracts Free – Legal Digital Signature for Agreements
               </h1>
               <p className="text-sm text-muted-foreground">IT Act 2000 Compliant · Indian Contract Act Valid · No Signup · 100% Private</p>
@@ -260,7 +260,7 @@ export default function SignatureForContracts() {
         <SignatureToolSection />
 
         {/* ── QUICK USE BLOCK ──────────────────────────────────────────────── */}
-        <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-12">
+        <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-12">
           <p className="font-semibold text-foreground mb-3">Use your contract signature for:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -280,12 +280,12 @@ export default function SignatureForContracts() {
         </div>
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Signature for Contracts?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Signature for Contracts?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A <strong>signature for contracts</strong> is the formal mark — handwritten or digital — that an authorised
                 party places on a contract to indicate their intent to be bound by its terms. In digital contract execution,
@@ -319,7 +319,7 @@ export default function SignatureForContracts() {
 
           {/* How to */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create a Signature for Contracts — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create a Signature for Contracts — Step by Step</h2>
             <p className="text-muted-foreground mb-5">Create and insert your contract signature in under 60 seconds:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -345,7 +345,7 @@ export default function SignatureForContracts() {
 
           {/* PNG vs DSC vs eSign comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">PNG Signature vs DSC vs eSign — Which Do You Need?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">PNG Signature vs DSC vs eSign — Which Do You Need?</h2>
             <p className="text-muted-foreground mb-5">
               Three types of digital signatures are used in Indian business — each with different legal applications, costs,
               and setup requirements. Here is the complete comparison:
@@ -385,7 +385,7 @@ export default function SignatureForContracts() {
 
           {/* Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Features Built for Contract and Legal Document Signing</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Features Built for Contract and Legal Document Signing</h2>
             <p className="text-muted-foreground mb-5">Every feature designed specifically for professional contract execution:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -398,7 +398,7 @@ export default function SignatureForContracts() {
                 { icon: <Star className="h-5 w-5 text-primary" />,       title: "50+ handwriting fonts",         desc: "Type tab: 50+ Google handwriting fonts for a consistent, professional result — identical on every contract." },
                 { icon: <PenTool className="h-5 w-5 text-primary" />,    title: "Draw, Type, or Upload",        desc: "Three creation methods covering every use case — freehand drawing, font-based typing, or digitising a physical signature." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -411,11 +411,11 @@ export default function SignatureForContracts() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Uses Digital Signatures for Contracts — Real Use Cases</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Uses Digital Signatures for Contracts — Real Use Cases</h2>
             <p className="text-muted-foreground mb-5">Every professional dealing with contracts needs a reliable digital signature solution:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -428,7 +428,7 @@ export default function SignatureForContracts() {
 
           {/* Legal Validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legally Valid for Contracts in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Digital Signature Legally Valid for Contracts in India?</h2>
             <p className="text-muted-foreground mb-5">
               Yes — with a clear legal framework. Here is what Indian law says about digital contract signatures:
             </p>
@@ -465,7 +465,7 @@ export default function SignatureForContracts() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing Contracts Digitally</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Signing Contracts Digitally</h2>
             <p className="text-muted-foreground mb-5">These errors create unprofessional documents and may raise issues during disputes or audits:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -484,7 +484,7 @@ export default function SignatureForContracts() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for a Professional Contract Signature</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for a Professional Contract Signature</h2>
             <p className="text-muted-foreground mb-5">Best practices from legal professionals, freelancers, and business teams:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -503,7 +503,7 @@ export default function SignatureForContracts() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft for Contract Signatures?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft for Contract Signatures?</h2>
             <p className="text-muted-foreground mb-5">What makes this the best free tool for legal and business contract signing:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -514,7 +514,7 @@ export default function SignatureForContracts() {
                 { icon: <Smartphone className="h-4 w-4 text-primary" />, title: "Sign contracts anywhere",      body: "Mobile-optimised — create and insert contract signatures from your phone during client meetings, at the client's office, or on the go." },
                 { icon: <Star className="h-4 w-4 text-primary" />,       title: "Completely free",               body: "No freemium, no watermark, no feature limit. The full tool — Draw, Type, Upload, and PNG export — is free forever." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -536,7 +536,7 @@ export default function SignatureForContracts() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Signature for Contracts</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-5">Frequently Asked Questions — Signature for Contracts</h2>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
                 <div key={i} className="rounded-xl border bg-card overflow-hidden">

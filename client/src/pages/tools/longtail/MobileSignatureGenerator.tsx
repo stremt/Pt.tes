@@ -156,7 +156,7 @@ export default function MobileSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
         <Breadcrumb items={[
           { label: "Home",                 url: "https://tools.pixocraft.in/" },
           { label: "Tools",                url: "/tools" },
@@ -165,13 +165,13 @@ export default function MobileSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-8">
+        <div className="mb-5 sm:mb-8">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-11 w-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-              <Smartphone className="h-6 w-6 text-primary" />
+            <div className="h-8 w-8 sm:h-11 sm:w-11 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Mobile Signature Generator Free – Draw Signature on Phone Instantly
               </h1>
               <p className="text-sm text-muted-foreground">No App · No Login · Works on All Phones · 100% Private</p>
@@ -231,12 +231,12 @@ export default function MobileSignatureGenerator() {
         <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16 text-base leading-relaxed">
+        <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
 
           {/* What is Mobile Signature Generator */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">What Is a Mobile Signature Generator?</h2>
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4">What Is a Mobile Signature Generator?</h2>
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-medium">
                 A mobile signature generator is a browser-based tool that lets you <strong>draw your signature on your phone</strong> using
                 your finger — without downloading any app, without creating an account, and without connecting to any server.
@@ -270,7 +270,7 @@ export default function MobileSignatureGenerator() {
 
           {/* How to — featured snippet target */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Create Signature on Mobile — Step by Step</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">How to Create Signature on Mobile — Step by Step</h2>
             <p className="text-muted-foreground mb-5">The complete workflow from opening the tool to downloading your signed signature on your phone:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
@@ -292,7 +292,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Core Features */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Mobile-Optimised Features</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Mobile-Optimised Features</h2>
             <p className="text-muted-foreground mb-5">Everything in this tool is built specifically for phone and tablet use:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -305,7 +305,7 @@ export default function MobileSignatureGenerator() {
                 { icon: <Shield className="h-5 w-5 text-primary" />,       title: "Zero data storage",           desc: "Your signature is never uploaded to any server. All processing uses HTML5 Canvas API locally in your browser." },
                 { icon: <Star className="h-5 w-5 text-primary" />,         title: "50+ handwriting fonts",       desc: "The Type tab lets you generate a perfect, consistent signature from over 50 cursive and script handwriting fonts." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -318,9 +318,9 @@ export default function MobileSignatureGenerator() {
 
           {/* Draw vs Type vs Upload on Mobile */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload — Which Method for Mobile?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Draw vs Type vs Upload — Which Method for Mobile?</h2>
             <p className="text-muted-foreground mb-5">Each input method has different advantages depending on your situation and phone use case:</p>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {[
                 {
                   tab: "Draw (Recommended for mobile)",
@@ -382,7 +382,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Mobile vs Desktop comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Mobile Signature Generator vs Desktop Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Mobile Signature Generator vs Desktop Signature Generator</h2>
             <p className="text-muted-foreground mb-5">
               The same tool, optimised for different contexts. Here is a direct comparison to help you decide when to use which:
             </p>
@@ -400,7 +400,7 @@ export default function MobileSignatureGenerator() {
                     <tr key={feature} className="hover:bg-muted/30 transition-colors">
                       <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
                       <td className="px-5 py-3.5 text-primary/80 font-medium">{mobile}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground">{desktop}</td>
+                      <td className="px-3 py-2.5 sm:px-5 sm:py-3.5 text-muted-foreground">{desktop}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -416,11 +416,11 @@ export default function MobileSignatureGenerator() {
 
           {/* Use Cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Who Uses Mobile Signature Generator — Real-World Use Cases</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Who Uses Mobile Signature Generator — Real-World Use Cases</h2>
             <p className="text-muted-foreground mb-5">Mobile signature generation is especially valuable for professionals who work away from a desk:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
               {USE_CASES.map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
                   <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -437,7 +437,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Legal Validity */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Is a Mobile Signature Legally Valid in India?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Is a Mobile Signature Legally Valid in India?</h2>
             <p className="text-muted-foreground mb-5">
               Yes — the method of creating the signature (phone vs. desktop vs. pen on paper) does not affect its legal validity:
             </p>
@@ -470,7 +470,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Common Mistakes When Drawing Signature on Phone</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Common Mistakes When Drawing Signature on Phone</h2>
             <p className="text-muted-foreground mb-5">These mistakes are the most frequent causes of poor-looking mobile signatures:</p>
             <div className="space-y-3">
               {MISTAKES.map(({ title, body }) => (
@@ -487,7 +487,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Pro Tips for Drawing a Perfect Signature on Phone</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Pro Tips for Drawing a Perfect Signature on Phone</h2>
             <p className="text-muted-foreground mb-5">Techniques that produce professional-quality results on a smartphone screen:</p>
             <div className="space-y-3">
               {PRO_TIPS.map(({ title, body }) => (
@@ -504,7 +504,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Why Pixocraft */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Why Pixocraft for Mobile Signature Generation?</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Why Pixocraft for Mobile Signature Generation?</h2>
             <p className="text-muted-foreground mb-5">What makes this tool the best choice for phone-based signature creation:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
@@ -515,7 +515,7 @@ export default function MobileSignatureGenerator() {
                 { icon: <Wifi className="h-4 w-4 text-primary" />,        title: "Works in low connectivity",   body: "After the initial page load, drawing and downloading work without an internet connection — ideal for field use with patchy signal." },
                 { icon: <BadgeCheck className="h-4 w-4 text-primary" />,  title: "India & GST specific",        body: "Built with Indian mobile users in mind. GST invoice workflow, IT Act context, and DSC guidance are all included." },
               ].map(({ icon, title, body }) => (
-                <div key={title} className="flex gap-3 p-4 rounded-xl border bg-card">
+                <div key={title} className="flex gap-3 p-3 sm:p-4 rounded-xl border bg-card">
                   <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
@@ -533,7 +533,7 @@ export default function MobileSignatureGenerator() {
 
           {/* Internal linking */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete Mobile Signature Workflow — Related Tools</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Complete Mobile Signature Workflow — Related Tools</h2>
             <p className="text-muted-foreground mb-5">
               Create your signature here, then use these tools to add it to documents — all mobile-optimised, all free:
             </p>
@@ -562,7 +562,7 @@ export default function MobileSignatureGenerator() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Mobile Signature Generator</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Frequently Asked Questions — Mobile Signature Generator</h2>
             <p className="text-muted-foreground mb-5">Every question about drawing and using a signature on your phone:</p>
             <div className="space-y-2">
               {FAQS.map((faq, i) => (
@@ -589,7 +589,7 @@ export default function MobileSignatureGenerator() {
           </section>
 
           {/* Final CTA */}
-          <section className="rounded-xl border bg-primary/5 px-6 py-8 text-center">
+          <section className="rounded-xl border bg-primary/5 px-4 py-6 sm:px-6 sm:py-8 text-center">
             <Smartphone className="h-10 w-10 text-primary mx-auto mb-4" />
             <h2 className="text-xl font-bold text-foreground mb-2">Ready to Draw Your Signature on Your Phone?</h2>
             <p className="text-muted-foreground mb-5 max-w-lg mx-auto text-sm">

@@ -135,7 +135,7 @@ function SectionLabel({ children }: { children: string }) {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>
+    <h2 className="text-xl sm:text-3xl font-bold text-foreground leading-snug mb-3">{children}</h2>
   );
 }
 
@@ -155,7 +155,7 @@ function FeatureCard({
   body: string;
 }) {
   return (
-    <div className="flex gap-4 p-5 rounded-xl border bg-card">
+    <div className="flex gap-3 p-4 sm:p-5 rounded-xl border bg-card">
       <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
         {icon}
       </div>
@@ -177,7 +177,7 @@ function FeatureCardStacked({
   body: string;
 }) {
   return (
-    <div className="flex flex-col gap-3 p-5 rounded-xl border bg-card">
+    <div className="flex flex-col gap-2 p-4 sm:p-5 rounded-xl border bg-card">
       <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
         {icon}
       </div>
@@ -244,7 +244,7 @@ export default function EmailSignatureGenerator() {
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
 
-      <div className="container mx-auto px-4 max-w-4xl py-8">
+      <div className="container mx-auto px-4 max-w-4xl py-5 sm:py-8">
 
         <Breadcrumb items={[
           { label: "Home",                       url: "https://tools.pixocraft.in/" },
@@ -254,7 +254,7 @@ export default function EmailSignatureGenerator() {
         ]} />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
-        <div className="mb-10 pt-2">
+        <div className="mb-6 sm:mb-10 pt-1">
           <div className="flex items-center gap-2 mb-5">
             <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="h-5 w-5 text-primary" />
@@ -296,7 +296,7 @@ export default function EmailSignatureGenerator() {
         </div>
 
         {/* ── FEATURED SNIPPET BLOCK ────────────────────────────────────────── */}
-        <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-6 py-5 mb-10">
+        <div className="rounded-xl border-l-4 border-primary bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-10">
           <h2 className="text-base sm:text-lg font-bold text-foreground mb-1.5">
             Free Email Signature Generator for Gmail &amp; Outlook
           </h2>
@@ -314,14 +314,14 @@ export default function EmailSignatureGenerator() {
         />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
-        <div className="space-y-16">
+        <div className="space-y-8 sm:space-y-16">
 
           {/* ── WHAT IS ── */}
           <section>
             <SectionLabel>Overview</SectionLabel>
             <SectionHeading>What is an Email Signature Generator?</SectionHeading>
 
-            <div className="rounded-xl border bg-muted/40 px-6 py-5 mb-6">
+            <div className="rounded-xl border bg-muted/40 px-4 py-4 sm:px-6 sm:py-5 mb-6">
               <p className="text-foreground font-medium leading-relaxed">
                 An <strong>email signature generator</strong> is an online tool that creates a high-quality image of your
                 handwritten or typed signature — specifically sized and formatted to be inserted into Gmail, Outlook,
@@ -467,7 +467,7 @@ export default function EmailSignatureGenerator() {
               your last signature loads instantly. No login, no server, 100% private. Works even offline after first load.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-card px-6 py-5 mb-5">
+            <div className="rounded-xl border bg-card px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <ul className="space-y-3">
                 {[
                   "Stored locally in your browser only — never uploaded to any server",
@@ -575,11 +575,11 @@ export default function EmailSignatureGenerator() {
               <table className="w-full text-sm min-w-[520px]">
                 <thead>
                   <tr className="border-b bg-muted/50">
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Feature</th>
                     <th className="text-left px-5 py-3.5 font-semibold text-primary">Pixocraft</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">Canva</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">HubSpot</th>
-                    <th className="text-left px-5 py-3.5 font-semibold text-foreground">WiseStamp</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">Canva</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">HubSpot</th>
+                    <th className="text-left px-3 py-2.5 sm:px-5 sm:py-3.5 font-semibold text-foreground">WiseStamp</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -647,7 +647,7 @@ export default function EmailSignatureGenerator() {
           {/* ── KEYWORD H2 ── */}
           <section>
             <SectionLabel>Top Rated</SectionLabel>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-snug mb-4">
+            <h2 className="text-xl sm:text-3xl font-bold text-foreground leading-snug mb-4">
               Best Free Email Signature Generator Online
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -676,7 +676,7 @@ export default function EmailSignatureGenerator() {
               privacy and zero data tracking.
             </SectionSubtext>
 
-            <div className="rounded-xl border bg-primary/5 px-6 py-5 mb-5">
+            <div className="rounded-xl border bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 mb-5">
               <p className="text-foreground font-semibold leading-relaxed text-sm sm:text-base">
                 No signup, no watermark, and no data tracking — your email signature is created and stored
                 entirely in your browser.
@@ -724,7 +724,7 @@ export default function EmailSignatureGenerator() {
           </section>
 
           {/* ── EEAT / TRUST ── */}
-          <section className="rounded-xl border bg-muted/30 px-6 py-5 text-sm text-muted-foreground space-y-1.5">
+          <section className="rounded-xl border bg-muted/30 px-4 py-4 sm:px-6 sm:py-5 text-sm text-muted-foreground space-y-1.5">
             <p><strong className="text-foreground">Author:</strong> Pixocraft Team</p>
             <p><strong className="text-foreground">Last Updated:</strong> {LAST_UPDATED}</p>
             <p>
