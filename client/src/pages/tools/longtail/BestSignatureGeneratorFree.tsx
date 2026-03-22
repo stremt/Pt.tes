@@ -38,23 +38,23 @@ const CANONICAL = "https://tools.pixocraft.in/tools/best-signature-generator-fre
 const HOW_TO_STEPS = [
   {
     step: 1,
-    title: "Open the tool",
-    desc: "Scroll up — Pixocraft's signature generator loads instantly in your browser. No account, no app, no wait.",
+    title: "Choose a tool based on your needs",
+    desc: "Use this comparison guide to pick the right tool. For free everyday use with no login, choose a browser-based tool like Pixocraft. For legally certified e-signatures, choose DocuSign.",
   },
   {
     step: 2,
-    title: "Create your signature",
-    desc: "Draw freehand with a mouse or finger, type your name to generate a handwriting-style signature, or upload an existing one.",
+    title: "Open the tool and create your signature",
+    desc: "Draw your signature freehand with a mouse or finger, type your name to generate a handwriting-style signature, or upload a photo of an existing signature.",
   },
   {
     step: 3,
-    title: "Customise style",
-    desc: "Choose ink colour, stroke thickness, or font. Defaults look professional — beginners can skip this step entirely.",
+    title: "Customise style to suit your use case",
+    desc: "Adjust colour, font, or stroke thickness as needed. Most tools offer basic customisation on the free tier — check before committing to a paid plan.",
   },
   {
     step: 4,
-    title: "Download your signature",
-    desc: "One click saves a high-resolution transparent PNG to your device — no watermark, no email required, no upload.",
+    title: "Download and use your signature",
+    desc: "Download as a transparent PNG and insert into any Word document, PDF, Google Doc, or email. Save it locally and reuse across unlimited documents.",
   },
 ];
 
@@ -284,7 +284,7 @@ export default function BestSignatureGeneratorFree() {
       "The best free signature generator online — no login, no upload, instant transparent PNG download. Compared against Canva, DocuSign, and Smallpdf.",
     url: CANONICAL,
     applicationCategory: "UtilityApplication",
-    applicationSubCategory: "Best Free Signature Generator",
+    applicationSubCategory: "Signature Generator Comparison",
     operatingSystem: "Web, iOS, Android",
     featureList: [
       "100% free",
@@ -316,8 +316,8 @@ export default function BestSignatureGeneratorFree() {
   });
 
   const howToSchema = generateHowToSchema({
-    name: "How to Use the Best Free Signature Generator",
-    description: "Create and download a free signature using Pixocraft — the best free signature generator — in under 30 seconds with no login.",
+    name: "How to Choose and Use the Best Free Signature Generator",
+    description: "A generic guide to choosing the right signature generator based on your needs, creating your signature, and downloading it for use in any document.",
     steps: HOW_TO_STEPS.map((s) => ({ name: s.title, text: s.desc })),
   });
 
@@ -367,8 +367,14 @@ export default function BestSignatureGeneratorFree() {
 
           <p className="text-base text-muted-foreground mb-5 leading-relaxed">
             Searching for the best free signature generator can be confusing — there are dozens of options, each
-            claiming to be the best. This page gives you an <strong>honest, side-by-side comparison</strong> of the
-            top tools, their real strengths and weaknesses, and a clear recommendation based on your use case.
+            claiming to be the best. This page gives you an <strong>honest comparison of tools</strong> — evaluated
+            objectively <strong>based on features</strong>, privacy, speed, and output quality — so you can choose
+            based on your <strong>user needs</strong>, not marketing claims. If you want a fast option right now,
+            try our{" "}
+            <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">
+              no-login signature generator
+            </Link>{" "}
+            — zero signup, done in under 30 seconds.
           </p>
 
           <Button
@@ -482,6 +488,18 @@ export default function BestSignatureGeneratorFree() {
           </div>
         </section>
 
+        {/* ── COMPARISON IMAGE ─────────────────────────────────────── */}
+        <div className="mb-10">
+          <img
+            src="https://tools.pixocraft.in/images/best-signature-generator-comparison.png"
+            alt="Best signature generator comparison table free tools — Pixocraft vs Canva vs DocuSign vs Smallpdf"
+            loading="lazy"
+            width={600}
+            height={300}
+            className="w-full rounded-xl border object-cover"
+          />
+        </div>
+
         {/* ── WHY PIXOCRAFT IS BEST ────────────────────────────────── */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-2">
@@ -529,10 +547,10 @@ export default function BestSignatureGeneratorFree() {
         {/* ── HOW TO USE ──────────────────────────────────────────── */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-2">
-            How to Use the Best Free Signature Generator
+            How to Choose and Use the Best Free Signature Generator
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
-            Four steps — done in under 30 seconds, no account needed.
+            A generic decision guide — works for any tool in this comparison.
           </p>
           <div className="space-y-3">
             {HOW_TO_STEPS.map((s) => (
@@ -711,7 +729,11 @@ export default function BestSignatureGeneratorFree() {
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-2">Explore More Signature Tools</h2>
           <p className="text-muted-foreground mb-4 text-sm">
-            Every Pixocraft signature tool is free, browser-based, and requires no login — choose the one that fits your specific need.
+            Every Pixocraft signature tool is free, browser-based, and requires no login — choose the one that fits your specific need. For the most privacy-focused option, try our{" "}
+            <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">
+              signature generator without upload
+            </Link>{" "}
+            — designed specifically for users who want zero data sent anywhere, even in the background.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {RELATED_TOOLS.map((t) => (
