@@ -24,7 +24,22 @@ const FAQS = [
   {
     question: "What is a signature font generator?",
     answer:
-      "A signature font generator is a free online tool that lets you type your name and preview it in 50+ cursive, calligraphic, and handwriting fonts — then download the result as a high-resolution transparent PNG. No drawing skill needed.",
+      "A signature font generator allows you to create stylish handwritten signatures using cursive and calligraphy fonts. Type your name, choose a font from 50+ options, and download as a transparent PNG instantly.",
+  },
+  {
+    question: "Which font is best for signature?",
+    answer:
+      "Cursive and calligraphy fonts are best for creating a natural handwritten signature. Great Vibes, Allura, and Dancing Script are top choices for formal documents, while Pacifico and Caveat work well for a casual, personal feel.",
+  },
+  {
+    question: "Can I download signature as PNG?",
+    answer:
+      "Yes, you can download your signature as a high-quality transparent PNG. Every download is 3200×1040 px — four times display resolution — with no white background, no watermark, and no login required.",
+  },
+  {
+    question: "Is this tool free?",
+    answer:
+      "Yes, Pixocraft signature font generator is completely free with no login required. No subscription, no hidden fees, no watermark. Create and download unlimited signatures forever.",
   },
   {
     question: "How do I generate a signature using fonts?",
@@ -32,19 +47,9 @@ const FAQS = [
       "Type your name in the Type tab, browse 50+ handwriting fonts across 7 style categories (Signature, Elegant, Professional, Creative, Handwritten, Casual, Rare), click the font you like, and download as PNG. Done in under 60 seconds.",
   },
   {
-    question: "Which fonts are available in the signature font generator?",
+    question: "Which fonts are available?",
     answer:
-      "Over 50 Google Fonts curated for their handwriting authenticity, organised into 7 categories: Signature, Elegant, Professional, Creative, Handwritten, Casual, and Rare. Popular examples include Great Vibes, Allura, Dancing Script, Pacifico, Caveat, and Norican.",
-  },
-  {
-    question: "Can I download the font signature as a transparent PNG?",
-    answer:
-      "Yes. Every download is a 3200×1040 px transparent PNG — crisp at any size, with no white background. Perfect for overlaying on documents, PDFs, invoices, and email clients.",
-  },
-  {
-    question: "Is the signature font generator completely free?",
-    answer:
-      "Yes — 100% free, forever. No subscription, no watermark, no account required. Create and download unlimited font-based signatures at no cost.",
+      "Over 50 Google Fonts curated for their handwriting authenticity, organised into 7 categories. Popular examples include Great Vibes, Allura, Dancing Script, Pacifico, Caveat, and Norican.",
   },
   {
     question: "Is a font-generated signature legally valid in India?",
@@ -54,67 +59,58 @@ const FAQS = [
   {
     question: "Can I use a font signature for GST invoices?",
     answer:
-      "Yes. Download your font signature as a transparent PNG and insert it into your GST invoice template in Tally, Zoho Books, or any billing software that supports image insertion. CBIC guidelines permit image-based signatures on manually generated GST invoices.",
+      "Yes. Download your font signature as a transparent PNG and insert it into your GST invoice template in Tally, Zoho Books, or any billing software. CBIC guidelines permit image-based signatures on manually generated GST invoices.",
   },
   {
-    question: "Does the signature font generator work on mobile?",
+    question: "Does this tool work on mobile?",
     answer:
-      "Yes. The Type tab works perfectly on all mobile browsers — Chrome, Safari, and Firefox on iOS and Android. Browse fonts, preview your signature, and download with a single tap.",
+      "Yes. Works perfectly on all mobile browsers — Chrome, Safari, and Firefox on iOS and Android. Browse fonts, preview your signature, and download with a single tap.",
   },
   {
     question: "Is my name or data stored on any server?",
     answer:
       "No. The tool runs 100% inside your browser. The name you type and the signature you generate are never sent to any server. Everything stays on your device.",
   },
-  {
-    question: "What is the difference between a signature font generator and drawing a signature?",
-    answer:
-      "A signature font generator turns your typed name into a stylised handwriting-style signature using curated fonts — ideal for consistent, professional-looking results. Drawing a signature (using the Draw tab) creates a freehand stroke-based signature that is more unique and personal. Both methods produce a transparent PNG.",
-  },
 ];
 
 const HOWTO_STEPS = [
   {
-    name: "Type your name",
-    text: "Open the tool and type your name (or initials) in the Type tab. The preview updates live as you type.",
+    name: "Enter your name",
+    text: "Type your name into the signature generator Type tab. The preview updates live as you type.",
   },
   {
-    name: "Browse 50+ signature fonts",
-    text: "Scroll through 50+ handwriting and cursive fonts across 7 categories. Filter by style or search by font name. Each font renders live with your actual name.",
+    name: "Choose font style",
+    text: "Select a cursive or stylish signature font from 50+ options across 7 categories — Signature, Elegant, Professional, Creative, Handwritten, Casual, and Rare.",
   },
   {
-    name: "Customise ink colour and size",
-    text: "Choose black or dark navy ink. Adjust the font size for the perfect proportions on your canvas.",
-  },
-  {
-    name: "Download as transparent PNG",
-    text: "Click Download → PNG for a transparent background (recommended for all documents) or JPG for a white background. No watermark, no login.",
+    name: "Download signature",
+    text: "Click Download → PNG for a transparent background signature. No watermark, no login — your high-resolution PNG is ready in seconds.",
   },
 ];
 
 const FONT_EXAMPLES = [
-  { font: "Great Vibes",    category: "Signature",    label: "Great Vibes",       desc: "Ultra-thin flowing script — ideal for formal documents and personal branding." },
-  { font: "Allura",         category: "Elegant",      label: "Allura",            desc: "Classic cursive with graceful loops — timeless and professional." },
-  { font: "Dancing Script", category: "Professional", label: "Dancing Script",    desc: "Clean, consistent script — trusted across contracts and invoices." },
-  { font: "Pacifico",       category: "Creative",     label: "Pacifico",          desc: "Strong, confident strokes — great for creative work and personal branding." },
-  { font: "Caveat",         category: "Handwritten",  label: "Caveat",            desc: "Natural handwriting feel — approachable and personal." },
-  { font: "Norican",        category: "Professional", label: "Norican",           desc: "Upright formal style — excellent for legal documents and NDAs." },
+  { font: "Great Vibes",    category: "Signature",    label: "Great Vibes",    desc: "Ultra-thin flowing script — ideal for formal documents and personal branding." },
+  { font: "Allura",         category: "Elegant",      label: "Allura",         desc: "Classic cursive with graceful loops — timeless and professional." },
+  { font: "Dancing Script", category: "Professional", label: "Dancing Script", desc: "Clean, consistent script — trusted across contracts and invoices." },
+  { font: "Pacifico",       category: "Creative",     label: "Pacifico",       desc: "Strong, confident strokes — great for creative work and personal branding." },
+  { font: "Caveat",         category: "Handwritten",  label: "Caveat",         desc: "Natural handwriting feel — approachable and personal." },
+  { font: "Norican",        category: "Professional", label: "Norican",        desc: "Upright formal style — excellent for legal documents and NDAs." },
 ];
 
 const FEATURES = [
-  { icon: <Type className="h-5 w-5 text-primary" />,    title: "50+ Signature Fonts",           desc: "7 style categories. Search, filter by category, sort by popularity or A–Z. Recently used font remembered automatically." },
-  { icon: <Palette className="h-5 w-5 text-primary" />, title: "Live Preview",                  desc: "Every font renders live with your actual name — what you see is exactly what you download." },
-  { icon: <Download className="h-5 w-5 text-primary" />,title: "4× High-Resolution Export",    desc: "Downloads at 3200×1040 px — crisp at any print or screen size. No pixelation, no blurring, no watermark." },
-  { icon: <Shield className="h-5 w-5 text-primary" />,  title: "100% Browser-Based Privacy",   desc: "Everything runs inside your browser. Your name and signature are never sent to any server — ever." },
-  { icon: <Smartphone className="h-5 w-5 text-primary" />, title: "Mobile Friendly",           desc: "Works on any device — phone, tablet, or desktop. Fully responsive UI with touch-friendly font browsing." },
-  { icon: <BadgeCheck className="h-5 w-5 text-primary" />, title: "Legally Valid Output",      desc: "Font-based signatures are accepted under IT Act 2000 (India), ESIGN (USA), and eIDAS (EU) for contracts, invoices, and agreements." },
+  { icon: <Type className="h-5 w-5 text-primary" />,       title: "50+ Signature Fonts",        desc: "7 style categories. Search, filter by category, sort by popularity or A–Z. Recently used font remembered automatically." },
+  { icon: <Palette className="h-5 w-5 text-primary" />,    title: "Live Preview",               desc: "Every font renders live with your actual name — what you see is exactly what you download." },
+  { icon: <Download className="h-5 w-5 text-primary" />,   title: "4× High-Resolution Export",  desc: "Downloads at 3200×1040 px — crisp at any print or screen size. No pixelation, no blurring, no watermark." },
+  { icon: <Shield className="h-5 w-5 text-primary" />,     title: "100% Browser-Based Privacy", desc: "Everything runs inside your browser. Your name and signature are never sent to any server — ever." },
+  { icon: <Smartphone className="h-5 w-5 text-primary" />, title: "Mobile Friendly",            desc: "Works on any device — phone, tablet, or desktop. Fully responsive UI with touch-friendly font browsing." },
+  { icon: <BadgeCheck className="h-5 w-5 text-primary" />, title: "Legally Valid Output",       desc: "Font-based signatures are accepted under IT Act 2000 (India), ESIGN (USA), and eIDAS (EU) for contracts, invoices, and agreements." },
 ];
 
 const USE_CASES = [
-  { icon: <Receipt className="h-5 w-5 text-primary" />,  title: "GST Invoices",          desc: "Insert your font signature PNG directly into Tally, Zoho Books, or any billing software. CBIC accepts image-based signatures on manually generated GST invoices." },
-  { icon: <FileText className="h-5 w-5 text-primary" />, title: "Contracts & NDAs",       desc: "Create a consistent, professional font signature for NDAs, service agreements, and employment letters — legally valid under IT Act 2000." },
-  { icon: <Mail className="h-5 w-5 text-primary" />,     title: "Email Footers",          desc: "Add a handwriting-style font signature to Gmail, Outlook, and all major email clients for a personal, professional touch." },
-  { icon: <Globe className="h-5 w-5 text-primary" />,    title: "Online Forms & PDFs",    desc: "Insert the transparent PNG into any PDF using Adobe Acrobat, Smallpdf, or Pixocraft's PDF tools — no printing or scanning required." },
+  { icon: <Receipt className="h-5 w-5 text-primary" />,  title: "GST Invoices",        desc: "Insert your font signature PNG directly into Tally, Zoho Books, or any billing software. CBIC accepts image-based signatures on manually generated GST invoices." },
+  { icon: <FileText className="h-5 w-5 text-primary" />, title: "Contracts & NDAs",     desc: "Create a consistent, professional font signature for NDAs, service agreements, and employment letters — legally valid under IT Act 2000." },
+  { icon: <Mail className="h-5 w-5 text-primary" />,     title: "Email Footers",        desc: "Add a handwriting-style font signature to Gmail, Outlook, and all major email clients for a personal, professional touch." },
+  { icon: <Globe className="h-5 w-5 text-primary" />,    title: "Online Forms & PDFs",  desc: "Insert the transparent PNG into any PDF using Adobe Acrobat, Smallpdf, or Pixocraft's PDF tools — no printing or scanning required." },
 ];
 
 const SIGNATURE_CATEGORY_LINKS = [
@@ -130,45 +126,44 @@ export default function SignatureFontGenerator() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useSEO({
-    title: "Signature Font Generator – Type Your Name in 50+ Cursive Fonts (Free)",
+    title: "Signature Font Generator – Stylish Cursive Fonts for Name (Free)",
     description:
-      "Generate a signature from your name using 50+ cursive and handwriting fonts. Preview live, download transparent PNG instantly. Free, no login, no watermark.",
+      "Create stylish signature using cursive fonts. Choose from 50+ signature fonts, preview instantly and download PNG. No login required, 100% private.",
     canonical: CANONICAL,
-    ogTitle: "Signature Font Generator – 50+ Cursive Fonts | Pixocraft",
+    ogTitle: "Signature Font Generator – Stylish Name Signature Online",
     ogDescription:
-      "Type your name, pick a font from 50+ cursive styles, and download your signature as a transparent PNG. 100% free, no login, no watermark.",
+      "Create stylish signature with 50+ fonts and download PNG instantly.",
     keywords:
-      "signature font generator, signature fonts, cursive signature generator, name signature font, signature generator fonts, font signature maker, online signature font",
+      "signature font generator, cursive signature fonts, name signature font generator, stylish signature fonts",
   });
 
   const schemas = [
     generateFAQSchema(FAQS),
     generateHowToSchema({
-      name: "Generate a Signature Using Fonts Online",
+      name: "Create Signature Using Fonts",
       description:
-        "Use Pixocraft's free signature font generator to type your name in 50+ cursive and handwriting fonts and download as a transparent PNG.",
+        "Use Pixocraft's free signature font generator to type your name, pick a cursive font, and download as transparent PNG.",
       steps: HOWTO_STEPS,
     }),
     generateSoftwareApplicationSchema({
       name: "Pixocraft Signature Font Generator",
       description:
-        "Generate a signature from your name using 50+ cursive and handwriting fonts. Download as transparent PNG instantly. Free, no login, no watermark.",
+        "Create stylish signature using cursive and calligraphy fonts. Choose from 50+ signature fonts, preview instantly and download PNG. Free, no login.",
       url: CANONICAL,
       applicationCategory: "WebApplication",
-      operatingSystem: "Any (browser-based)",
+      operatingSystem: "All",
       price: "0",
       rating: { value: "4.9", count: "3800" },
     }),
     generateBreadcrumbSchema([
-      { name: "Home",                    url: "https://tools.pixocraft.in/" },
-      { name: "Tools",                   url: "https://tools.pixocraft.in/tools" },
-      { name: "Signature Tools",         url: "https://tools.pixocraft.in/tools/signature-tools" },
+      { name: "Home",                     url: "https://tools.pixocraft.in" },
+      { name: "Signature Tools",          url: "https://tools.pixocraft.in/tools/signature-tools" },
       { name: "Signature Font Generator", url: CANONICAL },
     ]),
     generateWebPageSchema({
-      name: "Signature Font Generator – Type Your Name in 50+ Cursive Fonts (Free)",
+      name: "Signature Font Generator – Stylish Cursive Fonts for Name (Free)",
       description:
-        "Generate a signature from your name using 50+ cursive and handwriting fonts. Preview live, download transparent PNG instantly. Free, no login.",
+        "Create stylish signature using cursive fonts. Choose from 50+ signature fonts, preview instantly and download PNG. No login required, 100% private.",
       url: CANONICAL,
       lastModified: LAST_UPDATED,
     }),
@@ -200,14 +195,14 @@ export default function SignatureFontGenerator() {
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
               Signature Font Generator –{" "}
-              <span className="text-primary">50+ Cursive Fonts</span>{" "}
-              (Free)
+              <span className="text-primary">Stylish Cursive Fonts</span>{" "}
+              for Name (Free)
             </h1>
           </div>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Type your name and instantly preview it in <strong>50+ cursive and handwriting fonts</strong>.
-            Pick your favourite style and download a crisp <strong>transparent PNG</strong> — no drawing, no login, no watermark.
-            The fastest way to create a professional-looking font-based signature online.
+            Create a stylish signature using <strong>cursive and calligraphy fonts</strong>.
+            Choose from <strong>50+ signature fonts</strong>, preview your name instantly, and download as a transparent PNG.
+            No login required — 100% private and free.
           </p>
           <div className="flex flex-wrap gap-2">
             {[
@@ -232,11 +227,11 @@ export default function SignatureFontGenerator() {
         <div className="rounded-xl border-2 border-primary/20 bg-primary/5 px-6 py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-lg font-bold text-foreground">
-            How do I generate a signature from my name using fonts?
+            How do I create a stylish signature using fonts?
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Open the <strong>Type tab</strong>, type your name, and browse <strong>50+ cursive and handwriting fonts</strong>
-            — each previewed live in real time. Click a font you like, then click <strong>Download → PNG</strong> for
+            Open the <strong>Type tab</strong>, type your name, and browse <strong>50+ cursive and calligraphy fonts</strong>
+            — each previewed live with your actual name. Click the font you like, then click <strong>Download → PNG</strong> for
             a <strong>transparent high-resolution PNG (3200×1040 px)</strong>. Done in under 60 seconds. No login, no watermark.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
@@ -267,7 +262,7 @@ export default function SignatureFontGenerator() {
               Popular Signature Font Styles — Live Preview
             </h2>
             <p className="text-muted-foreground">
-              6 popular font styles rendered live — what you see is exactly what you'll get in your PNG.
+              6 popular cursive and calligraphy fonts rendered live — what you see is exactly what you'll get in your PNG.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -284,6 +279,7 @@ export default function SignatureFontGenerator() {
                 <p
                   style={{ fontFamily: `'${font}', cursive`, fontSize: "clamp(26px, 5vw, 40px)", lineHeight: 1.3, color: "#111" }}
                   className="overflow-hidden whitespace-nowrap text-ellipsis bg-white rounded-lg px-3 py-2"
+                  aria-label={`signature font generator stylish cursive name signature png - ${label} style`}
                 >
                   Your Name
                 </p>
@@ -301,18 +297,18 @@ export default function SignatureFontGenerator() {
           <h2 className="text-2xl font-bold text-foreground">What is a Signature Font Generator?</h2>
           <div className="rounded-xl border bg-card px-6 py-5">
             <p className="text-foreground font-medium">
-              A <strong>signature font generator</strong> is a browser-based tool that turns your typed name into a
-              stylised, handwriting-style signature using curated cursive and calligraphic fonts — then exports it
-              as a high-resolution transparent PNG ready to use on documents, PDFs, and emails.
+              A <strong>signature font generator</strong> allows you to create stylish handwritten signatures using
+              cursive and calligraphy fonts. Type your name, choose a font, and download your signature as a
+              high-resolution transparent PNG — no drawing skill needed.
             </p>
           </div>
           <p className="text-muted-foreground leading-relaxed">
             Unlike drawing tools that require a steady hand, a font generator produces clean, consistent, professional-looking
-            signatures in seconds. You type your name once, browse fonts, and download — no artistic skill required.
+            signatures in seconds. You type your name once, browse fonts, and download — done in under 60 seconds.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             Pixocraft's signature font generator offers <strong>50+ Google Fonts</strong> curated specifically for their
-            handwriting authenticity, organised into 7 style categories: Signature, Elegant, Professional, Creative,
+            handwriting authenticity — organised into 7 style categories: Signature, Elegant, Professional, Creative,
             Handwritten, Casual, and Rare. Every font renders live with your actual name so you see exactly what you'll download.
           </p>
           <p className="text-muted-foreground leading-relaxed">
@@ -321,9 +317,35 @@ export default function SignatureFontGenerator() {
           </p>
         </section>
 
+        {/* ── WHICH FONT IS BEST (visible FAQ answer for Google) ───────────── */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-foreground">Which Font is Best for Signature?</h2>
+          <div className="rounded-xl border bg-card px-6 py-5 space-y-3">
+            <p className="text-muted-foreground leading-relaxed">
+              <strong>Cursive and calligraphy fonts are best</strong> because they look natural and professional —
+              closely replicating the feel of ink on paper. For formal documents, contracts, and GST invoices,
+              choose flowing scripts like <strong>Great Vibes</strong> or <strong>Allura</strong>.
+              For a clean, business-ready look, <strong>Dancing Script</strong> or <strong>Norican</strong> are top choices.
+              For a casual personal touch, <strong>Caveat</strong> or <strong>Pacifico</strong> work beautifully.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              {[
+                { use: "Formal / Legal",   fonts: "Great Vibes, Allura, Norican" },
+                { use: "Business / Work",  fonts: "Dancing Script, Sacramento" },
+                { use: "Casual / Personal", fonts: "Caveat, Pacifico, Satisfy" },
+              ].map(({ use, fonts }) => (
+                <div key={use} className="rounded-lg bg-background border p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{use}</p>
+                  <p className="text-sm font-medium text-foreground mt-1">{fonts}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── HOW TO ───────────────────────────────────────────────────────── */}
         <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">How to Generate a Signature Using Fonts</h2>
+          <h2 className="text-2xl font-bold text-foreground">How to Create Signature Using Fonts</h2>
           <p className="text-muted-foreground">Step by step — done in under 60 seconds.</p>
           <ol className="space-y-3">
             {HOWTO_STEPS.map(({ name, text }, i) => (
@@ -342,7 +364,7 @@ export default function SignatureFontGenerator() {
         <section className="space-y-5">
           <div>
             <h2 className="text-2xl font-bold text-foreground mb-2">Features</h2>
-            <p className="text-muted-foreground">Everything you need to create a professional font-based signature — free.</p>
+            <p className="text-muted-foreground">Everything you need to create a professional cursive signature — free.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map(({ icon, title, desc }) => (
