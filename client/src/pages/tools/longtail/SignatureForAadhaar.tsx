@@ -9,6 +9,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -247,6 +248,9 @@ export default function SignatureForAadhaar() {
             { label: "Signature for Aadhaar" },
           ]}
         />
+
+        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
+        <SignatureTopPromo />
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="space-y-4">
@@ -600,30 +604,14 @@ export default function SignatureForAadhaar() {
           </div>
         </section>
 
-        {/* ── INTERNAL LINKS ───────────────────────────────────────────────── */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Related Signature Tools</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {INTERNAL_LINKS.map(({ href, label }) => (
-              <Link key={href} href={href}>
-                <div
-                  className="flex items-center justify-between gap-2 px-4 py-3 rounded-xl border bg-card hover-elevate transition-all"
-                  data-testid={`link-related-${href.split("/").pop()}`}
-                >
-                  <span className="text-sm font-medium text-foreground">{label}</span>
-                  <ArrowRight className="h-4 w-4 text-primary shrink-0" />
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="pt-2">
-            <Link href="/tools/signature-tools">
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline underline-offset-2" data-testid="link-all-signature-tools">
-                View all Signature Tools <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
-          </div>
-        </section>
+        {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
+        <SignatureRelatedTools links={[
+          { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+          { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Optimised for Indian business, GST, banking, and government document workflows." },
+          { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax with a transparent PNG." },
+          { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Add your signature to TallyPrime invoices using the built-in image insertion feature." },
+          { href: "/tools/digital-signature-generator",  label: "Digital Signature Generator",  desc: "Create a legally valid digital signature compliant with India's IT Act 2000." },
+        ]} />
 
         {/* ── BOTTOM BREADCRUMB ─────────────────────────────────────────────── */}
         <div className="pt-4 border-t">

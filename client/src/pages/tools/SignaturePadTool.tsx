@@ -2334,6 +2334,39 @@ export default function SignaturePadTool() {
             </p>
           </section>
 
+          {/* ── Explore Signature Use Cases & Guides ──────────────────────── */}
+          <section data-testid="section-signature-use-cases">
+            <h2 className="text-2xl font-bold text-foreground mb-2">Explore Signature Use Cases &amp; Guides</h2>
+            <p className="text-muted-foreground mb-5 text-sm">
+              Find the right guide for your specific use case — from GST invoices to email signatures and beyond.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { href: "/tools/signature-generator-india",   label: "Signature Generator India",    desc: "Create signatures for GST, Aadhaar, banking, and other Indian documents." },
+                { href: "/tools/signature-for-gst-invoice",   label: "Signature for GST Invoice",    desc: "Step-by-step guide to signing GST invoices in Tally, Zoho Books, and more." },
+                { href: "/tools/signature-for-aadhaar",       label: "Signature for Aadhaar",        desc: "Use your signature for Aadhaar KYC forms and UIDAI document requirements." },
+                { href: "/tools/signature-for-tally",         label: "Signature for Tally",          desc: "Insert your PNG signature into TallyPrime invoices in a few clicks." },
+                { href: "/tools/signature-for-contracts",     label: "Signature for Contracts",      desc: "Sign NDAs, employment letters, and business agreements digitally." },
+                { href: "/tools/email-signature-generator",   label: "Email Signature Generator",    desc: "Create a professional email signature for Gmail, Outlook, and more." },
+                { href: "/tools/add-signature-to-pdf",        label: "Add Signature to PDF",         desc: "Place your signature directly onto any PDF document in your browser." },
+                { href: "/tools/digital-signature-generator", label: "Digital Signature Generator",  desc: "Generate a digital signature compliant with India's IT Act 2000." },
+              ].map(({ href, label, desc }) => (
+                <Link key={href} href={href}>
+                  <div
+                    className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer"
+                    data-testid={`link-use-case-${href.split("/").pop()}`}
+                  >
+                    <ArrowRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-medium text-foreground text-sm">{label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{desc}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
           {/* ── BOTTOM BREADCRUMB ─────────────────────────────────────────── */}
           <div className="mt-6 pb-2">
             <Breadcrumb items={[

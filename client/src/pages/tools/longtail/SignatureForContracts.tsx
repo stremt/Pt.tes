@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -188,6 +189,11 @@ export default function SignatureForContracts() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Signature for Contracts" },
         ]} />
+
+        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
+        <div className="mt-4 mb-2">
+          <SignatureTopPromo />
+        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -539,32 +545,14 @@ export default function SignatureForContracts() {
             </div>
           </section>
 
-          {/* Internal linking */}
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete Document Signing Workflow — Related Tools</h2>
-            <p className="text-muted-foreground mb-4">
-              After creating your contract signature, use these tools to complete your legal document workflow:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { href: "/tools/gst-invoice-signature",      label: "GST Invoice Signature",          desc: "Signature optimised for GST invoices and tax documents." },
-                { href: "/tools/add-signature-to-pdf",       label: "Add Signature to PDF",           desc: "Insert your contract signature directly into any PDF." },
-                { href: "/tools/signature-for-pdf",          label: "Signature for PDF",              desc: "Optimised PDF signing workflow for contracts and agreements." },
-                { href: "/tools/email-signature-maker",      label: "Email Signature Maker",          desc: "Create a professional email signature for Gmail and Outlook." },
-                { href: "/tools/transparent-signature-png",  label: "Transparent Signature PNG",      desc: "Download your signature with transparent background for any document." },
-              ].map(({ href, label, desc }) => (
-                <Link key={href} href={href}>
-                  <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer" data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
-                    <ArrowRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{label}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
+          <SignatureRelatedTools links={[
+            { href: "/tools/signature-generator",        label: "Signature Generator",        desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-for-pdf",          label: "Signature for PDF",          desc: "Place your signature directly onto any contract PDF in your browser." },
+            { href: "/tools/esignature-maker",           label: "E-Signature Maker",          desc: "Create a professional e-signature for digital document signing." },
+            { href: "/tools/signature-for-gst-invoice",  label: "Signature for GST Invoice",  desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax." },
+            { href: "/tools/add-signature-to-pdf",       label: "Add Signature to PDF",       desc: "Insert your contract signature directly onto any PDF document." },
+          ]} />
 
           {/* FAQ */}
           <section>

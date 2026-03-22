@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -252,6 +253,11 @@ export default function EmailSignatureGenerator() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "Email Signature Generator" },
         ]} />
+
+        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
+        <div className="mt-4 mb-2">
+          <SignatureTopPromo />
+        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-10 pt-2">
@@ -691,50 +697,14 @@ export default function EmailSignatureGenerator() {
             </div>
           </section>
 
-          {/* ── INTERNAL LINKS ── */}
-          <section>
-            <SectionLabel>Related Tools</SectionLabel>
-            <SectionHeading>More Signature &amp; Document Tools</SectionHeading>
-            <SectionSubtext>
-              You can also use our{" "}
-              <Link href="/tools/signature-generator" className="text-primary hover:underline underline-offset-2 font-medium">
-                online signature generator
-              </Link>{" "}
-              to create signatures for documents, sign files using our{" "}
-              <Link href="/tools/signature-for-pdf" className="text-primary hover:underline underline-offset-2 font-medium">
-                PDF signature tool
-              </Link>
-              , or add your mark to business invoices with our{" "}
-              <Link href="/tools/signature-for-gst-invoice" className="text-primary hover:underline underline-offset-2 font-medium">
-                GST invoice signature tool
-              </Link>.
-            </SectionSubtext>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { href: "/tools/signature-generator",         title: "Signature Generator (Main Tool)",  desc: "The full-featured tool — Draw, Type, Upload, AI with undo/redo and advanced options." },
-                { href: "/tools/signature-for-pdf",           title: "Signature for PDF",                desc: "Sign PDF documents directly — place your signature over any PDF page." },
-                { href: "/tools/signature-for-gst-invoice",   title: "GST Invoice Signature",            desc: "Add your signature to GST invoices for Tally, Zoho Books, and other Indian billing software." },
-                { href: "/tools/email-signature-maker",       title: "Email Signature Maker",            desc: "Alternate email signature tool with HTML preview and contact block layout." },
-                { href: "/tools/digital-signature-generator", title: "Digital Signature Generator",      desc: "India IT Act 2000 ready — for contracts, NDAs, and business documents." },
-                { href: "/tools/background-remover",          title: "Background Remover",               desc: "Remove any background from an uploaded signature image instantly." },
-              ].map(({ href, title, desc }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="flex items-center gap-4 p-4 rounded-xl border bg-card hover-elevate transition-all group"
-                >
-                  <div className="shrink-0 h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
+          <SignatureRelatedTools links={[
+            { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-for-pdf",            label: "Signature for PDF",            desc: "Sign PDF documents directly — place your signature over any PDF page." },
+            { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Add your signature to GST invoices for Tally, Zoho Books, and Indian billing software." },
+            { href: "/tools/email-signature-maker",        label: "Email Signature Maker",        desc: "Alternate email signature tool with HTML preview and contact block layout." },
+            { href: "/tools/digital-signature-generator",  label: "Digital Signature Generator",  desc: "IT Act 2000 compliant — for contracts, NDAs, and business documents." },
+          ]} />
 
           {/* ── FAQ ── */}
           <section>

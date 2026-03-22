@@ -10,6 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignaturePadWidget from "@/components/SignaturePadWidget";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -215,6 +216,11 @@ export default function GstInvoiceSignature() {
           { label: "Signature Tools", url: "/tools/signature-tools" },
           { label: "GST Invoice Signature" },
         ]} />
+
+        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
+        <div className="mt-4 mb-2">
+          <SignatureTopPromo />
+        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -580,32 +586,14 @@ export default function GstInvoiceSignature() {
             </div>
           </section>
 
-          {/* Internal linking */}
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Complete GST Signature Workflow — Related Tools</h2>
-            <p className="text-muted-foreground mb-4">
-              After creating your GST signature, use these Pixocraft tools to complete your document workflow:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { href: "/tools/add-signature-to-pdf",          label: "Add Signature to PDF",           desc: "Place your PNG signature directly onto any GST invoice PDF." },
-                { href: "/tools/signature-for-pdf",             label: "Signature for PDF",              desc: "Optimised PDF signing workflow for contracts and invoices." },
-                { href: "/tools/esignature-maker",              label: "E-Signature Maker",              desc: "Create professional e-signatures for digital document signing." },
-                { href: "/tools/mobile-signature-generator",    label: "Mobile Signature Generator",     desc: "Optimised for phone drawing — sign GST invoices on the go." },
-                { href: "/tools/signature-creator",             label: "Signature Creator",              desc: "Full-featured signature creator with advanced customisation." },
-              ].map(({ href, label, desc }) => (
-                <Link key={href} href={href}>
-                  <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer" data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
-                    <ArrowRight className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{label}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
+          <SignatureRelatedTools links={[
+            { href: "/tools/signature-generator",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Create signatures optimised for all Indian business and government documents." },
+            { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Step-by-step guide to inserting your PNG signature into TallyPrime invoices." },
+            { href: "/tools/signature-for-contracts",      label: "Signature for Contracts",      desc: "Sign NDAs, employment letters, and business agreements digitally." },
+            { href: "/tools/add-signature-to-pdf",         label: "Add Signature to PDF",         desc: "Place your PNG signature directly onto any GST invoice PDF." },
+          ]} />
 
           {/* FAQ */}
           <section>

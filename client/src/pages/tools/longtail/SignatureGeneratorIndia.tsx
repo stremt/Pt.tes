@@ -10,6 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { SignatureTopPromo, SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignaturePadWidget from "@/components/SignaturePadWidget";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -199,6 +200,11 @@ export default function SignatureGeneratorIndia() {
           { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "Signature Generator India" },
         ]} />
+
+        {/* ── PRIMARY TOOL LINK ─────────────────────────────────────────────── */}
+        <div className="mt-4 mb-2">
+          <SignatureTopPromo />
+        </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────────── */}
         <div className="mb-8">
@@ -642,43 +648,14 @@ export default function SignatureGeneratorIndia() {
             </div>
           </section>
 
-          {/* ── INTERNAL LINKING ─────────────────────────────────────────────── */}
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
-            <p className="text-muted-foreground mb-3">
-              Explore more free signature tools from Pixocraft built specifically for Indian document workflows:
-            </p>
-            <p className="text-muted-foreground mb-5">
-              For GST use in India, check our{" "}
-              <Link href="/tools/signature-for-gst-invoice">
-                <span className="text-primary underline underline-offset-2 font-medium cursor-pointer">Signature for GST Invoice tool</span>
-              </Link>{" "}
-              — a step-by-step guide tailored for Indian GST invoice signing in TallyPrime, Zoho Books, and ClearTax.
-              For Aadhaar-related forms, see our{" "}
-              <Link href="/tools/signature-for-aadhaar">
-                <span className="text-primary underline underline-offset-2 font-medium cursor-pointer">Signature for Aadhaar tool</span>
-              </Link>
-              .
-            </p>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                { label: "Signature Generator",                      url: "/tools/signature-generator",                   desc: "Main signature creation tool with full customisation options." },
-                { label: "Signature for Aadhaar",                    url: "/tools/signature-for-aadhaar",                  desc: "Create and use signatures specifically for Aadhaar KYC forms." },
-                { label: "Signature for GST Invoice",                url: "/tools/signature-for-gst-invoice",              desc: "Step-by-step guide to signing GST invoices digitally in India." },
-                { label: "How to Create Digital Signature",          url: "/tools/how-to-create-digital-signature",        desc: "Complete guide to creating a digital signature for Indian use." },
-              ].map(({ label, url, desc }) => (
-                <Link key={url} href={url}>
-                  <div className="flex items-start gap-3 rounded-xl border bg-card px-5 py-4 hover-elevate cursor-pointer">
-                    <ArrowRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="font-medium text-foreground text-sm">{label}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
+          <SignatureRelatedTools links={[
+            { href: "/tools/signature-generator",              label: "Signature Generator",              desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
+            { href: "/tools/signature-for-aadhaar",            label: "Signature for Aadhaar",            desc: "Create and use signatures specifically for Aadhaar KYC forms and UIDAI processes." },
+            { href: "/tools/signature-for-gst-invoice",        label: "Signature for GST Invoice",        desc: "Step-by-step guide to signing GST invoices in TallyPrime, Zoho Books, and ClearTax." },
+            { href: "/tools/signature-for-tally",              label: "Signature for Tally",              desc: "Insert your PNG signature into TallyPrime invoices with a simple setup guide." },
+            { href: "/tools/signature-for-contracts",          label: "Signature for Contracts",          desc: "Legally valid digital signature for NDAs, agreements, and business documents." },
+          ]} />
 
         </div>
       </div>
