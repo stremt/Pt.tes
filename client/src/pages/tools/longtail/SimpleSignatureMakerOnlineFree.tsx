@@ -40,23 +40,23 @@ const CANONICAL = "https://tools.pixocraft.in/tools/simple-signature-maker-onlin
 const HOW_TO_STEPS = [
   {
     step: 1,
-    title: "Open the tool — it loads instantly",
-    desc: "Scroll up and the simple signature maker is ready in your browser. No app to install, no account to create, no loading wait. You can start in under 3 seconds.",
+    title: "Open the tool",
+    desc: "Scroll up — the tool loads instantly in your browser. No app, no account, no wait. Ready in under 3 seconds.",
   },
   {
     step: 2,
-    title: "Type your name or draw your signature",
-    desc: "Choose the Type tab to generate a handwriting-style signature from your name, or use the Draw tab to sketch with a mouse or finger. Both options work perfectly on mobile.",
+    title: "Type or draw your signature",
+    desc: "Type your name to get a handwriting-style signature, or draw freehand with a mouse or finger. Both work on mobile.",
   },
   {
     step: 3,
-    title: "Adjust style if you want",
-    desc: "Change the ink colour or pick a different font. Everything looks great at the default settings — beginners can skip this step entirely and still get a professional result.",
+    title: "Adjust style (optional)",
+    desc: "Change colour or font if you like. The defaults already look great — beginners can skip this step entirely.",
   },
   {
     step: 4,
-    title: "Click Download to save your PNG",
-    desc: "One tap saves a transparent PNG to your device at high resolution with no watermark. No forms to fill, no email required — done in under 30 seconds from start to finish.",
+    title: "Download PNG — one click",
+    desc: "One tap saves a transparent PNG straight to your device. No watermark, no email, no waiting. Done in seconds.",
   },
 ];
 
@@ -337,9 +337,10 @@ export default function SimpleSignatureMakerOnlineFree() {
           </div>
 
           <p className="text-base text-muted-foreground mb-5 leading-relaxed">
-            The fastest way to <strong>create a simple signature online free</strong>. No account. No complicated
-            menus. Just open the tool, draw or type your name, and download a high-resolution transparent PNG in under
-            30 seconds. Works on any device — phone, tablet, or desktop.
+            The fastest way to <strong>create a simple signature online free</strong>.{" "}
+            <strong>No complicated settings.</strong> No account. Just open the tool, draw or type your name, and{" "}
+            <strong>one-click download</strong> saves a high-resolution transparent PNG to your device.{" "}
+            <strong>Takes only a few seconds</strong> — works on any phone, tablet, or desktop.
           </p>
 
           <Button
@@ -400,13 +401,49 @@ export default function SimpleSignatureMakerOnlineFree() {
           </div>
         </section>
 
+        {/* ── WHAT IS ────────────────────────────────────────────── */}
+        <section className="mb-10">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            What Is a Simple Signature Maker Online?
+          </h2>
+          <p className="text-foreground text-base leading-relaxed mb-4">
+            A <strong>simple signature maker online</strong> is a free, easy tool that lets you create a professional
+            signature with <strong>no complicated settings</strong> and no account. Open the tool, type your name or
+            draw with your finger, and <strong>download instantly</strong> as a transparent PNG — all in a few seconds.
+          </p>
+          <img
+            src="https://tools.pixocraft.in/images/simple-signature-maker-online-free-example.png"
+            alt="Simple signature maker online free easy example for beginners — create and download in seconds"
+            loading="lazy"
+            width={600}
+            height={300}
+            className="w-full rounded-xl border mb-5 object-cover"
+          />
+          <p className="text-muted-foreground text-sm leading-relaxed mb-3">
+            Unlike full-featured design software with dozens of menus, this tool strips everything down to what
+            matters: draw or type, then download. The result is a high-resolution transparent PNG that works in any
+            Word document, PDF, Google Doc, or email footer. No Photoshop, no learning curve, no account.
+          </p>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            If you want a more advanced version with 50+ fonts, stroke controls, and style presets, try our{" "}
+            <Link href="/tools/signature-generator" className="text-primary underline underline-offset-2">
+              main signature generator
+            </Link>
+            . For a strictly zero-login version emphasising privacy, see the{" "}
+            <Link href="/tools/free-signature-generator-no-login" className="text-primary underline underline-offset-2">
+              free signature generator no login
+            </Link>
+            .
+          </p>
+        </section>
+
         {/* ── HOW TO ─────────────────────────────────────────────── */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-2">
             How to Create a Simple Signature Online Free
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
-            Four steps — no tutorials needed. Most beginners are done in under 30 seconds.
+            Four steps — <strong>no tutorials needed</strong>. Most beginners finish in under 30 seconds.
           </p>
           <div className="space-y-3">
             {HOW_TO_STEPS.map((s) => (
