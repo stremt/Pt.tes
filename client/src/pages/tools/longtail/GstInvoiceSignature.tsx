@@ -182,6 +182,7 @@ export default function GstInvoiceSignature() {
     { name: "Home",                    url: "https://tools.pixocraft.in/" },
     { name: "Tools",                   url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
+    { label: "Signature Generator", url: "/tools/signature-generator" },
     { name: "GST Invoice Signature",   url: CANONICAL },
   ]);
 

@@ -202,6 +202,7 @@ export default function HandwrittenSignatureGenerator() {
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
             { label: "Handwritten Signature Generator" },
           ]}
         />

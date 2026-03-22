@@ -174,6 +174,7 @@ export default function HowToAddSignatureInWord() {
     { name: "Home",                          url: "https://tools.pixocraft.in/" },
     { name: "Tools",                         url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
+    { label: "Signature Generator", url: "/tools/signature-generator" },
     { name: "How to Add Signature in Word",  url: CANONICAL },
   ]);
 

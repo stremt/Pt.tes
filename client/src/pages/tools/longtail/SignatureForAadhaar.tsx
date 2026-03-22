@@ -243,6 +243,7 @@ export default function SignatureForAadhaar() {
             { label: "Home",                  url: "/" },
             { label: "Tools",                 url: "/tools" },
             { label: "Signature Tools",       url: "/tools/signature-tools" },
+            { label: "Signature Generator", url: "/tools/signature-generator" },
             { label: "Signature for Aadhaar" },
           ]}
         />

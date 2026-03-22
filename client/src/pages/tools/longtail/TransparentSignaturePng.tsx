@@ -172,6 +172,7 @@ export default function TransparentSignaturePng() {
     { name: "Home",                      url: "https://tools.pixocraft.in/" },
     { name: "Tools",                     url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
+    { label: "Signature Generator", url: "/tools/signature-generator" },
     { name: "Transparent Signature PNG", url: CANONICAL },
   ]);
 

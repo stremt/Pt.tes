@@ -286,6 +286,7 @@ export default function SimpleSignatureMakerOnlineFree() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "Simple Signature Maker Online Free" },
         ]} />
 

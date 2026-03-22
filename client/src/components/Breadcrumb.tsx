@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "wouter";
 
 export interface BreadcrumbItem {
@@ -8,7 +7,6 @@ export interface BreadcrumbItem {
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
-  schemaUrl?: string;
 }
 
 function toRelativeUrl(url: string): string {
@@ -20,48 +18,34 @@ function toRelativeUrl(url: string): string {
   }
 }
 
-export function Breadcrumb({ items, schemaUrl = "" }: BreadcrumbProps) {
-  useEffect(() => {
-    const breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: items.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.label,
-        ...(item.url && { item: item.url }),
-      })),
-    };
-
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.textContent = JSON.stringify(breadcrumbSchema);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [items]);
-
+export function Breadcrumb({ items }: BreadcrumbProps) {
   return (
     <nav className="mb-6" aria-label="Breadcrumb">
-      <ol className="flex flex-wrap gap-1 text-sm text-muted-foreground">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center">
-            {item.url ? (
-              <div className="flex items-center">
-                <Link href={toRelativeUrl(item.url)} className="text-primary hover:text-primary/80 transition-colors whitespace-nowrap">
+      <ol className="flex flex-wrap items-center gap-y-1 text-sm">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={index} className="flex items-center">
+              {index > 0 && (
+                <span className="mx-1.5 text-muted-foreground/50 select-none" aria-hidden="true">/</span>
+              )}
+              {isLast ? (
+                <span className="font-semibold text-foreground leading-snug">
+                  {item.label}
+                </span>
+              ) : item.url ? (
+                <Link
+                  href={toRelativeUrl(item.url)}
+                  className="text-muted-foreground hover:text-foreground transition-colors leading-snug"
+                >
                   {item.label}
                 </Link>
-                {index < items.length - 1 && <span className="mx-2 text-muted-foreground">/</span>}
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <span className="text-foreground font-medium truncate max-w-[120px] sm:max-w-none inline-block align-bottom">{item.label}</span>
-              </div>
-            )}
-          </li>
-        ))}
+              ) : (
+                <span className="text-muted-foreground leading-snug">{item.label}</span>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );

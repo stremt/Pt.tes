@@ -221,6 +221,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "Online Signature Generator Without Upload" },
         ]} />
 

@@ -158,6 +158,7 @@ export default function SignatureFontGenerator() {
     generateBreadcrumbSchema([
       { name: "Home",                     url: "https://tools.pixocraft.in" },
       { name: "Signature Tools",          url: "https://tools.pixocraft.in/tools/signature-tools" },
+      { label: "Signature Generator", url: "/tools/signature-generator" },
       { name: "Signature Font Generator", url: CANONICAL },
     ]),
     generateWebPageSchema({

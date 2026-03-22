@@ -196,6 +196,7 @@ export default function HowToSignPdfOnMobile() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "How to Sign PDF on Mobile" },
         ]} />
 

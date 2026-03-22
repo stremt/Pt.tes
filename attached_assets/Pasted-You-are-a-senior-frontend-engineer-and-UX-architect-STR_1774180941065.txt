@@ -1,0 +1,114 @@
+You are a senior frontend engineer and UX architect.
+
+STRICT RULES:
+- DO NOT change any SEO content, text, headings, keywords, schema, or internal links.
+- DO NOT modify desktop (PC/laptop) layout at all.
+- ONLY optimize mobile (<=768px) and tablet (<=1024px).
+- Keep UI clean, minimal, and non-spammy.
+
+GOAL:
+Improve mobile/tablet UX and fix category page clutter while maintaining strong SEO hierarchy.
+
+----------------------------------------
+
+1. MOBILE & TABLET OPTIMIZATION (NO PC CHANGE)
+
+A. Layout:
+- Stack all elements vertically on mobile
+- Ensure no horizontal scroll
+- Add proper spacing between sections (16–24px)
+
+B. Buttons:
+- Full-width buttons on mobile
+- Minimum height: 44px (touch friendly)
+- Add spacing between buttons
+
+C. Tool Controls:
+- Ink color + width → vertical stack
+- Increase tap area
+- Avoid cramped UI
+
+D. Preview Section:
+- Fit inside screen width
+- No overflow
+- Maintain aspect ratio
+
+E. Hero Section:
+- Reduce top/bottom padding
+- CTA visible without scrolling
+
+----------------------------------------
+
+2. TABLET OPTIMIZATION
+
+- Use 2-column layout where needed
+- Maintain spacing (not cramped)
+- Keep alignment clean and readable
+
+----------------------------------------
+
+3. CATEGORY PAGE CLEANUP (VERY IMPORTANT)
+
+PROBLEM:
+Too many SEO-like tools can feel spammy and repetitive.
+
+SOLUTION:
+
+A. SHOW ONLY IMPORTANT TOOLS FIRST:
+- Show:
+   1. Signature Generator (Main Tool)
+   2. 4–6 most useful tools (real tools, not SEO pages)
+
+B. HIDE/DE-EMPHASIZE SEO PAGES:
+- DO NOT show all SEO pages in main visible grid
+- Move them into:
+
+   👉 Section: "Guides & Use Cases" OR "More Signature Tools"
+
+- This section should be:
+   - Collapsible (accordion) OR
+   - Lower on page (after main tools)
+
+C. MAIN TOOL PRIORITY:
+- Signature Generator must be:
+   - First card
+   - Slightly highlighted (badge: "Main Tool" or "Start Here")
+
+----------------------------------------
+
+4. VISUAL SPAM REDUCTION
+
+- Avoid repeating same UI blocks too many times
+- Reduce card density on mobile (1 per row)
+- Add breathing space
+
+----------------------------------------
+
+5. UX IMPROVEMENTS
+
+- Clear section titles:
+   - "Start Here"
+   - "Popular Tools"
+   - "More Signature Tools"
+
+- Make scanning easy:
+   - Proper spacing
+   - Clean typography hierarchy
+
+----------------------------------------
+
+6. PERFORMANCE SAFE
+
+- No heavy JS
+- Use CSS for responsiveness
+- Keep it fast and lightweight
+
+----------------------------------------
+
+FINAL RESULT:
+
+- Clean category page (not spammy)
+- Main tool clearly dominant
+- SEO pages still present but not overwhelming
+- Mobile + tablet experience smooth
+- Desktop completely unchanged

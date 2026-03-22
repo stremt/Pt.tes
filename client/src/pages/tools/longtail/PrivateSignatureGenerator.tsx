@@ -264,6 +264,7 @@ export default function PrivateSignatureGenerator() {
           { label: "Home", url: "https://tools.pixocraft.in/" },
           { label: "Tools", url: "/tools" },
           { label: "Signature Tools", url: "/tools/signature-tools" },
+          { label: "Signature Generator", url: "/tools/signature-generator" },
           { label: "Private Signature Generator" },
         ]} />
 

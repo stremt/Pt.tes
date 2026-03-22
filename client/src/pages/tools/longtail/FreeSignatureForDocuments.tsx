@@ -147,6 +147,7 @@ export default function FreeSignatureForDocuments() {
     { name: "Home",                         url: "https://tools.pixocraft.in/" },
     { name: "Tools",                        url: "https://tools.pixocraft.in/tools" },
     { name: "Signature Tools", url: "https://tools.pixocraft.in/tools/signature-tools" },
+    { label: "Signature Generator", url: "/tools/signature-generator" },
     { name: "Free Signature for Documents", url: CANONICAL },
   ]);
 
