@@ -776,7 +776,7 @@ export default function SignaturePadWidget() {
           </div>
         </div>
 
-        <div className="p-5 space-y-5">
+        <div className="p-3 sm:p-5 space-y-4 sm:space-y-5">
 
           {/* ── TAB SELECTOR ─────────────────────────────────────────────── */}
           <div className="flex gap-1.5 p-1.5 rounded-xl bg-muted/60 border" data-testid="tabs-method">
@@ -804,20 +804,21 @@ export default function SignaturePadWidget() {
           {/* ── DRAW TAB ─────────────────────────────────────────────────── */}
           {activeTab === "draw" && (
             <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-3 px-3 py-2.5 rounded-lg bg-muted/40 border">
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="ink-color" className="text-xs whitespace-nowrap">Ink</Label>
-                  <input id="ink-color" type="color" value={strokeColor} onChange={(e) => setStrokeColor(e.target.value)}
-                    className="h-8 w-10 rounded-md border border-border cursor-pointer bg-transparent p-0.5" data-testid="input-stroke-color" />
-                  <span className="text-xs text-muted-foreground font-mono hidden sm:inline">{strokeColor}</span>
+              <div className="flex flex-col gap-2 px-3 py-2.5 rounded-lg bg-muted/40 border sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Label htmlFor="ink-color" className="text-xs whitespace-nowrap">Ink</Label>
+                    <input id="ink-color" type="color" value={strokeColor} onChange={(e) => setStrokeColor(e.target.value)}
+                      className="h-9 w-12 rounded-md border border-border cursor-pointer bg-transparent p-0.5" data-testid="input-stroke-color" />
+                    <span className="text-xs text-muted-foreground font-mono hidden sm:inline">{strokeColor}</span>
+                  </div>
+                  <div className="w-px h-5 bg-border hidden sm:block" />
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <Label className="text-xs whitespace-nowrap shrink-0">Width: <span className="font-mono">{strokeWidth.toFixed(1)}</span></Label>
+                    <Slider min={1} max={8} step={0.5} value={[strokeWidth]} onValueChange={([v]) => setStrokeWidth(v)} data-testid="slider-stroke-width" className="flex-1 min-w-0" />
+                  </div>
                 </div>
-                <div className="w-px h-5 bg-border hidden sm:block" />
-                <div className="flex items-center gap-2 flex-1 min-w-32">
-                  <Label className="text-xs whitespace-nowrap">Width: <span className="font-mono">{strokeWidth.toFixed(1)}</span></Label>
-                  <Slider min={1} max={8} step={0.5} value={[strokeWidth]} onValueChange={([v]) => setStrokeWidth(v)} data-testid="slider-stroke-width" className="flex-1" />
-                </div>
-                <div className="w-px h-5 bg-border hidden sm:block" />
-                <div className="flex items-center gap-1 ml-auto">
+                <div className="flex items-center gap-1 sm:ml-auto">
                   <Button size="icon" variant="ghost" onClick={undo} disabled={undoStack.length === 0} title="Undo" data-testid="button-undo"><Undo2 className="h-4 w-4" /></Button>
                   <Button size="icon" variant="ghost" onClick={redo} disabled={redoStack.length === 0} title="Redo" data-testid="button-redo"><Redo2 className="h-4 w-4" /></Button>
                   <div className="w-px h-5 bg-border mx-1" />
@@ -907,16 +908,16 @@ export default function SignaturePadWidget() {
             const topPickFonts = TOP_PICKS.map((v) => FONT_MAP.get(v)).filter(Boolean) as typeof ALL_FONTS;
             return (
               <div className="space-y-4">
-                <div className="flex flex-wrap gap-3 items-end">
-                  <div className="space-y-1.5 flex-1 min-w-52">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:items-end">
+                  <div className="space-y-1.5 flex-1 min-w-0">
                     <Label htmlFor="typed-name" className="text-xs">Your Name</Label>
                     <Input id="typed-name" placeholder="e.g. Alex Johnson" value={typedName}
-                      onChange={(e) => setTypedName(e.target.value)} className="text-base" data-testid="input-typed-name" />
+                      onChange={(e) => setTypedName(e.target.value)} className="text-base min-h-[44px] sm:min-h-0" data-testid="input-typed-name" />
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="flex items-center gap-3 sm:block">
                     <Label htmlFor="type-color" className="text-xs">Ink Color</Label>
                     <input id="type-color" type="color" value={typeColor} onChange={(e) => setTypeColor(e.target.value)}
-                      className="h-9 w-14 rounded-md border border-border cursor-pointer bg-transparent p-0.5 block" data-testid="input-type-color" />
+                      className="h-11 w-16 sm:h-9 sm:w-14 rounded-md border border-border cursor-pointer bg-transparent p-0.5 block" data-testid="input-type-color" />
                   </div>
                 </div>
                 <div className="flex gap-2 items-center flex-wrap">
@@ -1057,12 +1058,12 @@ export default function SignaturePadWidget() {
                 </p>
                 <p className="text-xs text-muted-foreground">No watermark · Instant · 100% private</p>
               </div>
-              <Button onClick={generatePreview} variant="ghost" size="sm" data-testid="button-preview">
+              <Button onClick={generatePreview} variant="ghost" size="sm" className="min-h-[44px] sm:min-h-0" data-testid="button-preview">
                 <Eye className="mr-1.5 h-3.5 w-3.5" /> Preview
               </Button>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Button onClick={openDownloadDialog} className="gap-2" data-testid="button-download-options">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <Button onClick={openDownloadDialog} className="gap-2 min-h-[44px]" data-testid="button-download-options">
                 <Download className="h-4 w-4" /> Download
               </Button>
               <Button onClick={() => {
@@ -1072,15 +1073,15 @@ export default function SignaturePadWidget() {
                 setDlSigAspect(src.width / src.height || 4);
                 setDlSignaturePng(src.toDataURL("image/png"));
                 setDlPage("sign-doc"); setShowDownloadDialog(true);
-              }} variant="outline" className="gap-2" data-testid="button-add-to-pdf">
+              }} variant="outline" className="gap-2 min-h-[44px]" data-testid="button-add-to-pdf">
                 <FileText className="h-4 w-4" /> Add to Doc
               </Button>
             </div>
-            <div className="border-t pt-3 grid grid-cols-2 gap-2">
-              <Button onClick={copyForGmail} variant="outline" size="sm" className="gap-2" data-testid="button-copy-gmail">
+            <div className="border-t pt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <Button onClick={copyForGmail} variant="outline" size="sm" className="gap-2 min-h-[44px] sm:min-h-0" data-testid="button-copy-gmail">
                 <Mail className="h-3.5 w-3.5" /> Copy for Gmail
               </Button>
-              <Button onClick={saveCurrentToHistory} variant="ghost" size="sm" className="gap-2" data-testid="button-save-history">
+              <Button onClick={saveCurrentToHistory} variant="ghost" size="sm" className="gap-2 min-h-[44px] sm:min-h-0" data-testid="button-save-history">
                 <ClipboardCheck className="h-3.5 w-3.5" /> Save to History
               </Button>
             </div>

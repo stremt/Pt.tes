@@ -1,12 +1,24 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { useSEO, StructuredData, generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import {
   PenTool, FileText, Mail, Smartphone, Shield, Star, Zap,
   Upload, Type, ArrowRight, Check, Globe, Receipt, BadgeCheck,
+  ChevronDown, ChevronUp,
 } from "lucide-react";
 
 const CANONICAL = "https://tools.pixocraft.in/tools/signature-tools";
+
+const PRIMARY_HREFS = new Set([
+  "/tools/signature-pad-tool",
+  "/tools/signature-font-generator",
+  "/tools/handwritten-signature-generator",
+  "/tools/digital-signature-generator",
+  "/tools/email-signature-generator",
+  "/tools/signature-for-pdf",
+  "/tools/gst-invoice-signature",
+]);
 
 const TOOLS = [
   {
@@ -251,6 +263,11 @@ const BENEFITS = [
 ];
 
 export default function SignatureToolsCategory() {
+  const [showMoreTools, setShowMoreTools] = useState(false);
+
+  const primaryTools = TOOLS.filter((t) => PRIMARY_HREFS.has(t.href));
+  const moreTools    = TOOLS.filter((t) => !PRIMARY_HREFS.has(t.href));
+
   useSEO({
     title: "Signature Tools – Free Digital Signature Generator, Maker & Creator | Pixocraft",
     description:
@@ -295,7 +312,7 @@ export default function SignatureToolsCategory() {
       <StructuredData schema={webPageSchema} />
       <StructuredData schema={collectionSchema} />
 
-      <div className="max-w-5xl mx-auto px-4 py-8 space-y-12">
+      <div className="max-w-5xl mx-auto px-4 py-4 sm:py-8 space-y-8 sm:space-y-12">
 
         {/* ── BREADCRUMB ────────────────────────────────────────────────────── */}
         <Breadcrumb items={[
@@ -305,16 +322,16 @@ export default function SignatureToolsCategory() {
         ]} />
 
         {/* ── HERO ──────────────────────────────────────────────────────────── */}
-        <div className="space-y-5">
-          <div className="flex items-center gap-4">
-            <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-              <PenTool className="h-7 w-7 text-primary" />
+        <div className="space-y-4 pt-2 sm:pt-0">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+              <PenTool className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground leading-tight">
                 Signature Tools
               </h1>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                 {TOOLS.length} free tools · No login · 100% browser-based · Made in India
               </p>
             </div>
@@ -336,9 +353,9 @@ export default function SignatureToolsCategory() {
         </div>
 
         {/* ── START HERE ────────────────────────────────────────────────────── */}
-        <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-6 space-y-4">
-          <p className="font-bold text-foreground text-lg">Start here — most popular tool</p>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-4 sm:p-6 space-y-4">
+          <p className="font-bold text-foreground text-base sm:text-lg">Start here — most popular tool</p>
+          <div className="flex flex-col gap-4">
             <div className="flex-1 space-y-1">
               <p className="font-semibold text-foreground">Signature Generator (Full Tool)</p>
               <p className="text-sm text-muted-foreground">Draw, Type, or Upload · 50+ fonts · History · Preview · PNG + JPG download</p>
@@ -348,8 +365,8 @@ export default function SignatureToolsCategory() {
                 ))}
               </div>
             </div>
-            <Link href="/tools/signature-pad-tool">
-              <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover-elevate" data-testid="button-start-signature-tool">
+            <Link href="/tools/signature-pad-tool" className="block">
+              <span className="flex items-center justify-center gap-2 w-full sm:w-auto sm:inline-flex px-5 py-3 sm:py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover-elevate min-h-[44px]" data-testid="button-start-signature-tool">
                 Use Free Tool <ArrowRight className="h-4 w-4" />
               </span>
             </Link>
@@ -367,17 +384,17 @@ export default function SignatureToolsCategory() {
           ))}
         </div>
 
-        {/* ── ALL TOOLS GRID ────────────────────────────────────────────────── */}
-        <section className="space-y-6">
+        {/* ── POPULAR TOOLS GRID ────────────────────────────────────────────── */}
+        <section className="space-y-5">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">All Signature Tools</h2>
-            <p className="text-muted-foreground mt-1">
-              {TOOLS.length} free tools — click any to open it instantly.
+            <h2 className="text-2xl font-bold text-foreground">Popular Tools</h2>
+            <p className="text-muted-foreground mt-1 text-sm">
+              The most-used signature tools — click any to open instantly.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {TOOLS.map(({ href, icon: Icon, title, badge, desc, tags }) => (
+            {primaryTools.map(({ href, icon: Icon, title, badge, desc, tags }) => (
               <Link key={href} href={href}>
                 <div
                   className="group rounded-xl border bg-card p-5 space-y-3 hover-elevate transition-all h-full"
@@ -386,7 +403,7 @@ export default function SignatureToolsCategory() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3">
                       <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <Icon className="h-4.5 w-4.5 text-primary h-5 w-5" />
+                        <Icon className="h-5 w-5 text-primary" />
                       </div>
                       <p className="font-semibold text-foreground text-sm leading-tight group-hover:text-primary transition-colors">{title}</p>
                     </div>
@@ -409,6 +426,58 @@ export default function SignatureToolsCategory() {
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* ── MORE SIGNATURE TOOLS (collapsible) ────────────────────────────── */}
+        <section className="space-y-4">
+          <button
+            onClick={() => setShowMoreTools((v) => !v)}
+            className="w-full flex items-center justify-between gap-3 px-5 py-4 rounded-xl border bg-muted/40 hover-elevate transition-all text-left"
+            data-testid="button-toggle-more-tools"
+            aria-expanded={showMoreTools}
+          >
+            <div>
+              <p className="font-semibold text-foreground text-sm">More Signature Tools &amp; Guides</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{moreTools.length} additional tools, makers, and step-by-step guides</p>
+            </div>
+            {showMoreTools
+              ? <ChevronUp className="h-5 w-5 text-muted-foreground shrink-0" />
+              : <ChevronDown className="h-5 w-5 text-muted-foreground shrink-0" />
+            }
+          </button>
+
+          {showMoreTools && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {moreTools.map(({ href, icon: Icon, title, badge, desc, tags }) => (
+                <Link key={href} href={href}>
+                  <div
+                    className="group rounded-xl border bg-card p-4 space-y-2.5 hover-elevate transition-all h-full"
+                    data-testid={`card-tool-${href.split("/").pop()}`}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2.5">
+                        <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                          <Icon className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                        <p className="font-medium text-foreground text-sm leading-tight group-hover:text-primary transition-colors">{title}</p>
+                      </div>
+                      {badge && (
+                        <span className="shrink-0 text-[9px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground border whitespace-nowrap">
+                          {badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{desc}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {tags.slice(0, 2).map(tag => (
+                        <span key={tag} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* ── USE CASE QUICK LINKS ──────────────────────────────────────────── */}
