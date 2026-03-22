@@ -18,7 +18,7 @@ import {
   AlertCircle, Monitor,
 } from "lucide-react";
 
-const CANONICAL = "https://tools.pixocraft.in/tools/signature-in-word-document";
+const CANONICAL = "https://tools.pixocraft.in/tools/signature-for-word";
 const LAST_UPDATED = "March 2026";
 
 const FAQS = [
@@ -235,8 +235,9 @@ export default function SignatureInWordDocument() {
       "Learn how to add signature in Word document easily. Create, download, and insert signature in Word using PNG. Free, no login tool.",
     canonicalUrl: CANONICAL,
     ogType: "website",
+    ogImage: "https://tools.pixocraft.in/images/word-signature-tool.png",
     keywords:
-      "signature in word document, how to add signature in word, insert signature in word, sign word document online, add handwritten signature in word",
+      "signature in word document, how to add signature in word, insert signature in word, sign word document, add handwritten signature in word",
   });
 
   const schemas = [
