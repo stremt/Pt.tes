@@ -166,13 +166,11 @@ export default function SignatureForTally() {
   useSEO({
     title: "Signature for Tally – Add Signature in Tally Prime Invoice (Free)",
     description:
-      "Create signature for Tally invoice online free. Download transparent PNG and add to Tally Prime instantly. No login, 100% private.",
-    canonical: CANONICAL,
-    ogTitle: "Signature for Tally – Add Signature in Tally Prime Invoice (Free)",
-    ogDescription:
-      "Create a transparent PNG signature and add it to your Tally Prime invoice in minutes. Free, no login, 100% private.",
+      "Create signature for Tally invoice online free. Download transparent PNG and add to Tally Prime instantly. No login, 100% private, GST compatible.",
+    canonicalUrl: CANONICAL,
+    ogType: "website",
     keywords:
-      "signature for tally prime, add signature in tally invoice, tally signature size, add digital signature in tally, signature for tally",
+      "signature for tally prime, add signature in tally invoice, tally signature size, tally digital signature, add digital signature in tally, signature for tally",
   });
 
   const schemas = [
@@ -184,14 +182,13 @@ export default function SignatureForTally() {
       steps: HOWTO_STEPS,
     }),
     generateSoftwareApplicationSchema({
-      name: "Pixocraft Signature for Tally",
+      name: "Pixocraft Tally Signature Generator",
       description:
         "Create a transparent PNG signature and add it to your Tally Prime invoice. Free, no login, 100% private.",
       url: CANONICAL,
       applicationCategory: "WebApplication",
       operatingSystem: "All",
-      price: "0",
-      rating: { value: "4.9", count: "2900" },
+      offers: { price: "0", priceCurrency: "INR" },
     }),
     generateBreadcrumbSchema([
       { name: "Home",                 url: "https://tools.pixocraft.in" },
@@ -201,16 +198,15 @@ export default function SignatureForTally() {
     generateWebPageSchema({
       name: "Signature for Tally – Add Signature in Tally Prime Invoice (Free)",
       description:
-        "Create signature for Tally invoice online free. Download transparent PNG and add to Tally Prime instantly. No login, 100% private.",
+        "Create signature for Tally invoice online free. Download transparent PNG and add to Tally Prime instantly. No login, 100% private, GST compatible.",
       url: CANONICAL,
-      lastModified: LAST_UPDATED,
     }),
   ];
 
   return (
     <div className="min-h-screen bg-background">
       {schemas.map((schema, i) => (
-        <StructuredData key={i} schema={schema} />
+        <StructuredData key={i} data={schema} />
       ))}
 
       <div className="max-w-4xl mx-auto px-4 py-8 space-y-10">
@@ -241,6 +237,9 @@ export default function SignatureForTally() {
             Create a professional signature and add it to your <strong>Tally Prime invoices</strong> in minutes.
             Download a crisp <strong>transparent PNG</strong> — the exact format Tally requires — and configure it once
             so every future invoice is automatically signed. No DSC needed. No login. 100% private.
+          </p>
+          <p className="text-base font-semibold text-foreground">
+            <strong>Add your Tally signature in under 60 seconds — no login, no upload, fully private.</strong>
           </p>
           <div className="flex flex-wrap gap-2">
             {[
