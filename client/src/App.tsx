@@ -343,6 +343,7 @@ const SignatureFontGenerator = lazy(() => import("@/pages/tools/longtail/Signatu
 const OnlineSignatureGenerator = lazy(() => import("@/pages/tools/longtail/OnlineSignatureGenerator"));
 const FreeSignatureGenerator = lazy(() => import("@/pages/tools/longtail/FreeSignatureGenerator"));
 const FreeSignatureGeneratorNoLogin = lazy(() => import("@/pages/tools/longtail/FreeSignatureGeneratorNoLogin"));
+const OnlineSignatureGeneratorWithoutUpload = lazy(() => import("@/pages/tools/longtail/OnlineSignatureGeneratorWithoutUpload"));
 const DigitalSignatureGenerator = lazy(() => import("@/pages/tools/longtail/DigitalSignatureGenerator"));
 const CreateDigitalSignature = lazy(() => import("@/pages/tools/longtail/CreateDigitalSignature"));
 const SignatureMaker = lazy(() => import("@/pages/tools/longtail/SignatureMaker"));
@@ -795,6 +796,7 @@ function Router() {
         <Route path="/tools/online-signature-generator" component={OnlineSignatureGenerator} />
         <Route path="/tools/free-signature-generator" component={FreeSignatureGenerator} />
         <Route path="/tools/free-signature-generator-no-login" component={FreeSignatureGeneratorNoLogin} />
+        <Route path="/tools/online-signature-generator-without-upload" component={OnlineSignatureGeneratorWithoutUpload} />
         <Route path="/tools/digital-signature-generator" component={DigitalSignatureGenerator} />
         <Route path="/tools/create-digital-signature" component={CreateDigitalSignature} />
         <Route path="/tools/signature-maker" component={SignatureMaker} />
