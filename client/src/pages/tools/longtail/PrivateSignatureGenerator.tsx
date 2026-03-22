@@ -46,17 +46,22 @@ const HOW_TO_STEPS = [
   {
     step: 2,
     title: "Draw or type your signature",
-    desc: "Use the Draw tab to sketch freehand with a mouse or finger, or the Type tab to generate a handwriting-style signature from your name. Nothing leaves your device.",
+    desc: "Use the Draw tab to sketch freehand with a mouse or finger, or the Type tab to generate a handwriting-style signature from your name. All processing is fully client-side — nothing leaves your device.",
   },
   {
     step: 3,
-    title: "Customise (optional)",
-    desc: "Adjust ink colour or stroke thickness if needed. Defaults look professional — beginners can skip this entirely.",
+    title: "Customise style (optional)",
+    desc: "Adjust ink colour, stroke thickness, or font if needed. Defaults look professional — beginners can skip this entirely and still get a great result.",
   },
   {
     step: 4,
+    title: "Preview your signature",
+    desc: "Check how your signature looks before downloading. The live preview renders entirely in your browser — no server processing, no data sent anywhere to generate the preview.",
+  },
+  {
+    step: 5,
     title: "Download instantly — no upload",
-    desc: "One click saves a transparent PNG directly to your device. No file is uploaded, no data is stored on any server, no account required at any step.",
+    desc: "One click saves a transparent PNG directly to your device. No file is uploaded, no data is stored on any server, and no account is required at any step.",
   },
 ];
 
@@ -241,7 +246,7 @@ export default function PrivateSignatureGenerator() {
   const howToSchema = generateHowToSchema({
     name: "How to Create a Signature Privately Online",
     description:
-      "Create and download a signature privately in your browser — no upload, no data stored, no login required.",
+      "Create and download a signature privately in your browser — fully client-side, no server processing, no upload, no data stored, no login required.",
     steps: HOW_TO_STEPS.map((s) => ({ name: s.title, text: s.desc })),
   });
 
@@ -285,8 +290,10 @@ export default function PrivateSignatureGenerator() {
             </p>
             <p className="text-base text-foreground leading-relaxed">
               A <strong>private signature generator</strong> is a secure, browser-based tool that creates your
-              signature with <strong>no data stored and no upload</strong> to any server. Everything runs inside
-              your browser — your signature is generated locally, downloaded instantly, and never shared with anyone.
+              signature with <strong>no data stored and no upload</strong> to any server. It uses{" "}
+              <strong>fully client-side processing</strong> — your signature is generated locally, downloaded
+              instantly, and never shared. Complete <strong>privacy</strong> and{" "}
+              <strong>data protection</strong> by design.
             </p>
           </div>
 
@@ -308,9 +315,11 @@ export default function PrivateSignatureGenerator() {
 
           <p className="text-base text-muted-foreground mb-5 leading-relaxed">
             Most signature tools upload your data to a server — putting your signature at risk of storage,
-            tracking, or breach. This <strong>private signature generator</strong> works differently:{" "}
-            <strong>no data ever leaves your device.</strong> Your signature is created and downloaded entirely
-            inside your browser, with zero server interaction, zero tracking, and zero risk.
+            tracking, or breach. This <strong>private signature generator</strong> works differently.{" "}
+            <strong>Your data never leaves your device.</strong> There is{" "}
+            <strong>no server processing</strong> at any step — the tool is{" "}
+            <strong>fully client-side</strong>, running entirely inside your browser with zero network
+            interaction, zero tracking, and zero risk. Complete <strong>data protection</strong> by design.
           </p>
 
           <Button
@@ -429,7 +438,7 @@ export default function PrivateSignatureGenerator() {
             How to Create a Signature Privately Online
           </h2>
           <p className="text-muted-foreground mb-5 text-sm">
-            Four steps — no data leaves your device at any point.
+            Five steps — <strong>your data never leaves your device</strong> at any point. Fully client-side, no server processing.
           </p>
           <div className="space-y-3">
             {HOW_TO_STEPS.map((s) => (
@@ -484,8 +493,18 @@ export default function PrivateSignatureGenerator() {
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 This means even if you wanted to audit the tool, you could open your browser's network inspector
-                and confirm: there are zero outbound requests containing your signature data. The privacy is
-                verifiable, not just promised.
+                and confirm: there are zero outbound requests containing your signature data. The{" "}
+                <strong>privacy</strong> and <strong>data protection</strong> here are verifiable, not just
+                promised — a standard no server-based tool can match.
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                For added privacy, you can also use our{" "}
+                <Link href="/tools/online-signature-generator-without-upload" className="text-primary underline underline-offset-2">
+                  signature generator without upload
+                </Link>{" "}
+                — a version that explicitly emphasises zero data transfer and works fully offline once the page is
+                loaded. Both tools share the same <strong>client-side processing</strong> architecture with no
+                server interaction of any kind.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
