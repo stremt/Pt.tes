@@ -150,7 +150,7 @@ export default function SignatureForPDF() {
             Add Signature to PDF Instantly — No Signup, No Upload Required
           </p>
 
-          <p className="hidden sm:block text-base text-muted-foreground leading-relaxed mb-7 max-w-2xl">
+          <p className="hidden md:block text-base text-muted-foreground leading-relaxed mb-7 max-w-2xl">
             Sign any PDF document directly in your browser — no login, no server upload, completely private.{" "}
             <strong className="text-foreground">Draw</strong> your signature freehand,{" "}
             <strong className="text-foreground">type</strong> it in 50+ calligraphic fonts,{" "}
@@ -190,7 +190,7 @@ export default function SignatureForPDF() {
           <h2 className="text-base sm:text-lg font-bold text-foreground mb-1.5">
             Sign PDF Online Free Without Upload or Software
           </h2>
-          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden md:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Pixocraft lets you sign any PDF document directly in your browser — no account, no server upload, no software.
             Create your signature by drawing or typing, upload your PDF, click to place your signature on any page, and
             download the signed PDF instantly. 100% private, works offline, free forever.

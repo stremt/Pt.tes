@@ -215,7 +215,7 @@ export default function HowToAddSignatureInGoogleDocs() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Add Signature in Google Docs Free – Step-by-Step Guide (2026)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Free · No Extension · 100% Private · Team Collaboration Ready</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Free · No Extension · 100% Private · Team Collaboration Ready</p>
             </div>
           </div>
 
@@ -228,7 +228,7 @@ export default function HowToAddSignatureInGoogleDocs() {
           </div>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Check className="h-3.5 w-3.5" />, label: "35-Second Method" },
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No Extension Required" },
@@ -327,7 +327,7 @@ export default function HowToAddSignatureInGoogleDocs() {
                 </tbody>
               </table>
             </div>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               Use Google Docs when the document is being collaboratively drafted and reviewed. Export to PDF when the document is finalised and needs to be locked and shared externally.
             </p>
           </section>

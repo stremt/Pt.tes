@@ -206,7 +206,7 @@ export default function OnlineSignatureGenerator() {
             </span>
           </h1>
 
-          <p className="hidden sm:block text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
+          <p className="hidden md:block text-base text-muted-foreground leading-relaxed mb-6 max-w-2xl">
             Create a digital signature online in seconds. <strong className="text-foreground">Draw</strong> with your mouse or finger,{" "}
             <strong className="text-foreground">type</strong> in 50+ handwritten fonts,{" "}
             <strong className="text-foreground">upload</strong> an existing signature, or use{" "}
@@ -214,7 +214,7 @@ export default function OnlineSignatureGenerator() {
             Download as a crisp transparent PNG — free forever, 100% private.
           </p>
 
-          <div className="hidden sm:grid grid-cols-4 gap-2 mb-2">
+          <div className="hidden md:grid grid-cols-4 gap-2 mb-2">
             {[
               { icon: <Check className="h-3.5 w-3.5 text-primary" />, label: "No Signup · No Watermark" },
               { icon: <Shield className="h-3.5 w-3.5 text-primary" />, label: "100% Private & Offline" },
@@ -529,7 +529,7 @@ export default function OnlineSignatureGenerator() {
                   </div>
                   <div>
                     <p className="font-semibold text-foreground text-sm mb-1">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

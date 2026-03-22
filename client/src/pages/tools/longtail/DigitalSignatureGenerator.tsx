@@ -173,11 +173,11 @@ export default function DigitalSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Digital Signature Generator – Create Legal Signature Online
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Free · IT Act 2000 Ready · No Signup · 100% Private</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Free · IT Act 2000 Ready · No Signup · 100% Private</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a professional <strong>digital signature online</strong> in seconds — no software, no signup, and no
             cost. <strong>Draw</strong> freehand with your mouse or finger, <strong>type</strong> your name in one of
             50+ calligraphic fonts, or <strong>upload</strong> an existing signature and remove the background
@@ -185,7 +185,7 @@ export default function DigitalSignatureGenerator() {
             invoices, contracts, and business documents. Your data never leaves your browser.
           </p>
 
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Free Forever" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Instant PNG Download" },
@@ -229,7 +229,7 @@ export default function DigitalSignatureGenerator() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -351,7 +351,7 @@ export default function DigitalSignatureGenerator() {
                   <p style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }} className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis">
                     {name}
                   </p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{note}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{note}</p>
                 </div>
               ))}
             </div>
@@ -397,7 +397,7 @@ export default function DigitalSignatureGenerator() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   Information Technology Act 2000
                 </p>
-                <p className="hidden sm:block text-sm text-muted-foreground">
+                <p className="hidden md:block text-sm text-muted-foreground">
                   Section 5 of the IT Act 2000 grants electronic signatures the same legal validity as handwritten signatures for any law that requires a document to be signed. The IT (Amendment) Act 2008 further expanded and clarified this framework.
                 </p>
               </div>
@@ -406,7 +406,7 @@ export default function DigitalSignatureGenerator() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   GST & Commercial Usage
                 </p>
-                <p className="hidden sm:block text-sm text-muted-foreground">
+                <p className="hidden md:block text-sm text-muted-foreground">
                   GST invoices, e-way bills, and most commercial agreements are fully valid with an image-based digital signature. The GSTN portal and most billing software accept PNG signatures as part of invoice templates.
                 </p>
               </div>
@@ -415,7 +415,7 @@ export default function DigitalSignatureGenerator() {
                   <BadgeCheck className="h-4 w-4 text-primary shrink-0" />
                   General Business Acceptance
                 </p>
-                <p className="hidden sm:block text-sm text-muted-foreground">
+                <p className="hidden md:block text-sm text-muted-foreground">
                   Banks, corporates, law firms, and HR departments across India routinely accept image-based electronic signatures on contracts, appointment letters, NDAs, and vendor agreements. A PNG signature from this digital signature generator meets these requirements.
                 </p>
               </div>
@@ -467,7 +467,7 @@ export default function DigitalSignatureGenerator() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

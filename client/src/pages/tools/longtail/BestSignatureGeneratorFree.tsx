@@ -349,7 +349,7 @@ export default function BestSignatureGeneratorFree() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Best Signature Generator Free (Top Tools Compared)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">
+              <p className="hidden md:block text-sm text-muted-foreground">
                 Compare the fastest, most private, and easiest free signature generators — and choose the right one for you.
               </p>
             </div>
@@ -366,7 +366,7 @@ export default function BestSignatureGeneratorFree() {
             </p>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Searching for the best free signature generator can be confusing — there are dozens of options, each
             claiming to be the best. This page gives you an <strong>honest comparison of tools</strong> — evaluated
             objectively <strong>based on features</strong>, privacy, speed, and output quality — so you can choose

@@ -222,18 +222,18 @@ export default function EmailSignatureMaker() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Email Signature Maker Free – Professional Signature for Gmail &amp; Outlook
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Works with Gmail &amp; Outlook · No Signup · 100% Private · Instant PNG</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Works with Gmail &amp; Outlook · No Signup · 100% Private · Instant PNG</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a <strong>premium email signature</strong> that makes every email look professional. Perfect for
             <strong> Gmail, Outlook</strong>, and all business email communication. Draw, type, or upload your signature —
             download as a transparent PNG and paste it directly into your email client in seconds.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Mail className="h-3.5 w-3.5" />,      label: "Works with Gmail & Outlook" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Create in Under 30 Seconds" },
@@ -251,7 +251,7 @@ export default function EmailSignatureMaker() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
+          <div className="hidden md:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5 text-primary" />,    label: "Used in daily business emails" },
               { icon: <Star className="h-3.5 w-3.5 text-primary" />,   label: "Improves professional image instantly" },
@@ -264,7 +264,7 @@ export default function EmailSignatureMaker() {
           </div>
 
           {/* Action flow */}
-          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
+          <div className="hidden md:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Create Signature" },
               { n: 2, label: "Customise" },

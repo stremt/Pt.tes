@@ -210,7 +210,7 @@ export default function HowToSignPdfOnMobile() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Sign PDF on Mobile Free – Android & iPhone (2026 Guide)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Free · No App Download · Android + iPhone · GST on the Go · Aadhaar Ready</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Free · No App Download · Android + iPhone · GST on the Go · Aadhaar Ready</p>
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export default function HowToSignPdfOnMobile() {
           </div>
 
           {/* Trust badges */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />, label: "Sign PDF in 40 Seconds on Phone" },
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No Data Saved" },
@@ -242,7 +242,7 @@ export default function HowToSignPdfOnMobile() {
             {HOW_TO_STEPS.map(({ step, title }) => (
               <div key={step} className="flex flex-col items-center gap-1.5 p-2 sm:p-3 rounded-xl border bg-card text-center">
                 <span className="h-7 w-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">{step}</span>
-                <p className="text-xs font-medium text-foreground leading-snug hidden sm:block">{title}</p>
+                <p className="text-xs font-medium text-foreground leading-snug hidden md:block">{title}</p>
               </div>
             ))}
           </div>

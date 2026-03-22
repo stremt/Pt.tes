@@ -295,7 +295,7 @@ export default function SignatureInWordDocument() {
               <span className="text-primary">Add & Insert Free</span>
             </h1>
           </div>
-          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden md:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create and insert your signature into <strong>Microsoft Word</strong> in under 60 seconds.
             Draw or type your signature, download a <strong>transparent PNG</strong>, and place it anywhere
             in your Word document — letters, contracts, forms, or applications. No login, no upload, no printing.
@@ -303,7 +303,7 @@ export default function SignatureInWordDocument() {
           <p className="text-base font-semibold text-foreground">
             <strong>Sign any Word document digitally in under 60 seconds — no login, no upload, fully private.</strong>
           </p>
-          <div className="hidden sm:flex flex-wrap gap-2">
+          <div className="hidden md:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,       label: "No Login" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Transparent PNG" },
@@ -323,7 +323,7 @@ export default function SignatureInWordDocument() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden md:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             How to add a signature in a Word document?
@@ -331,7 +331,7 @@ export default function SignatureInWordDocument() {
           <p className="text-sm text-foreground leading-relaxed">
             Create your signature as a transparent PNG on Pixocraft (draw or type). In Microsoft Word, click <strong>Insert → Pictures → This Device</strong>, select your PNG, and insert it. Drag to the signature field, right-click → <strong>Wrap Text → In Front of Text</strong>, then resize to 3–5 cm wide. Save the document — done.
           </p>
-          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
+          <div className="hidden md:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Best format",    value: "Transparent PNG" },
               { label: "Ideal width",    value: "3–5 cm in Word" },
@@ -406,7 +406,7 @@ export default function SignatureInWordDocument() {
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                <div className="hidden sm:flex flex-wrap gap-2">
+                <div className="hidden md:flex flex-wrap gap-2">
                   {pros.map((pro) => (
                     <span key={pro} className="inline-flex items-center gap-1 text-xs text-muted-foreground bg-muted/50 border rounded-full px-2.5 py-1">
                       <Check className="h-3 w-3 text-primary" />{pro}

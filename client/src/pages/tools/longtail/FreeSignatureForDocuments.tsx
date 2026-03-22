@@ -191,18 +191,18 @@ export default function FreeSignatureForDocuments() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature for Documents – PDF, Word &amp; More
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">PDF · Word · Google Docs · Excel · 100% Private · IT Act Compliant</p>
+              <p className="hidden md:block text-sm text-muted-foreground">PDF · Word · Google Docs · Excel · 100% Private · IT Act Compliant</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Get <strong>free signature for documents</strong> in seconds. Create a professional digital signature for documents
             and insert it into <strong>PDF, Word, Google Docs, Excel</strong> or any file instantly. Transparent PNG,
             no signup, no watermark, 100% private and legally valid for GST, contracts and daily business use in India.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,        label: "Free Signature for Documents" },
               { icon: <Layers className="h-3.5 w-3.5" />,      label: "PDF, Word, Google Docs Ready" },
@@ -220,7 +220,7 @@ export default function FreeSignatureForDocuments() {
           </div>
 
           {/* Doc type quick links */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {["PDF", "Word", "Google Docs", "Excel", "GST Invoice", "Contracts"].map((doc) => (
               <span key={doc} className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full bg-primary/10 text-primary">
                 <Check className="h-3 w-3" />{doc}

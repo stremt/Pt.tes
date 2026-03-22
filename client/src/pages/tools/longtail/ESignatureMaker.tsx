@@ -290,18 +290,18 @@ export default function ESignatureMaker() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 eSignature Maker Free – Create Electronic Signature Online
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Legal Ready</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Free · No Login · 100% Private · GST &amp; Legal Ready</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create your professional <strong>eSignature</strong> in seconds. <strong>Draw</strong> with your mouse or finger,
             <strong> type</strong> your name in 50+ handwritten fonts, or <strong>upload</strong> an existing signature and remove
             the background automatically. Download as a crisp transparent PNG — no login, no watermark, 100% private.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,        label: "Free Forever" },
               { icon: <Lock className="h-3.5 w-3.5" />,        label: "No Signup" },
@@ -394,7 +394,7 @@ export default function ESignatureMaker() {
                 </li>
               ))}
             </ol>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               Need the full tool with additional options?{" "}
               <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
                 Visit the main Signature Generator
@@ -582,7 +582,7 @@ export default function ESignatureMaker() {
                 <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
                   <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
                   <p className="text-xs font-medium text-primary">{law}</p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                 </div>
               ))}
             </div>

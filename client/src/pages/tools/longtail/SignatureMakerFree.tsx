@@ -182,18 +182,18 @@ export default function SignatureMakerFree() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature Maker Online – Create &amp; Customize Instantly
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">100% Free · No Watermark · No Signup · Unlimited Downloads · GST Ready</p>
+              <p className="hidden md:block text-sm text-muted-foreground">100% Free · No Watermark · No Signup · Unlimited Downloads · GST Ready</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Build your professional signature completely free with our <strong>free signature maker</strong>. Draw with
             your mouse or finger, type in 50+ handwritten fonts, or upload your existing signature and remove the
             background automatically. Enjoy full customisation — ink colour, stroke width, style — with instant
             transparent PNG download. No signup, no watermark, and 100% private browser-based experience.
           </p>
 
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "100% Free Forever" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Instant Download" },
@@ -239,7 +239,7 @@ export default function SignatureMakerFree() {
                 </button>
               ))}
             </div>
-            <p className="hidden sm:block text-sm text-muted-foreground">Switch to the Type tab above, type your name, and browse all 50+ fonts. Click any preset card to scroll straight to the tool.</p>
+            <p className="hidden md:block text-sm text-muted-foreground">Switch to the Type tab above, type your name, and browse all 50+ fonts. Click any preset card to scroll straight to the tool.</p>
           </section>
 
           {/* Features */}
@@ -251,7 +251,7 @@ export default function SignatureMakerFree() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -373,7 +373,7 @@ export default function SignatureMakerFree() {
                   <p style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }} className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis">
                     {name}
                   </p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{note}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{note}</p>
                 </div>
               ))}
             </div>
@@ -457,7 +457,7 @@ export default function SignatureMakerFree() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}
@@ -504,7 +504,7 @@ export default function SignatureMakerFree() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

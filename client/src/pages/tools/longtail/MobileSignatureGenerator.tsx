@@ -174,17 +174,17 @@ export default function MobileSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Mobile Signature Generator Free – Draw Signature on Phone Instantly
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">No App · No Login · Works on All Phones · 100% Private</p>
+              <p className="hidden md:block text-sm text-muted-foreground">No App · No Login · Works on All Phones · 100% Private</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create your signature directly on your phone using your finger. <strong>No app, no login, instant download.</strong> Works
             on any smartphone in any browser — ready for GST invoices, contracts, and official documents on the go.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,       label: "Draw Signature in 20 Seconds" },
               { icon: <Smartphone className="h-3.5 w-3.5" />, label: "No App Required" },
@@ -199,7 +199,7 @@ export default function MobileSignatureGenerator() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
+          <div className="hidden md:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5 text-primary" />,    label: "Works best on mobile" },
               { icon: <Shield className="h-3.5 w-3.5 text-primary" />, label: "No data stored" },
@@ -212,7 +212,7 @@ export default function MobileSignatureGenerator() {
           </div>
 
           {/* Action flow */}
-          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
+          <div className="hidden md:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Draw on Phone" },
               { n: 2, label: "Customise" },
@@ -406,7 +406,7 @@ export default function MobileSignatureGenerator() {
                 </tbody>
               </table>
             </div>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               In practice, there is no meaningful quality difference between a signature created on mobile vs desktop when using
               the Type tab. For the Draw tab, a mouse on desktop gives marginally higher precision — but most users achieve
               perfectly professional results with finger drawing on mobile after 2–3 attempts. The Type tab eliminates this
@@ -429,7 +429,7 @@ export default function MobileSignatureGenerator() {
                 </div>
               ))}
             </div>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               The common thread: these users need to sign a document <em>right now</em>, from wherever they are, without returning
               to their desk or waiting for a desktop computer. A mobile signature generator eliminates that dependency entirely.
             </p>

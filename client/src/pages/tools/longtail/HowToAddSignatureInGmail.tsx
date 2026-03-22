@@ -228,7 +228,7 @@ export default function HowToAddSignatureInGmail() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 How to Add Signature in Gmail (Step-by-Step Guide)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Create and add a professional signature in Gmail easily. Covers desktop and mobile. Free tool, no login.</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Create and add a professional signature in Gmail easily. Covers desktop and mobile. Free tool, no login.</p>
             </div>
           </div>
 
@@ -241,7 +241,7 @@ export default function HowToAddSignatureInGmail() {
           </div>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Monitor className="h-3.5 w-3.5" />, label: "Desktop Guide" },
               { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Android & iPhone" },

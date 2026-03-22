@@ -330,18 +330,18 @@ export default function SignatureCreator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature Creator Online Free – Design Your Unique Signature
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Free · No Login · 100% Private · Full Creative Control</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Free · No Login · 100% Private · Full Creative Control</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Design a signature that reflects your identity. <strong>Full creative control</strong>, instant results, no login required.
             <strong> Draw</strong> freehand with a mouse or finger, <strong>type</strong> your name across 50+ curated handwriting fonts,
             or <strong>upload</strong> an existing signature for digital refinement. Download as a crisp transparent PNG — free, private, instantly.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,       label: "Design Signature in 5 Seconds" },
               { icon: <Star className="h-3.5 w-3.5" />,       label: "50+ Creative Styles" },
@@ -466,7 +466,7 @@ export default function SignatureCreator() {
                 </li>
               ))}
             </ol>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               Want the full tool with additional options?{" "}
               <Link href="/tools/signature-pad-tool" className="text-primary hover:underline underline-offset-2 font-medium">
                 Visit the main Signature Generator
@@ -570,7 +570,7 @@ export default function SignatureCreator() {
                 </tbody>
               </table>
             </div>
-            <p className="hidden sm:block text-sm text-muted-foreground">
+            <p className="hidden md:block text-sm text-muted-foreground">
               If your signature represents your identity and brand, use a <strong>creator</strong>. If you just need a quick one-time signature
               for a single document, a generator may suffice — but the quality difference will be visible.
             </p>

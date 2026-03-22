@@ -210,18 +210,18 @@ export default function SimpleSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Generator Online – Create in Seconds
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">100% Free · No Login · No Complicated Settings · One-Click Download · Works on Mobile</p>
+              <p className="hidden md:block text-sm text-muted-foreground">100% Free · No Login · No Complicated Settings · One-Click Download · Works on Mobile</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             The simplest way to create a signature online — <strong>no complicated settings</strong>, no account, and no
             waiting. Draw with your finger or mouse, type your name, or upload an existing signature. It{" "}
             <strong>takes only a few seconds</strong>, and <strong>one-click download</strong> saves it straight to your
             device as a high-resolution transparent PNG. Beginner friendly, mobile ready, and 100% private.
           </p>
 
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,        label: "100% Free" },
               { icon: <Clock className="h-3.5 w-3.5" />,       label: "Done in Seconds" },

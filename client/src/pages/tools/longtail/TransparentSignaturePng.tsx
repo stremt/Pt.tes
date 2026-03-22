@@ -216,18 +216,18 @@ export default function TransparentSignaturePng() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Transparent Signature PNG Free – Remove Background &amp; Download Instantly
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Auto Background Removal · No Signup · High-Resolution PNG · 100% Private</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Auto Background Removal · No Signup · High-Resolution PNG · 100% Private</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Remove the white background from your signature and get a clean <strong>transparent PNG</strong> in seconds.
             Perfect for <strong>GST invoices, PDFs, and email signatures</strong> — draw, upload, or type your signature
             and download a print-resolution transparent PNG instantly. No Photoshop. No signup. 100% private.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Auto Background Removal in 2 Seconds" },
               { icon: <Lock className="h-3.5 w-3.5" />,        label: "No Signup Required" },
@@ -245,7 +245,7 @@ export default function TransparentSignaturePng() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
+          <div className="hidden md:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Zap className="h-3.5 w-3.5 text-primary" />,    label: "No Photoshop needed" },
               { icon: <Check className="h-3.5 w-3.5 text-primary" />,  label: "Instant clean result" },
@@ -258,7 +258,7 @@ export default function TransparentSignaturePng() {
           </div>
 
           {/* Action flow */}
-          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
+          <div className="hidden md:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Upload or Draw" },
               { n: 2, label: "Auto Remove Background" },

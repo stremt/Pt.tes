@@ -210,18 +210,18 @@ export default function SignatureGeneratorIndia() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature Generator India (Free &amp; Easy Online Tool)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">India Ready · GST Compatible · Aadhaar Use · No Login · 100% Free</p>
+              <p className="hidden md:block text-sm text-muted-foreground">India Ready · GST Compatible · Aadhaar Use · No Login · 100% Free</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create signature online for <strong>GST, Aadhaar, banking, and documents in India</strong>.
             No login, no upload, fully secure — all processing happens in your browser.
             Download your transparent PNG signature in under 60 seconds and use it on any Indian business document.
           </p>
 
           {/* Trust badges */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <BadgeCheck className="h-3.5 w-3.5" />, label: "India Ready" },
               { icon: <Receipt className="h-3.5 w-3.5" />,    label: "GST Compatible" },
@@ -254,7 +254,7 @@ export default function SignatureGeneratorIndia() {
           </div>
 
           {/* E-E-A-T micro-trust */}
-          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
+          <div className="hidden md:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <Users className="h-3.5 w-3.5 text-primary" />,   label: "Trusted by Indian businesses, CAs & MSMEs" },
               { icon: <Receipt className="h-3.5 w-3.5 text-primary" />, label: "Works for GST invoices, Tally & government forms" },
@@ -346,7 +346,7 @@ export default function SignatureGeneratorIndia() {
               ].map(({ title, body }) => (
                 <div key={title} className="rounded-xl border bg-card px-5 py-4">
                   <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                 </div>
               ))}
             </div>
@@ -394,7 +394,7 @@ export default function SignatureGeneratorIndia() {
                   <span className="h-8 w-8 rounded-full bg-primary/10 text-primary text-sm font-bold flex items-center justify-center shrink-0 mt-0.5">{n}</span>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -438,7 +438,7 @@ export default function SignatureGeneratorIndia() {
               ))}
             </div>
             <div className="rounded-xl border bg-card px-5 py-4">
-              <p className="hidden sm:block text-sm text-muted-foreground">
+              <p className="hidden md:block text-sm text-muted-foreground">
                 <strong className="text-foreground">India context:</strong> For everyday business — GST invoices, commercial contracts, bank forms, Aadhaar-linked declarations —
                 a <strong>PNG digital signature</strong> is legally valid under the IT Act 2000 and practically sufficient. A DSC is only
                 required for specific regulated government portal filings (MCA21, eCourts, income tax e-verification via portal).
@@ -475,7 +475,7 @@ export default function SignatureGeneratorIndia() {
               ].map(({ title, body }) => (
                 <div key={title} className="rounded-xl border bg-card px-5 py-4">
                   <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                 </div>
               ))}
             </div>
@@ -494,7 +494,7 @@ export default function SignatureGeneratorIndia() {
                   <div className="shrink-0 mt-0.5">{icon}</div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -575,7 +575,7 @@ export default function SignatureGeneratorIndia() {
                   <div className="shrink-0 mt-0.5">{icon}</div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}

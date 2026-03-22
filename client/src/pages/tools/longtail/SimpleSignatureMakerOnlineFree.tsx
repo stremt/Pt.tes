@@ -300,7 +300,7 @@ export default function SimpleSignatureMakerOnlineFree() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Simple Signature Maker Online Free (Fast &amp; Easy)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">
+              <p className="hidden md:block text-sm text-muted-foreground">
                 Create your signature in seconds. No login, no complexity, instant download.
               </p>
             </div>
@@ -319,7 +319,7 @@ export default function SimpleSignatureMakerOnlineFree() {
           </div>
 
           {/* Trust badges */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <Star className="h-3.5 w-3.5" />, label: "Simple to use" },
               { icon: <Lock className="h-3.5 w-3.5" />, label: "No login" },
@@ -337,7 +337,7 @@ export default function SimpleSignatureMakerOnlineFree() {
             ))}
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             The fastest way to <strong>create a simple signature online free</strong>.{" "}
             <strong>No complicated settings.</strong> No account. Just open the tool, draw or type your name, and{" "}
             <strong>one-click download</strong> saves a high-resolution transparent PNG to your device.{" "}
@@ -610,7 +610,7 @@ export default function SimpleSignatureMakerOnlineFree() {
                 key={row.feature}
                 className={`grid grid-cols-3 px-4 py-3 ${i < COMPARISON.length - 1 ? "border-b" : ""}`}
               >
-                <p className="hidden sm:block text-sm text-muted-foreground">{row.feature}</p>
+                <p className="hidden md:block text-sm text-muted-foreground">{row.feature}</p>
                 <p className="text-sm font-medium text-primary text-center">{row.pixocraft}</p>
                 <p className="text-sm text-muted-foreground text-center">{row.others}</p>
               </div>

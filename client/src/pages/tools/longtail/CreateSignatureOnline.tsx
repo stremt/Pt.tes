@@ -182,18 +182,18 @@ export default function CreateSignatureOnline() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Create Signature Online Free – Instant PNG in Seconds
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Create in &lt;60 sec · No Signup · No Watermark · 100% Private · GST Ready</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Create in &lt;60 sec · No Signup · No Watermark · 100% Private · GST Ready</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             <strong>Create signature online</strong> instantly with our free tool — no software, no signup, and no wait.
             Draw with your mouse or finger, type your name in beautiful handwritten fonts, or upload your existing
             signature and clean the background automatically. Get a high-resolution transparent PNG ready to use
             immediately — no watermark, 100% private, and GST compliant.
           </p>
 
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Create Signature Online Free" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Instant Download" },
@@ -223,7 +223,7 @@ export default function CreateSignatureOnline() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -301,7 +301,7 @@ export default function CreateSignatureOnline() {
                   <p style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }} className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis">
                     {name}
                   </p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{note}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{note}</p>
                   <button
                     onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })}
                     className="text-xs text-primary font-semibold hover:underline underline-offset-2 cursor-pointer"
@@ -416,7 +416,7 @@ export default function CreateSignatureOnline() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

@@ -219,12 +219,12 @@ export default function HandwrittenSignatureGenerator() {
               (Free)
             </h1>
           </div>
-          <p className="hidden sm:block text-sm sm:text-base text-muted-foreground leading-relaxed">
+          <p className="hidden md:block text-sm sm:text-base text-muted-foreground leading-relaxed">
             Create a <strong>stylish handwritten signature</strong> online in seconds. Choose from
             <strong> 50+ cursive and handwriting fonts</strong> or draw your own signature freehand.
             Download as a crisp transparent PNG — no login, no watermark, 100% private.
           </p>
-          <div className="hidden sm:flex flex-wrap gap-2">
+          <div className="hidden md:flex flex-wrap gap-2">
             {[
               { icon: <Lock className="h-3.5 w-3.5" />,        label: "No Signup" },
               { icon: <Star className="h-3.5 w-3.5" />,        label: "50+ Cursive Fonts" },
@@ -244,7 +244,7 @@ export default function HandwrittenSignatureGenerator() {
         </div>
 
         {/* ── FEATURED SNIPPET ─────────────────────────────────────────────── */}
-        <div className="hidden sm:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
+        <div className="hidden md:block rounded-xl border-2 border-primary/20 bg-primary/5 px-4 py-4 sm:px-6 sm:py-5 space-y-3">
           <p className="text-xs font-bold uppercase tracking-widest text-primary">Quick Answer</p>
           <h2 className="text-base sm:text-lg font-bold text-foreground">
             What is the best way to create a handwritten signature online?
@@ -257,7 +257,7 @@ export default function HandwrittenSignatureGenerator() {
             <strong>high-resolution transparent PNG (3200×1040 px)</strong> — no login, no watermark,
             instant download.
           </p>
-          <div className="hidden sm:grid grid-cols-4 gap-3 pt-1">
+          <div className="hidden md:grid grid-cols-4 gap-3 pt-1">
             {[
               { label: "Fonts",          value: "50+ Cursive" },
               { label: "Export",         value: "Transparent PNG" },
@@ -307,11 +307,11 @@ export default function HandwrittenSignatureGenerator() {
                 >
                   Your Name
                 </p>
-                <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>
-          <p className="hidden sm:block text-sm text-muted-foreground">
+          <p className="hidden md:block text-sm text-muted-foreground">
             Switch to the <strong>Type</strong> tab, type your name, and browse all 50+ fonts — each renders live so you see exactly your signature.
           </p>
         </section>
@@ -440,7 +440,7 @@ export default function HandwrittenSignatureGenerator() {
             {TIPS.map(({ title, body }) => (
               <div key={title} className="rounded-xl border bg-card p-4 space-y-1.5">
                 <p className="font-semibold text-foreground text-sm">{title}</p>
-                <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
               </div>
             ))}
           </div>
@@ -483,7 +483,7 @@ export default function HandwrittenSignatureGenerator() {
               <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
                 <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
                 <p className="text-xs font-medium text-primary">{law}</p>
-                <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
               </div>
             ))}
           </div>

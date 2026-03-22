@@ -199,18 +199,18 @@ export default function SignatureForContracts() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Signature for Contracts Free – Legal Digital Signature for Agreements
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">IT Act 2000 Compliant · Indian Contract Act Valid · No Signup · 100% Private</p>
+              <p className="hidden md:block text-sm text-muted-foreground">IT Act 2000 Compliant · Indian Contract Act Valid · No Signup · 100% Private</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a <strong>legally valid signature for contracts</strong>, NDAs, and agreements in seconds. Fully compliant
             with <strong>Indian laws</strong> — accepted for business contracts, freelance agreements, employment letters,
             and commercial documents. No login. 100% private. Instant download.
           </p>
 
           {/* Trust bar */}
-          <div className="hidden sm:flex flex-wrap gap-2 mb-5">
+          <div className="hidden md:flex flex-wrap gap-2 mb-5">
             {[
               { icon: <BadgeCheck className="h-3.5 w-3.5" />, label: "IT Act 2000 Compliant" },
               { icon: <Scale className="h-3.5 w-3.5" />,       label: "Indian Contract Act Valid" },
@@ -228,7 +228,7 @@ export default function SignatureForContracts() {
           </div>
 
           {/* UX psychology micro-trust */}
-          <div className="hidden sm:flex flex-wrap gap-4 mb-6">
+          <div className="hidden md:flex flex-wrap gap-4 mb-6">
             {[
               { icon: <FileText className="h-3.5 w-3.5 text-primary" />, label: "Used in NDAs & business agreements" },
               { icon: <Users className="h-3.5 w-3.5 text-primary" />,   label: "Trusted by freelancers & lawyers" },
@@ -241,7 +241,7 @@ export default function SignatureForContracts() {
           </div>
 
           {/* Action flow */}
-          <div className="hidden sm:grid grid-cols-4 gap-2 mb-6">
+          <div className="hidden md:grid grid-cols-4 gap-2 mb-6">
             {[
               { n: 1, label: "Create Signature" },
               { n: 2, label: "Download PNG" },

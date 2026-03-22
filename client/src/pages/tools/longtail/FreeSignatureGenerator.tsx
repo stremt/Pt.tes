@@ -171,18 +171,18 @@ export default function FreeSignatureGenerator() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Free Signature Generator – Create &amp; Download Instantly
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Completely Free · No Signup · No Watermark · 100% Private</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Completely Free · No Signup · No Watermark · 100% Private</p>
             </div>
           </div>
 
-          <p className="hidden sm:block text-base text-muted-foreground mb-5 leading-relaxed">
+          <p className="hidden md:block text-base text-muted-foreground mb-5 leading-relaxed">
             Create a professional digital signature for free — right here in your browser. <strong>Draw</strong> with
             your mouse or finger, <strong>type</strong> your name in one of 50+ handwritten fonts, or{" "}
             <strong>upload</strong> an existing signature and remove the background. Download as a crisp transparent PNG
             or JPG instantly — no account, no watermark, no strings attached. Your data never leaves your device.
           </p>
 
-          <div className="hidden sm:flex flex-wrap gap-2 mb-6">
+          <div className="hidden md:flex flex-wrap gap-2 mb-6">
             {[
               { icon: <Star className="h-3.5 w-3.5" />,       label: "Completely Free Forever" },
               { icon: <Zap className="h-3.5 w-3.5" />,        label: "Instant Download" },
@@ -212,7 +212,7 @@ export default function FreeSignatureGenerator() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -300,7 +300,7 @@ export default function FreeSignatureGenerator() {
                   <p style={{ fontFamily: `'${font}', cursive`, fontSize: "2rem", lineHeight: 1.2 }} className="text-foreground overflow-hidden whitespace-nowrap text-ellipsis">
                     {name}
                   </p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{note}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{note}</p>
                 </div>
               ))}
             </div>
@@ -360,7 +360,7 @@ export default function FreeSignatureGenerator() {
                 <div key={country} className="rounded-xl border bg-card p-4 space-y-1.5">
                   <p className="font-semibold text-foreground flex items-center gap-2"><span>{flag}</span>{country}</p>
                   <p className="text-xs font-medium text-primary">{law}</p>
-                  <p className="hidden sm:block text-sm text-muted-foreground">{desc}</p>
+                  <p className="hidden md:block text-sm text-muted-foreground">{desc}</p>
                 </div>
               ))}
             </div>
@@ -411,7 +411,7 @@ export default function FreeSignatureGenerator() {
                   <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="hidden sm:block text-sm text-muted-foreground">{body}</p>
+                    <p className="hidden md:block text-sm text-muted-foreground">{body}</p>
                   </div>
                 </div>
               ))}

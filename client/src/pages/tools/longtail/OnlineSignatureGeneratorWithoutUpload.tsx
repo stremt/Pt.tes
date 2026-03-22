@@ -235,7 +235,7 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
               <h1 className="text-xl sm:text-3xl font-bold text-foreground leading-tight">
                 Online Signature Generator Without Upload (100% Private)
               </h1>
-              <p className="hidden sm:block text-sm text-muted-foreground">Create your signature without uploading any files. Fully private, secure, and works directly in your browser.</p>
+              <p className="hidden md:block text-sm text-muted-foreground">Create your signature without uploading any files. Fully private, secure, and works directly in your browser.</p>
             </div>
           </div>
 

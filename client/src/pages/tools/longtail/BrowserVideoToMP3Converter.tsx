@@ -141,7 +141,7 @@ export default function BrowserVideoToMP3Converter() {
             <Globe className="h-8 w-8 text-primary" aria-label="browser video to mp3 converter" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
-            Browser Video to MP3 Converter —<br className="hidden sm:block" /> Convert Videos Directly in Your Browser
+            Browser Video to MP3 Converter —<br className="hidden md:block" /> Convert Videos Directly in Your Browser
           </h1>
           <p className="text-xs text-muted-foreground mb-4">Part of the Pixocraft MP4 to MP3 Converter Tool Suite</p>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
