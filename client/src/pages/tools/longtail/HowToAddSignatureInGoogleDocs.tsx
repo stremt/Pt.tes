@@ -8,9 +8,8 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   Shield, Zap, Smartphone, Lock, BadgeCheck, ArrowRight,
   ChevronDown, ChevronUp, FileCheck, FileText, Receipt,
@@ -267,9 +266,7 @@ export default function HowToAddSignatureInGoogleDocs() {
         </div>
 
         {/* ── TOOL ──────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-        </div>
+        <SignatureToolSection />
 
         {/* ── SEO CONTENT ───────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">

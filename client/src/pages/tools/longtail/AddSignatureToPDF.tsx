@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -11,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { PDFSignatureTool } from "@/components/PDFSignatureTool";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool, Shield, Zap, Smartphone, Star, Check, FileText, Mail, Globe,
   ChevronDown, ChevronUp, ArrowRight, Lock, AlertCircle, BadgeCheck,
@@ -166,9 +165,7 @@ export default function AddSignatureToPDF() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <PDFSignatureTool ctaLabel="Download Signed PDF" />
-        </div>
+        <SignatureToolSection mode="pdf" />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">

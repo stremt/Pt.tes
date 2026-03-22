@@ -10,7 +10,6 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -579,15 +578,6 @@ export default function SignatureForTally() {
             ))}
           </div>
         </section>
-
-        {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-        <SignatureRelatedTools links={[
-          { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-          { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax with a transparent PNG." },
-          { href: "/tools/signature-for-aadhaar",        label: "Signature for Aadhaar",        desc: "Create and use signatures specifically for Aadhaar KYC forms and UIDAI processes." },
-          { href: "/tools/signature-for-contracts",      label: "Signature for Contracts",      desc: "Sign NDAs, employment letters, and business agreements digitally." },
-          { href: "/tools/signature-for-pdf",            label: "Signature for PDF",            desc: "Optimised PDF signing workflow — place your signature on any PDF document." },
-        ]} />
 
         {/* ── BOTTOM BREADCRUMB ─────────────────────────────────────────────── */}
         <div className="pt-4 border-t">

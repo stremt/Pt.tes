@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -691,15 +690,6 @@ export default function EmailSignatureGenerator() {
               <FeatureCard icon={<Star className="h-4 w-4 text-primary" />}    title="No watermark, ever"         body="Your downloaded PNG is clean and unmarked. No Pixocraft branding is added to your signature — it is yours entirely." />
             </div>
           </section>
-
-          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-          <SignatureRelatedTools links={[
-            { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-            { href: "/tools/signature-for-pdf",            label: "Signature for PDF",            desc: "Sign PDF documents directly — place your signature over any PDF page." },
-            { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Add your signature to GST invoices for Tally, Zoho Books, and Indian billing software." },
-            { href: "/tools/email-signature-maker",        label: "Email Signature Maker",        desc: "Alternate email signature tool with HTML preview and contact block layout." },
-            { href: "/tools/digital-signature-generator",  label: "Digital Signature Generator",  desc: "IT Act 2000 compliant — for contracts, NDAs, and business documents." },
-          ]} />
 
           {/* ── FAQ ── */}
           <section>

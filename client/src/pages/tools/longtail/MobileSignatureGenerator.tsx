@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -11,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool, Shield, Zap, Smartphone, Star, Check, FileText,
   ChevronDown, ChevronUp, ArrowRight, Lock, AlertCircle, BadgeCheck,
@@ -229,9 +228,7 @@ export default function MobileSignatureGenerator() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <SignaturePadWidget />
-        </div>
+        <SignatureToolSection />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">

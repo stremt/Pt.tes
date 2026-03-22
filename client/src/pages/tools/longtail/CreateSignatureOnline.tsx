@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -11,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   PenTool,
   Shield,

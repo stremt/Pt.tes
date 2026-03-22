@@ -8,9 +8,8 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { PDFSignatureTool } from "@/components/PDFSignatureTool";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   Shield, Zap, Smartphone, Lock, BadgeCheck, ArrowRight,
   ChevronDown, ChevronUp, FileCheck, FileText, Receipt,
@@ -262,9 +261,7 @@ export default function HowToSignPdfOnMobile() {
         </div>
 
         {/* ── TOOL ──────────────────────────────────────────────────────── */}
-        <div id="tool" className="mb-12">
-          <PDFSignatureTool ctaLabel="Sign PDF on My Phone Now" />
-        </div>
+        <SignatureToolSection mode="pdf" />
 
         {/* ── SEO CONTENT ───────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">

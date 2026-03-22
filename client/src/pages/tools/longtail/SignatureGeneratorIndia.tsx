@@ -10,8 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
   ArrowRight, Lock, BadgeCheck, Download,
@@ -642,15 +641,6 @@ export default function SignatureGeneratorIndia() {
               ))}
             </div>
           </section>
-
-          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-          <SignatureRelatedTools links={[
-            { href: "/tools/signature-pad-tool",              label: "Signature Generator",              desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-            { href: "/tools/signature-for-aadhaar",            label: "Signature for Aadhaar",            desc: "Create and use signatures specifically for Aadhaar KYC forms and UIDAI processes." },
-            { href: "/tools/signature-for-gst-invoice",        label: "Signature for GST Invoice",        desc: "Step-by-step guide to signing GST invoices in TallyPrime, Zoho Books, and ClearTax." },
-            { href: "/tools/signature-for-tally",              label: "Signature for Tally",              desc: "Insert your PNG signature into TallyPrime invoices with a simple setup guide." },
-            { href: "/tools/signature-for-contracts",          label: "Signature for Contracts",          desc: "Legally valid digital signature for NDAs, agreements, and business documents." },
-          ]} />
 
         </div>
       </div>

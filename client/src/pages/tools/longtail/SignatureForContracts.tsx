@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import {
   useSEO,
   StructuredData,
@@ -11,7 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
   ArrowRight, Lock, AlertCircle, BadgeCheck, Download,
@@ -539,15 +538,6 @@ export default function SignatureForContracts() {
               </Button>
             </div>
           </section>
-
-          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-          <SignatureRelatedTools links={[
-            { href: "/tools/signature-pad-tool",        label: "Signature Generator",        desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-            { href: "/tools/signature-for-pdf",          label: "Signature for PDF",          desc: "Place your signature directly onto any contract PDF in your browser." },
-            { href: "/tools/esignature-maker",           label: "E-Signature Maker",          desc: "Create a professional e-signature for digital document signing." },
-            { href: "/tools/signature-for-gst-invoice",  label: "Signature for GST Invoice",  desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax." },
-            { href: "/tools/add-signature-to-pdf",       label: "Add Signature to PDF",       desc: "Insert your contract signature directly onto any PDF document." },
-          ]} />
 
           {/* FAQ */}
           <section>

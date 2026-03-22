@@ -9,7 +9,6 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
 import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
@@ -600,15 +599,6 @@ export default function SignatureForAadhaar() {
             ))}
           </div>
         </section>
-
-        {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-        <SignatureRelatedTools links={[
-          { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-          { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Optimised for Indian business, GST, banking, and government document workflows." },
-          { href: "/tools/signature-for-gst-invoice",    label: "Signature for GST Invoice",    desc: "Sign GST invoices for TallyPrime, Zoho Books, and ClearTax with a transparent PNG." },
-          { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Add your signature to TallyPrime invoices using the built-in image insertion feature." },
-          { href: "/tools/digital-signature-generator",  label: "Digital Signature Generator",  desc: "Create a legally valid digital signature compliant with India's IT Act 2000." },
-        ]} />
 
         {/* ── BOTTOM BREADCRUMB ─────────────────────────────────────────────── */}
         <div className="pt-4 border-t">

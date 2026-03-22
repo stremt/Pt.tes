@@ -10,8 +10,7 @@ import {
   generateHowToSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { SignatureRelatedTools } from "@/components/SignatureInternalLinks";
-import SignaturePadWidget from "@/components/SignaturePadWidget";
+import SignatureToolSection from "@/components/SignatureToolSection";
 import {
   Shield, Zap, Check, FileText, ChevronDown, ChevronUp,
   ArrowRight, Lock, AlertCircle, BadgeCheck, Download,
@@ -580,15 +579,6 @@ export default function GstInvoiceSignature() {
               </Button>
             </div>
           </section>
-
-          {/* ── MORE SIGNATURE TOOLS ─────────────────────────────────────── */}
-          <SignatureRelatedTools links={[
-            { href: "/tools/signature-pad-tool",          label: "Signature Generator",          desc: "The main tool — draw, type, or upload and download a transparent PNG in seconds." },
-            { href: "/tools/signature-generator-india",    label: "Signature Generator India",    desc: "Create signatures optimised for all Indian business and government documents." },
-            { href: "/tools/signature-for-tally",          label: "Signature for Tally",          desc: "Step-by-step guide to inserting your PNG signature into TallyPrime invoices." },
-            { href: "/tools/signature-for-contracts",      label: "Signature for Contracts",      desc: "Sign NDAs, employment letters, and business agreements digitally." },
-            { href: "/tools/add-signature-to-pdf",         label: "Add Signature to PDF",         desc: "Place your PNG signature directly onto any GST invoice PDF." },
-          ]} />
 
           {/* FAQ */}
           <section>
