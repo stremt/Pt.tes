@@ -6,6 +6,7 @@ import {
   generateBreadcrumbSchema,
   generateWebPageSchema,
   generateHowToSchema,
+  generateSoftwareApplicationSchema,
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { PDFSignatureTool } from "@/components/PDFSignatureTool";
@@ -15,6 +16,7 @@ import {
   ChevronDown, ChevronUp, FileCheck, FileText, Receipt,
   Briefcase, Globe, Mail, AlertCircle, Star, Check,
   FilePen, PenTool, Upload, Download, ScanLine, Cpu,
+  ImageIcon, RefreshCw, KeyRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -29,13 +31,13 @@ const HOW_TO_STEPS = [
   },
   {
     step: 2,
-    title: "Upload your PDF",
-    description: "Click Upload PDF or drag and drop your file into the tool. The document renders instantly inside your browser — nothing is sent to any server.",
+    title: "Download signature PNG",
+    description: "Download your signature as a transparent PNG. This ensures no white box appears when placed over any PDF section or background colour.",
   },
   {
     step: 3,
-    title: "Make background transparent",
-    description: "The tool automatically exports your signature as a transparent PNG so there is no white box when it is placed over any PDF section or colour.",
+    title: "Upload your PDF",
+    description: "Click Upload PDF or drag and drop your file into the tool. The document renders instantly inside your browser — nothing is sent to any server.",
   },
   {
     step: 4,
@@ -44,6 +46,11 @@ const HOW_TO_STEPS = [
   },
   {
     step: 5,
+    title: "Adjust and align",
+    description: "Resize and reposition the signature to sit neatly on or just above the signature line. Preview the final placement in real-time.",
+  },
+  {
+    step: 6,
     title: "Download signed PDF",
     description: "Click Download Signed PDF. pdf-lib embeds the signature at the exact coordinates and produces a clean, share-ready PDF file in seconds.",
   },
@@ -51,60 +58,48 @@ const HOW_TO_STEPS = [
 
 const FAQS = [
   {
-    question: "How do I sign a PDF online for free?",
+    question: "How can I sign a PDF online for free?",
     answer: "Use Pixocraft's free PDF signing tool: create your signature (draw, type, or upload), upload your PDF, click on the page to place the signature, and click Download Signed PDF. The entire process takes under 60 seconds and is 100% free with no login required.",
   },
   {
-    question: "Is signing a PDF online legally valid in India?",
-    answer: "Yes. Under the Information Technology Act 2000 (IT Act 2000) and its 2008 Amendment (Section 3A), electronic signatures — including image-based signatures embedded in PDFs — are legally recognised for commercial contracts, GST invoices, NDAs, employment letters, and most business documents. For MCA ROC filings, court submissions, and property registration a certified DSC is required.",
+    question: "Is signing a PDF online safe?",
+    answer: "Yes. Pixocraft's tool runs 100% inside your browser using PDF.js and pdf-lib. Your PDF file, your signature, and the signed output are never uploaded to any server, stored, or logged. All processing happens locally on your device.",
+  },
+  {
+    question: "What format is best for a PDF signature?",
+    answer: "PNG with a transparent background is the best format. JPG does not support transparency — it adds a white rectangular box around your signature. Pixocraft automatically exports your signature as a transparent PNG, so it overlays cleanly on any PDF.",
+  },
+  {
+    question: "Can I sign a PDF without Adobe?",
+    answer: "Absolutely. Pixocraft's free online tool lets you sign any PDF directly in your browser without Adobe Acrobat, DocuSign, or any other paid software. No installation, no subscription, no account required.",
+  },
+  {
+    question: "Is a digital signature required for signing a PDF?",
+    answer: "Not for most documents. An image-based electronic signature (eSignature) is legally valid under India's IT Act 2000 for contracts, GST invoices, NDAs, and HR documents. A certified Digital Signature Certificate (DSC) is only required for MCA ROC filings, court submissions, and property registration.",
   },
   {
     question: "Can I sign a PDF online without printing?",
-    answer: "Yes. With an online PDF signing tool like Pixocraft's, you never need to print, sign physically, scan, and re-upload. Create your digital signature, upload the PDF, place the signature, and download the signed file — entirely paperless in under 60 seconds.",
+    answer: "Yes. With Pixocraft's online PDF signing tool you never need to print, sign physically, scan, and re-upload. Create your digital signature, upload the PDF, place the signature, and download the signed file — entirely paperless in under 60 seconds.",
   },
   {
     question: "How do I sign a GST invoice PDF online?",
     answer: "Upload your GST invoice PDF to Pixocraft's signing tool. Create your signature, click to place it over the authorised signatory field on the invoice, and download the signed PDF. CBIC guidelines require an authorised signatory signature on manually generated GST invoices, and this approach satisfies that requirement.",
   },
   {
-    question: "Does the PDF signing tool work on mobile in India?",
+    question: "Does the PDF signing tool work on mobile?",
     answer: "Yes. The tool is fully touch-optimised. Open it on your Android or iOS browser, draw your signature with your finger, upload your PDF from your phone's storage or cloud, tap to place the signature, and download the signed file. No app installation needed.",
   },
   {
-    question: "Is my PDF kept private when I sign it online?",
-    answer: "Completely. Pixocraft's tool runs 100% inside your browser using PDF.js and pdf-lib. Your PDF file, your signature, and the signed output are never uploaded to any server, stored, or logged. All processing happens locally on your device.",
-  },
-  {
     question: "What is the difference between a digital signature and an electronic signature?",
-    answer: "An electronic signature (eSignature) is a broad term for any electronic method of signing — including image-based signatures, typed names, and click-to-sign. A digital signature specifically refers to a cryptographic certificate (DSC) that is mathematically tied to a document. For everyday business documents in India, an image-based eSignature is sufficient and legally valid under the IT Act 2000.",
+    answer: "An electronic signature (eSignature) is a broad term for any electronic method of signing — including image-based signatures, typed names, and click-to-sign. A digital signature specifically refers to a cryptographic certificate (DSC) that is mathematically tied to a document. For everyday business documents, an image-based eSignature is sufficient and legally valid.",
   },
   {
     question: "Can I sign multiple pages of a PDF online?",
     answer: "Yes. After uploading your PDF, use the page navigator in the tool to move between pages and click to place your signature on each page that requires it. All placements are tracked and embedded in the final downloaded PDF.",
   },
   {
-    question: "Why should I use a transparent PNG signature instead of JPG?",
-    answer: "JPG does not support transparency. If you use a JPG signature, a white rectangular box will appear around your signature on any coloured PDF section or background. Transparent PNG overlays cleanly on any PDF — Pixocraft automatically exports your signature as a transparent PNG.",
-  },
-  {
-    question: "How do I sign an Aadhaar-linked document PDF online?",
-    answer: "Upload your Aadhaar-linked form PDF to the tool, create your signature, and place it in the designated signature field. Download the signed PDF and submit. For official Aadhaar e-KYC authentication, a registered DSC or Aadhaar OTP eSign is required — the image-based signature is suitable for accompanying consent forms and declarations.",
-  },
-  {
-    question: "Can I sign a PDF on my laptop without installing any software?",
-    answer: "Yes. Pixocraft's PDF signing tool works entirely in your browser — no installation, no plugins, no app required. Open the page in Chrome, Firefox, Edge, or Safari, and sign your PDF directly. Works on Windows, Mac, and Linux.",
-  },
-  {
     question: "Is there a file size limit for signing PDFs online?",
     answer: "Since the tool processes everything in your browser, the limit depends on your device's available memory. Most PDFs up to 50 MB work without any issues on modern devices. Very large PDFs with many high-resolution images may take a few seconds longer to render.",
-  },
-  {
-    question: "How do I create a signature for contracts?",
-    answer: "Use the Draw tab to create a freehand signature that looks like your physical one, or the Type tab to generate a handwriting-style signature from your name. Download as a transparent PNG or use the PDF signing tool to embed it directly into your contract PDF.",
-  },
-  {
-    question: "What does 'sign PDF without printing' mean?",
-    answer: "Traditionally, signing a PDF meant printing the document, signing it with a pen, scanning it back, and sending the scan. Signing a PDF without printing means using an online tool to embed a digital signature directly into the PDF file — skipping all the print-scan steps entirely.",
   },
   {
     question: "Is Pixocraft's PDF signing tool really free?",
@@ -113,12 +108,12 @@ const FAQS = [
 ];
 
 const USE_CASES = [
-  { icon: <Receipt className="h-5 w-5 text-primary" />, title: "GST Invoices", desc: "Embed your authorised signatory signature directly into GST invoice PDFs — satisfies CBIC requirements for manually generated invoices." },
-  { icon: <FileText className="h-5 w-5 text-primary" />, title: "Contracts & NDAs", desc: "Sign freelance contracts, non-disclosure agreements, and service agreements legally under the IT Act 2000." },
-  { icon: <FilePen className="h-5 w-5 text-primary" />, title: "Offer Letters & HR", desc: "HR teams sign and send offer letters as professionally signed PDFs — no printing, no scanning." },
-  { icon: <Briefcase className="h-5 w-5 text-primary" />, title: "Freelancing", desc: "Sign project proposals, SOWs, and client agreements in seconds. Deliver professionally signed PDFs every time." },
-  { icon: <Globe className="h-5 w-5 text-primary" />, title: "Government Forms", desc: "Many government form submissions accept image-embedded signatures in PDF. Download and submit directly from your browser." },
-  { icon: <Mail className="h-5 w-5 text-primary" />, title: "Business Correspondence", desc: "Sign formal business letters, memos, and reports instantly — share as clean, signed PDF via email." },
+  { icon: <Receipt className="h-5 w-5 text-primary" />, title: "Job Application Forms", desc: "Sign employment application forms and attach your signature digitally. No printing required." },
+  { icon: <FileText className="h-5 w-5 text-primary" />, title: "Contracts & NDAs", desc: "Sign freelance contracts, non-disclosure agreements, and service agreements legally." },
+  { icon: <FilePen className="h-5 w-5 text-primary" />, title: "Freelance Agreements", desc: "Sign project proposals, SOWs, and client agreements in seconds. Deliver professionally signed PDFs every time." },
+  { icon: <Briefcase className="h-5 w-5 text-primary" />, title: "Offer Letters & HR", desc: "HR teams sign and send offer letters as professionally signed PDFs — no printing, no scanning." },
+  { icon: <Globe className="h-5 w-5 text-primary" />, title: "Government Forms", desc: "Many government form submissions accept image-embedded signatures in PDF. Download and submit directly." },
+  { icon: <Mail className="h-5 w-5 text-primary" />, title: "Official Documents", desc: "Sign formal business letters, memos, and reports instantly — share as clean, signed PDF via email." },
 ];
 
 const MISTAKES = [
@@ -140,11 +135,11 @@ const TIPS = [
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "How to Sign PDF Online Free in India – Step-by-Step Guide (2026)",
-  "description": "Learn how to sign a PDF online free in India in under 60 seconds. Step-by-step guide with digital signature tool. No signup required, 100% private, GST ready.",
+  "headline": "How to Sign PDF Online (Free & Instant) – Step-by-Step Guide",
+  "description": "Learn how to sign PDF online free. Create signature, add to PDF, and download instantly. No login, private and secure tool.",
   "url": CANONICAL,
   "datePublished": "2026-01-01",
-  "dateModified": "2026-03-18",
+  "dateModified": "2026-03-22",
   "author": { "@type": "Organization", "name": "Pixocraft" },
   "publisher": { "@type": "Organization", "name": "Pixocraft", "url": "https://tools.pixocraft.in" },
   "mainEntityOfPage": { "@type": "WebPage", "@id": CANONICAL },
@@ -154,13 +149,12 @@ export default function HowToSignPdfOnline() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useSEO({
-    title: "How to Sign PDF Online Free in India – Step-by-Step Guide | Pixocraft",
-    description: "Learn how to sign PDF online free in India in under 1 minute. Step-by-step guide with digital signature. No signup required, 100% private, GST ready.",
-    keywords: "how to sign pdf online, sign pdf online free, digital signature pdf online, sign pdf online india, free pdf signing tool, how to sign pdf without printing, sign gst invoice pdf online, how to digitally sign pdf free, sign pdf on mobile india",
+    title: "How to Sign PDF Online Free (Add Signature Easily) | Pixocraft",
+    description: "Learn how to sign PDF online free. Create signature, add to PDF, and download instantly. No login, private and secure tool.",
+    keywords: "how to sign pdf online, sign pdf online free, add signature to pdf online, esign pdf online, sign document online free, digital signature pdf, sign pdf without printing",
     canonicalUrl: CANONICAL,
-    ogTitle: "How to Sign PDF Online Free in India – Step-by-Step Guide | Pixocraft",
-    ogDescription: "Learn how to sign PDF online free in India in under 1 minute. Step-by-step guide with digital signature. No signup required, 100% private, GST ready.",
-    ogType: "article",
+    ogType: "website",
+    ogImage: "https://tools.pixocraft.in/images/pdf-signature-tool.png",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -171,8 +165,8 @@ export default function HowToSignPdfOnline() {
   ]);
 
   const webPageSchema = generateWebPageSchema({
-    name: "How to Sign PDF Online Free in India – Step-by-Step Guide | Pixocraft",
-    description: "Learn how to sign PDF online free in India in under 1 minute. Step-by-step guide with digital signature. No signup required, 100% private, GST ready.",
+    name: "How to Sign PDF Online Free (Add Signature Easily) | Pixocraft",
+    description: "Learn how to sign PDF online free. Create signature, add to PDF, and download instantly. No login, private and secure tool.",
     url: CANONICAL,
   });
 
@@ -182,6 +176,15 @@ export default function HowToSignPdfOnline() {
     steps: HOW_TO_STEPS.map((s) => ({ name: s.title, text: s.description })),
   });
 
+  const softwareSchema = generateSoftwareApplicationSchema({
+    name: "Sign PDF Online Tool",
+    description: "Free online tool to sign PDF documents. Create signature, add to PDF, and download instantly without login.",
+    url: CANONICAL,
+    applicationCategory: "Utility",
+    operatingSystem: "Web",
+    offers: { price: "0", priceCurrency: "INR" },
+  });
+
   return (
     <>
       <StructuredData data={articleSchema} />
@@ -189,6 +192,7 @@ export default function HowToSignPdfOnline() {
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={webPageSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={softwareSchema} />
 
       <div className="container mx-auto px-4 max-w-4xl py-8">
         <Breadcrumb items={[
@@ -206,28 +210,28 @@ export default function HowToSignPdfOnline() {
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
-                How to Sign PDF Online Free in India – Step-by-Step Guide (2026)
+                How to Sign PDF Online (Free &amp; Instant)
               </h1>
-              <p className="text-sm text-muted-foreground">Free · No Signup · 100% Private · GST &amp; Aadhaar Ready</p>
+              <p className="text-sm text-muted-foreground">Sign PDF documents online in seconds. No login, no upload, fully private and secure.</p>
             </div>
           </div>
 
-          {/* Direct answer block for featured snippet */}
+          {/* Featured snippet block */}
           <div className="rounded-xl border bg-primary/5 border-primary/20 px-5 py-4 mb-5">
-            <p className="text-sm font-semibold text-foreground mb-1">Quick Answer</p>
+            <p className="text-sm font-semibold text-foreground mb-1">Quick Answer — How to sign a PDF online?</p>
             <p className="text-base text-foreground leading-relaxed">
-              You can sign a PDF online by creating a signature, uploading your PDF, placing the signature and downloading the signed file in <strong>under 1 minute</strong>.
+              To sign a PDF online: <strong>create your signature</strong> (draw, type, or upload), <strong>upload your PDF</strong> to the tool, <strong>place the signature</strong> by clicking on the document, then <strong>download</strong> the signed PDF. The entire process takes under 60 seconds — no login, no software, completely free.
             </p>
           </div>
 
           {/* Trust bar */}
           <div className="flex flex-wrap gap-2 mb-5">
             {[
-              { icon: <Check className="h-3.5 w-3.5" />, label: "5-Step Process" },
-              { icon: <Lock className="h-3.5 w-3.5" />, label: "No Signup Required" },
-              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile & Laptop" },
+              { icon: <Check className="h-3.5 w-3.5" />, label: "6-Step Process" },
+              { icon: <Lock className="h-3.5 w-3.5" />, label: "No Login Required" },
+              { icon: <Smartphone className="h-3.5 w-3.5" />, label: "Works on Mobile & Desktop" },
               { icon: <Shield className="h-3.5 w-3.5" />, label: "100% Private" },
-              { icon: <BadgeCheck className="h-3.5 w-3.5" />, label: "GST & Aadhaar Ready" },
+              { icon: <Download className="h-3.5 w-3.5" />, label: "Instant Download" },
             ].map(({ icon, label }) => (
               <span key={label} className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border bg-muted text-muted-foreground">
                 {icon}{label}
@@ -236,7 +240,7 @@ export default function HowToSignPdfOnline() {
           </div>
 
           {/* Quick steps above fold */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-5">
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-5">
             {HOW_TO_STEPS.map(({ step, title }) => (
               <div key={step} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border bg-card text-center">
                 <span className="h-7 w-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">{step}</span>
@@ -245,15 +249,15 @@ export default function HowToSignPdfOnline() {
             ))}
           </div>
 
-          {/* UX psychology / CTA */}
+          {/* CTA */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-2">
             <Button onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })} className="gap-2" data-testid="button-sign-pdf-hero-cta">
-              <FileCheck className="h-4 w-4" />Sign PDF Now Free<ArrowRight className="h-4 w-4" />
+              <FileCheck className="h-4 w-4" />Sign PDF Now — Free<ArrowRight className="h-4 w-4" />
             </Button>
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
               <span className="flex items-center gap-1"><Zap className="h-3.5 w-3.5 text-primary" />Most users finish in under 60 seconds</span>
               <span className="flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" />No app or software needed</span>
-              <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 text-primary" />Works for GST, contracts &amp; Aadhaar</span>
+              <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 text-primary" />Works for contracts, GST &amp; forms</span>
             </div>
           </div>
         </div>
@@ -266,54 +270,100 @@ export default function HowToSignPdfOnline() {
         {/* ── SEO CONTENT ───────────────────────────────────────────────── */}
         <div className="space-y-16 text-base leading-relaxed">
 
-          {/* Why online PDF signing */}
+          {/* Keyword-rich intro paragraph — targets all 4 primary keywords */}
+          <p className="text-muted-foreground text-base leading-relaxed -mt-8">
+            Learning <strong>how to sign PDF online</strong> has never been easier. With Pixocraft's free browser-based tool you can <strong>add signature to PDF</strong>, <strong>esign PDF</strong> documents, and <strong>sign PDF online free</strong> — all without uploading your file to any server or creating an account. The steps below walk you through the entire process from start to finish.
+          </p>
+
+          {/* What does it mean to sign a PDF */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Sign a PDF Online Instead of Printing and Scanning?</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">What Does It Mean to Sign a PDF?</h2>
             <p className="text-muted-foreground mb-4">
-              The traditional workflow — print, sign with a pen, scan, email — wastes time, paper, and money. An online PDF signing tool eliminates every step of that process.
+              Signing a PDF means adding your signature — either as a handwritten-style image or a typed name — directly onto the document file. The signature is embedded as an image layer inside the PDF, making it look exactly like a physically signed document.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+            <p className="text-muted-foreground mb-5">
+              When you <strong>sign PDF online free</strong>, you skip printing, signing with a pen, scanning, and re-uploading. The entire process happens in your browser and takes under 60 seconds. It is the modern, paperless way to authorise documents.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: <ScanLine className="h-5 w-5 text-primary" />, title: "No Print or Scan", desc: "Sign directly on screen. No printer, no scanner, no paper required." },
-                { icon: <Zap className="h-5 w-5 text-primary" />, title: "Faster", desc: "The entire process — signature, upload, placement, download — takes under 60 seconds." },
-                { icon: <Shield className="h-5 w-5 text-primary" />, title: "No Paid Tools", desc: "Pixocraft's PDF signing tool is completely free. No DocuSign subscription, no Adobe Acrobat Pro." },
+                { icon: <FileText className="h-5 w-5 text-primary" />, title: "Contracts", desc: "Legally bind service agreements, employment contracts, and business deals." },
+                { icon: <FilePen className="h-5 w-5 text-primary" />, title: "Forms", desc: "Complete and sign application forms, declarations, and consent documents." },
+                { icon: <Receipt className="h-5 w-5 text-primary" />, title: "Agreements", desc: "Authorise NDAs, freelance proposals, and partnership agreements." },
+                { icon: <Briefcase className="h-5 w-5 text-primary" />, title: "Official Documents", desc: "Sign government forms, GST invoices, and corporate correspondence." },
               ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
+                <div key={title} className="flex gap-4 p-4 rounded-xl border bg-card">
+                  <div className="shrink-0 h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
                   <div>
                     <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="text-sm text-muted-foreground mt-1 leading-snug">{desc}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5 leading-snug">{desc}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-muted-foreground">
-              For Indian professionals who frequently sign GST invoices, contracts, and government forms, switching to online PDF signing saves hours every month. The savings are especially significant for freelancers, small businesses, and HR teams who handle high volumes of documents.
-            </p>
           </section>
 
           {/* Methods comparison */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">PDF Signing Methods Comparison (2026)</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Methods to Sign a PDF Online</h2>
             <p className="text-muted-foreground mb-5">There are three common methods to sign a PDF. Here is how they compare:</p>
-            <div className="overflow-x-auto rounded-xl border mb-5">
+
+            <div className="space-y-4 mb-5">
+              {[
+                {
+                  label: "A",
+                  title: "Using Online Tools (Fastest)",
+                  icon: <Zap className="h-5 w-5 text-primary" />,
+                  desc: "Browser-based tools like Pixocraft let you create a signature, upload a PDF, place the signature, and download the signed file in under 60 seconds. No installation, no subscription, no account required. Best for everyday use.",
+                  badge: "Recommended",
+                },
+                {
+                  label: "B",
+                  title: "Using Software (Adobe, etc.)",
+                  icon: <Cpu className="h-5 w-5 text-muted-foreground" />,
+                  desc: "Adobe Acrobat Pro and DocuSign offer advanced signing workflows including certification, audit trails, and enterprise compliance. Suitable for large organisations requiring certified signing at scale. Requires a paid subscription.",
+                  badge: "Paid",
+                },
+                {
+                  label: "C",
+                  title: "Using a Digital Signature Certificate (Advanced)",
+                  icon: <KeyRound className="h-5 w-5 text-muted-foreground" />,
+                  desc: "A cryptographic DSC (Digital Signature Certificate) issued by a licensed CA binds your identity to the document using encryption. Required for MCA ROC filings, income tax submissions, and certain legal proceedings.",
+                  badge: "Advanced",
+                },
+              ].map(({ label, title, icon, desc, badge }) => (
+                <div key={label} className="flex gap-4 p-5 rounded-xl border bg-card">
+                  <div className="shrink-0 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center font-bold text-primary text-sm">{label}</div>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      {icon}
+                      <p className="font-semibold text-foreground text-sm">{title}</p>
+                      <span className="text-xs px-2 py-0.5 rounded-full border bg-muted text-muted-foreground">{badge}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-snug">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="overflow-x-auto rounded-xl border">
               <table className="w-full text-sm min-w-[500px]">
                 <thead>
                   <tr className="bg-primary/5 border-b">
                     <th className="text-left px-5 py-3 font-semibold text-foreground">Method</th>
                     <th className="text-left px-5 py-3 font-semibold text-foreground">Speed</th>
                     <th className="text-left px-5 py-3 font-semibold text-foreground">Cost</th>
-                    <th className="text-left px-5 py-3 font-semibold text-foreground">Use Case</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Best For</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
                   {[
-                    { method: "Print & Scan", icon: <ScanLine className="h-4 w-4 text-muted-foreground inline mr-1" />, speed: "Slow (5–15 min)", cost: "High (paper + printer)", use: "Old workflow — avoid if possible" },
-                    { method: "Apps (DocuSign, Adobe)", icon: <Cpu className="h-4 w-4 text-muted-foreground inline mr-1" />, speed: "Medium (2–5 min)", cost: "Paid subscription", use: "Enterprise / high-volume certified signing" },
-                    { method: "PNG Method (Pixocraft)", icon: <FileCheck className="h-4 w-4 text-primary inline mr-1" />, speed: "Fast (< 60 seconds)", cost: "Free", use: "Best — everyday docs, GST, contracts" },
-                  ].map(({ method, icon, speed, cost, use }) => (
+                    { method: "Online Tool (Pixocraft)", speed: "< 60 seconds", cost: "Free", use: "Everyday docs, GST, contracts" },
+                    { method: "Software (Adobe, DocuSign)", speed: "2–5 minutes", cost: "Paid subscription", use: "Enterprise certified signing" },
+                    { method: "Digital Signature Certificate", speed: "5–15 minutes", cost: "DSC fee", use: "Government & regulatory filings" },
+                    { method: "Print & Scan", speed: "5–15 minutes", cost: "Paper + printer", use: "Avoid — legacy workflow" },
+                  ].map(({ method, speed, cost, use }) => (
                     <tr key={method} className="hover:bg-muted/30 transition-colors">
-                      <td className="px-5 py-3.5 font-medium text-foreground">{icon}{method}</td>
+                      <td className="px-5 py-3.5 font-medium text-foreground">{method}</td>
                       <td className="px-5 py-3.5 text-muted-foreground">{speed}</td>
                       <td className="px-5 py-3.5 text-muted-foreground">{cost}</td>
                       <td className="px-5 py-3.5 text-muted-foreground">{use}</td>
@@ -322,15 +372,12 @@ export default function HowToSignPdfOnline() {
                 </tbody>
               </table>
             </div>
-            <p className="text-sm text-muted-foreground">
-              For the vast majority of use cases — GST invoices, contracts, Aadhaar forms, HR documents — the free PNG-based method is the fastest, most private, and most practical option available in 2026.
-            </p>
           </section>
 
           {/* Step-by-step guide */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">How to Sign PDF Online Free – Step-by-Step Guide</h2>
-            <p className="text-muted-foreground mb-5">Follow these five steps to sign any PDF in under 60 seconds:</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">How to Sign PDF Online — Step-by-Step Guide</h2>
+            <p className="text-muted-foreground mb-5">Follow these six steps to sign any PDF in under 60 seconds using Pixocraft:</p>
             <ol className="space-y-3 mb-5">
               {HOW_TO_STEPS.map(({ step, title, description }) => (
                 <li key={step} className="flex gap-4 p-4 rounded-xl border bg-card">
@@ -344,43 +391,126 @@ export default function HowToSignPdfOnline() {
             </ol>
             <div className="text-center">
               <Button onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })} className="gap-2" data-testid="button-sign-pdf-steps-cta">
-                <FileCheck className="h-4 w-4" />Sign PDF Now Free<ArrowRight className="h-4 w-4" />
+                <FileCheck className="h-4 w-4" />Sign PDF Now — Free<ArrowRight className="h-4 w-4" />
               </Button>
             </div>
           </section>
 
-          {/* Batch PDF signing */}
+          {/* Image SEO — 3 visuals with descriptive alt text */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">Batch PDF Signing (2026 Trend)</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Sign PDF Online — Visual Examples</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                {
+                  src: "https://tools.pixocraft.in/images/sign-pdf-online-step1-create-signature.png",
+                  alt: "Step 1 — Create your handwritten signature online using Pixocraft's draw tool",
+                  caption: "Step 1 — Create Signature",
+                },
+                {
+                  src: "https://tools.pixocraft.in/images/sign-pdf-online-step2-upload-pdf.png",
+                  alt: "Step 2 — Upload your PDF document and place signature on the page",
+                  caption: "Step 2 — Upload PDF & Place Signature",
+                },
+                {
+                  src: "https://tools.pixocraft.in/images/sign-pdf-online-step3-download-signed.png",
+                  alt: "Step 3 — Download the signed PDF file with embedded signature",
+                  caption: "Step 3 — Download Signed PDF",
+                },
+              ].map(({ src, alt, caption }) => (
+                <figure key={caption} className="rounded-xl border bg-card overflow-hidden">
+                  <img
+                    src={src}
+                    alt={alt}
+                    loading="lazy"
+                    width={400}
+                    height={260}
+                    className="w-full object-cover"
+                    onError={(e) => { (e.currentTarget.parentElement as HTMLElement).style.display = "none"; }}
+                  />
+                  <figcaption className="px-4 py-2 text-xs text-muted-foreground text-center border-t">{caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+
+          {/* Why use online PDF sign tool */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Why Sign PDF Online Free — Instead of Printing?</h2>
             <p className="text-muted-foreground mb-4">
-              For professionals who sign multiple PDFs regularly — such as payroll managers, CA firms, freelancers sending multiple client proposals, or HR teams processing offer letters — batch signing is a significant time-saver.
+              The traditional workflow — print, sign with a pen, scan, email — wastes time, paper, and money. When you <strong>sign PDF online free</strong>, every one of those steps disappears.
             </p>
-            <div className="rounded-xl border bg-card p-5 mb-4">
-              <p className="font-semibold text-foreground mb-3">How to Sign Multiple PDFs Efficiently</p>
-              <ol className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+              {[
+                { icon: <ScanLine className="h-5 w-5 text-primary" />, title: "No Install", desc: "Works entirely in your browser. No software, no plugins, no app downloads." },
+                { icon: <Zap className="h-5 w-5 text-primary" />, title: "Fast", desc: "The entire process — signature, upload, placement, download — takes under 60 seconds." },
+                { icon: <Globe className="h-5 w-5 text-primary" />, title: "Works Anywhere", desc: "Chrome, Firefox, Edge, Safari — Windows, Mac, Android, iOS. Sign from any device." },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                  <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">{title}</p>
+                    <p className="text-sm text-muted-foreground mt-1 leading-snug">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Best format for PDF signature */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Best Format for a PDF Signature</h2>
+            <p className="text-muted-foreground mb-5">
+              The format of your signature image determines how professional the final signed PDF looks. Here is what you need to know:
+            </p>
+            <div className="space-y-4 mb-5">
+              {[
+                {
+                  icon: <ImageIcon className="h-5 w-5 text-primary" />,
+                  title: "PNG with Transparent Background",
+                  desc: "The ideal format. Transparent PNG overlays cleanly on any PDF — no white box, no background colour clash. Pixocraft automatically exports your signature as a transparent PNG.",
+                  recommended: true,
+                },
+                {
+                  icon: <ImageIcon className="h-5 w-5 text-muted-foreground" />,
+                  title: "JPG / JPEG",
+                  desc: "Not recommended. JPG does not support transparency. A rectangular white box will appear around your signature when placed on any non-white section of a PDF.",
+                  recommended: false,
+                },
+              ].map(({ icon, title, desc, recommended }) => (
+                <div key={title} className={`flex gap-4 p-5 rounded-xl border ${recommended ? "bg-primary/5 border-primary/20" : "bg-card"}`}>
+                  <div className={`shrink-0 h-10 w-10 rounded-lg flex items-center justify-center ${recommended ? "bg-primary/10" : "bg-muted"}`}>{icon}</div>
+                  <div className="flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                      <p className="font-semibold text-foreground text-sm">{title}</p>
+                      {recommended && <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">Recommended</span>}
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-snug">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-xl border bg-card p-5">
+              <p className="font-semibold text-foreground text-sm mb-3">Recommended signature specifications:</p>
+              <ul className="space-y-2">
                 {[
-                  "Create your signature once using Pixocraft's Signature Generator and download the transparent PNG.",
-                  "Open the first PDF in Pixocraft's PDF signing tool and use the saved PNG to place your signature.",
-                  "Download the signed PDF and move to the next document.",
-                  "Reuse the same signature PNG across unlimited PDFs — no need to recreate it each time.",
-                  "For consistent positioning, note the approximate coordinates (e.g., bottom-right of page) and apply the same placement to each document.",
-                ].map((step, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <span className="shrink-0 h-5 w-5 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
-                    {step}
+                  "Format: PNG with transparent background",
+                  "Size: 15–25% of the page width (approximately 400–600 px wide for A4)",
+                  "Resolution: 150–300 DPI for clear, sharp rendering",
+                  "Colour: Black or dark ink on transparent background",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                    {item}
                   </li>
                 ))}
-              </ol>
+              </ul>
             </div>
-            <p className="text-muted-foreground">
-              The ability to reuse a single signature PNG across multiple documents without recreating it each session is one of the biggest workflow advantages of the transparent PNG method versus enterprise eSignature platforms, which often require you to start a new signing workflow for each document.
-            </p>
           </section>
 
           {/* Use cases */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-2">When to Sign a PDF Online — Real Use Cases</h2>
-            <p className="text-muted-foreground mb-5">The most common professional situations where online PDF signing is used in India:</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Use Cases — When to Sign a PDF Online</h2>
+            <p className="text-muted-foreground mb-5">The most common professional situations where online PDF signing is used:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {USE_CASES.map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
@@ -394,45 +524,137 @@ export default function HowToSignPdfOnline() {
             </div>
           </section>
 
-          {/* Legal validity */}
+          {/* Save & Reuse USP */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Is Signing a PDF Online Legally Valid in India?</h2>
-            <div className="rounded-xl border bg-primary/5 border-primary/20 px-6 py-5 mb-5">
-              <p className="text-foreground font-medium">
-                Yes. An image-based electronic signature embedded in a PDF is legally valid under India's <strong>Information Technology Act 2000</strong> for the vast majority of commercial and professional documents.
+            <h2 className="text-2xl font-bold text-foreground mb-4">Save &amp; Reuse Your Signature — No Login Needed</h2>
+            <p className="text-muted-foreground mb-5">
+              One of Pixocraft's biggest advantages over enterprise signing tools is that you can create your signature once and reuse it across unlimited documents — without creating an account or logging in each time.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+              {[
+                { icon: <Lock className="h-5 w-5 text-primary" />, title: "No Login", desc: "Your signature is yours. No account creation, no email verification, no passwords to manage." },
+                { icon: <RefreshCw className="h-5 w-5 text-primary" />, title: "Local Storage", desc: "Your signature can be saved as a PNG to your device and reused instantly on any future document." },
+                { icon: <Shield className="h-5 w-5 text-primary" />, title: "Offline Ready", desc: "Once the page is loaded, signing works even without an active internet connection. All processing is local." },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
+                  <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
+                  <div>
+                    <p className="font-semibold text-foreground text-sm">{title}</p>
+                    <p className="text-sm text-muted-foreground mt-1 leading-snug">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-xl border bg-card p-5">
+              <p className="font-semibold text-foreground mb-3 text-sm">How to reuse your signature across multiple PDFs:</p>
+              <ol className="space-y-2">
+                {[
+                  "Create your signature once using Pixocraft's Signature Generator and download the transparent PNG.",
+                  "Save the PNG to a folder on your device (e.g., 'My Signature').",
+                  "For each new PDF, upload the saved PNG using the 'Upload' tab in the signature tool.",
+                  "Place the signature on the PDF and download. Repeat for every document — no recreation needed.",
+                ].map((step, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <span className="shrink-0 h-5 w-5 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          {/* Digital signature vs PDF signature */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Digital Signature vs PDF Signature — What's the Difference?</h2>
+            <p className="text-muted-foreground mb-5">
+              These two terms are often confused. Understanding the difference helps you choose the right approach for your document type.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+              {[
+                {
+                  icon: <FilePen className="h-5 w-5 text-primary" />,
+                  title: "PDF Signature (Image-Based)",
+                  points: [
+                    "Your signature is an image embedded in the PDF",
+                    "Created by drawing, typing, or uploading a photo",
+                    "Visually identical to a handwritten signature",
+                    "Legally valid for most commercial documents",
+                    "No certificate or encryption required",
+                    "Free — works with Pixocraft's tool",
+                  ],
+                },
+                {
+                  icon: <KeyRound className="h-5 w-5 text-primary" />,
+                  title: "Digital Signature (Encrypted)",
+                  points: [
+                    "Uses a cryptographic certificate (DSC) issued by a CA",
+                    "Mathematically tied to the document — tamper-evident",
+                    "Required for government filings (MCA, income tax)",
+                    "Issued by licensed certifying authorities",
+                    "Has an expiry date and must be renewed",
+                    "Paid — requires DSC purchase",
+                  ],
+                },
+              ].map(({ icon, title, points }) => (
+                <div key={title} className="p-5 rounded-xl border bg-card">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">{icon}</div>
+                    <p className="font-semibold text-foreground text-sm">{title}</p>
+                  </div>
+                  <ul className="space-y-2">
+                    {points.map((p) => (
+                      <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" />{p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-xl border bg-primary/5 border-primary/20 px-5 py-4">
+              <p className="text-sm text-foreground">
+                <strong>Bottom line:</strong> For contracts, freelance agreements, GST invoices, and most business documents, a PDF signature (image-based) is sufficient and legally valid. Use a digital signature certificate only when a regulatory authority specifically requires it.
               </p>
             </div>
-            <p className="text-muted-foreground mb-4">
-              The IT Act 2000 (as amended in 2008, Section 3A) recognises electronic signatures for contracts, agreements, and commercial transactions. The Indian Contract Act 1872 further validates electronically executed agreements between consenting parties. GST invoices signed with an authorised representative's image-based signature comply with CBIC guidelines for manually generated invoices.
-            </p>
+          </section>
+
+          {/* Pixocraft vs Others */}
+          <section>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Pixocraft vs Other PDF Signing Tools</h2>
+            <p className="text-muted-foreground mb-5">Here is how Pixocraft compares to popular alternatives:</p>
             <div className="overflow-x-auto rounded-xl border mb-5">
-              <table className="w-full text-sm min-w-[480px]">
+              <table className="w-full text-sm min-w-[560px]">
                 <thead>
                   <tr className="bg-primary/5 border-b">
-                    <th className="text-left px-5 py-3 font-semibold text-foreground">Document Type</th>
-                    <th className="text-left px-5 py-3 font-semibold text-foreground">Image eSign Valid?</th>
-                    <th className="text-left px-5 py-3 font-semibold text-foreground">Notes</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Feature</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground text-primary">Pixocraft</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">DocuSign</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Smallpdf</th>
+                    <th className="text-left px-5 py-3 font-semibold text-foreground">Adobe</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
                   {[
-                    { doc: "Contracts & Agreements", valid: "Yes", note: "IT Act 2000 — SES recognised" },
-                    { doc: "GST Invoices", valid: "Yes", note: "CBIC guidelines for manually generated invoices" },
-                    { doc: "NDAs", valid: "Yes", note: "Standard commercial document" },
-                    { doc: "Employment / Offer Letters", valid: "Yes", note: "Common HR practice" },
-                    { doc: "MCA ROC Filings", valid: "DSC Required", note: "Regulatory requirement for company filings" },
-                    { doc: "Court Submissions", valid: "DSC Required", note: "Specific procedural rules apply" },
-                    { doc: "Property Registration", valid: "DSC Required", note: "State registration office requirements" },
-                  ].map(({ doc, valid, note }) => (
-                    <tr key={doc} className="hover:bg-muted/30 transition-colors">
-                      <td className="px-5 py-3.5 font-medium text-foreground">{doc}</td>
-                      <td className={`px-5 py-3.5 font-medium ${valid === "Yes" ? "text-green-600 dark:text-green-400" : "text-muted-foreground"}`}>{valid}</td>
-                      <td className="px-5 py-3.5 text-muted-foreground text-sm">{note}</td>
+                    { feature: "PDF upload to server", pixo: "No", docusign: "Yes", smallpdf: "Yes", adobe: "Yes" },
+                    { feature: "Login required", pixo: "No", docusign: "Yes", smallpdf: "Yes", adobe: "Yes" },
+                    { feature: "Free plan", pixo: "Always free", docusign: "Limited", smallpdf: "Limited", adobe: "Limited" },
+                    { feature: "Processing speed", pixo: "< 60 sec", docusign: "2–5 min", smallpdf: "1–3 min", adobe: "1–3 min" },
+                    { feature: "100% private", pixo: "Yes", docusign: "No", smallpdf: "No", adobe: "No" },
+                  ].map(({ feature, pixo, docusign, smallpdf, adobe }) => (
+                    <tr key={feature} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-5 py-3.5 font-medium text-foreground">{feature}</td>
+                      <td className="px-5 py-3.5 font-semibold text-primary">{pixo}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{docusign}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{smallpdf}</td>
+                      <td className="px-5 py-3.5 text-muted-foreground">{adobe}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            <p className="text-sm text-muted-foreground">
+              Unlike DocuSign, Smallpdf, and Adobe — which upload your documents to their servers — Pixocraft processes everything locally in your browser. Your PDF never leaves your device.
+            </p>
           </section>
 
           {/* Common mistakes */}
@@ -469,37 +691,17 @@ export default function HowToSignPdfOnline() {
             </div>
           </section>
 
-          {/* Why Pixocraft */}
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Why Use Pixocraft to Sign PDF Online?</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { icon: <Shield className="h-5 w-5 text-primary" />, title: "100% Private", desc: "Your PDF and signature never leave your browser. Processed entirely client-side using pdf-lib and PDF.js." },
-                { icon: <Zap className="h-5 w-5 text-primary" />, title: "Under 60 Seconds", desc: "The fastest free PDF signing workflow available. No accounts, no verification emails, no waiting." },
-                { icon: <BadgeCheck className="h-5 w-5 text-primary" />, title: "India-Focused", desc: "Designed for GST invoices, Aadhaar documents, contracts, and HR workflows that Indian professionals use daily." },
-              ].map(({ icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border bg-card">
-                  <div className="shrink-0 h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">{icon}</div>
-                  <div>
-                    <p className="font-semibold text-foreground text-sm">{title}</p>
-                    <p className="text-sm text-muted-foreground mt-1 leading-snug">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* Internal links */}
           <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Related Tools</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Related Signature Tools</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
+                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
+                { label: "Signature for PDF", href: "/tools/signature-for-pdf", desc: "Create the perfect signature specifically designed for PDF documents." },
+                { label: "Signature for Word", href: "/tools/signature-for-word", desc: "Add your signature to Word documents easily without printing." },
+                { label: "How to Create a Digital Signature", href: "/tools/how-to-create-digital-signature", desc: "Step-by-step guide to creating a digital signature online." },
                 { label: "Add Signature to PDF", href: "/tools/add-signature-to-pdf", desc: "Dedicated PDF signing tool — create, place, and download." },
                 { label: "Transparent Signature PNG", href: "/tools/transparent-signature-png", desc: "Create a transparent background signature PNG to reuse anywhere." },
-                { label: "Signature for Contracts", href: "/tools/signature-for-contracts", desc: "Create a professional signature specifically for contracts and NDAs." },
-                { label: "Free Signature for Documents", href: "/tools/free-signature-for-documents", desc: "General-purpose digital signature for any document type." },
-                { label: "Email Signature Maker", href: "/tools/email-signature-maker", desc: "Create an HTML email signature for your professional emails." },
-                { label: "Signature Generator", href: "/tools/signature-generator", desc: "Full-featured signature pad — draw, type, or upload your signature." },
               ].map(({ label, href, desc }) => (
                 <Link key={label} href={href} data-testid={`link-related-${label.toLowerCase().replace(/\s+/g, "-")}`}>
                   <div className="flex items-start gap-3 p-4 rounded-xl border bg-card hover-elevate cursor-pointer">
@@ -549,7 +751,7 @@ export default function HowToSignPdfOnline() {
               No login. No software. 100% private. Sign your PDF in under 60 seconds — free, forever.
             </p>
             <Button onClick={() => document.getElementById("tool")?.scrollIntoView({ behavior: "smooth" })} className="gap-2" data-testid="button-sign-pdf-final-cta">
-              <FileCheck className="h-4 w-4" />Sign PDF Now Free<ArrowRight className="h-4 w-4" />
+              <FileCheck className="h-4 w-4" />Sign PDF Now — Free<ArrowRight className="h-4 w-4" />
             </Button>
           </section>
 

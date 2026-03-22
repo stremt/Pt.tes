@@ -1,0 +1,189 @@
+✅ BACKEND SEO — FINAL AUDIT
+(/how-to-sign-pdf-online)
+🔥 1. META TAGS (HIGH CTR + INTENT MATCH)
+<title>How to Sign PDF Online Free (Add Signature Easily)</title>
+
+<meta name="description" content="Learn how to sign PDF online free. Create signature, add to PDF, and download instantly. No login, private and secure tool.">
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/how-to-sign-pdf-online" />
+
+👉 Critical:
+
+“How to” keyword present
+“Free” included → boosts CTR
+Canonical must match EXACT URL
+🚀 2. OPEN GRAPH (SOCIAL TRAFFIC BOOST)
+<meta property="og:title" content="How to Sign PDF Online Free">
+<meta property="og:description" content="Sign PDF documents instantly. No login, private & fast tool.">
+<meta property="og:url" content="https://tools.pixocraft.in/tools/how-to-sign-pdf-online">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tools.pixocraft.in/images/pdf-signature-tool.png">
+🐦 3. TWITTER CARD
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sign PDF Online Free">
+<meta name="twitter:description" content="Add signature to PDF instantly. No login required.">
+🧠 4. SCHEMA (THIS DECIDES VISIBILITY)
+✅ A. SoftwareApplication (CORE AUTHORITY)
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sign PDF Online Tool",
+  "applicationCategory": "Utility",
+  "operatingSystem": "Web",
+  "url": "https://tools.pixocraft.in/tools/how-to-sign-pdf-online",
+  "description": "Free online tool to sign PDF documents. Create signature, add to PDF, and download instantly without login.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+</script>
+✅ B. FAQ SCHEMA (PAA DOMINATION)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How can I sign a PDF online for free?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "You can sign a PDF online by creating a signature, uploading your PDF to an editor, placing the signature, and downloading the signed file."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is signing PDF online safe?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes, if you use privacy-focused tools that do not upload files to servers. Always choose secure, browser-based tools."
+   }
+  }
+ ]
+}
+</script>
+
+👉 Expand to 10–12 FAQs
+
+✅ C. HOWTO SCHEMA (VERY IMPORTANT FOR THIS PAGE)
+
+👉 This is your ranking weapon
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to sign PDF online",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "name": "Create signature",
+   "text": "Use Pixocraft tool to create your signature and download it as PNG."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Open PDF editor",
+   "text": "Open an online PDF editor or tool."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Upload PDF",
+   "text": "Upload your PDF document."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Insert signature",
+   "text": "Add your signature image to the document."
+  },
+  {
+   "@type": "HowToStep",
+   "name": "Download",
+   "text": "Save and download the signed PDF."
+  }
+ ]
+}
+</script>
+
+👉 This directly targets:
+Featured snippet + AI overview
+
+✅ D. BREADCRUMB SCHEMA (CLUSTER SIGNAL)
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://tools.pixocraft.in/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Tools",
+   "item": "https://tools.pixocraft.in/tools/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Signature Tools",
+   "item": "https://tools.pixocraft.in/tools/signature-tools"
+  },
+  {
+   "@type": "ListItem",
+   "position": 4,
+   "name": "How to Sign PDF Online",
+   "item": "https://tools.pixocraft.in/tools/how-to-sign-pdf-online"
+  }
+ ]
+}
+</script>
+
+👉 Builds your topical authority
+
+🔗 5. INTERNAL LINKING (VERY IMPORTANT)
+<a href="/tools/signature-generator">signature generator</a>
+<a href="/tools/signature-for-pdf">signature for PDF</a>
+<a href="/tools/signature-for-word">signature in Word</a>
+<a href="/tools/how-to-create-digital-signature">digital signature guide</a>
+
+👉 This page should pass authority back to:
+main + cluster pages
+
+🖼️ 6. IMAGE SEO (LOW COMPETITION ADVANTAGE)
+<img src="sign-pdf-online-example.png" alt="Sign PDF online example with signature">
+
+👉 Add:
+
+2–3 visuals
+real-use alt text
+⚡ 7. TECH SEO (YOU WIN HERE)
+
+✔ Static = super fast
+✔ No backend = no delay
+
+Ensure:
+
+lazy loading
+compressed images
+minimal JS
+🎯 8. KEYWORD DISTRIBUTION
+
+Must appear:
+
+H1
+first paragraph
+H2s
+FAQ
+
+Keywords:
+
+how to sign pdf online
+sign pdf online free
+add signature to pdf
+esign pdf
