@@ -8,6 +8,7 @@ export interface SEOProps {
   ogType?: string;
   ogImage?: string;
   ogTitle?: string;
+  ogDescription?: string;
   twitterTitle?: string;
   twitterDescription?: string;
   article?: {
@@ -24,6 +25,7 @@ export function useSEO({
   ogType = "website",
   ogImage,
   ogTitle,
+  ogDescription,
   twitterTitle,
   twitterDescription,
   article,
@@ -61,9 +63,9 @@ export function useSEO({
       link.setAttribute("href", canonicalUrl);
     }
 
-    // OpenGraph tags — use ogTitle if provided, otherwise fall back to page title
+    // OpenGraph tags — use ogTitle/ogDescription if provided, otherwise fall back to page values
     setMetaTag("og:title", ogTitle ?? title, true);
-    setMetaTag("og:description", description, true);
+    setMetaTag("og:description", ogDescription ?? description, true);
     setMetaTag("og:type", ogType, true);
     setMetaTag("og:site_name", "Pixocraft Tools", true);
     if (canonicalUrl) {
@@ -92,7 +94,7 @@ export function useSEO({
         setMetaTag("article:published_time", article.publishedTime, true);
       }
     }
-  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, twitterTitle, twitterDescription, article]);
+  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, ogDescription, twitterTitle, twitterDescription, article]);
 }
 
 export function StructuredData({ data }: { data: object }) {

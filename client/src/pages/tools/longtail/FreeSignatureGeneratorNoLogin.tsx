@@ -158,6 +158,7 @@ export default function FreeSignatureGeneratorNoLogin() {
     ogType: "website",
     ogImage: "https://tools.pixocraft.in/images/signature-generator-no-login.png",
     ogTitle: "Free Signature Generator No Login",
+    ogDescription: "Create signature instantly without signup. 100% free, private & secure.",
     twitterTitle: "Signature Generator No Login",
     twitterDescription: "Create signature instantly. No signup required.",
   });

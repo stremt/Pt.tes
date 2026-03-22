@@ -157,10 +157,11 @@ export default function OnlineSignatureGeneratorWithoutUpload() {
     keywords: "online signature generator without upload, signature generator without upload, create signature without uploading, signature maker no upload required, private signature generator online, browser based signature generator",
     canonicalUrl: CANONICAL,
     ogType: "website",
-    ogImage: "https://tools.pixocraft.in/images/signature-generator-without-upload.png",
-    ogTitle: "Online Signature Generator Without Upload",
+    ogImage: "https://tools.pixocraft.in/images/signature-no-upload.png",
+    ogTitle: "Signature Generator Without Upload",
+    ogDescription: "Create signature without uploading files. Private, secure, browser-based tool.",
     twitterTitle: "Signature Generator Without Upload",
-    twitterDescription: "Create your signature without uploading files. 100% private & browser-based.",
+    twitterDescription: "Create signature instantly without uploading files.",
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
