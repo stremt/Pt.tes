@@ -575,823 +575,823 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ==================== TIER 2: STANDARD TOOLS (priority 0.7) ==================== -->
+  <!-- ==================== TIER 2: ALL TOOLS (priority 0.8) ==================== -->
 
   <url>
     <loc>https://tools.pixocraft.in/tools/text-cleaner</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-diff</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-differ</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-repeater</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-reverser</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/sentence-case-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/title-case-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/slug-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/emoji-remover</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/morse-code-translator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/nato-phonetic-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/superscript-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/subscript-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/glitch-text-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/word-frequency-counter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-spacer</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/remove-duplicate-words</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/remove-duplicate-lines</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/line-break-remover</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/silent-text</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/character-paragraph-counter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/keyword-density-checker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/palindrome-checker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/word-shuffler</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-rotator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/pangram-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/extract-numbers</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/remove-numbers</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/case-randomizer</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-highlight-marker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/fancy-text-styler</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/ascii-art-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/symbol-combiner</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/gradient-text-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-to-speech</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/speech-to-text</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/text-to-file</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/html-table-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/html-encoder-decoder</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/file-to-base64</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/base64-to-image</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/ascii-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/character-map</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/json-csv-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/json-yaml-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/json-tree-viewer</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/code-beautifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/css-minifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/js-minifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/html-beautifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/html-minifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/api-snippet-builder</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/screen-resolution-checker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/hex-color-picker-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-hex-color</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/color-palette-shuffler</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/button-css-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/flexbox-playground</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/css-grid-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/outline-css-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/variable-font-viewer</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/advanced-text-shadow</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/css-clamp-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/css-animation-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/average-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/tip-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/currency-formatter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/days-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/fraction-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/roman-numeral-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/number-sorter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/matrix-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/calorie-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/area-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/commission-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/pay-split-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/prime-number-checker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/prime-number-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/prime-factorization</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/lcm-hcf-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/ratio-simplifier</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/percentage-change-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/mean-median-mode-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/triangle-area-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/circle-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/fibonacci-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/quadratic-solver</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/modulo-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/exponent-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/simple-interest-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/compound-interest-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/age-gap-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/height-converter</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/todo-list</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/notes-app</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/expense-tracker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/timer-stopwatch</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/stopwatch</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/countdown-timer</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/time-difference-calculator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-date-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-country-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-emoji-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-word-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-animal-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-object-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-fake-address</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-movie-suggestion</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-hindi-name</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-tech-stack</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-startup-idea</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-riddle</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-task</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-superhero-name</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-truth-dare</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/random-motivational-quote</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-darken-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-lighten-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-mirror-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-invert-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-grayscale-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-rotate-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-pixelator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/image-blur-tool</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/dominant-color-finder</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/username-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/og-preview</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/robots-txt-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/sitemap-xml-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/meta-robots-tag-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/canonical-url-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/open-graph-tag-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/signature-maker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/email-signature-maker</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/email-signature-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/add-signature-to-pdf</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   <!-- ==================== TIER 3: LONGTAILS & VARIATIONS (priority 0.6) ==================== -->
