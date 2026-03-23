@@ -570,9 +570,24 @@ export default function SignaturePadWidget() {
     const ctx = canvas.getContext("2d")!;
     const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const d = id.data;
+
+    const HARD = 50;
+    const SOFT = 130;
+
     for (let i = 0; i < d.length; i += 4) {
-      if (d[i] > 220 && d[i + 1] > 220 && d[i + 2] > 220) d[i + 3] = 0;
+      const dr = 255 - d[i];
+      const dg = 255 - d[i + 1];
+      const db = 255 - d[i + 2];
+      const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+
+      if (dist < HARD) {
+        d[i + 3] = 0;
+      } else if (dist < SOFT) {
+        const t = (dist - HARD) / (SOFT - HARD);
+        d[i + 3] = Math.round(d[i + 3] * t * t);
+      }
     }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(id, 0, 0);
     setBgRemoved(true);

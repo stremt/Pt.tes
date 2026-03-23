@@ -165,7 +165,7 @@ export default function AddSignatureToPDF() {
         </div>
 
         {/* ── TOOL ─────────────────────────────────────────────────────────── */}
-        <SignatureToolSection mode="pdf" />
+        <SignatureToolSection  />
 
         {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
         <div className="space-y-8 sm:space-y-16 text-base leading-relaxed">
