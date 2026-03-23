@@ -401,8 +401,8 @@ export default function Home() {
         {/* Trust Badge Section */}
         <section className="py-8 sm:py-12 md:py-16 bg-muted/30 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-3 sm:gap-x-4 sm:gap-y-4 md:gap-x-6 md:gap-y-6">
-              <Card className="text-center col-span-2 sm:col-span-1" data-testid="card-trust-largest">
+            <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-5 gap-x-3 gap-y-3 sm:gap-x-4 sm:gap-y-4 md:gap-x-6 md:gap-y-6">
+              <Card className="text-center col-span-2 sm:col-span-2 lg:col-span-1" data-testid="card-trust-largest">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Star className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -411,7 +411,7 @@ export default function Home() {
                   <CardDescription>Static Tool Hub</CardDescription>
                 </CardHeader>
               </Card>
-              <Card className="text-center" data-testid="card-trust-tools">
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-tools">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Database className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -420,7 +420,7 @@ export default function Home() {
                   <CardDescription>Free Forever</CardDescription>
                 </CardHeader>
               </Card>
-              <Card className="text-center" data-testid="card-trust-users">
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-users">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -429,7 +429,7 @@ export default function Home() {
                   <CardDescription>Daily Users</CardDescription>
                 </CardHeader>
               </Card>
-              <Card className="text-center" data-testid="card-trust-privacy">
+              <Card className="text-center sm:col-span-2 sm:col-start-2 lg:col-span-1 lg:col-start-auto" data-testid="card-trust-privacy">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -438,7 +438,7 @@ export default function Home() {
                   <CardDescription>Full Privacy</CardDescription>
                 </CardHeader>
               </Card>
-              <Card className="text-center" data-testid="card-trust-speed">
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-speed">
                 <CardHeader className="p-3 sm:p-6">
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
                     <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
