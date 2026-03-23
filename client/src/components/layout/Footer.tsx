@@ -29,13 +29,13 @@ export function Footer() {
   ];
 
   const toolLinks = [
-    { href: "/tools/temp-mail", label: "Temp Mail" },
-    { href: "/tools/password-generator", label: "Password Generator" },
     { href: "/tools/qr-maker", label: "QR Code Maker" },
     { href: "/tools/image-compressor", label: "Image Compressor" },
-    { href: "/tools/box-shadow-generator", label: "Box Shadow" },
-    { href: "/tools/bmi-calculator", label: "BMI Calculator" },
-    { href: "/tools/html-beautifier", label: "HTML Beautifier" },
+    { href: "/tools/password-generator", label: "Password Generator" },
+    { href: "/tools/youtube-thumbnail-downloader", label: "YouTube Thumbnail" },
+    { href: "/tools/mp4-to-mp3", label: "MP4 to MP3" },
+    { href: "/tools/online-signature-generator", label: "Signature Generator" },
+    { href: "/tools/temp-mail", label: "Temp Mail" },
     { href: "/tools/pdf-merger", label: "PDF Merger" },
   ];
 

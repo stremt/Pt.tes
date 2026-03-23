@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, ChevronDown } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, QrCode, ImageDown, KeyRound, Youtube, Music, PenLine } from "lucide-react";
 import { getRelatedTools, getToolIcon } from "@/lib/tools";
 import { Breadcrumb } from "./Breadcrumb";
 
@@ -243,6 +243,48 @@ export function ToolLayout({
                 <Link href="/tools">
                   <Button variant="outline" size="lg" className="px-8" data-testid="button-all-tools">
                     View All Tools
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* Most Popular Tools - Money Tool Cluster (Internal Linking) */}
+          <section className="py-16 border-t bg-muted/30">
+            <div className="container mx-auto px-4 max-w-7xl">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="text-2xl md:text-3xl font-bold">Most Popular Tools</h2>
+                <p className="text-muted-foreground">
+                  Trusted by millions — our highest-used free tools
+                </p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                {[
+                  { href: "/tools/qr-maker", label: "QR Code Generator", Icon: QrCode },
+                  { href: "/tools/image-compressor", label: "Image Compressor", Icon: ImageDown },
+                  { href: "/tools/password-generator", label: "Password Generator", Icon: KeyRound },
+                  { href: "/tools/youtube-thumbnail-downloader", label: "YouTube Thumbnail", Icon: Youtube },
+                  { href: "/tools/mp4-to-mp3", label: "MP4 to MP3", Icon: Music },
+                  { href: "/tools/online-signature-generator", label: "Signature Generator", Icon: PenLine },
+                ].map((tool) => (
+                  <Link key={tool.href} href={tool.href}>
+                    <div
+                      className="flex flex-col items-center gap-2 p-4 rounded-lg bg-background border hover-elevate active-elevate-2 text-center cursor-pointer h-full"
+                      data-testid={`link-popular-${tool.href.split("/").pop()}`}
+                    >
+                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <tool.Icon className="h-5 w-5 text-primary" />
+                      </div>
+                      <span className="text-xs sm:text-sm font-medium leading-tight">{tool.label}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Link href="/tools">
+                  <Button variant="outline" data-testid="button-popular-browse-all">
+                    Browse All 200+ Tools
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>

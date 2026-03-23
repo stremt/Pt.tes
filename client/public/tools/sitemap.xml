@@ -488,91 +488,91 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ==================== TIER 2: QR CODE VARIANTS (priority 0.8) ==================== -->
+  <!-- ==================== TIER 3: QR CODE VARIANTS (priority 0.7) ==================== -->
 
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/free-online</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/wifi-network</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/business-cards</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/with-logo</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/event-ticketing</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/social-media</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/product-links</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-maker/dynamic</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-restaurant-menu</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-instagram</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-whatsapp</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-youtube</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-wifi</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tools.pixocraft.in/tools/qr-code-for-payments</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 
   <!-- ==================== TIER 3: REMAINING TOOLS (priority 0.7) ==================== -->
