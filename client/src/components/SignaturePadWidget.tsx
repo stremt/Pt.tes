@@ -571,8 +571,8 @@ export default function SignaturePadWidget() {
     const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const d = id.data;
 
-    const HARD = 50;
-    const SOFT = 130;
+    const HARD = 110;
+    const SOFT = 200;
 
     for (let i = 0; i < d.length; i += 4) {
       const dr = 255 - d[i];
@@ -584,7 +584,12 @@ export default function SignaturePadWidget() {
         d[i + 3] = 0;
       } else if (dist < SOFT) {
         const t = (dist - HARD) / (SOFT - HARD);
-        d[i + 3] = Math.round(d[i + 3] * t * t);
+        const tSq = t * t;
+        // Scale RGB down with alpha to eliminate white spill on dark backgrounds
+        d[i]     = Math.round(d[i]     * tSq);
+        d[i + 1] = Math.round(d[i + 1] * tSq);
+        d[i + 2] = Math.round(d[i + 2] * tSq);
+        d[i + 3] = Math.round(d[i + 3] * tSq);
       }
     }
 
