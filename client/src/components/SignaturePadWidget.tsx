@@ -527,9 +527,9 @@ export default function SignaturePadWidget() {
     else if (!hasDrawn) setPreviewUrl(null);
   }, [activeTab, hasDrawn, sigScale, sigMargin]);
 
-  const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const [isDragging, setIsDragging] = useState(false);
+
+  const processFile = useCallback((file: File) => {
     if (!file.type.startsWith("image/")) {
       toast({ title: "Invalid file", description: "Please upload an image file." });
       return;
@@ -547,6 +547,31 @@ export default function SignaturePadWidget() {
     reader.onerror = () => { setUploadProcessing(false); setUploadEstimate(null); toast({ title: "Upload failed", description: "Could not read the file." }); };
     reader.readAsDataURL(file);
   }, [toast]);
+
+  const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+  }, [processFile]);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  }, [processFile]);
 
   useEffect(() => {
     const canvas = uploadCanvasRef.current;
@@ -1034,12 +1059,21 @@ export default function SignaturePadWidget() {
           {activeTab === "upload" && (
             <div className="space-y-3">
               <label htmlFor="upload-input" data-testid="label-upload"
-                className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-border rounded-lg px-6 py-10 cursor-pointer hover-elevate transition-colors text-center bg-muted/20">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Upload className="h-5 w-5 text-primary" />
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={[
+                  "flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-lg px-6 py-10 cursor-pointer transition-colors text-center",
+                  isDragging
+                    ? "border-primary bg-primary/10 scale-[1.01]"
+                    : "border-border bg-muted/20 hover-elevate",
+                ].join(" ")}>
+                <div className={["h-12 w-12 rounded-full flex items-center justify-center transition-colors", isDragging ? "bg-primary/20" : "bg-primary/10"].join(" ")}>
+                  <Upload className={["h-5 w-5 transition-colors", isDragging ? "text-primary scale-110" : "text-primary"].join(" ")} />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold">Click to upload or drag &amp; drop</p>
+                  <p className="text-sm font-semibold">{isDragging ? "Drop image here" : "Click to upload or drag & drop"}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">Any image format — no size limit</p>
                 </div>
                 <input id="upload-input" type="file" accept="image/*" className="sr-only" onChange={handleUpload} data-testid="input-upload" />
