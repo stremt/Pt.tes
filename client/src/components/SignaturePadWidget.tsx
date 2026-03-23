@@ -600,6 +600,17 @@ export default function SignaturePadWidget() {
     img.src = uploadedImage;
   }, [uploadedImage]);
 
+  useEffect(() => {
+    if (activeTab !== "upload") return;
+    const prevent = (e: DragEvent) => { e.preventDefault(); e.stopPropagation(); };
+    window.addEventListener("dragover", prevent);
+    window.addEventListener("drop", prevent);
+    return () => {
+      window.removeEventListener("dragover", prevent);
+      window.removeEventListener("drop", prevent);
+    };
+  }, [activeTab]);
+
   const removeBackground = useCallback(() => {
     const canvas = uploadCanvasRef.current;
     if (!canvas) return;
