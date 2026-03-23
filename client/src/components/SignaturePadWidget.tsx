@@ -700,7 +700,7 @@ export default function SignaturePadWidget() {
     const formats = buildFormats(src);
     pendingFormatsRef.current = formats;
     const a = document.createElement("a");
-    a.href = formats.png; a.download = `signature-${Date.now()}.png`; a.click();
+    a.href = formats.png; a.download = `signature-by-pixocraft.png`; a.click();
     toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
     setShowSavePrompt(true);
   }, [getExportCanvas, toast, buildFormats, sigScale, sigMargin]);
@@ -712,7 +712,7 @@ export default function SignaturePadWidget() {
     const formats = buildFormats(src);
     pendingFormatsRef.current = formats;
     const a = document.createElement("a");
-    a.href = formats.jpg; a.download = `signature-${Date.now()}.jpg`; a.click();
+    a.href = formats.jpg; a.download = `signature-by-pixocraft.jpg`; a.click();
     toast({ title: "Downloaded!", description: "Saved as JPG." });
     setShowSavePrompt(true);
   }, [getExportCanvas, toast, buildFormats, sigScale, sigMargin]);
@@ -796,7 +796,7 @@ export default function SignaturePadWidget() {
   const reDownload = useCallback((item: SigHistoryItem, format: "png" | "jpg") => {
     const a = document.createElement("a");
     a.href = format === "png" ? item.pngDataUrl : item.jpgDataUrl;
-    a.download = `signature-${format === "png" ? "transparent" : "white"}-${item.id}.${format}`;
+    a.download = `signature-by-pixocraft.${format}`;
     a.click();
   }, []);
 

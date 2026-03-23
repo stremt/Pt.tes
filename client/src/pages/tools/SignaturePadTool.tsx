@@ -368,6 +368,9 @@ export default function SignaturePadTool() {
   const uploadCanvasRef = useRef<HTMLCanvasElement>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [bgRemoved, setBgRemoved] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // ── Preview ───────────────────────────────────────────────────────────────
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -707,39 +710,67 @@ export default function SignaturePadTool() {
   const [uploadProcessing, setUploadProcessing] = useState(false);
   const [uploadEstimate, setUploadEstimate] = useState<string | null>(null);
 
-  const handleUpload = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      if (!file.type.startsWith("image/")) {
-        toast({ title: "Invalid file", description: "Please upload an image file (PNG, JPG, WebP, etc.)." });
-        return;
-      }
-      // Estimate processing time for large files
-      const sizeMB = file.size / (1024 * 1024);
-      let estimate: string | null = null;
-      if (sizeMB > 50) estimate = "~10–30 seconds";
-      else if (sizeMB > 20) estimate = "~5–10 seconds";
-      else if (sizeMB > 10) estimate = "~2–5 seconds";
-      else if (sizeMB > 5) estimate = "~1–2 seconds";
-      setUploadEstimate(estimate);
-      setUploadProcessing(true);
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setUploadedImage(ev.target?.result as string);
-        setBgRemoved(false);
-        setUploadProcessing(false);
-        setUploadEstimate(null);
-      };
-      reader.onerror = () => {
-        setUploadProcessing(false);
-        setUploadEstimate(null);
-        toast({ title: "Upload failed", description: "Could not read the file. Please try again." });
-      };
-      reader.readAsDataURL(file);
-    },
-    [toast]
-  );
+  const processFile = useCallback((file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "Invalid file", description: "Please upload an image file (PNG, JPG, WebP, etc.)." });
+      return;
+    }
+    const sizeMB = file.size / (1024 * 1024);
+    let estimate: string | null = null;
+    if (sizeMB > 50) estimate = "~10–30 seconds";
+    else if (sizeMB > 20) estimate = "~5–10 seconds";
+    else if (sizeMB > 10) estimate = "~2–5 seconds";
+    else if (sizeMB > 5) estimate = "~1–2 seconds";
+    setUploadEstimate(estimate);
+    setUploadProcessing(true);
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setUploadedImage(ev.target?.result as string);
+      setBgRemoved(false);
+      setUploadProcessing(false);
+      setUploadEstimate(null);
+    };
+    reader.onerror = () => {
+      setUploadProcessing(false);
+      setUploadEstimate(null);
+      toast({ title: "Upload failed", description: "Could not read the file. Please try again." });
+    };
+    reader.readAsDataURL(file);
+  }, [toast]);
+
+  const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+    e.target.value = "";
+  }, [processFile]);
+
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current += 1;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current -= 1;
+    if (dragCounter.current === 0) setIsDragging(false);
+  }, []);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dragCounter.current = 0;
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) processFile(file);
+  }, [processFile]);
 
   // ── Draw uploaded image onto upload canvas ────────────────────────────────
   useEffect(() => {
@@ -764,21 +795,47 @@ export default function SignaturePadTool() {
   }, [uploadedImage]);
 
   // ── Remove white background ───────────────────────────────────────────────
+  useEffect(() => {
+    if (activeTab !== "upload") return;
+    const prevent = (e: DragEvent) => { e.preventDefault(); e.stopPropagation(); };
+    window.addEventListener("dragover", prevent);
+    window.addEventListener("drop", prevent);
+    return () => {
+      window.removeEventListener("dragover", prevent);
+      window.removeEventListener("drop", prevent);
+    };
+  }, [activeTab]);
+
   const removeBackground = useCallback(() => {
     const canvas = uploadCanvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
     const id = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const d = id.data;
+    const HARD = 110;
+    const SOFT = 200;
     for (let i = 0; i < d.length; i += 4) {
-      if (d[i] > 220 && d[i + 1] > 220 && d[i + 2] > 220) d[i + 3] = 0;
+      const dr = 255 - d[i];
+      const dg = 255 - d[i + 1];
+      const db = 255 - d[i + 2];
+      const dist = Math.sqrt(dr * dr + dg * dg + db * db);
+      if (dist < HARD) {
+        d[i + 3] = 0;
+      } else if (dist < SOFT) {
+        const t = (dist - HARD) / (SOFT - HARD);
+        const tSq = t * t;
+        d[i]     = Math.round(d[i]     * tSq);
+        d[i + 1] = Math.round(d[i + 1] * tSq);
+        d[i + 2] = Math.round(d[i + 2] * tSq);
+        d[i + 3] = Math.round(d[i + 3] * tSq);
+      }
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.putImageData(id, 0, 0);
     setBgRemoved(true);
     setPreviewUrl(buildAdjustedCanvas(canvas, sigScaleRef.current, sigMarginRef.current).toDataURL("image/png"));
     toast({ title: "Done!", description: "White background removed." });
-  }, [toast]);
+  }, [toast, activeTab]);
 
   // ── Get the active canvas for export ─────────────────────────────────────
   const getExportCanvas = useCallback((): HTMLCanvasElement | null => {
@@ -853,7 +910,7 @@ export default function SignaturePadTool() {
     pendingFormatsRef.current = formats;
     const a = document.createElement("a");
     a.href = formats.png;
-    a.download = `signature-${Date.now()}.png`;
+    a.download = `signature-by-pixocraft.png`;
     a.click();
     toast({ title: "Downloaded!", description: "Saved as transparent PNG." });
     setShowSavePrompt(true);
@@ -870,7 +927,7 @@ export default function SignaturePadTool() {
     pendingFormatsRef.current = formats;
     const a = document.createElement("a");
     a.href = formats.jpg;
-    a.download = `signature-${Date.now()}.jpg`;
+    a.download = `signature-by-pixocraft.jpg`;
     a.click();
     toast({ title: "Downloaded!", description: "Saved as JPG." });
     setShowSavePrompt(true);
@@ -1007,7 +1064,7 @@ export default function SignaturePadTool() {
   const reDownload = useCallback((item: SigHistoryItem, format: "png" | "jpg") => {
     const a = document.createElement("a");
     a.href = format === "png" ? item.pngDataUrl : item.jpgDataUrl;
-    a.download = `signature-${format === "png" ? "transparent" : "white"}-${item.id}.${format}`;
+    a.download = `signature-by-pixocraft.${format}`;
     a.click();
   }, []);
 
@@ -1639,19 +1696,32 @@ export default function SignaturePadTool() {
           {/* ── UPLOAD TAB ────────────────────────────────────────────────── */}
           {activeTab === "upload" && (
             <div className="space-y-3">
-              <label
-                htmlFor="upload-input"
-                className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-border rounded-lg px-6 py-10 cursor-pointer hover-elevate transition-colors text-center bg-muted/20"
+              <div
+                role="button"
+                tabIndex={0}
                 data-testid="label-upload"
+                onClick={() => fileInputRef.current?.click()}
+                onKeyDown={(e) => e.key === "Enter" && fileInputRef.current?.click()}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                className={[
+                  "flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-lg px-6 py-10 cursor-pointer transition-all text-center select-none",
+                  isDragging
+                    ? "border-primary bg-primary/10"
+                    : "border-border bg-muted/20 hover-elevate",
+                ].join(" ")}
               >
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Upload className="h-5 w-5 text-primary" />
+                <div className={["h-12 w-12 rounded-full flex items-center justify-center transition-colors pointer-events-none", isDragging ? "bg-primary/20" : "bg-primary/10"].join(" ")}>
+                  <Upload className="h-5 w-5 text-primary pointer-events-none" />
                 </div>
-                <div>
-                  <p className="text-sm font-semibold">Click to upload or drag &amp; drop</p>
+                <div className="pointer-events-none">
+                  <p className="text-sm font-semibold">{isDragging ? "Drop image here" : "Click to upload or drag & drop"}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">Any image format — no size limit</p>
                 </div>
                 <input
+                  ref={fileInputRef}
                   id="upload-input"
                   type="file"
                   accept="image/*"
@@ -1659,7 +1729,7 @@ export default function SignaturePadTool() {
                   onChange={handleUpload}
                   data-testid="input-upload"
                 />
-              </label>
+              </div>
 
               {/* Processing indicator for large files */}
               {uploadProcessing && (
