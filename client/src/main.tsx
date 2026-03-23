@@ -15,4 +15,10 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+console.log(
+  "%cWelcome, developer 👀\n%cEverything here runs client-side.\nYour data never leaves your device.",
+  "font-size: 18px; font-weight: bold;",
+  "font-size: 13px;"
+);
+
 createRoot(document.getElementById("root")!).render(<App />);
