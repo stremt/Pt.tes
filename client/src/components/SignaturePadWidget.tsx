@@ -528,6 +528,8 @@ export default function SignaturePadWidget() {
   }, [activeTab, hasDrawn, sigScale, sigMargin]);
 
   const [isDragging, setIsDragging] = useState(false);
+  const dragCounter = useRef(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const processFile = useCallback((file: File) => {
     if (!file.type.startsWith("image/")) {
@@ -551,23 +553,32 @@ export default function SignaturePadWidget() {
   const handleUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) processFile(file);
+    e.target.value = "";
   }, [processFile]);
 
-  const handleDragOver = useCallback((e: React.DragEvent) => {
+  const handleDragEnter = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(true);
+    dragCounter.current += 1;
+    if (e.dataTransfer.items && e.dataTransfer.items.length > 0) setIsDragging(true);
   }, []);
 
   const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
+    dragCounter.current -= 1;
+    if (dragCounter.current === 0) setIsDragging(false);
+  }, []);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
   }, []);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    dragCounter.current = 0;
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
     if (file) processFile(file);
@@ -1058,26 +1069,31 @@ export default function SignaturePadWidget() {
           {/* ── UPLOAD TAB ───────────────────────────────────────────────── */}
           {activeTab === "upload" && (
             <div className="space-y-3">
-              <label htmlFor="upload-input" data-testid="label-upload"
-                onDragOver={handleDragOver}
-                onDragEnter={handleDragOver}
+              <div
+                role="button"
+                tabIndex={0}
+                data-testid="label-upload"
+                onClick={() => fileInputRef.current?.click()}
+                onKeyDown={(e) => e.key === "Enter" && fileInputRef.current?.click()}
+                onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 className={[
-                  "flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-lg px-6 py-10 cursor-pointer transition-colors text-center",
+                  "flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-lg px-6 py-10 cursor-pointer transition-all text-center select-none",
                   isDragging
-                    ? "border-primary bg-primary/10 scale-[1.01]"
+                    ? "border-primary bg-primary/10"
                     : "border-border bg-muted/20 hover-elevate",
                 ].join(" ")}>
-                <div className={["h-12 w-12 rounded-full flex items-center justify-center transition-colors", isDragging ? "bg-primary/20" : "bg-primary/10"].join(" ")}>
-                  <Upload className={["h-5 w-5 transition-colors", isDragging ? "text-primary scale-110" : "text-primary"].join(" ")} />
+                <div className={["h-12 w-12 rounded-full flex items-center justify-center transition-colors pointer-events-none", isDragging ? "bg-primary/20" : "bg-primary/10"].join(" ")}>
+                  <Upload className="h-5 w-5 text-primary pointer-events-none" />
                 </div>
-                <div>
+                <div className="pointer-events-none">
                   <p className="text-sm font-semibold">{isDragging ? "Drop image here" : "Click to upload or drag & drop"}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">Any image format — no size limit</p>
                 </div>
-                <input id="upload-input" type="file" accept="image/*" className="sr-only" onChange={handleUpload} data-testid="input-upload" />
-              </label>
+                <input ref={fileInputRef} id="upload-input" type="file" accept="image/*" className="sr-only" onChange={handleUpload} data-testid="input-upload" />
+              </div>
               {uploadProcessing && (
                 <div className="flex items-center gap-2.5 px-4 py-3 rounded-lg border bg-muted/40 text-sm text-muted-foreground" data-testid="upload-processing">
                   <Clock className="h-4 w-4 shrink-0 animate-pulse text-primary" />
