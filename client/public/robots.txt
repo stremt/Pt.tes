@@ -4,6 +4,12 @@ Allow: /
 # Disallow search result pages to prevent duplicate content
 Disallow: /tools?q=*
 Disallow: /tools?category=*
+Disallow: /qa-dashboard
+Disallow: /blog-editor
 
-# Sitemap location
+# Sitemap index location
 Sitemap: https://tools.pixocraft.in/sitemap.xml
+
+# Individual sitemaps (also discoverable via sitemap index above)
+Sitemap: https://tools.pixocraft.in/sitemap-pages.xml
+Sitemap: https://tools.pixocraft.in/tools/sitemap.xml
