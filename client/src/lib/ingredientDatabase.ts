@@ -1,0 +1,488 @@
+export type HealthImpact = "healthy" | "moderate" | "harmful";
+
+export interface IngredientEntry {
+  id: number;
+  name: string;
+  aliases: string[];
+  category: string;
+  impact: HealthImpact;
+  base_score: number;
+  glycemic_index?: "low" | "medium" | "high" | "very high";
+  description: string;
+}
+
+export interface CombinationWarning {
+  combo: string[];
+  warning: string;
+}
+
+// ─── INGREDIENT DATABASE ───────────────────────────────────────────────────────
+// base_score: positive = benefit to health score, negative = deduction
+// Position weight multipliers applied during scoring: 1.5, 1.3, 1.1, 1.0, 0.8, 0.6 (for 6+)
+
+export const INGREDIENTS: IngredientEntry[] = [
+
+  // ── WHOLE GRAINS ──────────────────────────────────────────────────────────────
+  { id: 1001, name: "oats", aliases: ["oatmeal","rolled oats","steel cut oats","whole grain oats","wholegrain oats","whole oat flour","oat groats","instant oats","quick oats","old fashioned oats"], category: "whole grain", impact: "healthy", base_score: 15, glycemic_index: "low", description: "Rich in beta-glucan fiber. Excellent for heart health and blood sugar control." },
+  { id: 1002, name: "whole wheat", aliases: ["whole grain wheat","whole wheat flour","atta","whole meal flour","whole wheat bread flour","100% whole wheat","stoneground whole wheat","wholemeal flour","wholemeal wheat flour"], category: "whole grain", impact: "healthy", base_score: 15, glycemic_index: "medium", description: "Contains fiber, vitamins, and minerals. Better than refined wheat." },
+  { id: 1003, name: "brown rice", aliases: ["brown rice flour","whole grain rice","brown basmati","brown jasmine rice","wholegrain rice"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "medium", description: "Whole grain with fiber, magnesium, and B vitamins." },
+  { id: 1004, name: "quinoa", aliases: ["quinoa flour","quinoa flakes","white quinoa","red quinoa","black quinoa","tri-color quinoa"], category: "whole grain", impact: "healthy", base_score: 15, glycemic_index: "low", description: "Complete plant protein with all essential amino acids and high fiber." },
+  { id: 1005, name: "barley", aliases: ["pearl barley","barley flour","barley flakes","whole grain barley","hulled barley","pot barley"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "High in soluble fiber. Supports cholesterol and blood sugar." },
+  { id: 1006, name: "millet", aliases: ["millet flour","foxtail millet","proso millet","finger millet flour","kodo millet","little millet","barnyard millet"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Gluten-free whole grain high in magnesium, fiber, and antioxidants." },
+  { id: 1007, name: "sorghum", aliases: ["sorghum flour","jowar","jowar flour","white sorghum","sweet sorghum","grain sorghum"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Gluten-free grain rich in antioxidants, B vitamins, and iron." },
+  { id: 1008, name: "ragi", aliases: ["finger millet","finger millet flour","nachni","mandua","marwa","eleusine coracana"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Exceptionally high in calcium and amino acids." },
+  { id: 1009, name: "bajra", aliases: ["pearl millet","pearl millet flour","kambu","sajje","bajri"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Rich in iron, magnesium, and fiber. Traditional Indian grain." },
+  { id: 1010, name: "amaranth", aliases: ["amaranth flour","amaranth seeds","rajgira","ramdana","chaulai"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Complete protein pseudo-cereal rich in calcium and magnesium." },
+  { id: 1011, name: "buckwheat", aliases: ["buckwheat flour","kuttu","buckwheat groats","kasha","fagopyrum"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "low", description: "Gluten-free pseudo-grain with rutin, a flavonoid beneficial for blood vessels." },
+  { id: 1012, name: "spelt", aliases: ["spelt flour","dinkel wheat","whole grain spelt","spelt berries"], category: "whole grain", impact: "healthy", base_score: 10, glycemic_index: "medium", description: "Ancient grain richer in protein and fiber than modern wheat." },
+  { id: 1013, name: "dalia", aliases: ["broken wheat","cracked wheat","lapsi","fada"], category: "whole grain", impact: "healthy", base_score: 12, glycemic_index: "medium", description: "Broken wheat rich in fiber, B vitamins, and slow-digesting carbohydrates." },
+  { id: 1014, name: "wheat bran", aliases: ["oat bran flour","wheat bran flour","miller's bran"], category: "fiber", impact: "healthy", base_score: 10, description: "Very high in insoluble fiber, supporting digestive health." },
+  { id: 1015, name: "oat bran", aliases: ["oat bran powder","oat fibre","oat fiber"], category: "fiber", impact: "healthy", base_score: 12, glycemic_index: "low", description: "High in beta-glucan soluble fiber. Effectively lowers LDL cholesterol." },
+  { id: 1016, name: "rice bran", aliases: ["rice bran powder","defatted rice bran"], category: "fiber", impact: "healthy", base_score: 8, description: "Contains oryzanol and tocotrienols with antioxidant and cholesterol-lowering properties." },
+  { id: 1017, name: "poha", aliases: ["flattened rice","beaten rice","chira","aval","atukulu","flaked rice"], category: "grain", impact: "moderate", base_score: 3, glycemic_index: "medium", description: "Flattened rice. Moderate glycemic but often used with vegetables." },
+
+  // ── REFINED GRAINS ────────────────────────────────────────────────────────────
+  { id: 2001, name: "maida", aliases: ["refined wheat flour","white flour","bleached flour","refined flour","all-purpose flour","plain flour","patent flour","refined maida"], category: "refined grain", impact: "harmful", base_score: -15, glycemic_index: "high", description: "Highly refined wheat flour with very low nutritional value and high glycemic index." },
+  { id: 2002, name: "wheat flour", aliases: ["flour","wheat","enriched flour","fortified flour","unbleached flour","bread flour","cake flour","pastry flour"], category: "refined grain", impact: "moderate", base_score: -8, glycemic_index: "high", description: "May be refined or whole wheat. Refined versions are lower in fiber and nutrients." },
+  { id: 2003, name: "semolina", aliases: ["suji","rava","sooji","durum semolina","durum wheat semolina","cream of wheat"], category: "refined grain", impact: "moderate", base_score: -5, glycemic_index: "medium", description: "Refined durum wheat flour. Moderate in fiber and nutrients." },
+  { id: 2004, name: "corn starch", aliases: ["cornstarch","corn flour","maize starch","maize flour","cornflour"], category: "starch", impact: "moderate", base_score: -5, glycemic_index: "high", description: "High glycemic starch with minimal nutritional value." },
+  { id: 2005, name: "tapioca starch", aliases: ["tapioca flour","cassava starch","cassava flour","arrowroot starch"], category: "starch", impact: "moderate", base_score: -3, glycemic_index: "high", description: "Gluten-free starch but low in nutrients." },
+  { id: 2006, name: "modified starch", aliases: ["modified food starch","modified corn starch","modified tapioca starch","modified potato starch","food starch","hydroxypropyl starch","acetylated starch","oxidized starch"], category: "thickener", impact: "moderate", base_score: -5, description: "Chemically altered starch. Highly processed." },
+  { id: 2007, name: "white rice", aliases: ["rice","parboiled rice","polished rice","basmati","jasmine rice","arborio rice","long grain rice","short grain rice"], category: "refined grain", impact: "moderate", base_score: -3, glycemic_index: "high", description: "Low in fiber compared to brown rice. Rapid digestion raises blood sugar." },
+
+  // ── NUTS ──────────────────────────────────────────────────────────────────────
+  { id: 3001, name: "almonds", aliases: ["almond","almond flour","almond meal","ground almonds","almond powder","blanched almonds","sliced almonds","flaked almonds","almond pieces"], category: "nut", impact: "healthy", base_score: 12, description: "High in healthy fats, vitamin E, magnesium, and protein." },
+  { id: 3002, name: "walnuts", aliases: ["walnut","walnut pieces","english walnuts","black walnuts","walnut halves"], category: "nut", impact: "healthy", base_score: 12, description: "Rich in omega-3 fatty acids and antioxidants. Excellent for brain health." },
+  { id: 3003, name: "cashews", aliases: ["cashew","cashew nuts","raw cashews","roasted cashews","cashew pieces"], category: "nut", impact: "healthy", base_score: 12, description: "Good source of magnesium, zinc, and healthy fats." },
+  { id: 3004, name: "peanuts", aliases: ["groundnut","groundnuts","peanut","monkey nuts","groundnut kernel"], category: "nut", impact: "healthy", base_score: 10, description: "High in protein and healthy monounsaturated fats." },
+  { id: 3005, name: "pistachios", aliases: ["pistachio","pistachio nuts","shelled pistachios"], category: "nut", impact: "healthy", base_score: 12, description: "Rich in antioxidants, fiber, and healthy fats." },
+  { id: 3006, name: "hazelnuts", aliases: ["hazelnut","hazelnut flour","filberts","cobnuts","hazel nuts"], category: "nut", impact: "healthy", base_score: 12, description: "High in vitamin E and healthy monounsaturated fats." },
+  { id: 3007, name: "macadamia nuts", aliases: ["macadamia","macadamia nut"], category: "nut", impact: "healthy", base_score: 10, description: "Very high in monounsaturated fats. Contains palmitoleic acid." },
+  { id: 3008, name: "brazil nuts", aliases: ["brazil nut","para nuts"], category: "nut", impact: "healthy", base_score: 10, description: "Exceptionally high in selenium. Just 1-2 nuts meet daily selenium needs." },
+  { id: 3009, name: "pecans", aliases: ["pecan","pecan nuts","pecan halves"], category: "nut", impact: "healthy", base_score: 10, description: "Rich in antioxidants and healthy fats. May reduce inflammation." },
+  { id: 3010, name: "pine nuts", aliases: ["pine nut","pignoli","cedar nuts"], category: "nut", impact: "healthy", base_score: 10, description: "Contains pinolenic acid which may suppress appetite. High in vitamins and minerals." },
+  { id: 3011, name: "coconut", aliases: ["desiccated coconut","shredded coconut","coconut flakes","coconut chips","dry coconut","grated coconut"], category: "nut", impact: "moderate", base_score: -3, description: "Contains MCT fats. Fine in moderation but high in saturated fat." },
+
+  // ── SEEDS ─────────────────────────────────────────────────────────────────────
+  { id: 4001, name: "flaxseed", aliases: ["flax seeds","linseed","linseeds","flaxseeds","ground flaxseed","milled flaxseed","flax meal"], category: "seed", impact: "healthy", base_score: 12, description: "High in omega-3 fatty acids and lignans. Supports heart health." },
+  { id: 4002, name: "chia seeds", aliases: ["chia","chia seed","white chia seeds","black chia seeds","salba chia"], category: "seed", impact: "healthy", base_score: 12, description: "Excellent source of omega-3s, fiber, and calcium." },
+  { id: 4003, name: "sunflower seeds", aliases: ["sunflower seed","sunflower kernels","dehulled sunflower seeds"], category: "seed", impact: "healthy", base_score: 10, description: "Rich in vitamin E and healthy fats." },
+  { id: 4004, name: "pumpkin seeds", aliases: ["pepitas","pumpkin seed","hulled pumpkin seeds"], category: "seed", impact: "healthy", base_score: 12, description: "High in zinc, magnesium, and healthy fats." },
+  { id: 4005, name: "sesame seeds", aliases: ["sesame","til","til seeds","white sesame","black sesame","sesame seed"], category: "seed", impact: "healthy", base_score: 10, description: "Good source of calcium, copper, and healthy fats." },
+  { id: 4006, name: "hemp seeds", aliases: ["hemp seed","hemp hearts","shelled hemp seeds","hulled hemp seeds"], category: "seed", impact: "healthy", base_score: 12, description: "Complete protein with perfect omega-3 to omega-6 ratio." },
+  { id: 4007, name: "poppy seeds", aliases: ["poppy seed","khus khus","kas kas"], category: "seed", impact: "healthy", base_score: 8, description: "Rich in calcium, iron, and healthy fats." },
+
+  // ── LEGUMES ───────────────────────────────────────────────────────────────────
+  { id: 5001, name: "lentils", aliases: ["red lentils","green lentils","masoor dal","masoor","lentil","dal","dhal","lentil flour"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "High in plant protein, fiber, and iron. Excellent for blood sugar and gut health." },
+  { id: 5002, name: "chickpeas", aliases: ["garbanzo beans","chana","chick peas","chick pea","chole","kabuli chana","bengal gram","chickpea flour","besan","gram flour"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Rich in protein, fiber, and micronutrients. Supports heart and digestive health." },
+  { id: 5003, name: "kidney beans", aliases: ["rajma","red kidney beans","dark red kidney beans","light red kidney beans"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "High in fiber, protein, and antioxidants." },
+  { id: 5004, name: "black beans", aliases: ["black bean","turtle beans","black turtle beans"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Excellent source of fiber, folate, and plant protein." },
+  { id: 5005, name: "soybeans", aliases: ["soya beans","soy beans","whole soybeans","edamame"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Complete plant protein with all essential amino acids." },
+  { id: 5006, name: "moong dal", aliases: ["mung beans","mung dal","green gram","split mung beans","moong","green moong","whole moong","yellow moong dal"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Split mung bean. Easily digestible, high in protein and fiber." },
+  { id: 5007, name: "urad dal", aliases: ["black gram","black lentil","white urad","split urad","urad bean","dehusked black gram"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Black gram. High in protein and contains B vitamins." },
+  { id: 5008, name: "toor dal", aliases: ["pigeon peas","arhar dal","split pigeon peas","yellow pigeon peas","tur dal"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Split pigeon peas. High in plant protein and folate." },
+  { id: 5009, name: "peas", aliases: ["green peas","split peas","dried peas","pea protein isolate","yellow split peas","green split peas"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Good source of plant protein, fiber, and vitamins A and C." },
+  { id: 5010, name: "black eyed peas", aliases: ["black eyed beans","lobia","cowpeas","chawli"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "High in fiber, folate, and plant protein." },
+  { id: 5011, name: "navy beans", aliases: ["haricot beans","white beans","pea beans","boston beans"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Very high in fiber. Excellent for digestive health." },
+  { id: 5012, name: "pinto beans", aliases: ["pinto bean","mottled beans"], category: "legume", impact: "healthy", base_score: 10, glycemic_index: "low", description: "Rich in fiber, protein, and folate." },
+
+  // ── VEGETABLES ────────────────────────────────────────────────────────────────
+  { id: 6001, name: "spinach", aliases: ["baby spinach","spinach powder","spinach leaves","spinach extract","palak"], category: "vegetable", impact: "healthy", base_score: 12, description: "Loaded with iron, magnesium, vitamin K, and antioxidants." },
+  { id: 6002, name: "broccoli", aliases: ["broccoli powder","broccoli florets","broccoli extract"], category: "vegetable", impact: "healthy", base_score: 12, description: "Rich in sulforaphane, vitamin C, and cancer-protective compounds." },
+  { id: 6003, name: "carrot", aliases: ["carrots","carrot powder","dehydrated carrot","carrot flakes","gajjar"], category: "vegetable", impact: "healthy", base_score: 10, description: "Excellent source of beta-carotene and vitamin A." },
+  { id: 6004, name: "tomato", aliases: ["tomatoes","tomato powder","tomato paste","tomato puree","tomato extract","dried tomato","sun-dried tomato"], category: "vegetable", impact: "healthy", base_score: 10, description: "Rich in lycopene, vitamin C, and potassium." },
+  { id: 6005, name: "onion", aliases: ["onions","onion powder","dehydrated onion","dried onion","onion flakes","onion extract"], category: "vegetable", impact: "healthy", base_score: 8, description: "Contains quercetin and allicin. Natural anti-inflammatory compounds." },
+  { id: 6006, name: "garlic", aliases: ["garlic powder","garlic granules","dehydrated garlic","dried garlic","garlic extract","garlic flakes"], category: "vegetable", impact: "healthy", base_score: 10, description: "Allicin in garlic has powerful antibacterial and cardiovascular benefits." },
+  { id: 6007, name: "kale", aliases: ["kale powder","curly kale","lacinato kale","baby kale"], category: "vegetable", impact: "healthy", base_score: 12, description: "One of the most nutrient-dense foods. High in vitamins K, A, and C." },
+  { id: 6008, name: "sweet potato", aliases: ["sweet potatoes","yam","sweet potato powder","shakarkandi"], category: "vegetable", impact: "healthy", base_score: 10, description: "High in beta-carotene, fiber, and potassium." },
+  { id: 6009, name: "potato", aliases: ["potatoes","potato starch","potato flour","dehydrated potato","potato flakes","potato powder"], category: "vegetable", impact: "moderate", base_score: 2, description: "Nutritious but high-starch vegetable. Healthier when boiled vs. fried." },
+  { id: 6010, name: "bell pepper", aliases: ["capsicum","red pepper","green pepper","yellow pepper","orange pepper","paprika pepper"], category: "vegetable", impact: "healthy", base_score: 10, description: "Extremely high in vitamin C. Rich in antioxidants." },
+  { id: 6011, name: "cabbage", aliases: ["red cabbage","savoy cabbage","napa cabbage","chinese cabbage"], category: "vegetable", impact: "healthy", base_score: 8, description: "Rich in vitamin K and C. Contains cancer-protective glucosinolates." },
+  { id: 6012, name: "cauliflower", aliases: ["cauliflower powder","cauliflower florets"], category: "vegetable", impact: "healthy", base_score: 8, description: "Low-carb vegetable high in vitamin C and fiber." },
+  { id: 6013, name: "cucumber", aliases: ["cucumbers","cucumber extract"], category: "vegetable", impact: "healthy", base_score: 8, description: "Hydrating, low-calorie vegetable with antioxidants." },
+  { id: 6014, name: "beetroot", aliases: ["beet","beets","beetroot powder","beetroot extract","beet root","beet powder"], category: "vegetable", impact: "healthy", base_score: 10, description: "High in nitrates which improve blood flow and exercise performance." },
+  { id: 6015, name: "zucchini", aliases: ["courgette","zucchinis"], category: "vegetable", impact: "healthy", base_score: 8, description: "Low-carb vegetable with vitamin C and potassium." },
+  { id: 6016, name: "mushroom", aliases: ["mushrooms","mushroom powder","mushroom extract","shiitake","button mushroom","portobello"], category: "vegetable", impact: "healthy", base_score: 8, description: "One of the few plant sources of vitamin D. Contains beta-glucans." },
+  { id: 6017, name: "asparagus", aliases: ["asparagus tips","asparagus spears"], category: "vegetable", impact: "healthy", base_score: 10, description: "High in folate, vitamin K, and prebiotic inulin." },
+  { id: 6018, name: "pumpkin", aliases: ["pumpkin powder","pumpkin puree","pumpkin extract","butternut squash"], category: "vegetable", impact: "healthy", base_score: 10, description: "Rich in beta-carotene, vitamin A, and fiber." },
+  { id: 6019, name: "celery", aliases: ["celery powder","celery extract","celery seed"], category: "vegetable", impact: "healthy", base_score: 8, description: "Very low calorie with anti-inflammatory compounds." },
+  { id: 6020, name: "eggplant", aliases: ["brinjal","aubergine","baingan"], category: "vegetable", impact: "healthy", base_score: 8, description: "Contains nasunin, a powerful antioxidant that protects brain cells." },
+  { id: 6021, name: "corn", aliases: ["maize","sweet corn","whole corn","corn kernel"], category: "vegetable", impact: "moderate", base_score: -2, description: "Whole corn provides fiber and nutrients, but often processed into refined starch." },
+  { id: 6022, name: "lettuce", aliases: ["iceberg lettuce","romaine lettuce","butterhead","leaf lettuce"], category: "vegetable", impact: "healthy", base_score: 8, description: "Low-calorie leafy green with vitamins K and A." },
+  { id: 6023, name: "okra", aliases: ["bhindi","lady finger","ladies finger","gumbo"], category: "vegetable", impact: "healthy", base_score: 8, description: "High in fiber, folate, and antioxidants. Helps manage blood sugar." },
+
+  // ── FRUITS ────────────────────────────────────────────────────────────────────
+  { id: 7001, name: "apple", aliases: ["apples","apple powder","apple extract","apple flakes","dried apple"], category: "fruit", impact: "healthy", base_score: 10, description: "High in quercetin, pectin fiber, and vitamin C. Supports gut and heart health." },
+  { id: 7002, name: "banana", aliases: ["bananas","banana powder","banana flour","plantain"], category: "fruit", impact: "healthy", base_score: 8, description: "Good source of potassium and vitamin B6. Quick natural energy." },
+  { id: 7003, name: "mango", aliases: ["mangoes","mango powder","amchur","dried mango","mango pulp","mango puree"], category: "fruit", impact: "healthy", base_score: 8, description: "High in vitamin C, A, and digestive enzymes." },
+  { id: 7004, name: "strawberry", aliases: ["strawberries","strawberry powder","dried strawberry","freeze-dried strawberry"], category: "fruit", impact: "healthy", base_score: 10, description: "Rich in vitamin C, folate, and anthocyanin antioxidants." },
+  { id: 7005, name: "blueberry", aliases: ["blueberries","blueberry powder","dried blueberry","freeze-dried blueberry","wild blueberry"], category: "fruit", impact: "healthy", base_score: 12, description: "One of the highest antioxidant foods. Excellent for brain and heart health." },
+  { id: 7006, name: "raspberry", aliases: ["raspberries","raspberry powder","dried raspberry","red raspberry"], category: "fruit", impact: "healthy", base_score: 10, description: "Very high in fiber and antioxidants with low sugar content." },
+  { id: 7007, name: "blackberry", aliases: ["blackberries","blackberry extract"], category: "fruit", impact: "healthy", base_score: 10, description: "Rich in anthocyanins, vitamin C, and fiber." },
+  { id: 7008, name: "orange", aliases: ["oranges","orange extract","orange peel","orange juice powder","sweet orange"], category: "fruit", impact: "healthy", base_score: 10, description: "Excellent source of vitamin C and flavonoids." },
+  { id: 7009, name: "lemon", aliases: ["lemon juice","lemon extract","lemon peel","lemon zest","lemon powder"], category: "fruit", impact: "healthy", base_score: 8, description: "High in vitamin C and citric acid. Supports digestion." },
+  { id: 7010, name: "avocado", aliases: ["avocados","avocado oil","avocado powder"], category: "fruit", impact: "healthy", base_score: 12, description: "Rich in heart-healthy monounsaturated fats, potassium, and folate." },
+  { id: 7011, name: "pomegranate", aliases: ["pomegranate juice","pomegranate extract","pomegranate seeds","anardana"], category: "fruit", impact: "healthy", base_score: 12, description: "Exceptionally high in punicalagins and anthocyanins. Anti-inflammatory." },
+  { id: 7012, name: "cranberry", aliases: ["cranberries","cranberry extract","dried cranberries","cranberry powder"], category: "fruit", impact: "healthy", base_score: 10, description: "Rich in proanthocyanidins that prevent urinary tract infections." },
+  { id: 7013, name: "dates", aliases: ["medjool dates","deglet dates","date paste","khajoor"], category: "fruit", impact: "moderate", base_score: -2, glycemic_index: "high", description: "Nutrient-dense natural fruit but very high in concentrated sugar." },
+  { id: 7014, name: "raisins", aliases: ["sultanas","currants","golden raisins","dried grapes","kishmish"], category: "fruit", impact: "moderate", base_score: -3, glycemic_index: "high", description: "Concentrated sugar from drying grapes. Use in small amounts." },
+  { id: 7015, name: "coconut milk", aliases: ["coconut cream","coconut water","coconut extract","coconut beverage"], category: "dairy alternative", impact: "moderate", base_score: -4, description: "High in saturated fat but contains MCTs. Use in moderation." },
+  { id: 7016, name: "cherry", aliases: ["cherries","tart cherry","cherry extract","maraschino cherry"], category: "fruit", impact: "healthy", base_score: 10, description: "High in anthocyanins with powerful anti-inflammatory effects." },
+  { id: 7017, name: "watermelon", aliases: ["watermelon juice","watermelon extract"], category: "fruit", impact: "healthy", base_score: 8, description: "High in lycopene and citrulline. Hydrating and heart-healthy." },
+  { id: 7018, name: "pineapple", aliases: ["pineapple juice","pineapple extract","dried pineapple","pineapple chunks"], category: "fruit", impact: "healthy", base_score: 8, description: "Contains bromelain enzyme with anti-inflammatory properties." },
+  { id: 7019, name: "guava", aliases: ["guava extract","guava powder","amrood"], category: "fruit", impact: "healthy", base_score: 10, description: "One of the richest sources of vitamin C among fruits. High in fiber." },
+  { id: 7020, name: "papaya", aliases: ["pawpaw","papaya extract","papain"], category: "fruit", impact: "healthy", base_score: 8, description: "Contains papain enzyme aiding digestion. High in vitamins A and C." },
+
+  // ── PROTEINS & ANIMAL FOODS ───────────────────────────────────────────────────
+  { id: 8001, name: "eggs", aliases: ["egg","whole egg","egg powder","whole egg powder","dried whole egg","egg solids"], category: "protein", impact: "healthy", base_score: 10, description: "Complete protein with all essential amino acids. Rich in choline and B12." },
+  { id: 8002, name: "egg white", aliases: ["egg whites","egg white powder","egg albumen","egg white solids","liquid egg white"], category: "protein", impact: "healthy", base_score: 10, description: "Pure, high-quality protein with very low fat content." },
+  { id: 8003, name: "egg yolk", aliases: ["egg yolks","egg yolk powder","dried egg yolk"], category: "protein", impact: "moderate", base_score: 3, description: "Rich in vitamins and choline but also high in cholesterol." },
+  { id: 8004, name: "chicken", aliases: ["chicken breast","chicken meat","cooked chicken","chicken powder","chicken extract"], category: "protein", impact: "healthy", base_score: 8, description: "Lean animal protein rich in B vitamins and selenium." },
+  { id: 8005, name: "fish", aliases: ["fish meal","fish powder","fish extract","fish protein"], category: "protein", impact: "healthy", base_score: 10, description: "Excellent source of omega-3 fatty acids and lean protein." },
+  { id: 8006, name: "salmon", aliases: ["atlantic salmon","wild salmon","smoked salmon","salmon extract"], category: "protein", impact: "healthy", base_score: 12, description: "One of the best sources of omega-3 DHA and EPA. Supports heart and brain health." },
+  { id: 8007, name: "tuna", aliases: ["skipjack tuna","albacore tuna","yellowfin tuna"], category: "protein", impact: "healthy", base_score: 10, description: "Lean protein high in omega-3 and vitamin D." },
+  { id: 8008, name: "beef", aliases: ["red meat","ground beef","beef extract","beef broth"], category: "protein", impact: "moderate", base_score: 2, description: "Complete protein with iron and B12. Choose lean cuts and limit red meat intake." },
+  { id: 8009, name: "tofu", aliases: ["silken tofu","firm tofu","bean curd"], category: "protein", impact: "healthy", base_score: 8, description: "Complete plant protein from soybeans. Rich in iron and calcium." },
+  { id: 8010, name: "tempeh", aliases: ["fermented soy","tempeh protein"], category: "protein", impact: "healthy", base_score: 10, description: "Fermented soy product with probiotics. Complete protein with excellent digestibility." },
+  { id: 8011, name: "whey protein", aliases: ["whey protein concentrate","whey protein isolate","whey","milk protein concentrate","milk protein isolate","dairy protein"], category: "protein", impact: "healthy", base_score: 8, description: "High-quality complete protein. Beneficial for muscle maintenance." },
+  { id: 8012, name: "pea protein", aliases: ["pea protein isolate","pea protein concentrate","yellow pea protein"], category: "protein", impact: "healthy", base_score: 8, description: "Plant-based complete protein. Good for muscle and satiety." },
+  { id: 8013, name: "soy protein", aliases: ["soy protein isolate","soy protein concentrate","textured soy protein","tsp","tvp","textured vegetable protein"], category: "protein", impact: "moderate", base_score: -2, description: "Complete plant protein. Moderate amounts are safe for most people." },
+  { id: 8014, name: "casein", aliases: ["casein protein","micellar casein","sodium caseinate","calcium caseinate","milk casein"], category: "protein", impact: "healthy", base_score: 6, description: "Slow-digesting milk protein. Supports muscle synthesis over time." },
+  { id: 8015, name: "gelatin", aliases: ["gelatine","bovine gelatin","pork gelatin","hydrolyzed collagen"], category: "protein", impact: "moderate", base_score: 0, description: "Protein derived from animal collagen. Contains no tryptophan." },
+
+  // ── DAIRY ─────────────────────────────────────────────────────────────────────
+  { id: 9001, name: "milk", aliases: ["whole milk","full fat milk","pasteurized milk","whole milk powder","dried milk","milk solids","milk powder","toned milk","milk fat"], category: "dairy", impact: "moderate", base_score: -2, description: "Good source of calcium and protein. Full-fat versions are high in saturated fat." },
+  { id: 9002, name: "skim milk", aliases: ["skimmed milk","non-fat milk","fat-free milk","skim milk powder","skimmed milk powder","nonfat dry milk","double toned milk"], category: "dairy", impact: "healthy", base_score: 5, description: "Low-fat source of protein and calcium." },
+  { id: 9003, name: "butter", aliases: ["unsalted butter","salted butter","clarified butter","sweet cream butter"], category: "dairy fat", impact: "moderate", base_score: -5, description: "High in saturated fat. Fine in moderation but can raise LDL cholesterol." },
+  { id: 9004, name: "ghee", aliases: ["desi ghee","buffalo ghee","cow ghee","clarified ghee"], category: "dairy fat", impact: "moderate", base_score: -4, description: "Clarified butter. Contains butyrate and fat-soluble vitamins. Use in moderation." },
+  { id: 9005, name: "cream", aliases: ["heavy cream","whipping cream","double cream","light cream","sour cream","creme fraiche"], category: "dairy fat", impact: "moderate", base_score: -5, description: "High in saturated fat. Use sparingly." },
+  { id: 9006, name: "cheese", aliases: ["cheddar","mozzarella","parmesan","cheese powder","processed cheese","cottage cheese","paneer"], category: "dairy", impact: "moderate", base_score: -3, description: "Good source of calcium and protein, but high in saturated fat and sodium." },
+  { id: 9007, name: "yogurt", aliases: ["curd","dahi","greek yogurt","plain yogurt","low-fat yogurt","probiotic yogurt"], category: "dairy", impact: "healthy", base_score: 8, description: "Contains probiotics, protein, and calcium. Supports gut health." },
+  { id: 9008, name: "lactose", aliases: ["milk sugar","lactose monohydrate"], category: "dairy", impact: "moderate", base_score: -3, description: "Natural milk sugar. Causes digestive issues in lactose-intolerant individuals." },
+  { id: 9009, name: "oat milk", aliases: ["oat drink","oat based drink","oat beverage"], category: "dairy alternative", impact: "moderate", base_score: -2, description: "Plant-based milk alternative. Often fortified but may contain added sugars." },
+  { id: 9010, name: "almond milk", aliases: ["almond drink","almond beverage","almond based drink"], category: "dairy alternative", impact: "moderate", base_score: -1, description: "Low-calorie plant milk. Low in protein. Check for added sugars." },
+  { id: 9011, name: "soy milk", aliases: ["soya milk","soy drink","soya drink","soy beverage"], category: "dairy alternative", impact: "moderate", base_score: -1, description: "Complete plant protein milk alternative. Often fortified with calcium." },
+
+  // ── OILS & FATS ───────────────────────────────────────────────────────────────
+  { id: 10001, name: "olive oil", aliases: ["extra virgin olive oil","virgin olive oil","light olive oil","pure olive oil","cold pressed olive oil","evoo"], category: "healthy oil", impact: "healthy", base_score: 8, description: "Rich in monounsaturated fats and polyphenols. Supports heart health." },
+  { id: 10002, name: "avocado oil", aliases: ["refined avocado oil","cold pressed avocado oil"], category: "healthy oil", impact: "healthy", base_score: 8, description: "High in oleic acid and lutein. Excellent for high-heat cooking." },
+  { id: 10003, name: "coconut oil", aliases: ["virgin coconut oil","refined coconut oil","cold pressed coconut oil"], category: "oil", impact: "moderate", base_score: -5, description: "High in saturated fat. Moderate consumption acceptable." },
+  { id: 10004, name: "sunflower oil", aliases: ["high oleic sunflower oil","refined sunflower oil","sunflower seed oil"], category: "vegetable oil", impact: "moderate", base_score: -6, description: "High in omega-6. Fine in moderation; excess may promote inflammation." },
+  { id: 10005, name: "canola oil", aliases: ["rapeseed oil","rape seed oil","canola","refined canola oil","cold pressed rapeseed oil"], category: "vegetable oil", impact: "moderate", base_score: -6, description: "Low in saturated fat. Acceptable in moderation." },
+  { id: 10006, name: "vegetable oil", aliases: ["refined vegetable oil","blended vegetable oil","cooking oil"], category: "vegetable oil", impact: "moderate", base_score: -6, description: "Generic vegetable oil. Composition varies. Moderate use acceptable." },
+  { id: 10007, name: "soybean oil", aliases: ["soya oil","soy oil","refined soybean oil"], category: "vegetable oil", impact: "moderate", base_score: -6, description: "High in omega-6 fatty acids. Use in moderation." },
+  { id: 10008, name: "palm oil", aliases: ["palm olein","palmolein oil","red palm oil","palm fruit oil","refined palm oil"], category: "oil", impact: "harmful", base_score: -15, description: "High in saturated fat. Linked to increased heart disease risk." },
+  { id: 10009, name: "palm kernel oil", aliases: ["palm stearin","palm kernel fat"], category: "oil", impact: "harmful", base_score: -15, description: "Very high in saturated fat. Linked to cardiovascular disease." },
+  { id: 10010, name: "hydrogenated oil", aliases: ["hydrogenated vegetable oil","hydrogenated fat","partially hydrogenated oil","partially hydrogenated vegetable oil","hydrogenated soybean oil","hydrogenated cottonseed oil"], category: "trans fat", impact: "harmful", base_score: -25, description: "Contains trans fats that raise LDL and lower HDL cholesterol." },
+  { id: 10011, name: "trans fat", aliases: ["trans fatty acid","trans fats"], category: "trans fat", impact: "harmful", base_score: -30, description: "Industrial trans fats are among the most harmful dietary fats." },
+  { id: 10012, name: "shortening", aliases: ["vegetable shortening","baking shortening","hydrogenated shortening","dalda"], category: "trans fat", impact: "harmful", base_score: -20, description: "Often contains hydrogenated oils and trans fats." },
+  { id: 10013, name: "lard", aliases: ["pig fat","pork fat","rendered lard","tallow","beef tallow"], category: "animal fat", impact: "moderate", base_score: -8, description: "Animal fat high in saturated fat. Use sparingly." },
+  { id: 10014, name: "mustard oil", aliases: ["cold pressed mustard oil","kachi ghani mustard oil","sarson ka tel"], category: "healthy oil", impact: "healthy", base_score: 6, description: "Rich in erucic acid and omega-3 ALA. Traditional Indian cooking oil." },
+  { id: 10015, name: "rice bran oil", aliases: ["rice oil","refined rice bran oil"], category: "healthy oil", impact: "healthy", base_score: 5, description: "Contains oryzanol which helps lower LDL cholesterol." },
+  { id: 10016, name: "sesame oil", aliases: ["til oil","gingelly oil","roasted sesame oil","cold pressed sesame oil"], category: "healthy oil", impact: "healthy", base_score: 6, description: "Rich in sesamin and sesamolin with antioxidant and anti-inflammatory properties." },
+  { id: 10017, name: "groundnut oil", aliases: ["peanut oil","arachis oil","refined groundnut oil"], category: "vegetable oil", impact: "moderate", base_score: -4, description: "Relatively stable cooking oil with a good fat profile." },
+  { id: 10018, name: "interesterified fat", aliases: ["interesterified oil","fully hydrogenated and interesterified","interesterified vegetable fat"], category: "processed fat", impact: "harmful", base_score: -15, description: "Chemically restructured fat. An alternative to trans fats but still metabolically harmful." },
+
+  // ── SWEETENERS ────────────────────────────────────────────────────────────────
+  { id: 11001, name: "sugar", aliases: ["white sugar","table sugar","cane sugar","sucrose","beet sugar","granulated sugar","raw sugar","evaporated cane juice","cane juice"], category: "sweetener", impact: "harmful", base_score: -20, glycemic_index: "very high", description: "Refined sugar with no nutritional value. Contributes to obesity, diabetes, and tooth decay." },
+  { id: 11002, name: "high fructose corn syrup", aliases: ["hfcs","corn syrup","glucose-fructose syrup","glucose fructose syrup","isoglucose","high fructose maize syrup"], category: "sweetener", impact: "harmful", base_score: -25, glycemic_index: "very high", description: "Highly processed sweetener strongly associated with obesity and metabolic syndrome." },
+  { id: 11003, name: "glucose", aliases: ["dextrose","d-glucose","grape sugar","liquid glucose"], category: "sweetener", impact: "harmful", base_score: -18, glycemic_index: "very high", description: "Simple sugar that rapidly spikes blood glucose levels." },
+  { id: 11004, name: "fructose", aliases: ["crystalline fructose","levulose","fruit sugar"], category: "sweetener", impact: "harmful", base_score: -18, glycemic_index: "low", description: "Excess fructose may contribute to fatty liver disease." },
+  { id: 11005, name: "maltodextrin", aliases: ["maltodextrin de 15-20","corn maltodextrin","tapioca maltodextrin","rice maltodextrin"], category: "sweetener", impact: "harmful", base_score: -15, glycemic_index: "very high", description: "Ultra-processed carbohydrate with glycemic index even higher than table sugar." },
+  { id: 11006, name: "brown sugar", aliases: ["raw cane sugar","demerara sugar","muscovado","jaggery-flavored sugar","turbinado sugar"], category: "sweetener", impact: "harmful", base_score: -15, glycemic_index: "high", description: "Slightly less processed than white sugar but still high in empty calories." },
+  { id: 11007, name: "invert sugar", aliases: ["invert syrup","inverted sugar syrup","invertase-processed sugar"], category: "sweetener", impact: "harmful", base_score: -18, glycemic_index: "very high", description: "Mixture of glucose and fructose. Raises blood sugar rapidly." },
+  { id: 11008, name: "maltose", aliases: ["malt sugar","barley malt syrup","malt syrup","rice malt syrup"], category: "sweetener", impact: "harmful", base_score: -18, glycemic_index: "very high", description: "High glycemic index sugar that rapidly raises blood sugar." },
+  { id: 11009, name: "honey", aliases: ["raw honey","pure honey","manuka honey","clover honey","multifloral honey","organic honey","acacia honey","natural honey"], category: "natural sweetener", impact: "moderate", base_score: -5, description: "Natural sweetener with antioxidants, but still high in sugar. Use in moderation." },
+  { id: 11010, name: "maple syrup", aliases: ["pure maple syrup","maple extract","grade a maple syrup"], category: "natural sweetener", impact: "moderate", base_score: -5, description: "Natural sweetener with trace minerals but high in sugar." },
+  { id: 11011, name: "stevia", aliases: ["stevia extract","steviol glycoside","rebaudioside a","reb a","stevia leaf extract","truvia","purevia"], category: "natural sweetener", impact: "moderate", base_score: -2, description: "Plant-derived sweetener. Better alternative to refined sugar." },
+  { id: 11012, name: "jaggery", aliases: ["gur","palm jaggery","coconut sugar","palm sugar","khandsari","shakkar"], category: "natural sweetener", impact: "moderate", base_score: -8, glycemic_index: "high", description: "Unrefined sugar with trace minerals. Still high in sugar content." },
+  { id: 11013, name: "erythritol", aliases: ["erythritol powder","fermented erythritol"], category: "sugar alcohol", impact: "moderate", base_score: -2, description: "Sugar alcohol with minimal blood sugar impact. Well tolerated in small amounts." },
+  { id: 11014, name: "xylitol", aliases: ["birch sugar","xylitol sweetener"], category: "sugar alcohol", impact: "moderate", base_score: -3, description: "Sugar alcohol with dental benefits. May cause digestive issues in excess." },
+  { id: 11015, name: "sorbitol", aliases: ["glucitol","e420"], category: "sugar alcohol", impact: "moderate", base_score: -5, description: "Sugar alcohol that may cause bloating in larger amounts." },
+  { id: 11016, name: "aspartame", aliases: ["e951","nutrasweet","equal sweetener","aspartyl phenylalanine"], category: "artificial sweetener", impact: "harmful", base_score: -10, description: "Controversial artificial sweetener. May affect gut microbiome." },
+  { id: 11017, name: "saccharin", aliases: ["e954","sodium saccharin","sweet'n low"], category: "artificial sweetener", impact: "harmful", base_score: -10, description: "Oldest artificial sweetener. May negatively affect gut bacteria." },
+  { id: 11018, name: "sucralose", aliases: ["e955","splenda"], category: "artificial sweetener", impact: "moderate", base_score: -5, description: "Generally considered safe but may affect gut microbiome." },
+  { id: 11019, name: "acesulfame k", aliases: ["acesulfame potassium","ace k","e950","acesulfame-k"], category: "artificial sweetener", impact: "harmful", base_score: -10, description: "Artificial sweetener that may interfere with metabolic processes." },
+  { id: 11020, name: "neotame", aliases: ["e961"], category: "artificial sweetener", impact: "harmful", base_score: -10, description: "Newer artificial sweetener. Limited long-term safety data." },
+  { id: 11021, name: "cyclamate", aliases: ["e952","sodium cyclamate","calcium cyclamate"], category: "artificial sweetener", impact: "harmful", base_score: -12, description: "Artificial sweetener. Banned in the US. Concerns over carcinogenicity." },
+  { id: 11022, name: "date syrup", aliases: ["date paste","date sugar","date extract","date honey"], category: "natural sweetener", impact: "moderate", base_score: -4, description: "Natural sweetener from dates. Contains minerals but still high in sugar." },
+  { id: 11023, name: "fruit concentrate", aliases: ["apple juice concentrate","grape juice concentrate","pear juice concentrate","fruit juice concentrate","concentrated fruit juice","juice concentrate"], category: "fruit concentrate", impact: "moderate", base_score: -6, glycemic_index: "high", description: "Concentrated fruit sugars add glycemic load without fiber." },
+  { id: 11024, name: "agave syrup", aliases: ["agave nectar","blue agave syrup","agave juice"], category: "natural sweetener", impact: "moderate", base_score: -8, description: "High in fructose. Despite low GI, high fructose content stresses the liver." },
+
+  // ── ARTIFICIAL COLORS ──────────────────────────────────────────────────────────
+  { id: 12001, name: "red 40", aliases: ["fd&c red 40","fd&c red no. 40","allura red","allura red ac","e129","red 40 lake","allura red lake"], category: "artificial color", impact: "harmful", base_score: -15, description: "Synthetic dye linked to hyperactivity in children. Banned in some countries." },
+  { id: 12002, name: "yellow 5", aliases: ["fd&c yellow 5","fd&c yellow no. 5","tartrazine","e102","lemon yellow","c.i. 19140"], category: "artificial color", impact: "harmful", base_score: -15, description: "Tartrazine — associated with hyperactivity and allergic reactions." },
+  { id: 12003, name: "yellow 6", aliases: ["fd&c yellow 6","fd&c yellow no. 6","sunset yellow","e110","orange yellow s"], category: "artificial color", impact: "harmful", base_score: -15, description: "Sunset yellow — synthetic dye with potential links to hyperactivity." },
+  { id: 12004, name: "blue 1", aliases: ["fd&c blue 1","fd&c blue no. 1","brilliant blue","e133","brilliant blue fcf"], category: "artificial color", impact: "harmful", base_score: -15, description: "Brilliant Blue — artificial color with limited long-term safety data." },
+  { id: 12005, name: "blue 2", aliases: ["fd&c blue 2","fd&c blue no. 2","indigotine","e132","indigo carmine"], category: "artificial color", impact: "harmful", base_score: -15, description: "Synthetic food dye with potential health concerns." },
+  { id: 12006, name: "red 3", aliases: ["fd&c red 3","fd&c red no. 3","erythrosine","e127"], category: "artificial color", impact: "harmful", base_score: -15, description: "Erythrosine — banned for cosmetics in the US due to cancer risk." },
+  { id: 12007, name: "green 3", aliases: ["fd&c green 3","fd&c green no. 3","fast green","e143"], category: "artificial color", impact: "harmful", base_score: -12, description: "Synthetic green dye with limited safety data. Banned in the EU." },
+  { id: 12008, name: "caramel color", aliases: ["caramel colouring","caramel coloring","e150a","e150b","e150c","e150d","class iv caramel"], category: "artificial color", impact: "moderate", base_score: -10, description: "Some forms contain 4-MEI, a potential carcinogen." },
+  { id: 12009, name: "titanium dioxide", aliases: ["e171","titanium white","ci 77891"], category: "additive", impact: "harmful", base_score: -15, description: "Whitening agent recently classified as a possible carcinogen by EFSA." },
+  { id: 12010, name: "brilliant black", aliases: ["e151","black bn","food black 1"], category: "artificial color", impact: "harmful", base_score: -12, description: "Synthetic black dye. Banned in some countries." },
+  { id: 12011, name: "ponceau 4r", aliases: ["e124","cochineal red a","strawberry red"], category: "artificial color", impact: "harmful", base_score: -15, description: "Red synthetic dye. Banned in the US. Linked to hyperactivity." },
+  { id: 12012, name: "quinoline yellow", aliases: ["e104","d&c yellow no. 10"], category: "artificial color", impact: "harmful", base_score: -12, description: "Yellow synthetic dye. Banned in the US and several countries." },
+  { id: 12013, name: "carmoisine", aliases: ["e122","azorubine","food red 3"], category: "artificial color", impact: "harmful", base_score: -12, description: "Red synthetic dye. Part of the Southampton Six linked to hyperactivity." },
+
+  // ── ARTIFICIAL FLAVORS ────────────────────────────────────────────────────────
+  { id: 13001, name: "artificial flavors", aliases: ["artificial flavor","flavour","artificial flavoring","artificial flavouring","artificial flavours","synthetic flavor","synthetic flavoring","nature and artificial flavor","natural and artificial flavor","natural and artificial flavors"], category: "artificial flavoring", impact: "harmful", base_score: -10, description: "Synthetic flavor compounds of largely unknown composition and health effects." },
+  { id: 13002, name: "natural flavors", aliases: ["natural flavor","natural flavoring","natural flavouring","nature identical flavor","nature identical flavouring"], category: "flavoring", impact: "moderate", base_score: -3, description: "Derived naturally but highly processed. Composition is often undisclosed." },
+  { id: 13003, name: "msg", aliases: ["monosodium glutamate","flavor enhancer","flavour enhancer","flavour enhancer 621","flavor enhancer 621","e621","msg seasoning","glutamate"], category: "flavor enhancer", impact: "moderate", base_score: -10, description: "Monosodium glutamate — flavor enhancer. Safe for most but sensitive individuals report headaches." },
+  { id: 13004, name: "yeast extract", aliases: ["autolyzed yeast extract","hydrolyzed yeast extract","marmite","nutritional yeast","brewer's yeast extract","yeast extract paste"], category: "flavor enhancer", impact: "moderate", base_score: -5, description: "Natural flavor enhancer high in glutamates. Generally safe but contains significant sodium." },
+  { id: 13005, name: "disodium inosinate", aliases: ["e631","imp","inosine monophosphate"], category: "flavor enhancer", impact: "moderate", base_score: -8, description: "Flavor enhancer often used with MSG. Amplifies savory taste." },
+  { id: 13006, name: "disodium guanylate", aliases: ["e627","gmp","guanosine monophosphate"], category: "flavor enhancer", impact: "moderate", base_score: -8, description: "Flavor enhancer often paired with MSG. Not suitable for gout patients." },
+
+  // ── PRESERVATIVES ─────────────────────────────────────────────────────────────
+  { id: 14001, name: "sodium benzoate", aliases: ["e211","benzoate of soda","sodium benzenecarboxylate"], category: "preservative", impact: "harmful", base_score: -12, description: "May convert to benzene (a carcinogen) when combined with vitamin C." },
+  { id: 14002, name: "potassium sorbate", aliases: ["e202","sorbic acid","potassium (e202)"], category: "preservative", impact: "moderate", base_score: -5, description: "Common preservative. Generally safe but may cause mild reactions." },
+  { id: 14003, name: "sodium nitrate", aliases: ["e251","sodium nitrate preservative","curing salt"], category: "preservative", impact: "harmful", base_score: -15, description: "Linked to increased cancer risk, especially colorectal cancer." },
+  { id: 14004, name: "sodium nitrite", aliases: ["e250","nitrite preservative"], category: "preservative", impact: "harmful", base_score: -15, description: "Meat preservative that can form carcinogenic nitrosamines." },
+  { id: 14005, name: "bha", aliases: ["butylated hydroxyanisole","e320","antioxidant (320)"], category: "preservative", impact: "harmful", base_score: -12, description: "Butylated hydroxyanisole — possibly carcinogenic synthetic antioxidant." },
+  { id: 14006, name: "bht", aliases: ["butylated hydroxytoluene","e321","antioxidant (321)"], category: "preservative", impact: "harmful", base_score: -12, description: "Butylated hydroxytoluene — synthetic preservative with potential endocrine-disrupting effects." },
+  { id: 14007, name: "tbhq", aliases: ["tertiary butylhydroquinone","e319","antioxidant (319)"], category: "preservative", impact: "harmful", base_score: -12, description: "Synthetic preservative with potential carcinogenic concerns at high doses." },
+  { id: 14008, name: "calcium propionate", aliases: ["e282","propionic acid","calcium propanoate"], category: "preservative", impact: "moderate", base_score: -3, description: "Common bread preservative. Generally safe." },
+  { id: 14009, name: "sodium propionate", aliases: ["e281","sodium propanoate"], category: "preservative", impact: "moderate", base_score: -3, description: "Common preservative in baked goods. Generally safe." },
+  { id: 14010, name: "sodium metabisulfite", aliases: ["e223","metabisulfite","sulphite","sulfite","e220","e221","e222","e224","e228","sulphur dioxide"], category: "preservative", impact: "moderate", base_score: -5, description: "Sulfite that can trigger reactions in sulfite-sensitive individuals." },
+  { id: 14011, name: "citric acid", aliases: ["e330","citric acid monohydrate","lemon acid"], category: "preservative", impact: "moderate", base_score: -2, description: "Naturally derived acid used as a preservative and flavor enhancer. Generally safe." },
+  { id: 14012, name: "ascorbic acid", aliases: ["vitamin c","e300","l-ascorbic acid","sodium ascorbate","calcium ascorbate","e301","e302"], category: "vitamin", impact: "healthy", base_score: 5, description: "Vitamin C — antioxidant used as nutrient or preservative." },
+  { id: 14013, name: "potassium bromate", aliases: ["e924","bromate","potassium bromate bread improver"], category: "additive", impact: "harmful", base_score: -20, description: "Possible carcinogen used as a dough improver. Banned in many countries including India." },
+  { id: 14014, name: "azodicarbonamide", aliases: ["e927a","azo","ado","azodicarbonamide dough conditioner"], category: "additive", impact: "harmful", base_score: -15, description: "Dough conditioner that breaks down into urethane, a potential carcinogen. Banned in EU." },
+  { id: 14015, name: "calcium disodium edta", aliases: ["edta","disodium edta","e385","ethylenediaminetetraacetic acid","calcium disodium edta"], category: "preservative", impact: "moderate", base_score: -5, description: "Safe at approved levels but may reduce mineral absorption." },
+  { id: 14016, name: "nisin", aliases: ["e234","nisin preservative"], category: "preservative", impact: "moderate", base_score: -3, description: "Natural antibiotic produced by bacteria. Generally considered safe." },
+  { id: 14017, name: "natamycin", aliases: ["e235","pimaricin"], category: "preservative", impact: "moderate", base_score: -4, description: "Natural antifungal preservative. Commonly used on cheese." },
+
+  // ── EMULSIFIERS & STABILIZERS ─────────────────────────────────────────────────
+  { id: 15001, name: "soy lecithin", aliases: ["lecithin","e322","soya lecithin","sunflower lecithin","egg lecithin","rapeseed lecithin"], category: "emulsifier", impact: "moderate", base_score: -3, description: "Common emulsifier from soybeans. Generally safe in small quantities." },
+  { id: 15002, name: "carrageenan", aliases: ["e407","irish moss extract","red algae extract","carageenan"], category: "thickener", impact: "harmful", base_score: -10, description: "Associated with gut inflammation in animal studies." },
+  { id: 15003, name: "xanthan gum", aliases: ["e415","xanthan gum stabilizer"], category: "thickener", impact: "moderate", base_score: -3, description: "Safe in small amounts but may cause digestive issues in excess." },
+  { id: 15004, name: "guar gum", aliases: ["e412","guar","cyamopsis tetragonoloba gum"], category: "thickener", impact: "moderate", base_score: -3, description: "Natural thickener. May cause bloating in sensitive individuals." },
+  { id: 15005, name: "locust bean gum", aliases: ["e410","carob bean gum","carob gum"], category: "thickener", impact: "moderate", base_score: -2, description: "Natural thickener from carob seeds. Generally safe." },
+  { id: 15006, name: "cellulose gum", aliases: ["carboxymethyl cellulose","e466","cmc","sodium carboxymethyl cellulose"], category: "emulsifier", impact: "moderate", base_score: -8, description: "Processed emulsifier that may alter gut microbiota composition." },
+  { id: 15007, name: "polysorbate 80", aliases: ["e433","tween 80","polyoxyethylene sorbitan monooleate"], category: "emulsifier", impact: "harmful", base_score: -10, description: "Synthetic emulsifier that may disrupt gut microbiota and promote inflammation." },
+  { id: 15008, name: "polysorbate 60", aliases: ["e435","tween 60"], category: "emulsifier", impact: "harmful", base_score: -10, description: "Synthetic emulsifier linked to gut microbiome disruption." },
+  { id: 15009, name: "mono and diglycerides", aliases: ["monoglycerides","diglycerides","glycerol monostearate","e471","mono- and di-glycerides of fatty acids"], category: "emulsifier", impact: "moderate", base_score: -5, description: "Common emulsifiers that may contain small amounts of trans fats." },
+  { id: 15010, name: "sodium stearoyl lactylate", aliases: ["e481","ssl"], category: "emulsifier", impact: "moderate", base_score: -3, description: "Dough conditioner from natural sources. Generally considered safe." },
+  { id: 15011, name: "datem", aliases: ["e472e","diacetyl tartaric acid ester of monoglycerides","tartaric acid esters"], category: "emulsifier", impact: "moderate", base_score: -5, description: "Diacetyl tartaric acid ester of mono and diglycerides. Highly processed dough conditioner." },
+  { id: 15012, name: "pectin", aliases: ["e440","apple pectin","citrus pectin","modified citrus pectin","amidated pectin"], category: "thickener", impact: "healthy", base_score: 5, description: "Natural soluble fiber from fruit. Supports gut health and cholesterol levels." },
+  { id: 15013, name: "agar agar", aliases: ["agar","e406","kanten"], category: "thickener", impact: "healthy", base_score: 5, description: "Plant-based gelatin alternative from red algae. Rich in fiber." },
+  { id: 15014, name: "sodium phosphate", aliases: ["disodium phosphate","trisodium phosphate","e339","e340","phosphate additive"], category: "additive", impact: "harmful", base_score: -10, description: "High phosphate intake is linked to kidney disease and cardiovascular issues." },
+  { id: 15015, name: "brominated vegetable oil", aliases: ["bvo"], category: "additive", impact: "harmful", base_score: -15, description: "Builds up in body tissue. Banned in EU and Japan. Being phased out in US." },
+  { id: 15016, name: "sodium lauryl sulfate", aliases: ["sls","e487","lauryl sulfate"], category: "additive", impact: "harmful", base_score: -12, description: "Detergent-like additive with irritant effects. Rarely found in food." },
+  { id: 15017, name: "gum arabic", aliases: ["acacia gum","e414","arabic gum","acacia senegal gum"], category: "thickener", impact: "moderate", base_score: -1, description: "Natural fiber from acacia trees. Generally safe. Acts as a prebiotic." },
+
+  // ── VITAMINS & MINERALS ───────────────────────────────────────────────────────
+  { id: 16001, name: "vitamin e", aliases: ["tocopherol","alpha tocopherol","mixed tocopherols","dl-alpha-tocopherol","d-alpha-tocopheryl acetate","e306","e307","e308","e309"], category: "vitamin", impact: "healthy", base_score: 5, description: "Fat-soluble antioxidant protecting cells from oxidative damage." },
+  { id: 16002, name: "vitamin d", aliases: ["vitamin d3","cholecalciferol","ergocalciferol","vitamin d2","calciferol"], category: "vitamin", impact: "healthy", base_score: 5, description: "Essential for calcium absorption, bone health, and immune function." },
+  { id: 16003, name: "vitamin b12", aliases: ["cyanocobalamin","methylcobalamin","cobalamin"], category: "vitamin", impact: "healthy", base_score: 3, description: "Essential for nerve function and red blood cell formation." },
+  { id: 16004, name: "niacin", aliases: ["vitamin b3","nicotinamide","nicotinic acid","niacinamide"], category: "vitamin", impact: "healthy", base_score: 3, description: "Vitamin B3 — essential for energy metabolism." },
+  { id: 16005, name: "riboflavin", aliases: ["vitamin b2","riboflavine","e101"], category: "vitamin", impact: "healthy", base_score: 3, description: "Vitamin B2 — important for energy production." },
+  { id: 16006, name: "thiamine", aliases: ["vitamin b1","thiamin","thiamine mononitrate","thiamine hydrochloride"], category: "vitamin", impact: "healthy", base_score: 3, description: "Vitamin B1 — essential for carbohydrate metabolism." },
+  { id: 16007, name: "folic acid", aliases: ["folate","vitamin b9","pteroylglutamic acid","methylfolate"], category: "vitamin", impact: "healthy", base_score: 3, description: "Vitamin B9 — essential for cell growth and DNA synthesis." },
+  { id: 16008, name: "vitamin a", aliases: ["retinol","beta carotene","retinyl palmitate","retinyl acetate","provitamin a"], category: "vitamin", impact: "healthy", base_score: 5, description: "Essential for vision, immune function, and skin health." },
+  { id: 16009, name: "iron", aliases: ["ferrous sulfate","ferrous fumarate","ferric pyrophosphate","reduced iron","elemental iron"], category: "mineral", impact: "healthy", base_score: 3, description: "Essential mineral for oxygen transport in the blood." },
+  { id: 16010, name: "calcium carbonate", aliases: ["calcium","calcium citrate","calcium phosphate","calcium lactate","tricalcium phosphate"], category: "mineral", impact: "healthy", base_score: 3, description: "Calcium supplement. Supports bone health." },
+  { id: 16011, name: "zinc", aliases: ["zinc sulfate","zinc oxide","zinc gluconate","zinc acetate"], category: "mineral", impact: "healthy", base_score: 3, description: "Essential trace mineral supporting immune function." },
+  { id: 16012, name: "magnesium", aliases: ["magnesium oxide","magnesium citrate","magnesium stearate"], category: "mineral", impact: "healthy", base_score: 3, description: "Essential mineral involved in 300+ enzymatic reactions." },
+  { id: 16013, name: "selenium", aliases: ["selenium yeast","sodium selenite","sodium selenate"], category: "mineral", impact: "healthy", base_score: 3, description: "Trace mineral with antioxidant properties. Supports thyroid function." },
+  { id: 16014, name: "iodine", aliases: ["potassium iodide","sodium iodide","iodized salt"], category: "mineral", impact: "healthy", base_score: 3, description: "Essential for thyroid function and hormone production." },
+
+  // ── FIBER & PREBIOTICS ────────────────────────────────────────────────────────
+  { id: 17001, name: "dietary fiber", aliases: ["soluble fiber","insoluble fiber","total dietary fiber","added fiber","fibre"], category: "fiber", impact: "healthy", base_score: 10, description: "Supports digestive health, blood sugar control, and cholesterol levels." },
+  { id: 17002, name: "inulin", aliases: ["chicory root fiber","chicory root extract","fructooligosaccharides","fos","inulin fiber"], category: "fiber", impact: "healthy", base_score: 10, description: "Prebiotic fiber that feeds beneficial gut bacteria." },
+  { id: 17003, name: "psyllium husk", aliases: ["ispaghula husk","psyllium","isabgol","psyllium fiber","psyllium husks"], category: "fiber", impact: "healthy", base_score: 10, description: "Soluble fiber excellent for digestive health and cholesterol reduction." },
+  { id: 17004, name: "resistant starch", aliases: ["hi-maize","hi maize starch","resistant maize starch"], category: "fiber", impact: "healthy", base_score: 8, description: "Acts like fiber. Feeds beneficial gut bacteria and improves insulin sensitivity." },
+
+  // ── NUTS BUTTERS & SPREADS ────────────────────────────────────────────────────
+  { id: 18001, name: "peanut butter", aliases: ["natural peanut butter","peanut paste","groundnut butter","groundnut paste"], category: "nut butter", impact: "healthy", base_score: 8, description: "High in healthy monounsaturated fats and protein. Choose natural with no added sugar." },
+  { id: 18002, name: "almond butter", aliases: ["natural almond butter","almond paste"], category: "nut butter", impact: "healthy", base_score: 10, description: "Rich in vitamin E, magnesium, and healthy fats." },
+  { id: 18003, name: "tahini", aliases: ["sesame paste","sesame butter","sesame seed paste","til paste"], category: "seed butter", impact: "healthy", base_score: 8, description: "Sesame seed paste rich in calcium, copper, and healthy fats." },
+
+  // ── FERMENTED FOODS ───────────────────────────────────────────────────────────
+  { id: 19001, name: "apple cider vinegar", aliases: ["acv","apple cider vinegar with mother","raw apple cider vinegar"], category: "fermented food", impact: "healthy", base_score: 6, description: "Contains acetic acid with blood sugar and digestive health benefits." },
+  { id: 19002, name: "vinegar", aliases: ["white vinegar","distilled vinegar","malt vinegar","rice vinegar","balsamic vinegar","spirit vinegar","acetic acid"], category: "fermented food", impact: "moderate", base_score: 2, description: "Generally safe. May help control blood sugar." },
+  { id: 19003, name: "probiotics", aliases: ["lactobacillus","bifidobacterium","lactobacillus acidophilus","live cultures","active cultures","lactic acid bacteria","live active cultures"], category: "probiotic", impact: "healthy", base_score: 10, description: "Beneficial bacteria that support gut health and immune function." },
+
+  // ── SALT & BASIC MINERALS ────────────────────────────────────────────────────
+  { id: 20001, name: "salt", aliases: ["sodium chloride","sea salt","rock salt","pink himalayan salt","himalayan pink salt","table salt","iodized salt","mineral salt","kosher salt"], category: "mineral", impact: "moderate", base_score: -5, description: "Essential but excess sodium raises blood pressure." },
+  { id: 20002, name: "baking soda", aliases: ["sodium bicarbonate","bicarbonate of soda","baking powder","sodium acid pyrophosphate","saleratus"], category: "leavening agent", impact: "moderate", base_score: -2, description: "Leavening agent. Safe in amounts used in baking." },
+
+  // ── SPICES & HERBS ────────────────────────────────────────────────────────────
+  { id: 21001, name: "turmeric", aliases: ["curcumin","turmeric powder","turmeric extract","curcuma longa","haldi"], category: "spice", impact: "healthy", base_score: 10, description: "Curcumin is one of the strongest natural anti-inflammatory compounds known." },
+  { id: 21002, name: "ginger", aliases: ["dried ginger","ginger powder","ginger extract","ginger root","saunth","adrak"], category: "spice", impact: "healthy", base_score: 10, description: "Gingerol has powerful anti-nausea and anti-inflammatory effects." },
+  { id: 21003, name: "cinnamon", aliases: ["cinnamon powder","cinnamon extract","ceylon cinnamon","cassia cinnamon","dalchini"], category: "spice", impact: "healthy", base_score: 8, description: "Potent antioxidant and anti-inflammatory. Helps regulate blood sugar." },
+  { id: 21004, name: "black pepper", aliases: ["pepper","piperine","white pepper","pepper extract","kali mirch"], category: "spice", impact: "healthy", base_score: 6, description: "Piperine enhances nutrient absorption and has antioxidant properties." },
+  { id: 21005, name: "cumin", aliases: ["cumin seeds","jeera","jeera powder","cumin powder","ground cumin"], category: "spice", impact: "healthy", base_score: 8, description: "Rich in iron and antioxidants. Supports digestion." },
+  { id: 21006, name: "coriander", aliases: ["coriander seeds","dhania","coriander powder","cilantro"], category: "spice", impact: "healthy", base_score: 6, description: "Natural anti-inflammatory herb with antioxidant compounds." },
+  { id: 21007, name: "cardamom", aliases: ["elaichi","cardamom powder","green cardamom","black cardamom"], category: "spice", impact: "healthy", base_score: 8, description: "Anti-inflammatory spice that supports digestive health." },
+  { id: 21008, name: "cloves", aliases: ["laung","clove powder","clove extract"], category: "spice", impact: "healthy", base_score: 8, description: "Extremely high in antioxidants. Natural antimicrobial." },
+  { id: 21009, name: "fenugreek", aliases: ["methi","methi seeds","fenugreek seeds","fenugreek powder","kasuri methi"], category: "spice", impact: "healthy", base_score: 8, description: "Contains compounds that lower blood sugar and boost testosterone." },
+  { id: 21010, name: "mustard seeds", aliases: ["mustard","rai","yellow mustard","black mustard","mustard powder","mustard spice"], category: "spice", impact: "healthy", base_score: 6, description: "Rich in selenium and omega-3 fatty acids." },
+  { id: 21011, name: "chili", aliases: ["chilli","red chili","green chili","chili powder","chilli powder","red chilli powder","cayenne","capsaicin"], category: "spice", impact: "healthy", base_score: 6, description: "Capsaicin boosts metabolism and has anti-inflammatory effects." },
+  { id: 21012, name: "paprika", aliases: ["paprika powder","smoked paprika","sweet paprika","hungarian paprika"], category: "spice", impact: "healthy", base_score: 6, description: "Rich in antioxidants including capsanthin and beta-carotene." },
+  { id: 21013, name: "fennel", aliases: ["fennel seeds","saunf","fennel powder"], category: "spice", impact: "healthy", base_score: 6, description: "Supports digestion and contains anethole, an anti-inflammatory compound." },
+  { id: 21014, name: "vanilla", aliases: ["vanilla extract","vanilla bean","vanilla powder","vanilla flavoring","pure vanilla extract"], category: "flavoring", impact: "moderate", base_score: 0, description: "Natural vanilla extract is safe. Provides flavor without significant nutrition." },
+  { id: 21015, name: "oregano", aliases: ["dried oregano","oregano powder","oregano extract","italian seasoning"], category: "herb", impact: "healthy", base_score: 8, description: "One of the highest antioxidant herbs. Contains carvacrol and thymol." },
+  { id: 21016, name: "rosemary", aliases: ["rosemary extract","dried rosemary","rosemary powder","rosmarinus officinalis"], category: "herb", impact: "healthy", base_score: 8, description: "Contains carnosic acid with powerful antioxidant and neuroprotective effects." },
+  { id: 21017, name: "basil", aliases: ["sweet basil","dried basil","tulsi","holy basil"], category: "herb", impact: "healthy", base_score: 8, description: "Rich in eugenol and antioxidants. Anti-inflammatory." },
+  { id: 21018, name: "bay leaves", aliases: ["bay leaf","laurel leaves","tej patta"], category: "herb", impact: "healthy", base_score: 5, description: "Contains compounds that support digestion and blood sugar management." },
+
+  // ── CHOCOLATE & COCOA ─────────────────────────────────────────────────────────
+  { id: 22001, name: "cocoa", aliases: ["cocoa powder","dark cocoa","natural cocoa","dutch process cocoa","cacao","cacao powder","cocoa mass","cocoa solids"], category: "natural ingredient", impact: "healthy", base_score: 8, description: "Rich in flavonoids and antioxidants. Beneficial in small amounts." },
+  { id: 22002, name: "dark chocolate", aliases: ["dark chocolate solids","70% dark chocolate","bittersweet chocolate","unsweetened chocolate"], category: "natural ingredient", impact: "moderate", base_score: -3, description: "Contains antioxidants but also sugar and fat. Moderate use is fine." },
+  { id: 22003, name: "milk chocolate", aliases: ["chocolate","chocolate compound","chocolate coating","chocolate chips","compound chocolate"], category: "sweetener", impact: "harmful", base_score: -10, description: "High in sugar and saturated fat. Minimal antioxidant benefit compared to dark chocolate." },
+
+  // ── WATER & NEUTRAL ────────────────────────────────────────────────────────────
+  { id: 23001, name: "water", aliases: ["drinking water","purified water","filtered water","mineral water","spring water"], category: "neutral", impact: "healthy", base_score: 0, description: "No nutritional concern." },
+
+];
+
+// ─── BUILD ALIAS INDEX ─────────────────────────────────────────────────────────
+// Maps every alias (lowercased) → canonical ingredient entry
+
+const aliasIndex = new Map<string, IngredientEntry>();
+
+for (const entry of INGREDIENTS) {
+  // Index by canonical name
+  aliasIndex.set(entry.name.toLowerCase(), entry);
+  // Index by every alias
+  for (const alias of entry.aliases) {
+    aliasIndex.set(alias.toLowerCase(), entry);
+  }
+}
+
+// ─── COMBINATION WARNINGS ─────────────────────────────────────────────────────
+
+export const COMBINATION_WARNINGS: CombinationWarning[] = [
+  { combo: ["sugar", "palm oil"],           warning: "Ultra-processed food — sugar + palm oil combination is a hallmark of unhealthy snacks." },
+  { combo: ["sugar", "maltodextrin"],        warning: "Extreme glycemic load — sugar combined with maltodextrin spikes blood sugar faster than pure glucose." },
+  { combo: ["artificial colors", "artificial flavors"], warning: "Additive-heavy product — multiple synthetic chemicals with limited long-term safety data." },
+  { combo: ["high fructose corn syrup", "sugar"], warning: "Double sugar hit — both refined sugars create very high glycemic and caloric load." },
+  { combo: ["hydrogenated oil", "sugar"],    warning: "Trans fat + sugar — a dangerous combination strongly linked to cardiovascular disease and metabolic syndrome." },
+  { combo: ["sodium nitrate", "sodium nitrite"], warning: "High nitrosamine risk — multiple nitrate/nitrite preservatives increase carcinogenic compound formation." },
+  { combo: ["bha", "bht"],                   warning: "Synthetic antioxidant overload — multiple synthetic preservatives with potential endocrine-disrupting effects." },
+  { combo: ["aspartame", "acesulfame k"],    warning: "Artificial sweetener stacking — combined use amplifies concerns about gut microbiome disruption." },
+  { combo: ["palm oil", "shortening"],       warning: "Saturated fat overload — two high-saturated-fat ingredients significantly raise cardiovascular risk." },
+  { combo: ["red 40", "yellow 5"],           warning: "Southampton Six dyes detected — these artificial colors are linked to hyperactivity in children." },
+  { combo: ["msg", "disodium inosinate"],    warning: "Flavor enhancer stack — combined glutamates amplify sodium load and sensitivity reactions." },
+  { combo: ["carrageenan", "polysorbate 80"], warning: "Gut microbiome disruptors — both ingredients independently associated with gut inflammation." },
+  { combo: ["sodium benzoate", "vitamin c"], warning: "Benzene formation risk — sodium benzoate can react with vitamin C to form benzene, a known carcinogen." },
+  { combo: ["sugar", "artificial flavors"],  warning: "Ultra-processed marker — refined sugar with artificial flavors indicates highly processed food." },
+  { combo: ["maida", "sugar"],               warning: "Double glycemic burden — refined flour plus sugar creates extreme blood sugar spikes." },
+  { combo: ["maltodextrin", "glucose"],      warning: "Very high glycemic load — both ingredients are ultra-fast digesting carbohydrates." },
+  { combo: ["trans fat", "palm oil"],        warning: "Cardiovascular danger — trans fat combined with high saturated fat (palm oil) is extremely harmful to heart health." },
+];
+
+// ─── LOOKUP FUNCTION ───────────────────────────────────────────────────────────
+
+/**
+ * Main lookup: exact alias match → partial alias match → pattern rules
+ */
+export function lookupIngredient(raw: string): IngredientEntry | null {
+  const lower = raw.toLowerCase().trim();
+
+  // 1. Exact match in alias index
+  if (aliasIndex.has(lower)) return aliasIndex.get(lower)!;
+
+  // 2. Check if any alias contains the raw input (or vice versa)
+  for (const [alias, entry] of aliasIndex.entries()) {
+    if (lower === alias) return entry;
+    if (lower.length >= 5 && alias.length >= 5) {
+      if (lower.includes(alias) || alias.includes(lower)) return entry;
+    }
+  }
+
+  // 3. Pattern-based fallback rules
+  if (/hydrogenated/i.test(lower)) return aliasIndex.get("hydrogenated oil")!;
+  if (/trans fat/i.test(lower)) return aliasIndex.get("trans fat")!;
+  if (/artificial colou?r|fd&c|colour \d|color \d|\bc\.\s*i\.\s*\d/i.test(lower)) {
+    return { id: 99001, name: lower, aliases: [], category: "artificial color", impact: "harmful", base_score: -15, description: "Synthetic food dye linked to hyperactivity and allergic reactions." };
+  }
+  if (/artificial flavou?r|synthetic flavou?r/i.test(lower)) return aliasIndex.get("artificial flavors")!;
+  if (/high.?fructose|hfcs/i.test(lower)) return aliasIndex.get("high fructose corn syrup")!;
+  if (/\bsugar\b|syrup|sucrose|maltose|dextrose|fructose/i.test(lower)) {
+    return { id: 99002, name: lower, aliases: [], category: "sweetener", impact: "harmful", base_score: -18, glycemic_index: "high", description: "Added sugar or sugar derivative contributing to high glycemic load." };
+  }
+  if (/sodium benzoate|benzoate/i.test(lower)) return aliasIndex.get("sodium benzoate")!;
+  if (/sorbate|propionate|nitrite|nitrate/i.test(lower)) {
+    return { id: 99003, name: lower, aliases: [], category: "preservative", impact: "harmful", base_score: -12, description: "Chemical preservative linked to potential health risks." };
+  }
+  if (/sulphite|sulfite|e22[0-9]/i.test(lower)) {
+    return { id: 99004, name: lower, aliases: [], category: "preservative", impact: "moderate", base_score: -5, description: "Sulfite preservative. May trigger reactions in sensitive individuals." };
+  }
+  if (/palm/i.test(lower)) return aliasIndex.get("palm oil")!;
+  if (/shortening/i.test(lower)) return aliasIndex.get("shortening")!;
+  if (/\bolive oil/i.test(lower)) return aliasIndex.get("olive oil")!;
+  if (/vegetable oil|canola|sunflower oil|soybean oil/i.test(lower)) return aliasIndex.get("vegetable oil")!;
+  if (/\b(bean|lentil|chickpea|legume|dal|dhal)\b/i.test(lower)) {
+    return { id: 99005, name: lower, aliases: [], category: "legume", impact: "healthy", base_score: 10, description: "Legume rich in plant protein, fiber, and minerals." };
+  }
+  if (/fruit.{0,10}concentrate|juice concentrate/i.test(lower)) return aliasIndex.get("fruit concentrate")!;
+  if (/vitamin\s+[abcde]|niacin|riboflavin|thiamin|folic|pyridoxine|cyanocobalamin|tocopherol|calciferol/i.test(lower)) {
+    return { id: 99006, name: lower, aliases: [], category: "vitamin", impact: "healthy", base_score: 3, description: "Added vitamin supporting nutritional value." };
+  }
+  if (/magnesium|potassium|calcium|zinc|iron|selenium|phosphorus|iodine/i.test(lower)) {
+    return { id: 99007, name: lower, aliases: [], category: "mineral", impact: "healthy", base_score: 3, description: "Added mineral supporting nutritional value." };
+  }
+  if (/whey|protein concentrate|protein isolate|protein powder/i.test(lower)) return aliasIndex.get("whey protein")!;
+  if (/lecithin/i.test(lower)) return aliasIndex.get("soy lecithin")!;
+  if (/\bgum\b/i.test(lower)) return aliasIndex.get("xanthan gum")!;
+  if (/starch/i.test(lower)) return aliasIndex.get("modified starch")!;
+  if (/flour/i.test(lower)) {
+    if (/whole|grain|wheat bran|oat|rye|ragi|bajra|jowar|millet|buckwheat|amaranth/i.test(lower)) {
+      return { id: 99008, name: lower, aliases: [], category: "whole grain", impact: "healthy", base_score: 12, description: "Whole grain flour retaining fiber, vitamins, and minerals." };
+    }
+    return { id: 99009, name: lower, aliases: [], category: "refined grain", impact: "moderate", base_score: -8, description: "Starchy flour. May be refined or whole grain depending on source." };
+  }
+  if (/msg|glutamate/i.test(lower)) return aliasIndex.get("msg")!;
+  if (/extract|powder|concentrate/i.test(lower)) {
+    return { id: 99010, name: lower, aliases: [], category: "natural extract", impact: "moderate", base_score: -2, description: "Concentrated or extracted natural ingredient. Usually safe." };
+  }
+
+  return null;
+}
+
+// ─── KNOWN FOOD WORD SET (for input validation) ───────────────────────────────
+// Used to verify the input looks like a food ingredient list
+
+const FOOD_WORD_SEEDS = new Set<string>([
+  "sugar","flour","oil","salt","milk","water","butter","cream","egg","eggs","fat",
+  "starch","syrup","cocoa","chocolate","wheat","grain","oat","oats","rice","corn",
+  "soy","soya","palm","honey","vinegar","spice","spices","flavor","flavour","colour",
+  "color","preservative","additive","emulsifier","thickener","stabilizer","acid",
+  "protein","fiber","fibre","yeast","malt","barley","extract","powder","concentrate",
+  "glucose","fructose","sucrose","dextrose","maltose","lactose","sodium","potassium",
+  "calcium","iron","zinc","niacin","riboflavin","thiamine","lecithin","gum","citric",
+  "vanilla","cinnamon","pepper","turmeric","cardamom","ginger","garlic","onion",
+  "tomato","cheese","whey","casein","gelatin","pectin","carrageenan","inulin",
+  "sorbitol","xylitol","erythritol","stevia","aspartame","sucralose","saccharin",
+  "maida","atta","ragi","bajra","jowar","dalda","ghee","groundnut","sesame","mustard",
+  "almonds","walnuts","cashews","peanuts","pistachios","seeds","flaxseed","chia",
+  "spinach","broccoli","carrot","onion","garlic","kale","potato","capsicum","cabbage",
+  "cauliflower","cucumber","celery","beetroot","lettuce","zucchini","mushroom","pumpkin",
+  "apple","banana","mango","strawberry","blueberry","raspberry","orange","lemon","lime",
+  "avocado","pomegranate","cranberry","papaya","guava","dates","raisin","coconut",
+  "cumin","coriander","oregano","basil","rosemary","thyme","parsley","mint","fennel",
+  "fenugreek","paprika","cloves","nutmeg","chili","chilli","turmeric",
+  "chicken","fish","salmon","tuna","beef","tofu","tempeh","lentil","chickpea","bean",
+  "millet","sorghum","amaranth","buckwheat","spelt","quinoa","dalia","semolina",
+  "poha","suji","besan","moong","urad","toor","dal",
+  "almond","walnut","cashew","pistachio","hazelnut","peanut","seed",
+  "msg","glutamate","caffeine","lecithin","ascorbic","tocopherol","carotene",
+]);
+
+export function inputLooksLikeFood(tokens: string[]): boolean {
+  let matches = 0;
+  for (const token of tokens) {
+    const t = token.toLowerCase();
+    for (const word of FOOD_WORD_SEEDS) {
+      if (t.includes(word)) { matches++; break; }
+    }
+    if (matches >= 2) return true;
+  }
+  return false;
+}
+
+export const POSITION_WEIGHTS = [1.5, 1.3, 1.1, 1.0, 0.8];
+export function getPositionWeight(index: number): number {
+  return index < POSITION_WEIGHTS.length ? POSITION_WEIGHTS[index] : 0.6;
+}

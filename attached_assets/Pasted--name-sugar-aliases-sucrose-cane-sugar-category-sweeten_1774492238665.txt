@@ -1,0 +1,46 @@
+[
+{"name":"sugar","aliases":["sucrose","cane sugar"],"category":"sweetener","impact":"harmful","base_score":-20},
+{"name":"high fructose corn syrup","aliases":["hfcs","corn syrup"],"category":"sweetener","impact":"harmful","base_score":-25},
+{"name":"honey","aliases":["natural honey"],"category":"sweetener","impact":"moderate","base_score":-5},
+{"name":"salt","aliases":["sodium chloride","sea salt"],"category":"mineral","impact":"moderate","base_score":-5},
+{"name":"refined flour","aliases":["maida","refined wheat flour"],"category":"grain","impact":"harmful","base_score":-15},
+{"name":"oats","aliases":["whole grain oats","rolled oats"],"category":"grain","impact":"healthy","base_score":15},
+{"name":"brown rice","aliases":["whole rice"],"category":"grain","impact":"healthy","base_score":12},
+{"name":"quinoa","aliases":[],"category":"grain","impact":"healthy","base_score":15},
+
+{"name":"almonds","aliases":[],"category":"nut","impact":"healthy","base_score":12},
+{"name":"walnuts","aliases":[],"category":"nut","impact":"healthy","base_score":12},
+{"name":"cashews","aliases":[],"category":"nut","impact":"healthy","base_score":10},
+{"name":"peanuts","aliases":["groundnuts"],"category":"nut","impact":"healthy","base_score":12},
+
+{"name":"chia seeds","aliases":[],"category":"seed","impact":"healthy","base_score":12},
+{"name":"flax seeds","aliases":[],"category":"seed","impact":"healthy","base_score":12},
+{"name":"pumpkin seeds","aliases":[],"category":"seed","impact":"healthy","base_score":10},
+
+{"name":"palm oil","aliases":["palmolein oil"],"category":"oil","impact":"harmful","base_score":-15},
+{"name":"olive oil","aliases":[],"category":"oil","impact":"healthy","base_score":10},
+{"name":"sunflower oil","aliases":[],"category":"oil","impact":"moderate","base_score":-5},
+{"name":"vegetable oil","aliases":[],"category":"oil","impact":"moderate","base_score":-6},
+
+{"name":"butter","aliases":[],"category":"fat","impact":"moderate","base_score":-5},
+{"name":"cream","aliases":[],"category":"fat","impact":"moderate","base_score":-6},
+
+{"name":"milk","aliases":[],"category":"dairy","impact":"moderate","base_score":5},
+{"name":"whey protein","aliases":[],"category":"protein","impact":"healthy","base_score":10},
+
+{"name":"msg","aliases":["monosodium glutamate","e621"],"category":"additive","impact":"moderate","base_score":-10},
+{"name":"maltodextrin","aliases":[],"category":"additive","impact":"harmful","base_score":-15},
+{"name":"artificial flavor","aliases":["flavour"],"category":"additive","impact":"harmful","base_score":-10},
+{"name":"artificial color","aliases":["e102","e110"],"category":"additive","impact":"harmful","base_score":-15},
+
+{"name":"sodium benzoate","aliases":["e211"],"category":"preservative","impact":"harmful","base_score":-15},
+{"name":"potassium sorbate","aliases":["e202"],"category":"preservative","impact":"moderate","base_score":-10},
+
+{"name":"trans fat","aliases":["hydrogenated oil"],"category":"fat","impact":"harmful","base_score":-30},
+
+{"name":"cocoa powder","aliases":[],"category":"plant","impact":"healthy","base_score":8},
+{"name":"banana","aliases":[],"category":"fruit","impact":"healthy","base_score":8},
+{"name":"apple","aliases":[],"category":"fruit","impact":"healthy","base_score":8},
+{"name":"spinach","aliases":[],"category":"vegetable","impact":"healthy","base_score":10},
+{"name":"broccoli","aliases":[],"category":"vegetable","impact":"healthy","base_score":10}
+]
