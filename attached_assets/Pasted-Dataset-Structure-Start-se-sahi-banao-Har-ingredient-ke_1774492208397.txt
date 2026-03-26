@@ -1,0 +1,178 @@
+Dataset Structure (Start se sahi banao)
+
+Har ingredient ke liye fixed fields rakho.
+
+Example entry:
+
+{
+"id": 1021,
+"name": "sugar",
+"aliases": ["table sugar","cane sugar","sucrose"],
+"category": "sweetener",
+"impact": "harmful",
+"base_score": -20,
+"glycemic_index": "high",
+"description": "High glycemic sweetener linked to obesity and diabetes risk"
+}
+
+Important fields:
+
+id
+name
+aliases
+category
+impact
+base_score
+description
+
+Aliases future normalization engine me kaam ayenge.
+
+2️⃣ Dataset Categories (3000+ ingredients ka breakdown)
+
+Recommended distribution:
+
+Whole foods                ~700
+Grains & cereals           ~300
+Nuts & seeds               ~200
+Fruits                     ~300
+Vegetables                 ~300
+Proteins & legumes         ~200
+Oils & fats                ~150
+Sweeteners                 ~150
+Additives & preservatives  ~400
+Artificial colors          ~150
+Artificial flavors         ~150
+Emulsifiers & stabilizers  ~200
+Minerals & vitamins        ~100
+Other processing agents    ~100
+
+Total ≈ 3000+ ingredients
+
+3️⃣ Alias Mapping System
+
+Normalization ke liye aliases list zaroori hai.
+
+Example:
+
+{
+"name": "msg",
+"aliases": [
+"monosodium glutamate",
+"flavor enhancer (msg)",
+"e621",
+"flavour enhancer 621"
+],
+"category": "flavor enhancer",
+"impact": "moderate",
+"base_score": -10
+}
+
+Example:
+
+{
+"name": "refined flour",
+"aliases": [
+"refined wheat flour",
+"maida",
+"bleached flour",
+"white wheat flour"
+],
+"category": "refined grain",
+"impact": "harmful",
+"base_score": -15
+}
+4️⃣ Ingredient Detection Flow
+
+Tool ko is order me kaam karna chahiye:
+
+User input
+↓
+text cleaning
+↓
+ingredient split
+↓
+alias matching
+↓
+canonical ingredient mapping
+↓
+database lookup
+↓
+scoring
+
+Example:
+
+Input:
+
+Flavor Enhancer (MSG), Refined Wheat Flour
+
+Normalized:
+
+msg
+refined flour
+5️⃣ Score System (Dataset Driven)
+
+Base score:
+
+60
+
+Ingredient score example:
+
+Whole grains → +15
+Nuts → +12
+Seeds → +12
+Legumes → +10
+
+Salt → -5
+Honey → -5
+
+Sugar → -20
+Palm oil → -15
+Trans fat → -30
+Artificial color → -15
+
+Quantity multiplier:
+
+1st ingredient → ×1.5
+2nd ingredient → ×1.3
+3rd ingredient → ×1.1
+4th ingredient → ×1
+5th ingredient → ×0.8
+6️⃣ Combination Warning Engine
+
+Dataset me combination rules table bhi banao.
+
+Example:
+
+{
+"combo": ["sugar","palm oil"],
+"warning": "Ultra processed food"
+}
+
+Example:
+
+{
+"combo": ["sugar","maltodextrin"],
+"warning": "High glycemic load"
+}
+
+Example:
+
+{
+"combo": ["artificial color","artificial flavor"],
+"warning": "Additive heavy product"
+}
+7️⃣ Unknown Ingredient Handling
+
+Agar ingredient database me nahi hai:
+
+Rules:
+
+max 5 unknown show
+rest ignore
+
+Example output:
+
+Unknown ingredients detected:
+natural flavor
+stabilizer
+emulsifier
