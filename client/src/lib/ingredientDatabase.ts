@@ -819,7 +819,7 @@ for (const entry of INGREDIENTS) {
   // Index by every alias
   for (const alias of entry.aliases) {
     aliasIndex.set(alias.toLowerCase(), entry);
-  }
+  }s
 }
 
 // ─── COMBINATION WARNINGS ─────────────────────────────────────────────────────
