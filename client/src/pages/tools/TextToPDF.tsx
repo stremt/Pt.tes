@@ -71,12 +71,12 @@ export default function TextToPDF() {
   };
 
   useSEO({
-    title: "Text to PDF Converter Online Free – Markdown, Images, Tables & Math Supported | Pixocraft",
-    description: "Convert text to professional PDF instantly. Pixocraft Text to PDF supports Markdown, images, tables, math formulas and custom formatting. 100% private, browser-based and free.",
-    keywords: "text to pdf, convert text to pdf, txt to pdf converter, paste text to pdf, markdown to pdf converter, convert notes to pdf, convert email to pdf",
+    title: "Create PDF from Text Online Free (No Signup, Instant Download) | Pixocraft",
+    description: "Create PDF from text online instantly. No signup, no upload required. Paste your text and download PDF in seconds. 100% secure and private.",
+    keywords: "create pdf from text, text to pdf online free, paste text to pdf, convert text to pdf without signup, txt to pdf converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/text-to-pdf",
-    ogTitle: "Text to PDF Converter – Free Professional PDF Generator",
-    ogDescription: "Create professional PDFs from plain text instantly. Supports Markdown, images, tables and math equations.",
+    ogTitle: "Create PDF from Text Online Free (No Signup, Instant Download) | Pixocraft",
+    ogDescription: "Create PDF from text online instantly. No signup, no upload required. Paste your text and download PDF in seconds. 100% secure and private.",
     ogType: "website",
   });
 
@@ -221,36 +221,36 @@ export default function TextToPDF() {
 
   const faqItems: FAQItem[] = [
     {
+      question: "How to create PDF from text online free without signup?",
+      answer: "Just paste your text into the editor above and click 'Convert to PDF – Instant Download'. No account, no signup, no email required. It works completely free, right in your browser."
+    },
+    {
+      question: "Can I convert copied text to PDF instantly?",
+      answer: "Yes! Simply copy text from anywhere — emails, chat, web pages, or documents — paste it into the editor, and your PDF is ready in seconds. No upload, no waiting."
+    },
+    {
+      question: "Is this text to PDF tool safe?",
+      answer: "100% safe. All processing happens locally inside your browser. Your text is never sent to any server, never stored, and never shared. It works fully offline after the page loads."
+    },
+    {
       question: "How do I convert a text file to PDF?",
-      answer: "Simply open your TXT file, copy the content, and paste it into our editor. You can then customize fonts or use Markdown before downloading your professional PDF."
+      answer: "Open your TXT file, copy the content, paste it into our editor, then click 'Convert to PDF'. You can also customize fonts or enable Markdown before downloading."
+    },
+    {
+      question: "Can I convert text to PDF without signup?",
+      answer: "Yes — no signup, no account, no email needed. Pixocraft lets you create PDF from text online free with zero friction. Just paste and download."
     },
     {
       question: "Can I convert Markdown to PDF?",
-      answer: "Yes, our tool has native support for Markdown. You can include headers, bold text, tables, and even complex math equations which will be rendered perfectly in the PDF."
-    },
-    {
-      question: "Is this text to PDF converter safe?",
-      answer: "Absolutely. Your privacy is our priority. All processing happens locally in your browser, meaning your text is never uploaded to any server or stored anywhere."
+      answer: "Yes, our tool has native Markdown support. Include headers, bold text, tables, code blocks, and even math equations — all rendered perfectly in the PDF output."
     },
     {
       question: "Does this tool work offline?",
-      answer: "Yes! Once the page is loaded, you can disconnect from the internet and continue converting text to PDF. It's a 100% client-side tool."
-    },
-    {
-      question: "Can I add images to my PDF document?",
-      answer: "Yes, by using Markdown syntax, you can embed images directly into your document. The converter will process these and include them in the final PDF file."
+      answer: "Yes! Once the page loads, you can disconnect from the internet and keep converting. It's a 100% client-side, offline-first tool."
     },
     {
       question: "Can I convert text to PDF on mobile?",
-      answer: "Yes, Pixocraft Text to PDF is fully responsive and works perfectly on smartphones and tablets."
-    },
-    {
-      question: "What is the best free text to PDF converter?",
-      answer: "Pixocraft offers a top-tier, free online text to PDF converter that works entirely in your browser. It supports Markdown, math equations, and tables while keeping your data 100% private."
-    },
-    {
-      question: "Can I convert copied text to PDF?",
-      answer: "Yes! You can paste text to PDF instantly using the Pixocraft editor. Simply copy your text from any source, paste it into the input area, and click download."
+      answer: "Absolutely. Pixocraft Text to PDF is fully responsive and works great on smartphones and tablets — no app installation needed."
     }
   ];
 
@@ -352,11 +352,11 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             </div>
             <div className="space-y-4">
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
-                Convert Text to PDF Online Free
+                Create PDF from Text Online (Free, No Signup, Instant Download)
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Markdown • Images • Tables • Math Supported
-                <span className="block mt-2 font-semibold text-primary text-base">100% Private • Offline • Free</span>
+                Paste your text → Convert → Download PDF instantly
+                <span className="block mt-2 font-bold text-primary text-base">No Signup • No Upload • 100% Private</span>
               </p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
@@ -372,6 +372,32 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Custom Fonts
               </Badge>
+            </div>
+          </div>
+
+          {/* 3 Steps trust block */}
+          <div className="max-w-3xl mx-auto mb-10 px-4 sm:px-6 lg:px-0">
+            <div className="bg-gradient-to-r from-primary/8 via-primary/5 to-primary/8 border border-primary/15 rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm font-semibold text-muted-foreground text-center sm:text-left">
+                Create PDF from text in 3 simple steps:
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-sm font-medium">
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <span className="h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold flex-shrink-0">1</span>
+                  Paste your text
+                </span>
+                <span className="text-muted-foreground/40 hidden sm:inline">→</span>
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <span className="h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold flex-shrink-0">2</span>
+                  Click convert
+                </span>
+                <span className="text-muted-foreground/40 hidden sm:inline">→</span>
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <span className="h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold flex-shrink-0">3</span>
+                  Download instantly
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground text-center sm:text-right">No signup required. Works directly in your browser.</p>
             </div>
           </div>
 
@@ -467,7 +493,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         data-testid="button-convert"
                       >
                         <Download className="mr-2 h-4 w-4" />
-                        {converting ? "Converting..." : "Download PDF"}
+                        {converting ? "Converting..." : "Convert to PDF – Instant Download"}
                       </Button>
                     </div>
                   </CardContent>
@@ -521,7 +547,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       {/* Text Editor */}
                       <Textarea
                         ref={textareaRef}
-                        placeholder="Paste your text here or load a sample..."
+                        placeholder="Paste your text here to instantly create a PDF..."
                         value={textContent}
                         onChange={(e) => setTextContent(e.target.value)}
                         className="font-mono text-xs sm:text-sm min-h-[250px] sm:min-h-[350px] lg:min-h-[500px] flex-1"
@@ -578,10 +604,10 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">What is a Text to PDF Converter?</h2>
                   <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                     <p>
-                      A Text to PDF converter is a specialized utility that transforms plain text data into a Portable Document Format (PDF). Whether you need to <strong>convert TXT to PDF</strong>, <strong>paste text to PDF</strong>, or <strong>convert markdown to PDF</strong>, our tool handles it all instantly in your browser. While simple text files are great for storage, they lack the structural integrity required for professional communication.
+                      A Text to PDF converter is a tool that lets you <strong>create PDF from text online free</strong> — no software installs, no signups, no uploads. Whether you need to <strong>convert TXT to PDF</strong>, <strong>copy paste text to PDF</strong>, or <strong>convert markdown to PDF</strong>, our tool handles it all instantly in your browser.
                     </p>
                     <p>
-                      Our converter is designed to handle multiple search intents, from <strong>converting notes to PDF</strong> to <strong>converting email text to PDF</strong>. One of the primary advantages is cross-device compatibility. A PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device.
+                      Pixocraft is built for people who want to <strong>convert text to PDF without signup</strong> — just paste and go. One of the primary advantages is cross-device compatibility. A PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device.
                     </p>
                   </div>
                 </div>
@@ -589,22 +615,19 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
               {/* How to Convert TXT to PDF */}
               <section className="space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Convert TXT to PDF Online</h2>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Create PDF from Text Online Free</h2>
                 <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
                   <p>
-                    Converting your plain text documents to professional PDF files is easier than ever with Pixocraft. 
-                    Pixocraft works as a powerful TXT to PDF converter that instantly transforms plain text documents into professional PDFs.
-                    You can paste text to PDF instantly using the Pixocraft editor without uploading any files.
-                    Follow these easy steps:
+                    You can <strong>create PDF from text online free</strong> in seconds — no signup, no installation. Simply <strong>copy paste text to PDF</strong> using our editor and download instantly. Here's how:
                   </p>
                   <ol className="space-y-2">
-                    <li><strong>Step 1:</strong> Copy the content from your TXT file or document.</li>
-                    <li><strong>Step 2:</strong> Paste it into the Pixocraft Text to PDF editor above.</li>
-                    <li><strong>Step 3:</strong> Enable formatting options like Markdown if you have structured content.</li>
-                    <li><strong>Step 4:</strong> Click the "Download PDF" button to generate your file.</li>
+                    <li><strong>Step 1:</strong> Copy the content from your TXT file, email, notes, or any source.</li>
+                    <li><strong>Step 2:</strong> Paste it into the Pixocraft text editor above.</li>
+                    <li><strong>Step 3:</strong> Optionally enable Markdown mode or customize fonts and size.</li>
+                    <li><strong>Step 4:</strong> Click "Convert to PDF – Instant Download" to get your PDF.</li>
                   </ol>
                   <p>
-                    This process ensures your <strong>text file to PDF</strong> conversion is fast, secure, and preserves all your data without any server uploads.
+                    The entire process is <strong>text to PDF online free without signup</strong> — your data never leaves your device.
                   </p>
                 </div>
               </section>
