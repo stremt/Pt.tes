@@ -354,12 +354,18 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
                 Create PDF from Text Online (Free, No Signup, Instant Download)
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Paste your text → Convert → Download PDF instantly
-                <span className="block mt-2 font-bold text-primary text-base">No Signup • No Upload • 100% Private</span>
+              <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mt-3">
+                Turn any text into a clean, professional PDF in seconds — no signup, no waiting.
               </p>
+              <p className="text-base font-bold text-primary mt-1">
+                Paste your text → Convert → Download PDF instantly
+              </p>
+              <p className="text-sm font-medium text-muted-foreground/70 mt-1">No Signup • No Upload • 100% Private</p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
+                ⚡ Instant PDF Generator
+              </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Markdown Support
               </Badge>
@@ -372,6 +378,10 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Custom Fonts
               </Badge>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
+              Used by 10,000+ users daily
             </div>
           </div>
 
