@@ -386,7 +386,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
           </div>
 
           {/* 3 Steps trust block */}
-          <div className="max-w-3xl mx-auto mb-10 px-4 sm:px-6 lg:px-0">
+          <div className="max-w-3xl mx-auto mb-10 px-4 sm:px-6 lg:px-0 animate-fade-in">
             <div className="bg-gradient-to-r from-primary/8 via-primary/5 to-primary/8 border border-primary/15 rounded-2xl px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm font-semibold text-muted-foreground text-center sm:text-left">
                 Create PDF from text in 3 simple steps:
@@ -495,16 +495,22 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       </Button>
                     </div>
 
-                    <div className="flex gap-2">
-                      <Button
-                        onClick={convertToPDF}
-                        disabled={converting || !textContent.trim()}
-                        className="flex-1"
-                        data-testid="button-convert"
-                      >
-                        <Download className="mr-2 h-4 w-4" />
-                        {converting ? "Creating your PDF..." : "Convert to PDF – Instant Download"}
-                      </Button>
+                    <div className="flex flex-col gap-2">
+                      <div className="relative group/cta">
+                        <div className="absolute -inset-0.5 rounded-md bg-primary/30 blur opacity-0 group-hover/cta:opacity-60 transition-opacity duration-300 pointer-events-none" />
+                        <Button
+                          onClick={convertToPDF}
+                          disabled={converting || !textContent.trim()}
+                          className="relative w-full"
+                          data-testid="button-convert"
+                        >
+                          <Download className="mr-2 h-4 w-4" />
+                          {converting ? "Creating your PDF..." : "Convert to PDF – Instant Download"}
+                        </Button>
+                      </div>
+                      <p className="text-xs text-center text-muted-foreground/60 pt-0.5">
+                        No signup &bull; No upload &bull; 100% secure
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
