@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code } from "lucide-react";
+import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code, ChevronDown, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2pdf from "html2pdf.js";
@@ -30,6 +30,13 @@ export default function TextToPDF() {
   useEffect(() => {
     localStorage.setItem("text-to-pdf-content", textContent);
   }, [textContent]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   const insertMarkdown = (before: string, after: string = "") => {
     const textarea = textareaRef.current;
@@ -344,13 +351,13 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             <span className="text-foreground font-medium">Text to PDF</span>
           </div>
 
-          <div className="text-center space-y-8 mb-16 relative">
-            <div className="flex items-center justify-center mb-4">
+          <div className="text-center space-y-8 mb-10 relative">
+            <div className="flex items-center justify-center mb-4 animate-fade-in" style={{ animationDelay: "0s" }}>
               <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center ring-1 ring-primary/30 shadow-lg">
                 <FileText className="h-12 w-12 text-primary" />
               </div>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 animate-fade-in" style={{ animationDelay: "0.1s" }}>
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
                 Create PDF from Text Online (Free, No Signup, Instant Download)
               </h1>
@@ -362,7 +369,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
               </p>
               <p className="text-sm font-medium text-muted-foreground/70 mt-1">No Signup • No Upload • 100% Private</p>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
                 ⚡ Instant PDF Generator
               </Badge>
@@ -379,9 +386,21 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 Custom Fonts
               </Badge>
             </div>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
-              Used by 10,000+ users daily
+            <div className="flex flex-col items-center gap-1.5 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground/60">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
+                Used by 10,000+ users daily
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground/50 font-medium">
+                <Zap className="h-3 w-3 text-primary/60" />
+                Takes less than 5 seconds
+              </div>
+            </div>
+
+            {/* Scroll trigger */}
+            <div className="flex flex-col items-center gap-1 pt-2 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              <span className="text-xs text-muted-foreground/40 font-medium tracking-wide uppercase">Start converting below</span>
+              <ChevronDown className="h-4 w-4 text-muted-foreground/30 animate-bounce" />
             </div>
           </div>
 
@@ -508,9 +527,14 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                           {converting ? "Creating your PDF..." : "Convert to PDF – Instant Download"}
                         </Button>
                       </div>
-                      <p className="text-xs text-center text-muted-foreground/60 pt-0.5">
-                        No signup &bull; No upload &bull; 100% secure
-                      </p>
+                      <div className="flex flex-col items-center gap-0.5 pt-0.5">
+                        <p className="text-xs text-center text-muted-foreground/70 font-medium">
+                          No email &bull; No login &bull; Start instantly
+                        </p>
+                        <p className="text-xs text-center text-muted-foreground/45">
+                          No signup &bull; No upload &bull; 100% secure
+                        </p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
