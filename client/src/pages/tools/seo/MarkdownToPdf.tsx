@@ -132,12 +132,15 @@ export default function MarkdownToPdfConverter() {
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
                 Convert Markdown to PDF Online Free
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Transform Markdown documents into professional PDFs with tables, images, and equations
-                <span className="block mt-2 font-semibold text-primary text-base">100% Private • Offline • Free</span>
+              <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mt-3">
+                Turn any text into a clean, professional PDF in seconds — no signup, no waiting.
               </p>
+              <p className="text-base font-bold text-primary mt-1">100% Private • Offline • Free</p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
+                ⚡ Instant PDF Generator
+              </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Tables & Lists
               </Badge>
@@ -147,6 +150,10 @@ export default function MarkdownToPdfConverter() {
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Code Blocks
               </Badge>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
+              Used by 10,000+ users daily
             </div>
           </div>
 

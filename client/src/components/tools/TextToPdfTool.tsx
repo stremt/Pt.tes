@@ -342,9 +342,10 @@ export function TextToPdfTool({
                   data-testid="button-convert"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  {converting ? "Converting..." : "Download PDF"}
+                  {converting ? "Creating your PDF..." : "Download PDF"}
                 </Button>
               </div>
+              <p className="text-xs text-center text-muted-foreground/60 mt-1" data-testid="text-trust-line">No signup • No upload • 100% secure</p>
             </CardContent>
           </Card>
 
@@ -473,13 +474,26 @@ export function TextToPdfTool({
             <CardContent className="flex-1 overflow-hidden">
               <div className="bg-white text-black rounded border p-6 h-[500px] overflow-auto shadow-inner">
                 {textContent ? (
-                  isMarkdown ? (
-                    <MarkdownPreview content={textContent} />
-                  ) : (
-                    <pre className="whitespace-pre-wrap font-sans text-sm">{textContent}</pre>
-                  )
+                  <div className="animate-fade-in">
+                    {isMarkdown ? (
+                      <MarkdownPreview content={textContent} />
+                    ) : (
+                      <pre className="whitespace-pre-wrap font-sans text-sm">{textContent}</pre>
+                    )}
+                  </div>
                 ) : (
-                  <p className="text-muted-foreground">Your formatted document will appear here</p>
+                  <div className="h-full flex flex-col justify-center space-y-4 select-none pointer-events-none opacity-40">
+                    <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Sample Preview</p>
+                    <p className="text-sm font-semibold text-gray-800">This is how your PDF will look after conversion.</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      Paste any text into the editor and it will appear here with your chosen formatting — fonts, sizes, and Markdown styling all rendered in real time.
+                    </p>
+                    <ul className="text-sm text-gray-600 space-y-1.5 list-none pl-0">
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Clean, professional layout</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Custom fonts &amp; sizes</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Instant download — no waiting</li>
+                    </ul>
+                  </div>
                 )}
               </div>
             </CardContent>

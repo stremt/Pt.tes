@@ -503,7 +503,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         data-testid="button-convert"
                       >
                         <Download className="mr-2 h-4 w-4" />
-                        {converting ? "Converting..." : "Convert to PDF – Instant Download"}
+                        {converting ? "Creating your PDF..." : "Convert to PDF – Instant Download"}
                       </Button>
                     </div>
                   </CardContent>
@@ -586,17 +586,27 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                       data-testid="preview-text"
                     >
                       {textContent ? (
-                        isMarkdown ? (
-                          <MarkdownPreview content={textContent} />
-                        ) : (
-                          <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", color: "#000000" }}>
-                            {textContent}
-                          </div>
-                        )
+                        <div className="animate-fade-in">
+                          {isMarkdown ? (
+                            <MarkdownPreview content={textContent} />
+                          ) : (
+                            <div style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", color: "#000000" }}>
+                              {textContent}
+                            </div>
+                          )}
+                        </div>
                       ) : (
-                        <div className="h-full flex flex-col items-center justify-center text-muted-foreground/50 italic space-y-4">
-                          <Eye className="w-12 h-12 opacity-20" />
-                          <p>Preview will appear here...</p>
+                        <div className="h-full flex flex-col justify-center space-y-4 select-none pointer-events-none opacity-40">
+                          <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-1">Sample Preview</p>
+                          <p className="text-sm font-semibold text-gray-800">This is how your PDF will look after conversion.</p>
+                          <p className="text-sm text-gray-600 leading-relaxed">
+                            Paste any text into the editor and it will appear here with your chosen formatting — fonts, sizes, and Markdown styling all rendered in real time.
+                          </p>
+                          <ul className="text-sm text-gray-600 space-y-1.5 list-none pl-0">
+                            <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Clean, professional layout</li>
+                            <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Custom fonts &amp; sizes</li>
+                            <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-gray-400 flex-shrink-0" />Instant download — no waiting</li>
+                          </ul>
                         </div>
                       )}
                     </div>

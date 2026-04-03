@@ -119,12 +119,15 @@ export default function MathEquationToPdf() {
               <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
                 Convert Math Equations to PDF Online
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Create professional PDFs with perfectly rendered mathematical equations and formulas
-                <span className="block mt-2 font-semibold text-primary text-base">100% Private • Offline • Free</span>
+              <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mt-3">
+                Turn any text into a clean, professional PDF in seconds — no signup, no waiting.
               </p>
+              <p className="text-base font-bold text-primary mt-1">100% Private • Offline • Free</p>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
+                ⚡ Instant PDF Generator
+              </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 LaTeX Support
               </Badge>
@@ -134,6 +137,10 @@ export default function MathEquationToPdf() {
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Scientific Documents
               </Badge>
+            </div>
+            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
+              Used by 10,000+ users daily
             </div>
           </div>
 
