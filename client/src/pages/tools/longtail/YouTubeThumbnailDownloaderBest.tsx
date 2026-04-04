@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Star, Zap, Shield, Lock } from "lucide-react";
+import ToolsSection from "@/components/layout/ToolsSection";
 export default function YouTubeThumbnailDownloaderBest() {
   useSEO({
     title: "Best YouTube Thumbnail Downloader Online - Compare Tools | Pixocraft",
@@ -221,6 +222,8 @@ export default function YouTubeThumbnailDownloaderBest() {
               </Card>
             </Link>
           </div>
+
+          <ToolsSection />
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Best Tools, Best Privacy - Pixocraft Tools

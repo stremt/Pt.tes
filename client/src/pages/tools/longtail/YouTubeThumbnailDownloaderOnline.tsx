@@ -7,8 +7,9 @@ import {
   CheckCircle2, XCircle, Download, Zap, Globe, Smartphone,
   ShieldCheck, Lock, ArrowRight, ChevronDown
 } from "lucide-react";
-import Breadcrumb from "@/components/layout/Breadcrumb";
+import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
+import ToolsSection from "@/components/layout/ToolsSection";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -187,7 +188,7 @@ export default function YouTubeThumbnailDownloaderOnline() {
               <p className="text-sm font-semibold text-muted-foreground mb-3">
                 Step 1 — Paste YouTube link &amp; download your thumbnail online:
               </p>
-              <MiniTool />
+              <YouTubeThumbnailTool />
             </CardContent>
           </Card>
         </div>
@@ -410,6 +411,9 @@ export default function YouTubeThumbnailDownloaderOnline() {
               ))}
             </div>
           </section>
+
+          {/* Tools Section */}
+          <ToolsSection />
 
           {/* CTA block */}
           <section className="rounded-2xl bg-primary/5 border border-primary/20 p-8 text-center space-y-4">
