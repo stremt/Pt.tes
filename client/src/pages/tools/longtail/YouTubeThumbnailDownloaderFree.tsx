@@ -69,7 +69,7 @@ const softwareSchema = {
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: "4.9",
-    reviewCount: "1950",
+    reviewCount: "2500",
     bestRating: "5",
     worstRating: "1",
   },
@@ -242,7 +242,11 @@ export default function YouTubeThumbnailDownloaderFree() {
           <section className="space-y-5">
             <h2 className="text-2xl sm:text-3xl font-bold">Why This Tool is Truly Free</h2>
             <p className="text-muted-foreground leading-relaxed">
-              "Free" means different things on different sites. Here's exactly what free means on Pixocraft — no qualifications, no fine print:
+              "Free" means different things on different sites. Here's exactly what free means on{" "}
+              <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2 font-medium" onClick={() => trackEvent("internal_link_click", { destination: "main_tool", source: "free_truly_free_intro" })}>
+                Pixocraft's free YouTube thumbnail downloader
+              </Link>{" "}
+              — no qualifications, no fine print:
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -428,7 +432,15 @@ export default function YouTubeThumbnailDownloaderFree() {
               The free promise has no fine print. Pixocraft doesn't store your download history, log your URLs, track what videos you view, or build any profile on you. Everything runs locally in your browser using YouTube's public CDN. Nothing is ever sent to our servers.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              No login means no data collection point. No account means no password to protect or personal data to expose. The absence of a login wall is a structural privacy guarantee, not just a convenience feature.
+              No login means no data collection point. No account means no password to protect or personal data to expose. The absence of a login wall is a structural privacy guarantee, not just a convenience feature.{" "}
+              <Link
+                href={MAIN_TOOL}
+                className="text-primary underline underline-offset-2 font-medium"
+                onClick={() => trackEvent("internal_link_click", { destination: "main_tool", source: "free_privacy" })}
+              >
+                Explore the best free YouTube thumbnail downloader
+              </Link>{" "}
+              and see how privacy is built in by design.
             </p>
           </section>
 
