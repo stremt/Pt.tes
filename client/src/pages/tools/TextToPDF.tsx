@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/seo";
-import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code, ChevronDown, Zap, Shield, Cpu, Type, Table2, Calculator, ImageIcon, CheckCircle2 } from "lucide-react";
+import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import html2canvas from "html2canvas";
@@ -872,281 +872,346 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             </div>
 
             {/* SEO Sections */}
-            <div className="mt-20 space-y-16 max-w-5xl mx-auto">
-
-              {/* About + How to use - two column intro */}
-              <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-card border border-border rounded-2xl p-6 space-y-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <FileText className="h-5 w-5 text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">About this tool</span>
+            <div className="mt-32 space-y-32 max-w-5xl mx-auto">
+              {/* Introduction */}
+              <section className="relative">
+                <div className="absolute -left-4 top-0 w-1 h-full bg-primary/20 rounded-full hidden md:block" />
+                <div className="space-y-6">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">What is a Text to PDF Converter?</h2>
+                  <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                    <p>
+                      A Text to PDF converter is a tool that lets you <strong>create PDF from text online free</strong> — no software installs, no signups, no uploads. Whether you need to <strong>convert TXT to PDF</strong>, <strong>copy paste text to PDF</strong>, or <strong>convert markdown to PDF</strong>, our tool handles it all instantly in your browser.
+                    </p>
+                    <p>
+                      Pixocraft is built for people who want to <strong>convert text to PDF without signup</strong> — just paste and go. One of the primary advantages is cross-device compatibility. A PDF preserves the exact layout, ensuring that your document looks identical whether it's viewed on a Windows PC, a Mac, or a mobile device.
+                    </p>
                   </div>
-                  <h2 className="text-xl font-bold text-foreground">What is a Text to PDF Converter?</h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    A Text to PDF converter lets you <strong className="text-foreground">create PDF from text online free</strong> — no software, no signups, no uploads. Whether you need to convert TXT to PDF, paste text, or use Markdown, everything runs instantly inside your browser.
-                  </p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    PDFs preserve layout across all devices — a document created here looks identical on Windows, Mac, or mobile.
-                  </p>
-                </div>
-                <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Cpu className="h-5 w-5 text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">Step-by-step guide</span>
-                  </div>
-                  <h2 className="text-xl font-bold text-foreground">How to Create PDF from Text</h2>
-                  <ol className="space-y-3">
-                    {[
-                      "Copy text from your file, email, or notes.",
-                      "Paste it into the editor above.",
-                      "Optionally enable Markdown or set a custom font.",
-                      'Click "Convert to PDF – Instant Download".',
-                    ].map((step, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <span className="h-5 w-5 rounded-full bg-primary/15 text-primary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-                          {i + 1}
-                        </span>
-                        {step}
-                      </li>
-                    ))}
-                  </ol>
                 </div>
               </section>
 
-              {/* Markdown features */}
+              {/* How to Convert TXT to PDF */}
               <section className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-px flex-1 bg-border" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-2">Markdown Support</span>
-                  <div className="h-px flex-1 bg-border" />
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">How to Create PDF from Text Online Free</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    You can <strong>create PDF from text online free</strong> in seconds — no signup, no installation. Simply <strong>copy paste text to PDF</strong> using our editor and download instantly. Here's how:
+                  </p>
+                  <ol className="space-y-2">
+                    <li><strong>Step 1:</strong> Copy the content from your TXT file, email, notes, or any source.</li>
+                    <li><strong>Step 2:</strong> Paste it into the Pixocraft text editor above.</li>
+                    <li><strong>Step 3:</strong> Optionally enable Markdown mode or customize fonts and size.</li>
+                    <li><strong>Step 4:</strong> Click "Convert to PDF – Instant Download" to get your PDF.</li>
+                  </ol>
+                  <p>
+                    The entire process is <strong>text to PDF online free without signup</strong> — your data never leaves your device.
+                  </p>
                 </div>
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">Convert Markdown to PDF Easily</h2>
-                  <p className="text-sm text-muted-foreground max-w-xl mx-auto">Full Markdown rendering — write in plain text shorthand and get a beautiful, structured PDF.</p>
+              </section>
+
+              {/* Performance Section */}
+              <section className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Fast Browser-Based Text to PDF Converter</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    Unlike traditional converters that upload files to servers, Pixocraft runs entirely inside your browser using modern client-side technology. 
+                    This ensures instant text to PDF conversion without delays, uploads, or file size restrictions. 
+                    By processing everything locally, we provide the fastest possible experience while maintaining absolute data sovereignty.
+                  </p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              </section>
+
+              {/* Markdown to PDF Section */}
+              <section className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Convert Markdown to PDF Easily</h2>
+                <div className="prose prose-lg prose-gray dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
+                  <p>
+                    Our advanced engine doesn't just handle plain text—it's a full-featured Markdown to PDF converter. 
+                    Our tool supports various Markdown elements to help you create professional documents:
+                  </p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <li className="flex items-center gap-2"><strong>Headings:</strong> Create clear document structure with H1-H6.</li>
+                    <li className="flex items-center gap-2"><strong>Code Blocks:</strong> Perfect for technical documentation with syntax highlighting.</li>
+                    <li className="flex items-center gap-2"><strong>Lists:</strong> Support for ordered, unordered, and task lists.</li>
+                    <li className="flex items-center gap-2"><strong>Tables:</strong> Render complex data tables with professional styling.</li>
+                    <li className="flex items-center gap-2"><strong>Math Formulas:</strong> Beautifully rendered equations using KaTeX.</li>
+                    <li className="flex items-center gap-2"><strong>Image Embedding:</strong> Include visual references directly in your PDF.</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Convert Text to PDF for Different Needs */}
+              <section className="space-y-8">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Convert Text to PDF for Different Needs</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Notes to PDF</h3>
+                    <p className="text-muted-foreground">Perfect for students and researchers who need to turn raw study notes into organized, shareable study guides.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Email to PDF</h3>
+                    <p className="text-muted-foreground">Easily archive important email correspondence as permanent, un-editable PDF documents for legal or professional records.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Chat Messages to PDF</h3>
+                    <p className="text-muted-foreground">Save project discussions or support chats as PDF files to maintain a clear history of communications.</p>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-foreground">Convert Assignments to PDF</h3>
+                    <p className="text-muted-foreground">Students can format their essays using Markdown and export them as clean, submission-ready PDF files.</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Why Choose Pixocraft */}
+              <section className="bg-primary/5 p-8 md:p-12 rounded-3xl space-y-8">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Why Pixocraft Text to PDF is Better</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                   {[
-                    { icon: Type, label: "Headings", desc: "H1–H6 hierarchy" },
-                    { icon: Code, label: "Code Blocks", desc: "Syntax highlighted" },
-                    { icon: List, label: "Lists", desc: "Ordered, unordered, tasks" },
-                    { icon: Table2, label: "Tables", desc: "Professional styling" },
-                    { icon: Calculator, label: "Math Formulas", desc: "KaTeX rendering" },
-                    { icon: ImageIcon, label: "Image Embedding", desc: "Inline visuals" },
-                  ].map(({ icon: Icon, label, desc }) => (
-                    <div key={label} className="flex items-center gap-3 bg-card border border-border rounded-xl p-4">
-                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                        <Icon className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">{label}</p>
-                        <p className="text-xs text-muted-foreground">{desc}</p>
-                      </div>
+                    "Fully Offline Processing",
+                    "Markdown Support",
+                    "Math Equation Rendering",
+                    "Image Embedding",
+                    "Table Support",
+                    "No File Upload Required",
+                    "Custom Fonts"
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-foreground font-medium">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs">✔</div>
+                      {item}
                     </div>
                   ))}
                 </div>
               </section>
 
               {/* Key Features */}
-              <section className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-px flex-1 bg-border" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-2">Features</span>
-                  <div className="h-px flex-1 bg-border" />
+              <section className="space-y-12">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Powerful Features for Professionals</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Everything you need to create perfect documents directly in your browser.</p>
                 </div>
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">Powerful Features for Everyone</h2>
-                  <p className="text-sm text-muted-foreground">Everything in one place — no extensions, no installs needed.</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[
-                    { title: "Instant Conversion", desc: "Get your PDF in seconds — no waiting, no queues.", icon: Download },
-                    { title: "Markdown Support", desc: "Use headings, bold, lists, tables and more.", icon: FileText },
-                    { title: "Image Embedding", desc: "Include visuals directly in your documents.", icon: ImageIcon },
-                    { title: "Structured Content", desc: "Tables, ordered lists, and deep heading levels.", icon: Table2 },
-                    { title: "Math Equations", desc: "Render complex formulas with KaTeX support.", icon: Calculator },
-                    { title: "Custom Fonts", desc: "Choose from professional typography options.", icon: Type },
+                    { title: "Instant Conversion", desc: "Get your PDF in seconds with our optimized processing engine.", icon: Download },
+                    { title: "Markdown Support", desc: "Use familiar Markdown syntax for rich text formatting.", icon: FileText },
+                    { title: "Image Embedding", desc: "Easily include visual references directly within your documents.", icon: Eye },
+                    { title: "Structured Content", desc: "Support for tables, lists, and hierarchical headings.", icon: FileText },
+                    { title: "Mathematical Equations", desc: "Render complex formulas with built-in KaTeX support.", icon: FileText },
+                    { title: "Custom Fonts", desc: "Choose from a wide range of professional typography options.", icon: FileText },
                   ].map((feature, idx) => (
-                    <Card key={idx} className="hover-elevate border-border bg-card">
-                      <CardHeader className="pb-2 pt-5 px-5">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary">
-                          <feature.icon className="w-4 h-4" />
+                    <Card key={idx} className="hover-elevate border-primary/5 bg-background/50 backdrop-blur-sm transition-all hover:border-primary/20">
+                      <CardHeader className="pb-2">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                          <feature.icon className="w-5 h-5" />
                         </div>
-                        <CardTitle className="text-base text-foreground">{feature.title}</CardTitle>
+                        <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                       </CardHeader>
-                      <CardContent className="px-5 pb-5">
-                        <p className="text-sm text-muted-foreground leading-relaxed">{feature.desc}</p>
+                      <CardContent>
+                        <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
                       </CardContent>
                     </Card>
                   ))}
                 </div>
               </section>
 
-              {/* Who uses it */}
-              <section className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-px flex-1 bg-border" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-2">Who uses it</span>
-                  <div className="h-px flex-1 bg-border" />
-                </div>
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">Common Use Cases</h2>
-                  <p className="text-sm text-muted-foreground">From students to developers — everyone converts text to PDF differently.</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    { title: "Students", desc: "Submit assignments and essays as clean, professional PDFs." },
-                    { title: "Freelancers", desc: "Export contracts and project proposals ready to share." },
-                    { title: "Researchers", desc: "Archive technical notes with math formulas and tables." },
-                    { title: "Developers", desc: "Turn README files and docs into shareable PDFs." },
-                    { title: "Business Owners", desc: "Create quick memos and internal documents in seconds." },
-                    { title: "Writers", desc: "Convert drafts into readable, printable manuscript formats." },
-                  ].map((useCase, idx) => (
-                    <div key={idx} className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border">
-                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-semibold text-foreground text-sm">{useCase.title}</p>
-                        <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{useCase.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Why Pixocraft */}
-              <section className="bg-primary/5 border border-primary/15 rounded-2xl p-6 md:p-10 space-y-6">
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl font-bold text-foreground">Why Pixocraft is Better</h2>
-                  <p className="text-sm text-muted-foreground">No compromises on privacy, speed, or features.</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {[
-                    "Fully Offline",
-                    "Markdown Support",
-                    "Math Equations",
-                    "Image Embedding",
-                    "Table Support",
-                    "No Upload Needed",
-                    "Custom Fonts",
-                    "No Signup Required",
-                  ].map((item) => (
-                    <div key={item} className="flex items-center gap-2 bg-background border border-border rounded-lg px-3 py-2.5">
-                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span className="text-xs font-medium text-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Privacy */}
-              <section className="bg-card border border-border rounded-2xl p-6 md:p-10 text-center space-y-4">
-                <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
-                  <Shield className="h-3.5 w-3.5" />
-                  Privacy First
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground">100% Private &amp; Secure</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm">
-                  Your text never leaves your device. All conversion happens locally inside your browser —{" "}
-                  <strong className="text-foreground">no uploads, no tracking, no data stored</strong>. Even if you go offline after the page loads, the tool keeps working.
-                </p>
-              </section>
-
-              {/* More Tools */}
-              <section className="space-y-8">
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">More Text to PDF Tools</h2>
-                  <p className="text-sm text-muted-foreground">Specialized converters for every type of text and workflow.</p>
-                </div>
-
-                <div className="space-y-6">
-                  {[
-                    {
-                      label: "Convert Text",
-                      tools: [
-                        { name: "TXT to PDF", path: "/tools/txt-to-pdf", desc: "Convert .txt files" },
-                        { name: "Convert Text to PDF", path: "/tools/convert-text-to-pdf", desc: "Fast online conversion" },
-                        { name: "Paste Text to PDF", path: "/tools/paste-text-to-pdf", desc: "From clipboard" },
-                        { name: "Text File to PDF", path: "/tools/text-file-to-pdf", desc: "Document generator" },
-                      ],
-                    },
-                    {
-                      label: "Advanced Features",
-                      tools: [
-                        { name: "Markdown to PDF", path: "/tools/markdown-to-pdf", desc: "Rich formatting" },
-                        { name: "Text + Images to PDF", path: "/tools/text-with-images-to-pdf", desc: "Embed images" },
-                        { name: "Table to PDF", path: "/tools/table-to-pdf", desc: "Structured tables" },
-                        { name: "Math Equation to PDF", path: "/tools/math-equation-to-pdf", desc: "LaTeX & formulas" },
-                      ],
-                    },
-                    {
-                      label: "By Use Case",
-                      tools: [
-                        { name: "Notes to PDF", path: "/tools/notes-to-pdf", desc: "Study & personal notes" },
-                        { name: "Email to PDF", path: "/tools/email-to-pdf", desc: "Archive emails" },
-                        { name: "Chat to PDF", path: "/tools/chat-to-pdf", desc: "Messenger chats" },
-                        { name: "Assignment to PDF", path: "/tools/assignment-to-pdf", desc: "Homework & essays" },
-                      ],
-                    },
-                  ].map((group) => (
-                    <div key={group.label} className="space-y-3">
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary">{group.label}</p>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {group.tools.map((tool) => (
-                          <Link key={tool.path} href={tool.path} className="group">
-                            <div className="flex items-center gap-3 bg-card border border-border rounded-xl p-3 hover-elevate transition-colors">
-                              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                                <FileText className="w-3.5 h-3.5" />
-                              </div>
-                              <div className="min-w-0">
-                                <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">{tool.name}</p>
-                                <p className="text-[11px] text-muted-foreground truncate">{tool.desc}</p>
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* FAQ */}
-              <section className="space-y-8">
-                <div className="text-center space-y-2">
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">Frequently Asked Questions</h2>
-                  <p className="text-sm text-muted-foreground">Quick answers to the most common questions about text to PDF conversion.</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {faqItems.map((faq, idx) => (
-                    <div key={idx} className="bg-card border border-border rounded-xl p-5 space-y-2">
-                      <h3 className="font-semibold text-sm text-foreground leading-snug">{faq.question}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{faq.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Related Tools */}
-              <section className="border-t border-border pt-12 space-y-5">
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                  <div>
-                    <h2 className="text-lg font-bold text-foreground">Related PDF Tools</h2>
-                    <p className="text-sm text-muted-foreground">Explore our other free tools for your workflow.</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
+              {/* How to Use - Visual Flow */}
+              <section className="bg-card border rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32" />
+                <div className="relative space-y-12">
+                  <h2 className="text-3xl font-bold text-center tracking-tight text-foreground">Simple 4-Step Process</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
                     {[
-                      { label: "HTML to PDF", url: "/tools/pdf" },
-                      { label: "PDF to Text", url: "/tools/pdf" },
-                      { label: "Markdown Editor", url: "/tools/text" },
-                      { label: "Image to PDF", url: "/tools/pdf" },
-                      { label: "PDF Merger", url: "/tools/pdf" },
-                      { label: "PDF Compressor", url: "/tools/pdf" },
-                    ].map((tool) => (
-                      <Link
-                        key={tool.label}
-                        href={tool.url}
-                        className="px-4 py-1.5 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover-elevate transition-colors"
-                      >
-                        {tool.label}
+                      { step: "01", title: "Input Content", desc: "Paste or type your text into the editor" },
+                      { step: "02", title: "Format", desc: "Enable Markdown or customize fonts" },
+                      { step: "03", title: "Preview", desc: "Check your document in real-time" },
+                      { step: "04", title: "Download", desc: "Save your professional PDF file" }
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex flex-col items-center text-center space-y-4 group">
+                        <div className="w-14 h-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center text-xl font-black shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                          {item.step}
+                        </div>
+                        <div className="space-y-1">
+                          <h3 className="font-bold text-lg text-foreground">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Use Case Section */}
+              <section className="space-y-12">
+                <div className="text-center space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Common Use Cases</h2>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Discover how professionals and students are using our converter.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    { title: "Students", desc: "Converting assignments and essays for professional submission." },
+                    { title: "Freelancers", desc: "Exporting clean contracts and project proposals." },
+                    { title: "Researchers", desc: "Saving technical notes with complex math formulas." },
+                    { title: "Business Owners", desc: "Creating quick internal documents and memos." },
+                    { title: "Developers", desc: "Exporting README files and documentation as PDFs." },
+                    { title: "Writers", desc: "Transforming drafts into readable manuscript formats." },
+                  ].map((useCase, idx) => (
+                    <div key={idx} className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border/50 hover:border-primary/30 transition-colors">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                      <div className="space-y-1">
+                        <h4 className="font-bold text-lg text-foreground">{useCase.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{useCase.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Privacy - Bold Highlight */}
+              <section className="relative py-12">
+                <div className="absolute inset-0 bg-primary/[0.03] rounded-[2rem] -rotate-1" />
+                <div className="relative p-8 md:p-12 text-center space-y-6">
+                  <Badge variant="outline" className="text-primary border-primary/20 px-4 py-1 rounded-full uppercase tracking-widest text-[10px] font-bold">Privacy First</Badge>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground">100% Private & Secure Conversion</h2>
+                  <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    Your documents never leave your computer. All processing happens locally in your browser session using secure client-side technology. 
+                    <span className="font-semibold text-foreground"> No uploads. No tracking. No storage.</span>
+                  </p>
+                </div>
+              </section>
+
+            {/* Popular PDF Tools Section */}
+            <section className="space-y-12">
+              <div className="text-center space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">More Text to PDF Tools</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">Explore specialized conversion tools for different text formats and needs.</p>
+              </div>
+
+              {/* Bucket 1 - Core Conversion Intent */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 1 – Core Conversions</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "TXT to PDF", path: "/tools/txt-to-pdf", desc: "Convert standard .txt files" },
+                    { name: "Convert Text to PDF", path: "/tools/convert-text-to-pdf", desc: "Fast online conversion" },
+                    { name: "Paste Text to PDF", path: "/tools/paste-text-to-pdf", desc: "Convert copied snippets" },
+                    { name: "Text File to PDF", path: "/tools/text-file-to-pdf", desc: "Professional document generator" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bucket 2 - Feature-Based Pages */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 2 – Advanced Features</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "Markdown to PDF", path: "/tools/markdown-to-pdf", desc: "Rich markdown formatting" },
+                    { name: "Text with Images to PDF", path: "/tools/text-with-images-to-pdf", desc: "Embed images in text" },
+                    { name: "Table to PDF", path: "/tools/table-to-pdf", desc: "Structured table conversion" },
+                    { name: "Math Equation to PDF", path: "/tools/math-equation-to-pdf", desc: "LaTeX & formulas support" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bucket 3 - Real Use Cases */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground uppercase tracking-wider text-primary">Bucket 3 – Real Use Cases</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { name: "Notes to PDF", path: "/tools/notes-to-pdf", desc: "Study & personal notes" },
+                    { name: "Email to PDF", path: "/tools/email-to-pdf", desc: "Email archiving & storage" },
+                    { name: "Chat to PDF", path: "/tools/chat-to-pdf", desc: "WhatsApp & messenger chats" },
+                    { name: "Assignment to PDF", path: "/tools/assignment-to-pdf", desc: "Homework & essays" }
+                  ].map((tool) => (
+                    <Link key={tool.path} href={tool.path} className="group">
+                      <Card className="hover-elevate h-full transition-all border-primary/10 hover:border-primary/30 bg-background/50 backdrop-blur-sm">
+                        <CardHeader className="p-4">
+                          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 text-primary group-hover:scale-110 transition-transform">
+                            <FileText className="w-4 h-4" />
+                          </div>
+                          <CardTitle className="text-base group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                          <CardDescription className="text-xs mt-1">{tool.desc}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* FAQ Section - Clean Accordion Style */}
+            <section className="space-y-12">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-foreground">Frequently Asked Questions</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  {faqItems.map((faq, idx) => (
+                    <div key={idx} className="space-y-3 group">
+                      <h3 className="font-bold text-xl flex items-start gap-3 text-foreground">
+                        <span className="text-primary mt-1">Q.</span>
+                        {faq.question}
+                      </h3>
+                      <div className="pl-8">
+                        <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Popular PDF Tools Section */}
+              <section className="space-y-8">
+                <h2 className="text-3xl font-bold tracking-tight text-foreground text-center">Popular PDF Tools</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {[
+                    { name: "PDF to Text Converter", url: "/tools/pdf" },
+                    { name: "HTML to PDF Converter", url: "/tools/pdf" },
+                    { name: "Image to PDF Converter", url: "/tools/pdf" },
+                    { name: "PDF Merger Tool", url: "/tools/pdf" },
+                    { name: "Markdown Editor", url: "/tools/text" }
+                  ].map((tool) => (
+                    <Link 
+                      key={tool.name} 
+                      href={tool.url}
+                      className="p-4 rounded-xl bg-background border hover:border-primary/50 hover:shadow-sm transition-all text-center text-sm font-medium text-foreground"
+                    >
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+
+              {/* Related Tools - Grid */}
+              <section className="pt-20 border-t border-primary/10">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div>
+                    <h2 className="text-2xl font-bold tracking-tight text-foreground">Related PDF Tools</h2>
+                    <p className="text-muted-foreground">Check out our other free productivity tools.</p>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {["HTML to PDF", "PDF to Text", "Markdown Editor", "Image to PDF", "PDF Merger", "PDF Splitter", "PDF Compressor"].map((tool) => (
+                      <Link key={tool} href={tool === "PDF to Text" ? "/tools/pdf" : tool === "Markdown Editor" ? "/tools/text" : "/tools/pdf"} className="px-5 py-2 rounded-xl border bg-background hover:bg-muted transition-colors font-medium shadow-sm hover:shadow-md text-foreground">
+                        {tool}
                       </Link>
                     ))}
                   </div>
