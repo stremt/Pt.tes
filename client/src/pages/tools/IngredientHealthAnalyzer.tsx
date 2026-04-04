@@ -393,8 +393,23 @@ export default function IngredientHealthAnalyzer() {
         benefits={benefits}
         faqs={faqItems.map((f) => ({ question: f.question, answer: f.answer }))}
         toolId="ingredient-health-analyzer"
+        badge={<Badge className="bg-yellow-500 text-white hover:bg-yellow-500 text-sm px-3 py-1 align-middle no-default-active-elevate">BETA</Badge>}
       >
         <div className="space-y-6">
+          {/* Beta notice */}
+          <div className="flex items-start gap-3 rounded-md border border-yellow-400/40 bg-yellow-400/10 dark:bg-yellow-400/5 p-4">
+            <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
+            <div className="space-y-1 text-sm">
+              <div className="flex items-center gap-2 font-semibold text-yellow-700 dark:text-yellow-400">
+                <Badge className="bg-yellow-500 text-white hover:bg-yellow-500 text-xs px-2 py-0 no-default-active-elevate">BETA</Badge>
+                This tool is currently in testing
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Results may be incomplete or inaccurate. The ingredient database is still growing and some ingredients may be unrecognized or incorrectly rated. Do not use this tool as a substitute for professional nutritional advice.
+              </p>
+            </div>
+          </div>
+
           {/* Input card */}
           <Card>
             <CardContent className="p-6 space-y-4">

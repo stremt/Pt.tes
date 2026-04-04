@@ -104,6 +104,7 @@ interface ToolLayoutProps {
   howItWorks: { step: number; title: string; description: string }[];
   benefits: { icon: ReactNode; title: string; description: string }[];
   faqs: { question: string; answer: string }[];
+  badge?: ReactNode;
 }
 
 const categoryMap: Record<string, { name: string; path: string }> = {
@@ -135,6 +136,7 @@ export function ToolLayout({
   howItWorks,
   benefits,
   faqs,
+  badge,
 }: ToolLayoutProps) {
   const relatedTools = getRelatedTools(toolId, 3);
   const categoryInfo = categoryMap[category] || { name: category, path: `/tools/${category}` };
@@ -172,8 +174,9 @@ export function ToolLayout({
                 {icon}
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight flex flex-wrap items-center justify-center gap-3">
               {title}
+              {badge}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               {description}
