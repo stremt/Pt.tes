@@ -11,6 +11,7 @@ export interface SEOProps {
   ogDescription?: string;
   twitterTitle?: string;
   twitterDescription?: string;
+  robots?: string;
   article?: {
     author?: string;
     publishedTime?: string;
@@ -28,6 +29,7 @@ export function useSEO({
   ogDescription,
   twitterTitle,
   twitterDescription,
+  robots,
   article,
 }: SEOProps) {
   useEffect(() => {
@@ -50,6 +52,9 @@ export function useSEO({
     setMetaTag("description", description);
     if (keywords) {
       setMetaTag("keywords", keywords);
+    }
+    if (robots) {
+      setMetaTag("robots", robots);
     }
 
     // Canonical URL
@@ -94,7 +99,7 @@ export function useSEO({
         setMetaTag("article:published_time", article.publishedTime, true);
       }
     }
-  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, ogDescription, twitterTitle, twitterDescription, article]);
+  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, ogDescription, twitterTitle, twitterDescription, robots, article]);
 }
 
 export function StructuredData({ data }: { data: object }) {
