@@ -85,24 +85,32 @@ export default function TxtToPdfConverter() {
             <span className="text-foreground font-medium">TXT to PDF</span>
           </div>
 
-          <div className="text-center space-y-8 mb-16 relative">
-            <div className="flex items-center justify-center mb-4">
-              <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center ring-1 ring-primary/30 shadow-lg">
-                <Type className="h-12 w-12 text-primary" />
-              </div>
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
+              <Zap className="h-3 w-3" />
+              Free · No Upload · Instant Download
             </div>
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
-                Convert TXT to PDF Online Free
-              </h1>
-              <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mt-3">
-                Turn any text into a clean, professional PDF in seconds — no signup, no waiting.
-              </p>
-              <p className="text-base font-bold text-primary mt-1">100% Private • Offline • Free</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
+              Convert TXT to PDF Online Free
+              <span className="block text-primary mt-1">(Instant, No Signup)</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
+              Convert your .txt files into clean, professional PDFs in seconds — no upload, no login, no waiting.
+            </p>
+            <p className="text-base font-bold text-primary mb-2 tracking-wide">
+              Perfect for TXT files, logs, code snippets, and exported data
+            </p>
+            <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
+              <Zap className="h-3.5 w-3.5" />
+              Takes less than 5 seconds
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-5">
               <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
-                ⚡ Instant PDF Generator
+                Instant PDF Generator
+              </Badge>
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
+                TXT File Support
               </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 No Uploads Required
@@ -114,9 +122,19 @@ export default function TxtToPdfConverter() {
                 Custom Formatting
               </Badge>
             </div>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
+
+            <p className="text-sm font-semibold text-foreground mb-4">
+              No email &bull; No login &bull; Start instantly
+            </p>
+
+            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
-              Used by 10,000+ users daily
+              Trusted by 10,000+ users daily worldwide
+            </div>
+
+            <div className="flex flex-col items-center gap-1 mt-5">
+              <span className="text-xs text-muted-foreground/50 font-medium tracking-wide">Start converting below</span>
+              <span className="text-muted-foreground/40 text-base animate-bounce">↓</span>
             </div>
           </div>
 
@@ -126,7 +144,7 @@ export default function TxtToPdfConverter() {
             <section className="space-y-4 sm:space-y-7 bg-gradient-to-r from-primary/5 to-transparent rounded-xl sm:rounded-2xl p-4 sm:p-8 border border-primary/10">
               <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold">What is TXT to PDF Conversion?</h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-4">
-                <p>TXT to PDF conversion transforms plain text files into Portable Document Format documents. TXT files are simple text-only documents without any formatting, while PDF files can preserve layout, formatting, and appearance across all devices.</p>
+                <p>TXT to PDF conversion transforms plain text files into Portable Document Format documents. TXT files are simple text-only documents without any formatting, while PDF files can preserve layout, formatting, and appearance across all devices. This is the easiest way to <strong>convert TXT to PDF online free without upload or signup</strong>.</p>
                 <p>When you convert a TXT file to PDF, your plain text becomes a professional, shareable document that looks the same on Windows, macOS, Linux, Android, and iOS.</p>
                 <p>Pixocraft provides a free, browser-based TXT to PDF converter that keeps your data completely private. The conversion happens entirely on your device with no server uploads.</p>
               </div>
@@ -139,7 +157,7 @@ export default function TxtToPdfConverter() {
                   { step: "1", title: "Open your TXT file", desc: "Select your text file and copy the content." },
                   { step: "2", title: "Paste into editor", desc: "Paste your text into the Pixocraft editor window." },
                   { step: "3", title: "Customize formatting", desc: "Choose font, size, and other formatting options if desired." },
-                  { step: "4", title: "Download PDF", desc: "Click Download PDF to save your file instantly." }
+                  { step: "4", title: "Download PDF", desc: "Click \"Convert to PDF – Instant Download\" to save your file instantly." }
                 ].map((s) => (
                   <div key={s.step} className="flex gap-5 group">
                     <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-lg group-hover:shadow-xl transition-all">{s.step}</div>
