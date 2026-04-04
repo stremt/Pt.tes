@@ -40,22 +40,14 @@ export default function Tools() {
     }
   }, [location]);
 
-  // Adjust canonical based on selected category to avoid "Alternative page with proper canonical tag" issues
-  const canonicalUrl = useMemo(() => {
-    const base = "https://tools.pixocraft.in/tools";
-    if (selectedCategory) {
-      return `${base}?category=${selectedCategory}`;
-    }
-    return base;
-  }, [selectedCategory]);
-
   useSEO({
     title: selectedCategory 
       ? `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Tools — Pixocraft Tools`
       : "All Tools — Pixocraft Tools (India's Biggest Free Tool Hub — 200+ Tools)",
     description: "Explore 200+ free, lightning-fast, offline-supported tools on Pixocraft Tools — India's biggest tool hub for text, images, PDFs, coding, math, AI, writing and productivity.",
     keywords: "free tools online, India tool hub, 200 tools, PDF tools, image tools, developer tools, static browser tools, text tools, privacy tools, math calculators",
-    canonicalUrl,
+    canonicalUrl: "https://tools.pixocraft.in/tools",
+    robots: selectedCategory ? "noindex, follow" : "index, follow",
   });
 
   // Helper function to categorize tools accurately

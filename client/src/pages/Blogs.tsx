@@ -18,6 +18,7 @@ export default function Blogs() {
     description: "Deep dive into our expert-written guides and tutorials for using online tools efficiently. From privacy tips to developer hacks, our blog covers everything you need to know about the 200+ utilities on Pixocraft.",
     keywords: "pixocraft blog, tool tutorials, online guide, tech tips, developer resources, productivity blog",
     canonicalUrl: "https://tools.pixocraft.in/blogs",
+    robots: selectedCategory ? "noindex, follow" : "index, follow",
   });
 
   const { data: posts, isLoading } = useQuery<BlogPost[]>({

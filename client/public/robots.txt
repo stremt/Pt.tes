@@ -1,9 +1,14 @@
 User-agent: *
 Allow: /
 
-# Disallow search result pages to prevent duplicate content
+# Disallow filtered/search result pages to prevent duplicate/thin content indexing
 Disallow: /tools?q=*
 Disallow: /tools?category=*
+Disallow: /blogs?q=*
+Disallow: /blogs?category=*
+Disallow: /blogs?search=*
+
+# Disallow internal admin/editor tools
 Disallow: /qa-dashboard
 Disallow: /blog-editor
 
