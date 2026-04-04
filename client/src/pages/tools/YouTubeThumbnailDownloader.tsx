@@ -191,7 +191,7 @@ async function analyzeThumbnail(imageUrl: string): Promise<ThumbnailAnalysis> {
 // ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function YouTubeThumbnailDownloader() {
-  const [youtubeUrl, setYoutubeUrl] = useState(DEMO_URL);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>(() => buildThumbnails(DEMO_VIDEO_ID));
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setLoading] = useState(false);
