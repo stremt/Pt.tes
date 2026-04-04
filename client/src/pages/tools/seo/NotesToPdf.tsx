@@ -86,7 +86,7 @@ export default function NotesToPdfConverter() {
     keywords: "notes to pdf, study notes to pdf, convert notes to pdf, lecture notes to pdf, notes pdf converter",
     canonicalUrl: "https://tools.pixocraft.in/tools/notes-to-pdf",
     ogTitle: "Convert Notes to PDF Online Free – Study Notes to PDF Converter | Pixocraft",
-    ogDescription: "Convert your study notes and lecture notes to professional PDF documents instantly. Free, private, fast notes to PDF converter.",
+    ogDescription: "Convert your study notes to PDF instantly online. No signup, no upload. Perfect for students, lecture notes, and exam preparation.",
     ogType: "website",
   });
 
@@ -122,8 +122,11 @@ export default function NotesToPdfConverter() {
             <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
               Turn your study notes into clean, professional PDFs in seconds — no login, no uploads, no waiting.
             </p>
-            <p className="text-base font-bold text-primary mb-4 tracking-wide">
+            <p className="text-base font-bold text-primary mb-2 tracking-wide">
               Perfect for study notes, lecture notes, and exam preparation
+            </p>
+            <p className="text-base font-bold text-primary mb-4 tracking-wide">
+              Copy → Paste → Download your notes as PDF instantly
             </p>
             <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
               <Zap className="h-3.5 w-3.5" />
@@ -145,6 +148,9 @@ export default function NotesToPdfConverter() {
               </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 100% Private
+              </Badge>
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
+                Student Friendly
               </Badge>
             </div>
 
