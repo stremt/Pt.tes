@@ -116,36 +116,56 @@ export default function TextToPDF() {
 
         htmlContent += `
           <style>
-            .pdf-export-content { line-height: 1.6; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
-            .pdf-export-content h1 { font-size: 28px; font-weight: 700; margin: 24px 0 12px; }
-            .pdf-export-content h2 { font-size: 20px; font-weight: 600; margin: 20px 0 10px; }
-            .pdf-export-content h3 { font-size: 16px; font-weight: 600; margin: 18px 0 8px; }
-            .pdf-export-content p { font-size: 12pt; margin: 10px 0; line-height: 1.6; page-break-inside: avoid; }
-            .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0 10px 20px; }
-            .pdf-export-content li { margin: 6px 0; }
+            .pdf-export-content { line-height: 1.8; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; }
+            .pdf-export-content h1 { font-size: 26px; font-weight: 800; margin: 28px 0 14px; }
+            .pdf-export-content h2 { font-size: 20px; font-weight: 700; margin: 24px 0 12px; }
+            .pdf-export-content h3 { font-size: 16px; font-weight: 700; margin: 20px 0 10px; }
+            .pdf-export-content h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; }
+            .pdf-export-content h5, .pdf-export-content h6 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
+            .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; }
+            .pdf-export-content ul, .pdf-export-content ol { margin: 12px 0 12px 24px; }
+            .pdf-export-content li { margin: 8px 0; line-height: 1.7; }
             .pdf-export-content strong, .pdf-export-content b { font-weight: 700; }
+            .pdf-export-content blockquote {
+              border-left: 4px solid #cccccc;
+              margin: 16px 0;
+              padding: 8px 16px;
+              color: #555555;
+              background: #f9f9f9;
+            }
+            .pdf-export-content hr {
+              border: none;
+              border-top: 1px solid #dddddd;
+              margin: 20px 0;
+            }
             .pdf-export-content pre { 
               background: #f6f8fa; 
               padding: 16px; 
               border-radius: 6px; 
               font-family: "Courier New", monospace; 
-              font-size: 12px; 
+              font-size: 11px; 
               line-height: 1.6;
               overflow-x: auto; 
               margin: 20px 0;
               page-break-inside: avoid;
               white-space: pre-wrap;
+              border: 1px solid #e1e4e8;
             }
             .pdf-export-content pre code {
               display: block;
               width: fit-content;
               min-width: 100%;
+              background: none;
+              padding: 0;
+              border: none;
             }
             .pdf-export-content code { 
               font-family: "Courier New", monospace;
               background: #f3f3f3; 
-              padding: 2px 4px; 
-              border-radius: 4px; 
+              padding: 2px 5px; 
+              border-radius: 3px;
+              font-size: 11px;
+              border: 1px solid #e0e0e0;
             }
             .pdf-export-content h1, 
             .pdf-export-content h2, 
@@ -155,9 +175,35 @@ export default function TextToPDF() {
             .pdf-export-content h6 {
               page-break-inside: avoid;
               page-break-after: avoid;
-              font-weight: 800;
-              margin-top: 24px;
-              margin-bottom: 12px;
+            }
+            .pdf-export-content table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 20px 0;
+              font-size: 11pt;
+              page-break-inside: avoid;
+            }
+            .pdf-export-content table th {
+              background-color: #f0f0f0;
+              color: #111111;
+              font-weight: 700;
+              text-align: left;
+              padding: 10px 14px;
+              border: 1.5px solid #aaaaaa;
+              font-size: 11pt;
+            }
+            .pdf-export-content table td {
+              padding: 9px 14px;
+              border: 1px solid #cccccc;
+              color: #222222;
+              vertical-align: top;
+              line-height: 1.6;
+            }
+            .pdf-export-content table tr:nth-child(even) td {
+              background-color: #fafafa;
+            }
+            .pdf-export-content table tr:hover td {
+              background-color: #f5f5f5;
             }
           </style>
           <div class="pdf-export-content" style="font-family: ${fontFamily}; font-size: ${fontSize}pt; color: #000000;">${markdownHtml}</div>
@@ -303,6 +349,30 @@ Display math:
 $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 `;
 
+  const previewTableCSS = `
+    <style>
+      .md-preview { line-height: 1.8; color: #000; }
+      .md-preview h1 { font-size: 24px; font-weight: 800; margin: 24px 0 12px; color: #000; }
+      .md-preview h2 { font-size: 18px; font-weight: 700; margin: 20px 0 10px; color: #000; }
+      .md-preview h3 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; color: #000; }
+      .md-preview h4, .md-preview h5, .md-preview h6 { font-size: 13px; font-weight: 700; margin: 12px 0 6px; color: #000; }
+      .md-preview p { margin: 10px 0; line-height: 1.8; color: #000; }
+      .md-preview ul, .md-preview ol { margin: 10px 0 10px 22px; }
+      .md-preview li { margin: 6px 0; line-height: 1.7; color: #000; }
+      .md-preview strong, .md-preview b { font-weight: 700; color: #000; }
+      .md-preview em, .md-preview i { font-style: italic; }
+      .md-preview blockquote { border-left: 3px solid #ccc; margin: 12px 0; padding: 6px 12px; color: #555; background: #f9f9f9; }
+      .md-preview hr { border: none; border-top: 1px solid #ddd; margin: 16px 0; }
+      .md-preview pre { background: #f6f8fa; padding: 12px 14px; border-radius: 5px; font-family: "Courier New", monospace; font-size: 11px; line-height: 1.6; margin: 14px 0; border: 1px solid #e1e4e8; overflow-x: auto; white-space: pre-wrap; }
+      .md-preview pre code { background: none; padding: 0; border: none; font-size: inherit; }
+      .md-preview code { font-family: "Courier New", monospace; background: #f3f3f3; padding: 1px 4px; border-radius: 3px; font-size: 11px; border: 1px solid #e0e0e0; color: #333; }
+      .md-preview table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 11pt; }
+      .md-preview table th { background-color: #f0f0f0; color: #111; font-weight: 700; text-align: left; padding: 9px 13px; border: 1.5px solid #aaa; }
+      .md-preview table td { padding: 8px 13px; border: 1px solid #ccc; color: #222; vertical-align: top; line-height: 1.6; }
+      .md-preview table tr:nth-child(even) td { background-color: #fafafa; }
+    </style>
+  `;
+
   const MarkdownPreview = ({ content }: { content: string }) => {
     const [htmlContent, setHtmlContent] = useState("");
 
@@ -322,12 +392,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
     return (
       <div
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-        style={{
-          fontSize: fontSize + "pt",
-          color: "#000000",
-        }}
-        className="prose prose-sm max-w-none prose-h1:text-black prose-h2:text-black prose-h3:text-black prose-h4:text-black prose-h5:text-black prose-h6:text-black prose-p:text-black prose-li:text-black prose-strong:text-black prose-em:text-black"
+        dangerouslySetInnerHTML={{ __html: previewTableCSS + `<div class="md-preview" style="font-size: ${fontSize}pt;">${htmlContent}</div>` }}
       />
     );
   };
