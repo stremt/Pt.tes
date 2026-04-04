@@ -115,6 +115,7 @@ export default function TextToPDF() {
         });
         let markdownHtml = await marked(textContent);
         markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
+        markdownHtml = convertListsForPDF(markdownHtml);
 
         htmlContent += `
           <style>
@@ -125,11 +126,8 @@ export default function TextToPDF() {
             .pdf-export-content h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; }
             .pdf-export-content h5, .pdf-export-content h6 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
             .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; }
-            .pdf-export-content ul { margin: 12px 0 12px 0; padding-left: 28px; list-style-type: disc; }
-            .pdf-export-content ol { margin: 12px 0 12px 0; padding-left: 28px; list-style-type: decimal; }
-            .pdf-export-content ul ul { list-style-type: circle; margin: 4px 0 4px 0; }
-            .pdf-export-content ul ul ul { list-style-type: square; }
-            .pdf-export-content li { margin: 8px 0; line-height: 1.7; display: list-item; }
+            .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0; padding: 0; list-style: none; }
+            .pdf-export-content li { margin: 6px 0; line-height: 1.7; }
             .pdf-export-content strong, .pdf-export-content b { font-weight: 700; }
             .pdf-export-content blockquote {
               border-left: 4px solid #cccccc;
@@ -261,6 +259,79 @@ export default function TextToPDF() {
     } finally {
       setConverting(false);
     }
+  };
+
+  const convertListsForPDF = (html: string): string => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    const processList = (listEl: Element, depth: number, ordered: boolean) => {
+      const bullets = ["•", "◦", "▪"];
+      const bullet = ordered ? null : bullets[Math.min(depth, bullets.length - 1)];
+      const indent = depth * 20;
+
+      const wrapper = doc.createElement("div");
+      wrapper.style.margin = "10px 0";
+
+      const items = Array.from(listEl.children).filter(c => c.tagName === "LI");
+      items.forEach((li, idx) => {
+        const row = doc.createElement("div");
+        row.style.display = "flex";
+        row.style.alignItems = "flex-start";
+        row.style.marginLeft = indent + "px";
+        row.style.marginBottom = "6px";
+        row.style.lineHeight = "1.7";
+
+        const marker = doc.createElement("span");
+        marker.style.minWidth = "22px";
+        marker.style.flexShrink = "0";
+        marker.style.fontWeight = ordered ? "normal" : "bold";
+        marker.style.paddingTop = "1px";
+        marker.textContent = ordered ? `${idx + 1}.` : bullet!;
+
+        const content = doc.createElement("span");
+        content.style.flex = "1";
+
+        Array.from(li.childNodes).forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const el = node as Element;
+            if (el.tagName === "UL") {
+              content.appendChild(processListReturn(el, depth + 1, false));
+            } else if (el.tagName === "OL") {
+              content.appendChild(processListReturn(el, depth + 1, true));
+            } else {
+              content.appendChild(node.cloneNode(true));
+            }
+          } else {
+            content.appendChild(node.cloneNode(true));
+          }
+        });
+
+        row.appendChild(marker);
+        row.appendChild(content);
+        wrapper.appendChild(row);
+      });
+
+      return wrapper;
+    };
+
+    const processListReturn = (listEl: Element, depth: number, ordered: boolean): Element => {
+      return processList(listEl, depth, ordered);
+    };
+
+    const replaceLists = (root: Element) => {
+      const lists = Array.from(root.querySelectorAll("ul, ol")).filter(
+        el => !el.closest("ul, ol") || el.parentElement?.tagName === "LI"
+      );
+      root.querySelectorAll(":scope > ul, :scope > ol").forEach(list => {
+        const ordered = list.tagName === "OL";
+        const replacement = processListReturn(list, 0, ordered);
+        list.parentNode?.replaceChild(replacement, list);
+      });
+    };
+
+    replaceLists(doc.body);
+    return doc.body.innerHTML;
   };
 
   const escapeHtml = (text: string) => {
