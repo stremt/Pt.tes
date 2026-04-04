@@ -275,11 +275,11 @@ export default function HowToCreateStrongPassword() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-8">
               <Link href="/tools/password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Password Generator</Link>
-              <Link href="/tools/longtail/unhackable-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Unhackable Password Generator</Link>
-              <Link href="/tools/longtail/private-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Private Password Generator</Link>
-              <Link href="/tools/longtail/offline-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Offline Password Generator</Link>
-              <Link href="/tools/PasswordBruteForceCalculator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Brute Force Calculator</Link>
-              <Link href="/tools/longtail/military-grade-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Military Grade Generator</Link>
+              <Link href="/unhackable-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Unhackable Password Generator</Link>
+              <Link href="/private-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Private Password Generator</Link>
+              <Link href="/offline-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Offline Password Generator</Link>
+              <Link href="/password-brute-force-calculator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Brute Force Calculator</Link>
+              <Link href="/military-grade-password-generator" className="p-4 rounded-xl border bg-muted/30 hover:bg-muted/50 transition-colors text-sm font-bold text-center">Military Grade Generator</Link>
             </div>
           </section>
         </article>

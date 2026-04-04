@@ -9,7 +9,8 @@ export default function ConvertJpgToPngTransparent() {
   useSEO({
     title: "Convert JPG to PNG Transparent - Prepare Images for Transparency | Pixocraft",
     description: "Transform your JPGs into PNG format to enable transparency support. Perfect for logos, graphics, and web design. High-quality, fast, and secure conversion.",
-    keywords: "convert jpg to png transparent, jpg to png background, transparent image conversion, prepare jpg for transparency, web graphic tool"
+    keywords: "convert jpg to png transparent, jpg to png background, transparent image conversion, prepare jpg for transparency, web graphic tool",
+    canonical: "https://tools.pixocraft.in/tools/jpg-to-png/transparent"
   });
 
   return (

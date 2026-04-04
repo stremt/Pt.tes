@@ -9,7 +9,8 @@ export default function CompressPdfTo100kb() {
   useSEO({
     title: "Compress PDF to 100KB - High Precision Size Reduction | Pixocraft",
     description: "Precisely shrink your PDF documents down to 100KB or less. Perfect for government portal uploads and strict email limits. Fast, free, and completely secure.",
-    keywords: "compress pdf to 100kb, shrink pdf to specific size, pdf compressor 100kb, exact size pdf reduction, small pdf creator"
+    keywords: "compress pdf to 100kb, shrink pdf to specific size, pdf compressor 100kb, exact size pdf reduction, small pdf creator",
+    canonical: "https://tools.pixocraft.in/tools/pdf-compressor/100kb"
   });
 
   return (

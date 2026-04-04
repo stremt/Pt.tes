@@ -9,7 +9,8 @@ export default function SmallBusinessInvoiceMaker() {
   useSEO({
     title: "Small Business Invoice Maker - Simple & Effective Billing | Pixocraft",
     description: "Empower your small business with our simple yet effective invoice maker. Create high-quality, professional invoices in seconds without the complexity of accounting software.",
-    keywords: "small business invoice maker, professional billing tool, simple invoice creator, free business invoicing, business invoice generator"
+    keywords: "small business invoice maker, professional billing tool, simple invoice creator, free business invoicing, business invoice generator",
+    canonical: "https://tools.pixocraft.in/tools/invoice-generator/small-business"
   });
 
   return (

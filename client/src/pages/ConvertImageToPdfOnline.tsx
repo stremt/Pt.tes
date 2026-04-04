@@ -9,7 +9,8 @@ export default function ConvertImageToPdfOnline() {
   useSEO({
     title: "Convert Image to PDF Online - Free & No Download | Pixocraft",
     description: "Transform your photos into PDF documents instantly with our free online converter. No software installation required. Secure, fast, and works in any browser.",
-    keywords: "convert image to pdf online, free image to pdf converter, online pdf creator, browser based image converter, no install pdf tool"
+    keywords: "convert image to pdf online, free image to pdf converter, online pdf creator, browser based image converter, no install pdf tool",
+    canonical: "https://tools.pixocraft.in/tools/image-to-pdf/online"
   });
 
   return (

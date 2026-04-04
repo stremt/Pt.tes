@@ -9,7 +9,8 @@ export default function ProfessionalPdfDividerTool() {
   useSEO({
     title: "Professional PDF Divider Tool - Secure Document Fragmentation | Pixocraft",
     description: "Fragment your professional documents into secure, individual PDF files. High-quality, precise, and completely private browser-based divider for legal and corporate needs.",
-    keywords: "professional pdf divider tool, secure document fragmentation, corporate pdf splitter, legal pdf divider, high end pdf separator"
+    keywords: "professional pdf divider tool, secure document fragmentation, corporate pdf splitter, legal pdf divider, high end pdf separator",
+    canonical: "https://tools.pixocraft.in/tools/pdf-splitter/professional"
   });
 
   return (

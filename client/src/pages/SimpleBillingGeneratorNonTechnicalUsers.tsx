@@ -9,7 +9,8 @@ export default function SimpleBillingGeneratorNonTechnicalUsers() {
   useSEO({
     title: "Simple Billing Generator for Non-Technical Users | Pixocraft",
     description: "The easiest way to create professional invoices. Designed for non-technical users who need a simple, intuitive billing solution. Fast, free, and completely secure.",
-    keywords: "simple billing generator, easy invoice creator, billing tool for beginners, non technical invoicing, free simple billing"
+    keywords: "simple billing generator, easy invoice creator, billing tool for beginners, non technical invoicing, free simple billing",
+    canonical: "https://tools.pixocraft.in/tools/invoice-generator/simple-billing"
   });
 
   return (

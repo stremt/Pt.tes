@@ -9,7 +9,8 @@ export default function ProtectPdfWithWatermark() {
   useSEO({
     title: "Protect PDF with Watermark - Secure Document Branding | Pixocraft",
     description: "Secure your PDF documents by adding professional watermarks. Prevent unauthorized use and ensure your brand is protected with our high-quality tool.",
-    keywords: "protect pdf with watermark, secure pdf branding, prevent pdf misuse, professional pdf protection, high quality watermark"
+    keywords: "protect pdf with watermark, secure pdf branding, prevent pdf misuse, professional pdf protection, high quality watermark",
+    canonical: "https://tools.pixocraft.in/tools/pdf-watermark-adder/protect"
   });
 
   return (

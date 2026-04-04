@@ -9,7 +9,8 @@ export default function ConvertImageToPdf() {
   useSEO({
     title: "Convert Image to PDF - Fast & High Quality | Pixocraft",
     description: "Transform your images into professional PDF documents instantly. Our high-quality conversion preserves clarity and formatting, making it easy to share and print.",
-    keywords: "convert image to pdf, image to pdf converter, transform images to pdf, high quality pdf conversion, offline image converter"
+    keywords: "convert image to pdf, image to pdf converter, transform images to pdf, high quality pdf conversion, offline image converter",
+    canonical: "https://tools.pixocraft.in/tools/image-to-pdf/convert"
   });
 
   return (

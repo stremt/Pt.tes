@@ -9,7 +9,8 @@ export default function ConvertPngToJpgHighQuality() {
   useSEO({
     title: "Convert PNG to JPG High Quality - Professional Image Output | Pixocraft",
     description: "Convert your PNGs into JPG format while maintaining the highest possible visual quality. Our professional conversion engine ensures sharpness and color accuracy.",
-    keywords: "convert png to jpg high quality, professional image conversion, best png to jpg converter, crisp image output, high fidelity jpg"
+    keywords: "convert png to jpg high quality, professional image conversion, best png to jpg converter, crisp image output, high fidelity jpg",
+    canonical: "https://tools.pixocraft.in/tools/png-to-jpg/high-quality"
   });
 
   return (

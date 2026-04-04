@@ -9,7 +9,8 @@ export default function JoinMultiplePdfFiles() {
   useSEO({
     title: "Join Multiple PDF Files - Fast & Easy PDF Binder | Pixocraft",
     description: "Combine multiple PDF documents into one easily. Our fast and intuitive PDF binder helps you organize your files into a single cohesive document instantly.",
-    keywords: "join multiple pdf files, pdf binder online, combine multiple pdfs, join pdf documents fast, easy pdf merger"
+    keywords: "join multiple pdf files, pdf binder online, combine multiple pdfs, join pdf documents fast, easy pdf merger",
+    canonical: "https://tools.pixocraft.in/tools/pdf-merger/join"
   });
 
   return (

@@ -9,7 +9,8 @@ export default function AnonymousInstagramProfilePictureDownloader() {
   useSEO({
     title: "Anonymous Instagram Profile Picture Downloader - Private IG DP Tool | Pixocraft",
     description: "Download any Instagram profile picture completely anonymously. No account login, no tracking, and no notifications. Keep your browsing private and secure.",
-    keywords: "anonymous instagram profile picture downloader, private ig dp downloader, secret ig dp viewer, anonymous ig photo tool, secure instagram downloader"
+    keywords: "anonymous instagram profile picture downloader, private ig dp downloader, secret ig dp viewer, anonymous ig photo tool, secure instagram downloader",
+    canonical: "https://tools.pixocraft.in/tools/instagram-downloader/anonymous"
   });
 
   return (

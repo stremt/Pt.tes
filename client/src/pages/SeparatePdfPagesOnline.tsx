@@ -9,7 +9,8 @@ export default function SeparatePdfPagesOnline() {
   useSEO({
     title: "Separate PDF Pages Online - Fast Individual Page Divider | Pixocraft",
     description: "Divide your PDF document into separate pages instantly. Our online separator is fast, free, and secure, providing individual files for every page of your PDF.",
-    keywords: "separate pdf pages online, pdf page divider, divide pdf into pages, separate ig dp downloader, online pdf separator"
+    keywords: "separate pdf pages online, pdf page divider, divide pdf into pages, separate ig dp downloader, online pdf separator",
+    canonical: "https://tools.pixocraft.in/tools/pdf-splitter/separate"
   });
 
   return (

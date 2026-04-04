@@ -9,7 +9,8 @@ export default function DownloadInstagramDpFullSize() {
   useSEO({
     title: "Download Instagram DP in Full Size - HD Profile Picture Viewer | Pixocraft",
     description: "View and download any Instagram profile picture in its original full size and HD quality. Our secure tool lets you see the details you've been missing.",
-    keywords: "download instagram dp full size, instagram profile picture hd, view ig dp full size, instagram dp downloader hd, full size profile picture viewer"
+    keywords: "download instagram dp full size, instagram profile picture hd, view ig dp full size, instagram dp downloader hd, full size profile picture viewer",
+    canonical: "https://tools.pixocraft.in/tools/instagram-downloader/dp-full-size"
   });
 
   return (

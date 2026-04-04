@@ -9,7 +9,8 @@ export default function CombinePdfFilesOnline() {
   useSEO({
     title: "Combine PDF Files Online - Free & Secure Merger | Pixocraft",
     description: "Merge multiple PDF documents into a single file instantly. Our secure online tool works in your browser with no uploads, keeping your data private.",
-    keywords: "combine pdf files online, merge pdf online free, secure pdf merger, join pdf documents, online pdf joiner"
+    keywords: "combine pdf files online, merge pdf online free, secure pdf merger, join pdf documents, online pdf joiner",
+    canonical: "https://tools.pixocraft.in/tools/pdf-merger/combine"
   });
 
   return (

@@ -9,7 +9,8 @@ export default function ViewPrivateInstagramProfilePicture() {
   useSEO({
     title: "View Private Instagram Profile Picture - Anonymous & Secure | Pixocraft",
     description: "Easily view the profile picture of any private Instagram account. No login required, completely anonymous, and safe to use. Get a clear view today.",
-    keywords: "view private instagram profile picture, private ig dp viewer, see private profile photo ig, anonymous private viewer, ig dp downloader private"
+    keywords: "view private instagram profile picture, private ig dp viewer, see private profile photo ig, anonymous private viewer, ig dp downloader private",
+    canonical: "https://tools.pixocraft.in/tools/instagram-downloader/private-profile"
   });
 
   return (

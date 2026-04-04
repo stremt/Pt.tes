@@ -9,7 +9,8 @@ export default function CustomPdfWatermarkCreator() {
   useSEO({
     title: "Custom PDF Watermark Creator - Personalized Document Marks | Pixocraft",
     description: "Create personalized watermarks for your PDF documents. Add custom text or logos with precision control. Fast, free, and completely secure browser-based creator.",
-    keywords: "custom pdf watermark creator, personalized pdf marks, create pdf watermark, custom logo watermark, professional watermark tool"
+    keywords: "custom pdf watermark creator, personalized pdf marks, create pdf watermark, custom logo watermark, professional watermark tool",
+    canonical: "https://tools.pixocraft.in/tools/pdf-watermark-adder/custom"
   });
 
   return (

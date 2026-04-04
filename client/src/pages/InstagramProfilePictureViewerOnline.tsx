@@ -9,7 +9,8 @@ export default function InstagramProfilePictureViewerOnline() {
   useSEO({
     title: "Instagram Profile Picture Viewer Online - Free IG DP Viewer | Pixocraft",
     description: "View any Instagram profile picture online without an account. Fast, free, and completely anonymous browser-based IG DP viewer tool.",
-    keywords: "instagram profile picture viewer online, ig dp viewer, view instagram profile photo, online ig photo viewer, anonymous instagram viewer"
+    keywords: "instagram profile picture viewer online, ig dp viewer, view instagram profile photo, online ig photo viewer, anonymous instagram viewer",
+    canonical: "https://tools.pixocraft.in/tools/instagram-downloader/online-viewer"
   });
 
   return (

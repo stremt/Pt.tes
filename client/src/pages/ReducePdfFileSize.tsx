@@ -9,7 +9,8 @@ export default function ReducePdfFileSize() {
   useSEO({
     title: "Reduce PDF File Size - Professional Document Optimization | Pixocraft",
     description: "Easily reduce the file size of your PDF documents for easier sharing and storage. High-quality, fast, and completely secure browser-based optimization tool.",
-    keywords: "reduce pdf file size, shrink pdf document, optimize pdf size, professional pdf reducer, fast pdf optimization"
+    keywords: "reduce pdf file size, shrink pdf document, optimize pdf size, professional pdf reducer, fast pdf optimization",
+    canonical: "https://tools.pixocraft.in/tools/pdf-compressor/reduce-size"
   });
 
   return (

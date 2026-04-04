@@ -112,12 +112,17 @@ const categoryMap: Record<string, { name: string; path: string }> = {
   "pdf": { name: "PDF Tools", path: "/tools/pdf" },
   "privacy": { name: "Privacy & Security", path: "/tools/privacy" },
   "developer": { name: "Developer Tools", path: "/tools/developer" },
+  "Developer Tool": { name: "Developer Tools", path: "/tools/developer" },
   "math": { name: "Math Tools", path: "/tools/math" },
   "converter": { name: "Converters", path: "/tools/converter" },
   "calculator": { name: "Calculators", path: "/tools/calculator" },
   "utility": { name: "Utilities", path: "/tools/utility" },
   "productivity": { name: "Productivity", path: "/tools/productivity" },
   "signature-tools": { name: "Signature Tools", path: "/tools/signature-tools" },
+  "CSS & Design": { name: "CSS & Design", path: "/tools/developer" },
+  "Typography & Fonts": { name: "Typography & Fonts", path: "/tools/text" },
+  "SEO & Web": { name: "SEO & Web", path: "/tools/seo" },
+  "Fun & Utility": { name: "Fun & Utility", path: "/tools" },
 };
 
 export function ToolLayout({

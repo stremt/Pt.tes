@@ -557,7 +557,7 @@ export default function XLSXToCSVConverter() {
                 <Link href="/tools/excel-viewer">
                   <Button variant="outline" className="rounded-full px-6">Excel Viewer Online</Button>
                 </Link>
-                <Link href="/tools/PasswordGenerator">
+                <Link href="/tools/password-generator">
                   <Button variant="outline" className="rounded-full px-6">Secure Password Generator</Button>
                 </Link>
               </div>

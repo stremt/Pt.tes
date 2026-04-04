@@ -45,7 +45,7 @@ export function RelatedUseCases({ toolId, toolName, maxItems = 4 }: RelatedUseCa
                 <CardDescription className="line-clamp-3 leading-relaxed mb-4">
                   {useCase.content.intro.slice(0, 120)}...
                 </CardDescription>
-                <Link href={`/tools/${useCase.parentToolId}/${useCase.slug}`}>
+                <Link href={useCase.parentToolId ? `/tools/${useCase.parentToolId}/${useCase.slug}` : `/tools`}>
                   <Button variant="outline" size="sm" className="w-full" data-testid={`button-usecase-${useCase.slug}`}>
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

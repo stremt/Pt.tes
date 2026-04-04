@@ -9,7 +9,8 @@ export default function OptimizePdfForEmail() {
   useSEO({
     title: "Optimize PDF for Email - Seamless Document Sharing | Pixocraft",
     description: "Shrink your PDF documents to the perfect size for email attachments. Ensure your files are delivered instantly without bounce-backs or delays.",
-    keywords: "optimize pdf for email, shrink pdf for attachment, small pdf for email, fast email pdf tool, secure email optimization"
+    keywords: "optimize pdf for email, shrink pdf for attachment, small pdf for email, fast email pdf tool, secure email optimization",
+    canonical: "https://tools.pixocraft.in/tools/pdf-compressor/email"
   });
 
   return (

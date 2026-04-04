@@ -9,7 +9,8 @@ export default function ConvertJpgToPng() {
   useSEO({
     title: "Convert JPG to PNG - High Quality Transparent Conversion | Pixocraft",
     description: "Transform your JPG photos into high-quality PNG images instantly. Our tool preserves visual fidelity while enabling transparency support for your graphics.",
-    keywords: "convert jpg to png, jpg to png converter, transparent png conversion, high quality image converter, offline image tool"
+    keywords: "convert jpg to png, jpg to png converter, transparent png conversion, high quality image converter, offline image tool",
+    canonical: "https://tools.pixocraft.in/tools/jpg-to-png/convert"
   });
 
   return (

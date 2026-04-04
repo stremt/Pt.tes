@@ -9,7 +9,8 @@ export default function ConvertJpgToPdf() {
   useSEO({
     title: "Convert JPG to PDF - Transform Photos to PDF Fast | Pixocraft",
     description: "Instantly turn your JPG photos into professional PDF documents. High-quality conversion that preserves clarity and color, perfect for sharing and archiving.",
-    keywords: "convert jpg to pdf, jpeg to pdf converter, transform photos to pdf, high quality jpg conversion, offline jpeg converter"
+    keywords: "convert jpg to pdf, jpeg to pdf converter, transform photos to pdf, high quality jpg conversion, offline jpeg converter",
+    canonical: "https://tools.pixocraft.in/tools/image-to-pdf/jpg-to-pdf"
   });
 
   return (

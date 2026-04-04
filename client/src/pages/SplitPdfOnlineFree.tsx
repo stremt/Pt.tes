@@ -9,7 +9,8 @@ export default function SplitPdfOnlineFree() {
   useSEO({
     title: "Split PDF Online Free - Instant PDF Page Extractor | Pixocraft",
     description: "Separate your PDF documents into individual pages or specific ranges instantly. Our free online PDF splitter is secure, fast, and works directly in your browser.",
-    keywords: "split pdf online free, pdf page extractor, separate pdf pages, online pdf splitter, free pdf divider"
+    keywords: "split pdf online free, pdf page extractor, separate pdf pages, online pdf splitter, free pdf divider",
+    canonical: "https://tools.pixocraft.in/tools/pdf-splitter/online"
   });
 
   return (

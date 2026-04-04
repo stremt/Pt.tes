@@ -9,7 +9,8 @@ export default function ProfessionalOnlineInvoiceCreator() {
   useSEO({
     title: "Professional Online Invoice Creator - No Software Needed | Pixocraft",
     description: "Build professional invoices online instantly. Our browser-based creator is fast, secure, and completely free. No software downloads required, just professional results.",
-    keywords: "professional online invoice creator, web based invoice builder, online billing tool, professional invoice maker, free online invoicing"
+    keywords: "professional online invoice creator, web based invoice builder, online billing tool, professional invoice maker, free online invoicing",
+    canonical: "https://tools.pixocraft.in/tools/invoice-generator/online-creator"
   });
 
   return (

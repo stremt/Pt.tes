@@ -9,7 +9,8 @@ export default function ProfessionalPdfWatermarkingTool() {
   useSEO({
     title: "Professional PDF Watermarking Tool - Secure Corporate Branding | Pixocraft",
     description: "Apply professional watermarks to your corporate PDF documents. Secure, high-quality, and completely private browser-based tool for all your business needs.",
-    keywords: "professional pdf watermarking tool, corporate pdf branding, secure business watermark, high end pdf protection, professional document mark"
+    keywords: "professional pdf watermarking tool, corporate pdf branding, secure business watermark, high end pdf protection, professional document mark",
+    canonical: "https://tools.pixocraft.in/tools/pdf-watermark-adder/professional"
   });
 
   return (

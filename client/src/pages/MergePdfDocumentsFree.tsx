@@ -9,7 +9,8 @@ export default function MergePdfDocumentsFree() {
   useSEO({
     title: "Merge PDF Documents Free - High Quality PDF Joiner | Pixocraft",
     description: "Easily merge multiple PDF documents into one for free. No watermarks, no signups, and completely secure processing for all your professional needs.",
-    keywords: "merge pdf documents free, free pdf joiner, join pdf without watermark, professional pdf merger, high quality pdf merger"
+    keywords: "merge pdf documents free, free pdf joiner, join pdf without watermark, professional pdf merger, high quality pdf merger",
+    canonical: "https://tools.pixocraft.in/tools/pdf-merger/free"
   });
 
   return (

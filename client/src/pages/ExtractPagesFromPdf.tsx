@@ -9,7 +9,8 @@ export default function ExtractPagesFromPdf() {
   useSEO({
     title: "Extract Pages from PDF - High Quality Page Selection | Pixocraft",
     description: "Easily extract specific pages or page ranges from any PDF document. Our professional page selection tool is fast, free, and preserves document integrity.",
-    keywords: "extract pages from pdf, pdf page selection, select pdf pages, high quality pdf extraction, professional pdf extractor"
+    keywords: "extract pages from pdf, pdf page selection, select pdf pages, high quality pdf extraction, professional pdf extractor",
+    canonical: "https://tools.pixocraft.in/tools/pdf-splitter/extract"
   });
 
   return (

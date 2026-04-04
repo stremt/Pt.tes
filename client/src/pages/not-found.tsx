@@ -6,8 +6,10 @@ import { Search, Home, ArrowLeft, Ghost, Compass } from "lucide-react";
 import { useState } from "react";
 import { tools } from "@/lib/tools";
 import { motion } from "framer-motion";
+import { useSEO } from "@/lib/seo";
 
 export default function NotFound() {
+  useSEO({ title: "404 - Page Not Found | Pixocraft Tools", description: "The page you are looking for does not exist.", robots: "noindex, nofollow" });
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredTools = tools

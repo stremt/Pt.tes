@@ -9,7 +9,8 @@ export default function AddWatermarkToPdfOnline() {
   useSEO({
     title: "Add Watermark to PDF Online - Free & Secure Protection | Pixocraft",
     description: "Protect your PDF documents by adding text or image watermarks online instantly. Our secure tool works directly in your browser with no uploads.",
-    keywords: "add watermark to pdf online, free pdf watermark, secure pdf protection, online watermark creator, watermark pdf documents"
+    keywords: "add watermark to pdf online, free pdf watermark, secure pdf protection, online watermark creator, watermark pdf documents",
+    canonical: "https://tools.pixocraft.in/tools/pdf-watermark-adder/online"
   });
 
   return (

@@ -9,7 +9,8 @@ export default function ConvertPngToJpgOnline() {
   useSEO({
     title: "Convert PNG to JPG Online - Free & Secure | Pixocraft",
     description: "Convert your PNG images to JPG format online instantly. No software needed, no watermarks, and completely secure browser-based processing.",
-    keywords: "convert png to jpg online, free online png converter, web based image converter, browser png tool, no install converter"
+    keywords: "convert png to jpg online, free online png converter, web based image converter, browser png tool, no install converter",
+    canonical: "https://tools.pixocraft.in/tools/png-to-jpg/online"
   });
 
   return (

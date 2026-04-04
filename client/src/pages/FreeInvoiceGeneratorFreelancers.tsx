@@ -9,7 +9,8 @@ export default function FreeInvoiceGeneratorFreelancers() {
   useSEO({
     title: "Free Invoice Generator for Freelancers - Professional Billing | Pixocraft",
     description: "Create professional invoices for your freelance business instantly. No signup required, completely free, and secure. Perfect for independent contractors and consultants.",
-    keywords: "free invoice generator for freelancers, freelance billing tool, professional invoice creator, independent contractor invoice, free billing software"
+    keywords: "free invoice generator for freelancers, freelance billing tool, professional invoice creator, independent contractor invoice, free billing software",
+    canonical: "https://tools.pixocraft.in/tools/invoice-generator/freelancers"
   });
 
   return (

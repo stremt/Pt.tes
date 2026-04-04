@@ -9,7 +9,8 @@ export default function ProfessionalPdfBinderTool() {
   useSEO({
     title: "Professional PDF Binder Tool - Secure Document Consolidation | Pixocraft",
     description: "Consolidate your professional documents into a single PDF binder. Secure, high-quality, and completely private browser-based tool for corporate and legal needs.",
-    keywords: "professional pdf binder tool, secure document consolidation, corporate pdf merger, legal pdf binder, high end pdf joiner"
+    keywords: "professional pdf binder tool, secure document consolidation, corporate pdf merger, legal pdf binder, high end pdf joiner",
+    canonical: "https://tools.pixocraft.in/tools/pdf-merger/professional"
   });
 
   return (

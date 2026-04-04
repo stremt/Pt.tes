@@ -9,7 +9,8 @@ export default function CombineImagesToPdf() {
   useSEO({
     title: "Combine Multiple Images into One PDF - Fast & Easy | Pixocraft",
     description: "Merge multiple photos, scans, and graphics into a single professional PDF document. Easy drag-and-drop organization, high quality, and completely secure.",
-    keywords: "combine images to pdf, merge photos to pdf, multiple images to one pdf, photo to pdf merger, offline image combiner"
+    keywords: "combine images to pdf, merge photos to pdf, multiple images to one pdf, photo to pdf merger, offline image combiner",
+    canonical: "https://tools.pixocraft.in/tools/image-to-pdf/combine"
   });
 
   return (

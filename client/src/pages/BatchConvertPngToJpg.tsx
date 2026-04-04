@@ -9,7 +9,8 @@ export default function BatchConvertPngToJpg() {
   useSEO({
     title: "Batch Convert PNG to JPG - Fast Multiple Image Conversion | Pixocraft",
     description: "Convert multiple PNG images to JPG format at once. Our batch processing tool is designed for speed and efficiency, helping you manage large galleries instantly.",
-    keywords: "batch convert png to jpg, multiple png to jpg, bulk image converter, fast gallery conversion, offline batch tool"
+    keywords: "batch convert png to jpg, multiple png to jpg, bulk image converter, fast gallery conversion, offline batch tool",
+    canonical: "https://tools.pixocraft.in/tools/png-to-jpg/batch"
   });
 
   return (
