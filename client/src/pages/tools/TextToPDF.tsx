@@ -104,9 +104,6 @@ export default function TextToPDF() {
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
       element.style.overflow = "visible";
-      element.style.position = "fixed";
-      element.style.left = "-9999px";
-      element.style.top = "0";
       element.style.width = "794px";
 
       let htmlContent = "";
