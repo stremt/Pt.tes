@@ -110,8 +110,11 @@ export default function ConvertTextToPdfWithoutSignup() {
             <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
               Paste your text and download a clean, professional PDF instantly — no login, no email, no upload required.
             </p>
-            <p className="text-base font-bold text-primary mb-4 tracking-wide">
+            <p className="text-base font-bold text-primary mb-2 tracking-wide">
               Copy → Paste → Download in seconds
+            </p>
+            <p className="text-sm text-muted-foreground mb-4">
+              Works instantly in your browser — no installation needed
             </p>
             <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
               <Zap className="h-3.5 w-3.5" />
@@ -224,7 +227,7 @@ export default function ConvertTextToPdfWithoutSignup() {
                 </div>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Pixocraft solves this by providing instant, browser-based conversion with zero signup. This is the easiest way to <strong>convert text to PDF without signup, upload, or login</strong> — completely free.
+                Pixocraft solves this by providing instant, browser-based conversion with zero signup. This is the easiest way to <strong>convert text to PDF without signup, upload, or login</strong> — completely free. This is the fastest way to <strong>convert text to PDF without signup online free</strong>.
               </p>
             </section>
 
