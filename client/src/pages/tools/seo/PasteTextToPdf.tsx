@@ -88,6 +88,9 @@ export default function PasteTextToPdf() {
             <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
               Convert copied text into a clean, professional PDF in seconds — no login, no uploads, no waiting.
             </p>
+            <p className="text-base font-bold text-primary mb-4 tracking-wide">
+              Copy → Paste → Download in seconds
+            </p>
             <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
               <Zap className="h-3.5 w-3.5" />
               Takes less than 5 seconds
@@ -131,7 +134,7 @@ export default function PasteTextToPdf() {
           <div className="mt-12 sm:mt-20 lg:mt-24 space-y-12 sm:space-y-16 lg:space-y-20 max-w-5xl mx-auto border-t pt-12 sm:pt-16 lg:pt-20 px-4 sm:px-6 lg:px-0">
             <section className="space-y-6">
               <h2 className="text-2xl sm:text-3xl font-bold">Paste & Convert Text to PDF Instantly</h2>
-              <p className="text-muted-foreground leading-relaxed">Pixocraft's paste to PDF converter is the fastest way to convert copied content into professional documents. Whether you're pasting from emails, chat, web pages, or documents, we handle it instantly.</p>
+              <p className="text-muted-foreground leading-relaxed">Pixocraft's paste to PDF converter is the fastest way to convert copied content into professional documents. Whether you're pasting from emails, chat, web pages, or documents, we handle it instantly. This is the easiest way to <strong>convert copied text to PDF online free without signup</strong>.</p>
             </section>
 
             <section className="space-y-10">
