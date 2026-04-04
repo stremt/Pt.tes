@@ -47,19 +47,27 @@ type Thumbnail = ReturnType<typeof buildThumbnails>[number];
 // ─── Component ────────────────────────────────────────────────────────────────
 
 interface YouTubeThumbnailToolProps {
-  /** Optional label shown above the input */
   label?: string;
-  /** If true, auto-focus the input on mount */
   autoFocus?: boolean;
-  /** data-testid prefix for this instance */
   testIdPrefix?: string;
+  variant?: "full" | "compact";
 }
 
 export default function YouTubeThumbnailTool({
-  label = "Paste a YouTube link to get thumbnails instantly:",
-  autoFocus = true,
+  label,
+  autoFocus,
   testIdPrefix = "yttool",
+  variant = "full",
 }: YouTubeThumbnailToolProps) {
+  const isCompact = variant === "compact";
+
+  const resolvedLabel =
+    label ?? (isCompact
+      ? "Paste YouTube link → Get thumbnails instantly"
+      : "Paste a YouTube link to get thumbnails instantly:");
+
+  const resolvedAutoFocus = autoFocus ?? !isCompact;
+
   const [url, setUrl] = useState("");
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [selected, setSelected] = useState(0);
@@ -69,8 +77,8 @@ export default function YouTubeThumbnailTool({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (autoFocus) inputRef.current?.focus();
-  }, [autoFocus]);
+    if (resolvedAutoFocus) inputRef.current?.focus();
+  }, [resolvedAutoFocus]);
 
   const extract = useCallback((overrideUrl?: string) => {
     const u = overrideUrl ?? url;
@@ -106,10 +114,12 @@ export default function YouTubeThumbnailTool({
   const current = thumbnails[selected];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* Label */}
-      {label && (
-        <p className="text-sm font-semibold text-muted-foreground">{label}</p>
+      {resolvedLabel && (
+        <p className={`font-semibold text-muted-foreground ${isCompact ? "text-xs" : "text-sm"}`}>
+          {resolvedLabel}
+        </p>
       )}
 
       {/* Input row */}
@@ -121,17 +131,17 @@ export default function YouTubeThumbnailTool({
           onChange={(e) => setUrl(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && extract()}
           data-testid={`${testIdPrefix}-input-url`}
-          className="h-11 text-base flex-1"
+          className={`flex-1 ${isCompact ? "h-10 text-sm" : "h-11 text-base"}`}
         />
         <Button
           onClick={() => extract()}
           disabled={loading}
-          className="h-11 px-6 font-semibold flex-shrink-0"
+          className={`font-semibold flex-shrink-0 ${isCompact ? "h-10 px-4" : "h-11 px-6"}`}
           data-testid={`${testIdPrefix}-btn-extract`}
         >
           {loading
             ? <span className="flex items-center gap-2">
-                <span className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent animate-spin" />
+                <span className="h-3.5 w-3.5 rounded-full border-2 border-primary-foreground border-t-transparent animate-spin" />
                 Extracting…
               </span>
             : <><Zap className="w-4 h-4 mr-1.5" />Get Thumbnails</>}
@@ -162,46 +172,43 @@ export default function YouTubeThumbnailTool({
 
       {/* Preview + size picker */}
       {thumbnails.length > 0 && current && (
-        <div className="grid md:grid-cols-2 gap-4 pt-2">
-          {/* Thumbnail preview */}
-          <div className="rounded-lg overflow-hidden border bg-muted/30">
-            <img
-              src={current.url}
-              alt={`YouTube thumbnail — ${current.label} quality (${current.width}×${current.height})`}
-              className="w-full object-cover"
-              loading="lazy"
-            />
-            <div className="px-3 py-2 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{current.width} × {current.height}px</span>
-              <span>{current.label} Quality</span>
+        isCompact ? (
+          /* ── Compact layout ── */
+          <div className="space-y-3 pt-1">
+            {/* Thumbnail strip */}
+            <div className="rounded-lg overflow-hidden border bg-muted/30">
+              <img
+                src={current.url}
+                alt={`YouTube thumbnail — ${current.label} (${current.width}×${current.height})`}
+                className="w-full object-cover"
+                loading="lazy"
+              />
+              <div className="px-3 py-1.5 flex items-center justify-between text-xs text-muted-foreground">
+                <span>{current.width}×{current.height}px</span>
+                <span>{current.label}</span>
+              </div>
             </div>
-          </div>
 
-          {/* Size picker + actions */}
-          <div className="space-y-2">
-            <p className="text-sm font-medium">Choose resolution</p>
-            <div className="space-y-1.5">
+            {/* Size pills */}
+            <div className="flex flex-wrap gap-1.5">
               {thumbnails.map((t, i) => (
                 <button
                   key={t.key}
                   onClick={() => setSelected(i)}
                   data-testid={`${testIdPrefix}-size-${t.key}`}
-                  className={`w-full text-left px-3 py-2 rounded-md border text-sm transition-colors ${
+                  className={`text-xs px-2.5 py-1 rounded-md border transition-colors ${
                     i === selected
-                      ? "border-primary bg-primary/5 font-semibold"
-                      : "border-border hover-elevate"
+                      ? "border-primary bg-primary/10 font-semibold text-primary"
+                      : "border-border hover-elevate text-muted-foreground"
                   }`}
                 >
-                  <span>{t.label}</span>
-                  <span className="text-muted-foreground ml-2 text-xs">
-                    {t.width}×{t.height}
-                  </span>
+                  {t.label} <span className="opacity-60">{t.width}×{t.height}</span>
                 </button>
               ))}
             </div>
 
-            {/* Action buttons */}
-            <div className="flex gap-2 pt-1">
+            {/* Action row */}
+            <div className="flex gap-2">
               <Button
                 onClick={() => download(current)}
                 className="flex-1 font-semibold"
@@ -213,21 +220,92 @@ export default function YouTubeThumbnailTool({
               <Button
                 variant="outline"
                 onClick={() => copyUrl(current)}
-                className="flex-shrink-0"
+                size="icon"
                 data-testid={`${testIdPrefix}-btn-copy-url`}
+                title="Copy image URL"
               >
                 {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
               </Button>
             </div>
 
-            <p className="text-center text-xs text-muted-foreground pt-1">
-              Need ZIP download + CTR analyzer?{" "}
-              <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2">
-                Try the full tool
+            {/* Internal link back to main */}
+            <p className="text-center text-xs text-muted-foreground">
+              Want full features?{" "}
+              <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2 font-medium">
+                Use the best YouTube thumbnail downloader
               </Link>
+              {" "}— ZIP download, CTR analyzer & more.
             </p>
           </div>
-        </div>
+        ) : (
+          /* ── Full layout ── */
+          <div className="grid md:grid-cols-2 gap-4 pt-2">
+            {/* Thumbnail preview */}
+            <div className="rounded-lg overflow-hidden border bg-muted/30">
+              <img
+                src={current.url}
+                alt={`YouTube thumbnail — ${current.label} quality (${current.width}×${current.height})`}
+                className="w-full object-cover"
+                loading="lazy"
+              />
+              <div className="px-3 py-2 flex items-center justify-between text-xs text-muted-foreground">
+                <span>{current.width} × {current.height}px</span>
+                <span>{current.label} Quality</span>
+              </div>
+            </div>
+
+            {/* Size picker + actions */}
+            <div className="space-y-2">
+              <p className="text-sm font-medium">Choose resolution</p>
+              <div className="space-y-1.5">
+                {thumbnails.map((t, i) => (
+                  <button
+                    key={t.key}
+                    onClick={() => setSelected(i)}
+                    data-testid={`${testIdPrefix}-size-${t.key}`}
+                    className={`w-full text-left px-3 py-2 rounded-md border text-sm transition-colors ${
+                      i === selected
+                        ? "border-primary bg-primary/5 font-semibold"
+                        : "border-border hover-elevate"
+                    }`}
+                  >
+                    <span>{t.label}</span>
+                    <span className="text-muted-foreground ml-2 text-xs">
+                      {t.width}×{t.height}
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex gap-2 pt-1">
+                <Button
+                  onClick={() => download(current)}
+                  className="flex-1 font-semibold"
+                  data-testid={`${testIdPrefix}-btn-download`}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Download {current.label}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => copyUrl(current)}
+                  className="flex-shrink-0"
+                  data-testid={`${testIdPrefix}-btn-copy-url`}
+                >
+                  {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                </Button>
+              </div>
+
+              <p className="text-center text-xs text-muted-foreground pt-1">
+                Need ZIP download + CTR analyzer?{" "}
+                <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2">
+                  Try the full tool
+                </Link>
+              </p>
+            </div>
+          </div>
+        )
       )}
     </div>
   );

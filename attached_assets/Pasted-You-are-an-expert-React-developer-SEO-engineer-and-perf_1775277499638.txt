@@ -1,0 +1,170 @@
+You are an expert React developer, SEO engineer, and performance optimization specialist.
+
+Your task is to upgrade an SEO page (like /online, /free, /best) by embedding a reusable tool section extracted from the main tool page.
+
+---
+
+# 🎯 OBJECTIVE:
+
+* Add the tool section inside the SEO page
+* Maintain fast performance
+* Avoid code duplication
+* Improve SEO, CTR, and user engagement
+* Support the main tool page ranking
+
+---
+
+# ⚠️ CONTEXT:
+
+* Main tool page already has full logic
+* SEO page currently contains only content
+* We need to reuse tool logic cleanly
+
+---
+
+# 🔥 IMPLEMENTATION REQUIREMENTS:
+
+---
+
+# 1. CREATE REUSABLE TOOL COMPONENT
+
+Extract ONLY the core tool logic into a reusable component:
+
+Component Name:
+YTThumbnailTool
+
+Include:
+
+* YouTube URL input
+* Extract thumbnails button
+* Thumbnail preview grid
+* Download functionality
+
+REMOVE:
+
+* Long SEO content
+* FAQ sections
+* Extra informational blocks
+
+---
+
+# 2. ADD VARIANT SUPPORT
+
+Component should support:
+
+variant = "full" | "compact"
+
+* full → main page
+* compact → SEO pages
+
+Compact version must:
+
+* smaller UI
+* faster rendering
+* minimal layout
+
+---
+
+# 3. LAZY LOAD COMPONENT
+
+Use dynamic import:
+
+* load tool only when needed
+* prevent blocking initial page load
+
+---
+
+# 4. EMBED TOOL IN SEO PAGE
+
+Place tool:
+
+* directly below H1 (above the fold)
+
+Add microcopy above tool:
+
+"Paste YouTube link → Get thumbnails instantly"
+
+---
+
+# 5. ADD SCROLL CTA
+
+Add button:
+
+"Try Tool Now"
+
+On click:
+
+* scroll to tool section
+
+---
+
+# 6. ADD TOOL CONTAINER ID
+
+Wrap tool:
+
+<div id="tool">
+  <YTThumbnailTool variant="compact" />
+</div>
+
+---
+
+# 7. ADD INTERNAL LINK BACK TO MAIN TOOL
+
+Below tool:
+
+"Want full features? Use the best YouTube thumbnail downloader"
+
+Link to main page.
+
+---
+
+# 8. SEO OPTIMIZATION
+
+Ensure:
+
+* H1 remains keyword optimized
+* tool section does not break content structure
+* keywords appear naturally
+
+---
+
+# 9. PERFORMANCE OPTIMIZATION
+
+* split JS bundle
+* avoid heavy re-renders
+* lazy load thumbnails
+* keep interaction <1 second
+
+---
+
+# 10. UX IMPROVEMENTS
+
+Add:
+
+* loading state
+* error handling
+* instant feedback
+
+---
+
+# 11. FINAL OUTPUT
+
+Return:
+
+* clean reusable component code
+* updated SEO page code
+* optimized structure
+
+---
+
+# 🚀 FINAL OBJECTIVE:
+
+The SEO page should:
+
+* behave like a real tool page
+* increase dwell time
+* reduce bounce rate
+* pass authority to main page
+* rank higher on Google
+
+Make it a **high-performance hybrid SEO + tool page**

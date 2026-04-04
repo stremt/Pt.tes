@@ -187,7 +187,7 @@ export default function YouTubeThumbnailDownloaderOnline() {
               <p className="text-sm font-semibold text-muted-foreground mb-3">
                 Step 1 — Paste YouTube link &amp; download your thumbnail online:
               </p>
-              <YouTubeThumbnailTool />
+              <YouTubeThumbnailTool variant="compact" autoFocus={false} />
             </CardContent>
           </Card>
         </div>
