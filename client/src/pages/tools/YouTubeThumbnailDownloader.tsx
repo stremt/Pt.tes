@@ -166,6 +166,7 @@ async function analyzeThumbnail(imageUrl: string): Promise<ThumbnailAnalysis> {
 export default function YouTubeThumbnailDownloader() {
   const [youtubeUrl, setYoutubeUrl] = useState(DEMO_URL);
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>(() => buildThumbnails(DEMO_VIDEO_ID));
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isDemo, setIsDemo] = useState(true);
   const [error, setError] = useState("");
@@ -222,8 +223,9 @@ export default function YouTubeThumbnailDownloader() {
 
     setTimeout(() => {
       setThumbnails(buildThumbnails(videoId));
+      setSelectedIndex(0);
       setLoading(false);
-      toast({ title: "Thumbnails Ready", description: "Download individually or grab all as ZIP." });
+      toast({ title: "Thumbnails Ready", description: "Select a size and download instantly." });
     }, 500);
   }, [youtubeUrl, toast]);
 
@@ -423,155 +425,173 @@ export default function YouTubeThumbnailDownloader() {
 
           {/* Loading Skeleton */}
           {loading && (
-            <div className="space-y-4">
-              <div className="h-7 w-48 rounded bg-muted animate-pulse" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className={`rounded-xl border overflow-hidden ${i === 0 ? "lg:col-span-2" : ""}`}>
-                    <div className="h-48 bg-muted animate-pulse" />
-                    <div className="p-4 space-y-3">
-                      <div className="h-4 w-32 bg-muted animate-pulse rounded" />
-                      <div className="h-3 w-20 bg-muted animate-pulse rounded" />
-                      <div className="h-9 bg-muted animate-pulse rounded" />
+            <Card className="border-2">
+              <CardContent className="p-6 space-y-4">
+                <div className="h-6 w-40 bg-muted animate-pulse rounded" />
+                <div className="w-full aspect-video bg-muted animate-pulse rounded-lg" />
+                <div className="flex gap-2 flex-wrap">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="h-9 w-28 bg-muted animate-pulse rounded-md" />
+                  ))}
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="h-10 bg-muted animate-pulse rounded-md" />
+                  <div className="h-10 bg-muted animate-pulse rounded-md" />
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Single Preview + Size Picker */}
+          {!loading && thumbnails.length > 0 && (() => {
+            const selected = thumbnails[selectedIndex];
+            const analysis = analyses[selected.url];
+            const isAnalyzing = analyzingUrl === selected.url;
+            return (
+              <Card className="border-2 shadow-lg" data-testid="card-thumbnail-result">
+                <CardHeader className="pb-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <CardTitle className="text-xl">
+                        {isDemo ? "Demo Preview" : "Your Thumbnail"}
+                      </CardTitle>
+                      <CardDescription className="mt-0.5">
+                        {isDemo
+                          ? "Live demo — paste your YouTube link above to extract yours"
+                          : "Select a size below, then download or copy the URL"}
+                      </CardDescription>
+                    </div>
+                    <Button
+                      onClick={handleDownloadAll}
+                      disabled={downloadingAll}
+                      variant="outline"
+                      size="sm"
+                      data-testid="button-download-all"
+                    >
+                      <Package className="w-4 h-4 mr-2" />
+                      {downloadingAll ? "Creating ZIP…" : "Download All as ZIP"}
+                    </Button>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-5">
+                  {/* Preview Image */}
+                  <div className="relative bg-muted rounded-lg overflow-hidden w-full">
+                    <img
+                      key={selected.url}
+                      src={selected.url}
+                      alt={`YouTube thumbnail ${selected.quality} – download youtube thumbnail hd`}
+                      loading="eager"
+                      className="w-full object-contain max-h-80"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "";
+                        (e.target as HTMLImageElement).style.display = "none";
+                      }}
+                    />
+                    {selected.isHighestQuality && (
+                      <div className="absolute top-2 right-2">
+                        <Badge className="bg-primary text-primary-foreground">Highest Quality</Badge>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Size Picker */}
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-foreground">Select Size</p>
+                    <div className="flex flex-wrap gap-2">
+                      {thumbnails.map((t, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedIndex(i)}
+                          data-testid={`button-size-${t.name.toLowerCase().replace(/ /g, "-")}`}
+                          className={`px-3 py-1.5 rounded-md border text-sm font-medium transition-colors ${
+                            i === selectedIndex
+                              ? "bg-primary text-primary-foreground border-primary"
+                              : "bg-card text-foreground border-border hover-elevate"
+                          }`}
+                        >
+                          {t.name}
+                          <span className="ml-1.5 text-xs opacity-70">{t.quality}</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
 
-          {/* Thumbnails Grid */}
-          {!loading && thumbnails.length > 0 && (
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  {isDemo ? "Example: Demo Thumbnails" : "Available Thumbnail Sizes"}
-                </h2>
-                <Button
-                  onClick={handleDownloadAll}
-                  disabled={downloadingAll}
-                  variant="outline"
-                  data-testid="button-download-all"
-                >
-                  <Package className="w-4 h-4 mr-2" />
-                  {downloadingAll ? "Creating ZIP…" : "Download All as ZIP"}
-                </Button>
-              </div>
+                  {/* Selected size info */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">{selected.width} × {selected.height} px</Badge>
+                    {selected.isHighestQuality && (
+                      <Badge variant="secondary" className="text-primary">Best for YouTube</Badge>
+                    )}
+                  </div>
 
-              {isDemo && (
-                <p className="text-sm text-muted-foreground bg-primary/5 border border-primary/20 rounded-lg px-4 py-2">
-                  This is a live demo — thumbnails below are from a real YouTube video. Paste your own link above to extract yours.
-                </p>
-              )}
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {thumbnails.map((thumbnail, index) => {
-                  const analysis = analyses[thumbnail.url];
-                  const isAnalyzing = analyzingUrl === thumbnail.url;
-                  return (
-                    <Card
-                      key={index}
-                      className={`overflow-visible flex flex-col transition-all hover-elevate ${
-                        thumbnail.isHighestQuality ? "ring-2 ring-primary lg:col-span-2 lg:flex-row" : ""
-                      }`}
-                      data-testid={`card-thumbnail-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
-                    >
-                      {/* Image */}
-                      <div className={`relative bg-muted rounded-t-xl overflow-hidden ${thumbnail.isHighestQuality ? "lg:w-1/2 lg:rounded-l-xl lg:rounded-tr-none" : ""}`}>
-                        <img
-                          src={thumbnail.url}
-                          alt={`YouTube thumbnail ${thumbnail.quality} – download youtube thumbnail hd`}
-                          loading={thumbnail.isHighestQuality ? "eager" : "lazy"}
-                          className={`w-full ${thumbnail.isHighestQuality ? "h-56 lg:h-full" : "h-48"} object-cover`}
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                        />
-                        {thumbnail.isHighestQuality && (
-                          <div className="absolute top-2 right-2">
-                            <Badge className="bg-primary text-primary-foreground">Highest Quality</Badge>
+                  {/* Analyzer Result */}
+                  {analysis && (
+                    <div className="text-sm bg-muted/50 rounded-lg p-4 space-y-2 border">
+                      <p className="font-semibold text-foreground flex items-center gap-1.5">
+                        <BarChart2 className="w-4 h-4" /> Thumbnail Analysis
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Brightness</p>
+                          <p className="font-semibold text-foreground">{analysis.brightness}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Contrast</p>
+                          <p className="font-semibold text-foreground">{analysis.contrast}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">CTR Potential</p>
+                          <p className={`font-bold ${ctrColor(analysis.ctrPotential)}`}>{analysis.ctrPotential}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Dominant Color</p>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="h-4 w-4 rounded-full border flex-shrink-0" style={{ backgroundColor: analysis.dominantColor }} />
+                            <span className="font-mono text-xs text-foreground">{analysis.dominantColor}</span>
                           </div>
-                        )}
+                        </div>
                       </div>
+                    </div>
+                  )}
 
-                      {/* Info */}
-                      <CardContent className={`flex-1 p-4 space-y-3 flex flex-col ${thumbnail.isHighestQuality ? "lg:w-1/2 lg:justify-between" : "justify-between"}`}>
-                        <div className="space-y-2">
-                          <p className="font-bold text-lg text-foreground">{thumbnail.name}</p>
-                          <p className="text-sm text-muted-foreground font-medium">{thumbnail.quality}</p>
-                          <div className="flex flex-wrap gap-2">
-                            <Badge variant="secondary" className="text-xs">{thumbnail.width}px</Badge>
-                            <Badge variant="secondary" className="text-xs">{thumbnail.height}px</Badge>
-                            {thumbnail.isHighestQuality && (
-                              <Badge variant="secondary" className="text-xs text-primary">Best for YouTube</Badge>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Analyzer Result */}
-                        {analysis && (
-                          <div className="text-xs bg-muted/50 rounded-lg p-3 space-y-1 border">
-                            <p className="font-semibold text-foreground mb-1 flex items-center gap-1">
-                              <BarChart2 className="w-3 h-3" /> Thumbnail Analysis
-                            </p>
-                            <p>Brightness: <span className="font-medium text-foreground">{analysis.brightness}</span></p>
-                            <p>Contrast: <span className="font-medium text-foreground">{analysis.contrast}</span></p>
-                            <p>CTR Potential: <span className={`font-bold ${ctrColor(analysis.ctrPotential)}`}>{analysis.ctrPotential}</span></p>
-                            <div className="flex items-center gap-2 mt-1">
-                              <span>Dominant Color:</span>
-                              <span
-                                className="inline-block h-4 w-4 rounded-full border flex-shrink-0"
-                                style={{ backgroundColor: analysis.dominantColor }}
-                              />
-                              <span className="font-mono text-muted-foreground">{analysis.dominantColor}</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Actions */}
-                        <div className="grid grid-cols-2 gap-2 mt-auto pt-1">
-                          <Button
-                            onClick={() => handleDownload(thumbnail)}
-                            disabled={downloadingId === thumbnail.name}
-                            variant={thumbnail.isHighestQuality ? "default" : "outline"}
-                            size="sm"
-                            className="h-9 font-semibold"
-                            data-testid={`button-download-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
-                          >
-                            <Download className="w-3.5 h-3.5 mr-1.5" />
-                            {downloadingId === thumbnail.name ? "Saving…" : "Download"}
-                          </Button>
-                          <Button
-                            onClick={() => handleCopyUrl(thumbnail.url)}
-                            variant="outline"
-                            size="sm"
-                            className="h-9"
-                            data-testid={`button-copy-url-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
-                          >
-                            {copiedUrl === thumbnail.url
-                              ? <><CheckCheck className="w-3.5 h-3.5 mr-1.5 text-green-600" />Copied</>
-                              : <><Copy className="w-3.5 h-3.5 mr-1.5" />Copy URL</>}
-                          </Button>
-                        </div>
-                        <Button
-                          onClick={() => handleAnalyze(thumbnail)}
-                          variant="ghost"
-                          size="sm"
-                          disabled={!!analysis || isAnalyzing}
-                          className="w-full h-8 text-xs"
-                          data-testid={`button-analyze-${thumbnail.name.toLowerCase().replace(/ /g, "-")}`}
-                        >
-                          <BarChart2 className="w-3 h-3 mr-1" />
-                          {isAnalyzing ? "Analyzing…" : analysis ? "Analysis Done" : "Analyze CTR Potential"}
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-              <p className="text-center text-sm text-muted-foreground pt-2">
-                Download individually, copy the URL, or grab all as ZIP — no signup, no watermarks
-              </p>
-            </div>
-          )}
+                  {/* Action Buttons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Button
+                      onClick={() => handleDownload(selected)}
+                      disabled={downloadingId === selected.name}
+                      className="font-semibold"
+                      data-testid="button-download-selected"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      {downloadingId === selected.name ? "Saving…" : "Download"}
+                    </Button>
+                    <Button
+                      onClick={() => handleCopyUrl(selected.url)}
+                      variant="outline"
+                      data-testid="button-copy-url-selected"
+                    >
+                      {copiedUrl === selected.url
+                        ? <><CheckCheck className="w-4 h-4 mr-2 text-green-600" />Copied!</>
+                        : <><Copy className="w-4 h-4 mr-2" />Copy URL</>}
+                    </Button>
+                    <Button
+                      onClick={() => handleAnalyze(selected)}
+                      variant="outline"
+                      disabled={!!analysis || isAnalyzing}
+                      data-testid="button-analyze-selected"
+                    >
+                      <BarChart2 className="w-4 h-4 mr-2" />
+                      {isAnalyzing ? "Analyzing…" : analysis ? "Analyzed" : "Analyze CTR"}
+                    </Button>
+                  </div>
+                  <p className="text-center text-xs text-muted-foreground">
+                    No signup • No watermarks • Instant download
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })()}
 
           {/* Content Sections */}
           <div className="space-y-12 py-8">
