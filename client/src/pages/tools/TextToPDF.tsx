@@ -32,10 +32,7 @@ export default function TextToPDF() {
   }, [textContent]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 600);
-    return () => clearTimeout(timer);
+    textareaRef.current?.focus();
   }, []);
 
   const insertMarkdown = (before: string, after: string = "") => {
@@ -389,15 +386,13 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             <div className="flex flex-col items-center gap-1.5 animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground/60">
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
-                Used by 10,000+ users daily
+                Trusted by 10,000+ users daily worldwide
               </div>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground/50 font-medium">
                 <Zap className="h-3 w-3 text-primary/60" />
                 Takes less than 5 seconds
               </div>
             </div>
-
-            {/* Scroll trigger */}
             <div className="flex flex-col items-center gap-1 pt-2 animate-fade-in" style={{ animationDelay: "0.4s" }}>
               <span className="text-xs text-muted-foreground/40 font-medium tracking-wide uppercase">Start converting below</span>
               <ChevronDown className="h-4 w-4 text-muted-foreground/30 animate-bounce" />
@@ -531,7 +526,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         <p className="text-xs text-center text-muted-foreground/70 font-medium">
                           No email &bull; No login &bull; Start instantly
                         </p>
-                        <p className="text-xs text-center text-muted-foreground/45">
+                        <p className="text-xs text-center text-muted-foreground/40">
                           No signup &bull; No upload &bull; 100% secure
                         </p>
                       </div>
