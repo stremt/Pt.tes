@@ -608,14 +608,18 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
               Text to PDF Converter
-              <span className="block text-primary mt-1">Online, Free &amp; Private</span>
+              <span className="block text-primary mt-1">(Free, No Signup, Instant Download)</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed mb-6">
-              Paste any text, format it with Markdown, and download a clean PDF in seconds — no login, no uploads, no waiting.
+            <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
+              Convert text to PDF online in seconds — no login, no uploads, no waiting.
             </p>
+            <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
+              <Zap className="h-3.5 w-3.5" />
+              Takes less than 5 seconds
+            </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
               {[
                 { label: "Markdown Support" },
                 { label: "Math Equations" },
@@ -628,6 +632,11 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                 </Badge>
               ))}
             </div>
+
+            {/* Trust line above CTA */}
+            <p className="text-sm font-semibold text-foreground mb-4">
+              No email &bull; No login &bull; Start instantly
+            </p>
 
             {/* 3-step flow */}
             <div className="max-w-2xl mx-auto bg-card border border-border rounded-2xl px-6 py-5">
@@ -653,6 +662,12 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Scroll trigger */}
+            <div className="flex flex-col items-center gap-1 mt-5">
+              <span className="text-xs text-muted-foreground/50 font-medium tracking-wide">Start converting below</span>
+              <span className="text-muted-foreground/40 text-base animate-bounce">↓</span>
             </div>
           </div>
 
