@@ -1,0 +1,177 @@
+You are a senior SEO strategist, CRO expert, and React UI engineer.
+
+Your task is to build a HIGH-CONVERSION landing page targeting:
+
+"convert text to pdf without signup"
+
+This page must:
+
+* Rank for high-intent transactional keyword
+* Achieve 10%+ CTR
+* Force immediate tool usage
+* Be optimized for Google + AI Overview
+
+---
+
+PRIMARY GOAL:
+Build a ZERO-FRICTION CONVERSION PAGE
+
+---
+
+STEP 1: SEO METADATA (CRITICAL)
+
+title:
+"Convert Text to PDF Without Signup (Free, Instant, No Upload) | Pixocraft"
+
+description:
+"Convert text to PDF without signup instantly. No login, no upload, no waiting. Paste your text and download PDF in seconds — 100% free and private."
+
+keywords:
+"convert text to pdf without signup, text to pdf no login, free text to pdf online no upload, instant pdf generator"
+
+---
+
+STEP 2: HERO SECTION (HIGH CTR)
+
+H1:
+"Convert Text to PDF Without Signup (Instant & Free)"
+
+Subheading:
+"Paste your text and download a clean, professional PDF instantly — no login, no email, no upload required."
+
+Add trust stack:
+
+* ⚡ Takes less than 5 seconds
+* No email • No login • Start instantly
+* Trusted by 10,000+ users daily worldwide
+
+Add action line:
+
+"Copy → Paste → Download in seconds"
+
+---
+
+STEP 3: TOOL PLACEMENT (CRITICAL)
+
+Place TextToPdfTool immediately below hero
+
+Add label:
+"Start converting your text now"
+
+---
+
+STEP 4: FEATURED SNIPPET BLOCK
+
+H2:
+"Convert Text to PDF Without Signup (Quick Answer)"
+
+Content:
+
+1. Paste your text into the editor
+2. Click "Convert to PDF – Instant Download"
+3. Download your PDF instantly
+
+Add line:
+"No signup, no email, no upload — works instantly."
+
+---
+
+STEP 5: PROBLEM → SOLUTION SECTION (VERY IMPORTANT)
+
+H2:
+"Why Use a No-Signup Text to PDF Converter?"
+
+Explain pain:
+
+* Most tools ask for login
+* Upload risk
+* Slow processing
+
+Then solution:
+"Pixocraft solves this by providing instant, browser-based conversion with zero signup."
+
+---
+
+STEP 6: BENEFITS SECTION
+
+H2:
+"Benefits of Converting Text to PDF Without Signup"
+
+Include:
+
+* No account required
+* 100% private (no upload)
+* Instant results
+* Works on any device
+* Free forever
+
+---
+
+STEP 7: USE CASES (HIGH INTENT)
+
+H2:
+"When You Need This Tool"
+
+Include:
+
+* Quick document creation
+* Copy-paste text conversion
+* Notes to PDF
+* Emails to PDF
+* Code snippets
+
+---
+
+STEP 8: FAQ (SEO BOOST)
+
+Include:
+
+Q: Can I convert text to PDF without signup?
+Q: Is it safe to convert text without upload?
+Q: Does this tool require login?
+Q: How fast is conversion?
+
+---
+
+STEP 9: INTERNAL LINKING
+
+Link to:
+
+* /text-to-pdf
+* /paste-text-to-pdf
+* /notes-to-pdf
+
+---
+
+STEP 10: UX RULES
+
+* Clean, minimal UI
+* No distractions
+* Focus on CTA
+* Mobile-first
+* Fast load
+
+---
+
+STEP 11: PSYCHOLOGY RULES
+
+* Remove friction words (signup, upload, login)
+* Highlight speed everywhere
+* Repeat trust signals
+* Guide user to action
+
+---
+
+STEP 12: FINAL OUTPUT
+
+Return full React component with:
+
+* SEO
+* schema
+* structured sections
+* tool integration
+
+DO NOT EXPLAIN.
+ONLY RETURN CODE.
+
+---
