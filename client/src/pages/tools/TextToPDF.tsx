@@ -293,7 +293,12 @@ export default function TextToPDF() {
 
       while (position < canvasHeight) {
         const idealCut = Math.min(position + pageHeightPx, canvasHeight);
-        const actualCut = idealCut >= canvasHeight ? canvasHeight : findBestCut(idealCut);
+        let actualCut = idealCut >= canvasHeight ? canvasHeight : findBestCut(idealCut);
+        // If remaining content after this cut is tiny, absorb it into the current page
+        // to prevent a near-empty last page
+        if (canvasHeight - actualCut < pageHeightPx * 0.08) {
+          actualCut = canvasHeight;
+        }
         const sliceHeight = actualCut - position;
         if (sliceHeight <= 0) break;
 
