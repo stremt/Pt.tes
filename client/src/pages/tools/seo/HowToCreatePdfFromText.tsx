@@ -133,6 +133,9 @@ export default function HowToCreatePdfFromText() {
             <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
               Turn any text into a clean, professional PDF in seconds — no signup, no upload, no waiting.
             </p>
+            <p className="text-base font-bold text-primary mb-4 tracking-wide">
+              Copy → Paste → Download your PDF in seconds
+            </p>
             <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
               <Zap className="h-3.5 w-3.5" />
               Takes less than 5 seconds
@@ -196,6 +199,12 @@ export default function HowToCreatePdfFromText() {
                 ))}
               </ol>
               <p className="text-sm text-muted-foreground">That's it. No account, no email, no file upload. Works in seconds on any device.</p>
+              <p className="text-sm text-muted-foreground mt-3">
+                Looking for the direct tool?{" "}
+                <Link href="/tools/text-to-pdf" className="text-primary font-semibold hover:underline">
+                  Use our Text to PDF converter instantly
+                </Link>.
+              </p>
             </section>
 
             {/* Detailed Guide */}
