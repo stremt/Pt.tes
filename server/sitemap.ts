@@ -370,6 +370,7 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/outline-css-generator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/palindrome-checker", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/pangram-generator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
+  { loc: "/tools/how-to-create-pdf-from-text", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/paste-text-to-pdf", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/pay-split-calculator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/pdf-password-remover", priority: 0.8, changefreq: "monthly", lastmod: TODAY },

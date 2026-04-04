@@ -1,0 +1,161 @@
+You are a senior SEO strategist, UX engineer, and conversion optimization expert.
+
+Your task is to create a NEW high-ranking landing page targeting the keyword:
+
+"how to create pdf from text online free"
+
+This page must:
+
+* Rank for informational + transactional intent
+* Drive high CTR (8–15%)
+* Push users to use the tool immediately
+* Be structured for featured snippets + AI results
+
+---
+
+PRIMARY GOAL:
+Build a hybrid page:
+GUIDE + TOOL + CONVERSION ENGINE
+
+---
+
+STEP 1: SEO METADATA (CRITICAL)
+
+title:
+"How to Create PDF from Text Online Free (No Signup, Instant) | Pixocraft"
+
+description:
+"Learn how to create a PDF from text online for free in seconds. No signup, no upload required. Follow simple steps and convert text to PDF instantly."
+
+keywords:
+"how to create pdf from text, text to pdf online free, convert text to pdf without signup, create pdf from text online"
+
+---
+
+STEP 2: HERO SECTION (VERY IMPORTANT)
+
+H1:
+"How to Create PDF from Text Online Free (Step-by-Step Guide)"
+
+Subheading:
+"Turn any text into a clean, professional PDF in seconds — no signup, no upload, no waiting."
+
+Add:
+
+* ⚡ Takes less than 5 seconds
+* No email • No login • Start instantly
+* Trusted by 10,000+ users daily worldwide
+
+---
+
+STEP 3: INSTANT TOOL PLACEMENT (CRITICAL)
+
+Place TextToPdfTool IMMEDIATELY below hero
+
+Add small label above tool:
+"Try it now – create your PDF instantly"
+
+---
+
+STEP 4: FEATURED SNIPPET BLOCK (VERY IMPORTANT)
+
+Add section:
+
+H2:
+"How to Create PDF from Text Online (Quick Answer)"
+
+Content:
+
+1. Paste your text into the editor
+2. Click "Convert to PDF"
+3. Download your PDF instantly
+
+Keep this concise for Google snippet
+
+---
+
+STEP 5: DETAILED GUIDE SECTION
+
+H2:
+"Step-by-Step Guide to Convert Text to PDF"
+
+Add expanded steps with explanation:
+
+* Paste text
+* Format (optional)
+* Convert
+* Download
+
+---
+
+STEP 6: BENEFITS SECTION
+
+H2:
+"Why Create PDF from Text Online?"
+
+Include:
+
+* No software required
+* Works on any device
+* 100% private (no uploads)
+* Instant results
+
+---
+
+STEP 7: USE CASES (IMPORTANT)
+
+H2:
+"When to Use This Tool"
+
+Include:
+
+* Notes to PDF
+* Copy-paste content
+* Emails
+* Code snippets
+
+---
+
+STEP 8: FAQ (SEO BOOST)
+
+Include:
+
+Q: How to create PDF from text online free without signup?
+Q: Can I convert copied text to PDF instantly?
+Q: Is it safe to convert text to PDF online?
+
+---
+
+STEP 9: INTERNAL LINKING
+
+Add links to:
+
+* /text-to-pdf
+* /paste-text-to-pdf
+* /notes-to-pdf
+
+---
+
+STEP 10: UX RULES
+
+* Clean spacing
+* Mobile-first design
+* Fast load
+* No heavy elements
+* Focus on action
+
+---
+
+STEP 11: FINAL OUTPUT
+
+Return full React component with:
+
+* SEO
+* structured content
+* tool integration
+* clean UI
+
+DO NOT EXPLAIN.
+ONLY RETURN CODE.
+
+---

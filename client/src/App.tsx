@@ -133,6 +133,7 @@ const TxtToPdf = lazy(() => import("@/pages/tools/seo/TxtToPdf"));
 const TextToPdfLongtail = lazy(() => import("@/pages/tools/seo/TxtToPdf"));
 const PasteTextToPdf = lazy(() => import("@/pages/tools/seo/PasteTextToPdf"));
 const TextFileToPdf = lazy(() => import("@/pages/tools/seo/TextFileToPdf"));
+const HowToCreatePdfFromText = lazy(() => import("@/pages/tools/seo/HowToCreatePdfFromText"));
 const MarkdownToPdf = lazy(() => import("@/pages/tools/seo/MarkdownToPdf"));
 const TextWithImagesToPdf = lazy(() => import("@/pages/tools/seo/TextWithImagesToPdf"));
 const TableToPdf = lazy(() => import("@/pages/tools/seo/TableToPdf"));
@@ -892,6 +893,7 @@ function Router() {
         <Route path="/tools/excel-viewer" component={ExcelViewer} />
         <Route path="/tools/html-to-pdf" component={HTMLtoPDF} />
         <Route path="/tools/text-to-pdf" component={TextToPDF} />
+        <Route path="/tools/how-to-create-pdf-from-text" component={HowToCreatePdfFromText} />
         <Route path="/tools/txt-to-pdf" component={TxtToPdf} />
         <Route path="/tools/convert-text-to-pdf" component={TextToPdfLongtail} />
         <Route path="/tools/paste-text-to-pdf" component={PasteTextToPdf} />
