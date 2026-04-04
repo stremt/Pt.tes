@@ -181,15 +181,8 @@ export default function YouTubeThumbnailDownloaderOnline() {
         </div>
 
         {/* ── TOOL (above the fold) ────────────────────────────────────────── */}
-        <div className="max-w-4xl mx-auto px-4 pb-10" ref={ctaRef} id="tool">
-          <Card className="border-2 border-primary/20 shadow-sm">
-            <CardContent className="pt-5 pb-6 space-y-1">
-              <p className="text-sm font-semibold text-muted-foreground mb-3">
-                Step 1 — Paste YouTube link &amp; download your thumbnail online:
-              </p>
-              <YouTubeThumbnailTool variant="compact" autoFocus={false} />
-            </CardContent>
-          </Card>
+        <div className="max-w-5xl mx-auto px-4 pb-10" ref={ctaRef} id="tool">
+          <YouTubeThumbnailTool testIdPrefix="ytonline" />
         </div>
 
         {/* ── CONTENT ──────────────────────────────────────────────────────── */}

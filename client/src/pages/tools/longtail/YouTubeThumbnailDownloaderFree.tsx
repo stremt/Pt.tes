@@ -73,30 +73,16 @@ export default function YouTubeThumbnailDownloaderFree() {
         </div>
 
         {/* ── TOOL (above the fold) ──────────────────────────────────────── */}
-        <div className="max-w-4xl mx-auto px-4 pb-10 pt-4" ref={toolRef} id="tool">
-          <Card className="border-2 border-primary/20 shadow-sm">
-            <CardContent className="pt-5 pb-6">
-              <p className="text-xs font-semibold text-muted-foreground mb-3">
-                Paste YouTube link → Get thumbnails instantly
-              </p>
-              <Suspense
-                fallback={
-                  <div className="h-20 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
-                    Loading tool…
-                  </div>
-                }
-              >
-                <YouTubeThumbnailTool variant="compact" testIdPrefix="ytfree" />
-              </Suspense>
-            </CardContent>
-          </Card>
-          <p className="text-center text-xs text-muted-foreground mt-3">
-            Want full features? {" "}
-            <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2 font-medium">
-              Use the best YouTube thumbnail downloader
-            </Link>
-            {" "}— ZIP download, CTR analyzer &amp; more.
-          </p>
+        <div className="max-w-5xl mx-auto px-4 pb-10 pt-4" ref={toolRef} id="tool">
+          <Suspense
+            fallback={
+              <div className="h-20 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+                Loading tool…
+              </div>
+            }
+          >
+            <YouTubeThumbnailTool testIdPrefix="ytfree" />
+          </Suspense>
         </div>
 
         {/* ── CONTENT ────────────────────────────────────────────────────── */}
