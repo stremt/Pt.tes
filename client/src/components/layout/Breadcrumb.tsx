@@ -15,6 +15,10 @@ function toRelativeUrl(url: string): string {
   }
 }
 
+function getLabel(item: BreadcrumbItem): string {
+  return item.name ?? item.label ?? "";
+}
+
 export function Breadcrumb({ items }: BreadcrumbProps) {
   const breadcrumbSchema = generateBreadcrumbSchema(items);
 
@@ -28,7 +32,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
               {index > 0 && <ChevronRight className="h-4 w-4 mx-2" data-testid={`breadcrumb-separator-${index}`} />}
               {index === items.length - 1 || !item.url ? (
                 <span className="text-foreground font-medium" data-testid={`breadcrumb-current`}>
-                  {item.name}
+                  {getLabel(item)}
                 </span>
               ) : (
                 <Link
@@ -36,7 +40,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                   className="hover:text-foreground transition-colors"
                   data-testid={`breadcrumb-link-${index}`}
                 >
-                  {item.name}
+                  {getLabel(item)}
                 </Link>
               )}
             </li>

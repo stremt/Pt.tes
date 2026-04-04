@@ -304,8 +304,13 @@ export function generateHowToSchema({ name, description, steps }: HowToSchemaPro
 
 // Breadcrumb Schema Generator
 export interface BreadcrumbItem {
-  name: string;
+  name?: string;
+  label?: string;
   url?: string;
+}
+
+function getBreadcrumbLabel(item: BreadcrumbItem): string {
+  return item.name ?? item.label ?? "";
 }
 
 export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
@@ -322,7 +327,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
         return {
           "@type": "ListItem",
           "position": index + 1,
-          "name": item.name,
+          "name": getBreadcrumbLabel(item),
           "item": fullUrl,
         };
       }),
