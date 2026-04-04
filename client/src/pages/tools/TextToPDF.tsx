@@ -398,6 +398,19 @@ export default function TextToPDF() {
           }
         });
 
+        // Remove top margin from first child <p> so marker and text sit on the same baseline
+        Array.from(content.children).forEach((child, i) => {
+          const el = child as HTMLElement;
+          if (i === 0 && el.tagName === "P") {
+            el.style.marginTop = "0";
+            el.style.marginBottom = "2px";
+          }
+          // Also zero last <p> bottom margin to avoid double spacing with row marginBottom
+          if (i === content.children.length - 1 && el.tagName === "P") {
+            el.style.marginBottom = "0";
+          }
+        });
+
         row.appendChild(marker);
         row.appendChild(content);
         wrapper.appendChild(row);
