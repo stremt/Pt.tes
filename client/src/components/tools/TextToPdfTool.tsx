@@ -40,6 +40,10 @@ export function TextToPdfTool({
     localStorage.setItem(storageKey, textContent);
   }, [textContent, storageKey]);
 
+  useEffect(() => {
+    textareaRef.current?.focus();
+  }, []);
+
   const insertMarkdown = (before: string, after: string = "") => {
     const textarea = textareaRef.current;
     if (!textarea) return;
@@ -342,10 +346,10 @@ export function TextToPdfTool({
                   data-testid="button-convert"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  {converting ? "Creating your PDF..." : "Download PDF"}
+                  {converting ? "Creating your PDF..." : "Convert to PDF – Instant Download"}
                 </Button>
               </div>
-              <p className="text-xs text-center text-muted-foreground/60 mt-1" data-testid="text-trust-line">No signup • No upload • 100% secure</p>
+              <p className="text-xs text-center text-muted-foreground/60 mt-1" data-testid="text-trust-line">No email • No login • Start instantly</p>
             </CardContent>
           </Card>
 

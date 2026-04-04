@@ -76,38 +76,53 @@ export default function PasteTextToPdf() {
             <span className="text-foreground font-medium">Paste Text to PDF</span>
           </div>
 
-          <div className="text-center space-y-8 mb-16 relative">
-            <div className="flex items-center justify-center mb-4">
-              <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center ring-1 ring-primary/30 shadow-lg">
-                <Type className="h-12 w-12 text-primary" />
-              </div>
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-xs font-semibold px-4 py-1.5 rounded-full mb-6 tracking-wide uppercase">
+              <Zap className="h-3 w-3" />
+              Free · No Signup · Instant Download
             </div>
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent leading-tight">
-                Paste Text to PDF Online
-              </h1>
-              <p className="text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed mt-3">
-                Turn any text into a clean, professional PDF in seconds — no signup, no waiting.
-              </p>
-              <p className="text-base font-bold text-primary mt-1">100% Private • Offline • Free</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
+              Paste Text to PDF Online Free
+              <span className="block text-primary mt-1">(Instant, No Signup)</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed mb-3">
+              Convert copied text into a clean, professional PDF in seconds — no login, no uploads, no waiting.
+            </p>
+            <div className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary mb-6">
+              <Zap className="h-3.5 w-3.5" />
+              Takes less than 5 seconds
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-5">
               <Badge className="bg-primary text-primary-foreground font-semibold px-3 py-1">
-                ⚡ Instant PDF Generator
+                Instant PDF Generator
               </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
-                Copy & Paste
-              </Badge>
-              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
-                Instant Conversion
+                Copy &amp; Paste
               </Badge>
               <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
                 Any Source
               </Badge>
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
+                Takes 5 Seconds
+              </Badge>
+              <Badge variant="secondary" className="bg-primary/10 border-primary/30 hover-elevate font-medium">
+                100% Private
+              </Badge>
             </div>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 pt-1">
+
+            <p className="text-sm font-semibold text-foreground mb-4">
+              No email &bull; No login &bull; Start instantly
+            </p>
+
+            <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500 inline-block" />
-              Used by 10,000+ users daily
+              Trusted by 10,000+ users daily worldwide
+            </div>
+
+            <div className="flex flex-col items-center gap-1 mt-5">
+              <span className="text-xs text-muted-foreground/50 font-medium tracking-wide">Start converting below</span>
+              <span className="text-muted-foreground/40 text-base animate-bounce">↓</span>
             </div>
           </div>
 
