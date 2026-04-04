@@ -772,9 +772,6 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
                         <p className="text-xs text-center text-muted-foreground/70 font-medium">
                           No email &bull; No login &bull; Start instantly
                         </p>
-                        <p className="text-xs text-center text-muted-foreground/40">
-                          No signup &bull; No upload &bull; 100% secure
-                        </p>
                       </div>
                     </div>
                   </CardContent>
