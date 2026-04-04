@@ -39,7 +39,6 @@ export default function TempMail() {
           items={[
             { label: "Home", url: "/" },
             { label: "Tools", url: "/tools" },
-            { label: "Privacy Tools", url: "/tools/privacy" },
             { label: "Temp Mail Generator" },
           ]}
         />
@@ -71,7 +70,7 @@ export default function TempMail() {
               </Link>
             </Button>
             <Button variant="outline" asChild size="lg" className="hover-elevate">
-              <Link href="/tools/privacy">
+              <Link href="/tools?category=privacy">
                 Privacy Tools
               </Link>
             </Button>

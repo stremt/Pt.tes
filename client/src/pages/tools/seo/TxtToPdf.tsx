@@ -59,7 +59,7 @@ export default function TxtToPdfConverter() {
     title: "TXT to PDF Converter Online Free – Convert Text Files to PDF | Pixocraft",
     description: "Convert TXT files to PDF online with Pixocraft. Fast, private, and free text to PDF converter. No uploads required. Works on any device.",
     keywords: "txt to pdf, text file to pdf, convert txt to pdf, free txt to pdf converter, txt to pdf online",
-    canonicalUrl: "https://tools.pixocraft.in/tools/txt-to-pdf",
+    canonicalUrl: "https://tools.pixocraft.in/tools/convert-text-to-pdf",
     ogTitle: "TXT to PDF Converter Online Free – Convert Text Files to PDF | Pixocraft",
     ogDescription: "Convert TXT files to PDF online with Pixocraft. Fast, private, and free text to PDF converter. No uploads required. Works on any device.",
     ogType: "website",

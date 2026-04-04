@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# Disallow tracking/referral parameter URLs to prevent duplicate content
+Disallow: /*?ref=*
+Disallow: /*?utm_*
+
 # Disallow filtered/search result pages to prevent duplicate/thin content indexing
 Disallow: /tools?q=*
 Disallow: /tools?category=*
