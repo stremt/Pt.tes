@@ -99,10 +99,15 @@ export default function TextToPDF() {
       const element = document.createElement('div');
       element.style.fontFamily = fontFamily;
       element.style.fontSize = fontSize + "pt";
-      element.style.lineHeight = "1.6";
-      element.style.padding = "20px";
+      element.style.lineHeight = "1.8";
+      element.style.padding = "20px 24px";
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
+      element.style.overflow = "visible";
+      element.style.position = "fixed";
+      element.style.left = "-9999px";
+      element.style.top = "0";
+      element.style.width = "794px";
 
       let htmlContent = "";
       
@@ -123,8 +128,11 @@ export default function TextToPDF() {
             .pdf-export-content h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; }
             .pdf-export-content h5, .pdf-export-content h6 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
             .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; }
-            .pdf-export-content ul, .pdf-export-content ol { margin: 12px 0 12px 24px; }
-            .pdf-export-content li { margin: 8px 0; line-height: 1.7; }
+            .pdf-export-content ul { margin: 12px 0 12px 0; padding-left: 28px; list-style-type: disc; }
+            .pdf-export-content ol { margin: 12px 0 12px 0; padding-left: 28px; list-style-type: decimal; }
+            .pdf-export-content ul ul { list-style-type: circle; margin: 4px 0 4px 0; }
+            .pdf-export-content ul ul ul { list-style-type: square; }
+            .pdf-export-content li { margin: 8px 0; line-height: 1.7; display: list-item; }
             .pdf-export-content strong, .pdf-export-content b { font-weight: 700; }
             .pdf-export-content blockquote {
               border-left: 4px solid #cccccc;
