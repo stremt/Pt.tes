@@ -10,7 +10,8 @@ import { useSEO, StructuredData, generateFAQSchema, type FAQItem } from "@/lib/s
 import { FileText, Download, Eye, Heading2, Bold, List, ListOrdered, AlignLeft, AlignCenter, AlignRight, Code, ChevronDown, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
-import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import { marked } from "marked";
 
 export default function TextToPDF() {
@@ -229,32 +230,95 @@ export default function TextToPDF() {
       element.innerHTML = htmlContent;
       document.body.appendChild(element);
       
-      const opt = {
-        margin: 10,
-        filename: titleText ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf' : 'document.pdf',
-        html2canvas: { 
-          scale: 2.5, 
-          backgroundColor: '#ffffff',
-          useCORS: true,
-          logging: true,
-          allowTaint: true
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: pageOrientation === 'landscape' ? 'landscape' : 'portrait',
-          compress: true
-        },
-        pagebreak: {
-          mode: ["css", "legacy"],
-          avoid: [".pdf-row", "p", "h1", "h2", "h3", "h4", "h5", "h6", "pre", "blockquote"]
-        }
-      };
-
-      // Add a small delay to ensure styles and KaTeX are fully rendered
+      // Give browser time to fully render styles
       await new Promise(r => setTimeout(r, 500));
 
-      await html2pdf().set(opt).from(element).save();
+      const isLandscape = pageOrientation === 'landscape';
+      const pageWmm = isLandscape ? 297 : 210;
+      const pageHmm = isLandscape ? 210 : 297;
+      const MARGIN_MM = 10;
+      const contentWmm = pageWmm - 2 * MARGIN_MM;
+      const contentHmm = pageHmm - 2 * MARGIN_MM;
+
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+      });
+
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const pxPerMm = canvasWidth / contentWmm;
+      const pageHeightPx = Math.floor(contentHmm * pxPerMm);
+      const ctx = canvas.getContext('2d')!;
+
+      // Scan upward from idealCut to find the whitest (gap) row
+      const findBestCut = (idealCut: number): number => {
+        if (idealCut >= canvasHeight) return canvasHeight;
+        const searchRange = Math.floor(pageHeightPx * 0.12);
+        const searchStart = Math.max(0, idealCut - searchRange);
+        let bestRow = idealCut;
+        let bestScore = -1;
+        const step = Math.max(1, Math.floor(canvasWidth / 80));
+        for (let y = idealCut; y >= searchStart; y--) {
+          const data = ctx.getImageData(0, y, canvasWidth, 1).data;
+          let white = 0, total = 0;
+          for (let x = 0; x < canvasWidth; x += step) {
+            const i = x * 4;
+            if (data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245) white++;
+            total++;
+          }
+          const score = white / total;
+          if (score > bestScore) { bestScore = score; bestRow = y; }
+          if (score >= 0.98) break;
+        }
+        return bestRow;
+      };
+
+      const filename = titleText
+        ? titleText.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.pdf'
+        : 'document.pdf';
+
+      const pdf = new jsPDF({
+        orientation: isLandscape ? 'landscape' : 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        compress: true,
+      });
+
+      let position = 0;
+      let pageNum = 0;
+
+      while (position < canvasHeight) {
+        const idealCut = Math.min(position + pageHeightPx, canvasHeight);
+        const actualCut = idealCut >= canvasHeight ? canvasHeight : findBestCut(idealCut);
+        const sliceHeight = actualCut - position;
+        if (sliceHeight <= 0) break;
+
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvasWidth;
+        sliceCanvas.height = sliceHeight;
+        const sliceCtx = sliceCanvas.getContext('2d')!;
+        sliceCtx.fillStyle = '#ffffff';
+        sliceCtx.fillRect(0, 0, canvasWidth, sliceHeight);
+        sliceCtx.drawImage(canvas, 0, position, canvasWidth, sliceHeight, 0, 0, canvasWidth, sliceHeight);
+
+        if (pageNum > 0) pdf.addPage();
+        pdf.addImage(
+          sliceCanvas.toDataURL('image/jpeg', 0.95),
+          'JPEG',
+          MARGIN_MM, MARGIN_MM,
+          contentWmm,
+          sliceHeight / pxPerMm
+        );
+
+        position = actualCut;
+        pageNum++;
+      }
+
+      pdf.save(filename);
       document.body.removeChild(element);
 
       toast({
@@ -302,10 +366,10 @@ export default function TextToPDF() {
         const isChecked = isCheckbox && (firstChild as HTMLInputElement).checked;
 
         const marker = doc.createElement("span");
-        marker.style.minWidth = "22px";
+        marker.style.minWidth = ordered ? "28px" : "20px";
         marker.style.flexShrink = "0";
         marker.style.fontWeight = ordered ? "normal" : "bold";
-        marker.style.paddingTop = "1px";
+        marker.style.lineHeight = "1.7";
         if (isCheckbox) {
           marker.textContent = isChecked ? "☑" : "☐";
           marker.style.fontWeight = "normal";
@@ -313,8 +377,9 @@ export default function TextToPDF() {
           marker.textContent = ordered ? `${idx + 1}.` : bullet!;
         }
 
-        const content = doc.createElement("span");
+        const content = doc.createElement("div");
         content.style.flex = "1";
+        content.style.minWidth = "0";
 
         Array.from(li.childNodes).forEach(node => {
           if (node.nodeType === Node.ELEMENT_NODE) {
