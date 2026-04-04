@@ -127,7 +127,7 @@ export default function TextToPDF() {
             .pdf-export-content h3 { font-size: 16px; font-weight: 700; margin: 20px 0 10px; }
             .pdf-export-content h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; }
             .pdf-export-content h5, .pdf-export-content h6 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
-            .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; }
+            .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; }
             .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0; padding: 0; list-style: none; }
             .pdf-export-content li { margin: 6px 0; line-height: 1.7; }
             .pdf-export-content br { display: block; content: ""; margin-top: 4px; }
@@ -180,7 +180,6 @@ export default function TextToPDF() {
             .pdf-export-content h5,
             .pdf-export-content h6 {
               page-break-inside: avoid;
-              page-break-after: avoid;
             }
             .pdf-export-content table {
               width: 100%;
@@ -246,7 +245,7 @@ export default function TextToPDF() {
           compress: true
         },
         pagebreak: {
-          mode: ["avoid-all", "css", "legacy"]
+          mode: ["legacy"]
         }
       };
 
