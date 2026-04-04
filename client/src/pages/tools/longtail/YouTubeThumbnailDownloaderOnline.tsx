@@ -1,29 +1,19 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSEO, StructuredData } from "@/lib/seo";
 import { Link } from "wouter";
 import {
   CheckCircle2, XCircle, Download, Zap, Globe, Smartphone,
-  ShieldCheck, Lock, ArrowRight, AlertCircle, ChevronDown
+  ShieldCheck, Lock, ArrowRight, ChevronDown
 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const DEMO_VIDEO_ID = "dQw4w9WgXcQ";
-const DEMO_URL = `https://www.youtube.com/watch?v=${DEMO_VIDEO_ID}`;
 const CANONICAL = "https://tools.pixocraft.in/tools/youtube-thumbnail-downloader/online";
 const MAIN_TOOL = "/tools/youtube-thumbnail-downloader";
-
-const SIZES = [
-  { label: "Max HD", key: "maxresdefault", width: 1280, height: 720 },
-  { label: "High", key: "hqdefault", width: 480, height: 360 },
-  { label: "Medium", key: "mqdefault", width: 320, height: 180 },
-  { label: "SD", key: "sddefault", width: 640, height: 480 },
-  { label: "Default", key: "default", width: 120, height: 90 },
-];
 
 // ─── Schema ──────────────────────────────────────────────────────────────────
 
@@ -126,165 +116,6 @@ const webPageSchema = {
   inLanguage: "en",
   isPartOf: { "@type": "WebSite", url: "https://tools.pixocraft.in" },
 };
-
-// ─── Helper ───────────────────────────────────────────────────────────────────
-
-function extractVideoId(url: string): string | null {
-  const patterns = [
-    /[?&]v=([^&#]+)/,
-    /youtu\.be\/([^?&#]+)/,
-    /youtube\.com\/embed\/([^?&#]+)/,
-    /youtube\.com\/shorts\/([^?&#]+)/,
-  ];
-  for (const p of patterns) {
-    const m = url.match(p);
-    if (m) return m[1];
-  }
-  return null;
-}
-
-function buildThumbnails(videoId: string) {
-  return SIZES.map((s) => ({
-    ...s,
-    url: `https://img.youtube.com/vi/${videoId}/${s.key}.jpg`,
-    videoId,
-  }));
-}
-
-// ─── Mini Tool ────────────────────────────────────────────────────────────────
-
-function MiniTool() {
-  const [url, setUrl] = useState("");
-  const [thumbnails, setThumbnails] = useState<ReturnType<typeof buildThumbnails>>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [selected, setSelected] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => { inputRef.current?.focus(); }, []);
-
-  const extract = useCallback((overrideUrl?: string) => {
-    const u = overrideUrl ?? url;
-    setError("");
-    if (!u.trim()) { setError("Please paste a YouTube URL first."); return; }
-    const id = extractVideoId(u);
-    if (!id) { setError("Invalid YouTube URL. Try: youtube.com/watch?v=..."); return; }
-    setLoading(true);
-    setTimeout(() => {
-      setThumbnails(buildThumbnails(id));
-      setSelected(0);
-      setLoading(false);
-    }, 350);
-  }, [url]);
-
-  const download = (thumb: ReturnType<typeof buildThumbnails>[0]) => {
-    const a = document.createElement("a");
-    a.href = thumb.url;
-    a.download = `thumbnail-${thumb.videoId}-${thumb.key}.jpg`;
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
-  const current = thumbnails[selected];
-
-  return (
-    <div className="space-y-4">
-      {/* Input row */}
-      <div className="flex flex-col sm:flex-row gap-2">
-        <Input
-          ref={inputRef}
-          placeholder="Paste YouTube URL — e.g. youtube.com/watch?v=..."
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && extract()}
-          data-testid="input-youtube-url-online"
-          className="h-11 text-base flex-1"
-        />
-        <Button
-          onClick={() => extract()}
-          disabled={loading}
-          className="h-11 px-6 font-semibold flex-shrink-0"
-          data-testid="button-get-thumbnails-online"
-        >
-          {loading
-            ? <span className="flex items-center gap-2"><span className="h-4 w-4 rounded-full border-2 border-primary-foreground border-t-transparent animate-spin" />Extracting…</span>
-            : <><Zap className="w-4 h-4 mr-1.5" />Get Thumbnails</>}
-        </Button>
-      </div>
-
-      <div className="flex items-center gap-3 flex-wrap">
-        <p className="text-xs text-muted-foreground">Works with youtube.com • youtu.be • Shorts — No login</p>
-        <button
-          onClick={() => { setUrl(DEMO_URL); extract(DEMO_URL); }}
-          className="text-xs text-primary font-medium underline underline-offset-2 hover-elevate"
-          data-testid="button-try-sample-online"
-        >
-          Try a sample link
-        </button>
-      </div>
-
-      {error && (
-        <div className="flex items-center gap-2 text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2">
-          <AlertCircle className="w-4 h-4 flex-shrink-0" />
-          {error}
-        </div>
-      )}
-
-      {/* Preview + size picker */}
-      {thumbnails.length > 0 && current && (
-        <div className="grid md:grid-cols-2 gap-4 pt-2">
-          {/* Preview */}
-          <div className="rounded-lg overflow-hidden border bg-muted/30">
-            <img
-              src={current.url}
-              alt={`YouTube thumbnail ${current.label} quality`}
-              className="w-full object-cover"
-            />
-            <div className="px-3 py-2 flex items-center justify-between text-xs text-muted-foreground">
-              <span>{current.width} × {current.height}px</span>
-              <span>{current.label} Quality</span>
-            </div>
-          </div>
-
-          {/* Size picker + download */}
-          <div className="space-y-2">
-            <p className="text-sm font-medium">Choose resolution</p>
-            <div className="space-y-1.5">
-              {thumbnails.map((t, i) => (
-                <button
-                  key={t.key}
-                  onClick={() => setSelected(i)}
-                  data-testid={`button-select-size-${t.key}`}
-                  className={`w-full text-left px-3 py-2 rounded-md border text-sm transition-colors ${i === selected ? "border-primary bg-primary/5 font-semibold" : "border-border hover-elevate"}`}
-                >
-                  <span>{t.label}</span>
-                  <span className="text-muted-foreground ml-2">{t.width}×{t.height}</span>
-                </button>
-              ))}
-            </div>
-            <Button
-              onClick={() => download(current)}
-              className="w-full mt-3 font-semibold"
-              data-testid="button-download-thumbnail-online"
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Download {current.label} ({current.width}×{current.height})
-            </Button>
-            <p className="text-center text-xs text-muted-foreground">
-              Want more features?{" "}
-              <Link href={MAIN_TOOL} className="text-primary underline underline-offset-2">
-                Try the full tool
-              </Link>{" "}
-              — ZIP download, CTR analyzer & more
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
