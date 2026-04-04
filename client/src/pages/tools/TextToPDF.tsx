@@ -128,6 +128,7 @@ export default function TextToPDF() {
             .pdf-export-content h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; }
             .pdf-export-content h5, .pdf-export-content h6 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; }
             .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; break-inside: avoid; }
+            .pdf-row { page-break-inside: avoid; break-inside: avoid; }
             .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0; padding: 0; list-style: none; }
             .pdf-export-content li { margin: 6px 0; line-height: 1.7; }
             .pdf-export-content br { display: block; content: ""; margin-top: 4px; }
@@ -245,7 +246,8 @@ export default function TextToPDF() {
           compress: true
         },
         pagebreak: {
-          mode: ["css", "legacy"]
+          mode: ["css", "legacy"],
+          avoid: [".pdf-row", "p", "h1", "h2", "h3", "h4", "h5", "h6", "pre", "blockquote"]
         }
       };
 
@@ -286,13 +288,12 @@ export default function TextToPDF() {
       const items = Array.from(listEl.children).filter(c => c.tagName === "LI");
       items.forEach((li, idx) => {
         const row = doc.createElement("div");
+        row.className = "pdf-row";
         row.style.display = "flex";
         row.style.alignItems = "flex-start";
         row.style.marginLeft = indent + "px";
         row.style.marginBottom = "6px";
         row.style.lineHeight = "1.7";
-        row.style.pageBreakInside = "avoid";
-        row.style.breakInside = "avoid";
 
         // Detect task list item (checkbox)
         const firstChild = li.firstElementChild;
