@@ -114,7 +114,8 @@ export default function TextToPDF() {
           breaks: true
         });
         let markdownHtml = await marked(textContent);
-        markdownHtml = markdownHtml.replace(/<br\s*\/?>/g, "");
+        markdownHtml = markdownHtml.replace(/(<(?:h[1-6]|p|li|blockquote|pre|div)[^>]*>)\s*<br\s*\/?>/gi, "$1");
+        markdownHtml = markdownHtml.replace(/<br\s*\/?>\s*(<\/(?:h[1-6]|p|li|blockquote|pre|div)>)/gi, "$1");
         markdownHtml = convertListsForPDF(markdownHtml);
 
         htmlContent += `
@@ -128,6 +129,7 @@ export default function TextToPDF() {
             .pdf-export-content p { font-size: 12pt; margin: 12px 0; line-height: 1.8; page-break-inside: avoid; }
             .pdf-export-content ul, .pdf-export-content ol { margin: 10px 0; padding: 0; list-style: none; }
             .pdf-export-content li { margin: 6px 0; line-height: 1.7; }
+            .pdf-export-content br { display: block; content: ""; margin-top: 4px; }
             .pdf-export-content strong, .pdf-export-content b { font-weight: 700; }
             .pdf-export-content blockquote {
               border-left: 4px solid #cccccc;
@@ -436,6 +438,7 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
       .md-preview ul, .md-preview ol { margin: 10px 0 10px 22px; }
       .md-preview li { margin: 6px 0; line-height: 1.7; color: #000; }
       .md-preview strong, .md-preview b { font-weight: 700; color: #000; }
+      .md-preview br { display: block; content: ""; margin-top: 3px; }
       .md-preview em, .md-preview i { font-style: italic; }
       .md-preview blockquote { border-left: 3px solid #ccc; margin: 12px 0; padding: 6px 12px; color: #555; background: #f9f9f9; }
       .md-preview hr { border: none; border-top: 1px solid #ddd; margin: 16px 0; }
@@ -458,7 +461,8 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
         breaks: true
       });
       let html = await marked(content);
-      html = html.replace(/<br\s*\/?>/g, "");
+      html = html.replace(/(<(?:h[1-6]|p|li|blockquote|pre|div)[^>]*>)\s*<br\s*\/?>/gi, "$1");
+      html = html.replace(/<br\s*\/?>\s*(<\/(?:h[1-6]|p|li|blockquote|pre|div)>)/gi, "$1");
       setHtmlContent(html);
     };
 
