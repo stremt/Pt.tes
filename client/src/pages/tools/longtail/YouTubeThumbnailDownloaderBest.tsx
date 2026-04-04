@@ -207,10 +207,10 @@ export default function YouTubeThumbnailDownloaderBest() {
         {/* Breadcrumb */}
         <div className="max-w-6xl mx-auto px-4 pt-8">
           <Breadcrumb items={[
-            { label: "Home", url: "/" },
-            { label: "Tools", url: "/tools" },
-            { label: "YouTube Thumbnail Downloader", url: MAIN_TOOL },
-            { label: "Best Tools Compared" },
+            { name: "Home", url: "/" },
+            { name: "Tools", url: "/tools" },
+            { name: "YouTube Thumbnail Downloader", url: MAIN_TOOL },
+            { name: "Best Tools Compared" },
           ]} />
         </div>
 
