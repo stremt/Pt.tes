@@ -423,7 +423,7 @@ export default function YouTubeThumbnailDownloader() {
                   className="text-base h-11 flex-1"
                 />
                 <Button
-                  onClick={handleExtractThumbnails}
+                  onClick={() => handleExtractThumbnails()}
                   disabled={loading}
                   className="h-11 px-5 font-semibold flex-shrink-0"
                   data-testid="button-extract-thumbnails"
