@@ -156,16 +156,16 @@ export default function WordCounterSocialMedia() {
                 {" "} – Count post words for social media
               </li>
               <li>
-                <Link href="/tools/character-counter" className="hover:text-foreground transition-colors underline">
+                <Link href="/tools/character-paragraph-counter" className="hover:text-foreground transition-colors underline">
                   Character Counter
                 </Link>
                 {" "} – Count characters for Twitter
               </li>
               <li>
-                <Link href="/tools/post-scheduler" className="hover:text-foreground transition-colors underline">
-                  Post Scheduler
+                <Link href="/tools/utm-builder" className="hover:text-foreground transition-colors underline">
+                  UTM Builder
                 </Link>
-                {" "} – Schedule optimized posts
+                {" "} – Track optimized posts
               </li>
             </ul>
           </div>

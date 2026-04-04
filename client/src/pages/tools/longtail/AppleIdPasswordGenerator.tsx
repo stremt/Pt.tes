@@ -348,7 +348,7 @@ export default function AppleIdPasswordGenerator() {
 
             {/* Internal Links */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-16 border-t">
-              <Link href="/password-generator" className="group">
+              <Link href="/tools/password-generator" className="group">
                 <Card className="hover-elevate transition-all">
                   <CardHeader className="p-4">
                     <CardTitle className="text-lg flex items-center gap-2 group-hover:text-primary transition-colors">

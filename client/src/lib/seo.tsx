@@ -5,6 +5,7 @@ export interface SEOProps {
   description: string;
   keywords?: string;
   canonicalUrl?: string;
+  canonical?: string;
   ogType?: string;
   ogImage?: string;
   ogTitle?: string;
@@ -23,6 +24,7 @@ export function useSEO({
   description,
   keywords,
   canonicalUrl,
+  canonical,
   ogType = "website",
   ogImage,
   ogTitle,
@@ -32,6 +34,7 @@ export function useSEO({
   robots,
   article,
 }: SEOProps) {
+  const effectiveCanonical = canonicalUrl || canonical;
   useEffect(() => {
     // Set title
     document.title = title;
@@ -58,14 +61,14 @@ export function useSEO({
     }
 
     // Canonical URL
-    if (canonicalUrl) {
+    if (effectiveCanonical) {
       let link = document.querySelector('link[rel="canonical"]');
       if (!link) {
         link = document.createElement("link");
         link.setAttribute("rel", "canonical");
         document.head.appendChild(link);
       }
-      link.setAttribute("href", canonicalUrl);
+      link.setAttribute("href", effectiveCanonical);
     }
 
     // OpenGraph tags — use ogTitle/ogDescription if provided, otherwise fall back to page values
@@ -73,8 +76,8 @@ export function useSEO({
     setMetaTag("og:description", ogDescription ?? description, true);
     setMetaTag("og:type", ogType, true);
     setMetaTag("og:site_name", "Pixocraft Tools", true);
-    if (canonicalUrl) {
-      setMetaTag("og:url", canonicalUrl, true);
+    if (effectiveCanonical) {
+      setMetaTag("og:url", effectiveCanonical, true);
     }
     if (ogImage) {
       setMetaTag("og:image", ogImage, true);
@@ -99,7 +102,7 @@ export function useSEO({
         setMetaTag("article:published_time", article.publishedTime, true);
       }
     }
-  }, [title, description, keywords, canonicalUrl, ogType, ogImage, ogTitle, ogDescription, twitterTitle, twitterDescription, robots, article]);
+  }, [title, description, keywords, effectiveCanonical, ogType, ogImage, ogTitle, ogDescription, twitterTitle, twitterDescription, robots, article]);
 }
 
 export function StructuredData({ data }: { data: object }) {

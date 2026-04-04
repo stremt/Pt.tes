@@ -156,7 +156,7 @@ export default function WordCounterOnline() {
                 {" "} – Count words online
               </li>
               <li>
-                <Link href="/tools/character-counter" className="hover:text-foreground transition-colors underline">
+                <Link href="/tools/character-paragraph-counter" className="hover:text-foreground transition-colors underline">
                   Character Counter
                 </Link>
                 {" "} – Count characters online

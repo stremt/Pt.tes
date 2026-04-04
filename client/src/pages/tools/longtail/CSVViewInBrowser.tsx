@@ -126,14 +126,14 @@ export default function CSVViewInBrowser() {
                     CSV Viewer & Editor - Main Tool
                   </Button>
                 </Link>
-                <Link href="/tools/json-viewer">
+                <Link href="/tools/json-tree-viewer">
                   <Button variant="outline" className="w-full justify-start">
                     JSON Viewer & Editor
                   </Button>
                 </Link>
-                <Link href="/tools/data-table-generator">
+                <Link href="/tools/html-table-generator">
                   <Button variant="outline" className="w-full justify-start">
-                    Data Table Generator
+                    HTML Table Generator
                   </Button>
                 </Link>
               </div>

@@ -162,7 +162,7 @@ export default function CompressPhotosEmail() {
                 {" "} – Resize for email sharing
               </li>
               <li>
-                <Link href="/tools/image-converter" className="hover:text-foreground transition-colors underline">
+                <Link href="/tools/heic-to-jpg" className="hover:text-foreground transition-colors underline">
                   Image Converter
                 </Link>
                 {" "} – Convert photo formats

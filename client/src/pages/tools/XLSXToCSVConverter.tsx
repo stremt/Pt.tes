@@ -551,7 +551,7 @@ export default function XLSXToCSVConverter() {
                 <Link href="/tools/json-csv-converter">
                   <Button variant="outline" className="rounded-full px-6">JSON to CSV Converter</Button>
                 </Link>
-                <Link href="/tools/csv-json-converter">
+                <Link href="/tools/json-csv-converter">
                   <Button variant="outline" className="rounded-full px-6">CSV to JSON Converter</Button>
                 </Link>
                 <Link href="/tools/excel-viewer">

@@ -210,9 +210,9 @@ export default function URLEncoder() {
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/tools/url-parser">
+              <Link href="/tools/base64-encoder">
                 <Button variant="outline" className="w-full justify-between" data-testid="link-url-parser">
-                  URL Parser
+                  Base64 Encoder
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>

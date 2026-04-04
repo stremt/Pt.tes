@@ -131,9 +131,9 @@ export default function CSVViewLargeFiles() {
                     JSON to CSV Converter
                   </Button>
                 </Link>
-                <Link href="/tools/data-table-generator">
+                <Link href="/tools/html-table-generator">
                   <Button variant="outline" className="w-full justify-start">
-                    Data Table Generator
+                    HTML Table Generator
                   </Button>
                 </Link>
               </div>

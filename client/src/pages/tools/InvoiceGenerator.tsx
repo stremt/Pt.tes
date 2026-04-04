@@ -258,8 +258,8 @@ export default function InvoiceGenerator() {
   ];
 
   const relatedTools = [
-    { name: "GST Calculator", url: "/tools/gst-calculator" },
-    { name: "QR Code Generator", url: "/tools/qr-code-generator" },
+    { name: "Percentage Calculator", url: "/tools/percentage-calculator" },
+    { name: "QR Code Maker", url: "/tools/qr-code-maker" },
     { name: "Text Summarizer", url: "/tools/text-summarizer" },
     { name: "Image Compressor", url: "/tools/image-compressor" },
     { name: "PDF Merger", url: "/tools/pdf-merger" },

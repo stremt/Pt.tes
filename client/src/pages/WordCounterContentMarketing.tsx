@@ -162,8 +162,8 @@ export default function WordCounterContentMarketing() {
                 {" "} – Optimize keyword usage
               </li>
               <li>
-                <Link href="/tools/readability-analyzer" className="hover:text-foreground transition-colors underline">
-                  Readability Analyzer
+                <Link href="/tools/keyword-density-checker" className="hover:text-foreground transition-colors underline">
+                  Keyword Density Analyzer
                 </Link>
                 {" "} – Improve content quality
               </li>

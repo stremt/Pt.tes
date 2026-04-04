@@ -156,13 +156,13 @@ export default function WordCounterEssays() {
                 {" "} – Count words instantly
               </li>
               <li>
-                <Link href="/tools/character-counter" className="hover:text-foreground transition-colors underline">
+                <Link href="/tools/character-paragraph-counter" className="hover:text-foreground transition-colors underline">
                   Character Counter
                 </Link>
                 {" "} – Count characters for essays
               </li>
               <li>
-                <Link href="/tools/readability-checker" className="hover:text-foreground transition-colors underline">
+                <Link href="/tools/keyword-density-checker" className="hover:text-foreground transition-colors underline">
                   Readability Checker
                 </Link>
                 {" "} – Improve essay quality
