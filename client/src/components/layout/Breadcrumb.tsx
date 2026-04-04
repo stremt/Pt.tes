@@ -26,7 +26,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
               {index > 0 && <ChevronRight className="h-4 w-4 mx-2" data-testid={`breadcrumb-separator-${index}`} />}
-              {index === items.length - 1 ? (
+              {index === items.length - 1 || !item.url ? (
                 <span className="text-foreground font-medium" data-testid={`breadcrumb-current`}>
                   {item.name}
                 </span>

@@ -300,24 +300,27 @@ export function generateHowToSchema({ name, description, steps }: HowToSchemaPro
 // Breadcrumb Schema Generator
 export interface BreadcrumbItem {
   name: string;
-  url: string;
+  url?: string;
 }
 
 export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": items.map((item, index) => {
-      const fullUrl = item.url.startsWith("http") 
-        ? item.url 
-        : `https://tools.pixocraft.in${item.url.startsWith("/") ? "" : "/"}${item.url}`;
-      return {
-        "@type": "ListItem",
-        "position": index + 1,
-        "name": item.name,
-        "item": fullUrl
-      };
-    })
+    "itemListElement": items
+      .filter((item) => item.url)
+      .map((item, index) => {
+        const url = item.url!;
+        const fullUrl = url.startsWith("http")
+          ? url
+          : `https://tools.pixocraft.in${url.startsWith("/") ? "" : "/"}${url}`;
+        return {
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": item.name,
+          "item": fullUrl,
+        };
+      }),
   };
 }
 

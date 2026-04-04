@@ -144,9 +144,9 @@ export default function YouTubeThumbnailDownloaderOnline() {
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
         <div className="max-w-4xl mx-auto px-4 pt-6">
           <Breadcrumb items={[
-            { label: "Home", href: "/" },
-            { label: "YouTube Thumbnail Downloader", href: MAIN_TOOL },
-            { label: "Online" },
+            { name: "Home", url: "/" },
+            { name: "YouTube Thumbnail Downloader", url: MAIN_TOOL },
+            { name: "Online" },
           ]} />
         </div>
 
