@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Users, Image, CheckCircle } from "lucide-react";
-import ToolsSection from "@/components/layout/ToolsSection";
+import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
 export default function YouTubeThumbnailDownloaderChannels() {
   useSEO({
     title: "Download YouTube Channel Thumbnails - Creator Profile Images | Pixocraft",
@@ -199,7 +199,15 @@ export default function YouTubeThumbnailDownloaderChannels() {
             </Link>
           </div>
 
-          <ToolsSection />
+          <div className="mt-12 pt-8 border-t" id="tool">
+            <h2 className="text-2xl font-bold mb-2">Download YouTube Thumbnails Now</h2>
+            <p className="text-muted-foreground mb-6">Paste any YouTube video or channel link below and download thumbnails instantly.</p>
+            <Card className="border-2 border-primary/20">
+              <CardContent className="pt-5 pb-6">
+                <YouTubeThumbnailTool />
+              </CardContent>
+            </Card>
+          </div>
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Creator Tools That Respect Your Privacy - Pixocraft Tools

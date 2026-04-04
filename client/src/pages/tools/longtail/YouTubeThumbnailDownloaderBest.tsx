@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Star, Zap, Shield, Lock } from "lucide-react";
-import ToolsSection from "@/components/layout/ToolsSection";
+import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
 export default function YouTubeThumbnailDownloaderBest() {
   useSEO({
     title: "Best YouTube Thumbnail Downloader Online - Compare Tools | Pixocraft",
@@ -223,7 +223,15 @@ export default function YouTubeThumbnailDownloaderBest() {
             </Link>
           </div>
 
-          <ToolsSection />
+          <div className="mt-12 pt-8 border-t" id="tool">
+            <h2 className="text-2xl font-bold mb-2">Try the Best YouTube Thumbnail Downloader</h2>
+            <p className="text-muted-foreground mb-6">Paste any YouTube video link below — see why it's the best choice.</p>
+            <Card className="border-2 border-primary/20">
+              <CardContent className="pt-5 pb-6">
+                <YouTubeThumbnailTool />
+              </CardContent>
+            </Card>
+          </div>
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Best Tools, Best Privacy - Pixocraft Tools

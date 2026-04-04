@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
-import ToolsSection from "@/components/layout/ToolsSection";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -411,9 +410,6 @@ export default function YouTubeThumbnailDownloaderOnline() {
               ))}
             </div>
           </section>
-
-          {/* Tools Section */}
-          <ToolsSection />
 
           {/* CTA block */}
           <section className="rounded-2xl bg-primary/5 border border-primary/20 p-8 text-center space-y-4">

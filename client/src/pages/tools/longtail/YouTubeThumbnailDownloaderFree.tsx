@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSEO } from "@/lib/seo";
 import { Link } from "wouter";
 import { ArrowRight, Lock, Zap, Shield } from "lucide-react";
-import ToolsSection from "@/components/layout/ToolsSection";
+import YouTubeThumbnailTool from "@/components/tools/YouTubeThumbnailTool";
 export default function YouTubeThumbnailDownloaderFree() {
   useSEO({
     title: "Free YouTube Thumbnail Downloader - No Login Required | Pixocraft",
@@ -183,7 +183,15 @@ export default function YouTubeThumbnailDownloaderFree() {
             </Link>
           </div>
 
-          <ToolsSection />
+          <div className="mt-12 pt-8 border-t" id="tool">
+            <h2 className="text-2xl font-bold mb-2">Try the Tool — Download YouTube Thumbnail Free</h2>
+            <p className="text-muted-foreground mb-6">Paste any YouTube video link below and download your thumbnail instantly.</p>
+            <Card className="border-2 border-primary/20">
+              <CardContent className="pt-5 pb-6">
+                <YouTubeThumbnailTool />
+              </CardContent>
+            </Card>
+          </div>
 
           <p className="text-center text-sm text-muted-foreground mt-12 pt-8 border-t">
             Part of Pixocraft Tools - Free, Fast, and Privacy-First
