@@ -104,7 +104,8 @@ export default function TextToPDF() {
       element.style.backgroundColor = "#ffffff";
       element.style.color = "#000000";
       element.style.overflow = "visible";
-      element.style.width = "794px";
+      element.style.width = "720px";
+      element.style.boxSizing = "border-box";
 
       let htmlContent = "";
       
@@ -183,25 +184,33 @@ export default function TextToPDF() {
             }
             .pdf-export-content table {
               width: 100%;
+              max-width: 100%;
               border-collapse: collapse;
               margin: 20px 0;
-              font-size: 11pt;
+              font-size: 10.5pt;
               page-break-inside: avoid;
+              table-layout: fixed;
+              word-break: break-word;
+              overflow-wrap: break-word;
             }
             .pdf-export-content table th {
               background-color: #f0f0f0;
               color: #111111;
               font-weight: 700;
               text-align: left;
-              padding: 10px 14px;
+              padding: 9px 12px;
               border: 1.5px solid #aaaaaa;
-              font-size: 11pt;
+              font-size: 10.5pt;
+              word-break: break-word;
+              overflow-wrap: break-word;
             }
             .pdf-export-content table td {
-              padding: 9px 14px;
+              padding: 8px 12px;
               border: 1px solid #cccccc;
               color: #222222;
               vertical-align: top;
+              word-break: break-word;
+              overflow-wrap: break-word;
               line-height: 1.6;
             }
             .pdf-export-content table tr:nth-child(even) td {
@@ -284,12 +293,23 @@ export default function TextToPDF() {
         row.style.marginBottom = "6px";
         row.style.lineHeight = "1.7";
 
+        // Detect task list item (checkbox)
+        const firstChild = li.firstElementChild;
+        const isCheckbox = firstChild?.tagName === "INPUT" &&
+          (firstChild as HTMLInputElement).type === "checkbox";
+        const isChecked = isCheckbox && (firstChild as HTMLInputElement).checked;
+
         const marker = doc.createElement("span");
         marker.style.minWidth = "22px";
         marker.style.flexShrink = "0";
         marker.style.fontWeight = ordered ? "normal" : "bold";
         marker.style.paddingTop = "1px";
-        marker.textContent = ordered ? `${idx + 1}.` : bullet!;
+        if (isCheckbox) {
+          marker.textContent = isChecked ? "☑" : "☐";
+          marker.style.fontWeight = "normal";
+        } else {
+          marker.textContent = ordered ? `${idx + 1}.` : bullet!;
+        }
 
         const content = doc.createElement("span");
         content.style.flex = "1";
@@ -297,6 +317,8 @@ export default function TextToPDF() {
         Array.from(li.childNodes).forEach(node => {
           if (node.nodeType === Node.ELEMENT_NODE) {
             const el = node as Element;
+            // Skip the checkbox input — already handled in marker
+            if (el.tagName === "INPUT" && (el as HTMLInputElement).type === "checkbox") return;
             if (el.tagName === "UL") {
               content.appendChild(processListReturn(el, depth + 1, false));
             } else if (el.tagName === "OL") {
