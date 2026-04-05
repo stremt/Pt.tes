@@ -1,0 +1,119 @@
+You are an expert SEO frontend developer.
+
+Update the existing QR Code Generator page WITHOUT breaking current structure, design, or functionality.
+
+Goal:
+- Increase CTR
+- Improve user trust
+- Capture intent from users searching for free QR tools
+- Keep SEO safe (no keyword stuffing, no competitor mentions)
+
+IMPORTANT RULES:
+- Do NOT change URL
+- Do NOT remove existing content
+- Do NOT break tool functionality
+- Keep page lightweight and fast
+- Do NOT mention any competitor brand names
+- Only ADD optimized sections
+
+----------------------------
+
+TASKS:
+
+1. Add a "user intent capture section" below the hero section:
+
+Text:
+"Looking for a free QR code generator?
+
+If you're searching for a simple, fast, and private QR code tool, you're in the right place.
+Create QR codes instantly — no signup, no tracking, no limits."
+
+Style:
+- Clean
+- Minimal
+- Same font as site
+- Slight highlight box (light background)
+
+----------------------------
+
+2. Add a "trust and benefits section":
+
+Heading:
+"Why this QR Code Generator is better for you"
+
+Points:
+- No signup required
+- No tracking or data collection
+- Works instantly in your browser
+- Unlimited QR codes
+- No watermark
+
+Style:
+- Icons + short text
+- Responsive grid
+
+----------------------------
+
+3. Add FAQ section at bottom (SEO optimized):
+
+Questions:
+
+Q1: Is this QR code generator free?
+Answer: Yes, it is completely free with no hidden costs.
+
+Q2: Do I need to sign up?
+Answer: No, you can generate QR codes instantly without creating an account.
+
+Q3: Is my data safe?
+Answer: Yes, everything works locally in your browser with no tracking.
+
+Q4: Can I add a logo to my QR code?
+Answer: Yes, you can customize your QR code with logos and colors.
+
+Q5: Do QR codes expire?
+Answer: No, generated QR codes do not expire.
+
+----------------------------
+
+4. Update meta title (SEO optimized, safe):
+
+"Free QR Code Generator (No Signup, Instant, 100% Private & Offline)"
+
+----------------------------
+
+5. Update meta description:
+
+"Generate QR codes instantly — no signup, no ads, no tracking. 100% free and works offline. Add logo & download in seconds."
+
+----------------------------
+
+6. Add internal linking section:
+
+Heading:
+"Popular QR Code Tools"
+
+Links:
+- WiFi QR Code Generator
+- WhatsApp QR Code Generator
+- Instagram QR Code Generator
+- Payment QR Code Generator
+
+----------------------------
+
+7. Performance rules:
+- Keep everything lightweight
+- No external heavy scripts
+- Maintain fast load speed
+
+----------------------------
+
+FINAL GOAL:
+Make the page feel:
+- Faster
+- Simpler
+- More trustworthy than other QR tools
+- High conversion focused
+
+Do not over-optimize.
+Do not spam keywords.
+Keep it clean, modern, and user-first.
