@@ -185,8 +185,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   }, [darkColor, lightColor, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
 
   useSEO({
-    title: "Free QR Code Generator (No Signup, Instant, Private & Unlimited)",
-    description: "Create QR codes instantly — no signup, no ads, no tracking. 100% free and works offline. Add logo & download in seconds.",
+    title: "Create QR Code in Seconds (Free, No Signup, Instant & Private)",
+    description: "Generate QR codes instantly — no signup, no ads, no tracking. 100% free and works offline. Add logo & download in seconds.",
     keywords: "qr code generator, free qr code generator, qr generator online, create qr code, generate qr code online, qr code maker, qr code creator, custom qr code generator, qr code generator with logo, qr code generator free online, wifi qr code generator, whatsapp qr code generator, email qr code generator, vcard qr code generator, url qr code generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
     ogImage: OG_IMAGES.qrMaker,
@@ -766,15 +766,16 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               <QrCode className="h-10 w-10 text-primary" />
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-              Create QR Codes in 3 Seconds
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">No Signup Required</span>
+              Create QR Code in Seconds
             </h1>
+            <p className="text-2xl font-semibold text-primary">
+              Free &bull; No Signup &bull; Instant &bull; Private
+            </p>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Free, private and instant QR code generator. No login. No limits.
+              Generate and download your QR code instantly — no login, no limits.
             </p>
             <p className="text-sm text-muted-foreground">
-              No signup &bull; No tracking &bull; Instant download
+              Takes less than 3 seconds &bull; No account needed
             </p>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
               <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
@@ -798,7 +799,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           <div className="mb-10 rounded-xl bg-muted/40 border px-6 py-5 max-w-3xl mx-auto text-center space-y-2">
             <p className="text-base font-semibold">Looking for a free QR code generator?</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              If you're searching for a simple and fast QR code tool, you're in the right place.
+              If you're searching for a fast and simple QR code tool, you're in the right place.
               Create QR codes instantly — no signup, no tracking, no limits.
             </p>
             <p className="text-xs text-muted-foreground">
@@ -810,7 +811,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           {/* Trust & Benefits Section */}
           {!embedMode && (
           <div className="mb-12 max-w-4xl mx-auto">
-            <h2 className="text-xl font-bold text-center mb-6">Why this QR Code Generator stands out</h2>
+            <h2 className="text-xl font-bold text-center mb-6">Why this QR Code Generator works better</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {[
                 { icon: <Shield className="h-5 w-5 text-primary" />, text: "No signup required" },
@@ -1431,7 +1432,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 }}
                 data-testid="button-cta-create-qr"
               >
-                Start Creating QR Codes
+                Create QR Code Now
               </Button>
             </div>
           </section>
