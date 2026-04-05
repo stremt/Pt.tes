@@ -18,7 +18,7 @@ export default function Privacy() {
           <Badge variant="secondary" className="mb-2 sm:mb-4 text-xs sm:text-sm px-3 sm:px-4 py-1.5">Privacy Policy</Badge>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">Privacy Policy</h1>
           <p className="text-sm sm:text-base text-muted-foreground">
-            Last updated: February 15, 2026
+            Last updated: April 5, 2026
           </p>
         </div>
 
