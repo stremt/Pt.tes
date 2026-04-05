@@ -334,37 +334,33 @@ export default function Home() {
       <StructuredData data={faqSchema} />
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative overflow-hidden border-b bg-background">
-          <div className="absolute inset-0 hero-radial-glow" />
-          <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="container mx-auto px-2 sm:px-4 py-10 sm:py-14 md:py-20 lg:py-24 max-w-7xl relative">
-            <div className="mx-auto max-w-4xl text-center space-y-5 sm:space-y-7 md:space-y-9">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full section-badge text-sm font-medium" data-testid="badge-india-biggest">
-                <Sparkles className="h-3.5 w-3.5" />
+        <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+          <div className="container mx-auto px-2 sm:px-4 py-8 sm:py-12 md:py-16 lg:py-20 max-w-7xl relative">
+            <div className="mx-auto max-w-4xl text-center space-y-4 sm:space-y-6 md:space-y-8">
+              <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5" data-testid="badge-india-biggest">
+                <Sparkles className="h-3.5 w-3.5 mr-1.5" />
                 Computationally Infeasible Security
-              </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.1] px-2 sm:px-4">
-              Pixocraft Tools —{" "}
-              <span className="block sm:inline">India's Biggest Free</span>
-              <br className="hidden sm:block" />
-              <span className="gradient-text">Online Tool Hub</span>
+              </Badge>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight px-2 sm:px-4">
+              Pixocraft Tools — India's Biggest Free Online Tool Hub
+              <br />
+              <span className="text-primary">(200+ Tools)</span>
             </h1>
-            <div className="space-y-5">
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
-                Access <strong className="text-foreground">200+ fast</strong>, fully browser-based tools for text, images, PDF, coding, and productivity. No signup. No tracking. 100% private.
+            <div className="space-y-4">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
+                Access 200+ fast, fully browser-based tools for text, images, PDF, coding, and productivity. No signup. No tracking. 100% private.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-medium">
-                <span className="flex items-center gap-1.5 bg-green-500/10 text-green-700 dark:text-green-400 rounded-full px-3 py-1 border border-green-500/20"><Shield className="h-3 w-3" /> Local Processing</span>
-                <span className="flex items-center gap-1.5 bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full px-3 py-1 border border-blue-500/20"><Zap className="h-3 w-3" /> Zero Tracking</span>
-                <span className="flex items-center gap-1.5 bg-orange-500/10 text-orange-700 dark:text-orange-400 rounded-full px-3 py-1 border border-orange-500/20"><Lock className="h-3 w-3" /> Offline Support</span>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs font-medium text-muted-foreground/80">
+                <span className="flex items-center gap-1"><Shield className="h-3 w-3 text-green-500" /> Local Processing</span>
+                <span className="flex items-center gap-1"><Zap className="h-3 w-3 text-blue-500" /> Zero Tracking</span>
+                <span className="flex items-center gap-1"><Lock className="h-3 w-3 text-orange-500" /> Offline Support</span>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
                 <Link href="/tools">
-                  <Button size="lg" className="text-base px-10 h-12 w-full sm:w-auto shadow-lg shadow-primary/20" data-testid="button-explore-tools">
-                    Explore All Tools
+                  <Button size="lg" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-explore-tools">
+                    Explore Tools
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
@@ -376,25 +372,25 @@ export default function Home() {
               </div>
               
               {/* Trust Indicators */}
-              <div className="pt-6 sm:pt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm px-2 sm:px-4">
-                <div className="flex items-center gap-2 bg-muted/60 rounded-full px-3 py-1.5 text-muted-foreground" data-testid="trust-india-biggest">
-                  <Star className="h-3.5 w-3.5 text-primary" />
+              <div className="pt-6 sm:pt-8 md:pt-12 flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-sm px-2 sm:px-4">
+                <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-india-biggest">
+                  <Star className="h-4 w-4 text-primary" />
                   <span className="font-medium">India's Biggest Tool Hub</span>
                 </div>
-                <div className="flex items-center gap-2 bg-muted/60 rounded-full px-3 py-1.5 text-muted-foreground" data-testid="trust-200-tools">
-                  <Database className="h-3.5 w-3.5 text-primary" />
+                <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-200-tools">
+                  <Database className="h-4 w-4 text-primary" />
                   <span className="font-medium">200+ Tools & Growing</span>
                 </div>
-                <div className="flex items-center gap-2 bg-muted/60 rounded-full px-3 py-1.5 text-muted-foreground" data-testid="trust-offline">
-                  <Globe className="h-3.5 w-3.5 text-primary" />
+                <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-offline">
+                  <Globe className="h-4 w-4 text-primary" />
                   <span className="font-medium">Offline Supported</span>
                 </div>
-                <div className="flex items-center gap-2 bg-muted/60 rounded-full px-3 py-1.5 text-muted-foreground" data-testid="trust-no-login">
-                  <Shield className="h-3.5 w-3.5 text-primary" />
+                <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-no-login">
+                  <Shield className="h-4 w-4 text-primary" />
                   <span className="font-medium">No Login • No Tracking</span>
                 </div>
-                <div className="flex items-center gap-2 bg-muted/60 rounded-full px-3 py-1.5 text-muted-foreground" data-testid="trust-performance">
-                  <Zap className="h-3.5 w-3.5 text-primary" />
+                <div className="flex items-center gap-2 text-muted-foreground" data-testid="trust-performance">
+                  <Zap className="h-4 w-4 text-primary" />
                   <span className="font-medium">Super Fast Performance</span>
                 </div>
               </div>
@@ -403,138 +399,147 @@ export default function Home() {
         </section>
 
         {/* Trust Badge Section */}
-        <section className="py-8 sm:py-10 md:py-12 bg-muted/20 border-b">
+        <section className="py-8 sm:py-12 md:py-16 bg-muted/30 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
-              <div className="text-center col-span-2 sm:col-span-1 flex flex-col items-center gap-2 py-4 px-3" data-testid="card-trust-largest">
-                <div className="h-11 w-11 rounded-xl gradient-icon-bg flex items-center justify-center">
-                  <Star className="h-5 w-5 text-primary" />
-                </div>
-                <p className="text-2xl font-extrabold tracking-tight">#1</p>
-                <p className="text-xs text-muted-foreground font-medium">India's Largest Hub</p>
-              </div>
-              <div className="text-center flex flex-col items-center gap-2 py-4 px-3" data-testid="card-trust-tools">
-                <div className="h-11 w-11 rounded-xl gradient-icon-bg flex items-center justify-center">
-                  <Database className="h-5 w-5 text-primary" />
-                </div>
-                <p className="text-2xl font-extrabold tracking-tight">200+</p>
-                <p className="text-xs text-muted-foreground font-medium">Free Tools Forever</p>
-              </div>
-              <div className="text-center flex flex-col items-center gap-2 py-4 px-3" data-testid="card-trust-users">
-                <div className="h-11 w-11 rounded-xl gradient-icon-bg flex items-center justify-center">
-                  <Users className="h-5 w-5 text-primary" />
-                </div>
-                <p className="text-2xl font-extrabold tracking-tight">10K+</p>
-                <p className="text-xs text-muted-foreground font-medium">Daily Users</p>
-              </div>
-              <div className="text-center flex flex-col items-center gap-2 py-4 px-3" data-testid="card-trust-privacy">
-                <div className="h-11 w-11 rounded-xl gradient-icon-bg flex items-center justify-center">
-                  <Shield className="h-5 w-5 text-primary" />
-                </div>
-                <p className="text-2xl font-extrabold tracking-tight">0%</p>
-                <p className="text-xs text-muted-foreground font-medium">Tracking or Data</p>
-              </div>
-              <div className="text-center flex flex-col items-center gap-2 py-4 px-3" data-testid="card-trust-speed">
-                <div className="h-11 w-11 rounded-xl gradient-icon-bg flex items-center justify-center">
-                  <Zap className="h-5 w-5 text-primary" />
-                </div>
-                <p className="text-2xl font-extrabold tracking-tight">0ms</p>
-                <p className="text-xs text-muted-foreground font-medium">Server Delay</p>
-              </div>
+            <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-5 gap-x-3 gap-y-3 sm:gap-x-4 sm:gap-y-4 md:gap-x-6 md:gap-y-6">
+              <Card className="text-center col-span-2 sm:col-span-2 lg:col-span-1" data-testid="card-trust-largest">
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <Star className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">India's Largest</CardTitle>
+                  <CardDescription>Static Tool Hub</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-tools">
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <Database className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">200+ Tools</CardTitle>
+                  <CardDescription>Free Forever</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-users">
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">10,000+</CardTitle>
+                  <CardDescription>Daily Users</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center sm:col-span-2 sm:col-start-2 lg:col-span-1 lg:col-start-auto" data-testid="card-trust-privacy">
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">Zero Tracking</CardTitle>
+                  <CardDescription>Full Privacy</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card className="text-center sm:col-span-2 lg:col-span-1" data-testid="card-trust-speed">
+                <CardHeader className="p-3 sm:p-6">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                    <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-base sm:text-lg md:text-xl">0ms Delay</CardTitle>
+                  <CardDescription>Browser-Based</CardDescription>
+                </CardHeader>
+              </Card>
             </div>
           </div>
         </section>
 
         {/* Why Choose Pixocraft Section */}
-        <section className="py-10 sm:py-14 md:py-18 lg:py-22 border-b">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14 px-2 sm:px-4">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full section-badge text-sm font-medium">Why Pixocraft</div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">Why India Chooses <span className="gradient-text">Pixocraft Tools</span></h2>
+            <div className="text-center space-y-2 sm:space-y-3 md:space-y-4 mb-8 sm:mb-12 md:mb-16 px-2 sm:px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Why India Chooses Pixocraft Tools</h2>
               <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
                 The most comprehensive free online tool hub built for speed, privacy, and convenience
               </p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12 sm:mb-16">
-              <Card className="border bg-card premium-card" data-testid="card-why-fast">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-fast">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Zap className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">Blazing Fast</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Blazing Fast</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Runs entirely in your browser with 0ms server delay. No waiting, no loading spinners—just instant results every time.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border bg-card premium-card" data-testid="card-why-privacy">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-privacy">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Shield className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">Privacy First</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Privacy First</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     No uploads, no tracking, no data collection. Everything processes locally in your browser for maximum privacy and security.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border bg-card premium-card" data-testid="card-why-free">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-free">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">Always Free</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">Always Free</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Every feature, every tool, 100% free forever. No premium tiers, no paywalls, no hidden costs or limitations.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border bg-card premium-card" data-testid="card-why-india">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-india">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Star className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">India's Biggest</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">India's Biggest</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     With 200+ tools and growing, Pixocraft is India's largest free online tool hub serving thousands daily.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border bg-card premium-card" data-testid="card-why-static">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-static">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Globe className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">100% Static</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">100% Static</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     Fully browser-based tools that work offline. No backend servers, no databases—complete client-side processing.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border bg-card premium-card" data-testid="card-why-no-limits">
-                <CardHeader className="text-center p-5 sm:p-6">
-                  <div className="h-13 w-13 sm:h-14 sm:w-14 rounded-2xl gradient-icon-bg flex items-center justify-center mx-auto mb-3 sm:mb-4 p-3">
+              <Card className="border-none shadow-none bg-muted/30" data-testid="card-why-no-limits">
+                <CardHeader className="text-center p-4 sm:p-6">
+                  <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                     <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
                   </div>
-                  <CardTitle className="text-lg sm:text-xl font-bold">No Limits</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">No Limits</CardTitle>
                 </CardHeader>
-                <CardContent className="p-5 sm:p-6 pt-0">
+                <CardContent className="p-4 sm:p-6 pt-0">
                   <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
                     No ads, no login requirements, no usage limits. Use any tool as many times as you want, completely unrestricted.
                   </p>
@@ -581,35 +586,35 @@ export default function Home() {
         </section>
 
         {/* Popular Tools Section */}
-        <section className="py-10 sm:py-14 md:py-18 lg:py-20 border-b">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="text-center space-y-3 sm:space-y-4 mb-10 sm:mb-12 px-2 sm:px-4">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full section-badge text-sm font-medium">Most Popular</div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">Popular <span className="gradient-text">Tools</span></h2>
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
+              <Badge variant="secondary">Most Popular</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Popular Tools</h2>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Handpicked favorites from our collection of 200+ tools, used by thousands daily
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
               {popularTools.map((tool) => {
                 const Icon = getToolIcon(tool.icon);
                 return (
-                  <Card key={tool.id} className="premium-card group flex flex-col" data-testid={`card-tool-${tool.id}`}>
-                    <CardHeader className="space-y-3 p-4 sm:p-5">
-                      <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl gradient-icon-bg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                  <Card key={tool.id} className="hover-elevate transition-all duration-200 group flex flex-col" data-testid={`card-tool-${tool.id}`}>
+                    <CardHeader className="space-y-2 sm:space-y-4 p-4 sm:p-6">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
-                      <CardTitle className="text-base sm:text-lg font-bold group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                      <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">{tool.name}</CardTitle>
                     </CardHeader>
-                    <CardContent className="flex-1 px-4 sm:px-5 pb-0">
-                      <CardDescription className="line-clamp-3 leading-relaxed text-sm">
+                    <CardContent className="flex-1">
+                      <CardDescription className="line-clamp-3 leading-relaxed">
                         {tool.description}
                       </CardDescription>
                     </CardContent>
-                    <CardFooter className="p-4 sm:p-5 pt-4">
+                    <CardFooter>
                       <Link href={tool.path} className="w-full">
-                        <Button className="w-full" data-testid={`button-use-${tool.id}`}>
+                        <Button className="w-full group-hover:shadow-md transition-shadow" data-testid={`button-use-${tool.id}`}>
                           Use Tool
                           <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                         </Button>
@@ -632,34 +637,34 @@ export default function Home() {
         </section>
 
         {/* Browse by Category Section */}
-        <section className="py-10 sm:py-14 md:py-18 lg:py-20 border-b bg-muted/10">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b bg-gradient-to-b from-background to-muted/30">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="text-center space-y-3 sm:space-y-4 mb-10 sm:mb-12 px-2 sm:px-4">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full section-badge text-sm font-medium">Categories</div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">Browse by <span className="gradient-text">Category</span></h2>
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
+              <Badge variant="secondary">Categories</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Browse by Category</h2>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Explore our organized collection of tools across different categories
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {categories.map((category) => {
                 const Icon = category.icon;
                 return (
-                  <Card key={category.id} className="premium-card group" data-testid={`card-category-${category.id}`}>
-                    <CardHeader className="p-5 sm:p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="h-11 w-11 sm:h-13 sm:w-13 rounded-xl gradient-icon-bg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 p-2.5">
+                  <Card key={category.id} className="hover-elevate transition-all duration-200 group" data-testid={`card-category-${category.id}`}>
+                    <CardHeader className="p-4 sm:p-6">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                           <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                         </div>
-                        <span className="text-xs font-semibold section-badge px-2.5 py-1 rounded-full">{category.toolCount}+ tools</span>
+                        <Badge variant="secondary" className="text-xs">{category.toolCount}+ tools</Badge>
                       </div>
-                      <CardTitle className="text-lg sm:text-xl font-bold group-hover:text-primary transition-colors">{category.name}</CardTitle>
-                      <CardDescription className="leading-relaxed text-sm mt-1">
+                      <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors">{category.name}</CardTitle>
+                      <CardDescription className="leading-relaxed">
                         {category.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardFooter className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
+                    <CardFooter>
                       <Link href={`/tools?category=${category.id}`} className="w-full">
                         <Button variant="outline" className="w-full" data-testid={`button-category-${category.id}`}>
                           View Tools
@@ -712,37 +717,32 @@ export default function Home() {
         </section>
 
         {/* Testimonials Section */}
-        <section className="py-10 sm:py-14 md:py-18 lg:py-20 border-b bg-muted/10">
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 border-b bg-muted/30">
           <div className="container mx-auto px-2 sm:px-4 max-w-7xl">
-            <div className="text-center space-y-3 sm:space-y-4 mb-10 sm:mb-12 px-2 sm:px-4">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full section-badge text-sm font-medium">Testimonials</div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight">Loved by Users <span className="gradient-text">Across India</span></h2>
+            <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-12 px-2 sm:px-4">
+              <Badge variant="secondary">Testimonials</Badge>
+              <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Loved by Users Across India</h2>
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Join thousands of satisfied users who trust Pixocraft Tools daily
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {testimonials.map((testimonial, index) => (
-                <Card key={index} className="bg-card premium-card flex flex-col" data-testid={`card-testimonial-${index}`}>
-                  <CardHeader className="p-5 sm:p-6 pb-3">
-                    <div className="flex items-center gap-1 mb-3">
+                <Card key={index} className="bg-background" data-testid={`card-testimonial-${index}`}>
+                  <CardHeader className="p-4 sm:p-6">
+                    <div className="flex items-center gap-1 mb-2 sm:mb-3">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <CardDescription className="text-sm sm:text-base leading-relaxed text-foreground/90 italic">
+                    <CardDescription className="text-sm sm:text-base leading-relaxed text-foreground">
                       "{testimonial.content}"
                     </CardDescription>
                   </CardHeader>
-                  <CardFooter className="flex items-center gap-3 p-5 sm:p-6 pt-4 border-t border-border/50 mt-auto">
-                    <div className="h-9 w-9 rounded-full gradient-icon-bg flex items-center justify-center shrink-0">
-                      <span className="text-sm font-bold text-primary">{testimonial.name.charAt(0)}</span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-sm">{testimonial.name}</p>
-                      <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-                    </div>
+                  <CardFooter className="flex-col items-start gap-1 p-4 sm:p-6 pt-0">
+                    <p className="font-semibold text-sm sm:text-base">{testimonial.name}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.role}</p>
                   </CardFooter>
                 </Card>
               ))}
@@ -829,32 +829,32 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-10 sm:py-14 md:py-20 relative overflow-hidden bg-background">
-          <div className="absolute inset-0 hero-radial-glow opacity-60" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="container mx-auto px-2 sm:px-4 max-w-5xl relative">
-            <div className="text-center space-y-5 sm:space-y-6">
-              <div className="inline-flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 rounded-2xl gradient-icon-bg animate-float mx-auto">
-                <Sparkles className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">Ready to <span className="gradient-text">Get Started?</span></h2>
-              <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
-                Join <strong className="text-foreground">10,000+ daily users</strong> who trust India's biggest tool hub for their workflows. No signup, no credit card, completely free.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 sm:pt-4">
-                <Link href="/tools">
-                  <Button size="lg" className="text-base px-10 h-12 w-full sm:w-auto shadow-lg shadow-primary/20" data-testid="button-cta-start">
-                    Browse All 200+ Tools
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button size="lg" variant="outline" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-cta-contact">
-                    Get in Touch
-                  </Button>
-                </Link>
-              </div>
-            </div>
+        <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-b from-background to-muted/30">
+          <div className="container mx-auto px-2 sm:px-4 max-w-5xl">
+            <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-background shadow-lg">
+              <CardContent className="p-6 sm:p-8 md:p-10 lg:p-12 text-center space-y-4 sm:space-y-6">
+                <div className="inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-full bg-primary/10 mb-2 sm:mb-4">
+                  <Sparkles className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold">Ready to Get Started?</h2>
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed px-2 sm:px-4">
+                  Join 10,000+ daily users who trust India's biggest tool hub for their workflows. No signup, no credit card, completely free.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 sm:pt-4">
+                  <Link href="/tools">
+                    <Button size="lg" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-cta-start">
+                      Browse All Tools
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link href="/contact">
+                    <Button size="lg" variant="outline" className="text-base px-8 h-12 w-full sm:w-auto" data-testid="button-cta-contact">
+                      Get in Touch
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </div>

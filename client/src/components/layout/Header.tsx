@@ -48,8 +48,8 @@ export function Header() {
               className={`transition-all ${scrolled ? 'h-6 w-6 sm:h-7 sm:w-7' : 'h-7 w-7 sm:h-8 sm:w-8'}`}
             />
             <div className="flex flex-col">
-              <span className={`font-extrabold leading-none tracking-tight transition-all ${scrolled ? 'text-sm sm:text-base' : 'text-base sm:text-lg'}`}>Pixocraft Tools</span>
-              <span className="text-[10px] sm:text-xs text-muted-foreground leading-none hidden sm:block mt-0.5">India's Biggest Tool Hub</span>
+              <span className={`font-bold leading-none transition-all ${scrolled ? 'text-sm sm:text-base' : 'text-base sm:text-lg'}`}>Pixocraft Tools</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground leading-none hidden sm:block">India's Biggest Tool Hub</span>
             </div>
           </div>
         </Link>
@@ -59,10 +59,8 @@ export function Header() {
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <span
-                className={`text-sm md:text-sm lg:text-base font-medium transition-colors hover:text-primary cursor-pointer pb-0.5 border-b-2 ${
-                  isActive(link.href)
-                    ? 'text-foreground border-primary'
-                    : 'text-muted-foreground border-transparent'
+                className={`text-sm md:text-sm lg:text-base font-medium transition-colors hover:text-primary cursor-pointer ${
+                  isActive(link.href) ? 'text-foreground' : 'text-muted-foreground'
                 }`}
                 data-testid={`link-${link.label.toLowerCase()}`}
               >

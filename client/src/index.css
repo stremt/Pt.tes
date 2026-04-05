@@ -497,43 +497,4 @@
   .animate-fade-in {
     animation: fade-in 0.3s ease-out both;
   }
-
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(262 83% 62%));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gradient-icon-bg {
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.15), hsl(262 83% 62% / 0.10));
-  }
-
-  .premium-card {
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
-  }
-
-  .premium-card:hover {
-    box-shadow: 0 12px 40px hsl(var(--primary) / 0.10), 0 2px 8px hsl(0 0% 0% / 0.06);
-    transform: translateY(-2px);
-  }
-
-  .hero-radial-glow {
-    background: radial-gradient(ellipse at 50% 0%, hsl(var(--primary) / 0.12) 0%, transparent 70%);
-  }
-
-  .section-badge {
-    background: hsl(var(--primary) / 0.10);
-    color: hsl(var(--primary));
-    border: 1px solid hsl(var(--primary) / 0.20);
-  }
-
-  @keyframes float-up {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
-  }
-
-  .animate-float {
-    animation: float-up 4s ease-in-out infinite;
-  }
 }
