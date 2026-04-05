@@ -14,6 +14,8 @@ import { Footer } from "@/components/layout/Footer";
 import { PageLoader } from "@/components/PageLoader";
 import { checkAndHandleVersionChange } from "@/lib/versionManager";
 import { VersionUpdatePopup } from "@/components/VersionUpdatePopup";
+import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
+import { TOP_TOOLS } from "@/lib/prefetch";
 
 // Eagerly load pages (non-tool pages)
 import Home from "@/pages/Home";
@@ -995,6 +997,8 @@ function Router() {
 }
 
 function App() {
+  useIdlePrefetch(TOP_TOOLS);
+
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>

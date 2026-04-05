@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { tools, getToolIcon } from "@/lib/tools";
 import { useSEO } from "@/lib/seo";
+import { prefetchTool } from "@/lib/prefetch";
 import { 
   ArrowRight, 
   Search,
@@ -217,7 +218,7 @@ export default function Tools() {
   const ToolCard = ({ tool }: { tool: typeof tools[0] }) => {
     const Icon = getToolIcon(tool.icon);
     return (
-      <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col" data-testid={`card-tool-${tool.id}`}>
+      <Card className="hover-elevate active-elevate-2 transition-all duration-300 group h-full flex flex-col" data-testid={`card-tool-${tool.id}`} onMouseEnter={() => prefetchTool(tool.path)}>
         <CardHeader className="space-y-2 sm:space-y-3 pb-3 sm:pb-4 p-3 sm:p-4 md:p-6">
           <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-300">
             <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />

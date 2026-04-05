@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { tools, getToolIcon } from "@/lib/tools";
 import { useSEO, StructuredData } from "@/lib/seo";
+import { prefetchTool } from "@/lib/prefetch";
 import { 
   ArrowRight, 
   Zap, 
@@ -600,7 +601,7 @@ export default function Home() {
               {popularTools.map((tool) => {
                 const Icon = getToolIcon(tool.icon);
                 return (
-                  <Card key={tool.id} className="hover-elevate transition-all duration-200 group flex flex-col" data-testid={`card-tool-${tool.id}`}>
+                  <Card key={tool.id} className="hover-elevate transition-all duration-200 group flex flex-col" data-testid={`card-tool-${tool.id}`} onMouseEnter={() => prefetchTool(tool.path)}>
                     <CardHeader className="space-y-2 sm:space-y-4 p-4 sm:p-6">
                       <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -695,7 +696,7 @@ export default function Home() {
                 if (!tool) return null;
                 const Icon = getToolIcon(tool.icon);
                 return (
-                  <Card key={tool.id} className="hover-elevate transition-all duration-200 group text-center" data-testid={`card-premium-${tool.id}`}>
+                  <Card key={tool.id} className="hover-elevate transition-all duration-200 group text-center" data-testid={`card-premium-${tool.id}`} onMouseEnter={() => prefetchTool(tool.path)}>
                     <CardHeader className="space-y-2 sm:space-y-3 p-4 sm:p-6">
                       <div className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto group-hover:bg-primary/20 transition-colors">
                         <Icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
