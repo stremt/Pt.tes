@@ -185,8 +185,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   }, [darkColor, lightColor, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
 
   useSEO({
-    title: "Free QR Code Generator (No Signup, Instant, 100% Private & Offline)",
-    description: "Generate QR codes instantly — no signup, no ads, no tracking. 100% free and works offline. Add logo & download in seconds.",
+    title: "Free QR Code Generator (No Signup, Instant, Private & Unlimited)",
+    description: "Create QR codes instantly — no signup, no ads, no tracking. 100% free and works offline. Add logo & download in seconds.",
     keywords: "qr code generator, free qr code generator, qr generator online, create qr code, generate qr code online, qr code maker, qr code creator, custom qr code generator, qr code generator with logo, qr code generator free online, wifi qr code generator, whatsapp qr code generator, email qr code generator, vcard qr code generator, url qr code generator",
     canonicalUrl: "https://tools.pixocraft.in/tools/qr-maker",
     ogImage: OG_IMAGES.qrMaker,
@@ -766,12 +766,12 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               <QrCode className="h-10 w-10 text-primary" />
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-              Free QR Code Generator
+              Create QR Codes in 3 Seconds
               <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">(Create Custom QR Codes with Logo Online)</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">No Signup Required</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              The world's most advanced 100% free QR maker. Create high-resolution custom QR codes with logos, frames, and patterns. Secure, private, and works offline.
+              Free, private and instant QR code generator. No login. No limits.
             </p>
             <p className="text-sm text-muted-foreground">
               No signup &bull; No tracking &bull; Instant download
@@ -798,11 +798,11 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           <div className="mb-10 rounded-xl bg-muted/40 border px-6 py-5 max-w-3xl mx-auto text-center space-y-2">
             <p className="text-base font-semibold">Looking for a free QR code generator?</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              If you were searching for a QR code tool online, you're in the right place.
+              If you're searching for a simple and fast QR code tool, you're in the right place.
               Create QR codes instantly — no signup, no tracking, no limits.
             </p>
             <p className="text-xs text-muted-foreground">
-              Works instantly in your browser. 100% private and free forever.
+              Works directly in your browser. 100% private and free forever.
             </p>
           </div>
           )}
@@ -810,7 +810,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           {/* Trust & Benefits Section */}
           {!embedMode && (
           <div className="mb-12 max-w-4xl mx-auto">
-            <h2 className="text-xl font-bold text-center mb-6">Why this QR Code Generator is better for you</h2>
+            <h2 className="text-xl font-bold text-center mb-6">Why this QR Code Generator stands out</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {[
                 { icon: <Shield className="h-5 w-5 text-primary" />, text: "No signup required" },
@@ -830,6 +830,14 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
           {/* TOOL INTERFACE STARTS HERE */}
           <div id="qr-generator" className="scroll-mt-16" />
+
+          {/* Micro-proof trust signal */}
+          {!embedMode && (
+            <p className="text-center text-xs text-muted-foreground mb-4 flex items-center justify-center gap-1">
+              <Users className="h-3.5 w-3.5" />
+              Used by thousands — no data stored
+            </p>
+          )}
 
           {/* Step Indicator */}
           <div className="flex items-center justify-center gap-2 mb-8 mx-auto w-fit">
