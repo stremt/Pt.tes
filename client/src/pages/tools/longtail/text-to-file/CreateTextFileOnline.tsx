@@ -1,11 +1,8 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
   useSEO, 
   StructuredData, 
@@ -15,11 +12,7 @@ import {
   type FAQItem
 } from "@/lib/seo";
 import { Breadcrumb } from "@/components/Breadcrumb";
-import { 
-  Download, FileText, Zap, Shield, WifiOff, CheckCircle, 
-  Info, BarChart3, Rocket, Terminal, BookOpen, PenTool, 
-  ClipboardList, Edit3, Save, Settings, Lock
-} from "lucide-react";
+import { Download, Edit3 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { playCompletionSound, playErrorSound } from "@/lib/sound-effects";
 
@@ -89,40 +82,51 @@ export default function CreateTextFileOnline() {
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">Create Text <span className="text-primary">File Online</span></h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">Generate and download .txt files instantly. Quick file creation without any external software.</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
-            <div className="lg:col-span-8 space-y-6">
-              <Card className="border-2 border-primary/10">
-                <CardHeader><CardTitle className="flex items-center gap-2"><Edit3 className="w-5 h-5 text-primary" /> Generator Interface</CardTitle></CardHeader>
-                <CardContent>
-                  <Textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Type your content to be saved as a file..." className="min-h-[500px] w-full text-base p-4" />
-                </CardContent>
-              </Card>
-              <article className="prose prose-slate lg:prose-xl dark:prose-invert max-w-none mt-12">
-                <h2>How to Create a Text File Online</h2>
-                <ol>
-                  <li>Type or paste your desired content into the editor above.</li>
-                  <li>Enter a filename for your new document.</li>
-                  <li>Click 'Download .txt File' to save it to your local storage.</li>
-                </ol>
-                <h3>Local Processing Architecture</h3>
-                <p>Our tool uses the latest Web APIs to ensure that file creation happens locally on your device. This means zero latency and maximum security for your data.</p>
-              </article>
-            </div>
-            <div className="lg:col-span-4 space-y-6">
-              <Card className="sticky top-24 border-2 border-primary/10">
-                <CardHeader><CardTitle className="flex items-center gap-2"><Save className="w-5 h-5 text-primary" /> Generate File</CardTitle></CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="filename">Filename</Label>
-                    <div className="flex gap-2">
-                      <Input id="filename" value={filename} onChange={(e) => setFilename(e.target.value)} className="font-mono flex-1" />
-                      <span className="flex items-center text-muted-foreground">.txt</span>
+          <div className="space-y-6 mb-24">
+            <Card className="border-2 border-primary/10">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                  <CardTitle className="flex items-center gap-2 shrink-0">
+                    <Edit3 className="w-5 h-5 text-primary" /> Notepad
+                  </CardTitle>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:ml-auto w-full sm:w-auto">
+                    <div className="flex gap-2 items-center flex-1">
+                      <Input
+                        id="filename"
+                        value={filename}
+                        onChange={(e) => setFilename(e.target.value)}
+                        className="font-mono"
+                        placeholder="filename"
+                        data-testid="input-filename"
+                      />
+                      <span className="text-muted-foreground text-sm shrink-0">.txt</span>
                     </div>
+                    <Button onClick={handleDownload} size="default" data-testid="button-download" className="shrink-0">
+                      <Download className="mr-2 h-4 w-4" /> Download TXT
+                    </Button>
                   </div>
-                  <Button onClick={handleDownload} className="w-full h-12 text-lg font-bold" size="lg"><Download className="mr-2 h-5 w-5" /> Download TXT</Button>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Type or paste your content here — then click Download TXT above to save it as a file..."
+                  className="min-h-[500px] w-full text-base p-4 resize-y"
+                  data-testid="textarea-content"
+                />
+              </CardContent>
+            </Card>
+            <article className="prose prose-slate lg:prose-xl dark:prose-invert max-w-none">
+              <h2>How to Create a Text File Online</h2>
+              <ol>
+                <li>Type or paste your desired content into the editor above.</li>
+                <li>Enter a filename for your new document.</li>
+                <li>Click 'Download TXT' to save it to your local storage.</li>
+              </ol>
+              <h3>Local Processing Architecture</h3>
+              <p>Our tool uses the latest Web APIs to ensure that file creation happens locally on your device. This means zero latency and maximum security for your data.</p>
+            </article>
           </div>
         </div>
       </div>

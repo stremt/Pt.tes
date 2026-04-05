@@ -25,6 +25,7 @@ export function Header() {
     { href: "/blogs", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/update-guide", label: "Update Guide" },
   ];
 
   const isActive = (href: string) => {
