@@ -298,6 +298,12 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://tools.pixocraft.in/update-guide</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://tools.pixocraft.in/sitemap-generator</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>monthly</changefreq>
