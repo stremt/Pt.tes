@@ -44,6 +44,7 @@ export function Footer() {
     { href: "/blogs", label: "Blog" },
     { href: "/contact", label: "Contact" },
     { href: "/privacy", label: "Privacy Policy" },
+    { href: "/update-guide", label: "How to Update" },
   ];
 
   const socialLinks = [

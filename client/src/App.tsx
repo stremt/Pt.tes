@@ -497,6 +497,7 @@ const Sitemap = lazy(() => import("@/pages/Sitemap"));
 const About = lazy(() => import("@/pages/About"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
+const UpdateGuide = lazy(() => import("@/pages/UpdateGuide"));
 const QADashboard = lazy(() => import("@/pages/QADashboard"));
 const LongTailToolPage = lazy(() => import("@/pages/LongTailToolPage"));
 
@@ -955,6 +956,7 @@ function Router() {
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
         <Route path="/privacy" component={Privacy} />
+        <Route path="/update-guide" component={UpdateGuide} />
         <Route path="/tools/:toolId/:useCaseSlug" component={LongTailToolPage} />
         <Route path="/tools/image-to-pdf/convert" component={ConvertImageToPdf} />
         <Route path="/tools/image-to-pdf/online" component={ConvertImageToPdfOnline} />
