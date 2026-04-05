@@ -773,6 +773,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               The world's most advanced 100% free QR maker. Create high-resolution custom QR codes with logos, frames, and patterns. Secure, private, and works offline.
             </p>
+            <p className="text-sm text-muted-foreground">
+              No signup &bull; No tracking &bull; Instant download
+            </p>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
               <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
                 <Shield className="h-3.5 w-3.5" /> 100% Client-Side
@@ -795,8 +798,11 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           <div className="mb-10 rounded-xl bg-muted/40 border px-6 py-5 max-w-3xl mx-auto text-center space-y-2">
             <p className="text-base font-semibold">Looking for a free QR code generator?</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              If you're searching for a simple, fast, and private QR code tool, you're in the right place.
+              If you were searching for a QR code tool online, you're in the right place.
               Create QR codes instantly — no signup, no tracking, no limits.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Works instantly in your browser. 100% private and free forever.
             </p>
           </div>
           )}
