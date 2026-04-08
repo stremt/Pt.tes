@@ -1688,35 +1688,6 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         <div className="grid grid-cols-2 gap-2.5">
                           {FRAME_PRESETS.map(f => {
                             const frameHints: Record<string, string> = { none: "No frame", "scanme-top": "Best for posters", "scanme-bottom": "Best for social", border: "Best for print", "rounded-border": "Best for digital" };
-                            const framePreviews: Record<string, JSX.Element> = {
-                              none: (
-                                <div className="w-8 h-8 border border-muted-foreground/30 rounded-sm flex items-center justify-center">
-                                  <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
-                                </div>
-                              ),
-                              "scanme-top": (
-                                <div className="flex flex-col items-center gap-0.5">
-                                  <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
-                                  <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
-                                </div>
-                              ),
-                              "scanme-bottom": (
-                                <div className="flex flex-col items-center gap-0.5">
-                                  <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
-                                  <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
-                                </div>
-                              ),
-                              border: (
-                                <div className="w-9 h-9 border-2 border-muted-foreground/40 flex items-center justify-center">
-                                  <div className="w-5 h-5 bg-muted-foreground/20" />
-                                </div>
-                              ),
-                              "rounded-border": (
-                                <div className="w-9 h-9 border-2 border-muted-foreground/40 rounded-lg flex items-center justify-center">
-                                  <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
-                                </div>
-                              ),
-                            };
                             const isActive = frameStyle === f.id;
                             return (
                               <button
@@ -1726,7 +1697,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                 data-testid={`button-frame-${f.id}`}
                               >
                                 <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-md ${isActive ? "bg-primary/10" : "bg-muted/50"}`}>
-                                  {framePreviews[f.id]}
+                                  <FramePreviewIcon id={f.id} />
                                 </div>
                                 <div className="min-w-0">
                                   <p className={`text-xs font-semibold leading-tight ${isActive ? "text-primary" : "text-foreground"}`}>{f.name}</p>
@@ -2636,6 +2607,37 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
     </>
   );
+}
+
+function FramePreviewIcon({ id }: { id: string }) {
+  if (id === "none") return (
+    <div className="w-8 h-8 border border-muted-foreground/30 rounded-sm flex items-center justify-center">
+      <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+    </div>
+  );
+  if (id === "scanme-top") return (
+    <div className="flex flex-col items-center gap-0.5">
+      <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
+      <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
+    </div>
+  );
+  if (id === "scanme-bottom") return (
+    <div className="flex flex-col items-center gap-0.5">
+      <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
+      <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
+    </div>
+  );
+  if (id === "border") return (
+    <div className="w-9 h-9 border-2 border-muted-foreground/40 flex items-center justify-center">
+      <div className="w-5 h-5 bg-muted-foreground/20" />
+    </div>
+  );
+  if (id === "rounded-border") return (
+    <div className="w-9 h-9 border-2 border-muted-foreground/40 rounded-lg flex items-center justify-center">
+      <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+    </div>
+  );
+  return <div className="w-8 h-8 bg-muted-foreground/20 rounded-sm" />;
 }
 
 function BodyPatternPreview({ pattern }: { pattern: string }) {
