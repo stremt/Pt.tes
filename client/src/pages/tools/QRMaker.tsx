@@ -144,6 +144,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   // Logo drag-and-drop
   const [logoDragOver, setLogoDragOver] = useState(false);
 
+  // Suggested colors from logo
+  const [logoSuggestedColors, setLogoSuggestedColors] = useState<string[]>([]);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
   const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -248,6 +251,73 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     };
     reader.readAsDataURL(file);
   };
+
+  const extractDominantColors = (dataUrl: string): Promise<string[]> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const size = 80;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return resolve([]);
+        ctx.drawImage(img, 0, 0, size, size);
+        const data = ctx.getImageData(0, 0, size, size).data;
+
+        const colorMap: Record<string, number> = {};
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+          if (a < 120) continue;
+          // Skip near-white and near-black
+          if (r > 235 && g > 235 && b > 235) continue;
+          if (r < 20 && g < 20 && b < 20) continue;
+          // Quantize: round to nearest 24
+          const qr = Math.round(r / 24) * 24;
+          const qg = Math.round(g / 24) * 24;
+          const qb = Math.round(b / 24) * 24;
+          const key = `${Math.min(qr, 255)},${Math.min(qg, 255)},${Math.min(qb, 255)}`;
+          colorMap[key] = (colorMap[key] || 0) + 1;
+        }
+
+        const sorted = Object.entries(colorMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 20);
+
+        // Convert to hex and dedupe visually similar colors
+        const hexColors: string[] = [];
+        for (const [key] of sorted) {
+          const [r, g, b] = key.split(",").map(Number);
+          const hex = "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
+
+          // Check if too similar to an already selected color
+          const isTooSimilar = hexColors.some(existing => {
+            const er = parseInt(existing.slice(1, 3), 16);
+            const eg = parseInt(existing.slice(3, 5), 16);
+            const eb = parseInt(existing.slice(5, 7), 16);
+            return Math.abs(er - r) + Math.abs(eg - g) + Math.abs(eb - b) < 60;
+          });
+
+          if (!isTooSimilar) {
+            hexColors.push(hex);
+          }
+          if (hexColors.length >= 6) break;
+        }
+
+        resolve(hexColors);
+      };
+      img.onerror = () => resolve([]);
+      img.src = dataUrl;
+    });
+  };
+
+  useEffect(() => {
+    if (logoData) {
+      extractDominantColors(logoData).then(setLogoSuggestedColors);
+    } else {
+      setLogoSuggestedColors([]);
+    }
+  }, [logoData]);
 
   type FillStyle = string | CanvasGradient | CanvasPattern;
 
@@ -1339,6 +1409,63 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                           <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} data-testid="checkbox-logo-background" />
                           White background behind logo
                         </label>
+
+                        {logoSuggestedColors.length > 0 && (
+                          <div className="pt-1 border-t space-y-2">
+                            <Label className="text-xs font-medium text-muted-foreground">Colors from your logo — click to apply</Label>
+                            <div className="flex flex-wrap gap-2">
+                              {logoSuggestedColors.map((color, i) => (
+                                <div key={i} className="flex flex-col items-center gap-1">
+                                  <button
+                                    className="h-8 w-8 rounded-md border-2 border-muted hover:border-primary transition-colors shadow-sm"
+                                    style={{ backgroundColor: color }}
+                                    title={color}
+                                    onClick={() => {
+                                      setDarkColor(color);
+                                      setDotsGradient(false);
+                                    }}
+                                    data-testid={`button-logo-color-${i}`}
+                                  />
+                                  <span className="text-[10px] text-muted-foreground font-mono">{color}</span>
+                                </div>
+                              ))}
+                            </div>
+                            <div className="flex gap-2 flex-wrap">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-xs h-7"
+                                onClick={() => {
+                                  if (logoSuggestedColors.length >= 2) {
+                                    setDotsGradient(true);
+                                    setDotsGradientColors(logoSuggestedColors.slice(0, 4));
+                                    setDotsGradientAngle(45);
+                                  }
+                                }}
+                                disabled={logoSuggestedColors.length < 2}
+                                data-testid="button-apply-logo-gradient"
+                              >
+                                Apply as Gradient
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-xs h-7"
+                                onClick={() => {
+                                  if (logoSuggestedColors.length >= 1) {
+                                    setBgGradient(true);
+                                    const lighter = logoSuggestedColors[0];
+                                    setBgGradientColors([lighter + "22", "#FFFFFF"]);
+                                    setBgGradientAngle(135);
+                                  }
+                                }}
+                                data-testid="button-apply-logo-bg"
+                              >
+                                Apply to Background
+                              </Button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                   </CardContent>
