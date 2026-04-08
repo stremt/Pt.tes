@@ -1387,10 +1387,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                               onClick={() => setDotsGradient(!dotsGradient)}
                               role="switch"
                               aria-checked={dotsGradient}
-                              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${dotsGradient ? "bg-primary border-primary" : "bg-muted border-muted"}`}
+                              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${dotsGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
                               data-testid="toggle-dots-gradient"
                             >
-                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-all duration-300 ${dotsGradient ? "translate-x-6" : "translate-x-1"}`} />
+                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${dotsGradient ? "translate-x-6" : "translate-x-1"}`} />
                             </button>
                           </div>
                         </div>
@@ -1435,10 +1435,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                               onClick={() => setBgGradient(!bgGradient)}
                               role="switch"
                               aria-checked={bgGradient}
-                              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${bgGradient ? "bg-primary border-primary" : "bg-muted border-muted"}`}
+                              className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${bgGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
                               data-testid="toggle-bg-gradient"
                             >
-                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-all duration-300 ${bgGradient ? "translate-x-6" : "translate-x-1"}`} />
+                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${bgGradient ? "translate-x-6" : "translate-x-1"}`} />
                             </button>
                           </div>
                         </div>
@@ -1641,10 +1641,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                   onClick={() => setBorderGradient(!borderGradient)}
                                   role="switch"
                                   aria-checked={borderGradient}
-                                  className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${borderGradient ? "bg-primary border-primary" : "bg-muted border-muted"}`}
+                                  className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${borderGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
                                   data-testid="toggle-border-gradient"
                                 >
-                                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-all duration-300 ${borderGradient ? "translate-x-6" : "translate-x-1"}`} />
+                                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${borderGradient ? "translate-x-6" : "translate-x-1"}`} />
                                 </button>
                               </div>
                             </div>
