@@ -150,7 +150,23 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
   const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
+  const editColumnRef = useRef<HTMLDivElement>(null);
+  const previewWrapperRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (step !== 3) return;
+    const editCol = editColumnRef.current;
+    const previewWrapper = previewWrapperRef.current;
+    if (!editCol || !previewWrapper) return;
+    const sync = () => {
+      previewWrapper.style.minHeight = `${editCol.offsetHeight}px`;
+    };
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(editCol);
+    return () => ro.disconnect();
+  }, [step]);
 
   useEffect(() => {
     const savedTemplates = localStorage.getItem(TEMPLATES_KEY);
@@ -1100,7 +1116,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
           {step === 3 && (
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-stretch relative">
-              <div className="flex-[2] min-w-0 space-y-4">
+              <div ref={editColumnRef} className="flex-[2] min-w-0 space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
                   <Card>
@@ -1535,8 +1551,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 </div>
               </div>
 
-              {/* Preview - Desktop only wrapper stretches full column height so sticky works */}
-              <div className="hidden lg:block flex-[1] relative min-w-0">
+              {/* Preview - Desktop only wrapper; JS syncs height to edit column so sticky works */}
+              <div ref={previewWrapperRef} className="hidden lg:block flex-[1] relative min-w-0">
                 <Card className="sticky top-[68px] z-[200]" data-preview-section>
                   <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
