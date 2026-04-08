@@ -99,6 +99,122 @@ const COLOR_TEMPLATES = [
   { id: "indigo", name: "Indigo", darkColor: "#4F46E5", lightColor: "#E0E7FF" },
 ];
 
+interface StylePreset {
+  id: string;
+  name: string;
+  description: string;
+  darkColor: string;
+  lightColor: string;
+  bodyPattern: string;
+  externalEyePattern: string;
+  internalEyePattern: string;
+  dotsGradient: boolean;
+  dotsGradientColors: string[];
+  dotsGradientAngle: number;
+  bgGradient: boolean;
+  bgGradientColors: string[];
+  bgGradientAngle: number;
+}
+
+const STYLE_PRESETS: StylePreset[] = [
+  {
+    id: "minimal",
+    name: "Minimal",
+    description: "Clean & simple",
+    darkColor: "#000000",
+    lightColor: "#FFFFFF",
+    bodyPattern: "square",
+    externalEyePattern: "square",
+    internalEyePattern: "square",
+    dotsGradient: false,
+    dotsGradientColors: ["#000000", "#333333"],
+    dotsGradientAngle: 45,
+    bgGradient: false,
+    bgGradientColors: ["#FFFFFF", "#F8F8F8"],
+    bgGradientAngle: 135,
+  },
+  {
+    id: "modern",
+    name: "Modern",
+    description: "Rounded + gradient",
+    darkColor: "#4F46E5",
+    lightColor: "#EEF2FF",
+    bodyPattern: "extra-rounded",
+    externalEyePattern: "rounded",
+    internalEyePattern: "rounded",
+    dotsGradient: true,
+    dotsGradientColors: ["#4F46E5", "#7C3AED", "#EC4899"],
+    dotsGradientAngle: 135,
+    bgGradient: false,
+    bgGradientColors: ["#EEF2FF", "#F5F3FF"],
+    bgGradientAngle: 135,
+  },
+  {
+    id: "business",
+    name: "Business",
+    description: "Professional & bold",
+    darkColor: "#0F172A",
+    lightColor: "#FFFFFF",
+    bodyPattern: "square",
+    externalEyePattern: "square",
+    internalEyePattern: "square",
+    dotsGradient: false,
+    dotsGradientColors: ["#0F172A", "#1E3A5F"],
+    dotsGradientAngle: 45,
+    bgGradient: false,
+    bgGradientColors: ["#FFFFFF", "#F8FAFC"],
+    bgGradientAngle: 135,
+  },
+  {
+    id: "creative",
+    name: "Creative",
+    description: "Bold & colorful",
+    darkColor: "#EA580C",
+    lightColor: "#FFF7ED",
+    bodyPattern: "dots",
+    externalEyePattern: "circle",
+    internalEyePattern: "circle",
+    dotsGradient: true,
+    dotsGradientColors: ["#EA580C", "#DB2777", "#7C3AED"],
+    dotsGradientAngle: 45,
+    bgGradient: false,
+    bgGradientColors: ["#FFF7ED", "#FDF2F8"],
+    bgGradientAngle: 135,
+  },
+  {
+    id: "nature",
+    name: "Nature",
+    description: "Fresh & organic",
+    darkColor: "#15803D",
+    lightColor: "#F0FDF4",
+    bodyPattern: "classy-rounded",
+    externalEyePattern: "rounded",
+    internalEyePattern: "rounded",
+    dotsGradient: true,
+    dotsGradientColors: ["#15803D", "#0D9488"],
+    dotsGradientAngle: 90,
+    bgGradient: false,
+    bgGradientColors: ["#F0FDF4", "#CCFBF1"],
+    bgGradientAngle: 135,
+  },
+  {
+    id: "neon",
+    name: "Neon",
+    description: "Dark & vibrant",
+    darkColor: "#A855F7",
+    lightColor: "#09090B",
+    bodyPattern: "dots",
+    externalEyePattern: "circle",
+    internalEyePattern: "circle",
+    dotsGradient: true,
+    dotsGradientColors: ["#A855F7", "#3B82F6", "#06B6D4"],
+    dotsGradientAngle: 45,
+    bgGradient: false,
+    bgGradientColors: ["#09090B", "#0F0F1A"],
+    bgGradientAngle: 135,
+  },
+];
+
 export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectedType, setSelectedType] = useState("");
@@ -791,6 +907,20 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     toast({ title: template.name, description: "Applied" });
   };
 
+  const applyStylePreset = (preset: StylePreset) => {
+    setDarkColor(preset.darkColor);
+    setLightColor(preset.lightColor);
+    setBodyPattern(preset.bodyPattern);
+    setExternalEyePattern(preset.externalEyePattern);
+    setInternalEyePattern(preset.internalEyePattern);
+    setDotsGradient(preset.dotsGradient);
+    setDotsGradientColors(preset.dotsGradientColors);
+    setDotsGradientAngle(preset.dotsGradientAngle);
+    setBgGradient(preset.bgGradient);
+    setBgGradientColors(preset.bgGradientColors);
+    setBgGradientAngle(preset.bgGradientAngle);
+  };
+
   const deleteTemplate = (id: string) => {
     const updated = customTemplates.filter(t => t.id !== id);
     setCustomTemplates(updated);
@@ -1172,61 +1302,100 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-stretch relative">
               <div ref={editColumnRef} className="flex-[2] min-w-0">
                 <Tabs defaultValue="colors" className="w-full">
-                  <TabsList className="w-full grid grid-cols-5 mb-4">
-                    <TabsTrigger value="colors" className="text-xs">Colors</TabsTrigger>
-                    <TabsTrigger value="patterns" className="text-xs">Patterns</TabsTrigger>
-                    <TabsTrigger value="frame" className="text-xs">Frame</TabsTrigger>
-                    <TabsTrigger value="logo" className="text-xs">Logo</TabsTrigger>
-                    <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
+                  <TabsList className="w-full grid grid-cols-4 mb-5">
+                    <TabsTrigger value="colors">Colors</TabsTrigger>
+                    <TabsTrigger value="design">Design</TabsTrigger>
+                    <TabsTrigger value="branding">Branding</TabsTrigger>
+                    <TabsTrigger value="settings">Settings</TabsTrigger>
                   </TabsList>
 
                   {/* ── COLORS ──────────────────────────── */}
-                  <TabsContent value="colors" className="space-y-4 mt-0">
+                  <TabsContent value="colors" className="space-y-5 mt-0">
+                    {/* Full style presets */}
                     <Card>
-                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Quick Presets</CardTitle></CardHeader>
-                      <CardContent className="pb-3">
-                        <div className="grid grid-cols-8 gap-1.5">
-                          {COLOR_TEMPLATES.map(t => (
-                            <button key={t.id} onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); setDotsGradient(false); setBgGradient(false); }} className="h-8 rounded-md border-2 border-muted hover:border-primary transition-colors" style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }} title={t.name} />
+                      <CardHeader className="px-5 pt-5 pb-3">
+                        <CardTitle className="text-sm font-semibold">Style Presets</CardTitle>
+                        <p className="text-xs text-muted-foreground mt-1">One click — full style applied instantly</p>
+                      </CardHeader>
+                      <CardContent className="px-5 pb-5">
+                        <div className="grid grid-cols-3 gap-3">
+                          {STYLE_PRESETS.map(preset => (
+                            <button
+                              key={preset.id}
+                              onClick={() => applyStylePreset(preset)}
+                              className="group relative rounded-lg border-2 border-muted p-3 text-left transition-all hover:border-primary hover:shadow-sm"
+                              data-testid={`button-preset-${preset.id}`}
+                            >
+                              <div className="flex gap-1.5 mb-2.5">
+                                <div className="h-5 w-5 rounded-sm border" style={{ background: preset.dotsGradient ? `linear-gradient(135deg, ${preset.dotsGradientColors.join(", ")})` : preset.darkColor }} />
+                                <div className="h-5 flex-1 rounded-sm border" style={{ backgroundColor: preset.lightColor }} />
+                              </div>
+                              <p className="text-xs font-semibold leading-none">{preset.name}</p>
+                              <p className="text-[11px] text-muted-foreground mt-0.5">{preset.description}</p>
+                            </button>
                           ))}
                         </div>
                       </CardContent>
                     </Card>
 
+                    {/* Color palette strip */}
                     <Card>
-                      <CardHeader className="py-3 pb-2">
+                      <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Quick Colors</CardTitle></CardHeader>
+                      <CardContent className="px-5 pb-5">
+                        <div className="grid grid-cols-8 gap-2">
+                          {COLOR_TEMPLATES.map(t => (
+                            <button
+                              key={t.id}
+                              onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); setDotsGradient(false); setBgGradient(false); }}
+                              className="h-8 rounded-md border-2 border-muted hover:border-primary hover:ring-2 hover:ring-primary/30 transition-all"
+                              style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }}
+                              title={t.name}
+                              data-testid={`button-color-${t.id}`}
+                            />
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Dot color */}
+                    <Card>
+                      <CardHeader className="px-5 pt-5 pb-3">
                         <div className="flex items-center justify-between">
                           <CardTitle className="text-sm font-semibold">Dot Color</CardTitle>
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">Gradient</span>
-                            <button onClick={() => setDotsGradient(!dotsGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dotsGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-dots-gradient">
-                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${dotsGradient ? "translate-x-4" : "translate-x-1"}`} />
+                            <button
+                              onClick={() => setDotsGradient(!dotsGradient)}
+                              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-all duration-200 ${dotsGradient ? "bg-primary" : "bg-muted"}`}
+                              data-testid="toggle-dots-gradient"
+                            >
+                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-all duration-200 ${dotsGradient ? "translate-x-6" : "translate-x-1"}`} />
                             </button>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="pb-3 space-y-2">
+                      <CardContent className="px-5 pb-5 space-y-3">
                         {!dotsGradient ? (
-                          <div className="flex items-center gap-2">
-                            <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
-                            <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="text-xs h-8 font-mono" />
+                          <div className="flex items-center gap-3">
+                            <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                            <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="font-mono text-sm" placeholder="#000000" />
                           </div>
                         ) : (
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <span className="text-xs text-muted-foreground">Colors ({dotsGradientColors.length}/5)</span>
-                              {dotsGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setDotsGradientColors([...dotsGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>}
+                              <span className="text-xs text-muted-foreground">Stop colors ({dotsGradientColors.length}/5)</span>
+                              {dotsGradientColors.length < 5 && <Button size="sm" variant="outline" onClick={() => setDotsGradientColors([...dotsGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3 mr-1" />Add</Button>}
                             </div>
                             {dotsGradientColors.map((c, i) => (
                               <div key={i} className="flex items-center gap-2">
-                                <input type="color" value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
-                                <Input value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
-                                {dotsGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setDotsGradientColors(dotsGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
+                                <input type="color" value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                                <Input value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="font-mono text-sm flex-1" />
+                                {dotsGradientColors.length > 2 && <Button size="icon" variant="ghost" onClick={() => setDotsGradientColors(dotsGradientColors.filter((_, idx) => idx !== i))}><X className="h-3.5 w-3.5" /></Button>}
                               </div>
                             ))}
-                            <div className="h-3 rounded" style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }} />
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-muted-foreground shrink-0">{dotsGradientAngle}°</span>
+                            <div className="h-4 rounded-md" style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }} />
+                            <div className="flex items-center gap-3">
+                              <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{dotsGradientAngle}°</span>
                               <input type="range" min="0" max="360" value={dotsGradientAngle} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
                             </div>
                           </div>
@@ -1234,40 +1403,45 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       </CardContent>
                     </Card>
 
+                    {/* Background */}
                     <Card>
-                      <CardHeader className="py-3 pb-2">
+                      <CardHeader className="px-5 pt-5 pb-3">
                         <div className="flex items-center justify-between">
                           <CardTitle className="text-sm font-semibold">Background</CardTitle>
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">Gradient</span>
-                            <button onClick={() => setBgGradient(!bgGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${bgGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-bg-gradient">
-                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${bgGradient ? "translate-x-4" : "translate-x-1"}`} />
+                            <button
+                              onClick={() => setBgGradient(!bgGradient)}
+                              className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-all duration-200 ${bgGradient ? "bg-primary" : "bg-muted"}`}
+                              data-testid="toggle-bg-gradient"
+                            >
+                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-all duration-200 ${bgGradient ? "translate-x-6" : "translate-x-1"}`} />
                             </button>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent className="pb-3 space-y-2">
+                      <CardContent className="px-5 pb-5 space-y-3">
                         {!bgGradient ? (
-                          <div className="flex items-center gap-2">
-                            <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
-                            <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="text-xs h-8 font-mono" />
+                          <div className="flex items-center gap-3">
+                            <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                            <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="font-mono text-sm" placeholder="#FFFFFF" />
                           </div>
                         ) : (
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <div className="flex items-center justify-between">
-                              <span className="text-xs text-muted-foreground">Colors ({bgGradientColors.length}/5)</span>
-                              {bgGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBgGradientColors([...bgGradientColors, "#F3E8FF"])}><Plus className="h-3 w-3" /></Button>}
+                              <span className="text-xs text-muted-foreground">Stop colors ({bgGradientColors.length}/5)</span>
+                              {bgGradientColors.length < 5 && <Button size="sm" variant="outline" onClick={() => setBgGradientColors([...bgGradientColors, "#F3E8FF"])}><Plus className="h-3 w-3 mr-1" />Add</Button>}
                             </div>
                             {bgGradientColors.map((c, i) => (
                               <div key={i} className="flex items-center gap-2">
-                                <input type="color" value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
-                                <Input value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
-                                {bgGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBgGradientColors(bgGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
+                                <input type="color" value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                                <Input value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="font-mono text-sm flex-1" />
+                                {bgGradientColors.length > 2 && <Button size="icon" variant="ghost" onClick={() => setBgGradientColors(bgGradientColors.filter((_, idx) => idx !== i))}><X className="h-3.5 w-3.5" /></Button>}
                               </div>
                             ))}
-                            <div className="h-3 rounded border" style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }} />
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-muted-foreground shrink-0">{bgGradientAngle}°</span>
+                            <div className="h-4 rounded-md border" style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }} />
+                            <div className="flex items-center gap-3">
+                              <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{bgGradientAngle}°</span>
                               <input type="range" min="0" max="360" value={bgGradientAngle} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
                             </div>
                           </div>
@@ -1276,14 +1450,20 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                     </Card>
                   </TabsContent>
 
-                  {/* ── PATTERNS ────────────────────────── */}
-                  <TabsContent value="patterns" className="space-y-4 mt-0">
+                  {/* ── DESIGN ──────────────────────────── */}
+                  <TabsContent value="design" className="space-y-5 mt-0">
                     <Card>
-                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
-                      <CardContent className="pb-3">
-                        <div className="grid grid-cols-8 gap-1.5">
+                      <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
+                      <CardContent className="px-5 pb-5">
+                        <div className="grid grid-cols-8 gap-2">
                           {BODY_PATTERNS.map(p => (
-                            <button key={p.id} onClick={() => setBodyPattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${bodyPattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                            <button
+                              key={p.id}
+                              onClick={() => setBodyPattern(p.id)}
+                              className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${bodyPattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2" : "border-muted hover:border-primary/50"}`}
+                              title={p.name}
+                              data-testid={`button-body-${p.id}`}
+                            >
                               <BodyPatternPreview pattern={p.id} />
                             </button>
                           ))}
@@ -1293,11 +1473,17 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                     <div className="grid grid-cols-2 gap-4">
                       <Card>
-                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Outer Eye</CardTitle></CardHeader>
-                        <CardContent className="pb-3">
-                          <div className="grid grid-cols-5 gap-1.5">
+                        <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Outer Eye</CardTitle></CardHeader>
+                        <CardContent className="px-5 pb-5">
+                          <div className="grid grid-cols-5 gap-2">
                             {EXTERNAL_EYE_PATTERNS.map(p => (
-                              <button key={p.id} onClick={() => setExternalEyePattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${externalEyePattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                              <button
+                                key={p.id}
+                                onClick={() => setExternalEyePattern(p.id)}
+                                className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${externalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2" : "border-muted hover:border-primary/50"}`}
+                                title={p.name}
+                                data-testid={`button-eye-outer-${p.id}`}
+                              >
                                 <ExternalEyePreview pattern={p.id} />
                               </button>
                             ))}
@@ -1305,11 +1491,17 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         </CardContent>
                       </Card>
                       <Card>
-                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Inner Eye</CardTitle></CardHeader>
-                        <CardContent className="pb-3">
-                          <div className="grid grid-cols-5 gap-1.5">
+                        <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Inner Eye</CardTitle></CardHeader>
+                        <CardContent className="px-5 pb-5">
+                          <div className="grid grid-cols-5 gap-2">
                             {INTERNAL_EYE_PATTERNS.map(p => (
-                              <button key={p.id} onClick={() => setInternalEyePattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${internalEyePattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                              <button
+                                key={p.id}
+                                onClick={() => setInternalEyePattern(p.id)}
+                                className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${internalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2" : "border-muted hover:border-primary/50"}`}
+                                title={p.name}
+                                data-testid={`button-eye-inner-${p.id}`}
+                              >
                                 <InternalEyePreview pattern={p.id} />
                               </button>
                             ))}
@@ -1319,67 +1511,15 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                     </div>
                   </TabsContent>
 
-                  {/* ── FRAME ───────────────────────────── */}
-                  <TabsContent value="frame" className="mt-0">
+                  {/* ── BRANDING ────────────────────────── */}
+                  <TabsContent value="branding" className="space-y-5 mt-0">
+                    {/* Logo */}
                     <Card>
-                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Frame Style</CardTitle></CardHeader>
-                      <CardContent className="pb-3 space-y-3">
-                        <div className="grid grid-cols-5 gap-2">
-                          {FRAME_PRESETS.map(f => (
-                            <button key={f.id} onClick={() => setFrameStyle(f.id)} className={`p-2 rounded-md border-2 text-xs font-medium ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground"}`}>{f.name}</button>
-                          ))}
-                        </div>
-
-                        {frameStyle !== "none" && (
-                          <div className="space-y-3 pt-3 border-t">
-                            <div className="flex items-center justify-between">
-                              <Label className="text-sm font-medium">Border Color</Label>
-                              <div className="flex items-center gap-2">
-                                <span className="text-xs text-muted-foreground">Gradient</span>
-                                <button onClick={() => setBorderGradient(!borderGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${borderGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-border-gradient">
-                                  <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${borderGradient ? "translate-x-4" : "translate-x-1"}`} />
-                                </button>
-                              </div>
-                            </div>
-                            {!borderGradient ? (
-                              <div className="flex items-center gap-2">
-                                <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
-                                <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="text-xs h-8 font-mono" />
-                              </div>
-                            ) : (
-                              <div className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                  <span className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</span>
-                                  {borderGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>}
-                                </div>
-                                {borderGradientColors.map((c, i) => (
-                                  <div key={i} className="flex items-center gap-2">
-                                    <input type="color" value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
-                                    <Input value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
-                                    {borderGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
-                                  </div>
-                                ))}
-                                <div className="h-3 rounded" style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }} />
-                                <div className="flex items-center gap-2">
-                                  <span className="text-xs text-muted-foreground shrink-0">{borderGradientAngle}°</span>
-                                  <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
-
-                  {/* ── LOGO ────────────────────────────── */}
-                  <TabsContent value="logo" className="mt-0">
-                    <Card>
-                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Logo / Image</CardTitle></CardHeader>
-                      <CardContent className="pb-3 space-y-3">
+                      <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Logo</CardTitle></CardHeader>
+                      <CardContent className="px-5 pb-5 space-y-4">
                         {!logoData ? (
                           <div
-                            className={`rounded-lg border-2 border-dashed transition-colors flex flex-col items-center justify-center gap-2 py-8 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50"}`}
+                            className={`rounded-lg border-2 border-dashed transition-all flex flex-col items-center justify-center gap-3 py-8 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50 hover:bg-muted/30"}`}
                             onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
                             onDragLeave={() => setLogoDragOver(false)}
                             onDrop={handleLogoDrop}
@@ -1388,54 +1528,61 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                           >
                             <Upload className="h-7 w-7 text-muted-foreground" />
                             <div className="text-center">
-                              <p className="text-sm font-medium">{logoDragOver ? "Drop here" : "Drag & drop or click"}</p>
-                              <p className="text-xs text-muted-foreground mt-0.5">PNG, JPG, SVG, WebP</p>
+                              <p className="text-sm font-medium">{logoDragOver ? "Drop here" : "Drag & drop or click to upload"}</p>
+                              <p className="text-xs text-muted-foreground mt-1">PNG, JPG, SVG, WebP</p>
                             </div>
                             <input id="logo-file-input" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" data-testid="input-logo-upload" />
                           </div>
                         ) : (
-                          <div className="space-y-3">
-                            <div className="flex items-center gap-3 p-3 bg-muted/40 rounded-lg">
-                              <div className="rounded-lg p-1.5 bg-background border flex items-center justify-center h-14 w-14 shrink-0">
-                                <img src={logoData} alt="Logo" className="max-h-10 max-w-10 object-contain" />
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-4 p-4 bg-muted/40 rounded-lg">
+                              <div className="rounded-lg p-2 bg-background border flex items-center justify-center h-16 w-16 shrink-0">
+                                <img src={logoData} alt="Logo" className="max-h-12 max-w-12 object-contain" />
                               </div>
-                              <div className="flex-1 min-w-0 space-y-1.5">
-                                <p className="text-xs text-muted-foreground">Logo uploaded</p>
-                                <div className="flex gap-1.5">
-                                  <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="text-xs h-7 flex-1">Replace</Button>
-                                  <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs h-7" data-testid="button-remove-logo"><X className="h-3 w-3 mr-1" />Remove</Button>
+                              <div className="flex-1 min-w-0 space-y-2">
+                                <p className="text-xs text-muted-foreground">Logo ready</p>
+                                <div className="flex gap-2">
+                                  <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="flex-1">Replace</Button>
+                                  <Button variant="outline" size="sm" onClick={() => setLogoData(null)} data-testid="button-remove-logo"><X className="h-3.5 w-3.5 mr-1" />Remove</Button>
                                 </div>
                                 <input id="logo-file-input-replace" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
                               </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3">
-                              <div className="space-y-1">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
                                 <Label className="text-xs text-muted-foreground">Size: {logoSize}px</Label>
                                 <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
                               </div>
-                              <div className="space-y-1">
-                                <Label className="text-xs text-muted-foreground">Radius: {logoBorderRadius}px</Label>
+                              <div className="space-y-2">
+                                <Label className="text-xs text-muted-foreground">Corner radius: {logoBorderRadius}px</Label>
                                 <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
                               </div>
                             </div>
 
-                            <label className="flex items-center gap-2 text-xs cursor-pointer text-muted-foreground">
+                            <label className="flex items-center gap-2 text-sm cursor-pointer">
                               <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} className="rounded" data-testid="checkbox-logo-background" />
-                              White background behind logo
+                              <span className="text-muted-foreground">White background behind logo</span>
                             </label>
 
                             {logoSuggestedColors.length > 0 && (
-                              <div className="pt-2 border-t space-y-2">
-                                <p className="text-xs text-muted-foreground font-medium">Colors from your logo</p>
-                                <div className="flex flex-wrap gap-1.5">
+                              <div className="pt-3 border-t space-y-3">
+                                <p className="text-xs font-medium text-muted-foreground">Colors extracted from your logo</p>
+                                <div className="flex flex-wrap gap-2">
                                   {logoSuggestedColors.map((color, i) => (
-                                    <button key={i} className="h-7 w-7 rounded-md border-2 border-muted hover:border-primary transition-colors" style={{ backgroundColor: color }} title={color} onClick={() => { setDarkColor(color); setDotsGradient(false); }} data-testid={`button-logo-color-${i}`} />
+                                    <button
+                                      key={i}
+                                      className="h-8 w-8 rounded-md border-2 border-muted hover:border-primary hover:ring-2 hover:ring-primary/30 transition-all"
+                                      style={{ backgroundColor: color }}
+                                      title={color}
+                                      onClick={() => { setDarkColor(color); setDotsGradient(false); }}
+                                      data-testid={`button-logo-color-${i}`}
+                                    />
                                   ))}
                                 </div>
                                 <div className="flex gap-2">
-                                  <Button variant="outline" size="sm" className="text-xs h-7 flex-1" disabled={logoSuggestedColors.length < 2} onClick={() => { setDotsGradient(true); setDotsGradientColors(logoSuggestedColors.slice(0, 4)); setDotsGradientAngle(45); }} data-testid="button-apply-logo-gradient">Gradient Dots</Button>
-                                  <Button variant="outline" size="sm" className="text-xs h-7 flex-1" onClick={() => { setBgGradient(true); setBgGradientColors([logoSuggestedColors[0] + "22", "#FFFFFF"]); setBgGradientAngle(135); }} data-testid="button-apply-logo-bg">Apply to BG</Button>
+                                  <Button variant="outline" size="sm" className="flex-1" disabled={logoSuggestedColors.length < 2} onClick={() => { setDotsGradient(true); setDotsGradientColors(logoSuggestedColors.slice(0, 4)); setDotsGradientAngle(45); }} data-testid="button-apply-logo-gradient">Gradient Dots</Button>
+                                  <Button variant="outline" size="sm" className="flex-1" onClick={() => { setBgGradient(true); setBgGradientColors([logoSuggestedColors[0] + "22", "#FFFFFF"]); setBgGradientAngle(135); }} data-testid="button-apply-logo-bg">Apply to BG</Button>
                                 </div>
                               </div>
                             )}
@@ -1443,31 +1590,100 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         )}
                       </CardContent>
                     </Card>
-                  </TabsContent>
 
-                  {/* ── SETTINGS ────────────────────────── */}
-                  <TabsContent value="settings" className="space-y-4 mt-0">
+                    {/* Frame */}
                     <Card>
-                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Label Text</CardTitle></CardHeader>
-                      <CardContent className="pb-3">
-                        <div className="flex gap-2">
-                          <Input placeholder="Add text below QR..." value={overlayText} onChange={(e) => setOverlayText(e.target.value)} className="text-sm h-8" />
-                          {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />}
+                      <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Frame</CardTitle></CardHeader>
+                      <CardContent className="px-5 pb-5 space-y-4">
+                        <div className="grid grid-cols-5 gap-2">
+                          {FRAME_PRESETS.map(f => (
+                            <button
+                              key={f.id}
+                              onClick={() => setFrameStyle(f.id)}
+                              className={`py-2.5 px-1 rounded-md border-2 text-xs font-medium transition-all ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-1" : "border-muted text-muted-foreground hover:border-primary/50"}`}
+                              data-testid={`button-frame-${f.id}`}
+                            >
+                              {f.name}
+                            </button>
+                          ))}
                         </div>
+
+                        {frameStyle !== "none" && (
+                          <div className="space-y-4 pt-4 border-t">
+                            <div className="flex items-center justify-between">
+                              <Label className="text-sm font-medium">Border Color</Label>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground">Gradient</span>
+                                <button
+                                  onClick={() => setBorderGradient(!borderGradient)}
+                                  className={`relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-all duration-200 ${borderGradient ? "bg-primary" : "bg-muted"}`}
+                                  data-testid="toggle-border-gradient"
+                                >
+                                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-all duration-200 ${borderGradient ? "translate-x-6" : "translate-x-1"}`} />
+                                </button>
+                              </div>
+                            </div>
+                            {!borderGradient ? (
+                              <div className="flex items-center gap-3">
+                                <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                                <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="font-mono text-sm" />
+                              </div>
+                            ) : (
+                              <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</span>
+                                  {borderGradientColors.length < 5 && <Button size="sm" variant="outline" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3 mr-1" />Add</Button>}
+                                </div>
+                                {borderGradientColors.map((c, i) => (
+                                  <div key={i} className="flex items-center gap-2">
+                                    <input type="color" value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                                    <Input value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="font-mono text-sm flex-1" />
+                                    {borderGradientColors.length > 2 && <Button size="icon" variant="ghost" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3.5 w-3.5" /></Button>}
+                                  </div>
+                                ))}
+                                <div className="h-4 rounded-md" style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }} />
+                                <div className="flex items-center gap-3">
+                                  <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{borderGradientAngle}°</span>
+                                  <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
 
+                    {/* Text label */}
                     <Card>
-                      <CardHeader className="py-3 pb-2">
+                      <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Label Text</CardTitle></CardHeader>
+                      <CardContent className="px-5 pb-5">
+                        <div className="flex gap-3">
+                          <Input placeholder="e.g. Scan to visit our site" value={overlayText} onChange={(e) => setOverlayText(e.target.value)} className="text-sm" />
+                          {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" title="Text color" />}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  {/* ── SETTINGS ────────────────────────── */}
+                  <TabsContent value="settings" className="space-y-5 mt-0">
+                    <Card>
+                      <CardHeader className="px-5 pt-5 pb-3">
                         <CardTitle className="text-sm font-semibold">Error Correction</CardTitle>
-                        <p className="text-xs text-muted-foreground mt-0.5">Higher = more damage-resistant but larger QR</p>
+                        <p className="text-xs text-muted-foreground mt-1">Higher level = more damage-resistant QR code</p>
                       </CardHeader>
-                      <CardContent className="pb-3">
-                        <div className="grid grid-cols-4 gap-2">
-                          {[{l:"L",v:"7%"},{l:"M",v:"15%"},{l:"Q",v:"25%"},{l:"H",v:"30%"}].map(({l,v}) => (
-                            <button key={l} onClick={() => setErrorCorrectionLevel(l)} className={`py-2 rounded-md border-2 text-xs font-medium ${errorCorrectionLevel === l ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground"}`}>
-                              <div className="font-bold">{l}</div>
-                              <div className="text-[10px] mt-0.5">{v}</div>
+                      <CardContent className="px-5 pb-5">
+                        <div className="grid grid-cols-4 gap-3">
+                          {[{l:"L",v:"7%",desc:"Low"},{l:"M",v:"15%",desc:"Med"},{l:"Q",v:"25%",desc:"High"},{l:"H",v:"30%",desc:"Max"}].map(({l,v,desc}) => (
+                            <button
+                              key={l}
+                              onClick={() => setErrorCorrectionLevel(l)}
+                              className={`py-3 rounded-md border-2 text-xs font-medium transition-all ${errorCorrectionLevel === l ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-1" : "border-muted text-muted-foreground hover:border-primary/50"}`}
+                              data-testid={`button-ecl-${l}`}
+                            >
+                              <div className="text-base font-bold">{l}</div>
+                              <div className="mt-0.5">{desc}</div>
+                              <div className="text-[10px] opacity-70">{v}</div>
                             </button>
                           ))}
                         </div>
@@ -1476,13 +1692,13 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                     {customTemplates.length > 0 && (
                       <Card>
-                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Saved Templates</CardTitle></CardHeader>
-                        <CardContent className="pb-3">
+                        <CardHeader className="px-5 pt-5 pb-3"><CardTitle className="text-sm font-semibold">Saved Templates</CardTitle></CardHeader>
+                        <CardContent className="px-5 pb-5">
                           <div className="flex flex-wrap gap-2">
                             {customTemplates.map(template => (
                               <div key={template.id} className="group relative">
-                                <button onClick={() => applyTemplate(template)} className="px-3 py-1.5 rounded-md border text-xs font-medium hover:border-primary transition-colors">{template.name}</button>
-                                <button onClick={() => deleteTemplate(template.id)} className="absolute -top-1.5 -right-1.5 h-4 w-4 bg-destructive text-white rounded-full text-xs opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"><X className="h-2 w-2" /></button>
+                                <button onClick={() => applyTemplate(template)} className="px-3 py-2 rounded-md border text-sm font-medium hover:border-primary transition-colors">{template.name}</button>
+                                <button onClick={() => deleteTemplate(template.id)} className="absolute -top-1.5 -right-1.5 h-4 w-4 bg-destructive text-white rounded-full text-xs opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity" data-testid={`button-delete-template-${template.id}`}><X className="h-2 w-2" /></button>
                               </div>
                             ))}
                           </div>
@@ -1492,14 +1708,14 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
                 </Tabs>
 
-                {/* Action bar — always visible */}
-                <div className="flex gap-2 mt-4 flex-wrap">
-                  <Button variant="outline" size="sm" onClick={() => setStep(2)} data-testid="button-back">Back</Button>
+                {/* Action bar */}
+                <div className="flex items-center gap-2 mt-5 pt-4 border-t flex-wrap">
+                  <Button variant="ghost" size="sm" onClick={() => setStep(2)} data-testid="button-back">Back</Button>
                   <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
-                  <div className="flex gap-1 ml-auto">
-                    <Button onClick={() => downloadQR("normal")} size="sm" variant="outline" title="Standard quality" data-testid="button-download-normal"><Download className="h-3.5 w-3.5" /></Button>
-                    <Button onClick={() => downloadQR("high")} size="sm" title="2x HD quality" data-testid="button-download-hd"><Download className="h-3.5 w-3.5 mr-1" />HD</Button>
-                    <Button onClick={() => downloadQR("ultra")} size="sm" variant="secondary" title="4x Ultra quality" data-testid="button-download-4k">4K</Button>
+                  <div className="flex gap-2 ml-auto">
+                    <Button onClick={() => downloadQR("normal")} size="sm" variant="outline" title="Standard PNG" data-testid="button-download-normal"><Download className="h-3.5 w-3.5 mr-1.5" />Download</Button>
+                    <Button onClick={() => downloadQR("high")} size="sm" title="2× resolution" data-testid="button-download-hd"><Download className="h-3.5 w-3.5 mr-1.5" />Download HD</Button>
+                    <Button onClick={() => downloadQR("ultra")} size="sm" variant="secondary" title="4× resolution" data-testid="button-download-4k">Download 4K</Button>
                   </div>
                 </div>
               </div>
@@ -1507,13 +1723,30 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               {/* Preview - Desktop only wrapper; JS syncs height to edit column so sticky works */}
               <div ref={previewWrapperRef} className="hidden lg:block flex-[1] relative min-w-0">
                 <Card className="z-[200]" data-preview-section>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
-                  <CardContent className="pb-3 space-y-3">
-                    <div className="rounded-lg flex items-center justify-center" style={{ background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>
-                      <canvas ref={canvasRef} style={{ display: 'block', maxWidth: '100%', maxHeight: '100%', imageRendering: 'crisp-edges' }} />
+                  <CardHeader className="px-5 pt-5 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                      <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Live Preview</CardTitle>
                     </div>
-                    <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
-                      <Shield className="h-3 w-3" />Offline & Private
+                  </CardHeader>
+                  <CardContent className="px-5 pb-5 space-y-4">
+                    <div
+                      className="rounded-xl flex items-center justify-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] cursor-default"
+                      style={{
+                        background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor,
+                        width: '100%',
+                        aspectRatio: '1',
+                        border: "1px solid var(--border)"
+                      }}
+                    >
+                      <canvas ref={canvasRef} style={{ display: 'block', maxWidth: '88%', maxHeight: '88%', imageRendering: 'crisp-edges' }} />
+                    </div>
+                    <div className="text-xs text-muted-foreground flex items-center gap-1.5 justify-center">
+                      <Shield className="h-3 w-3" />Generated offline — never uploaded
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      <Button onClick={() => downloadQR("high")} className="w-full" data-testid="button-preview-hd"><Download className="h-3.5 w-3.5 mr-2" />Download HD</Button>
+                      <Button onClick={() => downloadQR("ultra")} variant="secondary" className="w-full" data-testid="button-preview-4k"><Download className="h-3.5 w-3.5 mr-2" />Download 4K</Button>
                     </div>
                   </CardContent>
                 </Card>
