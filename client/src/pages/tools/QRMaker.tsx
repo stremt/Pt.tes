@@ -157,15 +157,68 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   useEffect(() => {
     if (step !== 3) return;
     const editCol = editColumnRef.current;
-    const previewWrapper = previewWrapperRef.current;
-    if (!editCol || !previewWrapper) return;
-    const sync = () => {
-      previewWrapper.style.minHeight = `${editCol.offsetHeight}px`;
+    const wrapper = previewWrapperRef.current;
+    if (!editCol || !wrapper) return;
+
+    const card = wrapper.querySelector('[data-preview-section]') as HTMLElement | null;
+    if (!card) return;
+
+    const HEADER_H = 72;
+
+    const update = () => {
+      // Keep wrapper as tall as the edit column so layout holds
+      wrapper.style.minHeight = `${editCol.offsetHeight}px`;
+
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const editRect = editCol.getBoundingClientRect();
+      const cardH = card.offsetHeight;
+
+      if (editRect.bottom < HEADER_H + cardH) {
+        // Bottom of edit section approaching — pin card to bottom of wrapper
+        card.style.position = 'absolute';
+        card.style.top = 'auto';
+        card.style.bottom = '0';
+        card.style.left = '0';
+        card.style.right = '0';
+        card.style.width = '';
+      } else if (wrapperRect.top < HEADER_H) {
+        // Scrolled past the top — fix card to viewport
+        card.style.position = 'fixed';
+        card.style.top = `${HEADER_H}px`;
+        card.style.left = `${wrapperRect.left}px`;
+        card.style.width = `${wrapperRect.width}px`;
+        card.style.bottom = 'auto';
+        card.style.right = 'auto';
+      } else {
+        // Not yet scrolled to stick point — normal flow
+        card.style.position = '';
+        card.style.top = '';
+        card.style.bottom = '';
+        card.style.left = '';
+        card.style.right = '';
+        card.style.width = '';
+      }
     };
-    sync();
-    const ro = new ResizeObserver(sync);
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    const ro = new ResizeObserver(update);
     ro.observe(editCol);
-    return () => ro.disconnect();
+
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      ro.disconnect();
+      card.style.position = '';
+      card.style.top = '';
+      card.style.bottom = '';
+      card.style.left = '';
+      card.style.right = '';
+      card.style.width = '';
+      wrapper.style.minHeight = '';
+    };
   }, [step]);
 
   useEffect(() => {
@@ -1553,7 +1606,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
               {/* Preview - Desktop only wrapper; JS syncs height to edit column so sticky works */}
               <div ref={previewWrapperRef} className="hidden lg:block flex-[1] relative min-w-0">
-                <Card className="sticky top-[68px] z-[200]" data-preview-section>
+                <Card className="z-[200]" data-preview-section>
                   <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
                     <div className="rounded-lg flex items-center justify-center" style={{ background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>
