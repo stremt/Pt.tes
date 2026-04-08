@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -33,14 +33,20 @@ interface CustomTemplate {
 const TEMPLATES_KEY = "pixocraft_qr_templates_v2";
 
 const QR_TYPES = [
-  { id: "url", label: "URL / Website", icon: LinkIcon, description: "Link to website" },
-  { id: "whatsapp", label: "WhatsApp", icon: User, description: "Message on WhatsApp" },
-  { id: "vcard", label: "vCard / Contact", icon: User, description: "Save contact info" },
-  { id: "text", label: "Plain Text", icon: FileText, description: "Any text message" },
-  { id: "email", label: "Email Address", icon: User, description: "Send email" },
-  { id: "sms", label: "SMS / Text", icon: User, description: "Send SMS" },
-  { id: "wifi", label: "WiFi Network", icon: User, description: "Connect to WiFi" },
-  { id: "bitcoin", label: "Bitcoin Address", icon: User, description: "Send payment" },
+  { id: "url", label: "URL / Website", icon: Globe, description: "Link to any website or page", badge: "Recommended", badgeColor: "bg-blue-500", group: "most-used", gradient: "from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30", iconColor: "text-blue-600 dark:text-blue-400", iconBg: "bg-blue-100 dark:bg-blue-900/40" },
+  { id: "whatsapp", label: "WhatsApp", icon: MessageCircle, description: "Send a pre-filled WhatsApp message", badge: "Popular", badgeColor: "bg-green-500", group: "most-used", gradient: "from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30", iconColor: "text-green-600 dark:text-green-400", iconBg: "bg-green-100 dark:bg-green-900/40" },
+  { id: "text", label: "Plain Text", icon: FileText, description: "Any custom text or message", badge: null, badgeColor: "", group: "most-used", gradient: "from-slate-50 to-gray-50 dark:from-slate-950/30 dark:to-gray-950/30", iconColor: "text-slate-600 dark:text-slate-400", iconBg: "bg-slate-100 dark:bg-slate-900/40" },
+  { id: "vcard", label: "vCard / Contact", icon: UserCheck, description: "Share contact details instantly", badge: null, badgeColor: "", group: "business", gradient: "from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/30", iconColor: "text-purple-600 dark:text-purple-400", iconBg: "bg-purple-100 dark:bg-purple-900/40" },
+  { id: "email", label: "Email Address", icon: Mail, description: "Open email app with pre-filled details", badge: null, badgeColor: "", group: "business", gradient: "from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30", iconColor: "text-orange-600 dark:text-orange-400", iconBg: "bg-orange-100 dark:bg-orange-900/40" },
+  { id: "sms", label: "SMS / Text", icon: MessageSquare, description: "Send a pre-written SMS message", badge: null, badgeColor: "", group: "business", gradient: "from-cyan-50 to-sky-50 dark:from-cyan-950/30 dark:to-sky-950/30", iconColor: "text-cyan-600 dark:text-cyan-400", iconBg: "bg-cyan-100 dark:bg-cyan-900/40" },
+  { id: "wifi", label: "WiFi Network", icon: Wifi, description: "Connect to WiFi without typing password", badge: null, badgeColor: "", group: "advanced", gradient: "from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30", iconColor: "text-teal-600 dark:text-teal-400", iconBg: "bg-teal-100 dark:bg-teal-900/40" },
+  { id: "bitcoin", label: "Bitcoin Address", icon: Coins, description: "Accept crypto payments easily", badge: null, badgeColor: "", group: "advanced", gradient: "from-yellow-50 to-amber-50 dark:from-yellow-950/30 dark:to-amber-950/30", iconColor: "text-yellow-600 dark:text-yellow-500", iconBg: "bg-yellow-100 dark:bg-yellow-900/40" },
+];
+
+const QR_TYPE_GROUPS = [
+  { id: "most-used", label: "Most Used", indicator: "bg-green-500" },
+  { id: "business", label: "Business", indicator: "bg-blue-500" },
+  { id: "advanced", label: "Advanced", indicator: "bg-purple-500" },
 ];
 
 const SOCIAL_LOGOS = [
@@ -1230,26 +1236,51 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           </div>
 
           {step === 1 && (
-            <Card className="max-w-2xl mx-auto">
-              <CardHeader>
-                <CardTitle>Select Type</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {QR_TYPES.map(type => (
-                    <button
-                      key={type.id}
-                      onClick={() => { setSelectedType(type.id); setFormData({}); setStep(2); }}
-                      className="p-3 rounded-lg border-2 border-muted hover:border-primary transition-all text-left"
-                      data-testid={`button-qr-type-${type.id}`}
-                    >
-                      <p className="font-semibold">{type.label}</p>
-                      <p className="text-sm text-muted-foreground">{type.description}</p>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <div className="max-w-2xl mx-auto space-y-6">
+              <div className="text-center">
+                <h2 className="text-xl font-semibold text-foreground">What do you want to create?</h2>
+                <p className="text-sm text-muted-foreground mt-1">Choose a QR code type to get started</p>
+              </div>
+              {QR_TYPE_GROUPS.map(group => {
+                const groupTypes = QR_TYPES.filter(t => t.group === group.id);
+                return (
+                  <div key={group.id}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {groupTypes.map(type => {
+                        const Icon = type.icon;
+                        return (
+                          <button
+                            key={type.id}
+                            onClick={() => { setSelectedType(type.id); setFormData({}); setStep(2); }}
+                            className={`relative p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                            data-testid={`button-qr-type-${type.id}`}
+                          >
+                            {type.badge && (
+                              <span className={`absolute top-3 right-3 text-[10px] font-bold text-white px-2 py-0.5 rounded-full ${type.badgeColor}`}>
+                                {type.badge}
+                              </span>
+                            )}
+                            <div className={`w-10 h-10 rounded-lg ${type.iconBg} flex items-center justify-center mb-3`}>
+                              <Icon className={`w-5 h-5 ${type.iconColor}`} />
+                            </div>
+                            <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
+                            <p className="text-xs text-muted-foreground mt-1 leading-snug">{type.description}</p>
+                            <div className="mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <span className="text-xs font-medium text-primary">Select</span>
+                              <ArrowRight className="w-3 h-3 text-primary" />
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           )}
 
           {step === 2 && (
