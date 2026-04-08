@@ -1099,8 +1099,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           )}
 
           {step === 3 && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-              <div className="lg:col-span-2 space-y-4">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-stretch relative">
+              <div className="flex-[2] min-w-0 space-y-4">
                 {/* Templates */}
                 {customTemplates.length > 0 && (
                   <Card>
@@ -1535,9 +1535,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 </div>
               </div>
 
-              {/* Preview - Desktop only wrapper ensures sticky has a tall containing block */}
-              <div className="hidden lg:block">
-                <Card className="sticky top-[68px] z-[200] h-fit" data-preview-section>
+              {/* Preview - Desktop only wrapper stretches full column height so sticky works */}
+              <div className="hidden lg:block flex-[1] relative min-w-0">
+                <Card className="sticky top-[68px] z-[200]" data-preview-section>
                   <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
                     <div className="rounded-lg flex items-center justify-center" style={{ background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>

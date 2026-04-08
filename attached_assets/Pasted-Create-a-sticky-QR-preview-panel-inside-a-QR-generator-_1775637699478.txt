@@ -1,0 +1,98 @@
+Create a sticky QR preview panel inside a QR generator page with the following behavior:
+
+1. Layout Structure:
+
+* Two columns:
+
+  * Left: Editing section (form inputs)
+  * Right: QR Preview panel
+
+2. Sticky Behavior:
+
+* The QR preview panel must stay visible while scrolling.
+* Use `position: sticky` with `top: 20px`.
+* It should NOT scroll independently — it should move naturally with page scroll.
+
+3. Boundaries:
+
+* The sticky behavior must ONLY work inside its parent section (the QR generator section).
+* Once the user scrolls past this section, the preview should stop (not overlap footer or next sections).
+
+4. Scroll Sync:
+
+* When scrolling down → preview moves up and sticks at top.
+* When scrolling up → preview moves down naturally.
+* No jitter, no overflow outside container.
+
+5. Responsive:
+
+* On mobile: disable sticky and stack preview below inputs.
+
+6. Clean UI:
+
+* Add slight shadow, border-radius, and padding to preview card.
+* Ensure preview always stays fully visible (no clipping).
+
+7. Example Implementation:
+
+HTML:
+
+<div class="qr-section">
+  <div class="qr-container">
+    <div class="qr-form">
+      <!-- inputs here -->
+    </div>
+    <div class="qr-preview-wrapper">
+      <div class="qr-preview">
+        <!-- QR code here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+CSS:
+.qr-container {
+display: flex;
+align-items: flex-start;
+gap: 20px;
+}
+
+.qr-form {
+flex: 2;
+}
+
+.qr-preview-wrapper {
+flex: 1;
+position: relative;
+}
+
+.qr-preview {
+position: sticky;
+top: 20px;
+background: #0f172a;
+padding: 16px;
+border-radius: 12px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.qr-section {
+position: relative;
+}
+
+@media (max-width: 768px) {
+.qr-container {
+flex-direction: column;
+}
+.qr-preview {
+position: static;
+}
+}
+
+Important:
+
+* Do NOT use fixed positioning.
+* Do NOT allow overflow issues.
+* Ensure parent container controls the sticky limit.
+
+Goal:
+Smooth, professional sticky preview like modern SaaS tools (Stripe, Notion editors, etc.)
