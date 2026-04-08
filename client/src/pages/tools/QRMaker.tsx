@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -272,6 +272,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
   // Suggested colors from logo
   const [logoSuggestedColors, setLogoSuggestedColors] = useState<string[]>([]);
+
+  // Copy QR to clipboard
+  const [copiedQR, setCopiedQR] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
@@ -879,6 +882,21 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     toast({ title: "Downloaded!", description: `QR code saved as PNG (${finalQuality} quality)` });
   };
 
+  const copyQRToClipboard = async () => {
+    if (!canvasRef.current) return;
+    try {
+      canvasRef.current.toBlob(async (blob) => {
+        if (!blob) return;
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        setCopiedQR(true);
+        toast({ title: "Copied!", description: "QR code copied to clipboard" });
+        setTimeout(() => setCopiedQR(false), 2000);
+      }, "image/png", 1);
+    } catch {
+      toast({ title: "Copy failed", description: "Use Download instead", variant: "destructive" });
+    }
+  };
+
   const saveTemplate = () => {
     if (!templateName.trim()) {
       toast({ title: "Name Required", variant: "destructive" });
@@ -1345,17 +1363,17 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsList>
 
                   {/* ── COLORS ──────────────────────────── */}
-                  <TabsContent value="colors" className="space-y-7 mt-0">
+                  <TabsContent value="colors" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
                     {/* Full style presets */}
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3">
                         <div className="flex items-center justify-between gap-2 flex-wrap">
                           <div>
-                            <CardTitle className="text-sm font-semibold">Quick Style Presets</CardTitle>
+                            <CardTitle className="text-sm font-semibold">Style Presets</CardTitle>
                             <p className="text-xs text-muted-foreground mt-1">One click — full style applied instantly</p>
                           </div>
                           {activeStylePreset && (
-                            <Badge variant="secondary" className="text-xs">{STYLE_PRESETS.find(p => p.id === activeStylePreset)?.name} applied</Badge>
+                            <span className="text-[11px] text-muted-foreground font-medium px-2 py-0.5 rounded-full bg-muted">{STYLE_PRESETS.find(p => p.id === activeStylePreset)?.name}</span>
                           )}
                         </div>
                       </CardHeader>
@@ -1505,7 +1523,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── DESIGN ──────────────────────────── */}
-                  <TabsContent value="design" className="space-y-7 mt-0">
+                  <TabsContent value="design" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
                       <CardContent className="px-6 pb-6">
@@ -1525,48 +1543,66 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       </CardContent>
                     </Card>
 
-                    <div className="grid grid-cols-2 gap-5">
-                      <Card>
-                        <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Outer Eye</CardTitle></CardHeader>
-                        <CardContent className="px-6 pb-6">
+                    <Card>
+                      <CardHeader className="px-6 pt-6 pb-3">
+                        <CardTitle className="text-sm font-semibold">Eye Style</CardTitle>
+                        <p className="text-xs text-muted-foreground mt-0.5">Controls the three corner markers of the QR code</p>
+                      </CardHeader>
+                      <CardContent className="px-6 pb-6 space-y-5">
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-2">Outer Frame</p>
                           <div className="grid grid-cols-5 gap-2">
-                            {EXTERNAL_EYE_PATTERNS.map(p => (
-                              <button
-                                key={p.id}
-                                onClick={() => setExternalEyePattern(p.id)}
-                                className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${externalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
-                                title={p.name}
-                                data-testid={`button-eye-outer-${p.id}`}
-                              >
-                                <ExternalEyePreview pattern={p.id} />
-                              </button>
-                            ))}
+                            {EXTERNAL_EYE_PATTERNS.map(p => {
+                              const eyeTooltips: Record<string, string> = { square: "Classic — better for scanning", rounded: "Modern look", circle: "Creative style", "extra-rounded": "Soft & friendly", leaf: "Unique & stylish" };
+                              return (
+                                <button
+                                  key={p.id}
+                                  onClick={() => setExternalEyePattern(p.id)}
+                                  className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${externalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
+                                  title={eyeTooltips[p.id] || p.name}
+                                  data-testid={`button-eye-outer-${p.id}`}
+                                >
+                                  <ExternalEyePreview pattern={p.id} />
+                                </button>
+                              );
+                            })}
                           </div>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Inner Eye</CardTitle></CardHeader>
-                        <CardContent className="px-6 pb-6">
+                          {externalEyePattern && (
+                            <p className="text-[11px] text-muted-foreground mt-1.5">
+                              {({ square: "Classic — better for scanning", rounded: "Modern look", circle: "Creative style", "extra-rounded": "Soft & friendly", leaf: "Unique & stylish" })[externalEyePattern]}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-muted-foreground mb-2">Inner Dot</p>
                           <div className="grid grid-cols-5 gap-2">
-                            {INTERNAL_EYE_PATTERNS.map(p => (
-                              <button
-                                key={p.id}
-                                onClick={() => setInternalEyePattern(p.id)}
-                                className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${internalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
-                                title={p.name}
-                                data-testid={`button-eye-inner-${p.id}`}
-                              >
-                                <InternalEyePreview pattern={p.id} />
-                              </button>
-                            ))}
+                            {INTERNAL_EYE_PATTERNS.map(p => {
+                              const innerTooltips: Record<string, string> = { square: "Standard — great for scanners", rounded: "Sleek modern feel", circle: "Minimal & clean", diamond: "Geometric pattern", star: "Eye-catching design" };
+                              return (
+                                <button
+                                  key={p.id}
+                                  onClick={() => setInternalEyePattern(p.id)}
+                                  className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${internalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
+                                  title={innerTooltips[p.id] || p.name}
+                                  data-testid={`button-eye-inner-${p.id}`}
+                                >
+                                  <InternalEyePreview pattern={p.id} />
+                                </button>
+                              );
+                            })}
                           </div>
-                        </CardContent>
-                      </Card>
-                    </div>
+                          {internalEyePattern && (
+                            <p className="text-[11px] text-muted-foreground mt-1.5">
+                              {({ square: "Standard — great for scanners", rounded: "Sleek modern feel", circle: "Minimal & clean", diamond: "Geometric pattern", star: "Eye-catching design" })[internalEyePattern]}
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
                   </TabsContent>
 
                   {/* ── BRANDING ────────────────────────── */}
-                  <TabsContent value="branding" className="space-y-7 mt-0">
+                  <TabsContent value="branding" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
                     {/* Logo */}
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Logo</CardTitle></CardHeader>
@@ -1650,16 +1686,21 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Frame</CardTitle></CardHeader>
                       <CardContent className="px-6 pb-6 space-y-4">
                         <div className="grid grid-cols-5 gap-2">
-                          {FRAME_PRESETS.map(f => (
-                            <button
-                              key={f.id}
-                              onClick={() => setFrameStyle(f.id)}
-                              className={`py-3 px-1 rounded-md border-2 text-xs font-medium transition-all ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted text-muted-foreground hover:border-primary/50"}`}
-                              data-testid={`button-frame-${f.id}`}
-                            >
-                              {f.name}
-                            </button>
-                          ))}
+                          {FRAME_PRESETS.map(f => {
+                            const frameHints: Record<string, string> = { none: "", "scanme-top": "Best for posters", "scanme-bottom": "Best for social", border: "Best for print", "rounded-border": "Best for digital" };
+                            return (
+                              <button
+                                key={f.id}
+                                onClick={() => setFrameStyle(f.id)}
+                                className={`py-3 px-1 rounded-md border-2 text-xs font-medium transition-all text-center ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted text-muted-foreground hover:border-primary/50"}`}
+                                data-testid={`button-frame-${f.id}`}
+                                title={frameHints[f.id]}
+                              >
+                                <div>{f.name}</div>
+                                {frameHints[f.id] && <div className="text-[9px] opacity-60 mt-0.5 leading-tight">{frameHints[f.id]}</div>}
+                              </button>
+                            );
+                          })}
                         </div>
 
                         {frameStyle !== "none" && (
@@ -1711,10 +1752,15 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                     {/* Text label */}
                     <Card>
-                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Label Text</CardTitle></CardHeader>
+                      <CardHeader className="px-6 pt-6 pb-3">
+                        <div className="flex items-center justify-between gap-2">
+                          <CardTitle className="text-sm font-semibold">Label Text</CardTitle>
+                          <span className={`text-[11px] font-medium ${overlayText.length > 28 ? "text-destructive" : "text-muted-foreground"}`}>{overlayText.length}/32</span>
+                        </div>
+                      </CardHeader>
                       <CardContent className="px-6 pb-6">
                         <div className="flex gap-3">
-                          <Input placeholder="e.g. Scan to visit our site" value={overlayText} onChange={(e) => setOverlayText(e.target.value)} className="text-sm h-10" />
+                          <Input placeholder="e.g. Scan to visit our site" value={overlayText} onChange={(e) => setOverlayText(e.target.value.slice(0, 32))} className="text-sm h-10" />
                           {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-10 w-12 rounded-md cursor-pointer border shrink-0" title="Text color" />}
                         </div>
                       </CardContent>
@@ -1722,24 +1768,29 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── SETTINGS ────────────────────────── */}
-                  <TabsContent value="settings" className="space-y-7 mt-0">
+                  <TabsContent value="settings" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3">
-                        <CardTitle className="text-sm font-semibold">Error Correction</CardTitle>
-                        <p className="text-xs text-muted-foreground mt-1">Higher level = more damage-resistant QR code</p>
+                        <CardTitle className="text-sm font-semibold">Scan Reliability</CardTitle>
+                        <p className="text-xs text-muted-foreground mt-1">Higher = more damage-resistant, but slightly denser QR code</p>
                       </CardHeader>
                       <CardContent className="px-6 pb-6">
-                        <div className="grid grid-cols-4 gap-3">
-                          {[{l:"L",v:"7%",desc:"Low"},{l:"M",v:"15%",desc:"Med"},{l:"Q",v:"25%",desc:"High"},{l:"H",v:"30%",desc:"Max"}].map(({l,v,desc}) => (
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { l: "L", label: "Low", sub: "Faster scan", hint: "Clean environments", v: "7%" },
+                            { l: "M", label: "Medium", sub: "Balanced", hint: "General use", v: "15%" },
+                            { l: "Q", label: "High", sub: "Damage safe", hint: "Outdoor / print", v: "25%" },
+                            { l: "H", label: "Max", sub: "Logo friendly", hint: "Use with logos", v: "30%" },
+                          ].map(({ l, label, sub, hint, v }) => (
                             <button
                               key={l}
                               onClick={() => setErrorCorrectionLevel(l)}
-                              className={`py-4 rounded-md border-2 text-xs font-medium transition-all ${errorCorrectionLevel === l ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted text-muted-foreground hover:border-primary/50"}`}
+                              className={`py-4 px-4 rounded-lg border-2 text-left transition-all ${errorCorrectionLevel === l ? "border-primary bg-primary/5 ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
                               data-testid={`button-ecl-${l}`}
                             >
-                              <div className="text-base font-bold">{l}</div>
-                              <div className="mt-0.5">{desc}</div>
-                              <div className="text-[10px] opacity-70">{v}</div>
+                              <div className={`text-sm font-bold ${errorCorrectionLevel === l ? "text-primary" : ""}`}>{label}</div>
+                              <div className="text-xs font-medium text-foreground mt-0.5">{sub}</div>
+                              <div className="text-[11px] text-muted-foreground mt-0.5">{hint}</div>
                             </button>
                           ))}
                         </div>
@@ -1767,11 +1818,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 {/* Action bar */}
                 <div className="flex items-center gap-2 mt-7 pt-5 border-t flex-wrap">
                   <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
-                  <div className="flex gap-2 ml-auto">
-                    <Button onClick={() => downloadQR("normal")} size="sm" variant="outline" title="Standard PNG" data-testid="button-download-normal"><Download className="h-3.5 w-3.5 mr-1.5" />Download</Button>
-                    <Button onClick={() => downloadQR("high")} size="sm" title="2× resolution" data-testid="button-download-hd"><Download className="h-3.5 w-3.5 mr-1.5" />Download HD</Button>
-                    <Button onClick={() => downloadQR("ultra")} size="sm" variant="secondary" title="4× resolution" data-testid="button-download-4k">Download 4K</Button>
-                  </div>
+                  <p className="text-xs text-muted-foreground ml-auto">Download options in preview panel</p>
                 </div>
               </div>
 
@@ -1801,8 +1848,18 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <Shield className="h-3 w-3" />Generated offline — never uploaded
                     </div>
                     <div className="grid grid-cols-1 gap-2.5">
-                      <Button onClick={() => downloadQR("high")} className="w-full" data-testid="button-preview-hd"><Download className="h-3.5 w-3.5 mr-2" />Download HD</Button>
-                      <Button onClick={() => downloadQR("ultra")} variant="secondary" className="w-full" data-testid="button-preview-4k"><Download className="h-3.5 w-3.5 mr-2" />Download 4K</Button>
+                      <Button onClick={() => downloadQR("high")} className="w-full" data-testid="button-preview-hd">
+                        <Download className="h-3.5 w-3.5 mr-2" />Download (HD)
+                        <span className="ml-auto text-[10px] opacity-60 font-normal">~120 KB</span>
+                      </Button>
+                      <Button onClick={() => downloadQR("ultra")} variant="secondary" className="w-full" data-testid="button-preview-4k">
+                        <Download className="h-3.5 w-3.5 mr-2" />Download Ultra (4K)
+                        <span className="ml-auto text-[10px] opacity-60 font-normal">~480 KB</span>
+                      </Button>
+                      <Button onClick={copyQRToClipboard} variant="outline" className="w-full" data-testid="button-copy-qr">
+                        {copiedQR ? <CheckCheck className="h-3.5 w-3.5 mr-2 text-green-500" /> : <Copy className="h-3.5 w-3.5 mr-2" />}
+                        {copiedQR ? "Copied!" : "Copy QR Image"}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

@@ -1,0 +1,137 @@
+🔥 1. Biggest Improvement Needed (Global)
+
+👉 अभी हर tab अलग page जैसा लग रहा है
+👉 इसे continuous experience बनाना है
+
+❌ Problem:
+हर tab change → context reset feel
+flow टूट रहा है
+✅ Fix:
+
+👉 Add smooth transition (150–250ms fade/slide)
+👉 preview constant रहे (already good)
+👉 tabs feel like “same system”
+
+🧠 2. Colors Tab — Almost Perfect (बस polish चाहिए)
+🔧 Fix:
+1. Quick Presets → rename:
+
+👉 “Style Presets” (clean + premium)
+
+2. “Minimal applied” tag
+
+👉 remove OR make subtle badge
+
+3. Gradient toggle
+
+👉 अभी weak है → modern switch बनाओ (iOS style)
+
+🎯 3. Design Tab (Important Fix)
+❌ Problem:
+Outer Eye & Inner Eye अलग → unnecessary complexity
+✅ Fix:
+
+👉 Combine into:
+
+Eye Style
+
+👉 1 grid = cleaner UX
+
+🔥 Add THIS (Game Changer):
+
+👉 Hover tooltip:
+
+“Better for scanning”
+“Modern look”
+“Creative style”
+
+👉 user blindly choose नहीं करेगा
+
+🎨 4. Branding Tab (Good but missing punch)
+🔧 Fix:
+1. Logo upload area
+
+👉 Add:
+
+preview after upload
+remove button (❌)
+2. Frame options
+
+👉 add small preview text:
+
+“Best for posters”
+“Best for social”
+3. Label Text
+
+👉 add:
+
+character limit hint
+preview update instantly
+⚙️ 5. Settings Tab (Major UX upgrade needed)
+❌ अभी:
+
+Technical लग रहा है
+
+✅ Fix:
+
+Instead of:
+
+L / M / Q / H
+
+👉 Make:
+
+Low (Faster scan)
+Medium (Balanced)
+High (More damage safe)
+Max (Logo friendly)
+
+👉 THIS = UX genius move
+
+💣 6. Download Section (Critical Conversion Area)
+❌ Problem:
+Duplicate buttons (left + right)
+confusion
+✅ Fix:
+
+👉 REMOVE bottom download buttons
+👉 Keep ONLY in preview panel
+
+🔥 Upgrade Buttons:
+
+Current:
+
+Download HD
+Download 4K
+
+Make:
+
+Download (HD)
+Download Ultra (4K)
+👉 Add THIS:
+file size hint (e.g., “~120KB”)
+format selector (PNG / SVG)
+⚡ 7. Micro Interactions (अब magic आएगा)
+Add:
+hover = lift
+click = slight press
+selection = glow pulse
+🚀 8. Hidden Weapon (Add this = VIRAL)
+🔥 “Scan Test” Button
+
+👉 Preview के नीचे:
+
+Test Scan
+
+👉 opens camera / simulation
+
+🔥 “Copy QR Image”
+
+👉 quick copy to clipboard
+
+🧪 9. Final UX Flow (अब सही)
+User selects preset
+Minor tweak
+Preview देखता है
+Download
+
+👉 friction = ZERO
