@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2 } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -125,6 +125,25 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [showFloatingPreview, setShowFloatingPreview] = useState(true);
 
+  // Dots gradient
+  const [dotsGradient, setDotsGradient] = useState(false);
+  const [dotsGradientColors, setDotsGradientColors] = useState(["#000000", "#6D28D9"]);
+  const [dotsGradientAngle, setDotsGradientAngle] = useState(45);
+
+  // Background gradient
+  const [bgGradient, setBgGradient] = useState(false);
+  const [bgGradientColors, setBgGradientColors] = useState(["#FFFFFF", "#E0E7FF"]);
+  const [bgGradientAngle, setBgGradientAngle] = useState(135);
+
+  // Border color / gradient
+  const [borderColor, setBorderColor] = useState("#000000");
+  const [borderGradient, setBorderGradient] = useState(false);
+  const [borderGradientColors, setBorderGradientColors] = useState(["#000000", "#6D28D9"]);
+  const [borderGradientAngle, setBorderGradientAngle] = useState(90);
+
+  // Logo drag-and-drop
+  const [logoDragOver, setLogoDragOver] = useState(false);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
   const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -182,7 +201,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       const timer = setTimeout(() => renderQR(), 100);
       return () => clearTimeout(timer);
     }
-  }, [darkColor, lightColor, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
+  }, [darkColor, lightColor, dotsGradient, dotsGradientColors, dotsGradientAngle, bgGradient, bgGradientColors, bgGradientAngle, borderColor, borderGradient, borderGradientColors, borderGradientAngle, frameStyle, logoData, logoSize, logoBorderRadius, logoBackground, bodyPattern, externalEyePattern, internalEyePattern, errorCorrectionLevel, overlayText, overlayTextColor, step, selectedType, formData]);
 
   useSEO({
     title: "Create QR Code in Seconds (Free, No Signup, Instant & Private)",
@@ -218,7 +237,48 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     reader.readAsDataURL(file);
   };
 
-  const drawModule = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: string) => {
+  const handleLogoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setLogoDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (!file || !file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setLogoData(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  type FillStyle = string | CanvasGradient | CanvasPattern;
+
+  const createCanvasGradient = (ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, angle: number, colors: string[]): CanvasGradient => {
+    const radians = (angle * Math.PI) / 180;
+    const cos = Math.cos(radians);
+    const sin = Math.sin(radians);
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const len = Math.abs((w / 2) * cos) + Math.abs((h / 2) * sin);
+    const x0 = cx - cos * len;
+    const y0 = cy - sin * len;
+    const x1 = cx + cos * len;
+    const y1 = cy + sin * len;
+    const gradient = ctx.createLinearGradient(x0, y0, x1, y1);
+    const safeColors = colors.filter(c => c && c.trim());
+    if (safeColors.length === 0) {
+      gradient.addColorStop(0, "#000000");
+      gradient.addColorStop(1, "#000000");
+    } else if (safeColors.length === 1) {
+      gradient.addColorStop(0, safeColors[0]);
+      gradient.addColorStop(1, safeColors[0]);
+    } else {
+      safeColors.forEach((color, i) => {
+        gradient.addColorStop(i / (safeColors.length - 1), color);
+      });
+    }
+    return gradient;
+  };
+
+  const drawModule = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: FillStyle) => {
     ctx.fillStyle = color;
     const gap = size * 0.1;
     const moduleSize = size - gap;
@@ -260,7 +320,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     }
   };
 
-  const drawExternalEye = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: string, bgColor: string) => {
+  const drawExternalEye = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: FillStyle, bgColor: FillStyle) => {
     const outerSize = size * 7;
     const innerSize = size * 5;
     const innerOffset = size;
@@ -298,7 +358,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     }
   };
 
-  const drawInternalEye = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: string) => {
+  const drawInternalEye = (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, pattern: string, color: FillStyle) => {
     const eyeSize = size * 3;
     const centerX = x + eyeSize / 2;
     const centerY = y + eyeSize / 2;
@@ -376,15 +436,29 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         canvas.height = qrSize + padding * 2 + extraHeight;
 
         // Fill background
-        ctx.fillStyle = lightColor;
+        let bgFillStyle: FillStyle;
+        if (bgGradient && bgGradientColors.length >= 2) {
+          bgFillStyle = createCanvasGradient(ctx, 0, 0, canvas.width, canvas.height, bgGradientAngle, bgGradientColors);
+        } else {
+          bgFillStyle = lightColor;
+        }
+        ctx.fillStyle = bgFillStyle;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        // Border fill style
+        let borderFillStyle: FillStyle;
+        if (borderGradient && borderGradientColors.length >= 2) {
+          borderFillStyle = createCanvasGradient(ctx, 0, 0, canvas.width, canvas.height - extraHeight, borderGradientAngle, borderGradientColors);
+        } else {
+          borderFillStyle = borderColor;
+        }
+
         if (frameStyle === "border") {
-          ctx.strokeStyle = darkColor;
+          ctx.strokeStyle = borderFillStyle;
           ctx.lineWidth = 4;
           ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20 - extraHeight);
         } else if (frameStyle === "rounded-border") {
-          ctx.strokeStyle = darkColor;
+          ctx.strokeStyle = borderFillStyle;
           ctx.lineWidth = 4;
           ctx.beginPath();
           ctx.roundRect(10, 10, canvas.width - 20, canvas.height - 20 - extraHeight, 15);
@@ -394,15 +468,23 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         if (frameStyle === "scanme-top") {
           const fontSize = Math.max(14, Math.floor(qrSize * 0.08));
           ctx.font = `bold ${fontSize}px Arial`;
-          ctx.fillStyle = darkColor;
+          ctx.fillStyle = borderFillStyle;
           ctx.textAlign = "center";
           ctx.fillText("SCAN ME", canvas.width / 2, padding / 2 + fontSize / 2);
         } else if (frameStyle === "scanme-bottom") {
           const fontSize = Math.max(14, Math.floor(qrSize * 0.08));
           ctx.font = `bold ${fontSize}px Arial`;
-          ctx.fillStyle = darkColor;
+          ctx.fillStyle = borderFillStyle;
           ctx.textAlign = "center";
           ctx.fillText("SCAN ME", canvas.width / 2, canvas.height - 12);
+        }
+
+        // Dots fill style
+        let dotsFillStyle: FillStyle;
+        if (dotsGradient && dotsGradientColors.length >= 2) {
+          dotsFillStyle = createCanvasGradient(ctx, padding, padding, qrSize, qrSize, dotsGradientAngle, dotsGradientColors);
+        } else {
+          dotsFillStyle = darkColor;
         }
 
         const eyePositions = [
@@ -424,7 +506,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
             if (modules.get(row, col)) {
               const x = padding + col * moduleSize;
               const y = padding + row * moduleSize;
-              drawModule(ctx, x, y, moduleSize, bodyPattern, darkColor);
+              drawModule(ctx, x, y, moduleSize, bodyPattern, dotsFillStyle);
             }
           }
         }
@@ -432,8 +514,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         eyePositions.forEach(pos => {
           const x = padding + pos.col * moduleSize;
           const y = padding + pos.row * moduleSize;
-          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, darkColor, lightColor);
-          drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, darkColor);
+          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, dotsFillStyle, bgFillStyle);
+          drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, dotsFillStyle);
         });
 
         if (logoData) {
@@ -947,22 +1029,113 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                 {/* Color Templates */}
                 <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Colors</CardTitle></CardHeader>
+                  <CardHeader className="py-3"><CardTitle className="text-base">Dots Color</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
                     <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                       {COLOR_TEMPLATES.map(t => (
-                        <button key={t.id} onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); }} className="h-8 rounded border-2 border-muted hover:border-primary" style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }} title={t.name} />
+                        <button key={t.id} onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); setDotsGradient(false); setBgGradient(false); }} className="h-8 rounded border-2 border-muted hover:border-primary" style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }} title={t.name} />
                       ))}
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+
+                    {/* Dots Gradient Toggle */}
+                    <div className="flex items-center justify-between">
+                      <Label className="text-sm font-medium">Gradient Dots</Label>
+                      <button
+                        onClick={() => setDotsGradient(!dotsGradient)}
+                        className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dotsGradient ? "bg-primary" : "bg-muted"}`}
+                        data-testid="toggle-dots-gradient"
+                      >
+                        <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${dotsGradient ? "translate-x-4" : "translate-x-1"}`} />
+                      </button>
+                    </div>
+
+                    {!dotsGradient ? (
                       <div className="flex items-center gap-2">
                         <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
                         <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="text-xs h-8" />
+                        <span className="text-xs text-muted-foreground">Dot Color</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
-                        <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="text-xs h-8" />
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <Label className="text-xs text-muted-foreground">Gradient Colors ({dotsGradientColors.length}/5)</Label>
+                          {dotsGradientColors.length < 5 && (
+                            <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setDotsGradientColors([...dotsGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>
+                          )}
+                        </div>
+                        <div className="space-y-1.5">
+                          {dotsGradientColors.map((c, i) => (
+                            <div key={i} className="flex items-center gap-2">
+                              <input type="color" value={c} onChange={(e) => { const updated = [...dotsGradientColors]; updated[i] = e.target.value; setDotsGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
+                              <Input value={c} onChange={(e) => { const updated = [...dotsGradientColors]; updated[i] = e.target.value; setDotsGradientColors(updated); }} className="text-xs h-7 flex-1" />
+                              {dotsGradientColors.length > 2 && (
+                                <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setDotsGradientColors(dotsGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                        <div>
+                          <div
+                            className="h-4 rounded mb-1"
+                            style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }}
+                          />
+                          <Label className="text-xs">Direction: {dotsGradientAngle}°</Label>
+                          <input type="range" min="0" max="360" value={dotsGradientAngle} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
+                        </div>
                       </div>
+                    )}
+
+                    {/* Background */}
+                    <div className="pt-1 border-t">
+                      <div className="flex items-center justify-between mb-2">
+                        <Label className="text-sm font-medium">Background</Label>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-muted-foreground">Gradient</span>
+                          <button
+                            onClick={() => setBgGradient(!bgGradient)}
+                            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${bgGradient ? "bg-primary" : "bg-muted"}`}
+                            data-testid="toggle-bg-gradient"
+                          >
+                            <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${bgGradient ? "translate-x-4" : "translate-x-1"}`} />
+                          </button>
+                        </div>
+                      </div>
+
+                      {!bgGradient ? (
+                        <div className="flex items-center gap-2">
+                          <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
+                          <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="text-xs h-8" />
+                          <span className="text-xs text-muted-foreground">BG Color</span>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-xs text-muted-foreground">BG Colors ({bgGradientColors.length}/5)</Label>
+                            {bgGradientColors.length < 5 && (
+                              <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBgGradientColors([...bgGradientColors, "#F3E8FF"])}><Plus className="h-3 w-3" /></Button>
+                            )}
+                          </div>
+                          <div className="space-y-1.5">
+                            {bgGradientColors.map((c, i) => (
+                              <div key={i} className="flex items-center gap-2">
+                                <input type="color" value={c} onChange={(e) => { const updated = [...bgGradientColors]; updated[i] = e.target.value; setBgGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
+                                <Input value={c} onChange={(e) => { const updated = [...bgGradientColors]; updated[i] = e.target.value; setBgGradientColors(updated); }} className="text-xs h-7 flex-1" />
+                                {bgGradientColors.length > 2 && (
+                                  <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBgGradientColors(bgGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                          <div>
+                            <div
+                              className="h-4 rounded mb-1 border"
+                              style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }}
+                            />
+                            <Label className="text-xs">Direction: {bgGradientAngle}°</Label>
+                            <input type="range" min="0" max="360" value={bgGradientAngle} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -1027,13 +1200,66 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                 {/* Frames */}
                 <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Frames</CardTitle></CardHeader>
-                  <CardContent className="pb-3">
+                  <CardHeader className="py-3"><CardTitle className="text-base">Frames & Border</CardTitle></CardHeader>
+                  <CardContent className="pb-3 space-y-3">
                     <div className="grid grid-cols-5 gap-2">
                       {FRAME_PRESETS.map(f => (
                         <button key={f.id} onClick={() => setFrameStyle(f.id)} className={`p-2 rounded border-2 text-xs ${frameStyle === f.id ? "border-primary bg-primary/10" : "border-muted"}`}>{f.name}</button>
                       ))}
                     </div>
+
+                    {frameStyle !== "none" && (
+                      <div className="space-y-2 pt-1 border-t">
+                        <div className="flex items-center justify-between">
+                          <Label className="text-sm font-medium">Border Color</Label>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground">Gradient</span>
+                            <button
+                              onClick={() => setBorderGradient(!borderGradient)}
+                              className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${borderGradient ? "bg-primary" : "bg-muted"}`}
+                              data-testid="toggle-border-gradient"
+                            >
+                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${borderGradient ? "translate-x-4" : "translate-x-1"}`} />
+                            </button>
+                          </div>
+                        </div>
+
+                        {!borderGradient ? (
+                          <div className="flex items-center gap-2">
+                            <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
+                            <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="text-xs h-8" />
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <Label className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</Label>
+                              {borderGradientColors.length < 5 && (
+                                <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>
+                              )}
+                            </div>
+                            <div className="space-y-1.5">
+                              {borderGradientColors.map((c, i) => (
+                                <div key={i} className="flex items-center gap-2">
+                                  <input type="color" value={c} onChange={(e) => { const updated = [...borderGradientColors]; updated[i] = e.target.value; setBorderGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
+                                  <Input value={c} onChange={(e) => { const updated = [...borderGradientColors]; updated[i] = e.target.value; setBorderGradientColors(updated); }} className="text-xs h-7 flex-1" />
+                                  {borderGradientColors.length > 2 && (
+                                    <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                            <div>
+                              <div
+                                className="h-4 rounded mb-1"
+                                style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }}
+                              />
+                              <Label className="text-xs">Direction: {borderGradientAngle}°</Label>
+                              <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 
@@ -1041,15 +1267,64 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 <Card>
                   <CardHeader className="py-3"><CardTitle className="text-base">Logo</CardTitle></CardHeader>
                   <CardContent className="pb-3 space-y-3">
-                    <div className="flex gap-2">
-                      <Input type="file" accept="image/*" onChange={handleLogoUpload} className="text-sm" placeholder="Upload logo..." data-testid="input-logo-upload" />
-                      {logoData && <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs" data-testid="button-remove-logo">Remove</Button>}
-                    </div>
-                    {logoData && (
-                      <div className="flex flex-col gap-3">
-                        <div className="rounded-lg p-3 bg-muted flex items-center justify-center h-24 w-24 mx-auto">
-                          <img src={logoData} alt="Logo preview" className="max-h-20 max-w-20 object-contain" />
+                    {!logoData ? (
+                      <div
+                        className={`relative rounded-lg border-2 border-dashed transition-colors flex flex-col items-center justify-center gap-2 p-6 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50"}`}
+                        onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
+                        onDragLeave={() => setLogoDragOver(false)}
+                        onDrop={handleLogoDrop}
+                        onClick={() => document.getElementById("logo-file-input")?.click()}
+                        data-testid="dropzone-logo"
+                      >
+                        <Upload className="h-8 w-8 text-muted-foreground" />
+                        <div className="text-center">
+                          <p className="text-sm font-medium">{logoDragOver ? "Drop image here" : "Drag & drop or click to upload"}</p>
+                          <p className="text-xs text-muted-foreground mt-1">PNG, JPG, SVG, WebP supported</p>
                         </div>
+                        <input
+                          id="logo-file-input"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleLogoUpload}
+                          className="hidden"
+                          data-testid="input-logo-upload"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-3">
+                        <div className="flex items-center gap-3">
+                          <div className="rounded-lg p-2 bg-muted flex items-center justify-center h-16 w-16 shrink-0">
+                            <img src={logoData} alt="Logo preview" className="max-h-12 max-w-12 object-contain" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs text-muted-foreground mb-2">Logo uploaded</p>
+                            <div className="flex gap-2">
+                              <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="text-xs flex-1">
+                                Replace
+                              </Button>
+                              <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs" data-testid="button-remove-logo">
+                                <X className="h-3 w-3 mr-1" />Remove
+                              </Button>
+                            </div>
+                            <input
+                              id="logo-file-input-replace"
+                              type="file"
+                              accept="image/*"
+                              onChange={handleLogoUpload}
+                              className="hidden"
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          className={`rounded border-dashed border transition-colors p-3 text-center text-xs text-muted-foreground ${logoDragOver ? "border-primary bg-primary/5" : "border-muted"}`}
+                          onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
+                          onDragLeave={() => setLogoDragOver(false)}
+                          onDrop={handleLogoDrop}
+                        >
+                          Drop a new image to replace
+                        </div>
+
                         <div className="grid grid-cols-2 gap-3">
                           <div>
                             <Label className="text-xs">Size: {logoSize}px</Label>
@@ -1062,7 +1337,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         </div>
                         <label className="flex items-center gap-2 text-xs cursor-pointer">
                           <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} data-testid="checkbox-logo-background" />
-                          Background
+                          White background behind logo
                         </label>
                       </div>
                     )}
