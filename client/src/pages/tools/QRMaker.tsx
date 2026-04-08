@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, ArrowLeft, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -223,6 +223,11 @@ const STYLE_PRESETS: StylePreset[] = [
 
 export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+
+  const goToStep = (s: 1 | 2 | 3) => {
+    window.history.pushState({ qrStep: s }, "");
+    setStep(s);
+  };
   const [selectedType, setSelectedType] = useState("");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([]);
@@ -365,6 +370,21 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   useEffect(() => {
     setShowFloatingPreview(step === 3);
   }, [step]);
+
+  // Handle browser back button — navigate between steps instead of leaving page
+  useEffect(() => {
+    window.history.replaceState({ qrStep: 1 }, "");
+    const onPop = (e: PopStateEvent) => {
+      const s = e.state?.qrStep as 1 | 2 | 3 | undefined;
+      if (s) {
+        setStep(s);
+      } else if (step > 1) {
+        setStep((prev) => (prev - 1) as 1 | 2 | 3);
+      }
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
 
   // Handle dragging — mouse + touch
   useEffect(() => {
@@ -849,7 +869,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       toast({ title: "Fill Required Fields", description: "Please enter data", variant: "destructive" });
       return;
     }
-    setStep(3);
+    goToStep(3);
   };
 
   const downloadQR = (quality?: "normal" | "high" | "ultra") => {
@@ -1245,10 +1265,16 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           <div className="flex items-center justify-center gap-2 mb-8 mx-auto w-fit">
             {[1, 2, 3].map((s, i) => (
               <div key={s} className="flex items-center">
-                <div className={`h-9 w-9 rounded-full flex items-center justify-center text-white text-sm font-bold ${step >= s ? "bg-primary" : "bg-muted"}`}>
+                <button
+                  onClick={() => { if (s < step) goToStep(s as 1 | 2 | 3); }}
+                  disabled={s >= step}
+                  className={`h-9 w-9 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all ${step >= s ? "bg-primary" : "bg-muted"} ${s < step ? "cursor-pointer hover:opacity-80 active:scale-95" : "cursor-default"}`}
+                  title={s < step ? `Back to Step ${s}` : undefined}
+                  data-testid={`button-step-${s}`}
+                >
                   {s}
-                </div>
-                {i < 2 && <div className={`h-1 w-12 mx-1 ${step > s ? "bg-primary" : "bg-muted"}`} />}
+                </button>
+                {i < 2 && <div className={`h-1 w-12 mx-1 transition-colors ${step > s ? "bg-primary" : "bg-muted"}`} />}
               </div>
             ))}
           </div>
@@ -1273,7 +1299,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         return (
                           <button
                             key={type.id}
-                            onClick={() => { setSelectedType(type.id); setFormData({}); setStep(2); }}
+                            onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
                             className={`relative p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
                             data-testid={`button-qr-type-${type.id}`}
                           >
@@ -1344,7 +1370,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </>
                 )}
                 <div className="flex gap-3 pt-4">
-                  <Button variant="ghost" onClick={() => setStep(1)} className="text-muted-foreground">Back</Button>
+                  <Button variant="ghost" onClick={() => goToStep(1)} className="text-muted-foreground"><ArrowLeft className="h-4 w-4 mr-1" />Back</Button>
                   <Button onClick={handleNext} className="flex-1">Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
                 </div>
               </CardContent>
@@ -1855,6 +1881,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                 {/* Action bar */}
                 <div className="flex items-center gap-2 mt-7 pt-5 border-t flex-wrap">
+                  <Button variant="ghost" size="sm" onClick={() => goToStep(2)} className="text-muted-foreground" data-testid="button-back-to-step2"><ArrowLeft className="h-3.5 w-3.5 mr-1" />Back</Button>
                   <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
                   <p className="text-xs text-muted-foreground ml-auto">Download options in preview panel</p>
                 </div>
