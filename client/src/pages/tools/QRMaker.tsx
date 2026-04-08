@@ -168,34 +168,54 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     setShowFloatingPreview(step === 3);
   }, [step]);
 
-  // Handle dragging
+  // Handle dragging — mouse + touch
   useEffect(() => {
     if (!isDragging) return;
 
+    const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(val, max));
+
     const handleMouseMove = (e: MouseEvent) => {
       setFloatingPreviewPos({
-        x: Math.max(0, Math.min(e.clientX - dragOffset.x, window.innerWidth - 130)),
-        y: Math.max(0, Math.min(e.clientY - dragOffset.y, window.innerHeight - 180))
+        x: clamp(e.clientX - dragOffset.x, 0, window.innerWidth - 140),
+        y: clamp(e.clientY - dragOffset.y, 0, window.innerHeight - 180),
       });
     };
-
     const handleMouseUp = () => setIsDragging(false);
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const t = e.touches[0];
+      setFloatingPreviewPos({
+        x: clamp(t.clientX - dragOffset.x, 0, window.innerWidth - 140),
+        y: clamp(t.clientY - dragOffset.y, 0, window.innerHeight - 180),
+      });
+    };
+    const handleTouchEnd = () => setIsDragging(false);
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, [isDragging, dragOffset]);
 
   const handleDragStart = (e: React.MouseEvent) => {
     if (!floatingPreviewRef.current) return;
     const rect = floatingPreviewRef.current.getBoundingClientRect();
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
+    setDragOffset({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setIsDragging(true);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!floatingPreviewRef.current) return;
+    const rect = floatingPreviewRef.current.getBoundingClientRect();
+    const t = e.touches[0];
+    setDragOffset({ x: t.clientX - rect.left, y: t.clientY - rect.top });
     setIsDragging(true);
   };
 
@@ -880,12 +900,13 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       {!embedMode && <StructuredData data={softwareAppSchema} />}
       {!embedMode && <StructuredData data={breadcrumbSchema} />}
 
-      {/* Floating Mobile Preview - Draggable */}
+      {/* Floating Mobile Preview - Draggable (touch + mouse) */}
       {selectedType && showFloatingPreview && (
         <div
           ref={floatingPreviewRef}
           onMouseDown={handleDragStart}
-          className="fixed z-40 lg:hidden bg-black rounded-2xl p-2 shadow-lg cursor-move touch-none"
+          onTouchStart={handleTouchStart}
+          className="fixed z-[9999] lg:hidden bg-black rounded-2xl p-2 shadow-lg cursor-move select-none"
           style={{
             left: `${floatingPreviewPos.x}px`,
             top: `${floatingPreviewPos.y}px`,
@@ -1515,10 +1536,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               </div>
 
               {/* Preview - Desktop & Mobile Detection */}
-              <Card className="sticky top-4 h-fit hidden lg:block" data-preview-section>
+              <Card className="sticky top-[76px] z-[200] h-fit hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
-                  <div className="rounded-lg flex items-center justify-center" style={{ backgroundColor: lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>
+                  <div className="rounded-lg flex items-center justify-center" style={{ background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>
                     <canvas ref={canvasRef} style={{ display: 'block', maxWidth: '100%', maxHeight: '100%', imageRendering: 'crisp-edges' }} />
                   </div>
                   <div className="text-xs text-muted-foreground flex items-center gap-1 justify-center">
