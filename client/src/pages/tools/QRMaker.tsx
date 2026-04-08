@@ -1685,19 +1685,53 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Frame</CardTitle></CardHeader>
                       <CardContent className="px-6 pb-6 space-y-4">
-                        <div className="grid grid-cols-5 gap-2">
+                        <div className="grid grid-cols-2 gap-2.5">
                           {FRAME_PRESETS.map(f => {
-                            const frameHints: Record<string, string> = { none: "", "scanme-top": "Best for posters", "scanme-bottom": "Best for social", border: "Best for print", "rounded-border": "Best for digital" };
+                            const frameHints: Record<string, string> = { none: "No frame", "scanme-top": "Best for posters", "scanme-bottom": "Best for social", border: "Best for print", "rounded-border": "Best for digital" };
+                            const framePreviews: Record<string, JSX.Element> = {
+                              none: (
+                                <div className="w-8 h-8 border border-muted-foreground/30 rounded-sm flex items-center justify-center">
+                                  <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+                                </div>
+                              ),
+                              "scanme-top": (
+                                <div className="flex flex-col items-center gap-0.5">
+                                  <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
+                                  <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
+                                </div>
+                              ),
+                              "scanme-bottom": (
+                                <div className="flex flex-col items-center gap-0.5">
+                                  <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
+                                  <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
+                                </div>
+                              ),
+                              border: (
+                                <div className="w-9 h-9 border-2 border-muted-foreground/40 flex items-center justify-center">
+                                  <div className="w-5 h-5 bg-muted-foreground/20" />
+                                </div>
+                              ),
+                              "rounded-border": (
+                                <div className="w-9 h-9 border-2 border-muted-foreground/40 rounded-lg flex items-center justify-center">
+                                  <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+                                </div>
+                              ),
+                            };
+                            const isActive = frameStyle === f.id;
                             return (
                               <button
                                 key={f.id}
                                 onClick={() => setFrameStyle(f.id)}
-                                className={`py-3 px-1 rounded-md border-2 text-xs font-medium transition-all text-center ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted text-muted-foreground hover:border-primary/50"}`}
+                                className={`flex items-center gap-3 px-3 py-3 rounded-lg border-2 text-left transition-all ${isActive ? "border-primary bg-primary/5 ring-1 ring-primary/30 shadow-sm" : "border-muted hover:border-primary/40 hover:bg-muted/30"}`}
                                 data-testid={`button-frame-${f.id}`}
-                                title={frameHints[f.id]}
                               >
-                                <div>{f.name}</div>
-                                {frameHints[f.id] && <div className="text-[9px] opacity-60 mt-0.5 leading-tight">{frameHints[f.id]}</div>}
+                                <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-md ${isActive ? "bg-primary/10" : "bg-muted/50"}`}>
+                                  {framePreviews[f.id]}
+                                </div>
+                                <div className="min-w-0">
+                                  <p className={`text-xs font-semibold leading-tight ${isActive ? "text-primary" : "text-foreground"}`}>{f.name}</p>
+                                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{frameHints[f.id]}</p>
+                                </div>
                               </button>
                             );
                           })}
