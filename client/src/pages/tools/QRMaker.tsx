@@ -1536,7 +1536,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
               </div>
 
               {/* Preview - Desktop & Mobile Detection */}
-              <Card className="sticky top-[76px] z-[200] h-fit hidden lg:block" data-preview-section>
+              <Card className="sticky top-[76px] z-[200] h-fit self-start hidden lg:block" data-preview-section>
                 <CardHeader className="py-3"><CardTitle className="text-base">Preview</CardTitle></CardHeader>
                 <CardContent className="pb-3 space-y-3">
                   <div className="rounded-lg flex items-center justify-center" style={{ background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor, width: '350px', height: '350px', border: "1px solid var(--border)" }}>
