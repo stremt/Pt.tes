@@ -1683,25 +1683,26 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
                     {/* Frame */}
                     <Card>
-                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Frame</CardTitle></CardHeader>
+                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Frame Style</CardTitle></CardHeader>
                       <CardContent className="px-6 pb-6 space-y-4">
-                        <div className="grid grid-cols-2 gap-2.5">
+                        <div className="grid grid-cols-2 gap-3">
                           {FRAME_PRESETS.map(f => {
-                            const frameHints: Record<string, string> = { none: "No frame", "scanme-top": "Best for posters", "scanme-bottom": "Best for social", border: "Best for print", "rounded-border": "Best for digital" };
+                            const frameDesc: Record<string, string> = { none: "No frame (clean look)", "scanme-top": "Adds text above QR", "scanme-bottom": "Adds text below QR", border: "Adds border around QR", "rounded-border": "Rounded corners style" };
                             const isActive = frameStyle === f.id;
                             return (
                               <button
                                 key={f.id}
                                 onClick={() => setFrameStyle(f.id)}
-                                className={`flex items-center gap-3 px-3 py-3 rounded-lg border-2 text-left transition-all ${isActive ? "border-primary bg-primary/5 ring-1 ring-primary/30 shadow-sm" : "border-muted hover:border-primary/40 hover:bg-muted/30"}`}
+                                style={{ transform: isActive ? "scale(1.02)" : "scale(1)" }}
+                                className={`flex flex-col items-center gap-2 py-4 px-3 rounded-xl border-2 text-center transition-all duration-150 ${isActive ? "border-primary bg-primary/5 ring-2 ring-primary/30 shadow-md" : "border-muted hover:border-primary/40 hover:bg-muted/20"}`}
                                 data-testid={`button-frame-${f.id}`}
                               >
-                                <div className={`shrink-0 flex items-center justify-center w-12 h-12 rounded-md ${isActive ? "bg-primary/10" : "bg-muted/50"}`}>
-                                  <FramePreviewIcon id={f.id} />
+                                <div className={`w-16 h-16 rounded-lg flex items-center justify-center ${isActive ? "bg-primary/10" : "bg-muted/40"}`}>
+                                  <FramePreviewIcon id={f.id} active={isActive} />
                                 </div>
-                                <div className="min-w-0">
+                                <div>
                                   <p className={`text-xs font-semibold leading-tight ${isActive ? "text-primary" : "text-foreground"}`}>{f.name}</p>
-                                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{frameHints[f.id]}</p>
+                                  <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{frameDesc[f.id]}</p>
                                 </div>
                               </button>
                             );
@@ -1755,18 +1756,50 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       </CardContent>
                     </Card>
 
-                    {/* Text label */}
+                    {/* Call-to-Action Text */}
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3">
-                        <div className="flex items-center justify-between gap-2">
-                          <CardTitle className="text-sm font-semibold">Label Text</CardTitle>
-                          <span className={`text-[11px] font-medium ${overlayText.length > 28 ? "text-destructive" : "text-muted-foreground"}`}>{overlayText.length}/32</span>
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <div>
+                            <CardTitle className="text-sm font-semibold">Call-to-Action Text</CardTitle>
+                            <p className="text-[11px] text-muted-foreground mt-0.5">Short text works best (max 32 chars)</p>
+                          </div>
+                          {overlayText && <span className={`text-[11px] font-medium ${overlayText.length > 28 ? "text-destructive" : "text-muted-foreground"}`}>{overlayText.length}/32</span>}
                         </div>
                       </CardHeader>
-                      <CardContent className="px-6 pb-6">
+                      <CardContent className="px-6 pb-6 space-y-3">
                         <div className="flex gap-3">
-                          <Input placeholder="e.g. Scan to visit our site" value={overlayText} onChange={(e) => setOverlayText(e.target.value.slice(0, 32))} className="text-sm h-10" />
+                          <Input
+                            placeholder={selectedType === "url" ? "Visit Website" : selectedType === "whatsapp" ? "Chat Now" : selectedType === "email" ? "Send Email" : selectedType === "wifi" ? "Connect to WiFi" : selectedType === "vcard" ? "Save Contact" : "Scan me"}
+                            value={overlayText}
+                            onChange={(e) => setOverlayText(e.target.value.slice(0, 32))}
+                            className="text-sm h-10"
+                            data-testid="input-overlay-text"
+                          />
                           {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-10 w-12 rounded-md cursor-pointer border shrink-0" title="Text color" />}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {(selectedType === "url"
+                            ? ["Visit Website", "Open Link", "Learn More", "Get Offer"]
+                            : selectedType === "whatsapp"
+                            ? ["Chat Now", "Message Us", "Contact Us", "Get Help"]
+                            : selectedType === "email"
+                            ? ["Send Email", "Contact Us", "Reach Out", "Get in Touch"]
+                            : selectedType === "wifi"
+                            ? ["Connect to WiFi", "Free WiFi", "Scan to Connect"]
+                            : selectedType === "vcard"
+                            ? ["Save Contact", "Add to Contacts", "Connect with Me"]
+                            : ["Scan me", "Visit website", "Open link", "Contact us", "Get offer"]
+                          ).map(chip => (
+                            <button
+                              key={chip}
+                              onClick={() => setOverlayText(chip)}
+                              className={`px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all ${overlayText === chip ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
+                              data-testid={`chip-cta-${chip.toLowerCase().replace(/\s+/g, "-")}`}
+                            >
+                              {chip}
+                            </button>
+                          ))}
                         </div>
                       </CardContent>
                     </Card>
@@ -2609,35 +2642,57 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   );
 }
 
-function FramePreviewIcon({ id }: { id: string }) {
+function FrameQRSquare({ active }: { active?: boolean }) {
+  const qrColor = active ? "bg-primary/60" : "bg-muted-foreground/40";
+  const borderColor = active ? "border-primary/50" : "border-muted-foreground/30";
+  return (
+    <div className={`w-9 h-9 border ${borderColor} bg-background flex items-center justify-center flex-shrink-0`}>
+      <div className="grid grid-cols-3 gap-[2px] p-[2px] w-full h-full">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <div key={i} className={`rounded-[1px] ${[0,2,6,8].includes(i) ? qrColor : i === 4 ? "bg-transparent" : `${qrColor} opacity-50`}`} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FramePreviewIcon({ id, active }: { id: string; active?: boolean }) {
+  const textBarColor = active ? "bg-primary/40" : "bg-muted-foreground/30";
+  const ringColor = active ? "border-primary/50" : "border-muted-foreground/40";
+
   if (id === "none") return (
-    <div className="w-8 h-8 border border-muted-foreground/30 rounded-sm flex items-center justify-center">
-      <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+    <div className="flex flex-col items-center justify-center gap-1">
+      <FrameQRSquare active={active} />
+      <span className="text-[8px] text-muted-foreground/50 font-medium tracking-wide">CLEAN</span>
     </div>
   );
   if (id === "scanme-top") return (
-    <div className="flex flex-col items-center gap-0.5">
-      <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
-      <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
+    <div className="flex flex-col items-center gap-1">
+      <div className={`w-11 h-2.5 rounded-[2px] ${textBarColor} flex items-center justify-center`}>
+        <span className="text-[5px] text-white font-bold tracking-wider">SCAN ME</span>
+      </div>
+      <FrameQRSquare active={active} />
     </div>
   );
   if (id === "scanme-bottom") return (
-    <div className="flex flex-col items-center gap-0.5">
-      <div className="w-8 h-7 border border-muted-foreground/30 rounded-sm bg-muted-foreground/10" />
-      <div className="w-10 h-2 rounded-sm bg-muted-foreground/40" />
+    <div className="flex flex-col items-center gap-1">
+      <FrameQRSquare active={active} />
+      <div className={`w-11 h-2.5 rounded-[2px] ${textBarColor} flex items-center justify-center`}>
+        <span className="text-[5px] text-white font-bold tracking-wider">SCAN ME</span>
+      </div>
     </div>
   );
   if (id === "border") return (
-    <div className="w-9 h-9 border-2 border-muted-foreground/40 flex items-center justify-center">
-      <div className="w-5 h-5 bg-muted-foreground/20" />
+    <div className={`p-1.5 border-2 ${ringColor}`}>
+      <FrameQRSquare active={active} />
     </div>
   );
   if (id === "rounded-border") return (
-    <div className="w-9 h-9 border-2 border-muted-foreground/40 rounded-lg flex items-center justify-center">
-      <div className="w-5 h-5 bg-muted-foreground/20 rounded-sm" />
+    <div className={`p-1.5 border-2 rounded-lg ${ringColor}`}>
+      <FrameQRSquare active={active} />
     </div>
   );
-  return <div className="w-8 h-8 bg-muted-foreground/20 rounded-sm" />;
+  return <FrameQRSquare active={active} />;
 }
 
 function BodyPatternPreview({ pattern }: { pattern: string }) {
