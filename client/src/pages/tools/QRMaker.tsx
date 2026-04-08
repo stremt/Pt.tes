@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
 import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -1169,437 +1170,336 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
           {step === 3 && (
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-stretch relative">
-              <div ref={editColumnRef} className="flex-[2] min-w-0 space-y-4">
-                {/* Templates */}
-                {customTemplates.length > 0 && (
-                  <Card>
-                    <CardHeader className="py-3"><CardTitle className="text-base">Saved Templates</CardTitle></CardHeader>
-                    <CardContent className="pb-3">
-                      <div className="flex flex-wrap gap-2">
-                        {customTemplates.map(template => (
-                          <div key={template.id} className="group relative">
-                            <button onClick={() => applyTemplate(template)} className="px-3 py-1 rounded border text-xs font-medium hover:border-primary">{template.name}</button>
-                            <button onClick={() => deleteTemplate(template.id)} className="absolute -top-1 -right-1 h-4 w-4 bg-destructive text-white rounded-full text-xs opacity-0 group-hover:opacity-100 flex items-center justify-center"><X className="h-2 w-2" /></button>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
+              <div ref={editColumnRef} className="flex-[2] min-w-0">
+                <Tabs defaultValue="colors" className="w-full">
+                  <TabsList className="w-full grid grid-cols-5 mb-4">
+                    <TabsTrigger value="colors" className="text-xs">Colors</TabsTrigger>
+                    <TabsTrigger value="patterns" className="text-xs">Patterns</TabsTrigger>
+                    <TabsTrigger value="frame" className="text-xs">Frame</TabsTrigger>
+                    <TabsTrigger value="logo" className="text-xs">Logo</TabsTrigger>
+                    <TabsTrigger value="settings" className="text-xs">Settings</TabsTrigger>
+                  </TabsList>
 
-                {/* Color Templates */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Dots Color</CardTitle></CardHeader>
-                  <CardContent className="pb-3 space-y-3">
-                    <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                      {COLOR_TEMPLATES.map(t => (
-                        <button key={t.id} onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); setDotsGradient(false); setBgGradient(false); }} className="h-8 rounded border-2 border-muted hover:border-primary" style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }} title={t.name} />
-                      ))}
-                    </div>
-
-                    {/* Dots Gradient Toggle */}
-                    <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Gradient Dots</Label>
-                      <button
-                        onClick={() => setDotsGradient(!dotsGradient)}
-                        className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dotsGradient ? "bg-primary" : "bg-muted"}`}
-                        data-testid="toggle-dots-gradient"
-                      >
-                        <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${dotsGradient ? "translate-x-4" : "translate-x-1"}`} />
-                      </button>
-                    </div>
-
-                    {!dotsGradient ? (
-                      <div className="flex items-center gap-2">
-                        <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
-                        <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="text-xs h-8" />
-                        <span className="text-xs text-muted-foreground">Dot Color</span>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <Label className="text-xs text-muted-foreground">Gradient Colors ({dotsGradientColors.length}/5)</Label>
-                          {dotsGradientColors.length < 5 && (
-                            <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setDotsGradientColors([...dotsGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>
-                          )}
-                        </div>
-                        <div className="space-y-1.5">
-                          {dotsGradientColors.map((c, i) => (
-                            <div key={i} className="flex items-center gap-2">
-                              <input type="color" value={c} onChange={(e) => { const updated = [...dotsGradientColors]; updated[i] = e.target.value; setDotsGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
-                              <Input value={c} onChange={(e) => { const updated = [...dotsGradientColors]; updated[i] = e.target.value; setDotsGradientColors(updated); }} className="text-xs h-7 flex-1" />
-                              {dotsGradientColors.length > 2 && (
-                                <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setDotsGradientColors(dotsGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
-                              )}
-                            </div>
+                  {/* ── COLORS ──────────────────────────── */}
+                  <TabsContent value="colors" className="space-y-4 mt-0">
+                    <Card>
+                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Quick Presets</CardTitle></CardHeader>
+                      <CardContent className="pb-3">
+                        <div className="grid grid-cols-8 gap-1.5">
+                          {COLOR_TEMPLATES.map(t => (
+                            <button key={t.id} onClick={() => { setDarkColor(t.darkColor); setLightColor(t.lightColor); setDotsGradient(false); setBgGradient(false); }} className="h-8 rounded-md border-2 border-muted hover:border-primary transition-colors" style={{ background: `linear-gradient(135deg, ${t.darkColor} 50%, ${t.lightColor} 50%)` }} title={t.name} />
                           ))}
                         </div>
-                        <div>
-                          <div
-                            className="h-4 rounded mb-1"
-                            style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }}
-                          />
-                          <Label className="text-xs">Direction: {dotsGradientAngle}°</Label>
-                          <input type="range" min="0" max="360" value={dotsGradientAngle} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
-                        </div>
-                      </div>
-                    )}
+                      </CardContent>
+                    </Card>
 
-                    {/* Background */}
-                    <div className="pt-1 border-t">
-                      <div className="flex items-center justify-between mb-2">
-                        <Label className="text-sm font-medium">Background</Label>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground">Gradient</span>
-                          <button
-                            onClick={() => setBgGradient(!bgGradient)}
-                            className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${bgGradient ? "bg-primary" : "bg-muted"}`}
-                            data-testid="toggle-bg-gradient"
-                          >
-                            <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${bgGradient ? "translate-x-4" : "translate-x-1"}`} />
-                          </button>
-                        </div>
-                      </div>
-
-                      {!bgGradient ? (
-                        <div className="flex items-center gap-2">
-                          <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
-                          <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="text-xs h-8" />
-                          <span className="text-xs text-muted-foreground">BG Color</span>
-                        </div>
-                      ) : (
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <Label className="text-xs text-muted-foreground">BG Colors ({bgGradientColors.length}/5)</Label>
-                            {bgGradientColors.length < 5 && (
-                              <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBgGradientColors([...bgGradientColors, "#F3E8FF"])}><Plus className="h-3 w-3" /></Button>
-                            )}
-                          </div>
-                          <div className="space-y-1.5">
-                            {bgGradientColors.map((c, i) => (
-                              <div key={i} className="flex items-center gap-2">
-                                <input type="color" value={c} onChange={(e) => { const updated = [...bgGradientColors]; updated[i] = e.target.value; setBgGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
-                                <Input value={c} onChange={(e) => { const updated = [...bgGradientColors]; updated[i] = e.target.value; setBgGradientColors(updated); }} className="text-xs h-7 flex-1" />
-                                {bgGradientColors.length > 2 && (
-                                  <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBgGradientColors(bgGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                          <div>
-                            <div
-                              className="h-4 rounded mb-1 border"
-                              style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }}
-                            />
-                            <Label className="text-xs">Direction: {bgGradientAngle}°</Label>
-                            <input type="range" min="0" max="360" value={bgGradientAngle} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Body Patterns */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Body Patterns</CardTitle></CardHeader>
-                  <CardContent className="pb-3">
-                    <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-                      {BODY_PATTERNS.map(p => (
-                        <button
-                          key={p.id}
-                          onClick={() => setBodyPattern(p.id)}
-                          className={`aspect-square rounded border-2 overflow-hidden ${bodyPattern === p.id ? "border-primary" : "border-muted"}`}
-                          title={p.name}
-                        >
-                          <BodyPatternPreview pattern={p.id} />
-                        </button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Eye Patterns */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Card>
-                    <CardHeader className="py-3"><CardTitle className="text-base">External Eye</CardTitle></CardHeader>
-                    <CardContent className="pb-3">
-                      <div className="grid grid-cols-5 gap-2">
-                        {EXTERNAL_EYE_PATTERNS.map(p => (
-                          <button
-                            key={p.id}
-                            onClick={() => setExternalEyePattern(p.id)}
-                            className={`aspect-square rounded border-2 overflow-hidden ${externalEyePattern === p.id ? "border-primary" : "border-muted"}`}
-                            title={p.name}
-                          >
-                            <ExternalEyePreview pattern={p.id} />
-                          </button>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader className="py-3"><CardTitle className="text-base">Internal Eye</CardTitle></CardHeader>
-                    <CardContent className="pb-3">
-                      <div className="grid grid-cols-5 gap-2">
-                        {INTERNAL_EYE_PATTERNS.map(p => (
-                          <button
-                            key={p.id}
-                            onClick={() => setInternalEyePattern(p.id)}
-                            className={`aspect-square rounded border-2 overflow-hidden ${internalEyePattern === p.id ? "border-primary" : "border-muted"}`}
-                            title={p.name}
-                          >
-                            <InternalEyePreview pattern={p.id} />
-                          </button>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Frames */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Frames & Border</CardTitle></CardHeader>
-                  <CardContent className="pb-3 space-y-3">
-                    <div className="grid grid-cols-5 gap-2">
-                      {FRAME_PRESETS.map(f => (
-                        <button key={f.id} onClick={() => setFrameStyle(f.id)} className={`p-2 rounded border-2 text-xs ${frameStyle === f.id ? "border-primary bg-primary/10" : "border-muted"}`}>{f.name}</button>
-                      ))}
-                    </div>
-
-                    {frameStyle !== "none" && (
-                      <div className="space-y-2 pt-1 border-t">
+                    <Card>
+                      <CardHeader className="py-3 pb-2">
                         <div className="flex items-center justify-between">
-                          <Label className="text-sm font-medium">Border Color</Label>
+                          <CardTitle className="text-sm font-semibold">Dot Color</CardTitle>
                           <div className="flex items-center gap-2">
                             <span className="text-xs text-muted-foreground">Gradient</span>
-                            <button
-                              onClick={() => setBorderGradient(!borderGradient)}
-                              className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${borderGradient ? "bg-primary" : "bg-muted"}`}
-                              data-testid="toggle-border-gradient"
-                            >
-                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${borderGradient ? "translate-x-4" : "translate-x-1"}`} />
+                            <button onClick={() => setDotsGradient(!dotsGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${dotsGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-dots-gradient">
+                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${dotsGradient ? "translate-x-4" : "translate-x-1"}`} />
                             </button>
                           </div>
                         </div>
-
-                        {!borderGradient ? (
+                      </CardHeader>
+                      <CardContent className="pb-3 space-y-2">
+                        {!dotsGradient ? (
                           <div className="flex items-center gap-2">
-                            <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />
-                            <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="text-xs h-8" />
+                            <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
+                            <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="text-xs h-8 font-mono" />
                           </div>
                         ) : (
                           <div className="space-y-2">
                             <div className="flex items-center justify-between">
-                              <Label className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</Label>
-                              {borderGradientColors.length < 5 && (
-                                <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>
-                              )}
+                              <span className="text-xs text-muted-foreground">Colors ({dotsGradientColors.length}/5)</span>
+                              {dotsGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setDotsGradientColors([...dotsGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>}
                             </div>
-                            <div className="space-y-1.5">
-                              {borderGradientColors.map((c, i) => (
-                                <div key={i} className="flex items-center gap-2">
-                                  <input type="color" value={c} onChange={(e) => { const updated = [...borderGradientColors]; updated[i] = e.target.value; setBorderGradientColors(updated); }} className="h-7 w-9 rounded cursor-pointer border" />
-                                  <Input value={c} onChange={(e) => { const updated = [...borderGradientColors]; updated[i] = e.target.value; setBorderGradientColors(updated); }} className="text-xs h-7 flex-1" />
-                                  {borderGradientColors.length > 2 && (
-                                    <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                            <div>
-                              <div
-                                className="h-4 rounded mb-1"
-                                style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }}
-                              />
-                              <Label className="text-xs">Direction: {borderGradientAngle}°</Label>
-                              <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                            {dotsGradientColors.map((c, i) => (
+                              <div key={i} className="flex items-center gap-2">
+                                <input type="color" value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
+                                <Input value={c} onChange={(e) => { const u = [...dotsGradientColors]; u[i] = e.target.value; setDotsGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
+                                {dotsGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setDotsGradientColors(dotsGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
+                              </div>
+                            ))}
+                            <div className="h-3 rounded" style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }} />
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs text-muted-foreground shrink-0">{dotsGradientAngle}°</span>
+                              <input type="range" min="0" max="360" value={dotsGradientAngle} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
                             </div>
                           </div>
                         )}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
+                      </CardContent>
+                    </Card>
 
-                {/* Logo */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Logo</CardTitle></CardHeader>
-                  <CardContent className="pb-3 space-y-3">
-                    {!logoData ? (
-                      <div
-                        className={`relative rounded-lg border-2 border-dashed transition-colors flex flex-col items-center justify-center gap-2 p-6 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50"}`}
-                        onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
-                        onDragLeave={() => setLogoDragOver(false)}
-                        onDrop={handleLogoDrop}
-                        onClick={() => document.getElementById("logo-file-input")?.click()}
-                        data-testid="dropzone-logo"
-                      >
-                        <Upload className="h-8 w-8 text-muted-foreground" />
-                        <div className="text-center">
-                          <p className="text-sm font-medium">{logoDragOver ? "Drop image here" : "Drag & drop or click to upload"}</p>
-                          <p className="text-xs text-muted-foreground mt-1">PNG, JPG, SVG, WebP supported</p>
-                        </div>
-                        <input
-                          id="logo-file-input"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleLogoUpload}
-                          className="hidden"
-                          data-testid="input-logo-upload"
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex flex-col gap-3">
-                        <div className="flex items-center gap-3">
-                          <div className="rounded-lg p-2 bg-muted flex items-center justify-center h-16 w-16 shrink-0">
-                            <img src={logoData} alt="Logo preview" className="max-h-12 max-w-12 object-contain" />
+                    <Card>
+                      <CardHeader className="py-3 pb-2">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-sm font-semibold">Background</CardTitle>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground">Gradient</span>
+                            <button onClick={() => setBgGradient(!bgGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${bgGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-bg-gradient">
+                              <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${bgGradient ? "translate-x-4" : "translate-x-1"}`} />
+                            </button>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs text-muted-foreground mb-2">Logo uploaded</p>
-                            <div className="flex gap-2">
-                              <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="text-xs flex-1">
-                                Replace
-                              </Button>
-                              <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs" data-testid="button-remove-logo">
-                                <X className="h-3 w-3 mr-1" />Remove
-                              </Button>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="pb-3 space-y-2">
+                        {!bgGradient ? (
+                          <div className="flex items-center gap-2">
+                            <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
+                            <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="text-xs h-8 font-mono" />
+                          </div>
+                        ) : (
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs text-muted-foreground">Colors ({bgGradientColors.length}/5)</span>
+                              {bgGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBgGradientColors([...bgGradientColors, "#F3E8FF"])}><Plus className="h-3 w-3" /></Button>}
                             </div>
-                            <input
-                              id="logo-file-input-replace"
-                              type="file"
-                              accept="image/*"
-                              onChange={handleLogoUpload}
-                              className="hidden"
-                            />
-                          </div>
-                        </div>
-
-                        <div
-                          className={`rounded border-dashed border transition-colors p-3 text-center text-xs text-muted-foreground ${logoDragOver ? "border-primary bg-primary/5" : "border-muted"}`}
-                          onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
-                          onDragLeave={() => setLogoDragOver(false)}
-                          onDrop={handleLogoDrop}
-                        >
-                          Drop a new image to replace
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-3">
-                          <div>
-                            <Label className="text-xs">Size: {logoSize}px</Label>
-                            <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
-                          </div>
-                          <div>
-                            <Label className="text-xs">Radius: {logoBorderRadius}px</Label>
-                            <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
-                          </div>
-                        </div>
-                        <label className="flex items-center gap-2 text-xs cursor-pointer">
-                          <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} data-testid="checkbox-logo-background" />
-                          White background behind logo
-                        </label>
-
-                        {logoSuggestedColors.length > 0 && (
-                          <div className="pt-1 border-t space-y-2">
-                            <Label className="text-xs font-medium text-muted-foreground">Colors from your logo — click to apply</Label>
-                            <div className="flex flex-wrap gap-2">
-                              {logoSuggestedColors.map((color, i) => (
-                                <div key={i} className="flex flex-col items-center gap-1">
-                                  <button
-                                    className="h-8 w-8 rounded-md border-2 border-muted hover:border-primary transition-colors shadow-sm"
-                                    style={{ backgroundColor: color }}
-                                    title={color}
-                                    onClick={() => {
-                                      setDarkColor(color);
-                                      setDotsGradient(false);
-                                    }}
-                                    data-testid={`button-logo-color-${i}`}
-                                  />
-                                  <span className="text-[10px] text-muted-foreground font-mono">{color}</span>
-                                </div>
-                              ))}
-                            </div>
-                            <div className="flex gap-2 flex-wrap">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs h-7"
-                                onClick={() => {
-                                  if (logoSuggestedColors.length >= 2) {
-                                    setDotsGradient(true);
-                                    setDotsGradientColors(logoSuggestedColors.slice(0, 4));
-                                    setDotsGradientAngle(45);
-                                  }
-                                }}
-                                disabled={logoSuggestedColors.length < 2}
-                                data-testid="button-apply-logo-gradient"
-                              >
-                                Apply as Gradient
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs h-7"
-                                onClick={() => {
-                                  if (logoSuggestedColors.length >= 1) {
-                                    setBgGradient(true);
-                                    const lighter = logoSuggestedColors[0];
-                                    setBgGradientColors([lighter + "22", "#FFFFFF"]);
-                                    setBgGradientAngle(135);
-                                  }
-                                }}
-                                data-testid="button-apply-logo-bg"
-                              >
-                                Apply to Background
-                              </Button>
+                            {bgGradientColors.map((c, i) => (
+                              <div key={i} className="flex items-center gap-2">
+                                <input type="color" value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
+                                <Input value={c} onChange={(e) => { const u = [...bgGradientColors]; u[i] = e.target.value; setBgGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
+                                {bgGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBgGradientColors(bgGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
+                              </div>
+                            ))}
+                            <div className="h-3 rounded border" style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }} />
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs text-muted-foreground shrink-0">{bgGradientAngle}°</span>
+                              <input type="range" min="0" max="360" value={bgGradientAngle} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
                             </div>
                           </div>
                         )}
-                      </div>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  {/* ── PATTERNS ────────────────────────── */}
+                  <TabsContent value="patterns" className="space-y-4 mt-0">
+                    <Card>
+                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
+                      <CardContent className="pb-3">
+                        <div className="grid grid-cols-8 gap-1.5">
+                          {BODY_PATTERNS.map(p => (
+                            <button key={p.id} onClick={() => setBodyPattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${bodyPattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                              <BodyPatternPreview pattern={p.id} />
+                            </button>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <Card>
+                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Outer Eye</CardTitle></CardHeader>
+                        <CardContent className="pb-3">
+                          <div className="grid grid-cols-5 gap-1.5">
+                            {EXTERNAL_EYE_PATTERNS.map(p => (
+                              <button key={p.id} onClick={() => setExternalEyePattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${externalEyePattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                                <ExternalEyePreview pattern={p.id} />
+                              </button>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Inner Eye</CardTitle></CardHeader>
+                        <CardContent className="pb-3">
+                          <div className="grid grid-cols-5 gap-1.5">
+                            {INTERNAL_EYE_PATTERNS.map(p => (
+                              <button key={p.id} onClick={() => setInternalEyePattern(p.id)} className={`aspect-square rounded-md border-2 overflow-hidden ${internalEyePattern === p.id ? "border-primary" : "border-muted"}`} title={p.name}>
+                                <InternalEyePreview pattern={p.id} />
+                              </button>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </TabsContent>
+
+                  {/* ── FRAME ───────────────────────────── */}
+                  <TabsContent value="frame" className="mt-0">
+                    <Card>
+                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Frame Style</CardTitle></CardHeader>
+                      <CardContent className="pb-3 space-y-3">
+                        <div className="grid grid-cols-5 gap-2">
+                          {FRAME_PRESETS.map(f => (
+                            <button key={f.id} onClick={() => setFrameStyle(f.id)} className={`p-2 rounded-md border-2 text-xs font-medium ${frameStyle === f.id ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground"}`}>{f.name}</button>
+                          ))}
+                        </div>
+
+                        {frameStyle !== "none" && (
+                          <div className="space-y-3 pt-3 border-t">
+                            <div className="flex items-center justify-between">
+                              <Label className="text-sm font-medium">Border Color</Label>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground">Gradient</span>
+                                <button onClick={() => setBorderGradient(!borderGradient)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${borderGradient ? "bg-primary" : "bg-muted"}`} data-testid="toggle-border-gradient">
+                                  <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${borderGradient ? "translate-x-4" : "translate-x-1"}`} />
+                                </button>
+                              </div>
+                            </div>
+                            {!borderGradient ? (
+                              <div className="flex items-center gap-2">
+                                <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />
+                                <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="text-xs h-8 font-mono" />
+                              </div>
+                            ) : (
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</span>
+                                  {borderGradientColors.length < 5 && <Button size="icon" variant="outline" className="h-6 w-6" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3" /></Button>}
+                                </div>
+                                {borderGradientColors.map((c, i) => (
+                                  <div key={i} className="flex items-center gap-2">
+                                    <input type="color" value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="h-7 w-9 rounded cursor-pointer border shrink-0" />
+                                    <Input value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="text-xs h-7 flex-1 font-mono" />
+                                    {borderGradientColors.length > 2 && <Button size="icon" variant="ghost" className="h-6 w-6 shrink-0" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3 w-3" /></Button>}
+                                  </div>
+                                ))}
+                                <div className="h-3 rounded" style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }} />
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs text-muted-foreground shrink-0">{borderGradientAngle}°</span>
+                                  <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  {/* ── LOGO ────────────────────────────── */}
+                  <TabsContent value="logo" className="mt-0">
+                    <Card>
+                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Logo / Image</CardTitle></CardHeader>
+                      <CardContent className="pb-3 space-y-3">
+                        {!logoData ? (
+                          <div
+                            className={`rounded-lg border-2 border-dashed transition-colors flex flex-col items-center justify-center gap-2 py-8 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50"}`}
+                            onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
+                            onDragLeave={() => setLogoDragOver(false)}
+                            onDrop={handleLogoDrop}
+                            onClick={() => document.getElementById("logo-file-input")?.click()}
+                            data-testid="dropzone-logo"
+                          >
+                            <Upload className="h-7 w-7 text-muted-foreground" />
+                            <div className="text-center">
+                              <p className="text-sm font-medium">{logoDragOver ? "Drop here" : "Drag & drop or click"}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">PNG, JPG, SVG, WebP</p>
+                            </div>
+                            <input id="logo-file-input" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" data-testid="input-logo-upload" />
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            <div className="flex items-center gap-3 p-3 bg-muted/40 rounded-lg">
+                              <div className="rounded-lg p-1.5 bg-background border flex items-center justify-center h-14 w-14 shrink-0">
+                                <img src={logoData} alt="Logo" className="max-h-10 max-w-10 object-contain" />
+                              </div>
+                              <div className="flex-1 min-w-0 space-y-1.5">
+                                <p className="text-xs text-muted-foreground">Logo uploaded</p>
+                                <div className="flex gap-1.5">
+                                  <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="text-xs h-7 flex-1">Replace</Button>
+                                  <Button variant="outline" size="sm" onClick={() => setLogoData(null)} className="text-xs h-7" data-testid="button-remove-logo"><X className="h-3 w-3 mr-1" />Remove</Button>
+                                </div>
+                                <input id="logo-file-input-replace" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">Size: {logoSize}px</Label>
+                                <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
+                              </div>
+                              <div className="space-y-1">
+                                <Label className="text-xs text-muted-foreground">Radius: {logoBorderRadius}px</Label>
+                                <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
+                              </div>
+                            </div>
+
+                            <label className="flex items-center gap-2 text-xs cursor-pointer text-muted-foreground">
+                              <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} className="rounded" data-testid="checkbox-logo-background" />
+                              White background behind logo
+                            </label>
+
+                            {logoSuggestedColors.length > 0 && (
+                              <div className="pt-2 border-t space-y-2">
+                                <p className="text-xs text-muted-foreground font-medium">Colors from your logo</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {logoSuggestedColors.map((color, i) => (
+                                    <button key={i} className="h-7 w-7 rounded-md border-2 border-muted hover:border-primary transition-colors" style={{ backgroundColor: color }} title={color} onClick={() => { setDarkColor(color); setDotsGradient(false); }} data-testid={`button-logo-color-${i}`} />
+                                  ))}
+                                </div>
+                                <div className="flex gap-2">
+                                  <Button variant="outline" size="sm" className="text-xs h-7 flex-1" disabled={logoSuggestedColors.length < 2} onClick={() => { setDotsGradient(true); setDotsGradientColors(logoSuggestedColors.slice(0, 4)); setDotsGradientAngle(45); }} data-testid="button-apply-logo-gradient">Gradient Dots</Button>
+                                  <Button variant="outline" size="sm" className="text-xs h-7 flex-1" onClick={() => { setBgGradient(true); setBgGradientColors([logoSuggestedColors[0] + "22", "#FFFFFF"]); setBgGradientAngle(135); }} data-testid="button-apply-logo-bg">Apply to BG</Button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+
+                  {/* ── SETTINGS ────────────────────────── */}
+                  <TabsContent value="settings" className="space-y-4 mt-0">
+                    <Card>
+                      <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Label Text</CardTitle></CardHeader>
+                      <CardContent className="pb-3">
+                        <div className="flex gap-2">
+                          <Input placeholder="Add text below QR..." value={overlayText} onChange={(e) => setOverlayText(e.target.value)} className="text-sm h-8" />
+                          {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border shrink-0" />}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader className="py-3 pb-2">
+                        <CardTitle className="text-sm font-semibold">Error Correction</CardTitle>
+                        <p className="text-xs text-muted-foreground mt-0.5">Higher = more damage-resistant but larger QR</p>
+                      </CardHeader>
+                      <CardContent className="pb-3">
+                        <div className="grid grid-cols-4 gap-2">
+                          {[{l:"L",v:"7%"},{l:"M",v:"15%"},{l:"Q",v:"25%"},{l:"H",v:"30%"}].map(({l,v}) => (
+                            <button key={l} onClick={() => setErrorCorrectionLevel(l)} className={`py-2 rounded-md border-2 text-xs font-medium ${errorCorrectionLevel === l ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground"}`}>
+                              <div className="font-bold">{l}</div>
+                              <div className="text-[10px] mt-0.5">{v}</div>
+                            </button>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {customTemplates.length > 0 && (
+                      <Card>
+                        <CardHeader className="py-3 pb-2"><CardTitle className="text-sm font-semibold">Saved Templates</CardTitle></CardHeader>
+                        <CardContent className="pb-3">
+                          <div className="flex flex-wrap gap-2">
+                            {customTemplates.map(template => (
+                              <div key={template.id} className="group relative">
+                                <button onClick={() => applyTemplate(template)} className="px-3 py-1.5 rounded-md border text-xs font-medium hover:border-primary transition-colors">{template.name}</button>
+                                <button onClick={() => deleteTemplate(template.id)} className="absolute -top-1.5 -right-1.5 h-4 w-4 bg-destructive text-white rounded-full text-xs opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"><X className="h-2 w-2" /></button>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
                     )}
-                  </CardContent>
-                </Card>
+                  </TabsContent>
+                </Tabs>
 
-                {/* Text Overlay */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Text</CardTitle></CardHeader>
-                  <CardContent className="pb-3">
-                    <div className="flex gap-2">
-                      <Input placeholder="Add text below QR..." value={overlayText} onChange={(e) => setOverlayText(e.target.value)} className="text-sm h-8" />
-                      {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-8 w-10 rounded cursor-pointer border" />}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Error Correction */}
-                <Card>
-                  <CardHeader className="py-3"><CardTitle className="text-base">Error Correction</CardTitle></CardHeader>
-                  <CardContent className="pb-3">
-                    <div className="grid grid-cols-4 gap-2">
-                      {["L", "M", "Q", "H"].map(level => (
-                        <button key={level} onClick={() => setErrorCorrectionLevel(level)} className={`p-2 rounded border-2 text-xs ${errorCorrectionLevel === level ? "border-primary bg-primary/10" : "border-muted"}`}>
-                          <span className="font-bold">{level}</span>
-                          <span className="text-muted-foreground ml-1">{{"L":"7%","M":"15%","Q":"25%","H":"30%"}[level]}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="flex gap-2 flex-col sm:flex-row sm:flex-wrap">
-                  <Button variant="outline" onClick={() => setStep(2)} className="w-full sm:flex-1 sm:min-w-20" size="sm" data-testid="button-back">Back</Button>
-                  <Button onClick={() => setShowTemplateModal(true)} variant="outline" size="sm" className="w-full sm:flex-1 sm:min-w-20" data-testid="button-save-template"><Save className="h-4 w-4 mr-1" />Save</Button>
-                  <div className="w-full sm:flex-1 sm:min-w-20 flex gap-1">
-                    <Button onClick={() => downloadQR("normal")} size="sm" className="flex-1 text-xs" title="Standard quality" variant="outline" data-testid="button-download-normal">
-                      <Download className="h-3 w-3" />
-                    </Button>
-                    <Button onClick={() => downloadQR("high")} size="sm" className="flex-1 text-xs sm:text-base" title="2x quality" data-testid="button-download-hd">
-                      <Download className="h-4 w-4 mr-1" />HD
-                    </Button>
-                    <Button onClick={() => downloadQR("ultra")} size="sm" className="flex-1 text-xs" title="4x ultra quality" data-testid="button-download-4k">
-                      4K
-                    </Button>
+                {/* Action bar — always visible */}
+                <div className="flex gap-2 mt-4 flex-wrap">
+                  <Button variant="outline" size="sm" onClick={() => setStep(2)} data-testid="button-back">Back</Button>
+                  <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
+                  <div className="flex gap-1 ml-auto">
+                    <Button onClick={() => downloadQR("normal")} size="sm" variant="outline" title="Standard quality" data-testid="button-download-normal"><Download className="h-3.5 w-3.5" /></Button>
+                    <Button onClick={() => downloadQR("high")} size="sm" title="2x HD quality" data-testid="button-download-hd"><Download className="h-3.5 w-3.5 mr-1" />HD</Button>
+                    <Button onClick={() => downloadQR("ultra")} size="sm" variant="secondary" title="4x Ultra quality" data-testid="button-download-4k">4K</Button>
                   </div>
                 </div>
               </div>
