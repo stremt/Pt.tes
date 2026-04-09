@@ -294,10 +294,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   const [overlayTextColor, setOverlayTextColor] = useState("#000000");
   const [templateName, setTemplateName] = useState("");
   const [showTemplateModal, setShowTemplateModal] = useState(false);
-  const [floatingPreviewPos, setFloatingPreviewPos] = useState({ x: window.innerWidth - 140, y: window.innerHeight - 200 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [showFloatingPreview, setShowFloatingPreview] = useState(true);
+  const [showMobileDownloadBar, setShowMobileDownloadBar] = useState(false);
 
   // Dots gradient
   const [dotsGradient, setDotsGradient] = useState(false);
@@ -380,8 +377,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   };
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const floatingPreviewRef = useRef<HTMLDivElement>(null);
-  const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileBottomCanvasRef = useRef<HTMLCanvasElement>(null);
   const editColumnRef = useRef<HTMLDivElement>(null);
   const previewWrapperRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -476,9 +473,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     }
   }, []);
 
-  // Show floating preview only on step 3
+  // Show mobile download bar only on step 3
   useEffect(() => {
-    setShowFloatingPreview(step === 3);
+    setShowMobileDownloadBar(step === 3);
   }, [step]);
 
   // Handle browser back button — navigate between steps instead of leaving page
@@ -508,56 +505,6 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Handle dragging — mouse + touch
-  useEffect(() => {
-    if (!isDragging) return;
-
-    const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(val, max));
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setFloatingPreviewPos({
-        x: clamp(e.clientX - dragOffset.x, 0, window.innerWidth - 140),
-        y: clamp(e.clientY - dragOffset.y, 0, window.innerHeight - 180),
-      });
-    };
-    const handleMouseUp = () => setIsDragging(false);
-
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-      const t = e.touches[0];
-      setFloatingPreviewPos({
-        x: clamp(t.clientX - dragOffset.x, 0, window.innerWidth - 140),
-        y: clamp(t.clientY - dragOffset.y, 0, window.innerHeight - 180),
-      });
-    };
-    const handleTouchEnd = () => setIsDragging(false);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [isDragging, dragOffset]);
-
-  const handleDragStart = (e: React.MouseEvent) => {
-    if (!floatingPreviewRef.current) return;
-    const rect = floatingPreviewRef.current.getBoundingClientRect();
-    setDragOffset({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    setIsDragging(true);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!floatingPreviewRef.current) return;
-    const rect = floatingPreviewRef.current.getBoundingClientRect();
-    const t = e.touches[0];
-    setDragOffset({ x: t.clientX - rect.left, y: t.clientY - rect.top });
-    setIsDragging(true);
-  };
 
   useEffect(() => {
     if (step === 3 && selectedType && canvasRef.current) {
@@ -838,7 +785,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
   const renderQR = async () => {
     try {
-      const canvases = [canvasRef.current, floatingCanvasRef.current].filter(Boolean);
+      const canvases = [canvasRef.current, mobileCanvasRef.current, mobileBottomCanvasRef.current].filter(Boolean);
       if (canvases.length === 0) return;
       
       const qrData = generateQRData();
@@ -1404,27 +1351,30 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       {!embedMode && <StructuredData data={softwareAppSchema} />}
       {!embedMode && <StructuredData data={breadcrumbSchema} />}
 
-      {/* Floating Mobile Preview - Draggable (touch + mouse) */}
-      {selectedType && showFloatingPreview && (
-        <div
-          ref={floatingPreviewRef}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleTouchStart}
-          className="fixed z-[9999] lg:hidden bg-black rounded-2xl p-2 shadow-lg cursor-move select-none"
-          style={{
-            left: `${floatingPreviewPos.x}px`,
-            top: `${floatingPreviewPos.y}px`,
-            width: '130px',
-            userSelect: 'none'
-          }}
-          data-testid="floating-preview-mobile"
-        >
-          <div className="w-12 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
-          <div
-            className="rounded-xl overflow-hidden"
-            style={{ height: '120px' }}
-          >
-            <canvas ref={floatingCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
+      {/* Mobile Sticky Bottom Download Bar - Step 3 only */}
+      {showMobileDownloadBar && selectedType && (
+        <div className="fixed bottom-0 left-0 right-0 z-[9999] lg:hidden bg-background/95 backdrop-blur-md border-t border-border shadow-2xl px-4 py-3 safe-area-bottom" data-testid="mobile-download-bar">
+          <div className="flex items-center gap-3 max-w-lg mx-auto">
+            <div className="h-14 w-14 rounded-xl overflow-hidden border border-border shrink-0 bg-white shadow-sm">
+              <canvas ref={mobileBottomCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] text-muted-foreground font-medium mb-1.5 flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+                Live Preview
+              </p>
+              <div className="flex gap-2">
+                <Button onClick={() => downloadQR("high")} size="sm" className="flex-1 font-semibold text-xs h-9" data-testid="button-mobile-download-hd">
+                  <Download className="h-3.5 w-3.5 mr-1.5" />Download HD
+                </Button>
+                <Button onClick={() => downloadQR("ultra")} variant="outline" size="sm" className="px-3 h-9 text-xs" data-testid="button-mobile-download-4k">
+                  4K
+                </Button>
+                <Button onClick={copyQRToClipboard} variant="ghost" size="icon" className="h-9 w-9 shrink-0" data-testid="button-mobile-copy">
+                  {copiedQR ? <CheckCheck className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -1438,34 +1388,31 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           )}
 
           {!embedMode && (
-          <div className="text-center space-y-4 mb-12">
-            <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <QrCode className="h-10 w-10 text-primary" />
+          <div className="text-center space-y-3 mb-8 sm:mb-12">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <QrCode className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
-              Create QR Code in Seconds
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+              Create QR Code<br className="sm:hidden" /> in Seconds
             </h1>
-            <p className="text-2xl font-semibold text-primary">
-              Free &bull; No Signup &bull; Instant &bull; Private
+            <p className="text-lg sm:text-2xl font-semibold text-primary">
+              Free &bull; No Signup &bull; Instant
             </p>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Generate and download your QR code instantly — no login, no limits.
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+              Generate and download your QR code — no login, no limits.
             </p>
-            <p className="text-sm text-muted-foreground">
-              Takes less than 3 seconds &bull; No account needed
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
-                <Shield className="h-3.5 w-3.5" /> 100% Client-Side
+            <div className="flex flex-wrap justify-center gap-2 pt-1">
+              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
+                <Shield className="h-3 w-3" /> 100% Private
               </Badge>
-              <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
-                <Smartphone className="h-3.5 w-3.5" /> Mobile Ready
+              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
+                <Smartphone className="h-3 w-3" /> Mobile Friendly
               </Badge>
-              <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
-                <Shield className="h-3.5 w-3.5" /> No Scan Limits
+              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
+                <Download className="h-3 w-3" /> 4K Download
               </Badge>
-              <Badge variant="secondary" className="px-4 py-1 text-sm flex items-center gap-1">
-                <Download className="h-3.5 w-3.5" /> 4K Ultra HD Output
+              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
+                <Zap className="h-3 w-3" /> Instant &amp; Free
               </Badge>
             </div>
           </div>
@@ -1473,7 +1420,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
           {/* User Intent Capture Section */}
           {!embedMode && (
-          <div className="mb-10 rounded-xl bg-muted/40 border px-6 py-5 max-w-3xl mx-auto text-center space-y-2">
+          <div className="hidden sm:block mb-10 rounded-xl bg-muted/40 border px-6 py-5 max-w-3xl mx-auto text-center space-y-2">
             <p className="text-base font-semibold">Looking for a free QR code generator?</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
               If you're searching for a fast and simple QR code tool, you're in the right place.
@@ -1487,7 +1434,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
 
           {/* Trust & Benefits Section */}
           {!embedMode && (
-          <div className="mb-12 max-w-4xl mx-auto">
+          <div className="hidden sm:block mb-12 max-w-4xl mx-auto">
             <h2 className="text-xl font-bold text-center mb-6">Why this QR Code Generator works better</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {[
@@ -1518,19 +1465,29 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           )}
 
           {/* Step Indicator */}
-          <div className="flex items-center justify-center gap-2 mb-8 mx-auto w-fit">
-            {[1, 2, 3].map((s, i) => (
+          <div className="flex items-center justify-center mb-8 mx-auto w-fit gap-0">
+            {[
+              { n: 1, label: "Choose Type" },
+              { n: 2, label: "Enter Info" },
+              { n: 3, label: "Customize" },
+            ].map(({ n: s, label }, i) => (
               <div key={s} className="flex items-center">
                 <button
                   onClick={() => { if (s < step) goToStep(s as 1 | 2 | 3); }}
                   disabled={s >= step}
-                  className={`h-9 w-9 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all ${step >= s ? "bg-primary" : "bg-muted"} ${s < step ? "cursor-pointer hover:opacity-80 active:scale-95" : "cursor-default"}`}
+                  className={[
+                    "flex flex-col items-center gap-1 px-2 transition-all",
+                    s < step ? "cursor-pointer" : "cursor-default"
+                  ].join(" ")}
                   title={s < step ? `Back to Step ${s}` : undefined}
                   data-testid={`button-step-${s}`}
                 >
-                  {s}
+                  <span className={`h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step > s ? "bg-primary text-primary-foreground" : step === s ? "bg-primary text-primary-foreground ring-4 ring-primary/20" : "bg-muted text-muted-foreground"}`}>
+                    {step > s ? <Check className="h-4 w-4" /> : s}
+                  </span>
+                  <span className={`text-[10px] font-medium whitespace-nowrap ${step === s ? "text-primary" : "text-muted-foreground"}`}>{label}</span>
                 </button>
-                {i < 2 && <div className={`h-1 w-12 mx-1 transition-colors ${step > s ? "bg-primary" : "bg-muted"}`} />}
+                {i < 2 && <div className={`h-1 w-8 sm:w-14 mb-4 mx-1 rounded-full transition-colors ${step > s ? "bg-primary" : "bg-muted"}`} />}
               </div>
             ))}
           </div>
@@ -1549,29 +1506,28 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
                       <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {groupTypes.map(type => {
                         const Icon = type.icon;
                         return (
                           <button
                             key={type.id}
                             onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
-                            className={`relative p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                            className={`relative p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
                             data-testid={`button-qr-type-${type.id}`}
                           >
                             {type.badge && (
-                              <span className={`absolute top-3 right-3 text-[10px] font-bold text-white px-2 py-0.5 rounded-full ${type.badgeColor}`}>
+                              <span className={`absolute top-2 right-2 text-[9px] font-bold text-white px-1.5 py-0.5 rounded-full ${type.badgeColor}`}>
                                 {type.badge}
                               </span>
                             )}
-                            <div className={`w-10 h-10 rounded-lg ${type.iconBg} flex items-center justify-center mb-3`}>
-                              <Icon className={`w-5 h-5 ${type.iconColor}`} />
+                            <div className={`w-9 h-9 rounded-lg ${type.iconBg} flex items-center justify-center mb-2.5`}>
+                              <Icon className={`w-4 h-4 ${type.iconColor}`} />
                             </div>
-                            <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
-                            <p className="text-xs text-muted-foreground mt-1 leading-snug">{type.description}</p>
-                            <div className="mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <span className="text-xs font-medium text-primary">Select</span>
-                              <ArrowRight className="w-3 h-3 text-primary" />
+                            <p className="font-semibold text-xs sm:text-sm text-foreground leading-tight">{type.label}</p>
+                            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1 leading-snug hidden sm:block">{type.description}</p>
+                            <div className="mt-2 sm:mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <ChevronRight className="w-3 h-3 text-primary" />
                             </div>
                           </button>
                         );
@@ -1583,58 +1539,117 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
             </div>
           )}
 
-          {step === 2 && (
+          {step === 2 && (() => {
+            const typeInfo = QR_TYPES.find(t => t.id === selectedType);
+            const TypeIcon = typeInfo?.icon;
+            return (
             <Card className="max-w-2xl mx-auto">
-              <CardHeader><CardTitle>Enter Data</CardTitle></CardHeader>
-              <CardContent className="space-y-4">
+              <CardHeader className="pb-4">
+                <div className="flex items-center gap-3 mb-1">
+                  {TypeIcon && (
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${typeInfo?.iconBg}`}>
+                      <TypeIcon className={`w-5 h-5 ${typeInfo?.iconColor}`} />
+                    </div>
+                  )}
+                  <div>
+                    <CardTitle className="text-lg">{typeInfo?.label}</CardTitle>
+                    <p className="text-xs text-muted-foreground mt-0.5">{typeInfo?.description}</p>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-0">
                 {selectedType === "url" && (
-                  <div><Label>URL</Label><Input placeholder="https://example.com" value={formData.url || ""} onChange={(e) => handleInputChange("url", e.target.value)} /></div>
+                  <div className="space-y-1.5"><Label className="text-sm font-semibold">Website URL</Label><Input placeholder="https://example.com" value={formData.url || ""} onChange={(e) => handleInputChange("url", e.target.value)} className="h-12 text-base" data-testid="input-url" autoFocus /></div>
                 )}
                 {selectedType === "text" && (
-                  <div><Label>Text</Label><Textarea placeholder="Enter text..." value={formData.text || ""} onChange={(e) => handleInputChange("text", e.target.value)} rows={4} /></div>
+                  <div className="space-y-1.5"><Label className="text-sm font-semibold">Message</Label><Textarea placeholder="Enter your text here..." value={formData.text || ""} onChange={(e) => handleInputChange("text", e.target.value)} rows={4} data-testid="input-text" className="text-base resize-none" autoFocus /></div>
                 )}
                 {selectedType === "email" && (
-                  <div><Label>Email</Label><Input type="email" placeholder="user@example.com" value={formData.email || ""} onChange={(e) => handleInputChange("email", e.target.value)} /></div>
+                  <div className="space-y-1.5"><Label className="text-sm font-semibold">Email Address</Label><Input type="email" placeholder="user@example.com" value={formData.email || ""} onChange={(e) => handleInputChange("email", e.target.value)} className="h-12 text-base" data-testid="input-email" autoFocus /></div>
                 )}
                 {selectedType === "sms" && (
                   <>
-                    <div><Label>Phone</Label><Input placeholder="+1234567890" value={formData.phone || ""} onChange={(e) => handleInputChange("phone", e.target.value)} /></div>
-                    <div><Label>Message</Label><Textarea placeholder="Message..." value={formData.smsText || ""} onChange={(e) => handleInputChange("smsText", e.target.value)} rows={2} /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Phone Number</Label><Input placeholder="+1 234 567 8900" value={formData.phone || ""} onChange={(e) => handleInputChange("phone", e.target.value)} className="h-12 text-base" data-testid="input-sms-phone" autoFocus /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Pre-filled Message</Label><Textarea placeholder="Your message here..." value={formData.smsText || ""} onChange={(e) => handleInputChange("smsText", e.target.value)} rows={3} data-testid="input-sms-text" className="text-base resize-none" /></div>
                   </>
                 )}
                 {selectedType === "whatsapp" && (
                   <>
-                    <div><Label>Phone Number</Label><Input placeholder="+1234567890 or 1234567890" value={formData.whatsappPhone || ""} onChange={(e) => handleInputChange("whatsappPhone", e.target.value)} /></div>
-                    <div><Label>Message (Optional)</Label><Textarea placeholder="Premade message..." value={formData.whatsappMessage || ""} onChange={(e) => handleInputChange("whatsappMessage", e.target.value)} rows={3} /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">WhatsApp Number</Label><Input placeholder="+1 234 567 8900" value={formData.whatsappPhone || ""} onChange={(e) => handleInputChange("whatsappPhone", e.target.value)} className="h-12 text-base" data-testid="input-whatsapp-phone" autoFocus /><p className="text-[11px] text-muted-foreground">Include country code, e.g. +1 for USA</p></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Opening Message <span className="text-muted-foreground font-normal">(Optional)</span></Label><Textarea placeholder="Hey! I'd like to..." value={formData.whatsappMessage || ""} onChange={(e) => handleInputChange("whatsappMessage", e.target.value)} rows={3} data-testid="input-whatsapp-message" className="text-base resize-none" /></div>
                   </>
                 )}
                 {selectedType === "wifi" && (
                   <>
-                    <div><Label>Network Name</Label><Input placeholder="WiFi SSID" value={formData.wifiSsid || ""} onChange={(e) => handleInputChange("wifiSsid", e.target.value)} /></div>
-                    <div><Label>Password</Label><Input type="password" placeholder="Password" value={formData.wifiPassword || ""} onChange={(e) => handleInputChange("wifiPassword", e.target.value)} /></div>
-                    <div><Label>Security</Label><select className="w-full px-3 py-2 border rounded-md bg-background" value={formData.wifiSecurity || "WPA"} onChange={(e) => handleInputChange("wifiSecurity", e.target.value)}><option>WPA</option><option>WEP</option><option>Open</option></select></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Network Name (SSID)</Label><Input placeholder="My Home WiFi" value={formData.wifiSsid || ""} onChange={(e) => handleInputChange("wifiSsid", e.target.value)} className="h-12 text-base" data-testid="input-wifi-ssid" autoFocus /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Password</Label><Input type="password" placeholder="••••••••" value={formData.wifiPassword || ""} onChange={(e) => handleInputChange("wifiPassword", e.target.value)} className="h-12 text-base" data-testid="input-wifi-password" /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Security Type</Label><select className="w-full h-12 px-3 border rounded-md bg-background text-base" value={formData.wifiSecurity || "WPA"} onChange={(e) => handleInputChange("wifiSecurity", e.target.value)} data-testid="select-wifi-security"><option>WPA</option><option>WEP</option><option>Open</option></select></div>
                   </>
                 )}
                 {selectedType === "bitcoin" && (
-                  <div><Label>Address</Label><Input placeholder="Bitcoin address" value={formData.bitcoinAddress || ""} onChange={(e) => handleInputChange("bitcoinAddress", e.target.value)} /></div>
+                  <div className="space-y-1.5"><Label className="text-sm font-semibold">Bitcoin Wallet Address</Label><Input placeholder="1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf..." value={formData.bitcoinAddress || ""} onChange={(e) => handleInputChange("bitcoinAddress", e.target.value)} className="h-12 text-base font-mono" data-testid="input-bitcoin" autoFocus /></div>
                 )}
                 {selectedType === "vcard" && (
                   <>
-                    <div><Label>Name</Label><Input placeholder="John Doe" value={formData.vcardName || ""} onChange={(e) => handleInputChange("vcardName", e.target.value)} /></div>
-                    <div><Label>Phone</Label><Input placeholder="+1234567890" value={formData.vcardPhone || ""} onChange={(e) => handleInputChange("vcardPhone", e.target.value)} /></div>
-                    <div><Label>Email</Label><Input type="email" placeholder="john@example.com" value={formData.vcardEmail || ""} onChange={(e) => handleInputChange("vcardEmail", e.target.value)} /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Full Name</Label><Input placeholder="Jane Smith" value={formData.vcardName || ""} onChange={(e) => handleInputChange("vcardName", e.target.value)} className="h-12 text-base" data-testid="input-vcard-name" autoFocus /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Phone</Label><Input placeholder="+1 234 567 8900" value={formData.vcardPhone || ""} onChange={(e) => handleInputChange("vcardPhone", e.target.value)} className="h-12 text-base" data-testid="input-vcard-phone" /></div>
+                    <div className="space-y-1.5"><Label className="text-sm font-semibold">Email</Label><Input type="email" placeholder="jane@company.com" value={formData.vcardEmail || ""} onChange={(e) => handleInputChange("vcardEmail", e.target.value)} className="h-12 text-base" data-testid="input-vcard-email" /></div>
                   </>
                 )}
-                <div className="flex gap-3 pt-4">
-                  <Button variant="ghost" onClick={() => goToStep(1)} className="text-muted-foreground"><ArrowLeft className="h-4 w-4 mr-1" />Back</Button>
-                  <Button onClick={handleNext} className="flex-1">Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                <div className="flex gap-3 pt-3">
+                  <Button variant="ghost" onClick={() => goToStep(1)} className="text-muted-foreground" data-testid="button-step2-back"><ArrowLeft className="h-4 w-4 mr-1" />Back</Button>
+                  <Button onClick={handleNext} size="lg" className="flex-1 font-semibold" data-testid="button-step2-next">
+                    Customize Design <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </div>
+                <p className="text-center text-[11px] text-muted-foreground">Takes less than 30 seconds &bull; Free &bull; No signup</p>
               </CardContent>
             </Card>
-          )}
+            );
+          })()}
 
           {step === 3 && (
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-stretch relative">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-stretch relative pb-28 lg:pb-0">
+
+              {/* Mobile QR Preview Banner - shows above tabs on mobile */}
+              <div className="lg:hidden w-full mb-2">
+                <Card className="overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      <div className="relative shrink-0">
+                        <div className="h-[100px] w-[100px] rounded-xl overflow-hidden bg-white border border-border shadow-sm">
+                          <canvas ref={mobileCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
+                        </div>
+                        <span className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-green-500 border-2 border-background animate-pulse" />
+                      </div>
+                      <div className="flex-1 min-w-0 space-y-2">
+                        <div>
+                          <p className="text-sm font-bold text-foreground">Your QR Code</p>
+                          <p className="text-[11px] text-muted-foreground">Updates as you customize</p>
+                        </div>
+                        <div className="space-y-1.5">
+                          <Button onClick={() => downloadQR("high")} size="sm" className="w-full font-semibold" data-testid="button-mobile-top-download">
+                            <Download className="h-3.5 w-3.5 mr-1.5" />Download HD Free
+                          </Button>
+                          <div className="flex gap-1.5">
+                            <Button onClick={() => downloadQR("ultra")} variant="outline" size="sm" className="flex-1 text-xs h-8">
+                              4K Ultra
+                            </Button>
+                            <Button onClick={copyQRToClipboard} variant="ghost" size="sm" className="flex-1 text-xs h-8">
+                              {copiedQR ? <CheckCheck className="h-3 w-3 mr-1 text-green-500" /> : <Copy className="h-3 w-3 mr-1" />}
+                              {copiedQR ? "Copied!" : "Copy"}
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center gap-1.5 text-[10px] text-muted-foreground justify-center">
+                      <Shield className="h-3 w-3" />Generated in your browser — never uploaded
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
               <div ref={editColumnRef} className="flex-[2] min-w-0">
                 <Tabs value={activeTab} onValueChange={switchTab} className="w-full">
                   {/* ── STEP TABS ── */}
@@ -1919,7 +1934,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         <Undo2 className="h-3.5 w-3.5" />
                         Reset Design
                       </Button>
-                      <span className="ml-auto text-[11px] text-muted-foreground/60">← → to switch tabs</span>
+                      <span className="hidden sm:inline ml-auto text-[11px] text-muted-foreground/60">← → to switch tabs</span>
                     </div>
 
                     {/* ── STEP 1: Body Pattern ── */}
@@ -2405,7 +2420,12 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         <ArrowRight className="h-4 w-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
                       </Button>
                     ) : (
-                      <p className="text-xs text-muted-foreground">Download options in preview panel</p>
+                      <>
+                        <p className="hidden lg:block text-xs text-muted-foreground">Download options in preview panel</p>
+                        <Button onClick={() => downloadQR("high")} size="default" className="lg:hidden font-semibold" data-testid="button-action-bar-download">
+                          <Download className="h-4 w-4 mr-2" />Download HD
+                        </Button>
+                      </>
                     )}
                   </div>
                 </div>
