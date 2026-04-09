@@ -295,6 +295,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   const [templateName, setTemplateName] = useState("");
   const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [showMobileDownloadBar, setShowMobileDownloadBar] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   // Dots gradient
   const [dotsGradient, setDotsGradient] = useState(false);
@@ -477,6 +478,25 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   useEffect(() => {
     setShowMobileDownloadBar(step === 3);
   }, [step]);
+
+  // Hide mobile download bar when any input/textarea is focused (keyboard up on mobile)
+  useEffect(() => {
+    const onFocusIn = (e: FocusEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") {
+        setIsInputFocused(true);
+      }
+    };
+    const onFocusOut = () => {
+      setIsInputFocused(false);
+    };
+    document.addEventListener("focusin", onFocusIn);
+    document.addEventListener("focusout", onFocusOut);
+    return () => {
+      document.removeEventListener("focusin", onFocusIn);
+      document.removeEventListener("focusout", onFocusOut);
+    };
+  }, []);
 
   // Handle browser back button — navigate between steps instead of leaving page
   useEffect(() => {
@@ -1351,8 +1371,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       {!embedMode && <StructuredData data={softwareAppSchema} />}
       {!embedMode && <StructuredData data={breadcrumbSchema} />}
 
-      {/* Mobile Sticky Bottom Download Bar - Step 3 only */}
-      {showMobileDownloadBar && selectedType && (
+      {/* Mobile Sticky Bottom Download Bar - Step 3 only, hidden when keyboard is up */}
+      {showMobileDownloadBar && selectedType && !isInputFocused && (
         <div className="fixed bottom-0 left-0 right-0 z-[9999] lg:hidden bg-background/95 backdrop-blur-md border-t border-border shadow-2xl px-4 py-3 safe-area-bottom" data-testid="mobile-download-bar">
           <div className="flex items-center gap-3 max-w-lg mx-auto">
             <div className="h-14 w-14 rounded-xl overflow-hidden border border-border shrink-0 bg-white shadow-sm">
