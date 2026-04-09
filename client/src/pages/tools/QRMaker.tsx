@@ -1407,40 +1407,40 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         </div>
       )}
 
-      <div className="min-h-screen py-8">
-        <div className="container mx-auto px-4 max-w-7xl">
+      <div className="min-h-screen py-4 sm:py-8">
+        <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
           {!embedMode && (
-          <div className="mb-6 text-sm text-muted-foreground">
+          <div className="mb-4 text-sm text-muted-foreground hidden sm:block">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / <Link href="/tools/developer">Developer Tools</Link> / <span>QR Code Generator</span>
           </div>
           )}
 
           {!embedMode && (
-          <div className="text-center space-y-3 mb-8 sm:mb-12">
-            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-              <QrCode className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+          <div className="text-center space-y-2 sm:space-y-3 mb-6 sm:mb-12">
+            <div className="h-12 w-12 sm:h-20 sm:w-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-4">
+              <QrCode className="h-6 w-6 sm:h-10 sm:w-10 text-primary" />
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-              Create QR Code<br className="sm:hidden" /> in Seconds
+            <h1 className="text-2xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+              Create QR Code in Seconds
             </h1>
-            <p className="text-lg sm:text-2xl font-semibold text-primary">
+            <p className="text-base sm:text-2xl font-semibold text-primary">
               Free &bull; No Signup &bull; Instant
             </p>
-            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="hidden sm:block text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto">
               Generate and download your QR code — no login, no limits.
             </p>
-            <div className="flex flex-wrap justify-center gap-2 pt-1">
-              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
-                <Shield className="h-3 w-3" /> 100% Private
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 pt-0.5 sm:pt-1">
+              <Badge variant="secondary" className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs flex items-center gap-1">
+                <Shield className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> 100% Private
               </Badge>
-              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
-                <Smartphone className="h-3 w-3" /> Mobile Friendly
+              <Badge variant="secondary" className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs flex items-center gap-1">
+                <Smartphone className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> Mobile Friendly
               </Badge>
-              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
-                <Download className="h-3 w-3" /> 4K Download
+              <Badge variant="secondary" className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs flex items-center gap-1">
+                <Download className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> 4K Download
               </Badge>
-              <Badge variant="secondary" className="px-3 py-1 text-xs flex items-center gap-1">
-                <Zap className="h-3 w-3" /> Instant &amp; Free
+              <Badge variant="secondary" className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs flex items-center gap-1">
+                <Zap className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> Instant &amp; Free
               </Badge>
             </div>
           </div>
@@ -1493,7 +1493,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           )}
 
           {/* Step Indicator */}
-          <div className="flex items-center justify-center mb-8 mx-auto w-fit gap-0">
+          <div className="flex items-center justify-center mb-6 sm:mb-8 mx-auto w-fit gap-0">
             {[
               { n: 1, label: "Choose Type" },
               { n: 2, label: "Enter Info" },
@@ -1504,44 +1504,44 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   onClick={() => { if (s < step) goToStep(s as 1 | 2 | 3); }}
                   disabled={s >= step}
                   className={[
-                    "flex flex-col items-center gap-1 px-2 transition-all",
+                    "flex flex-col items-center gap-1 px-1.5 sm:px-2 transition-all",
                     s < step ? "cursor-pointer" : "cursor-default"
                   ].join(" ")}
                   title={s < step ? `Back to Step ${s}` : undefined}
                   data-testid={`button-step-${s}`}
                 >
-                  <span className={`h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step > s ? "bg-primary text-primary-foreground" : step === s ? "bg-primary text-primary-foreground ring-4 ring-primary/20" : "bg-muted text-muted-foreground"}`}>
-                    {step > s ? <Check className="h-4 w-4" /> : s}
+                  <span className={`h-8 w-8 sm:h-9 sm:w-9 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all ${step > s ? "bg-primary text-primary-foreground" : step === s ? "bg-primary text-primary-foreground ring-4 ring-primary/20" : "bg-muted text-muted-foreground"}`}>
+                    {step > s ? <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : s}
                   </span>
-                  <span className={`text-[10px] font-medium whitespace-nowrap ${step === s ? "text-primary" : "text-muted-foreground"}`}>{label}</span>
+                  <span className={`text-[9px] sm:text-[10px] font-medium whitespace-nowrap ${step === s ? "text-primary" : "text-muted-foreground"}`}>{label}</span>
                 </button>
-                {i < 2 && <div className={`h-1 w-8 sm:w-14 mb-4 mx-1 rounded-full transition-colors ${step > s ? "bg-primary" : "bg-muted"}`} />}
+                {i < 2 && <div className={`h-1 w-6 sm:w-14 mb-4 mx-0.5 sm:mx-1 rounded-full transition-colors ${step > s ? "bg-primary" : "bg-muted"}`} />}
               </div>
             ))}
           </div>
 
           {step === 1 && (
-            <div className="max-w-2xl mx-auto space-y-6">
+            <div className="max-w-2xl mx-auto space-y-5">
               <div className="text-center">
-                <h2 className="text-xl font-semibold text-foreground">What do you want to create?</h2>
-                <p className="text-sm text-muted-foreground mt-1">Choose a QR code type to get started</p>
+                <h2 className="text-lg sm:text-xl font-semibold text-foreground">What do you want to create?</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Choose a QR code type to get started</p>
               </div>
               {QR_TYPE_GROUPS.map(group => {
                 const groupTypes = QR_TYPES.filter(t => t.group === group.id);
                 return (
                   <div key={group.id}>
-                    <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-2 mb-2.5">
                       <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
-                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
+                      <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                       {groupTypes.map(type => {
                         const Icon = type.icon;
                         return (
                           <button
                             key={type.id}
                             onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
-                            className={`relative p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                            className={`relative flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
                             data-testid={`button-qr-type-${type.id}`}
                           >
                             {type.badge && (
@@ -1549,12 +1549,15 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                 {type.badge}
                               </span>
                             )}
-                            <div className={`w-9 h-9 rounded-lg ${type.iconBg} flex items-center justify-center mb-2.5`}>
-                              <Icon className={`w-4 h-4 ${type.iconColor}`} />
+                            <div className={`w-10 h-10 sm:w-9 sm:h-9 rounded-lg ${type.iconBg} flex items-center justify-center shrink-0 sm:mb-2.5`}>
+                              <Icon className={`w-5 h-5 sm:w-4 sm:h-4 ${type.iconColor}`} />
                             </div>
-                            <p className="font-semibold text-xs sm:text-sm text-foreground leading-tight">{type.label}</p>
-                            <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1 leading-snug hidden sm:block">{type.description}</p>
-                            <div className="mt-2 sm:mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="flex-1 min-w-0">
+                              <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
+                              <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{type.description}</p>
+                            </div>
+                            <ChevronRight className="w-4 h-4 text-primary shrink-0 sm:hidden" />
+                            <div className="hidden sm:flex mt-3 items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                               <ChevronRight className="w-3 h-3 text-primary" />
                             </div>
                           </button>
@@ -1637,41 +1640,39 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           })()}
 
           {step === 3 && (
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-stretch relative pb-28 lg:pb-0">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 items-start lg:items-stretch relative pb-28 lg:pb-0">
 
               {/* Mobile QR Preview Banner - shows above tabs on mobile */}
-              <div className="lg:hidden w-full mb-2">
-                <Card className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
+              <div className="lg:hidden w-full mb-1">
+                <Card className="overflow-hidden border-primary/20 bg-primary/[0.02]">
+                  <CardContent className="p-3 sm:p-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                       <div className="relative shrink-0">
-                        <div className="h-[100px] w-[100px] rounded-xl overflow-hidden bg-white border border-border shadow-sm">
+                        <div className="h-[90px] w-[90px] sm:h-[100px] sm:w-[100px] rounded-xl overflow-hidden bg-white border border-border shadow-sm">
                           <canvas ref={mobileCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
                         </div>
-                        <span className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-green-500 border-2 border-background animate-pulse" />
+                        <span className="absolute -top-1.5 -right-1.5 h-3.5 w-3.5 rounded-full bg-green-500 border-2 border-background animate-pulse" />
                       </div>
                       <div className="flex-1 min-w-0 space-y-2">
                         <div>
                           <p className="text-sm font-bold text-foreground">Your QR Code</p>
-                          <p className="text-[11px] text-muted-foreground">Updates as you customize</p>
+                          <p className="text-[11px] text-muted-foreground">Updates live as you customize</p>
                         </div>
-                        <div className="space-y-1.5">
-                          <Button onClick={() => downloadQR("high")} size="sm" className="w-full font-semibold" data-testid="button-mobile-top-download">
-                            <Download className="h-3.5 w-3.5 mr-1.5" />Download HD Free
+                        <Button onClick={() => downloadQR("high")} size="sm" className="w-full font-semibold h-9" data-testid="button-mobile-top-download">
+                          <Download className="h-3.5 w-3.5 mr-1.5" />Download HD Free
+                        </Button>
+                        <div className="flex gap-1.5">
+                          <Button onClick={() => downloadQR("ultra")} variant="outline" size="sm" className="flex-1 text-xs">
+                            4K Ultra
                           </Button>
-                          <div className="flex gap-1.5">
-                            <Button onClick={() => downloadQR("ultra")} variant="outline" size="sm" className="flex-1 text-xs h-8">
-                              4K Ultra
-                            </Button>
-                            <Button onClick={copyQRToClipboard} variant="ghost" size="sm" className="flex-1 text-xs h-8">
-                              {copiedQR ? <CheckCheck className="h-3 w-3 mr-1 text-green-500" /> : <Copy className="h-3 w-3 mr-1" />}
-                              {copiedQR ? "Copied!" : "Copy"}
-                            </Button>
-                          </div>
+                          <Button onClick={copyQRToClipboard} variant="ghost" size="sm" className="flex-1 text-xs">
+                            {copiedQR ? <CheckCheck className="h-3 w-3 mr-1 text-green-500" /> : <Copy className="h-3 w-3 mr-1" />}
+                            {copiedQR ? "Copied!" : "Copy"}
+                          </Button>
                         </div>
                       </div>
                     </div>
-                    <div className="mt-3 flex items-center gap-1.5 text-[10px] text-muted-foreground justify-center">
+                    <div className="mt-2.5 flex items-center gap-1.5 text-[10px] text-muted-foreground justify-center">
                       <Shield className="h-3 w-3" />Generated in your browser — never uploaded
                     </div>
                   </CardContent>
@@ -2814,10 +2815,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           </section>
 
           {/* QR Code Hub - All Use Cases */}
-          <section className="mt-16 max-w-5xl mx-auto border-t pt-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-3">QR Code Hub: All Use Cases</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <section className="mt-10 sm:mt-16 max-w-5xl mx-auto border-t pt-10 sm:pt-16">
+            <div className="text-center mb-8 sm:mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">QR Code Hub: All Use Cases</h2>
+              <p className="text-muted-foreground text-sm sm:text-lg max-w-2xl mx-auto">
                 Explore dedicated guides for every QR code use case — each with tips, examples, and the generator built in.
               </p>
             </div>
@@ -2878,25 +2879,24 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 ],
               },
             ].map((category) => (
-              <div key={category.label} className="mb-12">
-                <div className="flex items-center gap-2 mb-5">
-                  <category.icon className="h-5 w-5 text-primary" />
-                  <h3 className="text-xl font-bold">{category.label}</h3>
+              <div key={category.label} className="mb-8 sm:mb-12">
+                <div className="flex items-center gap-2 mb-3 sm:mb-5">
+                  <category.icon className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                  <h3 className="text-lg sm:text-xl font-bold">{category.label}</h3>
                 </div>
-                <div
-                  className="grid gap-4"
-                  style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
-                >
+                <div className="grid gap-2.5 sm:gap-3 lg:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {category.pages.map((page) => (
                     <Link key={page.href} href={page.href}>
                       <div
-                        className="flex flex-col gap-2 p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
+                        className="flex items-start sm:flex-col gap-3 sm:gap-2 p-3 sm:p-5 rounded-lg border bg-card hover-elevate cursor-pointer h-full"
                         data-testid={`card-qr-usecase-${page.href.split("/").pop()}`}
                       >
+                        <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-sm leading-snug">{page.title}</h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed flex-1">{page.desc}</p>
-                        <span className="inline-flex items-center gap-1 text-xs text-primary font-medium mt-1">
-                          Learn More <ArrowRight className="h-3 w-3" />
+                        <p className="text-xs text-muted-foreground leading-relaxed flex-1 mt-0.5 sm:mt-0">{page.desc}</p>
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-xs text-primary font-medium mt-0 sm:mt-1 shrink-0">
+                          <ArrowRight className="h-3.5 w-3.5" />
                         </span>
                       </div>
                     </Link>
