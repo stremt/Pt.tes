@@ -1901,207 +1901,294 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── BRANDING ────────────────────────── */}
-                  <TabsContent value="branding" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
-                    {/* Logo */}
-                    <Card>
-                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Logo</CardTitle></CardHeader>
-                      <CardContent className="px-6 pb-6 space-y-4">
-                        {!logoData ? (
-                          <div
-                            className={`rounded-lg border-2 border-dashed transition-all flex flex-col items-center justify-center gap-3 py-8 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5" : "border-muted hover:border-primary/50 hover:bg-muted/30"}`}
-                            onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
-                            onDragLeave={() => setLogoDragOver(false)}
-                            onDrop={handleLogoDrop}
-                            onClick={() => document.getElementById("logo-file-input")?.click()}
-                            data-testid="dropzone-logo"
-                          >
-                            <Upload className="h-7 w-7 text-muted-foreground" />
-                            <div className="text-center">
-                              <p className="text-sm font-medium">{logoDragOver ? "Drop here" : "Drag & drop or click to upload"}</p>
-                              <p className="text-xs text-muted-foreground mt-1">PNG, JPG, SVG, WebP</p>
-                            </div>
-                            <input id="logo-file-input" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" data-testid="input-logo-upload" />
-                          </div>
-                        ) : (
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-4 p-4 bg-muted/40 rounded-lg">
-                              <div className="rounded-lg p-2 bg-background border flex items-center justify-center h-16 w-16 shrink-0">
-                                <img src={logoData} alt="Logo" className="max-h-12 max-w-12 object-contain" />
-                              </div>
-                              <div className="flex-1 min-w-0 space-y-2">
-                                <p className="text-xs text-muted-foreground">Logo ready</p>
-                                <div className="flex gap-2">
-                                  <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()} className="flex-1">Replace</Button>
-                                  <Button variant="outline" size="sm" onClick={() => setLogoData(null)} data-testid="button-remove-logo"><X className="h-3.5 w-3.5 mr-1" />Remove</Button>
-                                </div>
-                                <input id="logo-file-input-replace" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
-                              </div>
-                            </div>
+                  <TabsContent value="branding" className="space-y-5 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
 
-                            <div className="grid grid-cols-2 gap-4">
-                              <div className="space-y-2">
-                                <Label className="text-xs text-muted-foreground">Size: {logoSize}px</Label>
-                                <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
-                              </div>
-                              <div className="space-y-2">
-                                <Label className="text-xs text-muted-foreground">Corner radius: {logoBorderRadius}px</Label>
-                                <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
-                              </div>
-                            </div>
-
-                            <label className="flex items-center gap-2 text-sm cursor-pointer">
-                              <input type="checkbox" checked={logoBackground} onChange={(e) => setLogoBackground(e.target.checked)} className="rounded" data-testid="checkbox-logo-background" />
-                              <span className="text-muted-foreground">White background behind logo</span>
-                            </label>
-
-                            {logoSuggestedColors.length > 0 && (
-                              <div className="pt-3 border-t space-y-3">
-                                <p className="text-xs font-medium text-muted-foreground">Colors extracted from your logo</p>
-                                <div className="flex flex-wrap gap-2">
-                                  {logoSuggestedColors.map((color, i) => (
-                                    <button
-                                      key={i}
-                                      className="h-8 w-8 rounded-md border-2 border-muted hover:border-primary hover:ring-2 hover:ring-primary/30 transition-all"
-                                      style={{ backgroundColor: color }}
-                                      title={color}
-                                      onClick={() => { setDarkColor(color); setDotsGradient(false); }}
-                                      data-testid={`button-logo-color-${i}`}
-                                    />
-                                  ))}
-                                </div>
-                                <div className="flex gap-2">
-                                  <Button variant="outline" size="sm" className="flex-1" disabled={logoSuggestedColors.length < 2} onClick={() => { setDotsGradient(true); setDotsGradientColors(logoSuggestedColors.slice(0, 4)); setDotsGradientAngle(45); }} data-testid="button-apply-logo-gradient">Gradient Dots</Button>
-                                  <Button variant="outline" size="sm" className="flex-1" onClick={() => { setBgGradient(true); setBgGradientColors([logoSuggestedColors[0] + "22", "#FFFFFF"]); setBgGradientAngle(135); }} data-testid="button-apply-logo-bg">Apply to BG</Button>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-
-                    {/* Frame */}
-                    <Card>
-                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Frame Style</CardTitle></CardHeader>
-                      <CardContent className="px-6 pb-6 space-y-4">
-                        <div className="grid grid-cols-2 gap-3">
-                          {FRAME_PRESETS.map(f => {
-                            const frameDesc: Record<string, string> = { none: "No frame (clean look)", "scanme-top": "Adds text above QR", "scanme-bottom": "Adds text below QR", border: "Adds border around QR", "rounded-border": "Rounded corners style" };
-                            const isActive = frameStyle === f.id;
-                            return (
-                              <button
-                                key={f.id}
-                                onClick={() => { pushUndo(); setFrameStyle(f.id); }}
-                                style={{ transform: isActive ? "scale(1.02)" : "scale(1)" }}
-                                className={`flex flex-col items-center gap-2 py-4 px-3 rounded-xl border-2 text-center transition-all duration-150 ${isActive ? "border-primary bg-primary/5 ring-2 ring-primary/30 shadow-md" : "border-muted hover:border-primary/40 hover:bg-muted/20"}`}
-                                data-testid={`button-frame-${f.id}`}
-                              >
-                                <div className={`w-16 h-16 rounded-lg flex items-center justify-center ${isActive ? "bg-primary/10" : "bg-muted/40"}`}>
-                                  <FramePreviewIcon id={f.id} active={isActive} />
-                                </div>
-                                <div>
-                                  <p className={`text-xs font-semibold leading-tight ${isActive ? "text-primary" : "text-foreground"}`}>{f.name}</p>
-                                  <p className="text-[10px] text-muted-foreground mt-0.5 leading-snug">{frameDesc[f.id]}</p>
-                                </div>
-                              </button>
-                            );
-                          })}
-                        </div>
-
-                        {frameStyle !== "none" && (
-                          <div className="space-y-4 pt-5 border-t">
-                            <div className="flex items-center justify-between">
-                              <Label className="text-sm font-medium">Border Color</Label>
-                              <div className="flex items-center gap-3">
-                                <span className="text-xs font-medium text-muted-foreground">Gradient</span>
-                                <button
-                                  onClick={() => { pushUndo(); setBorderGradient(!borderGradient); }}
-                                  role="switch"
-                                  aria-checked={borderGradient}
-                                  className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${borderGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
-                                  data-testid="toggle-border-gradient"
-                                >
-                                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${borderGradient ? "translate-x-6" : "translate-x-1"}`} />
-                                </button>
-                              </div>
-                            </div>
-                            {!borderGradient ? (
-                              <div className="flex items-center gap-3">
-                                <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
-                                <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="font-mono text-sm" />
-                              </div>
-                            ) : (
-                              <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                  <span className="text-xs text-muted-foreground">Colors ({borderGradientColors.length}/5)</span>
-                                  {borderGradientColors.length < 5 && <Button size="sm" variant="outline" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}><Plus className="h-3 w-3 mr-1" />Add</Button>}
-                                </div>
-                                {borderGradientColors.map((c, i) => (
-                                  <div key={i} className="flex items-center gap-2">
-                                    <input type="color" value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
-                                    <Input value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="font-mono text-sm flex-1" />
-                                    {borderGradientColors.length > 2 && <Button size="icon" variant="ghost" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}><X className="h-3.5 w-3.5" /></Button>}
-                                  </div>
-                                ))}
-                                <div className="h-4 rounded-md" style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }} />
-                                <div className="flex items-center gap-3">
-                                  <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{borderGradientAngle}°</span>
-                                  <input type="range" min="0" max="360" value={borderGradientAngle} onMouseDown={pushUndo} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-
-                    {/* Call-to-Action Text */}
-                    <Card>
-                      <CardHeader className="px-6 pt-6 pb-3">
-                        <div className="flex items-center justify-between gap-2 flex-wrap">
-                          <div>
-                            <CardTitle className="text-sm font-semibold">Call-to-Action Text</CardTitle>
-                            <p className="text-[11px] text-muted-foreground mt-0.5">Short text works best (max 32 chars)</p>
-                          </div>
-                          {overlayText && <span className={`text-[11px] font-medium ${overlayText.length > 28 ? "text-destructive" : "text-muted-foreground"}`}>{overlayText.length}/32</span>}
-                        </div>
-                      </CardHeader>
-                      <CardContent className="px-6 pb-6 space-y-3">
-                        <div className="flex gap-3">
-                          <Input
-                            placeholder={selectedType === "url" ? "Visit Website" : selectedType === "whatsapp" ? "Chat Now" : selectedType === "email" ? "Send Email" : selectedType === "wifi" ? "Connect to WiFi" : selectedType === "vcard" ? "Save Contact" : "Scan me"}
-                            value={overlayText}
-                            onChange={(e) => setOverlayText(e.target.value.slice(0, 32))}
-                            className="text-sm h-10"
-                            data-testid="input-overlay-text"
-                          />
-                          {overlayText && <input type="color" value={overlayTextColor} onChange={(e) => setOverlayTextColor(e.target.value)} className="h-10 w-12 rounded-md cursor-pointer border shrink-0" title="Text color" />}
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {(selectedType === "url"
-                            ? ["Visit Website", "Open Link", "Learn More", "Get Offer"]
-                            : selectedType === "whatsapp"
-                            ? ["Chat Now", "Message Us", "Contact Us", "Get Help"]
-                            : selectedType === "email"
-                            ? ["Send Email", "Contact Us", "Reach Out", "Get in Touch"]
-                            : selectedType === "wifi"
-                            ? ["Connect to WiFi", "Free WiFi", "Scan to Connect"]
-                            : selectedType === "vcard"
-                            ? ["Save Contact", "Add to Contacts", "Connect with Me"]
-                            : ["Scan me", "Visit website", "Open link", "Contact us", "Get offer"]
-                          ).map(chip => (
-                            <button
-                              key={chip}
-                              onClick={() => setOverlayText(chip)}
-                              className={`px-2.5 py-1 rounded-full border text-[11px] font-medium transition-all ${overlayText === chip ? "border-primary bg-primary/10 text-primary" : "border-muted text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}
-                              data-testid={`chip-cta-${chip.toLowerCase().replace(/\s+/g, "-")}`}
+                    {/* ── STEP 1: Logo ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shrink-0">1</span>
+                        <span className="text-sm font-semibold text-foreground">Logo</span>
+                        <span className="ml-auto text-[11px] text-muted-foreground">Optional — center of QR</span>
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5 space-y-4">
+                          {!logoData ? (
+                            <div
+                              className={`rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center gap-3 py-10 cursor-pointer ${logoDragOver ? "border-primary bg-primary/5 scale-[1.01]" : "border-border hover-elevate"}`}
+                              onDragOver={(e) => { e.preventDefault(); setLogoDragOver(true); }}
+                              onDragLeave={() => setLogoDragOver(false)}
+                              onDrop={handleLogoDrop}
+                              onClick={() => document.getElementById("logo-file-input")?.click()}
+                              data-testid="dropzone-logo"
                             >
-                              {chip}
-                            </button>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
+                              <div className={`h-12 w-12 rounded-xl flex items-center justify-center transition-all ${logoDragOver ? "bg-primary/15" : "bg-muted"}`}>
+                                <Upload className={`h-6 w-6 ${logoDragOver ? "text-primary" : "text-muted-foreground"}`} />
+                              </div>
+                              <div className="text-center">
+                                <p className="text-sm font-medium">{logoDragOver ? "Drop to upload" : "Drag & drop or click"}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5">PNG, JPG, SVG, WebP</p>
+                              </div>
+                              <input id="logo-file-input" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" data-testid="input-logo-upload" />
+                            </div>
+                          ) : (
+                            <div className="space-y-5">
+                              {/* Logo preview + actions */}
+                              <div className="flex items-start gap-4">
+                                <div
+                                  className="relative rounded-xl flex items-center justify-center h-20 w-20 shrink-0 bg-white border border-border/50 transition-all"
+                                  style={{ boxShadow: "0 0 0 3px hsl(var(--primary) / 0.12), 0 4px 16px rgba(0,0,0,0.08)" }}
+                                >
+                                  <img
+                                    src={logoData}
+                                    alt="Logo"
+                                    className="max-h-14 max-w-14 object-contain rounded-sm"
+                                    style={{ borderRadius: `${logoBorderRadius * 0.6}px` }}
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0 space-y-2.5">
+                                  <p className="text-xs font-medium text-foreground">Logo uploaded</p>
+                                  <div className="flex gap-2 flex-wrap">
+                                    <Button variant="outline" size="sm" onClick={() => document.getElementById("logo-file-input-replace")?.click()}>
+                                      <Upload className="h-3 w-3 mr-1.5" />Replace
+                                    </Button>
+                                    <Button variant="ghost" size="sm" onClick={() => setLogoData(null)} data-testid="button-remove-logo" className="text-muted-foreground/70">
+                                      <X className="h-3 w-3 mr-1" />Remove
+                                    </Button>
+                                  </div>
+                                  <input id="logo-file-input-replace" type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+                                </div>
+                              </div>
+
+                              {/* Controls */}
+                              <div className="space-y-3 pt-1">
+                                <div className="space-y-1.5">
+                                  <div className="flex items-center justify-between">
+                                    <Label className="text-xs font-medium text-muted-foreground">Size</Label>
+                                    <span className="text-xs text-muted-foreground font-mono">{logoSize}px</span>
+                                  </div>
+                                  <input type="range" min="10" max="120" value={logoSize} onChange={(e) => setLogoSize(Number(e.target.value))} className="w-full" data-testid="slider-logo-size" />
+                                </div>
+                                <div className="space-y-1.5">
+                                  <div className="flex items-center justify-between">
+                                    <Label className="text-xs font-medium text-muted-foreground">Corner Radius</Label>
+                                    <span className="text-xs text-muted-foreground font-mono">{logoBorderRadius}px</span>
+                                  </div>
+                                  <input type="range" min="0" max="50" value={logoBorderRadius} onChange={(e) => setLogoBorderRadius(Number(e.target.value))} className="w-full" data-testid="slider-logo-radius" />
+                                </div>
+                                <div className="flex items-center justify-between pt-1">
+                                  <span className="text-xs font-medium text-muted-foreground">White Background</span>
+                                  <button
+                                    onClick={() => setLogoBackground(!logoBackground)}
+                                    role="switch"
+                                    aria-checked={logoBackground}
+                                    className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${logoBackground ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
+                                    data-testid="checkbox-logo-background"
+                                  >
+                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${logoBackground ? "translate-x-6" : "translate-x-1"}`} />
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* Extracted colors */}
+                              {logoSuggestedColors.length > 0 && (
+                                <div className="pt-3 border-t space-y-3">
+                                  <p className="text-xs font-medium text-muted-foreground">Colors from your logo</p>
+                                  <div className="flex flex-wrap gap-2">
+                                    {logoSuggestedColors.map((color, i) => (
+                                      <button
+                                        key={i}
+                                        className="h-8 w-8 rounded-md border-2 border-border hover-elevate transition-all"
+                                        style={{ backgroundColor: color }}
+                                        title={color}
+                                        onClick={() => { setDarkColor(color); setDotsGradient(false); }}
+                                        data-testid={`button-logo-color-${i}`}
+                                      />
+                                    ))}
+                                  </div>
+                                  <div className="flex gap-2">
+                                    <Button variant="outline" size="sm" className="flex-1" disabled={logoSuggestedColors.length < 2} onClick={() => { setDotsGradient(true); setDotsGradientColors(logoSuggestedColors.slice(0, 4)); setDotsGradientAngle(45); }} data-testid="button-apply-logo-gradient">Gradient Dots</Button>
+                                    <Button variant="outline" size="sm" className="flex-1" onClick={() => { setBgGradient(true); setBgGradientColors([logoSuggestedColors[0] + "22", "#FFFFFF"]); setBgGradientAngle(135); }} data-testid="button-apply-logo-bg">Apply to BG</Button>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* ── STEP 2: Frame Style ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-[10px] font-bold shrink-0">2</span>
+                        <span className="text-sm font-semibold text-foreground">Frame Style</span>
+                        <span className="ml-auto text-[11px] text-muted-foreground italic">
+                          {{ none: "No frame", "scanme-top": "Text above QR", "scanme-bottom": "Text below QR", border: "Border frame", "rounded-border": "Rounded border" }[frameStyle] ?? ""}
+                        </span>
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5 space-y-4">
+                          <div className="grid grid-cols-3 gap-2.5">
+                            {FRAME_PRESETS.map(f => {
+                              const frameLabels: Record<string, string> = { none: "Clean", "scanme-top": "Text Above", "scanme-bottom": "Text Below", border: "Border", "rounded-border": "Rounded" };
+                              const frameHints: Record<string, string> = { none: "No frame", "scanme-top": "CTA above", "scanme-bottom": "CTA below", border: "Bold frame", "rounded-border": "Soft frame" };
+                              const isActive = frameStyle === f.id;
+                              return (
+                                <button
+                                  key={f.id}
+                                  onClick={() => { pushUndo(); setFrameStyle(f.id); }}
+                                  className={[
+                                    "relative flex flex-col items-center gap-2 py-3.5 px-2 rounded-xl border-2 text-center transition-all duration-150 select-none",
+                                    isActive
+                                      ? "border-primary bg-primary/5 ring-[3px] ring-primary/25 ring-offset-2 shadow-lg scale-[1.03]"
+                                      : "border-border hover-elevate active:scale-[0.97]"
+                                  ].join(" ")}
+                                  data-testid={`button-frame-${f.id}`}
+                                >
+                                  {isActive && (
+                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-primary shadow-sm">
+                                      <Check className="h-2.5 w-2.5 text-primary-foreground" />
+                                    </span>
+                                  )}
+                                  <div className={`w-14 h-14 rounded-lg flex items-center justify-center transition-all ${isActive ? "bg-primary/10" : "bg-muted/50"}`}>
+                                    <FramePreviewIcon id={f.id} active={isActive} />
+                                  </div>
+                                  <p className={`text-[11px] font-semibold leading-tight ${isActive ? "text-primary" : "text-foreground"}`}>{frameLabels[f.id] ?? f.name}</p>
+                                  <p className="text-[10px] text-muted-foreground leading-none">{frameHints[f.id]}</p>
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          {/* Border Color — only when frame active */}
+                          {frameStyle !== "none" && (
+                            <div className="space-y-4 pt-4 border-t">
+                              <div className="flex items-center justify-between">
+                                <Label className="text-xs font-semibold">Border Color</Label>
+                                <div className="flex items-center gap-2.5">
+                                  <span className="text-xs text-muted-foreground">Gradient</span>
+                                  <button
+                                    onClick={() => { pushUndo(); setBorderGradient(!borderGradient); }}
+                                    role="switch"
+                                    aria-checked={borderGradient}
+                                    className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${borderGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
+                                    data-testid="toggle-border-gradient"
+                                  >
+                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white dark:bg-zinc-100 shadow-md transition-all duration-300 ${borderGradient ? "translate-x-6" : "translate-x-1"}`} />
+                                  </button>
+                                </div>
+                              </div>
+                              {!borderGradient ? (
+                                <div className="flex items-center gap-3">
+                                  <input type="color" value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="h-10 w-14 rounded-md cursor-pointer border-2 border-border shrink-0" />
+                                  <Input value={borderColor} onChange={(e) => setBorderColor(e.target.value)} className="font-mono text-sm" />
+                                </div>
+                              ) : (
+                                <div className="space-y-3">
+                                  {borderGradientColors.map((c, i) => (
+                                    <div key={i} className="flex items-center gap-2.5">
+                                      <input type="color" value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="h-10 w-14 rounded-md cursor-pointer border-2 border-border shrink-0" />
+                                      <Input value={c} onChange={(e) => { const u = [...borderGradientColors]; u[i] = e.target.value; setBorderGradientColors(u); }} className="font-mono text-sm flex-1" />
+                                      {borderGradientColors.length > 2 && (
+                                        <Button size="icon" variant="ghost" className="text-muted-foreground/50 shrink-0" onClick={() => setBorderGradientColors(borderGradientColors.filter((_, idx) => idx !== i))}>
+                                          <X className="h-3.5 w-3.5" />
+                                        </Button>
+                                      )}
+                                    </div>
+                                  ))}
+                                  {borderGradientColors.length < 5 && (
+                                    <Button size="sm" variant="outline" className="w-full" onClick={() => setBorderGradientColors([...borderGradientColors, "#FF6B6B"])}>
+                                      <Plus className="h-3.5 w-3.5 mr-1.5" />Add Color Stop
+                                    </Button>
+                                  )}
+                                  <div
+                                    className="h-6 rounded-full shadow-sm"
+                                    style={{
+                                      background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})`,
+                                      boxShadow: `0 0 12px 2px ${borderGradientColors[0]}40`
+                                    }}
+                                  />
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{borderGradientAngle}°</span>
+                                    <input type="range" min="0" max="360" value={borderGradientAngle} onMouseDown={pushUndo} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* ── STEP 3: Call-to-Action ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-[10px] font-bold shrink-0">3</span>
+                        <span className="text-sm font-semibold text-foreground">Call-to-Action Text</span>
+                        {overlayText && (
+                          <span className={`ml-auto text-[11px] font-mono font-medium ${overlayText.length > 28 ? "text-destructive" : "text-muted-foreground"}`}>{overlayText.length}/32</span>
+                        )}
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5 space-y-3">
+                          <p className="text-[11px] text-muted-foreground">Short text shown below/above the QR frame</p>
+                          <div className="flex gap-3">
+                            <Input
+                              placeholder={
+                                selectedType === "url" ? "Visit Website" :
+                                selectedType === "whatsapp" ? "Chat Now" :
+                                selectedType === "email" ? "Send Email" :
+                                selectedType === "wifi" ? "Connect to WiFi" :
+                                selectedType === "vcard" ? "Save Contact" :
+                                selectedType === "bitcoin" ? "Pay Now" :
+                                selectedType === "sms" ? "Text Us" :
+                                "Scan Me"
+                              }
+                              value={overlayText}
+                              onChange={(e) => setOverlayText(e.target.value.slice(0, 32))}
+                              className="text-base font-medium h-11"
+                              data-testid="input-overlay-text"
+                            />
+                            {overlayText && (
+                              <input
+                                type="color"
+                                value={overlayTextColor}
+                                onChange={(e) => setOverlayTextColor(e.target.value)}
+                                className="h-11 w-14 rounded-md cursor-pointer border-2 border-border shrink-0"
+                                title="Text color"
+                              />
+                            )}
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {(selectedType === "url"
+                              ? ["Visit Website", "Open Link", "Learn More", "Get Offer"]
+                              : selectedType === "whatsapp"
+                              ? ["Chat Now", "Message Us", "Contact Us", "Get Help"]
+                              : selectedType === "email"
+                              ? ["Send Email", "Contact Us", "Reach Out"]
+                              : selectedType === "wifi"
+                              ? ["Connect to WiFi", "Free WiFi", "Scan & Connect"]
+                              : selectedType === "vcard"
+                              ? ["Save Contact", "Add to Contacts", "Connect"]
+                              : selectedType === "bitcoin"
+                              ? ["Pay Now", "Send Crypto", "Donate"]
+                              : selectedType === "sms"
+                              ? ["Text Us", "Send Message", "Contact Us"]
+                              : ["Scan Me", "Visit Website", "Open Link", "Get Offer"]
+                            ).map(chip => (
+                              <button
+                                key={chip}
+                                onClick={() => setOverlayText(chip)}
+                                className={`px-3 py-1.5 rounded-full border text-[11px] font-semibold transition-all duration-150 ${overlayText === chip ? "border-primary bg-primary/10 text-primary" : "border-border text-muted-foreground hover-elevate"}`}
+                                data-testid={`chip-cta-${chip.toLowerCase().replace(/\s+/g, "-")}`}
+                              >
+                                {chip}
+                              </button>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </TabsContent>
 
                   {/* ── SETTINGS ────────────────────────── */}
