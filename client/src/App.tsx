@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { SearchProvider } from "@/contexts/SearchContext";
+import { UIProvider } from "@/contexts/UIContext";
 import { SearchDialog } from "@/components/SearchDialog";
 import { FeedbackButton } from "@/components/FeedbackButton";
 import { Header } from "@/components/layout/Header";
@@ -1003,6 +1004,7 @@ function App() {
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
+          <UIProvider>
           <SearchProvider>
             <TooltipProvider>
               {/* <VersionUpdatePopup /> */}
@@ -1018,6 +1020,7 @@ function App() {
               <Toaster />
             </TooltipProvider>
           </SearchProvider>
+          </UIProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </HelmetProvider>

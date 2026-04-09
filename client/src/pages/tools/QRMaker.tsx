@@ -10,6 +10,7 @@ import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationS
 import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, ArrowLeft, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine, Undo2, Palette, Grid3X3, Layers, SlidersHorizontal, Check, ChevronRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
+import { useUI } from "@/contexts/UIContext";
 import QRCodeLib from "qrcode";
 
 interface CustomTemplate {
@@ -244,6 +245,7 @@ const STYLE_PRESETS: StylePreset[] = [
 ];
 
 export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
+  const { setHideFloatingButton } = useUI();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [activeTab, setActiveTab] = useState("colors");
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set(["colors"]));
@@ -478,6 +480,12 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   useEffect(() => {
     setShowMobileDownloadBar(step === 3);
   }, [step]);
+
+  // Hide floating feedback button on steps 2 and 3
+  useEffect(() => {
+    setHideFloatingButton(step === 2 || step === 3);
+    return () => setHideFloatingButton(false);
+  }, [step, setHideFloatingButton]);
 
   // Hide mobile download bar when any input/textarea is focused (keyboard up on mobile)
   useEffect(() => {

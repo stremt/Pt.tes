@@ -5,6 +5,7 @@ import { MessageSquare, Send, X } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useUI } from "@/contexts/UIContext";
 
 const TOOL_NAMES: Record<string, string> = {
   "/": "Home", "/tools": "Tools Directory", "/tools/qr-maker": "QR Code Generator",
@@ -14,6 +15,7 @@ const TOOL_NAMES: Record<string, string> = {
 
 export function FeedbackButton() {
   const [location] = useLocation();
+  const { hideFloatingButton } = useUI();
   const [isOpen, setIsOpen] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
@@ -45,6 +47,8 @@ export function FeedbackButton() {
       setIsSubmitting(false);
     }
   };
+
+  if (hideFloatingButton) return null;
 
   return (
     <>
