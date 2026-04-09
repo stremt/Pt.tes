@@ -892,8 +892,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         eyePositions.forEach(pos => {
           const x = padding + pos.col * moduleSize;
           const y = padding + pos.row * moduleSize;
-          // Always pass lightColor (not bgFillStyle gradient) for eye interior so it's clean and consistent
-          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, eyeSolidColor, lightColor);
+          // Use bgFillStyle (same gradient object as main bg) so eye interior seamlessly matches background
+          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, eyeSolidColor, bgFillStyle);
           drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, eyeSolidColor);
         });
 
