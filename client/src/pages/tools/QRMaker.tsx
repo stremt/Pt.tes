@@ -3060,178 +3060,134 @@ function FramePreviewIcon({ id, active }: { id: string; active?: boolean }) {
   return <FrameQRSquare active={active} />;
 }
 
+function classyPath(px: number, py: number, s: number, r: number) {
+  return `M ${px+r} ${py} L ${px+s} ${py} L ${px+s} ${py+s-r} Q ${px+s} ${py+s} ${px+s-r} ${py+s} L ${px} ${py+s} L ${px} ${py+r} Q ${px} ${py} ${px+r} ${py} Z`;
+}
+function classyRoundedPath(px: number, py: number, s: number, r: number, r2: number) {
+  return `M ${px+r} ${py} L ${px+s-r2} ${py} Q ${px+s} ${py} ${px+s} ${py+r2} L ${px+s} ${py+s-r} Q ${px+s} ${py+s} ${px+s-r} ${py+s} L ${px+r2} ${py+s} Q ${px} ${py+s} ${px} ${py+s-r2} L ${px} ${py+r} Q ${px} ${py} ${px+r} ${py} Z`;
+}
+function starPath(cx: number, cy: number, outerR: number, innerR: number, spikes: number) {
+  let d = "";
+  for (let i = 0; i < spikes * 2; i++) {
+    const r = i % 2 === 0 ? outerR : innerR;
+    const angle = (i * Math.PI) / spikes - Math.PI / 2;
+    const x = cx + Math.cos(angle) * r;
+    const y = cy + Math.sin(angle) * r;
+    d += (i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`);
+  }
+  return d + " Z";
+}
+
 function BodyPatternPreview({ pattern }: { pattern: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const S = 40;
+  const cols = 4;
+  const cell = S / cols;
+  const pad = cell * 0.12;
+  const s = cell - pad * 2;
+  const rad = s * 0.32;
+  const on = [[0,0],[1,0],[2,0],[3,0],[0,1],[2,1],[0,2],[1,2],[3,2],[1,3],[2,3],[3,3]];
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  const module = (col: number, row: number, idx: number) => {
+    const px = col * cell + pad;
+    const py = row * cell + pad;
+    const mcx = px + s / 2;
+    const mcy = py + s / 2;
+    switch (pattern) {
+      case "rounded":
+        return <rect key={idx} x={px} y={py} width={s} height={s} rx={rad} fill="#111" />;
+      case "dots":
+        return <circle key={idx} cx={mcx} cy={mcy} r={s * 0.42} fill="#111" />;
+      case "extra-rounded":
+        return <circle key={idx} cx={mcx} cy={mcy} r={s * 0.46} fill="#111" />;
+      case "classy":
+        return <path key={idx} d={classyPath(px, py, s, rad)} fill="#111" />;
+      case "classy-rounded":
+        return <path key={idx} d={classyRoundedPath(px, py, s, rad, rad * 0.4)} fill="#111" />;
+      case "vertical":
+        return <rect key={idx} x={mcx - s * 0.18} y={py} width={s * 0.36} height={s} rx={s * 0.1} fill="#111" />;
+      case "horizontal":
+        return <rect key={idx} x={px} y={mcy - s * 0.18} width={s} height={s * 0.36} rx={s * 0.1} fill="#111" />;
+      default:
+        return <rect key={idx} x={px} y={py} width={s} height={s} fill="#111" />;
+    }
+  };
 
-    canvas.width = 40;
-    canvas.height = 40;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, 40, 40);
-
-    const moduleSize = 8;
-    const positions = [[0,0],[1,0],[2,0],[3,1],[0,2],[1,2],[2,2],[3,3],[1,3]];
-    
-    positions.forEach(([x, y]) => {
-      ctx.fillStyle = "#000000";
-      const px = x * moduleSize + 4;
-      const py = y * moduleSize + 4;
-      const gap = moduleSize * 0.1;
-      const ms = moduleSize - gap;
-
-      switch (pattern) {
-        case "rounded":
-          ctx.beginPath();
-          ctx.roundRect(px, py, ms, ms, moduleSize * 0.3);
-          ctx.fill();
-          break;
-        case "dots":
-          ctx.beginPath();
-          ctx.arc(px + moduleSize/2, py + moduleSize/2, moduleSize * 0.35, 0, Math.PI * 2);
-          ctx.fill();
-          break;
-        case "classy":
-          ctx.beginPath();
-          ctx.roundRect(px, py, ms, ms, [moduleSize * 0.4, 0, moduleSize * 0.4, 0]);
-          ctx.fill();
-          break;
-        case "classy-rounded":
-          ctx.beginPath();
-          ctx.roundRect(px, py, ms, ms, [moduleSize * 0.5, moduleSize * 0.1, moduleSize * 0.5, moduleSize * 0.1]);
-          ctx.fill();
-          break;
-        case "extra-rounded":
-          ctx.beginPath();
-          ctx.arc(px + moduleSize/2, py + moduleSize/2, moduleSize * 0.4, 0, Math.PI * 2);
-          ctx.fill();
-          break;
-        case "vertical":
-          ctx.fillRect(px + moduleSize * 0.25, py, moduleSize * 0.5, moduleSize);
-          break;
-        case "horizontal":
-          ctx.fillRect(px, py + moduleSize * 0.25, moduleSize, moduleSize * 0.5);
-          break;
-        default:
-          ctx.fillRect(px, py, ms, ms);
-      }
-    });
-  }, [pattern]);
-
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return (
+    <svg viewBox={`0 0 ${S} ${S}`} width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width={S} height={S} fill="white" />
+      {on.map(([col, row], i) => module(col, row, i))}
+    </svg>
+  );
 }
 
 function ExternalEyePreview({ pattern }: { pattern: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sw = 3.5;
+  const p = 4;
+  const size = 40 - p * 2;
+  const half = size / 2;
+  const cx = 40 / 2;
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  let shape: JSX.Element;
+  switch (pattern) {
+    case "rounded":
+      shape = <rect x={p} y={p} width={size} height={size} rx={6} ry={6} fill="none" stroke="#111" strokeWidth={sw} />;
+      break;
+    case "circle":
+      shape = <circle cx={cx} cy={cx} r={half} fill="none" stroke="#111" strokeWidth={sw} />;
+      break;
+    case "extra-rounded":
+      shape = <rect x={p} y={p} width={size} height={size} rx={11} ry={11} fill="none" stroke="#111" strokeWidth={sw} />;
+      break;
+    case "leaf":
+      shape = (
+        <path
+          d={`M ${p+13} ${p} L ${p+size} ${p} L ${p+size} ${p+size-13} Q ${p+size} ${p+size} ${p+size-13} ${p+size} L ${p} ${p+size} L ${p} ${p+13} Q ${p} ${p} ${p+13} ${p} Z`}
+          fill="none" stroke="#111" strokeWidth={sw}
+        />
+      );
+      break;
+    default:
+      shape = <rect x={p} y={p} width={size} height={size} fill="none" stroke="#111" strokeWidth={sw} />;
+  }
 
-    canvas.width = 40;
-    canvas.height = 40;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, 40, 40);
-
-    ctx.strokeStyle = "#000000";
-    ctx.lineWidth = 4;
-
-    switch (pattern) {
-      case "rounded":
-        ctx.beginPath();
-        ctx.roundRect(6, 6, 28, 28, 6);
-        ctx.stroke();
-        break;
-      case "circle":
-        ctx.beginPath();
-        ctx.arc(20, 20, 14, 0, Math.PI * 2);
-        ctx.stroke();
-        break;
-      case "extra-rounded":
-        ctx.beginPath();
-        ctx.roundRect(6, 6, 28, 28, 10);
-        ctx.stroke();
-        break;
-      case "leaf":
-        ctx.beginPath();
-        ctx.roundRect(6, 6, 28, 28, [12, 2, 12, 2]);
-        ctx.stroke();
-        break;
-      default:
-        ctx.strokeRect(6, 6, 28, 28);
-    }
-  }, [pattern]);
-
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return (
+    <svg viewBox="0 0 40 40" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width={40} height={40} fill="white" />
+      {shape}
+    </svg>
+  );
 }
 
 function InternalEyePreview({ pattern }: { pattern: string }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cx = 20;
+  const cy = 20;
+  const r = 9;
+  const x = cx - r;
+  const y = cy - r;
+  const s = r * 2;
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  let shape: JSX.Element;
+  switch (pattern) {
+    case "rounded":
+      shape = <rect x={x} y={y} width={s} height={s} rx={4} ry={4} fill="#111" />;
+      break;
+    case "circle":
+      shape = <circle cx={cx} cy={cy} r={r} fill="#111" />;
+      break;
+    case "diamond":
+      shape = <polygon points={`${cx},${y} ${x+s},${cy} ${cx},${y+s} ${x},${cy}`} fill="#111" />;
+      break;
+    case "star":
+      shape = <path d={starPath(cx, cy, r, r * 0.45, 5)} fill="#111" />;
+      break;
+    default:
+      shape = <rect x={x} y={y} width={s} height={s} fill="#111" />;
+  }
 
-    canvas.width = 40;
-    canvas.height = 40;
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, 40, 40);
-
-    ctx.fillStyle = "#000000";
-    const size = 20;
-    const x = 10;
-    const y = 10;
-    const cx = 20;
-    const cy = 20;
-
-    switch (pattern) {
-      case "rounded":
-        ctx.beginPath();
-        ctx.roundRect(x, y, size, size, 5);
-        ctx.fill();
-        break;
-      case "circle":
-        ctx.beginPath();
-        ctx.arc(cx, cy, size/2, 0, Math.PI * 2);
-        ctx.fill();
-        break;
-      case "diamond":
-        ctx.beginPath();
-        ctx.moveTo(cx, y);
-        ctx.lineTo(x + size, cy);
-        ctx.lineTo(cx, y + size);
-        ctx.lineTo(x, cy);
-        ctx.closePath();
-        ctx.fill();
-        break;
-      case "star":
-        const spikes = 5;
-        const outerRadius = size / 2;
-        const innerRadius = size / 4;
-        ctx.beginPath();
-        for (let i = 0; i < spikes * 2; i++) {
-          const radius = i % 2 === 0 ? outerRadius : innerRadius;
-          const angle = (i * Math.PI) / spikes - Math.PI / 2;
-          const px = cx + Math.cos(angle) * radius;
-          const py = cy + Math.sin(angle) * radius;
-          if (i === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        }
-        ctx.closePath();
-        ctx.fill();
-        break;
-      default:
-        ctx.fillRect(x, y, size, size);
-    }
-  }, [pattern]);
-
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return (
+    <svg viewBox="0 0 40 40" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width={40} height={40} fill="white" />
+      {shape}
+    </svg>
+  );
 }
