@@ -2132,31 +2132,45 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <Card>
                         <CardContent className="px-5 pb-5 pt-5 space-y-3">
                           <p className="text-[11px] text-muted-foreground">Short text shown below/above the QR frame</p>
-                          <div className="flex gap-3">
-                            <Input
-                              placeholder={
-                                selectedType === "url" ? "Visit Website" :
-                                selectedType === "whatsapp" ? "Chat Now" :
-                                selectedType === "email" ? "Send Email" :
-                                selectedType === "wifi" ? "Connect to WiFi" :
-                                selectedType === "vcard" ? "Save Contact" :
-                                selectedType === "bitcoin" ? "Pay Now" :
-                                selectedType === "sms" ? "Text Us" :
-                                "Scan Me"
-                              }
-                              value={overlayText}
-                              onChange={(e) => setOverlayText(e.target.value.slice(0, 32))}
-                              className="text-base font-medium h-11"
-                              data-testid="input-overlay-text"
-                            />
-                            {overlayText && (
+                          <div className="space-y-2">
+                            <div className="flex gap-2.5">
+                              <Input
+                                placeholder={
+                                  selectedType === "url" ? "Visit Website" :
+                                  selectedType === "whatsapp" ? "Chat Now" :
+                                  selectedType === "email" ? "Send Email" :
+                                  selectedType === "wifi" ? "Connect to WiFi" :
+                                  selectedType === "vcard" ? "Save Contact" :
+                                  selectedType === "bitcoin" ? "Pay Now" :
+                                  selectedType === "sms" ? "Text Us" :
+                                  "Scan Me"
+                                }
+                                value={overlayText}
+                                onChange={(e) => setOverlayText(e.target.value.slice(0, 32))}
+                                className="text-lg font-semibold h-12 tracking-wide"
+                                data-testid="input-overlay-text"
+                              />
                               <input
                                 type="color"
                                 value={overlayTextColor}
                                 onChange={(e) => setOverlayTextColor(e.target.value)}
-                                className="h-11 w-14 rounded-md cursor-pointer border-2 border-border shrink-0"
+                                className="h-12 w-16 rounded-lg cursor-pointer border-2 border-border shrink-0"
                                 title="Text color"
+                                data-testid="input-overlay-text-color"
                               />
+                            </div>
+                            {overlayText && (
+                              <div
+                                className="flex items-center justify-center py-2.5 px-4 rounded-lg bg-muted/40 border border-border/50"
+                                aria-label="CTA text preview"
+                              >
+                                <span
+                                  className="text-sm font-bold tracking-widest uppercase"
+                                  style={{ color: overlayTextColor, letterSpacing: "0.12em" }}
+                                >
+                                  {overlayText}
+                                </span>
+                              </div>
                             )}
                           </div>
                           <div className="flex flex-wrap gap-1.5">
