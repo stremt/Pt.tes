@@ -223,10 +223,34 @@ const STYLE_PRESETS: StylePreset[] = [
 
 export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [activeTab, setActiveTab] = useState("colors");
+  const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set(["colors"]));
 
   const goToStep = (s: 1 | 2 | 3) => {
     window.history.pushState({ qrStep: s }, "");
     setStep(s);
+  };
+
+  const TAB_STEPS = [
+    { id: "colors", label: "Colors", context: "Choose colors & gradients" },
+    { id: "design", label: "Design", context: "Customize patterns & eyes" },
+    { id: "branding", label: "Branding", context: "Add logo & frame" },
+    { id: "settings", label: "Settings", context: "Control scan reliability" },
+  ];
+
+  const switchTab = (tabId: string) => {
+    setActiveTab(tabId);
+    setVisitedTabs(prev => new Set([...prev, tabId]));
+  };
+
+  const goNextTab = () => {
+    const idx = TAB_STEPS.findIndex(t => t.id === activeTab);
+    if (idx < TAB_STEPS.length - 1) switchTab(TAB_STEPS[idx + 1].id);
+  };
+
+  const goPrevTab = () => {
+    const idx = TAB_STEPS.findIndex(t => t.id === activeTab);
+    if (idx > 0) switchTab(TAB_STEPS[idx - 1].id);
   };
   const [selectedType, setSelectedType] = useState("");
   const [formData, setFormData] = useState<Record<string, string>>({});
@@ -339,6 +363,18 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   const editColumnRef = useRef<HTMLDivElement>(null);
   const previewWrapperRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (step !== 3) return;
+    const handler = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "ArrowRight") { e.preventDefault(); goNextTab(); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); goPrevTab(); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [step, activeTab]);
 
   useEffect(() => {
     if (step !== 3) return;
@@ -1453,16 +1489,52 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           {step === 3 && (
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-stretch relative">
               <div ref={editColumnRef} className="flex-[2] min-w-0">
-                <Tabs defaultValue="colors" className="w-full">
-                  <TabsList className="w-full grid grid-cols-4 mb-7 h-11">
-                    <TabsTrigger value="colors" className="text-sm font-medium">Colors</TabsTrigger>
-                    <TabsTrigger value="design" className="text-sm font-medium">Design</TabsTrigger>
-                    <TabsTrigger value="branding" className="text-sm font-medium">Branding</TabsTrigger>
-                    <TabsTrigger value="settings" className="text-sm font-medium">Settings</TabsTrigger>
-                  </TabsList>
+                <Tabs value={activeTab} onValueChange={switchTab} className="w-full">
+                  {/* ── STEP TABS ── */}
+                  <div className="sticky top-0 z-[999] bg-background/95 backdrop-blur-sm pb-4 mb-3 -mx-1 px-1">
+                    <div className="w-full grid grid-cols-4 gap-1 p-1 rounded-xl bg-muted/60 border border-border/50">
+                      {TAB_STEPS.map((tab, idx) => {
+                        const isActive = activeTab === tab.id;
+                        const isVisited = visitedTabs.has(tab.id) && !isActive;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => switchTab(tab.id)}
+                            data-testid={`tab-step-${tab.id}`}
+                            className={[
+                              "relative flex flex-col items-center justify-center gap-0.5 rounded-lg px-2 py-2.5 text-xs font-medium transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
+                              isActive
+                                ? "bg-background text-foreground shadow-sm scale-[1.02] ring-1 ring-primary/30"
+                                : isVisited
+                                ? "text-muted-foreground hover-elevate"
+                                : "text-muted-foreground/70 hover-elevate"
+                            ].join(" ")}
+                          >
+                            <span className={[
+                              "flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold mb-0.5 transition-all duration-200",
+                              isActive
+                                ? "bg-primary text-primary-foreground"
+                                : isVisited
+                                ? "bg-primary/15 text-primary"
+                                : "bg-muted-foreground/20 text-muted-foreground"
+                            ].join(" ")}>
+                              {isVisited ? <Check className="h-2.5 w-2.5" /> : idx + 1}
+                            </span>
+                            <span className="leading-tight truncate max-w-full">{tab.label}</span>
+                            {isActive && (
+                              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-8 rounded-full bg-primary" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <p className="text-xs text-muted-foreground/80 text-center mt-2 font-medium tracking-wide">
+                      {TAB_STEPS.find(t => t.id === activeTab)?.context}
+                    </p>
+                  </div>
 
                   {/* ── COLORS ──────────────────────────── */}
-                  <TabsContent value="colors" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
+                  <TabsContent value="colors" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
                     {/* Full style presets */}
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3">
@@ -1622,7 +1694,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── DESIGN ──────────────────────────── */}
-                  <TabsContent value="design" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
+                  <TabsContent value="design" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
                       <CardContent className="px-6 pb-6">
@@ -1701,7 +1773,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── BRANDING ────────────────────────── */}
-                  <TabsContent value="branding" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
+                  <TabsContent value="branding" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
                     {/* Logo */}
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Logo</CardTitle></CardHeader>
@@ -1905,7 +1977,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── SETTINGS ────────────────────────── */}
-                  <TabsContent value="settings" className="space-y-7 mt-0 animate-in fade-in-0 duration-200">
+                  <TabsContent value="settings" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
                     <Card>
                       <CardHeader className="px-6 pt-6 pb-3">
                         <CardTitle className="text-sm font-semibold">Scan Reliability</CardTitle>
@@ -1967,7 +2039,16 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                     <Undo2 className="h-3.5 w-3.5 mr-1.5" />Undo
                   </Button>
                   <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
-                  <p className="text-xs text-muted-foreground ml-auto">Download options in preview panel</p>
+                  <div className="ml-auto flex items-center gap-3">
+                    {TAB_STEPS.findIndex(t => t.id === activeTab) < TAB_STEPS.length - 1 ? (
+                      <Button size="sm" onClick={goNextTab} data-testid="button-next-tab">
+                        Next — {TAB_STEPS[TAB_STEPS.findIndex(t => t.id === activeTab) + 1]?.label}
+                        <ChevronRight className="h-3.5 w-3.5 ml-1" />
+                      </Button>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">Download options in preview panel</p>
+                    )}
+                  </div>
                 </div>
               </div>
 
