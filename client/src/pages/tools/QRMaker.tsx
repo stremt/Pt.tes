@@ -94,6 +94,28 @@ const INTERNAL_EYE_PATTERNS = [
   { id: "star", name: "Star" },
 ];
 
+const BODY_PATTERN_META: Record<string, { label: string; hint: string; recommended?: boolean }> = {
+  "square":         { label: "Classic",        hint: "Best for scanning",     recommended: true },
+  "rounded":        { label: "Rounded",         hint: "Modern & clean" },
+  "dots":           { label: "Dots",            hint: "Airy & minimal" },
+  "classy":         { label: "Classy",          hint: "Premium feel" },
+  "classy-rounded": { label: "Classy Round",    hint: "Smooth & premium" },
+  "extra-rounded":  { label: "Soft",            hint: "Friendly & soft" },
+  "vertical":       { label: "Striped V",       hint: "Unique & bold" },
+  "horizontal":     { label: "Striped H",       hint: "Creative style" },
+};
+
+const EYE_COMBOS = [
+  { id: "classic",   label: "Classic",   outer: "square",        inner: "square",   hint: "Best scan rate" },
+  { id: "modern",    label: "Modern",    outer: "rounded",       inner: "rounded",  hint: "Sleek & clean" },
+  { id: "bold",      label: "Bold",      outer: "square",        inner: "circle",   hint: "Strong contrast" },
+  { id: "soft",      label: "Soft",      outer: "extra-rounded", inner: "circle",   hint: "Friendly feel" },
+  { id: "minimal",   label: "Minimal",   outer: "circle",        inner: "circle",   hint: "Clean & simple" },
+  { id: "sharp",     label: "Sharp",     outer: "square",        inner: "diamond",  hint: "Geometric edge" },
+  { id: "elegant",   label: "Elegant",   outer: "rounded",       inner: "circle",   hint: "Polished look" },
+  { id: "creative",  label: "Creative",  outer: "leaf",          inner: "star",     hint: "Unique & artsy" },
+];
+
 const COLOR_TEMPLATES = [
   { id: "premium-blue", name: "Blue", darkColor: "#0052CC", lightColor: "#E3F2FD" },
   { id: "vibrant-red", name: "Red", darkColor: "#DC2626", lightColor: "#FEE2E2" },
@@ -1750,82 +1772,173 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </TabsContent>
 
                   {/* ── DESIGN ──────────────────────────── */}
-                  <TabsContent value="design" className="space-y-7 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
-                    <Card>
-                      <CardHeader className="px-6 pt-6 pb-3"><CardTitle className="text-sm font-semibold">Body Pattern</CardTitle></CardHeader>
-                      <CardContent className="px-6 pb-6">
-                        <div className="grid grid-cols-8 gap-2">
-                          {BODY_PATTERNS.map(p => (
-                            <button
-                              key={p.id}
-                              onClick={() => { pushUndo(); setBodyPattern(p.id); }}
-                              className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${bodyPattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
-                              title={p.name}
-                              data-testid={`button-body-${p.id}`}
-                            >
-                              <BodyPatternPreview pattern={p.id} />
-                            </button>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
+                  <TabsContent value="design" className="space-y-5 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
 
-                    <Card>
-                      <CardHeader className="px-6 pt-6 pb-3">
-                        <CardTitle className="text-sm font-semibold">Eye Style</CardTitle>
-                        <p className="text-xs text-muted-foreground mt-0.5">Controls the three corner markers of the QR code</p>
-                      </CardHeader>
-                      <CardContent className="px-6 pb-6 space-y-5">
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground mb-2">Outer Frame</p>
-                          <div className="grid grid-cols-5 gap-2">
-                            {EXTERNAL_EYE_PATTERNS.map(p => {
-                              const eyeTooltips: Record<string, string> = { square: "Classic — better for scanning", rounded: "Modern look", circle: "Creative style", "extra-rounded": "Soft & friendly", leaf: "Unique & stylish" };
+                    {/* ── STEP 1: Body Pattern ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shrink-0">1</span>
+                        <span className="text-sm font-semibold text-foreground">Choose a Body Pattern</span>
+                        <span className="ml-auto text-[11px] text-muted-foreground">
+                          {BODY_PATTERN_META[bodyPattern]?.hint}
+                        </span>
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5">
+                          <div className="grid grid-cols-4 gap-3">
+                            {BODY_PATTERNS.map(p => {
+                              const meta = BODY_PATTERN_META[p.id];
+                              const isActive = bodyPattern === p.id;
                               return (
                                 <button
                                   key={p.id}
-                                  onClick={() => { pushUndo(); setExternalEyePattern(p.id); }}
-                                  className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${externalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
-                                  title={eyeTooltips[p.id] || p.name}
-                                  data-testid={`button-eye-outer-${p.id}`}
+                                  onClick={() => { pushUndo(); setBodyPattern(p.id); }}
+                                  className={[
+                                    "relative flex flex-col items-center gap-2 rounded-lg border-2 p-2.5 pb-3 transition-all duration-200",
+                                    isActive
+                                      ? "border-primary bg-primary/5 ring-2 ring-primary/40 ring-offset-2 shadow-md scale-[1.03]"
+                                      : "border-border hover-elevate"
+                                  ].join(" ")}
+                                  title={meta?.hint}
+                                  data-testid={`button-body-${p.id}`}
                                 >
-                                  <ExternalEyePreview pattern={p.id} />
+                                  {meta?.recommended && (
+                                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground whitespace-nowrap leading-tight">
+                                      Recommended
+                                    </span>
+                                  )}
+                                  {isActive && (
+                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-3.5 w-3.5 rounded-full bg-primary">
+                                      <Check className="h-2 w-2 text-primary-foreground" />
+                                    </span>
+                                  )}
+                                  <div className="w-full aspect-square rounded-md overflow-hidden">
+                                    <BodyPatternPreview pattern={p.id} />
+                                  </div>
+                                  <span className={`text-[11px] font-semibold leading-none ${isActive ? "text-primary" : "text-foreground"}`}>
+                                    {meta?.label ?? p.name}
+                                  </span>
                                 </button>
                               );
                             })}
                           </div>
-                          {externalEyePattern && (
-                            <p className="text-[11px] text-muted-foreground mt-1.5">
-                              {({ square: "Classic — better for scanning", rounded: "Modern look", circle: "Creative style", "extra-rounded": "Soft & friendly", leaf: "Unique & stylish" })[externalEyePattern]}
-                            </p>
-                          )}
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-muted-foreground mb-2">Inner Dot</p>
-                          <div className="grid grid-cols-5 gap-2">
-                            {INTERNAL_EYE_PATTERNS.map(p => {
-                              const innerTooltips: Record<string, string> = { square: "Standard — great for scanners", rounded: "Sleek modern feel", circle: "Minimal & clean", diamond: "Geometric pattern", star: "Eye-catching design" };
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* ── STEP 2: Eye Style Combos ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-[10px] font-bold shrink-0">2</span>
+                        <span className="text-sm font-semibold text-foreground">Choose Eye Style</span>
+                        <span className="ml-auto text-[11px] text-muted-foreground">Corner markers of the QR code</span>
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5">
+                          <div className="grid grid-cols-4 gap-3">
+                            {EYE_COMBOS.map(combo => {
+                              const isActive = externalEyePattern === combo.outer && internalEyePattern === combo.inner;
                               return (
                                 <button
-                                  key={p.id}
-                                  onClick={() => { pushUndo(); setInternalEyePattern(p.id); }}
-                                  className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${internalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
-                                  title={innerTooltips[p.id] || p.name}
-                                  data-testid={`button-eye-inner-${p.id}`}
+                                  key={combo.id}
+                                  onClick={() => { pushUndo(); setExternalEyePattern(combo.outer); setInternalEyePattern(combo.inner); }}
+                                  className={[
+                                    "relative flex flex-col items-center gap-2 rounded-lg border-2 p-2.5 pb-3 transition-all duration-200",
+                                    isActive
+                                      ? "border-primary bg-primary/5 ring-2 ring-primary/40 ring-offset-2 shadow-md scale-[1.03]"
+                                      : "border-border hover-elevate"
+                                  ].join(" ")}
+                                  title={combo.hint}
+                                  data-testid={`button-eye-combo-${combo.id}`}
                                 >
-                                  <InternalEyePreview pattern={p.id} />
+                                  {isActive && (
+                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-3.5 w-3.5 rounded-full bg-primary">
+                                      <Check className="h-2 w-2 text-primary-foreground" />
+                                    </span>
+                                  )}
+                                  <div className="w-full flex gap-1 items-center justify-center py-1">
+                                    <div className="w-[42%] aspect-square rounded-sm overflow-hidden">
+                                      <ExternalEyePreview pattern={combo.outer} />
+                                    </div>
+                                    <div className="w-[42%] aspect-square rounded-sm overflow-hidden">
+                                      <InternalEyePreview pattern={combo.inner} />
+                                    </div>
+                                  </div>
+                                  <span className={`text-[11px] font-semibold leading-none ${isActive ? "text-primary" : "text-foreground"}`}>
+                                    {combo.label}
+                                  </span>
+                                  <span className="text-[10px] text-muted-foreground leading-none">{combo.hint}</span>
                                 </button>
                               );
                             })}
                           </div>
-                          {internalEyePattern && (
-                            <p className="text-[11px] text-muted-foreground mt-1.5">
-                              {({ square: "Standard — great for scanners", rounded: "Sleek modern feel", circle: "Minimal & clean", diamond: "Geometric pattern", star: "Eye-catching design" })[internalEyePattern]}
-                            </p>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* ── Fine-tune Eye Style ── */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-medium text-muted-foreground">Fine-tune</span>
+                        <div className="h-px flex-1 bg-border" />
+                      </div>
+                      <Card>
+                        <CardContent className="px-5 pb-5 pt-5 space-y-5">
+                          <div>
+                            <p className="text-xs font-medium text-muted-foreground mb-2.5">Outer Frame</p>
+                            <div className="grid grid-cols-5 gap-2">
+                              {EXTERNAL_EYE_PATTERNS.map(p => {
+                                const isActive = externalEyePattern === p.id;
+                                return (
+                                  <button
+                                    key={p.id}
+                                    onClick={() => { pushUndo(); setExternalEyePattern(p.id); }}
+                                    className={[
+                                      "flex flex-col items-center gap-1.5 rounded-lg border-2 p-1.5 pb-2 transition-all duration-200",
+                                      isActive
+                                        ? "border-primary bg-primary/5 ring-1 ring-primary/30 ring-offset-1 shadow-sm scale-[1.04]"
+                                        : "border-border hover-elevate"
+                                    ].join(" ")}
+                                    data-testid={`button-eye-outer-${p.id}`}
+                                  >
+                                    <div className="w-full aspect-square rounded-sm overflow-hidden">
+                                      <ExternalEyePreview pattern={p.id} />
+                                    </div>
+                                    <span className={`text-[10px] font-medium leading-none ${isActive ? "text-primary" : "text-muted-foreground"}`}>{p.name}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium text-muted-foreground mb-2.5">Inner Dot</p>
+                            <div className="grid grid-cols-5 gap-2">
+                              {INTERNAL_EYE_PATTERNS.map(p => {
+                                const isActive = internalEyePattern === p.id;
+                                return (
+                                  <button
+                                    key={p.id}
+                                    onClick={() => { pushUndo(); setInternalEyePattern(p.id); }}
+                                    className={[
+                                      "flex flex-col items-center gap-1.5 rounded-lg border-2 p-1.5 pb-2 transition-all duration-200",
+                                      isActive
+                                        ? "border-primary bg-primary/5 ring-1 ring-primary/30 ring-offset-1 shadow-sm scale-[1.04]"
+                                        : "border-border hover-elevate"
+                                    ].join(" ")}
+                                    data-testid={`button-eye-inner-${p.id}`}
+                                  >
+                                    <div className="w-full aspect-square rounded-sm overflow-hidden">
+                                      <InternalEyePreview pattern={p.id} />
+                                    </div>
+                                    <span className={`text-[10px] font-medium leading-none ${isActive ? "text-primary" : "text-muted-foreground"}`}>{p.name}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </TabsContent>
 
                   {/* ── BRANDING ────────────────────────── */}
