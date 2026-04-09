@@ -1238,10 +1238,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         >
           <div className="w-12 h-1 bg-gray-700 rounded-full mx-auto mb-2" />
           <div
-            className="rounded-xl overflow-hidden flex items-center justify-center p-2"
-            style={{ backgroundColor: lightColor, height: '120px' }}
+            className="rounded-xl overflow-hidden"
+            style={{ height: '120px' }}
           >
-            <canvas ref={floatingCanvasRef} className="max-w-full max-h-full" style={{ imageRendering: 'crisp-edges' }} />
+            <canvas ref={floatingCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
           </div>
         </div>
       )}
@@ -1982,16 +1982,15 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </CardHeader>
                   <CardContent className="px-6 pb-6 space-y-5">
                     <div
-                      className="rounded-xl flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-[1.025] cursor-default"
+                      className="rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.025] cursor-default"
                       style={{
-                        background: bgGradient && bgGradientColors.length >= 2 ? `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` : lightColor,
                         width: '100%',
                         aspectRatio: '1',
                         border: "1px solid var(--border)",
                         boxShadow: "0 0 0 1px var(--border), 0 8px 32px -8px rgba(0,0,0,0.12)"
                       }}
                     >
-                      <canvas ref={canvasRef} style={{ display: 'block', maxWidth: '88%', maxHeight: '88%', imageRendering: 'crisp-edges' }} />
+                      <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
                     </div>
                     <div className="text-xs text-muted-foreground flex items-center gap-1.5 justify-center">
                       <Shield className="h-3 w-3" />Generated offline — never uploaded
