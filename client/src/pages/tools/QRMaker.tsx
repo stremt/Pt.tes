@@ -1774,12 +1774,35 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   {/* ── DESIGN ──────────────────────────── */}
                   <TabsContent value="design" className="space-y-5 mt-0 animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
 
+                    {/* Quick actions */}
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm" variant="outline"
+                        onClick={() => { pushUndo(); setBodyPattern("square"); setExternalEyePattern("square"); setInternalEyePattern("square"); }}
+                        data-testid="button-auto-optimize"
+                        className="gap-1.5"
+                      >
+                        <Zap className="h-3.5 w-3.5 text-amber-500" />
+                        Auto Optimize
+                      </Button>
+                      <Button
+                        size="sm" variant="ghost"
+                        onClick={() => { pushUndo(); setBodyPattern("square"); setExternalEyePattern("square"); setInternalEyePattern("square"); }}
+                        data-testid="button-reset-design"
+                        className="text-muted-foreground/70 gap-1.5"
+                      >
+                        <Undo2 className="h-3.5 w-3.5" />
+                        Reset Design
+                      </Button>
+                      <span className="ml-auto text-[11px] text-muted-foreground/60">← → to switch tabs</span>
+                    </div>
+
                     {/* ── STEP 1: Body Pattern ── */}
                     <div>
                       <div className="flex items-center gap-2 mb-3">
                         <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shrink-0">1</span>
                         <span className="text-sm font-semibold text-foreground">Choose a Body Pattern</span>
-                        <span className="ml-auto text-[11px] text-muted-foreground">
+                        <span className="ml-auto text-[11px] text-muted-foreground italic">
                           {BODY_PATTERN_META[bodyPattern]?.hint}
                         </span>
                       </div>
@@ -1794,25 +1817,25 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                   key={p.id}
                                   onClick={() => { pushUndo(); setBodyPattern(p.id); }}
                                   className={[
-                                    "relative flex flex-col items-center gap-2 rounded-lg border-2 p-2.5 pb-3 transition-all duration-200",
+                                    "relative flex flex-col items-center gap-2 rounded-lg border-2 p-2.5 pb-3 transition-all duration-150 select-none",
                                     isActive
-                                      ? "border-primary bg-primary/5 ring-2 ring-primary/40 ring-offset-2 shadow-md scale-[1.03]"
-                                      : "border-border hover-elevate"
+                                      ? "border-primary bg-primary/5 ring-[3px] ring-primary/30 ring-offset-2 shadow-lg scale-[1.04]"
+                                      : "border-border hover-elevate active:scale-[0.97]"
                                   ].join(" ")}
                                   title={meta?.hint}
                                   data-testid={`button-body-${p.id}`}
                                 >
-                                  {meta?.recommended && (
-                                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground whitespace-nowrap leading-tight">
-                                      Recommended
+                                  {meta?.recommended && !isActive && (
+                                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-primary text-primary-foreground whitespace-nowrap leading-tight shadow-sm">
+                                      Best Scan
                                     </span>
                                   )}
                                   {isActive && (
-                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-3.5 w-3.5 rounded-full bg-primary">
-                                      <Check className="h-2 w-2 text-primary-foreground" />
+                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-primary shadow-sm">
+                                      <Check className="h-2.5 w-2.5 text-primary-foreground" />
                                     </span>
                                   )}
-                                  <div className="w-full aspect-square rounded-md overflow-hidden">
+                                  <div className="w-full aspect-square rounded-md overflow-hidden bg-white border border-border/30">
                                     <BodyPatternPreview pattern={p.id} />
                                   </div>
                                   <span className={`text-[11px] font-semibold leading-none ${isActive ? "text-primary" : "text-foreground"}`}>
@@ -1826,12 +1849,12 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       </Card>
                     </div>
 
-                    {/* ── STEP 2: Eye Style Combos ── */}
+                    {/* ── STEP 2: Eye Style Combos only ── */}
                     <div>
                       <div className="flex items-center gap-2 mb-3">
                         <span className="flex items-center justify-center w-5 h-5 rounded-full bg-muted text-muted-foreground text-[10px] font-bold shrink-0">2</span>
                         <span className="text-sm font-semibold text-foreground">Choose Eye Style</span>
-                        <span className="ml-auto text-[11px] text-muted-foreground">Corner markers of the QR code</span>
+                        <span className="ml-auto text-[11px] text-muted-foreground">Corner markers</span>
                       </div>
                       <Card>
                         <CardContent className="px-5 pb-5 pt-5">
@@ -1843,98 +1866,34 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                   key={combo.id}
                                   onClick={() => { pushUndo(); setExternalEyePattern(combo.outer); setInternalEyePattern(combo.inner); }}
                                   className={[
-                                    "relative flex flex-col items-center gap-2 rounded-lg border-2 p-2.5 pb-3 transition-all duration-200",
+                                    "relative flex flex-col items-center gap-1.5 rounded-lg border-2 p-2.5 pb-3 transition-all duration-150 select-none",
                                     isActive
-                                      ? "border-primary bg-primary/5 ring-2 ring-primary/40 ring-offset-2 shadow-md scale-[1.03]"
-                                      : "border-border hover-elevate"
+                                      ? "border-primary bg-primary/5 ring-[3px] ring-primary/30 ring-offset-2 shadow-lg scale-[1.04]"
+                                      : "border-border hover-elevate active:scale-[0.97]"
                                   ].join(" ")}
                                   title={combo.hint}
                                   data-testid={`button-eye-combo-${combo.id}`}
                                 >
                                   {isActive && (
-                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-3.5 w-3.5 rounded-full bg-primary">
-                                      <Check className="h-2 w-2 text-primary-foreground" />
+                                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center h-4 w-4 rounded-full bg-primary shadow-sm">
+                                      <Check className="h-2.5 w-2.5 text-primary-foreground" />
                                     </span>
                                   )}
-                                  <div className="w-full flex gap-1 items-center justify-center py-1">
-                                    <div className="w-[42%] aspect-square rounded-sm overflow-hidden">
+                                  <div className="w-full flex gap-1 items-center justify-center py-0.5">
+                                    <div className="w-[44%] aspect-square rounded-sm overflow-hidden bg-white border border-border/30">
                                       <ExternalEyePreview pattern={combo.outer} />
                                     </div>
-                                    <div className="w-[42%] aspect-square rounded-sm overflow-hidden">
+                                    <div className="w-[44%] aspect-square rounded-sm overflow-hidden bg-white border border-border/30">
                                       <InternalEyePreview pattern={combo.inner} />
                                     </div>
                                   </div>
                                   <span className={`text-[11px] font-semibold leading-none ${isActive ? "text-primary" : "text-foreground"}`}>
                                     {combo.label}
                                   </span>
-                                  <span className="text-[10px] text-muted-foreground leading-none">{combo.hint}</span>
+                                  <span className="text-[10px] text-muted-foreground/80 leading-none text-center">{combo.hint}</span>
                                 </button>
                               );
                             })}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* ── Fine-tune Eye Style ── */}
-                    <div>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-medium text-muted-foreground">Fine-tune</span>
-                        <div className="h-px flex-1 bg-border" />
-                      </div>
-                      <Card>
-                        <CardContent className="px-5 pb-5 pt-5 space-y-5">
-                          <div>
-                            <p className="text-xs font-medium text-muted-foreground mb-2.5">Outer Frame</p>
-                            <div className="grid grid-cols-5 gap-2">
-                              {EXTERNAL_EYE_PATTERNS.map(p => {
-                                const isActive = externalEyePattern === p.id;
-                                return (
-                                  <button
-                                    key={p.id}
-                                    onClick={() => { pushUndo(); setExternalEyePattern(p.id); }}
-                                    className={[
-                                      "flex flex-col items-center gap-1.5 rounded-lg border-2 p-1.5 pb-2 transition-all duration-200",
-                                      isActive
-                                        ? "border-primary bg-primary/5 ring-1 ring-primary/30 ring-offset-1 shadow-sm scale-[1.04]"
-                                        : "border-border hover-elevate"
-                                    ].join(" ")}
-                                    data-testid={`button-eye-outer-${p.id}`}
-                                  >
-                                    <div className="w-full aspect-square rounded-sm overflow-hidden">
-                                      <ExternalEyePreview pattern={p.id} />
-                                    </div>
-                                    <span className={`text-[10px] font-medium leading-none ${isActive ? "text-primary" : "text-muted-foreground"}`}>{p.name}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                          <div>
-                            <p className="text-xs font-medium text-muted-foreground mb-2.5">Inner Dot</p>
-                            <div className="grid grid-cols-5 gap-2">
-                              {INTERNAL_EYE_PATTERNS.map(p => {
-                                const isActive = internalEyePattern === p.id;
-                                return (
-                                  <button
-                                    key={p.id}
-                                    onClick={() => { pushUndo(); setInternalEyePattern(p.id); }}
-                                    className={[
-                                      "flex flex-col items-center gap-1.5 rounded-lg border-2 p-1.5 pb-2 transition-all duration-200",
-                                      isActive
-                                        ? "border-primary bg-primary/5 ring-1 ring-primary/30 ring-offset-1 shadow-sm scale-[1.04]"
-                                        : "border-border hover-elevate"
-                                    ].join(" ")}
-                                    data-testid={`button-eye-inner-${p.id}`}
-                                  >
-                                    <div className="w-full aspect-square rounded-sm overflow-hidden">
-                                      <InternalEyePreview pattern={p.id} />
-                                    </div>
-                                    <span className={`text-[10px] font-medium leading-none ${isActive ? "text-primary" : "text-muted-foreground"}`}>{p.name}</span>
-                                  </button>
-                                );
-                              })}
-                            </div>
                           </div>
                         </CardContent>
                       </Card>
@@ -2214,10 +2173,10 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                         size="default"
                         onClick={goNextTab}
                         data-testid="button-next-tab"
-                        className="bg-primary text-primary-foreground px-5 font-semibold group"
+                        className="bg-gradient-to-r from-primary to-primary/75 text-primary-foreground px-6 font-semibold group"
                       >
                         Next — {TAB_STEPS[TAB_STEPS.findIndex(t => t.id === activeTab) + 1]?.label}
-                        <ArrowRight className="h-4 w-4 ml-2 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        <ArrowRight className="h-4 w-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
                       </Button>
                     ) : (
                       <p className="text-xs text-muted-foreground">Download options in preview panel</p>
