@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useSEO, StructuredData, generateFAQSchema, generateSoftwareApplicationSchema, generateBreadcrumbSchema, OG_IMAGES, type FAQItem } from "@/lib/seo";
-import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, ArrowLeft, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine } from "lucide-react";
+import { QrCode, Download, Link as LinkIcon, FileText, User, ArrowRight, ArrowLeft, Shield, Save, X, Smartphone, TrendingUp, Sparkles, Users, Share2, Megaphone, Briefcase, Wrench, Building2, Plus, Trash2, Upload, Globe, MessageCircle, Mail, MessageSquare, Wifi, Coins, UserCheck, Zap, Copy, CheckCheck, ScanLine, Undo2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "wouter";
 import QRCodeLib from "qrcode";
@@ -281,6 +281,58 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   // Copy QR to clipboard
   const [copiedQR, setCopiedQR] = useState(false);
 
+  // Undo history
+  const undoStack = useRef<object[]>([]);
+  const [canUndo, setCanUndo] = useState(false);
+
+  const captureSnapshot = () => ({
+    darkColor, lightColor,
+    dotsGradient, dotsGradientColors: [...dotsGradientColors], dotsGradientAngle,
+    bgGradient, bgGradientColors: [...bgGradientColors], bgGradientAngle,
+    borderColor, borderGradient, borderGradientColors: [...borderGradientColors], borderGradientAngle,
+    frameStyle, bodyPattern, externalEyePattern, internalEyePattern,
+    overlayText, overlayTextColor, logoSize, logoBorderRadius, logoBackground, activeStylePreset,
+  });
+
+  const pushUndo = () => {
+    const snap = captureSnapshot();
+    undoStack.current = [...undoStack.current.slice(-29), snap];
+    setCanUndo(true);
+  };
+
+  const restoreSnapshot = (snap: Record<string, unknown>) => {
+    setDarkColor(snap.darkColor as string);
+    setLightColor(snap.lightColor as string);
+    setDotsGradient(snap.dotsGradient as boolean);
+    setDotsGradientColors(snap.dotsGradientColors as string[]);
+    setDotsGradientAngle(snap.dotsGradientAngle as number);
+    setBgGradient(snap.bgGradient as boolean);
+    setBgGradientColors(snap.bgGradientColors as string[]);
+    setBgGradientAngle(snap.bgGradientAngle as number);
+    setBorderColor(snap.borderColor as string);
+    setBorderGradient(snap.borderGradient as boolean);
+    setBorderGradientColors(snap.borderGradientColors as string[]);
+    setBorderGradientAngle(snap.borderGradientAngle as number);
+    setFrameStyle(snap.frameStyle as string);
+    setBodyPattern(snap.bodyPattern as string);
+    setExternalEyePattern(snap.externalEyePattern as string);
+    setInternalEyePattern(snap.internalEyePattern as string);
+    setOverlayText(snap.overlayText as string);
+    setOverlayTextColor(snap.overlayTextColor as string);
+    setLogoSize(snap.logoSize as number);
+    setLogoBorderRadius(snap.logoBorderRadius as number);
+    setLogoBackground(snap.logoBackground as boolean);
+    setActiveStylePreset(snap.activeStylePreset as string | null);
+  };
+
+  const undo = () => {
+    if (undoStack.current.length === 0) return;
+    const prev = undoStack.current[undoStack.current.length - 1];
+    undoStack.current = undoStack.current.slice(0, -1);
+    restoreSnapshot(prev as Record<string, unknown>);
+    setCanUndo(undoStack.current.length > 0);
+  };
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const floatingPreviewRef = useRef<HTMLDivElement>(null);
   const floatingCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -384,6 +436,18 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // Ctrl+Z / Cmd+Z keyboard undo shortcut
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "z" && !e.shiftKey) {
+        e.preventDefault();
+        undo();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   // Handle dragging — mouse + touch
@@ -787,13 +851,19 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
           ctx.fillText("SCAN ME", canvas.width / 2, canvas.height - 12);
         }
 
-        // Dots fill style
+        // Dots fill style (for body modules only)
         let dotsFillStyle: FillStyle;
         if (dotsGradient && dotsGradientColors.length >= 2) {
           dotsFillStyle = createCanvasGradient(ctx, padding, padding, qrSize, qrSize, dotsGradientAngle, dotsGradientColors);
         } else {
           dotsFillStyle = darkColor;
         }
+
+        // Eye fill style — always solid so all three eyes match consistently
+        // When gradient is on, use the first gradient color for eyes
+        const eyeSolidColor: string = dotsGradient && dotsGradientColors.length >= 1
+          ? dotsGradientColors[0]
+          : darkColor;
 
         const eyePositions = [
           { row: 0, col: 0 },
@@ -822,8 +892,9 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
         eyePositions.forEach(pos => {
           const x = padding + pos.col * moduleSize;
           const y = padding + pos.row * moduleSize;
-          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, dotsFillStyle, bgFillStyle);
-          drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, dotsFillStyle);
+          // Always pass lightColor (not bgFillStyle gradient) for eye interior so it's clean and consistent
+          drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, eyeSolidColor, lightColor);
+          drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, eyeSolidColor);
         });
 
         if (logoData) {
@@ -938,6 +1009,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   };
 
   const applyTemplate = (template: CustomTemplate) => {
+    pushUndo();
     setDarkColor(template.darkColor);
     setLightColor(template.lightColor);
     setFrameStyle(template.frameStyle);
@@ -955,6 +1027,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
   };
 
   const applyStylePreset = (preset: StylePreset) => {
+    pushUndo();
     setActiveStylePreset(preset.id);
     setDarkColor(preset.darkColor);
     setLightColor(preset.lightColor);
@@ -1459,7 +1532,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                           <div className="flex items-center gap-3">
                             <span className="text-xs font-medium text-muted-foreground">Gradient</span>
                             <button
-                              onClick={() => setDotsGradient(!dotsGradient)}
+                              onClick={() => { pushUndo(); setDotsGradient(!dotsGradient); }}
                               role="switch"
                               aria-checked={dotsGradient}
                               className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${dotsGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
@@ -1473,8 +1546,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <CardContent className="px-6 pb-6 space-y-4">
                         {!dotsGradient ? (
                           <div className="flex items-center gap-3">
-                            <input type="color" value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
-                            <Input value={darkColor} onChange={(e) => setDarkColor(e.target.value)} className="font-mono text-sm" placeholder="#000000" />
+                            <input type="color" value={darkColor} onMouseDown={pushUndo} onChange={(e) => setDarkColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                            <Input value={darkColor} onFocus={pushUndo} onChange={(e) => setDarkColor(e.target.value)} className="font-mono text-sm" placeholder="#000000" />
                           </div>
                         ) : (
                           <div className="space-y-3">
@@ -1492,7 +1565,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                             <div className="h-4 rounded-md" style={{ background: `linear-gradient(${dotsGradientAngle}deg, ${dotsGradientColors.join(", ")})` }} />
                             <div className="flex items-center gap-3">
                               <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{dotsGradientAngle}°</span>
-                              <input type="range" min="0" max="360" value={dotsGradientAngle} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
+                              <input type="range" min="0" max="360" value={dotsGradientAngle} onMouseDown={pushUndo} onChange={(e) => setDotsGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-dots-gradient-angle" />
                             </div>
                           </div>
                         )}
@@ -1507,7 +1580,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                           <div className="flex items-center gap-3">
                             <span className="text-xs font-medium text-muted-foreground">Gradient</span>
                             <button
-                              onClick={() => setBgGradient(!bgGradient)}
+                              onClick={() => { pushUndo(); setBgGradient(!bgGradient); }}
                               role="switch"
                               aria-checked={bgGradient}
                               className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${bgGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
@@ -1521,8 +1594,8 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                       <CardContent className="px-6 pb-6 space-y-4">
                         {!bgGradient ? (
                           <div className="flex items-center gap-3">
-                            <input type="color" value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
-                            <Input value={lightColor} onChange={(e) => setLightColor(e.target.value)} className="font-mono text-sm" placeholder="#FFFFFF" />
+                            <input type="color" value={lightColor} onMouseDown={pushUndo} onChange={(e) => setLightColor(e.target.value)} className="h-9 w-12 rounded-md cursor-pointer border shrink-0" />
+                            <Input value={lightColor} onFocus={pushUndo} onChange={(e) => setLightColor(e.target.value)} className="font-mono text-sm" placeholder="#FFFFFF" />
                           </div>
                         ) : (
                           <div className="space-y-3">
@@ -1540,7 +1613,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                             <div className="h-4 rounded-md border" style={{ background: `linear-gradient(${bgGradientAngle}deg, ${bgGradientColors.join(", ")})` }} />
                             <div className="flex items-center gap-3">
                               <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{bgGradientAngle}°</span>
-                              <input type="range" min="0" max="360" value={bgGradientAngle} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
+                              <input type="range" min="0" max="360" value={bgGradientAngle} onMouseDown={pushUndo} onChange={(e) => setBgGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-bg-gradient-angle" />
                             </div>
                           </div>
                         )}
@@ -1557,7 +1630,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                           {BODY_PATTERNS.map(p => (
                             <button
                               key={p.id}
-                              onClick={() => setBodyPattern(p.id)}
+                              onClick={() => { pushUndo(); setBodyPattern(p.id); }}
                               className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${bodyPattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
                               title={p.name}
                               data-testid={`button-body-${p.id}`}
@@ -1583,7 +1656,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                               return (
                                 <button
                                   key={p.id}
-                                  onClick={() => setExternalEyePattern(p.id)}
+                                  onClick={() => { pushUndo(); setExternalEyePattern(p.id); }}
                                   className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${externalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
                                   title={eyeTooltips[p.id] || p.name}
                                   data-testid={`button-eye-outer-${p.id}`}
@@ -1607,7 +1680,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                               return (
                                 <button
                                   key={p.id}
-                                  onClick={() => setInternalEyePattern(p.id)}
+                                  onClick={() => { pushUndo(); setInternalEyePattern(p.id); }}
                                   className={`aspect-square rounded-md border-2 overflow-hidden transition-all ${internalEyePattern === p.id ? "border-primary ring-2 ring-primary ring-offset-2 shadow-sm" : "border-muted hover:border-primary/50"}`}
                                   title={innerTooltips[p.id] || p.name}
                                   data-testid={`button-eye-inner-${p.id}`}
@@ -1718,7 +1791,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                             return (
                               <button
                                 key={f.id}
-                                onClick={() => setFrameStyle(f.id)}
+                                onClick={() => { pushUndo(); setFrameStyle(f.id); }}
                                 style={{ transform: isActive ? "scale(1.02)" : "scale(1)" }}
                                 className={`flex flex-col items-center gap-2 py-4 px-3 rounded-xl border-2 text-center transition-all duration-150 ${isActive ? "border-primary bg-primary/5 ring-2 ring-primary/30 shadow-md" : "border-muted hover:border-primary/40 hover:bg-muted/20"}`}
                                 data-testid={`button-frame-${f.id}`}
@@ -1742,7 +1815,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                               <div className="flex items-center gap-3">
                                 <span className="text-xs font-medium text-muted-foreground">Gradient</span>
                                 <button
-                                  onClick={() => setBorderGradient(!borderGradient)}
+                                  onClick={() => { pushUndo(); setBorderGradient(!borderGradient); }}
                                   role="switch"
                                   aria-checked={borderGradient}
                                   className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${borderGradient ? "bg-primary border-primary" : "bg-zinc-200 dark:bg-zinc-600 border-zinc-300 dark:border-zinc-500"}`}
@@ -1773,7 +1846,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                                 <div className="h-4 rounded-md" style={{ background: `linear-gradient(${borderGradientAngle}deg, ${borderGradientColors.join(", ")})` }} />
                                 <div className="flex items-center gap-3">
                                   <span className="text-xs text-muted-foreground w-8 shrink-0 text-right">{borderGradientAngle}°</span>
-                                  <input type="range" min="0" max="360" value={borderGradientAngle} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
+                                  <input type="range" min="0" max="360" value={borderGradientAngle} onMouseDown={pushUndo} onChange={(e) => setBorderGradientAngle(Number(e.target.value))} className="w-full" data-testid="slider-border-gradient-angle" />
                                 </div>
                               </div>
                             )}
@@ -1882,6 +1955,17 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 {/* Action bar */}
                 <div className="flex items-center gap-2 mt-7 pt-5 border-t flex-wrap">
                   <Button variant="ghost" size="sm" onClick={() => goToStep(2)} className="text-muted-foreground" data-testid="button-back-to-step2"><ArrowLeft className="h-3.5 w-3.5 mr-1" />Back</Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={undo}
+                    disabled={!canUndo}
+                    title="Undo last change (Ctrl+Z)"
+                    data-testid="button-undo"
+                    className={`transition-all ${canUndo ? "" : "opacity-40"}`}
+                  >
+                    <Undo2 className="h-3.5 w-3.5 mr-1.5" />Undo
+                  </Button>
                   <Button variant="outline" size="sm" onClick={() => setShowTemplateModal(true)} data-testid="button-save-template"><Save className="h-3.5 w-3.5 mr-1.5" />Save Template</Button>
                   <p className="text-xs text-muted-foreground ml-auto">Download options in preview panel</p>
                 </div>
