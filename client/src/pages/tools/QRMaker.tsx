@@ -1001,34 +1001,159 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     goToStep(3);
   };
 
-  const downloadQR = (quality?: "normal" | "high" | "ultra") => {
+  const downloadQR = async (quality?: "normal" | "high" | "ultra") => {
     const finalQuality = quality || "high";
-    if (!canvasRef.current) return;
+    const qrData = generateQRData();
+    if (!qrData.trim()) return;
 
-    const qualityMultipliers = {
-      normal: 1,
-      high: 2,
-      ultra: 4,
-    };
+    // Native re-render at target resolution — no bitmap upscaling
+    const targetSizes: Record<string, number> = { normal: 900, high: 1800, ultra: 4096 };
+    const targetSize = targetSizes[finalQuality];
 
-    const multiplier = qualityMultipliers[finalQuality];
-    const originalCanvas = canvasRef.current;
-    const highQualityCanvas = document.createElement("canvas");
+    try {
+      const qrMatrix = await QRCodeLib.create(qrData, {
+        errorCorrectionLevel: errorCorrectionLevel as "L" | "M" | "Q" | "H",
+      });
 
-    highQualityCanvas.width = originalCanvas.width * multiplier;
-    highQualityCanvas.height = originalCanvas.height * multiplier;
+      const modules = qrMatrix.modules;
+      const moduleCount = modules.size;
 
-    const ctx = highQualityCanvas.getContext("2d");
-    if (!ctx) return;
+      // Derive crisp per-pixel dimensions from target output size
+      const padding = Math.round(targetSize * 0.085);
+      const qrSize = targetSize - padding * 2;
+      const moduleSize = qrSize / moduleCount;
+      const extraHeight = overlayText ? Math.round(padding * 0.9) : 0;
 
-    ctx.scale(multiplier, multiplier);
-    ctx.drawImage(originalCanvas, 0, 0);
+      const offscreen = document.createElement("canvas");
+      offscreen.width  = targetSize;
+      offscreen.height = targetSize + extraHeight;
 
-    const link = document.createElement("a");
-    link.download = `qr-code-${finalQuality}-${Date.now()}.png`;
-    link.href = highQualityCanvas.toDataURL("image/png", 1);
-    link.click();
-    toast({ title: "Downloaded!", description: `QR code saved as PNG (${finalQuality} quality)` });
+      const ctx = offscreen.getContext("2d");
+      if (!ctx) return;
+
+      // ── Background ────────────────────────────────────────
+      let bgFillStyle: FillStyle = lightColor;
+      if (bgGradient && bgGradientColors.length >= 2) {
+        bgFillStyle = createCanvasGradient(ctx, 0, 0, offscreen.width, offscreen.height, bgGradientAngle, bgGradientColors);
+      }
+      ctx.fillStyle = bgFillStyle;
+      ctx.fillRect(0, 0, offscreen.width, offscreen.height);
+
+      // ── Border fill ───────────────────────────────────────
+      let borderFillStyle: FillStyle = borderColor;
+      if (borderGradient && borderGradientColors.length >= 2) {
+        borderFillStyle = createCanvasGradient(ctx, 0, 0, offscreen.width, offscreen.height - extraHeight, borderGradientAngle, borderGradientColors);
+      }
+      const borderStroke = Math.round(moduleSize * 0.4);
+
+      if (frameStyle === "border") {
+        ctx.strokeStyle = borderFillStyle;
+        ctx.lineWidth = borderStroke;
+        ctx.strokeRect(borderStroke / 2, borderStroke / 2, offscreen.width - borderStroke, offscreen.height - extraHeight - borderStroke);
+      } else if (frameStyle === "rounded-border") {
+        ctx.strokeStyle = borderFillStyle;
+        ctx.lineWidth = borderStroke;
+        ctx.beginPath();
+        ctx.roundRect(borderStroke / 2, borderStroke / 2, offscreen.width - borderStroke, offscreen.height - extraHeight - borderStroke, moduleSize * 1.5);
+        ctx.stroke();
+      }
+
+      // ── Frame text (SCAN ME) ──────────────────────────────
+      if (frameStyle === "scanme-top" || frameStyle === "scanme-bottom") {
+        const fontSize = Math.round(qrSize * 0.065);
+        ctx.font = `bold ${fontSize}px Arial`;
+        ctx.fillStyle = borderFillStyle;
+        ctx.textAlign = "center";
+        if (frameStyle === "scanme-top") {
+          ctx.fillText("SCAN ME", offscreen.width / 2, padding / 2 + fontSize / 2);
+        } else {
+          ctx.fillText("SCAN ME", offscreen.width / 2, offscreen.height - padding * 0.15);
+        }
+      }
+
+      // ── Dots fill ─────────────────────────────────────────
+      let dotsFillStyle: FillStyle = darkColor;
+      if (dotsGradient && dotsGradientColors.length >= 2) {
+        dotsFillStyle = createCanvasGradient(ctx, padding, padding, qrSize, qrSize, dotsGradientAngle, dotsGradientColors);
+      }
+
+      const eyeSolidColor: string = dotsGradient && dotsGradientColors.length >= 1
+        ? dotsGradientColors[0]
+        : darkColor;
+
+      const eyePositions = [
+        { row: 0, col: 0 },
+        { row: 0, col: moduleCount - 7 },
+        { row: moduleCount - 7, col: 0 },
+      ];
+      const isInEyeArea = (row: number, col: number) =>
+        eyePositions.some(pos => row >= pos.row && row < pos.row + 7 && col >= pos.col && col < pos.col + 7);
+
+      // ── Body modules ──────────────────────────────────────
+      for (let row = 0; row < moduleCount; row++) {
+        for (let col = 0; col < moduleCount; col++) {
+          if (isInEyeArea(row, col)) continue;
+          if (modules.get(row, col)) {
+            drawModule(ctx, padding + col * moduleSize, padding + row * moduleSize, moduleSize, bodyPattern, dotsFillStyle);
+          }
+        }
+      }
+
+      // ── Eye patterns ──────────────────────────────────────
+      eyePositions.forEach(pos => {
+        const x = padding + pos.col * moduleSize;
+        const y = padding + pos.row * moduleSize;
+        drawExternalEye(ctx, x, y, moduleSize, externalEyePattern, eyeSolidColor, bgFillStyle);
+        drawInternalEye(ctx, x + moduleSize * 2, y + moduleSize * 2, moduleSize, internalEyePattern, eyeSolidColor);
+      });
+
+      // ── Logo (load synchronously via promise) ─────────────
+      if (logoData) {
+        await new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const scaledLogoSize = Math.max(20, Math.floor(qrSize * (logoSize / 100)));
+            const logoX = (offscreen.width - scaledLogoSize) / 2;
+            const logoY = padding + (qrSize - scaledLogoSize) / 2;
+            if (logoBackground) {
+              ctx.fillStyle = typeof bgFillStyle === "string" ? bgFillStyle : lightColor;
+              ctx.beginPath();
+              const pad = moduleSize * 0.4;
+              ctx.roundRect(logoX - pad, logoY - pad, scaledLogoSize + pad * 2, scaledLogoSize + pad * 2, logoBorderRadius + pad * 0.5);
+              ctx.fill();
+            }
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(logoX, logoY, scaledLogoSize, scaledLogoSize, logoBorderRadius);
+            ctx.clip();
+            ctx.drawImage(img, logoX, logoY, scaledLogoSize, scaledLogoSize);
+            ctx.restore();
+            resolve();
+          };
+          img.onerror = () => resolve();
+          img.src = logoData;
+        });
+      }
+
+      // ── Overlay / CTA text ────────────────────────────────
+      if (overlayText) {
+        const fontSize = Math.round(qrSize * 0.055);
+        ctx.font = `bold ${fontSize}px Arial`;
+        ctx.fillStyle = overlayTextColor;
+        ctx.textAlign = "center";
+        ctx.fillText(overlayText, offscreen.width / 2, offscreen.height - padding * 0.3);
+      }
+
+      // ── Export ────────────────────────────────────────────
+      const qualityLabel = finalQuality === "ultra" ? "4K" : finalQuality === "high" ? "HD" : "Standard";
+      const link = document.createElement("a");
+      link.download = `qr-code-${qualityLabel}-${Date.now()}.png`;
+      link.href = offscreen.toDataURL("image/png", 1);
+      link.click();
+      toast({ title: "Downloaded!", description: `${qualityLabel} · ${targetSize}×${offscreen.height}px · crisp native render` });
+    } catch {
+      toast({ title: "Download failed", description: "Please try again", variant: "destructive" });
+    }
   };
 
   const copyQRToClipboard = async () => {
