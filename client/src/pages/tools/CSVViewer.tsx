@@ -243,6 +243,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     localStorage.removeItem("csv_viewer_data");
     localStorage.removeItem("csv_viewer_headers");
     localStorage.removeItem("csv_viewer_filename");
+    localStorage.removeItem("csv_viewer_session");
     toast({ title: "Cleared", description: "Data has been removed" });
   };
 
@@ -346,6 +347,17 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         historyIdxRef.current = 0;
         setHistoryIndex(0);
         setHistoryLen(1);
+        const rawSession = localStorage.getItem("csv_viewer_session");
+        if (rawSession) {
+          try {
+            const session = JSON.parse(rawSession);
+            if (session.searchTerm) setSearchTerm(session.searchTerm);
+            if (session.sortConfig) setSortConfig(session.sortConfig);
+            if (typeof session.isEditing === "boolean") setIsEditing(session.isEditing);
+            if (typeof session.highlightEnabled === "boolean") setHighlightEnabled(session.highlightEnabled);
+            if (typeof session.scrollTop === "number") setScrollTop(session.scrollTop);
+          } catch {}
+        }
       } catch (e) {
         console.error("Failed to parse saved CSV data", e);
       }
@@ -370,6 +382,14 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       localStorage.removeItem("csv_viewer_filename");
     }
   }, [data, headers, fileName]);
+
+  useEffect(() => {
+    if (data.length === 0) return;
+    try {
+      const session = { searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop };
+      localStorage.setItem("csv_viewer_session", JSON.stringify(session));
+    } catch {}
+  }, [searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop, data.length]);
 
   useEffect(() => {
     const saved = localStorage.getItem("csv_viewer_saved_files");
