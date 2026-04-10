@@ -1393,12 +1393,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
-                        className="sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-muted-foreground/30 group bg-muted relative overflow-hidden"
-                      >
-                        {flashCol === header && (
-                          <div className="absolute inset-0 animate-csv-flash pointer-events-none z-0" />
+                        className={cn(
+                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-muted-foreground/30 group bg-muted",
+                          flashCol === header && "animate-csv-flash-header",
                         )}
-                        <div className="flex items-center justify-between px-2 h-10 relative z-[1]">
+                      >
+                        <div className="flex items-center justify-between px-2 h-10">
                           {isEditing && editingHeader === header ? (
                             <Input
                               autoFocus
@@ -1504,10 +1504,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                             : "transition-colors hover:bg-primary/5",
                         )}
                       >
-                        <TableCell className={cn(
-                          "sticky left-0 z-10 w-12 text-center text-[10px] font-mono text-muted-foreground/60 border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted",
-                          flashRowObj !== row && "group-hover:bg-muted/70",
-                        )}>
+                        <TableCell className="sticky left-0 z-10 w-12 text-center text-[10px] font-mono text-muted-foreground/60 border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted">
                           {filteredIdx + 1}
                         </TableCell>
                         {headers.map((header, colIndex) => (
