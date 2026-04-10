@@ -1387,7 +1387,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               <table className="w-full caption-bottom text-sm border-separate border-spacing-0">
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
-                    <TableHead className="sticky top-0 z-50 w-12 text-center border-r-2 border-b-2 border-muted-foreground/30 font-bold text-muted-foreground/70 bg-muted">
+                    <TableHead className="sticky top-0 left-0 z-[60] w-12 text-center border-r-2 border-b-2 border-muted-foreground/30 font-bold text-muted-foreground/70 bg-muted">
                       #
                     </TableHead>
                     {headers.map((header, index) => (
@@ -1505,8 +1505,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                         )}
                       >
                         <TableCell className={cn(
-                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted/40",
-                          flashRowObj !== row && "group-hover:bg-primary/10",
+                          "sticky left-0 z-10 w-12 text-center text-[10px] font-mono text-muted-foreground/60 border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted",
+                          flashRowObj !== row && "group-hover:bg-muted/70",
                         )}>
                           {filteredIdx + 1}
                         </TableCell>
