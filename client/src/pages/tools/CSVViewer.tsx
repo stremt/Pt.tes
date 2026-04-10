@@ -312,8 +312,6 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             historyIdxRef.current = 0;
             setHistoryIndex(0);
             setHistoryLen(1);
-            pendingHistorySaveRef.current = { data: results.data, headers: newHeaders, name };
-            setShowSavePrompt(true);
             toast({
               title: "Success",
               description: `Loaded ${results.data.length} rows`,
@@ -734,10 +732,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    toast({
-      title: "File exported",
-      description: "Your file is also auto-saved in this browser. Come back anytime and your data will still be here.",
-    });
+    toast({ title: "File exported", description: `${fileName || "data.csv"} has been downloaded.` });
+    pendingHistorySaveRef.current = { data, headers, name: fileName || "data.csv" };
+    setShowSavePrompt(true);
   };
 
   const filteredData = useMemo(() => {
