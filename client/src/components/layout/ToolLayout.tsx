@@ -145,6 +145,7 @@ export function ToolLayout({
 
   const breadcrumbItems = [
     { name: "Home", url: "https://tools.pixocraft.in/" },
+    { name: "Tools", url: "https://tools.pixocraft.in/tools" },
     { name: categoryInfo.name, url: `https://tools.pixocraft.in${categoryInfo.path}` },
     { name: title },
   ];
