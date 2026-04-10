@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
@@ -74,7 +74,7 @@ export default function CSVViewer() {
   const [headers, setHeaders] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [displayCount, setDisplayCount] = useState(100);
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [highlightEnabled, setHighlightEnabled] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -82,6 +82,7 @@ export default function CSVViewer() {
     rowIndex: number;
     colKey: string;
   } | null>(null);
+  const [editCellValue, setEditCellValue] = useState("");
   const historyRef = useRef<any[][]>([]);
   const historyIdxRef = useRef(-1);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -98,6 +99,10 @@ export default function CSVViewer() {
   const [flashCell, setFlashCell] = useState<{ rowIndex: number; colKey: string } | null>(null);
   const [editingHeader, setEditingHeader] = useState<string | null>(null);
   const [editingHeaderValue, setEditingHeaderValue] = useState("");
+  const [scrollTop, setScrollTop] = useState(0);
+  const containerHeightRef = useRef(600);
+  const pendingFocusRef = useRef<{ row: number; col: number } | null>(null);
+  const editCommittedRef = useRef(false);
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const flashCellTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -124,15 +129,20 @@ export default function CSVViewer() {
     flashCellTimerRef.current = setTimeout(() => setFlashCell(null), 2600);
   };
 
+  const ROW_HEIGHT = 44;
+  const OVERSCAN = 20;
+
   const scrollToCell = (dataIdx: number, colKey: string) => {
     if (!tableScrollRef.current) return;
-    const colIndex = headers.indexOf(colKey);
-    // data-row uses filteredIdx, so find it
     const filteredIdx = filteredData.findIndex((item) => item.dataIdx === dataIdx);
     if (filteredIdx === -1) return;
-    const cell = tableScrollRef.current.querySelector(`[data-row="${filteredIdx}"][data-col="${colIndex}"]`);
-    if (cell) {
-      cell.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    const targetScrollTop = filteredIdx * ROW_HEIGHT;
+    const currentScrollTop = tableScrollRef.current.scrollTop;
+    const clientHeight = tableScrollRef.current.clientHeight;
+    if (targetScrollTop < currentScrollTop || targetScrollTop + ROW_HEIGHT > currentScrollTop + clientHeight) {
+      const newST = Math.max(0, targetScrollTop - clientHeight / 2 + ROW_HEIGHT / 2);
+      tableScrollRef.current.scrollTop = newST;
+      setScrollTop(newST);
     }
   };
 
@@ -224,7 +234,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             setHeaders(newHeaders);
             setData(results.data);
             setFileName(name);
-            setDisplayCount(100);
+            setScrollTop(0);
             historyRef.current = [results.data];
             historyIdxRef.current = 0;
             setHistoryIndex(0);
@@ -259,8 +269,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         setData(parsedData);
         setHeaders(parsedHeaders);
         setFileName(savedFileName);
-        setHistory([parsedData]);
+        historyRef.current = [parsedData];
+        historyIdxRef.current = 0;
         setHistoryIndex(0);
+        setHistoryLen(1);
       } catch (e) {
         console.error("Failed to parse saved CSV data", e);
       }
@@ -282,6 +294,38 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       localStorage.removeItem("csv_viewer_filename");
     }
   }, [data, headers, fileName]);
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(searchTerm), 200);
+    return () => clearTimeout(t);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (editCell) {
+      setEditCellValue(String(data[editCell.rowIndex]?.[editCell.colKey] ?? ""));
+      editCommittedRef.current = false;
+    }
+  }, [editCell?.rowIndex, editCell?.colKey]);
+
+  useEffect(() => {
+    const el = tableScrollRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver((entries) => {
+      for (const entry of entries) containerHeightRef.current = entry.contentRect.height;
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!pendingFocusRef.current) return;
+    const { row, col } = pendingFocusRef.current;
+    const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`) as HTMLElement;
+    if (cell) {
+      cell.focus();
+      pendingFocusRef.current = null;
+    }
+  });
 
   const pushToHistory = (newData: any[]) => {
     const newHistory = historyRef.current.slice(0, historyIdxRef.current + 1);
@@ -402,19 +446,19 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     }
   };
 
-  const handleCellChange = (
-    rowIndex: number,
-    colKey: string,
-    value: string,
-  ) => {
-    const newData = [...data];
-    newData[rowIndex] = { ...newData[rowIndex], [colKey]: value };
-    setData(newData);
+  const handleCellChange = (value: string) => {
+    setEditCellValue(value);
   };
 
   const handleBlur = () => {
+    if (editCell && !editCommittedRef.current) {
+      editCommittedRef.current = true;
+      const newData = [...data];
+      newData[editCell.rowIndex] = { ...newData[editCell.rowIndex], [editCell.colKey]: editCellValue };
+      setData(newData);
+      pushToHistory(newData);
+    }
     setEditCell(null);
-    pushToHistory(data);
   };
 
   const handleKeyDown = (
@@ -427,8 +471,14 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     if (e.key === "Enter" || e.key === "Tab") {
       if (editCell) {
         e.preventDefault();
+        if (!editCommittedRef.current) {
+          editCommittedRef.current = true;
+          const committedData = [...data];
+          committedData[editCell.rowIndex] = { ...committedData[editCell.rowIndex], [editCell.colKey]: editCellValue };
+          setData(committedData);
+          pushToHistory(committedData);
+        }
         setEditCell(null);
-        pushToHistory(data);
         let nextFilteredRow = rowIndex;
         let nextCol = colIndex;
         if (e.key === "Enter") {
@@ -471,7 +521,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       const nextCellElement = document.querySelector(
         `[data-row="${nextRow}"][data-col="${nextCol}"]`,
       ) as HTMLElement;
-      if (nextCellElement) nextCellElement.focus();
+      if (nextCellElement) {
+        nextCellElement.focus();
+      } else {
+        if (tableScrollRef.current) {
+          const targetST = Math.max(0, nextRow * ROW_HEIGHT - containerHeightRef.current / 2);
+          tableScrollRef.current.scrollTop = targetST;
+          setScrollTop(targetST);
+        }
+        pendingFocusRef.current = { row: nextRow, col: nextCol };
+      }
     } else if (
       e.key.length === 1 &&
       !editCell &&
@@ -592,12 +651,13 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     document.body.removeChild(link);
   };
 
-  const filteredData = (() => {
+  const filteredData = useMemo(() => {
+    const lc = debouncedSearch.toLowerCase();
     let result = data
       .map((row, dataIdx) => ({ row, dataIdx }))
       .filter(({ row }) =>
-        Object.values(row).some((val) =>
-          String(val).toLowerCase().includes(searchTerm.toLowerCase()),
+        lc === "" || Object.values(row).some((val) =>
+          String(val).toLowerCase().includes(lc),
         ),
       );
     if (sortConfig) {
@@ -612,20 +672,17 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       });
     }
     return result;
-  })();
+  }, [data, debouncedSearch, sortConfig]);
 
-  const loadMore = useCallback(() => {
-    if (displayCount < filteredData.length) {
-      setDisplayCount((prev) => prev + 100);
-    }
-  }, [displayCount, filteredData.length]);
+  const visibleStart = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - OVERSCAN);
+  const visibleEnd = Math.min(filteredData.length, Math.ceil((scrollTop + containerHeightRef.current) / ROW_HEIGHT) + OVERSCAN);
+  const visibleRows = filteredData.slice(visibleStart, visibleEnd);
+  const paddingTop = visibleStart * ROW_HEIGHT;
+  const paddingBottom = Math.max(0, (filteredData.length - visibleEnd) * ROW_HEIGHT);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop <= clientHeight + 100) {
-      loadMore();
-    }
-  };
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    setScrollTop(e.currentTarget.scrollTop);
+  }, []);
 
   const howItWorks = [
     {
@@ -1245,9 +1302,14 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredData
-                    .slice(0, displayCount)
-                    .map(({ row, dataIdx }, filteredIdx) => (
+                  {paddingTop > 0 && (
+                    <tr style={{ height: paddingTop }}>
+                      <td colSpan={headers.length + (isEditing ? 2 : 1)} />
+                    </tr>
+                  )}
+                  {visibleRows.map(({ row, dataIdx }, localIdx) => {
+                    const filteredIdx = visibleStart + localIdx;
+                    return (
                       <TableRow
                         key={dataIdx}
                         className={cn(
@@ -1288,21 +1350,15 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                               <Input
                                 autoFocus
                                 className="absolute inset-0 h-full w-full border-0 rounded-none bg-amber-50 dark:bg-amber-950/40 focus-visible:ring-0 focus-visible:ring-offset-0 px-3 text-sm font-medium"
-                                value={row[header] || ""}
-                                onChange={(e) =>
-                                  handleCellChange(
-                                    dataIdx,
-                                    header,
-                                    e.target.value,
-                                  )
-                                }
+                                value={editCellValue}
+                                onChange={(e) => handleCellChange(e.target.value)}
                                 onBlur={handleBlur}
                               />
                             ) : (
                               <div className="px-3 py-2 truncate text-sm text-foreground/90 font-medium max-w-[300px]">
                                 <HighlightText
                                   text={String(row[header] || "")}
-                                  highlight={searchTerm}
+                                  highlight={debouncedSearch}
                                 />
                               </div>
                             )}
@@ -1321,7 +1377,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                           </TableCell>
                         )}
                       </TableRow>
-                    ))}
+                    );
+                  })}
                   {isEditing && (
                     <TableRow className="hover:bg-transparent border-none">
                       <TableCell
@@ -1339,20 +1396,13 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                       </TableCell>
                     </TableRow>
                   )}
+                  {paddingBottom > 0 && (
+                    <tr style={{ height: paddingBottom }}>
+                      <td colSpan={headers.length + (isEditing ? 2 : 1)} />
+                    </tr>
+                  )}
                 </TableBody>
               </table>
-              {displayCount < filteredData.length && (
-                <div className="p-8 text-center text-muted-foreground animate-pulse">
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary/30" />
-                  </div>
-                  <p className="mt-2 text-xs font-medium uppercase tracking-widest">
-                    Loading more records...
-                  </p>
-                </div>
-              )}
             </div>
             <div className="p-3 border-t bg-muted/30 flex items-center justify-between text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
               <div className="flex items-center gap-4">
@@ -1362,8 +1412,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                 </span>
                 <span className="h-3 w-[1px] bg-muted-foreground/30" />
                 <span>
-                  Showing {Math.min(displayCount, filteredData.length)} of{" "}
                   {filteredData.length} records
+                  {debouncedSearch ? ` (filtered from ${data.length})` : ""}
                 </span>
               </div>
               <div className="flex items-center gap-3">
