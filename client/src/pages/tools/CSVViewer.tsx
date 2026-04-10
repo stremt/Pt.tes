@@ -124,10 +124,13 @@ export default function CSVViewer() {
     flashCellTimerRef.current = setTimeout(() => setFlashCell(null), 2600);
   };
 
-  const scrollToCell = (rowIndex: number, colKey: string) => {
+  const scrollToCell = (dataIdx: number, colKey: string) => {
     if (!tableScrollRef.current) return;
     const colIndex = headers.indexOf(colKey);
-    const cell = tableScrollRef.current.querySelector(`[data-row="${rowIndex}"][data-col="${colIndex}"]`);
+    // data-row uses filteredIdx, so find it
+    const filteredIdx = filteredData.findIndex((item) => item.dataIdx === dataIdx);
+    if (filteredIdx === -1) return;
+    const cell = tableScrollRef.current.querySelector(`[data-row="${filteredIdx}"][data-col="${colIndex}"]`);
     if (cell) {
       cell.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
     }
@@ -425,27 +428,31 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         e.preventDefault();
         setEditCell(null);
         pushToHistory(data);
-        let nextRow = rowIndex;
+        let nextFilteredRow = rowIndex;
         let nextCol = colIndex;
         if (e.key === "Enter") {
-          nextRow = e.shiftKey ? rowIndex - 1 : rowIndex + 1;
+          nextFilteredRow = e.shiftKey ? rowIndex - 1 : rowIndex + 1;
         } else {
           nextCol = e.shiftKey ? colIndex - 1 : colIndex + 1;
         }
         if (
-          nextRow >= 0 &&
-          nextRow < data.length &&
+          nextFilteredRow >= 0 &&
+          nextFilteredRow < filteredData.length &&
           nextCol >= 0 &&
           nextCol < headers.length
         ) {
-          setTimeout(
-            () => setEditCell({ rowIndex: nextRow, colKey: headers[nextCol] }),
-            0,
-          );
+          const nextDataIdx = filteredData[nextFilteredRow]?.dataIdx;
+          if (nextDataIdx !== undefined) {
+            setTimeout(
+              () => setEditCell({ rowIndex: nextDataIdx, colKey: headers[nextCol] }),
+              0,
+            );
+          }
         }
       } else {
         e.preventDefault();
-        setEditCell({ rowIndex, colKey });
+        const dataIdx = filteredData[rowIndex]?.dataIdx;
+        if (dataIdx !== undefined) setEditCell({ rowIndex: dataIdx, colKey });
       }
     } else if (
       ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key) &&
@@ -456,7 +463,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       let nextCol = colIndex;
       if (e.key === "ArrowUp") nextRow = Math.max(0, rowIndex - 1);
       if (e.key === "ArrowDown")
-        nextRow = Math.min(data.length - 1, rowIndex + 1);
+        nextRow = Math.min(filteredData.length - 1, rowIndex + 1);
       if (e.key === "ArrowLeft") nextCol = Math.max(0, colIndex - 1);
       if (e.key === "ArrowRight")
         nextCol = Math.min(headers.length - 1, colIndex + 1);
@@ -471,7 +478,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       !e.metaKey &&
       !e.altKey
     ) {
-      setEditCell({ rowIndex, colKey });
+      const dataIdx = filteredData[rowIndex]?.dataIdx;
+      if (dataIdx !== undefined) setEditCell({ rowIndex: dataIdx, colKey });
     }
   };
 
@@ -584,15 +592,17 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   };
 
   const filteredData = (() => {
-    let result = data.filter((row) =>
-      Object.values(row).some((val) =>
-        String(val).toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-    );
+    let result = data
+      .map((row, dataIdx) => ({ row, dataIdx }))
+      .filter(({ row }) =>
+        Object.values(row).some((val) =>
+          String(val).toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
     if (sortConfig) {
       result = [...result].sort((a, b) => {
-        const aVal = String(a[sortConfig.key] ?? "");
-        const bVal = String(b[sortConfig.key] ?? "");
+        const aVal = String(a.row[sortConfig.key] ?? "");
+        const bVal = String(b.row[sortConfig.key] ?? "");
         const aNum = parseFloat(aVal);
         const bNum = parseFloat(bVal);
         const isNumeric = !isNaN(aNum) && !isNaN(bNum);
@@ -1236,9 +1246,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                 <TableBody>
                   {filteredData
                     .slice(0, displayCount)
-                    .map((row, rowIndex) => (
+                    .map(({ row, dataIdx }, filteredIdx) => (
                       <TableRow
-                        key={rowIndex}
+                        key={dataIdx}
                         className={cn(
                           "group",
                           flashRowObj === row
@@ -1250,29 +1260,29 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                           "w-12 text-center text-[10px] font-mono text-muted-foreground border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted/40",
                           flashRowObj !== row && "group-hover:bg-primary/10",
                         )}>
-                          {rowIndex + 1}
+                          {filteredIdx + 1}
                         </TableCell>
                         {headers.map((header, colIndex) => (
                           <TableCell
                             key={colIndex}
                             className={cn(
                               "relative p-0 h-11 min-w-[150px] border-r border-b border-muted-foreground/20 transition-all",
-                              flashCell?.rowIndex === rowIndex && flashCell?.colKey === header && "animate-csv-flash",
+                              flashCell?.rowIndex === dataIdx && flashCell?.colKey === header && "animate-csv-flash",
                               flashCol === header && flashRowObj === null && flashCell === null && "animate-csv-flash",
                               isEditing && flashRowObj !== row && flashCol !== header && "cursor-text hover:bg-primary/10 hover:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.3)]",
-                              isEditing && editCell?.rowIndex === rowIndex && editCell?.colKey === header
+                              isEditing && editCell?.rowIndex === dataIdx && editCell?.colKey === header
                                 ? "shadow-[inset_0_0_0_2px_hsl(var(--primary))] bg-primary/5 z-20"
                                 : "focus-within:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.5)] focus-within:z-10",
                             )}
-                            onClick={() => handleCellClick(rowIndex, header)}
+                            onClick={() => handleCellClick(dataIdx, header)}
                             tabIndex={isEditing ? 0 : -1}
                             onKeyDown={(e) =>
-                              handleKeyDown(e, rowIndex, colIndex)
+                              handleKeyDown(e, filteredIdx, colIndex)
                             }
-                            data-row={rowIndex}
+                            data-row={filteredIdx}
                             data-col={colIndex}
                           >
-                            {editCell?.rowIndex === rowIndex &&
+                            {editCell?.rowIndex === dataIdx &&
                             editCell?.colKey === header ? (
                               <Input
                                 autoFocus
@@ -1280,7 +1290,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                                 value={row[header] || ""}
                                 onChange={(e) =>
                                   handleCellChange(
-                                    rowIndex,
+                                    dataIdx,
                                     header,
                                     e.target.value,
                                   )
@@ -1303,7 +1313,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                               variant="ghost"
                               size="icon"
                               className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
-                              onClick={() => deleteRow(rowIndex)}
+                              onClick={() => deleteRow(dataIdx)}
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
