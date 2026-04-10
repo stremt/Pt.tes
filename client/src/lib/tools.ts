@@ -113,11 +113,11 @@ export const tools: ToolMetadata[] = [
   {
     id: "csv-viewer",
     name: "CSV Viewer & Editor",
-    description: "Open, view and edit CSV files online instantly with full privacy. No upload required, works 100% in your browser. Search, filter and explore your data securely.",
+    description: "Open CSV files online without Excel. Free CSV viewer and editor — view, edit, sort, and search data instantly. No upload, 100% private, works offline.",
     icon: "FileSpreadsheet",
     path: "/tools/csv-viewer",
     category: "utility",
-    keywords: ["csv viewer", "open csv online", "view csv file", "csv reader", "privacy-focused", "browser csv viewer", "csv editor"],
+    keywords: ["csv viewer", "csv editor", "open csv file online", "csv viewer online", "csv file viewer", "edit csv online", "open csv without excel", "csv reader online", "view large csv file", "edit csv file online free"],
   },
   {
     id: "temp-mail",

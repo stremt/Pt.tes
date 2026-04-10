@@ -1,0 +1,248 @@
+You are a senior Technical SEO engineer and web performance specialist.
+
+Your task is to fully optimize the backend, technical SEO, and performance of this page:
+
+https://tools.pixocraft.in/tools/csv-viewer
+
+Goal:
+
+* Achieve top 1 ranking for CSV-related keywords
+* Maximize crawlability, indexability, and ranking signals
+* Improve Core Web Vitals and technical SEO score to near perfect
+
+---
+
+## 🔥 STEP 1: CLEAN URL STRUCTURE
+
+Ensure URL is:
+
+/tools/csv-viewer
+
+Rules:
+
+* No parameters
+* No duplicate versions
+* Canonical set correctly
+
+Add:
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer" />
+
+---
+
+## 🔥 STEP 2: INDEXING CONTROL
+
+Add:
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+Ensure:
+
+* Page is indexable
+* Not blocked in robots.txt
+
+---
+
+## 🔥 STEP 3: SITEMAP OPTIMIZATION
+
+Ensure this page exists in:
+
+/sitemap-pages.xml
+
+Add:
+
+* lastmod updated dynamically
+* priority: 0.9
+* changefreq: weekly
+
+---
+
+## 🔥 STEP 4: STRUCTURED DATA (ADVANCED)
+
+Implement JSON-LD:
+
+### 1. SoftwareApplication
+
+Include:
+
+* name
+* description
+* operatingSystem: Web
+* applicationCategory: DeveloperApplication
+* offers: free
+* featureList (IMPORTANT)
+
+---
+
+### 2. FAQ Schema
+
+Use existing FAQs
+
+---
+
+### 3. HowTo Schema
+
+Use steps for CSV editing
+
+---
+
+### 4. Breadcrumb Schema
+
+Add:
+
+Home > Tools > CSV Viewer
+
+---
+
+## 🔥 STEP 5: CORE WEB VITALS (CRITICAL)
+
+Optimize for:
+
+* LCP < 2s
+* CLS < 0.1
+* INP < 200ms
+
+Do:
+
+* Lazy load heavy components
+* Minimize JS bundle
+* Use code splitting
+* Avoid blocking scripts
+* Optimize fonts (preload)
+
+---
+
+## 🔥 STEP 6: PERFORMANCE HEAD TAGS
+
+Add:
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+Preload main assets if needed
+
+---
+
+## 🔥 STEP 7: INTERNAL LINK STRUCTURE
+
+Ensure:
+
+* This page is linked from:
+
+  * homepage
+  * tools page
+  * related tools
+
+Anchor text must include:
+
+* csv viewer
+* csv editor
+
+---
+
+## 🔥 STEP 8: IMAGE OPTIMIZATION
+
+* Use WebP/AVIF
+* Add alt text with keywords
+* Lazy load images
+
+---
+
+## 🔥 STEP 9: CONTENT DELIVERY
+
+* Ensure page is static or cached
+* Use CDN (Cloudflare recommended)
+* Enable gzip/brotli compression
+
+---
+
+## 🔥 STEP 10: MOBILE OPTIMIZATION
+
+* Fully responsive
+* No overflow issues
+* Fast touch response
+
+---
+
+## 🔥 STEP 11: SECURITY SIGNALS
+
+* HTTPS enforced
+* No mixed content
+* Add:
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+---
+
+## 🔥 STEP 12: PAGE SPEED (CRITICAL)
+
+* Reduce unused JS
+* Avoid large libraries
+* Optimize PapaParse usage
+* Limit DOM nodes (large tables handled smartly)
+
+---
+
+## 🔥 STEP 13: LOGICAL HTML STRUCTURE
+
+* Proper heading hierarchy (H1 → H2 → H3)
+* Semantic HTML
+* Accessible labels
+
+---
+
+## 🔥 STEP 14: USER BEHAVIOR SIGNALS
+
+Optimize for:
+
+* Fast interaction
+* Instant feedback
+* No lag on upload/edit
+
+---
+
+## 🔥 STEP 15: ERROR HANDLING
+
+* Handle invalid CSV gracefully
+* Show user-friendly messages
+* Avoid crashes
+
+---
+
+## 🔥 STEP 16: ADVANCED BOOST
+
+Add:
+
+* Web App Manifest (optional)
+* Service worker (for offline support)
+* Cache assets for repeat users
+
+---
+
+## ⚠️ DO NOT:
+
+* Block JS rendering
+* Use heavy libraries unnecessarily
+* Create duplicate URLs
+
+---
+
+## 🏆 FINAL GOAL
+
+Google should see:
+
+* Fast
+* Clean
+* Structured
+* Authoritative
+* Fully optimized
+
+Users should feel:
+
+* Instant speed
+* Smooth UX
+* Zero friction
+
+---
+
+Execute like a top-tier SEO engineer optimizing for #1 ranking.

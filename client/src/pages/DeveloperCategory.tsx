@@ -95,7 +95,7 @@ const developerTools = [
   {
     name: "CSV Viewer & Editor",
     slug: "csv-viewer",
-    description: "View, edit, and explore CSV files directly in your browser with full spreadsheet capabilities"
+    description: "Open CSV files online without Excel. Free CSV viewer and editor — search, sort, edit cells, and download. 100% private, no upload."
   },
   {
     name: "XLSX Viewer & Editor",

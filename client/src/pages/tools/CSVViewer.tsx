@@ -620,6 +620,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           content="Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files. Works offline, free forever."
         />
         <meta name="keywords" content="csv viewer, csv editor, csv viewer online, open csv file online, csv file viewer, edit csv online, open csv without excel, csv reader online, view large csv file, edit csv file online free" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer" />
         <meta property="og:title" content="Open CSV File Online (No Excel) – Free CSV Viewer & Editor (Fast & Private)" />
         <meta property="og:description" content="Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files." />

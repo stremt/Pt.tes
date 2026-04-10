@@ -88,6 +88,18 @@
           "sizes": "96x96"
         }
       ]
+    },
+    {
+      "name": "CSV Viewer & Editor",
+      "short_name": "CSV Viewer",
+      "description": "Open and edit CSV files online without Excel — fast, private and free",
+      "url": "/tools/csv-viewer",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "96x96"
+        }
+      ]
     }
   ]
 }
