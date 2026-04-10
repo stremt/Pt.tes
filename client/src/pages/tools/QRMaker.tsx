@@ -1531,6 +1531,37 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                 <h2 className="text-lg sm:text-xl font-semibold text-foreground">What do you want to create?</h2>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">Choose a QR code type to get started</p>
               </div>
+
+              {/* Saved Templates - shown only if any exist */}
+              {customTemplates.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Save className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">Your Saved Styles</span>
+                    <span className="text-[10px] text-muted-foreground ml-auto">Pick a style, then choose type below</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {customTemplates.map(template => (
+                      <button
+                        key={template.id}
+                        onClick={() => {
+                          applyTemplate(template);
+                          if (!selectedType) setSelectedType("url");
+                        }}
+                        className="group relative flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-card hover:border-primary hover-elevate transition-all text-left"
+                        data-testid={`button-step1-template-${template.id}`}
+                        title={`Apply style: ${template.name}`}
+                      >
+                        <div className="flex gap-1 shrink-0">
+                          <div className="h-4 w-4 rounded-sm border border-border/50 shadow-sm" style={{ backgroundColor: template.darkColor }} />
+                          <div className="h-4 w-4 rounded-sm border border-border/50 shadow-sm" style={{ backgroundColor: template.lightColor }} />
+                        </div>
+                        <span className="text-xs font-medium text-foreground">{template.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
               {QR_TYPE_GROUPS.map(group => {
                 const groupTypes = QR_TYPES.filter(t => t.group === group.id);
                 return (
