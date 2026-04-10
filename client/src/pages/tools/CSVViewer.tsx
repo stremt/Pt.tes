@@ -13,6 +13,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Table,
   TableBody,
   TableCell,
@@ -52,6 +60,7 @@ import {
   CheckCircle2,
   PlayCircle,
   Cloud,
+  History,
 } from "lucide-react";
 
 import { useToast } from "@/hooks/use-toast";
@@ -104,6 +113,16 @@ export default function CSVViewer() {
   const [scrollTop, setScrollTop] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
   const savingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [showSavePrompt, setShowSavePrompt] = useState(false);
+  const [browserHistory, setBrowserHistory] = useState<Array<{
+    id: string;
+    name: string;
+    savedAt: number;
+    rowCount: number;
+    data: any[];
+    headers: string[];
+  }>>([]);
+  const pendingHistorySaveRef = useRef<{ data: any[]; headers: string[]; name: string } | null>(null);
   const containerHeightRef = useRef(600);
   const pendingFocusRef = useRef<{ row: number; col: number } | null>(null);
   const editCommittedRef = useRef(false);
@@ -227,6 +246,56 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     toast({ title: "Cleared", description: "Data has been removed" });
   };
 
+  const saveToHistory = () => {
+    const pending = pendingHistorySaveRef.current;
+    if (!pending) { setShowSavePrompt(false); return; }
+    const newEntry = {
+      id: Date.now().toString(),
+      name: pending.name,
+      savedAt: Date.now(),
+      rowCount: pending.data.length,
+      data: pending.data,
+      headers: pending.headers,
+    };
+    const newHist = [newEntry, ...browserHistory.filter(e => e.name !== pending.name)].slice(0, 10);
+    setBrowserHistory(newHist);
+    try {
+      localStorage.setItem("csv_viewer_saved_files", JSON.stringify(newHist));
+      toast({ title: "Saved to browser", description: "Find it in the history section below the upload area." });
+    } catch {
+      toast({ variant: "destructive", title: "File too large to save in browser" });
+    }
+    pendingHistorySaveRef.current = null;
+    setShowSavePrompt(false);
+  };
+
+  const skipSave = () => {
+    pendingHistorySaveRef.current = null;
+    setShowSavePrompt(false);
+  };
+
+  const loadFromHistory = (entry: { data: any[]; headers: string[]; name: string; rowCount: number }) => {
+    setData(entry.data);
+    setHeaders(entry.headers);
+    setFileName(entry.name);
+    setScrollTop(0);
+    historyRef.current = [entry.data];
+    historyIdxRef.current = 0;
+    setHistoryIndex(0);
+    setHistoryLen(1);
+    toast({ title: "Loaded", description: `${entry.name} — ${entry.rowCount} rows` });
+  };
+
+  const deleteFromHistory = (id: string) => {
+    const newHist = browserHistory.filter(e => e.id !== id);
+    setBrowserHistory(newHist);
+    if (newHist.length === 0) {
+      localStorage.removeItem("csv_viewer_saved_files");
+    } else {
+      localStorage.setItem("csv_viewer_saved_files", JSON.stringify(newHist));
+    }
+  };
+
   const handleCsvContent = useCallback(
     (content: string, name: string = "pasted_data.csv") => {
       Papa.parse(content, {
@@ -243,6 +312,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             historyIdxRef.current = 0;
             setHistoryIndex(0);
             setHistoryLen(1);
+            pendingHistorySaveRef.current = { data: results.data, headers: newHeaders, name };
+            setShowSavePrompt(true);
             toast({
               title: "Success",
               description: `Loaded ${results.data.length} rows`,
@@ -301,6 +372,13 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       localStorage.removeItem("csv_viewer_filename");
     }
   }, [data, headers, fileName]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("csv_viewer_saved_files");
+    if (saved) {
+      try { setBrowserHistory(JSON.parse(saved)); } catch {}
+    }
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchTerm), 200);
@@ -788,6 +866,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   ];
 
   return (
+    <>
     <ToolLayout
       title="CSV Viewer & Editor"
       description="View, edit, and explore your CSV files directly in your browser with full spreadsheet capabilities."
@@ -1031,6 +1110,56 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   >
                     {isLoadingUrl ? "Loading…" : "Load CSV"}
                   </Button>
+                </CardContent>
+              </Card>
+            )}
+
+            {browserHistory.length > 0 && (
+              <Card>
+                <CardHeader className="pb-3 flex-row items-center gap-2 space-y-0">
+                  <History className="h-5 w-5 text-primary shrink-0" />
+                  <div>
+                    <CardTitle className="text-base">Saved in Browser</CardTitle>
+                    <CardDescription className="text-xs mt-0.5">Files you saved for quick access — only stored on this device</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-2 pt-0">
+                  {browserHistory.map((entry) => (
+                    <div key={entry.id} className="flex items-center justify-between gap-2 p-3 rounded-lg bg-muted/30 border">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="p-1.5 rounded-md bg-primary/10 text-primary shrink-0">
+                          <FileText className="h-4 w-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium truncate">{entry.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {entry.rowCount.toLocaleString()} rows · {new Date(entry.savedAt).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => loadFromHistory(entry)}
+                          className="h-7 text-xs gap-1.5"
+                          data-testid={`button-load-history-${entry.id}`}
+                        >
+                          <Upload className="h-3 w-3" />
+                          Load
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                          onClick={() => deleteFromHistory(entry.id)}
+                          data-testid={`button-delete-history-${entry.id}`}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             )}
@@ -1650,5 +1779,32 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         </div>
       </section>
     </ToolLayout>
+    <Dialog open={showSavePrompt} onOpenChange={(open) => { if (!open) skipSave(); }}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Cloud className="h-5 w-5 text-primary" />
+            Save to browser?
+          </DialogTitle>
+          <DialogDescription>
+            Would you like to save <strong className="text-foreground">{pendingHistorySaveRef.current?.name}</strong> in your browser history? You can reload it anytime — even after closing this tab — without re-uploading.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/40 border text-sm text-muted-foreground">
+          <Shield className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+          <span>Your data stays on this device only. Nothing is uploaded to any server.</span>
+        </div>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button variant="outline" onClick={skipSave}>
+            No thanks
+          </Button>
+          <Button onClick={saveToHistory} className="gap-2">
+            <Cloud className="h-4 w-4" />
+            Save locally
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
