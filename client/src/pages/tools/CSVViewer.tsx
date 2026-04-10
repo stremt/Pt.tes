@@ -35,6 +35,7 @@ import {
   Minimize2,
   Highlighter,
   Edit2,
+  Eye,
   Plus,
   Trash2,
   ChevronDown,
@@ -50,6 +51,7 @@ import {
   Link2,
   CheckCircle2,
   PlayCircle,
+  Cloud,
 } from "lucide-react";
 
 import { useToast } from "@/hooks/use-toast";
@@ -100,6 +102,8 @@ export default function CSVViewer() {
   const [editingHeader, setEditingHeader] = useState<string | null>(null);
   const [editingHeaderValue, setEditingHeaderValue] = useState("");
   const [scrollTop, setScrollTop] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
+  const savingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerHeightRef = useRef(600);
   const pendingFocusRef = useRef<{ row: number; col: number } | null>(null);
   const editCommittedRef = useRef(false);
@@ -285,6 +289,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         localStorage.setItem("csv_viewer_data", JSON.stringify(data));
         localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
         localStorage.setItem("csv_viewer_filename", fileName);
+        if (savingTimerRef.current) clearTimeout(savingTimerRef.current);
+        setIsSaving(true);
+        savingTimerRef.current = setTimeout(() => setIsSaving(false), 1800);
       } catch (e) {
         console.warn("Storage quota exceeded, data not saved locally");
       }
@@ -649,6 +656,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    toast({
+      title: "File exported",
+      description: "Your file is also auto-saved in this browser. Come back anytime and your data will still be here.",
+    });
   };
 
   const filteredData = useMemo(() => {
@@ -1109,7 +1120,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   )}
                   data-testid="button-edit-mode"
                 >
-                  <Edit2 className="h-4 w-4" />
+                  {isEditing ? <Eye className="h-4 w-4" /> : <Edit2 className="h-4 w-4" />}
                   {isEditing ? "View Mode" : "Edit Mode"}
                 </Button>
 
@@ -1184,6 +1195,15 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   )}
                 </div>
 
+                <div
+                  className={cn(
+                    "flex items-center gap-1 text-[10px] font-medium overflow-hidden transition-all duration-500",
+                    isSaving ? "opacity-100 max-w-[70px]" : "opacity-0 max-w-0",
+                  )}
+                >
+                  <Cloud className="h-3 w-3 text-primary shrink-0" />
+                  <span className="text-primary whitespace-nowrap">Saved</span>
+                </div>
                 <Button onClick={downloadCSV} size="sm" className="h-9 gap-2 ml-1">
                   <Download className="h-4 w-4" />
                   Export
