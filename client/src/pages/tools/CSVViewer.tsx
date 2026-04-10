@@ -1058,16 +1058,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               onScroll={handleScroll}
             >
               <Table className="border-separate border-spacing-0">
-                <TableHeader className="sticky top-0 z-50 bg-muted backdrop-blur-sm">
+                <TableHeader>
                   <TableRow className="hover:bg-transparent">
-                    <TableHead className="w-12 text-center border-r-2 border-b-2 border-border font-bold text-muted-foreground/70 bg-muted">
+                    <TableHead className="sticky top-0 z-50 w-12 text-center border-r-2 border-b-2 border-border font-bold text-muted-foreground/70 bg-muted">
                       #
                     </TableHead>
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
                         className={cn(
-                          "min-w-[150px] p-0 border-r-2 border-b-2 border-border group relative",
+                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-border group relative",
                           flashCol === header ? "animate-csv-flash" : "bg-muted",
                         )}
                       >
@@ -1127,7 +1127,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                       </TableHead>
                     ))}
                     {isEditing && (
-                      <TableHead className="w-12 p-0 border-b">
+                      <TableHead className="sticky top-0 z-50 w-12 p-0 border-b bg-muted">
                         <Button
                           variant="ghost"
                           size="icon"
