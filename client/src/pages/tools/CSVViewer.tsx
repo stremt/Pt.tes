@@ -540,12 +540,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   };
 
   const toggleFullScreen = () => {
-    const entering = !isFullScreen;
-    setIsFullScreen(entering);
-    if (entering && data.length > 0) {
-      pendingHistorySaveRef.current = { data, headers, name: fileName || "data.csv" };
-      setShowSavePrompt(true);
-    }
+    setIsFullScreen((prev) => !prev);
   };
 
   const toggleHighlight = () => {
