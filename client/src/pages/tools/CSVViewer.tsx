@@ -1393,12 +1393,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
-                        className={cn(
-                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-muted-foreground/30 group",
-                          flashCol === header ? "animate-csv-flash" : "bg-muted",
-                        )}
+                        className="sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-muted-foreground/30 group bg-muted relative overflow-hidden"
                       >
-                        <div className="flex items-center justify-between px-2 h-10">
+                        {flashCol === header && (
+                          <div className="absolute inset-0 animate-csv-flash pointer-events-none z-0" />
+                        )}
+                        <div className="flex items-center justify-between px-2 h-10 relative z-[1]">
                           {isEditing && editingHeader === header ? (
                             <Input
                               autoFocus
@@ -1540,7 +1540,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                                 onBlur={handleBlur}
                               />
                             ) : (
-                              <div className="px-3 py-2 truncate text-sm text-foreground/90 font-medium max-w-[300px]">
+                              <div
+                                className="px-3 py-2 truncate text-sm text-foreground/90 font-medium max-w-[300px]"
+                                title={String(row[header] ?? "")}
+                              >
                                 <HighlightText
                                   text={String(row[header] || "")}
                                   highlight={debouncedSearch}
