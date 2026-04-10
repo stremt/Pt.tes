@@ -1067,7 +1067,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                       <TableHead
                         key={index}
                         className={cn(
-                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-border group relative",
+                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-border group",
                           flashCol === header ? "animate-csv-flash" : "bg-muted",
                         )}
                       >
