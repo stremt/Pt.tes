@@ -976,8 +976,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   )}
                   data-testid="button-edit-mode"
                 >
-                  <Edit2 className={cn("h-4 w-4", isEditing && "animate-pulse")} />
-                  {isEditing ? "Editing..." : "Edit Mode"}
+                  <Edit2 className="h-4 w-4" />
+                  {isEditing ? "View Mode" : "Edit Mode"}
                 </Button>
 
                 {isEditing && (
@@ -990,7 +990,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                           <ChevronDown className="h-3 w-3 opacity-50" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuContent align="end" className="w-48" style={{ zIndex: 1000001 }}>
                         <DropdownMenuItem onClick={addRow} className="gap-2">
                           <FileText className="h-4 w-4" />
                           Add New Row
@@ -1058,17 +1058,17 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               onScroll={handleScroll}
             >
               <Table className="border-separate border-spacing-0">
-                <TableHeader className="sticky top-0 z-20 bg-muted/95 backdrop-blur-sm">
+                <TableHeader className="sticky top-0 z-50 bg-muted backdrop-blur-sm">
                   <TableRow className="hover:bg-transparent">
-                    <TableHead className="w-12 text-center border-r border-b font-bold text-muted-foreground/70 bg-muted/50">
+                    <TableHead className="w-12 text-center border-r-2 border-b-2 border-border font-bold text-muted-foreground/70 bg-muted">
                       #
                     </TableHead>
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
                         className={cn(
-                          "min-w-[150px] p-0 border-r border-b group relative",
-                          flashCol === header ? "animate-csv-flash" : "bg-muted/50",
+                          "min-w-[150px] p-0 border-r-2 border-b-2 border-border group relative",
+                          flashCol === header ? "animate-csv-flash" : "bg-muted",
                         )}
                       >
                         <div className="flex items-center justify-between px-3 h-10">
@@ -1088,39 +1088,41 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                               <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-0 group-hover:opacity-40" />
                             )}
                           </button>
-                          <div className="flex items-center">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-6 w-6 opacity-0 group-hover:opacity-100"
-                                >
-                                  <ChevronDown className="h-3 w-3" />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end">
-                                <DropdownMenuItem
-                                  onClick={() => {
-                                    const newKey = prompt(
-                                      "Rename column:",
-                                      header,
-                                    );
-                                    if (newKey) renameColumn(header, newKey);
-                                  }}
-                                  className="gap-2"
-                                >
-                                  <Type className="h-4 w-4" /> Rename
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                  className="text-destructive focus:text-destructive focus:bg-destructive/10 gap-2"
-                                  onClick={() => deleteColumn(header)}
-                                >
-                                  <Trash2 className="h-4 w-4" /> Delete
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </div>
+                          {isEditing && (
+                            <div className="flex items-center">
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-6 w-6 opacity-0 group-hover:opacity-100"
+                                  >
+                                    <ChevronDown className="h-3 w-3" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" style={{ zIndex: 1000001 }}>
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      const newKey = prompt(
+                                        "Rename column:",
+                                        header,
+                                      );
+                                      if (newKey) renameColumn(header, newKey);
+                                    }}
+                                    className="gap-2"
+                                  >
+                                    <Type className="h-4 w-4" /> Rename
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    className="text-destructive focus:text-destructive focus:bg-destructive/10 gap-2"
+                                    onClick={() => deleteColumn(header)}
+                                  >
+                                    <Trash2 className="h-4 w-4" /> Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </div>
+                          )}
                         </div>
                       </TableHead>
                     ))}
@@ -1152,7 +1154,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                         )}
                       >
                         <TableCell className={cn(
-                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r border-b bg-muted/20",
+                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r-2 border-b border-border bg-muted/30",
                           flashRowObj !== row && "group-hover:bg-primary/10",
                         )}>
                           {rowIndex + 1}
@@ -1161,7 +1163,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                           <TableCell
                             key={colIndex}
                             className={cn(
-                              "relative p-0 h-11 min-w-[150px] border-r border-b transition-all",
+                              "relative p-0 h-11 min-w-[150px] border-r border-b border-border transition-all",
                               flashCol === header && flashRowObj === null && "animate-csv-flash",
                               isEditing && flashRowObj !== row && flashCol !== header && "cursor-text hover:bg-primary/10 hover:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.3)]",
                               isEditing && editCell?.rowIndex === rowIndex && editCell?.colKey === header
