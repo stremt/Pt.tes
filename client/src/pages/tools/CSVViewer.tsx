@@ -1686,11 +1686,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           <div>
             <h2 className="text-3xl font-bold mb-4">What is a CSV Viewer?</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              A <strong>CSV viewer</strong> is a tool that lets you open and read CSV (comma-separated values) files in a clean, readable table format — without needing Microsoft Excel or any other installed software. CSV is the most universal data format used by databases, APIs, spreadsheets, and data exports. A good <strong>CSV file viewer</strong> lets you instantly see all rows and columns, search through thousands of records, and understand your data at a glance.
+              A <strong>CSV viewer</strong> is a tool that lets you open and read CSV (comma-separated values) files in a clean, readable table format — without needing Microsoft Excel or any other installed software.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Pixocraft's free online CSV viewer goes further — it's also a full <strong>CSV editor</strong>, letting you modify cells, add and delete rows and columns, rename headers, and download the updated file. Everything runs in your browser. No upload. No server. No risk.
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              CSV is the most universal data format used by databases, APIs, spreadsheets, and data exports. A good <strong>CSV file viewer</strong> lets you instantly see all rows and columns, search through thousands of records, and understand your data at a glance.
             </p>
+            <div className="p-4 border rounded-lg bg-primary/5">
+              <p className="text-sm font-medium text-foreground">
+                Pixocraft's free <strong>online CSV viewer</strong> goes further — it's also a full <strong>CSV editor</strong>. Modify cells, add and delete rows and columns, rename headers, and download the updated file. Everything runs in your browser. <strong>No upload. No server. No risk.</strong>
+              </p>
+            </div>
           </div>
 
           {/* How to Open CSV File Without Excel */}
@@ -1726,8 +1731,11 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           {/* Best CSV Viewer Online */}
           <div>
             <h2 className="text-3xl font-bold mb-4">Best CSV Viewer Online — Free &amp; Fast</h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Most free online CSV tools are slow, upload your data to a server, or hit row limits. Pixocraft's <strong>CSV viewer online</strong> is built differently — it processes everything in your browser using client-side JavaScript, so there's zero upload, zero wait, and zero data risk. It handles files with hundreds of thousands of rows without breaking a sweat.
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Most free online <strong>CSV viewer</strong> tools are slow, upload your data to a server, or hit row limits. Pixocraft's <strong>CSV viewer online</strong> is built differently.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              It processes everything in your browser using client-side JavaScript — so there's zero upload, zero wait, and zero data risk. <strong>Open CSV file online</strong> with hundreds of thousands of rows without breaking a sweat.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
@@ -1752,9 +1760,14 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           {/* How to Edit CSV File Online */}
           <div>
             <h2 className="text-3xl font-bold mb-4">How to Edit CSV File Online</h2>
-            <p className="text-muted-foreground mb-6">
-              Our free <strong>CSV editor</strong> makes it easy to clean, fix, and restructure your data without Excel. Here's everything you can do:
+            <p className="text-muted-foreground mb-4">
+              Our free <strong>CSV editor</strong> makes it easy to clean, fix, and restructure your data — no Excel, no installation, no signup required.
             </p>
+            <div className="p-4 border rounded-lg bg-muted/30 mb-6">
+              <p className="text-sm text-foreground">
+                Everything you edit is <strong>auto-saved to your browser</strong> in real time. Close the tab and come back — your data will still be there. Use <strong>undo/redo</strong> with up to 50 steps to experiment without fear.
+              </p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {[
                 { title: "Edit any cell", desc: "Enable Edit mode and click any cell to modify its value directly. Start typing to replace the content instantly." },
@@ -1815,11 +1828,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           <div>
             <h2 className="text-3xl font-bold mb-4">Open Large CSV Files Without Lag</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Standard spreadsheet apps like Excel struggle with CSV files over 100MB — they freeze, crash, or take minutes to open. Our <strong>csv viewer online</strong> uses incremental rendering: it loads the first 100 rows instantly, then fetches more as you scroll. Your browser stays fully responsive no matter the file size.
+              Standard spreadsheet apps like Excel struggle with CSV files over 100MB — they freeze, crash, or take minutes to open.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              The built-in search is also optimised for large datasets — it scans all columns across all rows in real time without page reloads or server calls. This makes it the fastest way to <strong>view large CSV files</strong> online for free.
+              Our <strong>CSV viewer online</strong> uses incremental rendering: it loads the first rows instantly, then fetches more as you scroll. Your browser stays fully responsive no matter the file size.
             </p>
+            <div className="p-4 border rounded-lg bg-muted/30 mb-4">
+              <p className="text-sm text-foreground">
+                <strong>Built-in real-time search</strong> scans all columns across all rows instantly — no page reloads, no server calls. This makes it the fastest way to <strong>view large CSV files</strong> online for free.
+              </p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
                 { stat: "100k+", label: "Rows handled smoothly" },
@@ -1837,43 +1855,51 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           {/* Internal links */}
           <div>
             <h2 className="text-3xl font-bold mb-4">Related Tools to Supercharge Your CSV Workflow</h2>
-            <p className="text-muted-foreground mb-6">
-              Convert your data first, then <strong>open the CSV file online</strong> in this viewer for instant review and editing:
+            <p className="text-muted-foreground mb-4">
+              Need to convert data first? Use these tools, then <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">open the CSV file online</Link> in this <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV viewer</Link> for instant review and <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV editing</Link>.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/tools/json-csv-converter">
                 <div className="flex items-center gap-3 p-4 border rounded-lg hover-elevate cursor-pointer">
-                  <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                  <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                    <ArrowRight className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <div className="font-semibold text-sm">JSON to CSV Converter</div>
-                    <div className="text-xs text-muted-foreground">Convert JSON then view your CSV data here instantly</div>
+                    <div className="text-xs text-muted-foreground">Convert JSON to CSV, then open CSV file online instantly</div>
                   </div>
                 </div>
               </Link>
               <Link href="/tools/xlsx-to-csv-converter">
                 <div className="flex items-center gap-3 p-4 border rounded-lg hover-elevate cursor-pointer">
-                  <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                  <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                    <ArrowRight className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <div className="font-semibold text-sm">Excel to CSV Converter</div>
-                    <div className="text-xs text-muted-foreground">Convert Excel to CSV, then edit CSV online without Excel</div>
+                    <div className="text-xs text-muted-foreground">Convert .xlsx to CSV, then use our CSV editor without Excel</div>
                   </div>
                 </div>
               </Link>
               <Link href="/tools/json-formatter">
                 <div className="flex items-center gap-3 p-4 border rounded-lg hover-elevate cursor-pointer">
-                  <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                  <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                    <ArrowRight className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <div className="font-semibold text-sm">JSON Formatter</div>
-                    <div className="text-xs text-muted-foreground">Format and validate JSON before converting to CSV</div>
+                    <div className="text-xs text-muted-foreground">Format and validate JSON before converting to CSV for the viewer</div>
                   </div>
                 </div>
               </Link>
               <Link href="/tools/excel-viewer">
                 <div className="flex items-center gap-3 p-4 border rounded-lg hover-elevate cursor-pointer">
-                  <ArrowRight className="h-4 w-4 text-primary shrink-0" />
+                  <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                    <ArrowRight className="h-4 w-4 text-primary" />
+                  </div>
                   <div>
                     <div className="font-semibold text-sm">Excel Viewer Online</div>
-                    <div className="text-xs text-muted-foreground">View .xlsx files directly in your browser without Excel</div>
+                    <div className="text-xs text-muted-foreground">View .xlsx files directly in your browser — no Excel needed</div>
                   </div>
                 </div>
               </Link>
