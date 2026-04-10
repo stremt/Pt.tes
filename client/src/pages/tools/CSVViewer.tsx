@@ -561,6 +561,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
   const handleCellClick = (rowIndex: number, colKey: string) => {
     if (isEditing) {
+      setEditCellValue(String(data[rowIndex]?.[colKey] ?? ""));
       setEditCell({ rowIndex, colKey });
     }
   };
@@ -613,10 +614,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         ) {
           const nextDataIdx = filteredData[nextFilteredRow]?.dataIdx;
           if (nextDataIdx !== undefined) {
-            setTimeout(
-              () => setEditCell({ rowIndex: nextDataIdx, colKey: headers[nextCol] }),
-              0,
-            );
+            const nextColKey = headers[nextCol];
+            const nextVal = String(data[nextDataIdx]?.[nextColKey] ?? "");
+            setTimeout(() => {
+              setEditCellValue(nextVal);
+              setEditCell({ rowIndex: nextDataIdx, colKey: nextColKey });
+            }, 0);
           }
         }
       } else {
