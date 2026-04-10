@@ -1423,7 +1423,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                             />
                           ) : (
                             <button
-                              className="flex items-center gap-1 font-bold text-foreground text-sm truncate uppercase tracking-tight hover:text-primary transition-colors flex-1 min-w-0"
+                              className="flex items-center gap-1 font-bold text-foreground text-sm whitespace-nowrap uppercase tracking-tight hover:text-primary transition-colors flex-1 min-w-0"
                               onClick={() => {
                                 if (isEditing) {
                                   setEditingHeader(header);
@@ -1434,7 +1434,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                               }}
                               title={isEditing ? `Click to rename "${header}"` : `Sort by ${header}`}
                             >
-                              <span className="truncate">{header}</span>
+                              <span>{header}</span>
                               {!isEditing && (sortConfig?.key === header ? (
                                 sortConfig.direction === "asc" ? (
                                   <ChevronUp className="h-3 w-3 shrink-0 text-primary" />
@@ -1538,7 +1538,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                               />
                             ) : (
                               <div
-                                className="px-3 py-2 truncate text-sm text-foreground/90 font-medium max-w-[300px]"
+                                className="px-3 py-2 whitespace-nowrap text-sm text-foreground/90 font-medium"
                                 title={String(row[header] ?? "")}
                               >
                                 <HighlightText
