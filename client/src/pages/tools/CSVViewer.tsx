@@ -1057,7 +1057,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               )}
               onScroll={handleScroll}
             >
-              <Table className="border-separate border-spacing-0">
+              <table className="w-full caption-bottom text-sm border-separate border-spacing-0">
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
                     <TableHead className="sticky top-0 z-50 w-12 text-center border-r-2 border-b-2 border-border font-bold text-muted-foreground/70 bg-muted">
@@ -1235,7 +1235,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     </TableRow>
                   )}
                 </TableBody>
-              </Table>
+              </table>
               {displayCount < filteredData.length && (
                 <div className="p-8 text-center text-muted-foreground animate-pulse">
                   <div className="flex items-center justify-center gap-2">
