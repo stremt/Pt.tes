@@ -244,7 +244,7 @@ const STYLE_PRESETS: StylePreset[] = [
   },
 ];
 
-export default function QRMaker({ embedMode = false }: { embedMode?: boolean } = {}) {
+export default function QRMaker({ embedMode = false, defaultType = "" }: { embedMode?: boolean; defaultType?: string } = {}) {
   const { setHideFloatingButton } = useUI();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [activeTab, setActiveTab] = useState("colors");
@@ -277,6 +277,7 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
     if (idx > 0) switchTab(TAB_STEPS[idx - 1].id);
   };
   const [selectedType, setSelectedType] = useState("");
+  const [showMoreTypes, setShowMoreTypes] = useState(false);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([]);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
@@ -1562,47 +1563,136 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
                   </div>
                 </div>
               )}
-              {QR_TYPE_GROUPS.map(group => {
-                const groupTypes = QR_TYPES.filter(t => t.group === group.id);
-                return (
-                  <div key={group.id}>
-                    <div className="flex items-center gap-2 mb-2.5">
-                      <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
-                      <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
-                      {groupTypes.map(type => {
-                        const Icon = type.icon;
+              {defaultType ? (
+                <>
+                  {(() => {
+                    const featuredType = QR_TYPES.find(t => t.id === defaultType);
+                    if (!featuredType) return null;
+                    const Icon = featuredType.icon;
+                    return (
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-2.5">
+                          <span className="w-2 h-2 rounded-full bg-primary" />
+                          <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">Best for this page</span>
+                        </div>
+                        <button
+                          onClick={() => { setSelectedType(featuredType.id); setFormData({}); goToStep(2); }}
+                          className={`relative w-full flex items-center gap-4 p-4 sm:p-5 rounded-xl border-2 border-primary bg-gradient-to-br ${featuredType.gradient} hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                          data-testid={`button-qr-type-${featuredType.id}`}
+                        >
+                          <div className={`w-12 h-12 rounded-xl ${featuredType.iconBg} flex items-center justify-center shrink-0`}>
+                            <Icon className={`w-6 h-6 ${featuredType.iconColor}`} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-bold text-base text-foreground leading-tight">{featuredType.label}</p>
+                            <p className="text-sm text-muted-foreground mt-0.5 leading-snug">{featuredType.description}</p>
+                          </div>
+                          <div className="shrink-0 flex items-center gap-2">
+                            <span className="hidden sm:inline text-xs font-semibold text-primary">Start here</span>
+                            <ChevronRight className="w-5 h-5 text-primary" />
+                          </div>
+                        </button>
+                      </div>
+                    );
+                  })()}
+                  <button
+                    onClick={() => setShowMoreTypes(v => !v)}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-3"
+                    data-testid="button-show-more-qr-types"
+                  >
+                    <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${showMoreTypes ? "rotate-90" : ""}`} />
+                    {showMoreTypes ? "Hide other QR types" : "More QR types"}
+                  </button>
+                  {showMoreTypes && (
+                    <div className="space-y-4">
+                      {QR_TYPE_GROUPS.map(group => {
+                        const groupTypes = QR_TYPES.filter(t => t.group === group.id && t.id !== defaultType);
+                        if (groupTypes.length === 0) return null;
                         return (
-                          <button
-                            key={type.id}
-                            onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
-                            className={`relative flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
-                            data-testid={`button-qr-type-${type.id}`}
-                          >
-                            {type.badge && (
-                              <span className={`absolute top-2 right-2 text-[9px] font-bold text-white px-1.5 py-0.5 rounded-full ${type.badgeColor}`}>
-                                {type.badge}
-                              </span>
-                            )}
-                            <div className={`w-10 h-10 sm:w-9 sm:h-9 rounded-lg ${type.iconBg} flex items-center justify-center shrink-0 sm:mb-2.5`}>
-                              <Icon className={`w-5 h-5 sm:w-4 sm:h-4 ${type.iconColor}`} />
+                          <div key={group.id}>
+                            <div className="flex items-center gap-2 mb-2.5">
+                              <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
+                              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
-                              <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{type.description}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                              {groupTypes.map(type => {
+                                const Icon = type.icon;
+                                return (
+                                  <button
+                                    key={type.id}
+                                    onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
+                                    className={`relative flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                                    data-testid={`button-qr-type-${type.id}`}
+                                  >
+                                    {type.badge && (
+                                      <span className={`absolute top-2 right-2 text-[9px] font-bold text-white px-1.5 py-0.5 rounded-full ${type.badgeColor}`}>
+                                        {type.badge}
+                                      </span>
+                                    )}
+                                    <div className={`w-10 h-10 sm:w-9 sm:h-9 rounded-lg ${type.iconBg} flex items-center justify-center shrink-0 sm:mb-2.5`}>
+                                      <Icon className={`w-5 h-5 sm:w-4 sm:h-4 ${type.iconColor}`} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
+                                      <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{type.description}</p>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4 text-primary shrink-0 sm:hidden" />
+                                    <div className="hidden sm:flex mt-3 items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                      <ChevronRight className="w-3 h-3 text-primary" />
+                                    </div>
+                                  </button>
+                                );
+                              })}
                             </div>
-                            <ChevronRight className="w-4 h-4 text-primary shrink-0 sm:hidden" />
-                            <div className="hidden sm:flex mt-3 items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                              <ChevronRight className="w-3 h-3 text-primary" />
-                            </div>
-                          </button>
+                          </div>
                         );
                       })}
                     </div>
-                  </div>
-                );
-              })}
+                  )}
+                </>
+              ) : (
+                QR_TYPE_GROUPS.map(group => {
+                  const groupTypes = QR_TYPES.filter(t => t.group === group.id);
+                  return (
+                    <div key={group.id}>
+                      <div className="flex items-center gap-2 mb-2.5">
+                        <span className={`w-2 h-2 rounded-full ${group.indicator}`} />
+                        <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">{group.label}</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                        {groupTypes.map(type => {
+                          const Icon = type.icon;
+                          return (
+                            <button
+                              key={type.id}
+                              onClick={() => { setSelectedType(type.id); setFormData({}); goToStep(2); }}
+                              className={`relative flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0 p-3 sm:p-5 rounded-xl border border-border bg-gradient-to-br ${type.gradient} hover:border-primary hover:shadow-md transition-all duration-200 text-left group active:scale-[0.98]`}
+                              data-testid={`button-qr-type-${type.id}`}
+                            >
+                              {type.badge && (
+                                <span className={`absolute top-2 right-2 text-[9px] font-bold text-white px-1.5 py-0.5 rounded-full ${type.badgeColor}`}>
+                                  {type.badge}
+                                </span>
+                              )}
+                              <div className={`w-10 h-10 sm:w-9 sm:h-9 rounded-lg ${type.iconBg} flex items-center justify-center shrink-0 sm:mb-2.5`}>
+                                <Icon className={`w-5 h-5 sm:w-4 sm:h-4 ${type.iconColor}`} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-semibold text-sm text-foreground leading-tight">{type.label}</p>
+                                <p className="text-[11px] text-muted-foreground mt-0.5 leading-snug">{type.description}</p>
+                              </div>
+                              <ChevronRight className="w-4 h-4 text-primary shrink-0 sm:hidden" />
+                              <div className="hidden sm:flex mt-3 items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ChevronRight className="w-3 h-3 text-primary" />
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           )}
 

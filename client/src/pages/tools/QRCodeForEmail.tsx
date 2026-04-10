@@ -131,7 +131,7 @@ export default function QRCodeForEmail() {
               </p>
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
-              <QRMaker embedMode={true} />
+              <QRMaker embedMode={true} defaultType="email" />
             </div>
           </section>
 

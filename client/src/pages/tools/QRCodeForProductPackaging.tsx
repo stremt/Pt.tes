@@ -94,7 +94,7 @@ export default function QRCodeForProductPackaging() {
               <p className="text-lg text-muted-foreground">Enter your product page URL, user manual link, or warranty registration page to create a high-resolution QR code for your packaging.</p>
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
-              <QRMaker embedMode={true} />
+              <QRMaker embedMode={true} defaultType="url" />
             <p className="mt-4 text-sm text-muted-foreground">
                 Use our{" "}
                 <Link href="/tools/qr-maker">

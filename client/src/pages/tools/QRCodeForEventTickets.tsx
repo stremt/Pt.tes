@@ -94,7 +94,7 @@ export default function QRCodeForEventTickets() {
               <p className="text-lg text-muted-foreground">Enter your event registration URL, ticket confirmation page, or event information link to create a QR code for your event.</p>
             </div>
             <div className="bg-muted/30 border rounded-lg p-6">
-              <QRMaker embedMode={true} />
+              <QRMaker embedMode={true} defaultType="url" />
             <p className="mt-4 text-sm text-muted-foreground">
                 Use our{" "}
                 <Link href="/tools/qr-maker">
