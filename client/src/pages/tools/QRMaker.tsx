@@ -1380,8 +1380,13 @@ export default function QRMaker({ embedMode = false }: { embedMode?: boolean } =
       {!embedMode && <StructuredData data={breadcrumbSchema} />}
 
       {/* Mobile Sticky Bottom Download Bar - Step 3 only, hidden when keyboard is up */}
-      {showMobileDownloadBar && selectedType && !isInputFocused && (
-        <div className="fixed bottom-0 left-0 right-0 z-[9999] lg:hidden bg-background/95 backdrop-blur-md border-t border-border shadow-2xl px-4 py-3 safe-area-bottom" data-testid="mobile-download-bar">
+      {/* Keep canvas always mounted (use display:none not unmount) so mobileBottomCanvasRef stays valid after logo upload */}
+      {showMobileDownloadBar && selectedType && (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-[9999] lg:hidden bg-background/95 backdrop-blur-md border-t border-border shadow-2xl px-4 py-3 safe-area-bottom"
+          data-testid="mobile-download-bar"
+          style={{ display: isInputFocused ? 'none' : undefined }}
+        >
           <div className="flex items-center gap-3 max-w-lg mx-auto">
             <div className="h-14 w-14 rounded-xl overflow-hidden border border-border shrink-0 bg-white shadow-sm">
               <canvas ref={mobileBottomCanvasRef} style={{ display: 'block', width: '100%', height: '100%', imageRendering: 'crisp-edges' }} />
