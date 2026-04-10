@@ -40,7 +40,6 @@ import {
   ChevronDown,
   ChevronUp,
   ChevronsUpDown,
-  Type,
   Undo2,
   Redo2,
   ClipboardPaste,
@@ -52,6 +51,7 @@ import {
   CheckCircle2,
   PlayCircle,
 } from "lucide-react";
+
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
@@ -92,8 +92,13 @@ export default function CSVViewer() {
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: "asc" | "desc" } | null>(null);
   const [flashRowObj, setFlashRowObj] = useState<Record<string, any> | null>(null);
   const [flashCol, setFlashCol] = useState<string | null>(null);
+  const [flashCell, setFlashCell] = useState<{ rowIndex: number; colKey: string } | null>(null);
+  const [editingHeader, setEditingHeader] = useState<string | null>(null);
+  const [editingHeaderValue, setEditingHeaderValue] = useState("");
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const flashCellTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const tableScrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   const triggerRowFlash = (rowObj: Record<string, any>) => {
@@ -108,6 +113,31 @@ export default function CSVViewer() {
     setFlashCol(colKey);
     setFlashRowObj(null);
     flashTimerRef.current = setTimeout(() => setFlashCol(null), 2600);
+  };
+
+  const triggerCellFlash = (rowIndex: number, colKey: string) => {
+    if (flashCellTimerRef.current) clearTimeout(flashCellTimerRef.current);
+    setFlashCell({ rowIndex, colKey });
+    flashCellTimerRef.current = setTimeout(() => setFlashCell(null), 2600);
+  };
+
+  const scrollToCell = (rowIndex: number, colKey: string) => {
+    if (!tableScrollRef.current) return;
+    const colIndex = headers.indexOf(colKey);
+    const cell = tableScrollRef.current.querySelector(`[data-row="${rowIndex}"][data-col="${colIndex}"]`);
+    if (cell) {
+      cell.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    }
+  };
+
+  const findDataDiff = (oldData: any[], newData: any[], hdrs: string[]) => {
+    for (let r = 0; r < Math.max(oldData.length, newData.length); r++) {
+      if (!oldData[r] || !newData[r]) return { rowIndex: r, colKey: hdrs[0] || "" };
+      for (const key of hdrs) {
+        if (oldData[r][key] !== newData[r][key]) return { rowIndex: r, colKey: key };
+      }
+    }
+    return null;
   };
 
   const SAMPLE_CSV = `Name,Department,Role,Salary,Start Date,City
@@ -257,16 +287,34 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   const undo = () => {
     if (historyIndex > 0) {
       const newIndex = historyIndex - 1;
+      const oldData = history[historyIndex];
+      const newData = history[newIndex];
       setHistoryIndex(newIndex);
-      setData([...history[newIndex]]);
+      setData([...newData]);
+      const diff = findDataDiff(oldData, newData, headers);
+      if (diff) {
+        setTimeout(() => {
+          scrollToCell(diff.rowIndex, diff.colKey);
+          triggerCellFlash(diff.rowIndex, diff.colKey);
+        }, 80);
+      }
     }
   };
 
   const redo = () => {
     if (historyIndex < history.length - 1) {
       const newIndex = historyIndex + 1;
+      const oldData = history[historyIndex];
+      const newData = history[newIndex];
       setHistoryIndex(newIndex);
-      setData([...history[newIndex]]);
+      setData([...newData]);
+      const diff = findDataDiff(oldData, newData, headers);
+      if (diff) {
+        setTimeout(() => {
+          scrollToCell(diff.rowIndex, diff.colKey);
+          triggerCellFlash(diff.rowIndex, diff.colKey);
+        }, 80);
+      }
     }
   };
 
@@ -1051,6 +1099,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             </div>
 
             <div
+              ref={tableScrollRef}
               className={cn(
                 "relative overflow-auto border-t",
                 isFullScreen ? "flex-1" : "max-h-[700px]",
@@ -1060,36 +1109,67 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               <table className="w-full caption-bottom text-sm border-separate border-spacing-0">
                 <TableHeader>
                   <TableRow className="hover:bg-transparent">
-                    <TableHead className="sticky top-0 z-50 w-12 text-center border-r-2 border-b-2 border-border font-bold text-muted-foreground/70 bg-muted">
+                    <TableHead className="sticky top-0 z-50 w-12 text-center border-r-2 border-b-2 border-muted-foreground/30 font-bold text-muted-foreground/70 bg-muted">
                       #
                     </TableHead>
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
                         className={cn(
-                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-border group",
+                          "sticky top-0 z-50 min-w-[150px] p-0 border-r-2 border-b-2 border-muted-foreground/30 group",
                           flashCol === header ? "animate-csv-flash" : "bg-muted",
                         )}
                       >
-                        <div className="flex items-center justify-between px-3 h-10">
-                          <button
-                            className="flex items-center gap-1 font-bold text-foreground text-sm truncate uppercase tracking-tight hover:text-primary transition-colors"
-                            onClick={() => handleSort(header)}
-                            title={`Sort by ${header}`}
-                          >
-                            <span className="truncate">{header}</span>
-                            {sortConfig?.key === header ? (
-                              sortConfig.direction === "asc" ? (
-                                <ChevronUp className="h-3 w-3 shrink-0 text-primary" />
+                        <div className="flex items-center justify-between px-2 h-10">
+                          {isEditing && editingHeader === header ? (
+                            <Input
+                              autoFocus
+                              value={editingHeaderValue}
+                              onChange={(e) => setEditingHeaderValue(e.target.value)}
+                              onBlur={() => {
+                                const val = editingHeaderValue.trim();
+                                if (val && val !== header) renameColumn(header, val);
+                                setEditingHeader(null);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  const val = editingHeaderValue.trim();
+                                  if (val && val !== header) renameColumn(header, val);
+                                  setEditingHeader(null);
+                                } else if (e.key === "Escape") {
+                                  setEditingHeader(null);
+                                }
+                                e.stopPropagation();
+                              }}
+                              className="h-7 flex-1 border-primary text-xs font-bold uppercase tracking-tight bg-background focus-visible:ring-0 focus-visible:ring-offset-0 px-2"
+                            />
+                          ) : (
+                            <button
+                              className="flex items-center gap-1 font-bold text-foreground text-sm truncate uppercase tracking-tight hover:text-primary transition-colors flex-1 min-w-0"
+                              onClick={() => {
+                                if (isEditing) {
+                                  setEditingHeader(header);
+                                  setEditingHeaderValue(header);
+                                } else {
+                                  handleSort(header);
+                                }
+                              }}
+                              title={isEditing ? `Click to rename "${header}"` : `Sort by ${header}`}
+                            >
+                              <span className="truncate">{header}</span>
+                              {!isEditing && (sortConfig?.key === header ? (
+                                sortConfig.direction === "asc" ? (
+                                  <ChevronUp className="h-3 w-3 shrink-0 text-primary" />
+                                ) : (
+                                  <ChevronDown className="h-3 w-3 shrink-0 text-primary" />
+                                )
                               ) : (
-                                <ChevronDown className="h-3 w-3 shrink-0 text-primary" />
-                              )
-                            ) : (
-                              <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-0 group-hover:opacity-40" />
-                            )}
-                          </button>
-                          {isEditing && (
-                            <div className="flex items-center">
+                                <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-0 group-hover:opacity-40" />
+                              ))}
+                            </button>
+                          )}
+                          {isEditing && editingHeader !== header && (
+                            <div className="flex items-center shrink-0">
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                   <Button
@@ -1102,22 +1182,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" style={{ zIndex: 1000001 }}>
                                   <DropdownMenuItem
-                                    onClick={() => {
-                                      const newKey = prompt(
-                                        "Rename column:",
-                                        header,
-                                      );
-                                      if (newKey) renameColumn(header, newKey);
-                                    }}
-                                    className="gap-2"
-                                  >
-                                    <Type className="h-4 w-4" /> Rename
-                                  </DropdownMenuItem>
-                                  <DropdownMenuItem
                                     className="text-destructive focus:text-destructive focus:bg-destructive/10 gap-2"
                                     onClick={() => deleteColumn(header)}
                                   >
-                                    <Trash2 className="h-4 w-4" /> Delete
+                                    <Trash2 className="h-4 w-4" /> Delete Column
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
                               </DropdownMenu>
@@ -1127,7 +1195,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                       </TableHead>
                     ))}
                     {isEditing && (
-                      <TableHead className="sticky top-0 z-50 w-12 p-0 border-b bg-muted">
+                      <TableHead className="sticky top-0 z-50 w-12 p-0 border-b-2 border-muted-foreground/30 bg-muted">
                         <Button
                           variant="ghost"
                           size="icon"
@@ -1154,7 +1222,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                         )}
                       >
                         <TableCell className={cn(
-                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r-2 border-b border-border bg-muted/30",
+                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r-2 border-b-[1.5px] border-muted-foreground/25 bg-muted/40",
                           flashRowObj !== row && "group-hover:bg-primary/10",
                         )}>
                           {rowIndex + 1}
@@ -1163,8 +1231,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                           <TableCell
                             key={colIndex}
                             className={cn(
-                              "relative p-0 h-11 min-w-[150px] border-r border-b border-border transition-all",
-                              flashCol === header && flashRowObj === null && "animate-csv-flash",
+                              "relative p-0 h-11 min-w-[150px] border-r border-b border-muted-foreground/20 transition-all",
+                              flashCell?.rowIndex === rowIndex && flashCell?.colKey === header && "animate-csv-flash",
+                              flashCol === header && flashRowObj === null && flashCell === null && "animate-csv-flash",
                               isEditing && flashRowObj !== row && flashCol !== header && "cursor-text hover:bg-primary/10 hover:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.3)]",
                               isEditing && editCell?.rowIndex === rowIndex && editCell?.colKey === header
                                 ? "shadow-[inset_0_0_0_2px_hsl(var(--primary))] bg-primary/5 z-20"
