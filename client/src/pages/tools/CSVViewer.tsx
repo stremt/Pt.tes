@@ -922,6 +922,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       howItWorks={howItWorks}
       benefits={benefits}
       faqs={faqs}
+      compactHeader={true}
     >
       <Helmet>
         <title>Open CSV File Instantly (No Excel, No Upload) – Fast CSV Viewer & Editor | Pixocraft</title>
@@ -1090,7 +1091,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           >
             <Card
               className={cn(
-                "border-dashed border-2 transition-all hover:border-primary/50",
+                "border-2 border-dashed border-muted-foreground/40 transition-all hover:border-primary/70 hover:shadow-sm",
                 (showPaste || showUrlInput) && "md:h-[400px]",
               )}
             >

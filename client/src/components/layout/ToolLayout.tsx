@@ -105,6 +105,7 @@ interface ToolLayoutProps {
   benefits: { icon: ReactNode; title: string; description: string }[];
   faqs: { question: string; answer: string }[];
   badge?: ReactNode;
+  compactHeader?: boolean;
 }
 
 const categoryMap: Record<string, { name: string; path: string }> = {
@@ -137,22 +138,25 @@ export function ToolLayout({
   benefits,
   faqs,
   badge,
+  compactHeader = false,
 }: ToolLayoutProps) {
   const relatedTools = getRelatedTools(toolId, 3);
   const categoryInfo = categoryMap[category] || { name: category, path: `/tools/${category}` };
 
+  const breadcrumbItems = [
+    { name: "Home", url: "https://tools.pixocraft.in/" },
+    { name: categoryInfo.name, url: `https://tools.pixocraft.in${categoryInfo.path}` },
+    { name: title },
+  ];
+
   const [showSecondaryContent, setShowSecondaryContent] = useState(false);
 
   useEffect(() => {
-    // Priority 1: Render Hero & Tool immediately
-    // Priority 2: Render secondary content after a tiny delay or on scroll
     const timer = setTimeout(() => setShowSecondaryContent(true), 100);
-    
     const handleScroll = () => {
       if (!showSecondaryContent) setShowSecondaryContent(true);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
     return () => {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
@@ -161,43 +165,53 @@ export function ToolLayout({
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Priority Rendering */}
-      <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background pt-8 sm:pt-0">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-        <div className="container mx-auto px-4 py-16 md:py-20 max-w-7xl relative">
-          <div className="mx-auto max-w-4xl text-center space-y-6">
-            <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5">
-              {category}
-            </Badge>
-            <div className="flex justify-center mb-6">
-              <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
-                {icon}
-              </div>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight flex flex-wrap items-center justify-center gap-3">
-              {title}
-              {badge}
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              {description}
-            </p>
-            <Button
-              variant="outline"
-              className="mt-4"
-              data-testid={`button-scroll-to-tool-${category}`}
-              onClick={() => {
-                document.getElementById("tool-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
-            >
-              Use Tool
-              <ChevronDown className="ml-2 h-4 w-4 animate-bounce" />
-            </Button>
+      {compactHeader ? (
+        /* Compact Header — slim breadcrumb bar for tools with their own rich hero */
+        <div className="border-b bg-muted/20">
+          <div className="container mx-auto px-4 py-3 max-w-7xl [&_nav]:mb-0">
+            <Breadcrumb items={breadcrumbItems} />
           </div>
         </div>
-      </section>
+      ) : (
+        /* Full Hero Section */
+        <section className="relative overflow-hidden border-b bg-gradient-to-b from-primary/5 via-muted/30 to-background pt-8 sm:pt-0">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+          <div className="container mx-auto px-4 py-16 md:py-20 max-w-7xl relative">
+            <div className="mx-auto max-w-4xl text-center space-y-6">
+              <Breadcrumb items={breadcrumbItems} />
+              <Badge variant="secondary" className="mb-4 text-sm px-4 py-1.5">
+                {category}
+              </Badge>
+              <div className="flex justify-center mb-6">
+                <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center overflow-hidden">
+                  {icon}
+                </div>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight flex flex-wrap items-center justify-center gap-3">
+                {title}
+                {badge}
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                {description}
+              </p>
+              <Button
+                variant="outline"
+                className="mt-4"
+                data-testid={`button-scroll-to-tool-${category}`}
+                onClick={() => {
+                  document.getElementById("tool-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+              >
+                Use Tool
+                <ChevronDown className="ml-2 h-4 w-4 animate-bounce" />
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* Main Tool Interface - Priority Rendering */}
-      <section id="tool-section" className="py-12 md:py-16">
+      {/* Main Tool Interface */}
+      <section id="tool-section" className={compactHeader ? "py-8 md:py-12" : "py-12 md:py-16"}>
         <div className="container mx-auto px-4 max-w-7xl">
           {children}
         </div>
