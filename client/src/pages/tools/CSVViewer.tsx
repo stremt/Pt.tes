@@ -37,6 +37,8 @@ import {
   Plus,
   Trash2,
   ChevronDown,
+  ChevronUp,
+  ChevronsUpDown,
   Type,
   Undo2,
   Redo2,
@@ -47,6 +49,7 @@ import {
   RotateCcw,
   Link2,
   CheckCircle2,
+  PlayCircle,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
@@ -80,8 +83,36 @@ export default function CSVViewer() {
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [urlInput, setUrlInput] = useState("");
   const [isLoadingUrl, setIsLoadingUrl] = useState(false);
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: "asc" | "desc" } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const SAMPLE_CSV = `Name,Department,Role,Salary,Start Date,City
+Alice Johnson,Engineering,Senior Engineer,120000,2021-03-15,San Francisco
+Bob Martinez,Marketing,Content Lead,85000,2020-07-01,New York
+Carol White,Design,UX Designer,95000,2022-01-10,Austin
+David Kim,Engineering,Backend Engineer,110000,2019-11-20,Seattle
+Eva Patel,Sales,Account Executive,78000,2021-06-05,Chicago
+Frank Lee,Engineering,DevOps Lead,125000,2018-08-14,San Francisco
+Grace Chen,HR,HR Manager,90000,2020-02-28,Boston
+Henry Brown,Finance,Financial Analyst,88000,2022-04-03,New York
+Isabel Garcia,Design,Product Designer,100000,2021-09-17,Austin
+James Wilson,Marketing,SEO Specialist,72000,2023-01-23,Remote
+Karen Taylor,Engineering,QA Engineer,92000,2020-05-12,Seattle
+Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
+
+  const loadSampleData = () => {
+    handleCsvContent(SAMPLE_CSV, "sample_employees.csv");
+  };
+
+  const handleSort = (key: string) => {
+    setSortConfig((prev) => {
+      if (prev?.key === key) {
+        return prev.direction === "asc" ? { key, direction: "desc" } : null;
+      }
+      return { key, direction: "asc" };
+    });
+  };
 
   const handleLoadFromUrl = async () => {
     if (!urlInput.trim()) return;
@@ -446,11 +477,25 @@ export default function CSVViewer() {
     document.body.removeChild(link);
   };
 
-  const filteredData = data.filter((row) =>
-    Object.values(row).some((val) =>
-      String(val).toLowerCase().includes(searchTerm.toLowerCase()),
-    ),
-  );
+  const filteredData = (() => {
+    let result = data.filter((row) =>
+      Object.values(row).some((val) =>
+        String(val).toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    );
+    if (sortConfig) {
+      result = [...result].sort((a, b) => {
+        const aVal = String(a[sortConfig.key] ?? "");
+        const bVal = String(b[sortConfig.key] ?? "");
+        const aNum = parseFloat(aVal);
+        const bNum = parseFloat(bVal);
+        const isNumeric = !isNaN(aNum) && !isNaN(bNum);
+        const cmp = isNumeric ? aNum - bNum : aVal.localeCompare(bVal);
+        return sortConfig.direction === "asc" ? cmp : -cmp;
+      });
+    }
+    return result;
+  })();
 
   const loadMore = useCallback(() => {
     if (displayCount < filteredData.length) {
@@ -507,9 +552,9 @@ export default function CSVViewer() {
     },
     {
       icon: <Monitor className="h-6 w-6 text-primary" />,
-      title: "Developer Friendly",
+      title: "Sort & Filter Built-In",
       description:
-        "Includes keyboard shortcuts, undo/redo, and row/column management for efficient data cleaning.",
+        "Click any column header to sort data instantly. Use search to filter thousands of rows in real time.",
     },
   ];
 
@@ -569,17 +614,23 @@ export default function CSVViewer() {
       faqs={faqs}
     >
       <Helmet>
-        <title>Open CSV File Online (No Excel) – Free CSV Viewer & Editor | Pixocraft</title>
+        <title>Open CSV File Online (No Excel) – Free CSV Viewer & Editor (Fast & Private) | Pixocraft</title>
         <meta
           name="description"
           content="Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files. Works offline, free forever."
         />
-        <meta name="keywords" content="csv viewer, csv editor, csv viewer online, open csv file online, csv file viewer, edit csv online, open csv without excel, csv reader online" />
+        <meta name="keywords" content="csv viewer, csv editor, csv viewer online, open csv file online, csv file viewer, edit csv online, open csv without excel, csv reader online, view large csv file, edit csv file online free" />
         <link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer" />
-        <meta property="og:title" content="Open CSV File Online (No Excel) – Free CSV Viewer & Editor" />
+        <meta property="og:title" content="Open CSV File Online (No Excel) – Free CSV Viewer & Editor (Fast & Private)" />
         <meta property="og:description" content="Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files." />
         <meta property="og:url" content="https://tools.pixocraft.in/tools/csv-viewer" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://tools.pixocraft.in/og-csv-viewer.png" />
+        <meta property="og:site_name" content="Pixocraft Tools" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Open CSV File Online (No Excel) – Free CSV Viewer & Editor" />
+        <meta name="twitter:description" content="Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files." />
+        <meta name="twitter:image" content="https://tools.pixocraft.in/og-csv-viewer.png" />
         <script type="application/ld+json">
           {JSON.stringify([
             {
@@ -595,6 +646,8 @@ export default function CSVViewer() {
                 "Edit CSV cells, rows, and columns",
                 "100% client-side — no upload to server",
                 "Support for large CSV files with lazy loading",
+                "Click column headers to sort data",
+                "Real-time search and filter across all rows",
                 "Undo/redo editing history",
                 "Load CSV from URL",
                 "Works offline after first load",
@@ -700,6 +753,7 @@ export default function CSVViewer() {
                       size="sm"
                       onClick={() => { setShowPaste(true); setShowUrlInput(false); }}
                       className="gap-2 text-primary hover:text-primary hover:bg-primary/5"
+                      data-testid="button-paste-csv"
                     >
                       <ClipboardPaste className="h-4 w-4" />
                       Paste CSV Data
@@ -709,9 +763,20 @@ export default function CSVViewer() {
                       size="sm"
                       onClick={() => { setShowUrlInput(true); setShowPaste(false); }}
                       className="gap-2 text-primary hover:text-primary hover:bg-primary/5"
+                      data-testid="button-load-url"
                     >
                       <Link2 className="h-4 w-4" />
                       Load from URL
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={loadSampleData}
+                      className="gap-2 text-muted-foreground hover:text-foreground"
+                      data-testid="button-try-sample"
+                    >
+                      <PlayCircle className="h-4 w-4" />
+                      Try Sample Data
                     </Button>
                   </div>
                 )}
@@ -946,9 +1011,22 @@ export default function CSVViewer() {
                         className="min-w-[150px] p-0 border-r border-b group relative bg-muted/50"
                       >
                         <div className="flex items-center justify-between px-3 h-10">
-                          <span className="font-bold text-foreground text-sm truncate uppercase tracking-tight">
-                            {header}
-                          </span>
+                          <button
+                            className="flex items-center gap-1 font-bold text-foreground text-sm truncate uppercase tracking-tight hover:text-primary transition-colors"
+                            onClick={() => handleSort(header)}
+                            title={`Sort by ${header}`}
+                          >
+                            <span className="truncate">{header}</span>
+                            {sortConfig?.key === header ? (
+                              sortConfig.direction === "asc" ? (
+                                <ChevronUp className="h-3 w-3 shrink-0 text-primary" />
+                              ) : (
+                                <ChevronDown className="h-3 w-3 shrink-0 text-primary" />
+                              )
+                            ) : (
+                              <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-0 group-hover:opacity-40" />
+                            )}
+                          </button>
                           <div className="flex items-center">
                             <DropdownMenu>
                               <DropdownMenuTrigger asChild>
@@ -1100,7 +1178,17 @@ export default function CSVViewer() {
                     Editor Active
                   </Badge>
                 )}
-                <span>Press Tab to navigate</span>
+                {sortConfig && (
+                  <Badge
+                    variant="outline"
+                    className="h-5 px-1.5 bg-muted text-muted-foreground border-muted-foreground/20 text-[9px] cursor-pointer"
+                    onClick={() => setSortConfig(null)}
+                    title="Click to clear sort"
+                  >
+                    Sorted: {sortConfig.key} {sortConfig.direction === "asc" ? "↑" : "↓"}
+                  </Badge>
+                )}
+                <span>Click column to sort</span>
               </div>
             </div>
           </div>
@@ -1157,7 +1245,7 @@ export default function CSVViewer() {
                 { icon: <FileSpreadsheet className="h-5 w-5 text-primary" />, title: "No Excel Needed", desc: "Open any CSV file online free without Microsoft Excel or Google Sheets." },
                 { icon: <Monitor className="h-5 w-5 text-primary" />, title: "Works Everywhere", desc: "Phone, tablet, laptop — any device with a browser. No installation required." },
                 { icon: <Link2 className="h-5 w-5 text-primary" />, title: "Load from URL", desc: "Paste a public CSV URL or Google Sheets export link to load data instantly." },
-                { icon: <Undo2 className="h-5 w-5 text-primary" />, title: "Undo / Redo", desc: "50-step editing history. Experiment freely knowing you can always go back." },
+                { icon: <Undo2 className="h-5 w-5 text-primary" />, title: "Sort & Undo / Redo", desc: "Click any column to sort instantly. 50-step editing history lets you experiment freely." },
               ].map(({ icon, title, desc }) => (
                 <div key={title} className="flex gap-3 p-4 border rounded-lg">
                   <div className="shrink-0 mt-0.5">{icon}</div>
@@ -1179,11 +1267,11 @@ export default function CSVViewer() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               {[
                 { title: "Edit any cell", desc: "Enable Edit mode and click any cell to modify its value directly. Start typing to replace the content instantly." },
+                { title: "Sort by any column", desc: "Click any column header to sort ascending. Click again for descending. Click once more to clear sort." },
                 { title: "Add & delete rows", desc: "Append a new empty row at the bottom or delete any row with one click. Changes auto-save to your browser." },
                 { title: "Add & delete columns", desc: 'Click "Add Col" to insert a new column, or use the column menu to delete one you no longer need.' },
-                { title: "Rename column headers", desc: "Double-click any header to rename it. Column data is preserved and reassigned to the new name." },
-                { title: "Keyboard navigation", desc: "Tab moves right. Enter moves down. Arrow keys navigate. Start typing to edit. Shift+Tab/Enter go back." },
-                { title: "Undo & redo", desc: "Use the Undo and Redo buttons to reverse any changes with up to 50 steps of history." },
+                { title: "Rename column headers", desc: "Use the column menu to rename any header. Column data is preserved and reassigned to the new name." },
+                { title: "Keyboard navigation & undo", desc: "Tab moves right, Enter moves down, arrow keys navigate. Up to 50 steps of undo/redo history." },
               ].map(({ title, desc }) => (
                 <div key={title} className="p-4 border rounded-lg">
                   <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
