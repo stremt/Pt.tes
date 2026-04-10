@@ -113,6 +113,8 @@ export default function CSVViewer() {
   const [scrollTop, setScrollTop] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
   const savingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const restoreScrollTopRef = useRef<number | null>(null);
+  const hasRestoredScrollRef = useRef(false);
   const [showSavePrompt, setShowSavePrompt] = useState(false);
   const [browserHistory, setBrowserHistory] = useState<Array<{
     id: string;
@@ -355,7 +357,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             if (session.sortConfig) setSortConfig(session.sortConfig);
             if (typeof session.isEditing === "boolean") setIsEditing(session.isEditing);
             if (typeof session.highlightEnabled === "boolean") setHighlightEnabled(session.highlightEnabled);
-            if (typeof session.scrollTop === "number") setScrollTop(session.scrollTop);
+            if (typeof session.scrollTop === "number") {
+              setScrollTop(session.scrollTop);
+              restoreScrollTopRef.current = session.scrollTop;
+            }
           } catch {}
         }
       } catch (e) {
@@ -363,6 +368,22 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (data.length > 0 && !hasRestoredScrollRef.current && restoreScrollTopRef.current !== null) {
+      hasRestoredScrollRef.current = true;
+      const targetScroll = restoreScrollTopRef.current;
+      restoreScrollTopRef.current = null;
+      const apply = () => {
+        if (tableScrollRef.current) {
+          tableScrollRef.current.scrollTop = targetScroll;
+        }
+      };
+      apply();
+      setTimeout(apply, 50);
+      setTimeout(apply, 150);
+    }
+  }, [data.length]);
 
   useEffect(() => {
     if (data.length > 0) {
@@ -390,6 +411,22 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       localStorage.setItem("csv_viewer_session", JSON.stringify(session));
     } catch {}
   }, [searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop, data.length]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (data.length === 0) return;
+      try {
+        localStorage.setItem("csv_viewer_data", JSON.stringify(data));
+        localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
+        localStorage.setItem("csv_viewer_filename", fileName);
+        const currentScrollTop = tableScrollRef.current ? tableScrollRef.current.scrollTop : scrollTop;
+        const session = { searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop: currentScrollTop };
+        localStorage.setItem("csv_viewer_session", JSON.stringify(session));
+      } catch {}
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [data, headers, fileName, searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop]);
 
   useEffect(() => {
     const saved = localStorage.getItem("csv_viewer_saved_files");
