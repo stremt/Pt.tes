@@ -1,0 +1,164 @@
+You are a senior SEO engineer, UX designer, and conversion optimization expert.
+
+Your task is to upgrade this page for maximum CTR, engagement, and top #1 Google ranking:
+
+https://tools.pixocraft.in/tools/csv-viewer
+
+---
+
+## 🎯 OBJECTIVE
+
+* Increase CTR to 10%+
+* Improve user engagement and retention
+* Optimize page structure for conversions
+* Maintain SEO while improving UX
+
+---
+
+## 🔥 STEP 1: HERO SECTION REBUILD
+
+Replace current hero with:
+
+H1:
+Open CSV Files Instantly (No Excel, No Upload)
+
+Subheading:
+Edit, search, and handle even large CSV files smoothly — directly in your browser. No lag. No data loss.
+
+Below this, add trust + feature badges:
+
+⭐ 4.9/5 (1,200+ users)
+✔ Supports large CSV files
+✔ Auto-save (no data loss)
+✔ Works offline
+
+---
+
+## 🔥 STEP 2: CTA OPTIMIZATION
+
+Replace ALL instances of:
+
+"Use Tool"
+
+WITH:
+
+"Open CSV File Now"
+
+Add secondary CTA:
+
+"Try CSV Viewer Now →"
+
+Place CTAs:
+
+* Below hero
+* After "How to Open CSV"
+* At bottom of page
+
+---
+
+## 🔥 STEP 3: MOVE TOOL ABOVE FOLD
+
+Reorder layout:
+
+1. Hero
+2. CTA button
+3. TOOL INTERFACE (upload / paste / URL)
+4. Then content sections
+
+Ensure tool is visible without scrolling.
+
+---
+
+## 🔥 STEP 4: TITLE & META UPDATE
+
+Update title:
+
+Open CSV File Instantly (No Excel, No Upload) – Free CSV Viewer & Editor
+
+Update meta description:
+
+Open and edit CSV files instantly without Excel. No upload, 100% private, supports large files. Fast, free CSV viewer & editor online.
+
+---
+
+## 🔥 STEP 5: FEATURE HIGHLIGHT BLOCK
+
+Add a visible feature section below hero or above tool:
+
+⚡ Supports large CSV files (100k+ rows)
+💾 Auto-save enabled (no data loss)
+🚀 Fast rendering (no lag)
+🔄 Restore from history anytime
+
+---
+
+## 🔥 STEP 6: SOCIAL PROOF ADD
+
+Add line below hero or tool:
+
+Trusted by thousands of users handling large CSV files daily
+
+---
+
+## 🔥 STEP 7: CONTENT IMPROVEMENT
+
+* Break long paragraphs into smaller chunks
+* Bold important keywords like:
+
+  * CSV viewer
+  * CSV editor
+  * open CSV file online
+* Add spacing between sections
+
+---
+
+## 🔥 STEP 8: INTERNAL LINKING
+
+Ensure links exist using keyword anchors:
+
+* csv viewer
+* csv editor
+* open csv file online
+
+Link from:
+
+* homepage
+* related tools
+* inside content
+
+---
+
+## 🔥 STEP 9: VISUAL IMPROVEMENT
+
+* Add icons to feature sections
+* Add highlight boxes for important info
+* Improve spacing for readability
+
+---
+
+## 🔥 STEP 10: UX FLOW OPTIMIZATION
+
+Ensure user flow:
+
+Hero → CTA → Tool → Content → CTA
+
+User should:
+
+* Immediately see value
+* Immediately use tool
+* Then explore content
+
+---
+
+## 🏆 FINAL EXPECTATION
+
+After implementation:
+
+* Higher CTR (10%+)
+* Better engagement signals
+* Improved ranking positions
+* Strong user retention
+
+---
+
+Execute changes cleanly, without breaking existing functionality or SEO structure.
