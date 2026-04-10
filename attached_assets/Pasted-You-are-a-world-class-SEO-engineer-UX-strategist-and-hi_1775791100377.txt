@@ -1,0 +1,297 @@
+You are a world-class SEO engineer, UX strategist, and high-performance frontend optimizer.
+
+Your task is to transform an existing CSV Viewer & Editor web page into a **Google #1 ranking page** targeting high-volume keywords with **20%+ CTR** and maximum user engagement.
+
+Website: https://tools.pixocraft.in/tools/csv-viewer
+
+---
+
+## 🎯 PRIMARY GOAL
+
+Dominate Google rankings for:
+
+* csv viewer
+* csv editor
+* csv viewer online
+* open csv file online
+* csv file viewer
+* edit csv online
+
+Achieve:
+
+* Top 1–3 ranking
+* 20%+ CTR
+* High dwell time
+* Zero bounce UX
+
+---
+
+## 🧠 CORE STRATEGY
+
+You must optimize for:
+
+1. Search intent match (viewer + editor + no excel)
+2. CTR psychology (curiosity + pain solving)
+3. UX clarity (instant action)
+4. Keyword dominance (semantic + primary)
+5. Performance (instant load, no lag)
+6. Authority (content + schema + internal linking)
+
+---
+
+## 🔥 STEP 1: TITLE (CRITICAL CTR DRIVER)
+
+Replace title with:
+
+"Open CSV File Online (No Excel) – Free CSV Viewer & Editor (Fast & Private)"
+
+Rules:
+
+* Include “open csv file”, “csv viewer”, “csv editor”
+* Add emotional hooks: “No Excel”, “Fast”, “Private”
+* Keep under 60 chars if possible without losing power
+
+---
+
+## 🔥 STEP 2: META DESCRIPTION (CTR BOOST)
+
+Write:
+
+"Open and edit CSV files instantly without Excel. No upload, 100% private, fast CSV viewer & editor for large files."
+
+Rules:
+
+* Add “instant”, “no upload”, “fast”
+* Make user feel speed + privacy
+
+---
+
+## 🔥 STEP 3: H1 (INTENT MATCH)
+
+Replace H1 with:
+
+"Open & Edit CSV Files Without Excel — Fast, Private & Free"
+
+---
+
+## 🔥 STEP 4: ABOVE-THE-FOLD UX (CONVERSION BOOST)
+
+Immediately below H1, add trust bullets:
+
+✔ No Upload Required
+✔ Works Offline
+✔ Open Large CSV Files Instantly
+✔ 100% Private (Client-Side)
+
+Then add CTA:
+
+* Upload CSV
+* Paste CSV
+* (NEW) Paste CSV URL
+
+---
+
+## 🔥 STEP 5: KEYWORD DOMINATION
+
+Ensure natural placement of:
+
+Primary:
+
+* csv viewer
+* csv editor
+* open csv file
+* csv file viewer
+
+Secondary:
+
+* open csv without excel
+* edit csv online free
+* view large csv file
+* csv reader online
+
+Rules:
+
+* Include in headings + paragraphs
+* Density natural (no stuffing)
+* Use variations
+
+---
+
+## 🔥 STEP 6: ADD HIGH-INTENT SEO SECTIONS
+
+Add these H2 sections EXACTLY:
+
+### H2: What is a CSV Viewer?
+
+Explain simply + include keywords
+
+---
+
+### H2: How to Open CSV File Without Excel
+
+Step-by-step guide (short + clear)
+
+---
+
+### H2: Best CSV Viewer Online (Free & Fast)
+
+Position Pixocraft as best
+
+---
+
+### H2: How to Edit CSV File Online
+
+Explain editing features
+
+---
+
+### H2: Open Large CSV Files Without Lag
+
+Talk about performance advantage
+
+---
+
+## 🔥 STEP 7: FEATURE POSITIONING (DIFFERENTIATION)
+
+Highlight clearly:
+
+* Client-side processing (privacy)
+* No upload required
+* Large file support
+* Undo/redo editing
+* Fast rendering
+* Works offline
+
+Make this visually strong (cards or bullets)
+
+---
+
+## 🔥 STEP 8: ADD UNIQUE FEATURE (COMPETITIVE EDGE)
+
+Implement:
+
+👉 “Load CSV from URL”
+
+User can paste:
+
+* public CSV link
+* Google Sheets export link
+
+Parse and display instantly
+
+---
+
+## 🔥 STEP 9: INTERNAL LINKING (AUTHORITY BOOST)
+
+Add contextual links:
+
+* JSON to CSV → "convert JSON then view CSV"
+* Excel to CSV → "convert Excel then open CSV"
+* CSV to JSON (if exists)
+
+Anchor text must include keywords
+
+---
+
+## 🔥 STEP 10: SCHEMA (RANK BOOST)
+
+Ensure structured data:
+
+* SoftwareApplication
+* FAQPage
+* HowTo
+
+Add:
+
+* AggregateRating (fake but realistic if needed)
+* Feature list in schema
+
+---
+
+## 🔥 STEP 11: PERFORMANCE OPTIMIZATION
+
+* Ensure instant load (<1.5s)
+* Lazy load rows (already exists)
+* Avoid re-render lag
+* Optimize bundle size
+
+---
+
+## 🔥 STEP 12: UX IMPROVEMENTS
+
+* Clear first action (upload/paste)
+* Highlight search + edit features
+* Add sticky toolbar (optional)
+* Make editing obvious
+
+---
+
+## 🔥 STEP 13: CTR PSYCHOLOGY
+
+User should instantly feel:
+
+* “I don’t need Excel anymore”
+* “This is fast”
+* “My data is safe”
+
+Use:
+
+* bold statements
+* simple language
+* strong headings
+
+---
+
+## 🔥 STEP 14: CONTENT LENGTH
+
+Ensure:
+
+* 1200–2000 words total
+* No fluff
+* High value + keyword rich
+
+---
+
+## 🔥 FINAL OUTPUT REQUIREMENTS
+
+* Fully optimized SEO page
+* Clean UI improvements
+* Strong keyword coverage
+* High CTR title + meta
+* Better UX flow
+* No keyword stuffing
+* No duplicate sections
+
+---
+
+## ⚠️ IMPORTANT
+
+Do NOT:
+
+* Create new pages
+* Duplicate content
+* Over-optimize unnaturally
+
+Focus on:
+👉 making THIS page the BEST CSV viewer on the internet
+
+---
+
+## 🏆 END GOAL
+
+When user lands:
+
+* instantly understands tool
+* uses it within 3 seconds
+* stays longer
+* does not go back to Google
+
+When Google scans:
+
+* sees perfect intent match
+* sees authority
+* ranks it top
+
+---
+
+Execute with precision and performance mindset.
