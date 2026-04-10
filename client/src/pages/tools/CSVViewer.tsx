@@ -66,6 +66,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { ToolLayout } from "@/components/layout/ToolLayout";
 import { Helmet } from "react-helmet-async";
+import { csvStorage, type SavedCsvEntry } from "@/lib/csvStorage";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -116,14 +117,7 @@ export default function CSVViewer() {
   const restoreScrollTopRef = useRef<number | null>(null);
   const hasRestoredScrollRef = useRef(false);
   const [showSavePrompt, setShowSavePrompt] = useState(false);
-  const [browserHistory, setBrowserHistory] = useState<Array<{
-    id: string;
-    name: string;
-    savedAt: number;
-    rowCount: number;
-    data: any[];
-    headers: string[];
-  }>>([]);
+  const [browserHistory, setBrowserHistory] = useState<SavedCsvEntry[]>([]);
   const pendingHistorySaveRef = useRef<{ data: any[]; headers: string[]; name: string } | null>(null);
   const containerHeightRef = useRef(600);
   const pendingFocusRef = useRef<{ row: number; col: number } | null>(null);
@@ -242,17 +236,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     setIsEditing(false);
     setIsFullScreen(false);
     setShowClearConfirm(false);
-    localStorage.removeItem("csv_viewer_data");
-    localStorage.removeItem("csv_viewer_headers");
-    localStorage.removeItem("csv_viewer_filename");
-    localStorage.removeItem("csv_viewer_session");
+    csvStorage.clearCurrentFile().catch(() => {});
+    csvStorage.clearSession();
+    hasRestoredScrollRef.current = false;
     toast({ title: "Cleared", description: "Data has been removed" });
   };
 
-  const saveToHistory = () => {
+  const saveToHistory = async () => {
     const pending = pendingHistorySaveRef.current;
     if (!pending) { setShowSavePrompt(false); return; }
-    const newEntry = {
+    const newEntry: SavedCsvEntry = {
       id: Date.now().toString(),
       name: pending.name,
       savedAt: Date.now(),
@@ -263,7 +256,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     const newHist = [newEntry, ...browserHistory.filter(e => e.name !== pending.name)].slice(0, 10);
     setBrowserHistory(newHist);
     try {
-      localStorage.setItem("csv_viewer_saved_files", JSON.stringify(newHist));
+      await csvStorage.saveSavedFiles(newHist);
       toast({ title: "Saved to browser", description: "Find it in the history section below the upload area." });
     } catch {
       toast({ variant: "destructive", title: "File too large to save in browser" });
@@ -282,6 +275,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     setHeaders(entry.headers);
     setFileName(entry.name);
     setScrollTop(0);
+    hasRestoredScrollRef.current = true;
     historyRef.current = [entry.data];
     historyIdxRef.current = 0;
     setHistoryIndex(0);
@@ -292,11 +286,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   const deleteFromHistory = (id: string) => {
     const newHist = browserHistory.filter(e => e.id !== id);
     setBrowserHistory(newHist);
-    if (newHist.length === 0) {
-      localStorage.removeItem("csv_viewer_saved_files");
-    } else {
-      localStorage.setItem("csv_viewer_saved_files", JSON.stringify(newHist));
-    }
+    csvStorage.deleteSavedFile(id, newHist).catch(() => {});
   };
 
   const handleCsvContent = useCallback(
@@ -311,6 +301,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             setData(results.data);
             setFileName(name);
             setScrollTop(0);
+            hasRestoredScrollRef.current = true;
             historyRef.current = [results.data];
             historyIdxRef.current = 0;
             setHistoryIndex(0);
@@ -334,39 +325,44 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   );
 
   useEffect(() => {
-    const savedData = localStorage.getItem("csv_viewer_data");
-    const savedHeaders = localStorage.getItem("csv_viewer_headers");
-    const savedFileName = localStorage.getItem("csv_viewer_filename");
-
-    if (savedData && savedHeaders && savedFileName) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        const parsedHeaders = JSON.parse(savedHeaders);
-        setData(parsedData);
-        setHeaders(parsedHeaders);
-        setFileName(savedFileName);
-        historyRef.current = [parsedData];
+    csvStorage.loadCurrentFile().then((saved) => {
+      if (!saved) {
+        const legacyData = localStorage.getItem("csv_viewer_data");
+        const legacyHeaders = localStorage.getItem("csv_viewer_headers");
+        const legacyFileName = localStorage.getItem("csv_viewer_filename");
+        if (legacyData && legacyHeaders && legacyFileName) {
+          try {
+            const parsedData = JSON.parse(legacyData);
+            const parsedHeaders = JSON.parse(legacyHeaders);
+            csvStorage.saveCurrentFile(parsedData, parsedHeaders, legacyFileName).catch(() => {});
+            localStorage.removeItem("csv_viewer_data");
+            localStorage.removeItem("csv_viewer_headers");
+            localStorage.removeItem("csv_viewer_filename");
+            saved = { data: parsedData, headers: parsedHeaders, fileName: legacyFileName };
+          } catch {}
+        }
+      }
+      if (saved) {
+        setData(saved.data);
+        setHeaders(saved.headers);
+        setFileName(saved.fileName);
+        historyRef.current = [saved.data];
         historyIdxRef.current = 0;
         setHistoryIndex(0);
         setHistoryLen(1);
-        const rawSession = localStorage.getItem("csv_viewer_session");
-        if (rawSession) {
-          try {
-            const session = JSON.parse(rawSession);
-            if (session.searchTerm) setSearchTerm(session.searchTerm);
-            if (session.sortConfig) setSortConfig(session.sortConfig);
-            if (typeof session.isEditing === "boolean") setIsEditing(session.isEditing);
-            if (typeof session.highlightEnabled === "boolean") setHighlightEnabled(session.highlightEnabled);
-            if (typeof session.scrollTop === "number") {
-              setScrollTop(session.scrollTop);
-              restoreScrollTopRef.current = session.scrollTop;
-            }
-          } catch {}
+        const session = csvStorage.loadSession();
+        if (session) {
+          if (session.searchTerm) setSearchTerm(session.searchTerm);
+          if (session.sortConfig) setSortConfig(session.sortConfig);
+          if (typeof session.isEditing === "boolean") setIsEditing(session.isEditing);
+          if (typeof session.highlightEnabled === "boolean") setHighlightEnabled(session.highlightEnabled);
+          if (typeof session.scrollTop === "number") {
+            setScrollTop(session.scrollTop);
+            restoreScrollTopRef.current = session.scrollTop;
+          }
         }
-      } catch (e) {
-        console.error("Failed to parse saved CSV data", e);
       }
-    }
+    }).catch((e) => console.error("Failed to load saved CSV data", e));
   }, []);
 
   useEffect(() => {
@@ -387,52 +383,35 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
   useEffect(() => {
     if (data.length > 0) {
-      try {
-        localStorage.setItem("csv_viewer_data", JSON.stringify(data));
-        localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
-        localStorage.setItem("csv_viewer_filename", fileName);
-        if (savingTimerRef.current) clearTimeout(savingTimerRef.current);
-        setIsSaving(true);
-        savingTimerRef.current = setTimeout(() => setIsSaving(false), 1800);
-      } catch (e) {
-        console.warn("Storage quota exceeded, data not saved locally");
-      }
+      if (savingTimerRef.current) clearTimeout(savingTimerRef.current);
+      setIsSaving(true);
+      csvStorage.saveCurrentFile(data, headers, fileName)
+        .catch(() => {})
+        .finally(() => {
+          savingTimerRef.current = setTimeout(() => setIsSaving(false), 1800);
+        });
     } else {
-      localStorage.removeItem("csv_viewer_data");
-      localStorage.removeItem("csv_viewer_headers");
-      localStorage.removeItem("csv_viewer_filename");
+      csvStorage.clearCurrentFile().catch(() => {});
     }
   }, [data, headers, fileName]);
 
   useEffect(() => {
     if (data.length === 0) return;
-    try {
-      const session = { searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop };
-      localStorage.setItem("csv_viewer_session", JSON.stringify(session));
-    } catch {}
+    csvStorage.saveSession({ searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop });
   }, [searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop, data.length]);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
       if (data.length === 0) return;
-      try {
-        localStorage.setItem("csv_viewer_data", JSON.stringify(data));
-        localStorage.setItem("csv_viewer_headers", JSON.stringify(headers));
-        localStorage.setItem("csv_viewer_filename", fileName);
-        const currentScrollTop = tableScrollRef.current ? tableScrollRef.current.scrollTop : scrollTop;
-        const session = { searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop: currentScrollTop };
-        localStorage.setItem("csv_viewer_session", JSON.stringify(session));
-      } catch {}
+      const currentScrollTop = tableScrollRef.current ? tableScrollRef.current.scrollTop : scrollTop;
+      csvStorage.saveSession({ searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop: currentScrollTop });
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [data, headers, fileName, searchTerm, sortConfig, isEditing, highlightEnabled, scrollTop]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("csv_viewer_saved_files");
-    if (saved) {
-      try { setBrowserHistory(JSON.parse(saved)); } catch {}
-    }
+    csvStorage.loadSavedFiles().then(setBrowserHistory).catch(() => {});
   }, []);
 
   useEffect(() => {
