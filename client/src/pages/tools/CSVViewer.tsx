@@ -924,7 +924,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       faqs={faqs}
     >
       <Helmet>
-        <title>Open CSV Files Instantly (No Excel, No Upload) – Free CSV Viewer & Editor | Pixocraft</title>
+        <title>Open CSV File Instantly (No Excel, No Upload) – Fast CSV Viewer & Editor | Pixocraft</title>
         <meta
           name="description"
           content="Open and edit CSV files instantly without Excel. No upload, 100% private, supports 100k+ rows. Fast, free CSV viewer & editor — works offline, zero data risk."
@@ -1027,10 +1027,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {[
-              "Supports 100k+ rows",
               "Auto-save (no data loss)",
               "Works offline",
               "100% Private (client-side)",
+              "No Excel, no signup",
             ].map((item) => (
               <span key={item} className="flex items-center gap-1.5 text-sm font-medium text-foreground">
                 <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
@@ -1039,10 +1039,17 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             ))}
           </div>
 
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+            <Zap className="h-4 w-4 text-primary shrink-0" />
+            <span className="text-sm font-semibold text-foreground">
+              Handles massive CSV files (up to 1GB) without lag
+            </span>
+          </div>
+
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <Button size="lg" className="gap-2 text-base px-6" onClick={scrollToUpload} data-testid="button-cta-open-csv">
-              <Upload className="h-5 w-5" />
-              Open CSV File Now
+              Open Your CSV File Instantly
+              <ArrowRight className="h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" className="gap-2 text-base" onClick={loadSampleData} data-testid="button-cta-try-sample">
               <PlayCircle className="h-5 w-5" />
@@ -1058,7 +1065,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { icon: <Zap className="h-5 w-5 text-primary" />, title: "Supports large files", desc: "100k+ rows, no lag" },
+            { icon: <Zap className="h-5 w-5 text-primary" />, title: "Up to 1GB files", desc: "Massive CSVs, zero lag" },
             { icon: <Save className="h-5 w-5 text-primary" />, title: "Auto-save enabled", desc: "Never lose your work" },
             { icon: <RefreshCw className="h-5 w-5 text-primary" />, title: "Restore from history", desc: "50-step undo/redo" },
             { icon: <Shield className="h-5 w-5 text-primary" />, title: "100% private", desc: "Zero server upload" },
@@ -1723,8 +1730,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
           <div className="flex justify-center">
             <Button size="lg" className="gap-2" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-testid="button-cta-content-top">
-              <Upload className="h-5 w-5" />
-              Open CSV File Now — It's Free
+              Open Your CSV File Instantly
+              <ArrowRight className="h-5 w-5" />
             </Button>
           </div>
 
@@ -1819,8 +1826,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
           <div className="flex justify-center">
             <Button size="lg" variant="outline" className="gap-2" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-testid="button-cta-content-edit">
-              <Edit2 className="h-5 w-5" />
-              Edit CSV Online for Free
+              Try the Best CSV Viewer Free
+              <ArrowRight className="h-5 w-5" />
             </Button>
           </div>
 
@@ -1856,7 +1863,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           <div>
             <h2 className="text-3xl font-bold mb-4">Related Tools to Supercharge Your CSV Workflow</h2>
             <p className="text-muted-foreground mb-4">
-              Need to convert data first? Use these tools, then <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">open the CSV file online</Link> in this <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV viewer</Link> for instant review and <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV editing</Link>.
+              Need to convert data first? Use these tools, then use the <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">best CSV viewer online</Link> to <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">open CSV file online</Link> instantly — or jump straight to our free <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV editor free</Link>.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/tools/json-csv-converter">
@@ -1910,8 +1917,8 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             <h2 className="text-2xl font-bold">Ready to open your CSV file?</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">No Excel, no signup, no data upload. Just instant, private CSV viewing and editing — free forever.</p>
             <Button size="lg" className="gap-2 text-base px-8" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} data-testid="button-cta-bottom">
-              <Upload className="h-5 w-5" />
-              Open CSV File Now
+              Open Your CSV File Instantly
+              <ArrowRight className="h-5 w-5" />
             </Button>
             <p className="text-xs text-muted-foreground">Trusted by developers and analysts worldwide</p>
           </div>
