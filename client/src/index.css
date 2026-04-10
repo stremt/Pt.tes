@@ -497,4 +497,14 @@
   .animate-fade-in {
     animation: fade-in 0.3s ease-out both;
   }
+
+  @keyframes csv-flash {
+    0%   { background-color: hsl(var(--primary) / 0.22); }
+    60%  { background-color: hsl(var(--primary) / 0.22); }
+    100% { background-color: transparent; }
+  }
+
+  .animate-csv-flash {
+    animation: csv-flash 2.5s ease-out forwards;
+  }
 }

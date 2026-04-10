@@ -84,8 +84,25 @@ export default function CSVViewer() {
   const [urlInput, setUrlInput] = useState("");
   const [isLoadingUrl, setIsLoadingUrl] = useState(false);
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: "asc" | "desc" } | null>(null);
+  const [flashRowObj, setFlashRowObj] = useState<Record<string, any> | null>(null);
+  const [flashCol, setFlashCol] = useState<string | null>(null);
+  const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  const triggerRowFlash = (rowObj: Record<string, any>) => {
+    if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+    setFlashRowObj(rowObj);
+    setFlashCol(null);
+    flashTimerRef.current = setTimeout(() => setFlashRowObj(null), 2600);
+  };
+
+  const triggerColFlash = (colKey: string) => {
+    if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
+    setFlashCol(colKey);
+    setFlashRowObj(null);
+    flashTimerRef.current = setTimeout(() => setFlashCol(null), 2600);
+  };
 
   const SAMPLE_CSV = `Name,Department,Role,Salary,Start Date,City
 Alice Johnson,Engineering,Senior Engineer,120000,2021-03-15,San Francisco
@@ -255,6 +272,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     const newData = [...data, newRow];
     setData(newData);
     pushToHistory(newData);
+    triggerRowFlash(newRow as Record<string, any>);
   };
 
   const deleteRow = (index: number) => {
@@ -269,6 +287,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     const newData = data.map((row) => ({ ...row, [newHeader]: "" }));
     setData(newData);
     pushToHistory(newData);
+    triggerColFlash(newHeader);
   };
 
   const deleteColumn = (colKey: string) => {
@@ -872,9 +891,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
           <div
             ref={containerRef}
             className={cn(
-              "space-y-4 transition-all duration-300",
+              "space-y-4",
               isFullScreen &&
-                "fixed inset-0 z-[100] bg-background p-4 sm:p-8 overflow-hidden h-screen w-screen m-0",
+                "fixed top-0 left-0 right-0 bottom-0 z-[99999] bg-background flex flex-col overflow-hidden",
             )}
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b bg-muted/30">
@@ -916,11 +935,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   onClick={toggleEditing}
                   className={cn(
                     "h-9 gap-2 transition-all",
-                    isEditing && "shadow-sm shadow-primary/20",
+                    isEditing && "ring-2 ring-primary/50 ring-offset-1 shadow-[0_0_14px_rgba(37,99,235,0.35)]",
                   )}
+                  data-testid="button-edit-mode"
                 >
-                  <Edit2 className="h-4 w-4" />
-                  {isEditing ? "Exit Editor" : "Edit Mode"}
+                  <Edit2 className={cn("h-4 w-4", isEditing && "animate-pulse")} />
+                  {isEditing ? "Editing..." : "Edit Mode"}
                 </Button>
 
                 {isEditing && (
@@ -996,7 +1016,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             <div
               className={cn(
                 "relative overflow-auto border-t",
-                isFullScreen ? "h-[calc(100vh-140px)]" : "max-h-[700px]",
+                isFullScreen ? "flex-1" : "max-h-[700px]",
               )}
               onScroll={handleScroll}
             >
@@ -1009,7 +1029,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     {headers.map((header, index) => (
                       <TableHead
                         key={index}
-                        className="min-w-[150px] p-0 border-r border-b group relative bg-muted/50"
+                        className={cn(
+                          "min-w-[150px] p-0 border-r border-b group relative",
+                          flashCol === header ? "animate-csv-flash" : "bg-muted/50",
+                        )}
                       >
                         <div className="flex items-center justify-between px-3 h-10">
                           <button
@@ -1084,20 +1107,29 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     .map((row, rowIndex) => (
                       <TableRow
                         key={rowIndex}
-                        className="group transition-colors hover:bg-primary/5"
+                        className={cn(
+                          "group",
+                          flashRowObj === row
+                            ? "animate-csv-flash"
+                            : "transition-colors hover:bg-primary/5",
+                        )}
                       >
-                        <TableCell className="w-12 text-center text-[10px] font-mono text-muted-foreground border-r border-b bg-muted/20 group-hover:bg-primary/10">
+                        <TableCell className={cn(
+                          "w-12 text-center text-[10px] font-mono text-muted-foreground border-r border-b bg-muted/20",
+                          flashRowObj !== row && "group-hover:bg-primary/10",
+                        )}>
                           {rowIndex + 1}
                         </TableCell>
                         {headers.map((header, colIndex) => (
                           <TableCell
                             key={colIndex}
                             className={cn(
-                              "relative p-0 h-11 min-w-[150px] border-r border-b transition-all focus-within:ring-1 focus-within:ring-inset focus-within:ring-primary focus-within:z-10",
-                              isEditing && "cursor-text hover:bg-background",
-                              editCell?.rowIndex === rowIndex &&
-                                editCell?.colKey === header &&
-                                "z-20",
+                              "relative p-0 h-11 min-w-[150px] border-r border-b transition-all",
+                              flashCol === header && flashRowObj === null && "animate-csv-flash",
+                              isEditing && flashRowObj !== row && flashCol !== header && "cursor-text hover:bg-primary/10 hover:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.3)]",
+                              isEditing && editCell?.rowIndex === rowIndex && editCell?.colKey === header
+                                ? "shadow-[inset_0_0_0_2px_hsl(var(--primary))] bg-primary/5 z-20"
+                                : "focus-within:shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.5)] focus-within:z-10",
                             )}
                             onClick={() => handleCellClick(rowIndex, header)}
                             tabIndex={isEditing ? 0 : -1}
