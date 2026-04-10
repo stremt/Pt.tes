@@ -1,155 +1,145 @@
 import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileSpreadsheet } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import CSVViewerCore from "@/components/tools/CSVViewerCore";
 
 export default function CSVViewLargeFiles() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Free Online Tool to View Large CSV Files Instantly</title>
-        <meta name="description" content="View large CSV files online instantly without freezing. Free tool optimized for thousands of rows. No downloads needed, works offline." />
-        <meta name="og:title" content="Free Online Tool to View Large CSV Files Instantly" />
-        <meta name="og:description" content="View large CSV files online instantly without freezing or slowing down. Optimized for thousands of rows." />
+        <title>View Large CSV Files Online Free — No Freezing, No Lag | Pixocraft</title>
+        <meta name="description" content="View large CSV files online instantly without freezing. Free tool handles 100k+ rows with virtual scrolling. No downloads, works offline, 100% private." />
+        <meta property="og:title" content="Free Online Tool to View Large CSV Files Instantly" />
+        <meta property="og:description" content="View large CSV files online instantly without freezing or slowing down. Optimized for thousands of rows." />
+        <link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer/view-large-files" />
       </Helmet>
 
-      <main className="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <main className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="space-y-12">
+
           {/* Header */}
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold text-foreground">View Large CSV Files Online For Free - No Downloads Needed</h1>
+          <div className="space-y-4 text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl font-bold text-foreground">View Large CSV Files Online — No Freezing, No Downloads</h1>
             <p className="text-lg text-muted-foreground">
-              Large CSV files can be problematic. When you have a file with tens of thousands of rows, opening it in a regular spreadsheet application like Excel often causes the program to freeze or slow down dramatically. Your computer might run out of memory. The application might crash. You end up waiting minutes just to view your data. There's a better way: a free online tool specifically designed to view large CSV files efficiently.
+              Handles 100,000+ rows with smooth virtual scrolling. No Excel crashes. No waiting. Just instant, private viewing right in your browser.
             </p>
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-1.5">
+              {["Virtual scroll — no lag", "100k+ rows supported", "Real-time search", "Zero data upload"].map((t) => (
+                <span key={t} className="flex items-center gap-1.5 text-sm text-foreground font-medium">
+                  <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Challenge Section */}
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { stat: "100k+", label: "Rows handled smoothly" },
+              { stat: "<1s", label: "Time to first render" },
+              { stat: "0 MB", label: "Data uploaded to server" },
+            ].map(({ stat, label }) => (
+              <div key={label} className="text-center p-5 bg-muted/30 rounded-xl border">
+                <div className="text-3xl font-bold text-primary mb-1">{stat}</div>
+                <div className="text-sm text-muted-foreground">{label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Embedded tool */}
+          <CSVViewerCore />
+
+          {/* Challenge section */}
           <Card>
             <CardHeader>
               <CardTitle>The Challenge of Working With Large CSV Files</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                If you work with data—whether it's customer lists, sales records, analytics exports, or research datasets—you've likely encountered the pain of working with large CSV files. The bigger the file, the worse the performance problems become. Regular spreadsheet software wasn't designed for speed when handling massive datasets. But online tools built specifically for CSV viewing are optimized for performance, letting you instantly view files that would cripple traditional applications.
+                If you work with data — whether it's customer lists, sales records, analytics exports, or research datasets — you've likely encountered the pain of working with large CSV files. The bigger the file, the worse the performance problems become. Regular spreadsheet software wasn't designed for speed when handling massive datasets. But online tools built specifically for CSV viewing are optimized for performance, letting you instantly view files that would cripple traditional applications.
               </p>
               <p>
-                Why do people search for "free online tool to view large CSV files"? The answer is frustration. They've tried opening a large CSV in Excel and watched it hang. They've experienced their computer freezing while loading a simple data file. They've downloaded files that are several megabytes in size and waited forever for them to load. They want a solution that's fast, reliable, and doesn't require expensive software. They want something that works in their browser, right now, without installing anything.
+                Why do people search for "free online tool to view large CSV files"? The answer is frustration. They've tried opening a large CSV in Excel and watched it hang. They've experienced their computer freezing while loading a simple data file. They want a solution that's fast, reliable, and doesn't require expensive software or installations.
               </p>
             </CardContent>
           </Card>
 
-          {/* Solution Section */}
+          {/* How it solves the problem */}
           <Card>
             <CardHeader>
-              <CardTitle>How Online CSV Viewers Solve Performance Issues</CardTitle>
+              <CardTitle>How Virtual Scrolling Handles Any File Size</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                A free online CSV viewer for large files solves the performance problem immediately. The tool is built with optimization in mind. It doesn't load the entire file into memory at once. Instead, it displays rows intelligently, loading more data as you scroll. This means you can view a file with 100,000 rows as smoothly as a file with 1,000 rows. The interface stays responsive. Navigation is instant. You can search through massive datasets and find exactly what you need in seconds.
+                This CSV viewer is built with optimization in mind. It doesn't load the entire file into memory at once. Instead, it uses <strong>virtual scrolling</strong> — displaying only the rows currently visible on your screen, loading more as you scroll. This means you can view a file with 100,000 rows as smoothly as a file with 1,000 rows. The interface stays responsive. Navigation is instant. You can search through massive datasets and find exactly what you need in seconds.
               </p>
               <p>
-                Beyond performance, viewing CSV files online has other practical advantages. You don't need to download the file to your computer. You can view it directly from email attachments, cloud storage, or wherever it's hosted. You can verify data before downloading. You can check if a CSV file is corrupted before investing time in processing it. You can quickly scan through data from multiple sources without cluttering your hard drive with downloaded files.
+                Beyond performance, viewing CSV files online has other practical advantages. You can verify data before downloading. You can check if a CSV file is correct before investing time in processing it. You can quickly scan through data from multiple sources without cluttering your hard drive with downloaded files.
               </p>
             </CardContent>
           </Card>
 
-          {/* Mistakes Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Common Mistakes When Dealing With Large CSV Files</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
-              <p>
-                Common mistakes people make when dealing with large CSVs include trying to open them in inappropriate tools, like text editors, which cause memory issues. They try to open them in Excel when they have a Mac and run into compatibility issues. They download massive files to slow computers and experience long wait times. They don't realize that online viewers are faster than offline applications. Some people split large files into smaller chunks when they could just use a better tool. Others give up on viewing their data altogether.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* Privacy Section */}
+          {/* Privacy */}
           <Card>
             <CardHeader>
               <CardTitle>Your Data Stays Private & Secure</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                The safety and privacy of your data matter when viewing large files online. A trustworthy CSV viewer processes your file entirely in your browser without uploading it anywhere. This means your large customer lists, financial records, or sensitive datasets never leave your device. The tool doesn't scan your data, doesn't store it on servers, and doesn't retain any information about what you're viewing. Your privacy is absolute, regardless of file size.
+                The safety and privacy of your data matter when viewing large files online. This CSV viewer processes your file entirely in your browser without uploading it anywhere. This means your large customer lists, financial records, or sensitive datasets never leave your device. The tool doesn't scan your data, doesn't store it on servers, and doesn't retain any information about what you're viewing. Your privacy is absolute, regardless of file size.
               </p>
             </CardContent>
           </Card>
 
-          {/* FAQ Section */}
+          {/* FAQ */}
           <Card>
             <CardHeader>
               <CardTitle>Frequently Asked Questions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">How large can a CSV file be before it becomes too big to view online?</h3>
-                <p className="text-muted-foreground">Free online CSV viewers can typically handle files ranging from a few megabytes to several hundred megabytes, depending on your internet speed and browser. Most business and research datasets fall comfortably within this range.</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">Does viewing a large CSV file online use a lot of internet data?</h3>
-                <p className="text-muted-foreground">Yes, loading a large file initially requires bandwidth, but once it's loaded in your browser, further viewing and navigation use minimal data since everything happens locally.</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">Can I search and filter within a large CSV file viewed online?</h3>
-                <p className="text-muted-foreground">Yes. Online CSV viewers include search functionality that lets you find specific entries, filter by criteria, and locate information within massive datasets in seconds.</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">Is it faster to view large CSVs online than on my computer?</h3>
-                <p className="text-muted-foreground">Often yes. Online viewers are optimized for performance and often faster than heavy applications like Excel, especially on computers with limited memory.</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">What if my large CSV file has formatting issues or encoding problems?</h3>
-                <p className="text-muted-foreground">A robust online CSV viewer handles various encodings and formats automatically. It can parse files with different delimiters, handle special characters, and display data correctly even if the file has minor formatting issues.</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-foreground">Can I edit a large CSV file after viewing it online, or just view it?</h3>
-                <p className="text-muted-foreground">Most modern online CSV tools let you both view and edit. You can make changes to large files and download the updated version without needing any other software.</p>
-              </div>
+              {[
+                { q: "How large can a CSV file be before it becomes too big to view online?", a: "This viewer can handle files ranging from a few megabytes to several hundred megabytes, depending on your browser and available RAM. Most business and research datasets fall comfortably within this range." },
+                { q: "Does viewing a large CSV file online use a lot of internet data?", a: "Loading the file initially requires bandwidth, but once it's loaded in your browser, further viewing and navigation use minimal data since everything happens locally with virtual scrolling." },
+                { q: "Can I search and filter within a large CSV file viewed online?", a: "Yes. The built-in search functionality lets you find specific entries, filter by criteria, and locate information within massive datasets instantly — all without re-loading." },
+                { q: "Is it faster to view large CSVs online than on my computer?", a: "Often yes. This viewer uses virtual scrolling specifically optimized for large files, and is often faster than heavy applications like Excel, especially on computers with limited memory." },
+                { q: "What if my large CSV file has formatting issues or encoding problems?", a: "The viewer handles various encodings and formats automatically. It can parse files with different delimiters, handle special characters, and display data correctly even if the file has minor formatting issues." },
+                { q: "Can I edit a large CSV file after viewing it online, or just view it?", a: "You can both view and edit. Enable Edit Mode to click into any cell, add or delete rows and columns, and rename headers. Then download the updated version when you're done." },
+              ].map(({ q, a }) => (
+                <div key={q} className="space-y-2">
+                  <h3 className="font-semibold text-foreground">{q}</h3>
+                  <p className="text-muted-foreground">{a}</p>
+                </div>
+              ))}
             </CardContent>
           </Card>
 
-          {/* Internal Links Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Related Tools</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-muted-foreground mb-4">
-                Explore these other tools for data management:
-              </p>
-              <div className="space-y-2">
-                <Link href="/tools/csv-viewer">
-                  <Button variant="outline" className="w-full justify-start">
-                    CSV Viewer & Editor - Main Tool
-                  </Button>
+          {/* Related tools */}
+          <div>
+            <h2 className="text-2xl font-bold mb-4">Related CSV Tools</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { href: "/tools/csv-viewer", title: "CSV Viewer & Editor", desc: "The full-featured main CSV tool" },
+                { href: "/tools/csv-viewer/edit-without-excel", title: "Edit CSV Without Excel", desc: "Full spreadsheet editing, no Excel needed" },
+                { href: "/tools/json-csv-converter", title: "JSON to CSV Converter", desc: "Convert JSON data into CSV format" },
+                { href: "/tools/xlsx-to-csv-converter", title: "Excel to CSV Converter", desc: "Convert .xlsx files to CSV instantly" },
+              ].map(({ href, title, desc }) => (
+                <Link key={href} href={href}>
+                  <div className="flex items-center gap-3 p-4 border rounded-lg hover-elevate cursor-pointer">
+                    <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                      <ArrowRight className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm">{title}</div>
+                      <div className="text-xs text-muted-foreground">{desc}</div>
+                    </div>
+                  </div>
                 </Link>
-                <Link href="/tools/json-csv-converter">
-                  <Button variant="outline" className="w-full justify-start">
-                    JSON to CSV Converter
-                  </Button>
-                </Link>
-                <Link href="/tools/html-table-generator">
-                  <Button variant="outline" className="w-full justify-start">
-                    HTML Table Generator
-                  </Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* CTA Section */}
-          <div className="text-center space-y-4">
-            <p className="text-lg text-foreground">Need to view a large CSV file right now?</p>
-            <Link href="/tools/csv-viewer">
-              <Button size="lg" className="gap-2">
-                <FileSpreadsheet className="h-5 w-5" />
-                Open CSV Viewer & Editor
-              </Button>
-            </Link>
+              ))}
+            </div>
           </div>
+
         </div>
       </main>
     </div>

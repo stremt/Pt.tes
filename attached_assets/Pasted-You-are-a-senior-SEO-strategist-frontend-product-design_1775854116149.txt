@@ -1,0 +1,230 @@
+You are a senior SEO strategist + frontend product designer.
+
+Your task is to completely upgrade an existing page:
+
+👉 /tools/csv-viewer/edit-without-excel
+
+This page must become a high-ranking, high-conversion SEO landing page targeting:
+
+PRIMARY KEYWORDS:
+
+* edit csv without excel
+* csv editor without excel
+* edit csv online without excel
+
+---
+
+## CORE RULE:
+
+ONLY embed the reusable component:
+
+<CsvToolCore />
+
+Do NOT duplicate tool logic.
+Do NOT write CSV logic again.
+
+---
+
+## PAGE GOAL:
+
+User intent:
+👉 "I want to edit a CSV file but I don't want to use Excel"
+
+So:
+
+* Focus on editing
+* Focus on "no Excel"
+* Focus on simplicity
+
+---
+
+## HERO SECTION (CRITICAL):
+
+Headline:
+👉 Edit CSV Files Without Excel — Fast, Free & Online
+
+Subheadline:
+👉 Modify CSV files directly in your browser. No Excel, no upload, no signup. Full control over rows, columns, and data.
+
+CTA:
+👉 Edit Your CSV Now
+
+Add trust indicators:
+
+* No Excel Required
+* 100% Private (Client-side)
+* Works on any device
+
+---
+
+## TOOL SECTION:
+
+Embed:
+
+<CsvToolCore
+mode="editor"
+allowEdit={true}
+showPaste={true}
+showUrlInput={true}
+initialDemo={true}
+/>
+
+---
+
+## UX IMPROVEMENTS:
+
+* Add "Try Sample CSV" button above tool
+
+* Show small hint:
+  "Click any cell to start editing"
+
+* Keep UI clean:
+  No overload of buttons above fold
+
+---
+
+## SEO CONTENT SECTION (VERY IMPORTANT):
+
+Write 1500+ words content with HIGH DEPTH.
+
+Use these sections:
+
+---
+
+H2: What Does It Mean to Edit a CSV File Without Excel?
+
+Explain:
+
+* CSV structure
+* Why Excel is commonly used
+* Why it's not ideal
+
+---
+
+H2: How to Edit CSV Files Online Without Excel
+
+Step-by-step:
+
+1. Upload CSV
+2. Click any cell
+3. Modify data
+4. Download updated file
+
+---
+
+H2: Why Not Use Excel for CSV Editing?
+
+Explain problems:
+
+* Formatting issues
+* Auto date conversion
+* File size limits
+* Requires installation
+
+---
+
+H2: Benefits of Using an Online CSV Editor
+
+* No installation
+* Faster performance
+* Works on any device
+* Real-time editing
+
+---
+
+H2: Features of This CSV Editor
+
+* Edit cells instantly
+* Add/delete rows
+* Add/delete columns
+* Rename headers
+* Undo/Redo support
+* Export updated CSV
+
+---
+
+H2: Who Should Use This Tool?
+
+* Developers
+* Data analysts
+* Marketers
+* Students
+
+---
+
+H2: Frequently Asked Questions (FAQ)
+
+Add 6–8 FAQs:
+
+* Is my data safe?
+* Can I edit large CSV files?
+* Do I need to install anything?
+* Can I use it on mobile?
+
+---
+
+## INTERNAL LINKING (IMPORTANT):
+
+Add links to:
+
+* /tools/csv-viewer/open-csv-file-online
+* /tools/csv-viewer/view-large-files
+* /tools/csv-viewer/view-in-browser
+
+Use keyword anchors like:
+
+* "open CSV file online"
+* "view large CSV files"
+
+---
+
+## SCHEMA:
+
+Add:
+
+* FAQ schema
+* HowTo schema
+* SoftwareApplication schema
+
+---
+
+## CONVERSION OPTIMIZATION:
+
+* Add CTA at top and bottom:
+  "Edit CSV Without Excel Now"
+
+* Add benefit highlight box:
+  "No Excel. No Upload. No Data Risk."
+
+---
+
+## RESPONSIVE DESIGN:
+
+* Mobile-first layout
+* Stack sections properly
+* Keep tool usable on small screens
+
+---
+
+## IMPORTANT:
+
+This page must feel:
+
+* Simple
+* Fast
+* Focused on editing
+
+NOT:
+
+* Overloaded
+* Generic
+* Duplicate of other pages
+
+---
+
+## FINAL OUTPUT:
+
+* Fully upgraded SEO page
+* Clean UI
+* High readability
+* Only uses CsvToolCore for functionality
