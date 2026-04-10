@@ -540,7 +540,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   };
 
   const toggleFullScreen = () => {
-    setIsFullScreen(!isFullScreen);
+    const entering = !isFullScreen;
+    setIsFullScreen(entering);
+    if (entering && data.length > 0) {
+      pendingHistorySaveRef.current = { data, headers, name: fileName || "data.csv" };
+      setShowSavePrompt(true);
+    }
   };
 
   const toggleHighlight = () => {
@@ -706,7 +711,6 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       document.body.style.right = "0";
       document.body.style.height = "100%";
     } else {
-      const scrollY = parseInt(document.body.style.top || "0", 10) * -1;
       document.documentElement.style.overflow = "";
       document.documentElement.style.height = "";
       document.body.style.overflow = "";
@@ -715,7 +719,9 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
       document.body.style.left = "";
       document.body.style.right = "";
       document.body.style.height = "";
-      window.scrollTo(0, scrollY);
+      setTimeout(() => {
+        containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
     }
     return () => {
       document.documentElement.style.overflow = "";
