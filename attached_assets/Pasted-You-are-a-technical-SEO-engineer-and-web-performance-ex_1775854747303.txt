@@ -1,0 +1,206 @@
+You are a technical SEO engineer and web performance expert.
+
+Your task is to implement FULL backend SEO optimization for the page:
+
+👉 /tools/csv-viewer/edit-without-excel
+
+This is a high-priority SEO landing page targeting:
+
+* edit csv without excel
+* csv editor without excel
+* edit csv online without excel
+
+---
+
+1. META TAGS (CRITICAL)
+
+---
+
+Add optimized meta tags:
+
+<title>
+Edit CSV Without Excel (Free, Fast & Private CSV Editor Online)
+</title>
+
+<meta name="description" content="Edit CSV files without Excel instantly. Free online CSV editor with full control — edit rows, columns, and data directly in your browser. No upload, 100% private." />
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer/edit-without-excel" />
+
+---
+
+2. OPEN GRAPH + TWITTER SEO
+
+---
+
+<meta property="og:title" content="Edit CSV Without Excel — Free Online CSV Editor" />
+<meta property="og:description" content="Edit CSV files instantly without Excel. No upload, 100% private, fast editing for any CSV file." />
+<meta property="og:url" content="https://tools.pixocraft.in/tools/csv-viewer/edit-without-excel" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://tools.pixocraft.in/og-csv-editor.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Edit CSV Without Excel — Free CSV Editor Online" />
+<meta name="twitter:description" content="Modify CSV files directly in your browser. No Excel needed. Fast, secure, and free." />
+<meta name="twitter:image" content="https://tools.pixocraft.in/og-csv-editor.png" />
+
+---
+
+3. STRUCTURED DATA (VERY IMPORTANT)
+
+---
+
+Implement JSON-LD:
+
+A) SoftwareApplication schema
+
+{
+"@context": "https://schema.org",
+"@type": "SoftwareApplication",
+"name": "CSV Editor Without Excel",
+"operatingSystem": "Web",
+"applicationCategory": "DeveloperApplication",
+"description": "Edit CSV files online without Excel. Modify rows, columns, and data directly in your browser with full privacy.",
+"url": "https://tools.pixocraft.in/tools/csv-viewer/edit-without-excel",
+"offers": {
+"@type": "Offer",
+"price": "0",
+"priceCurrency": "USD"
+}
+}
+
+---
+
+B) FAQ Schema (must match page FAQs)
+
+---
+
+C) HowTo Schema
+
+Steps:
+
+1. Upload CSV
+2. Edit cells
+3. Download file
+
+---
+
+4. INTERNAL LINKING SIGNALS
+
+---
+
+Add contextual links inside content:
+
+* "open csv file online" → /open-csv-file-online
+* "view large csv files" → /view-large-files
+* "csv viewer in browser" → /view-in-browser
+
+Use keyword-rich anchor text.
+
+---
+
+5. PAGE PERFORMANCE (CORE WEB VITALS)
+
+---
+
+* Ensure LCP < 2.5s
+* Avoid heavy JS on initial load
+* Lazy load CSV tool component
+* Minimize layout shift (CLS)
+
+---
+
+6. HTML STRUCTURE (SEO CRITICAL)
+
+---
+
+* Only ONE H1
+
+* Proper hierarchy:
+  H1 → H2 → H3
+
+* H1 must include:
+  "Edit CSV Without Excel"
+
+---
+
+7. CONTENT INDEXABILITY
+
+---
+
+* Ensure ALL content is server-rendered or pre-rendered
+* Avoid content hidden behind JS-only rendering
+
+---
+
+8. IMAGE SEO
+
+---
+
+* Add alt tags:
+  "edit csv without excel interface"
+  "online csv editor tool preview"
+
+* Use compressed images (WebP)
+
+---
+
+9. URL STRUCTURE
+
+---
+
+Keep URL clean:
+→ /tools/csv-viewer/edit-without-excel
+
+NO parameters
+NO dynamic junk
+
+---
+
+10. SITEMAP + INDEXING
+
+---
+
+* Add page to sitemap.xml
+* Submit to Google Search Console
+* Ensure indexable
+
+---
+
+11. MOBILE SEO
+
+---
+
+* Ensure responsive layout
+* Touch-friendly buttons
+* No overflow issues
+
+---
+
+12. ADVANCED SIGNALS (IMPORTANT)
+
+---
+
+* Add breadcrumb schema
+* Add "last updated" timestamp
+* Add internal nav structure
+
+---
+
+## FINAL GOAL:
+
+Make this page:
+
+* Fully crawlable
+* Fully indexable
+* Highly optimized for ranking
+* Faster than competitors
+
+---
+
+## OUTPUT:
+
+* Fully optimized SEO backend implementation
+* Clean meta + schema + structure
+* Production-ready
