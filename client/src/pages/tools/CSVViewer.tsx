@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import Papa from "papaparse";
 import { Link } from "wouter";
@@ -62,6 +63,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
+
+function ConditionalPortal({ active, children }: { active: boolean; children: ReactNode }) {
+  if (active) return createPortal(children, document.body);
+  return <>{children}</>;
+}
 
 export default function CSVViewer() {
   const [data, setData] = useState<any[]>([]);
@@ -443,12 +449,36 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
 
   useEffect(() => {
     if (isFullScreen) {
+      const scrollY = window.scrollY;
+      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.height = "100%";
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.height = "100%";
     } else {
-      document.body.style.overflow = "unset";
+      const scrollY = parseInt(document.body.style.top || "0", 10) * -1;
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.height = "";
+      window.scrollTo(0, scrollY);
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "";
+      document.documentElement.style.height = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.height = "";
     };
   }, [isFullScreen]);
 
@@ -888,13 +918,18 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
         )}
 
         {data.length > 0 && (
+          <ConditionalPortal active={isFullScreen}>
           <div
             ref={containerRef}
             className={cn(
-              "space-y-4",
-              isFullScreen &&
-                "fixed top-0 left-0 right-0 bottom-0 z-[99999] bg-background flex flex-col overflow-hidden",
+              isFullScreen ? "flex flex-col overflow-hidden" : "space-y-4",
             )}
+            style={isFullScreen ? {
+              position: "fixed",
+              inset: 0,
+              zIndex: 999999,
+              backgroundColor: "hsl(var(--background))",
+            } : undefined}
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b bg-muted/30">
               <div className="flex flex-wrap items-center gap-2">
@@ -934,8 +969,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                   size="sm"
                   onClick={toggleEditing}
                   className={cn(
-                    "h-9 gap-2 transition-all",
-                    isEditing && "ring-2 ring-primary/50 ring-offset-1 shadow-[0_0_14px_rgba(37,99,235,0.35)]",
+                    "h-9 gap-2 transition-all border-primary/40 text-primary",
+                    isEditing
+                      ? "ring-2 ring-primary/50 ring-offset-1 shadow-[0_0_14px_rgba(37,99,235,0.35)] bg-primary text-primary-foreground"
+                      : "bg-primary/5",
                   )}
                   data-testid="button-edit-mode"
                 >
@@ -1178,6 +1215,23 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                         )}
                       </TableRow>
                     ))}
+                  {isEditing && (
+                    <TableRow className="hover:bg-transparent border-none">
+                      <TableCell
+                        colSpan={headers.length + 2}
+                        className="p-0"
+                      >
+                        <button
+                          onClick={addRow}
+                          data-testid="button-add-row-bottom"
+                          className="w-full flex items-center justify-center gap-2 py-2.5 text-xs font-medium text-primary/70 hover:text-primary hover:bg-primary/5 border-t border-dashed border-primary/25 hover:border-primary/50 transition-all"
+                        >
+                          <Plus className="h-3.5 w-3.5" />
+                          Add new row
+                        </button>
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
               {displayCount < filteredData.length && (
@@ -1225,6 +1279,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
               </div>
             </div>
           </div>
+          </ConditionalPortal>
         )}
       </div>
 
