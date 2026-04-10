@@ -277,7 +277,7 @@ export default function QRMaker({ embedMode = false, defaultType = "" }: { embed
     if (idx > 0) switchTab(TAB_STEPS[idx - 1].id);
   };
   const [selectedType, setSelectedType] = useState("");
-  const [showMoreTypes, setShowMoreTypes] = useState(false);
+  const [showMoreTypes, setShowMoreTypes] = useState(true);
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([]);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
