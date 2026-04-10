@@ -82,8 +82,11 @@ export default function CSVViewer() {
     rowIndex: number;
     colKey: string;
   } | null>(null);
-  const [history, setHistory] = useState<any[][]>([]);
+  const historyRef = useRef<any[][]>([]);
+  const historyIdxRef = useRef(-1);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [historyLen, setHistoryLen] = useState(0);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [pastedContent, setPastedContent] = useState("");
   const [showPaste, setShowPaste] = useState(false);
   const [showUrlInput, setShowUrlInput] = useState(false);
@@ -194,15 +197,16 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     setHeaders([]);
     setFileName("");
     setSearchTerm("");
-    setHistory([]);
+    historyRef.current = [];
+    historyIdxRef.current = -1;
     setHistoryIndex(-1);
+    setHistoryLen(0);
+    setIsEditing(false);
+    setShowClearConfirm(false);
     localStorage.removeItem("csv_viewer_data");
     localStorage.removeItem("csv_viewer_headers");
     localStorage.removeItem("csv_viewer_filename");
-    toast({
-      title: "Cleared",
-      description: "Data has been removed",
-    });
+    toast({ title: "Cleared", description: "Data has been removed" });
   };
 
   const handleCsvContent = useCallback(
@@ -217,8 +221,10 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
             setData(results.data);
             setFileName(name);
             setDisplayCount(100);
-            setHistory([results.data]);
+            historyRef.current = [results.data];
+            historyIdxRef.current = 0;
             setHistoryIndex(0);
+            setHistoryLen(1);
             toast({
               title: "Success",
               description: `Loaded ${results.data.length} rows`,
@@ -273,23 +279,23 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     }
   }, [data, headers, fileName]);
 
-  const pushToHistory = useCallback(
-    (newData: any[]) => {
-      const newHistory = history.slice(0, historyIndex + 1);
-      newHistory.push([...newData]);
-      if (newHistory.length > 50) newHistory.shift();
-      setHistory(newHistory);
-      setHistoryIndex(newHistory.length - 1);
-    },
-    [history, historyIndex],
-  );
+  const pushToHistory = (newData: any[]) => {
+    const newHistory = historyRef.current.slice(0, historyIdxRef.current + 1);
+    newHistory.push([...newData]);
+    if (newHistory.length > 50) newHistory.shift();
+    historyRef.current = newHistory;
+    historyIdxRef.current = newHistory.length - 1;
+    setHistoryIndex(newHistory.length - 1);
+    setHistoryLen(newHistory.length);
+  };
 
   const undo = () => {
-    if (historyIndex > 0) {
-      const newIndex = historyIndex - 1;
-      const oldData = history[historyIndex];
-      const newData = history[newIndex];
-      setHistoryIndex(newIndex);
+    if (historyIdxRef.current > 0) {
+      const newIdx = historyIdxRef.current - 1;
+      const oldData = historyRef.current[historyIdxRef.current];
+      const newData = historyRef.current[newIdx];
+      historyIdxRef.current = newIdx;
+      setHistoryIndex(newIdx);
       setData([...newData]);
       const diff = findDataDiff(oldData, newData, headers);
       if (diff) {
@@ -302,11 +308,12 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
   };
 
   const redo = () => {
-    if (historyIndex < history.length - 1) {
-      const newIndex = historyIndex + 1;
-      const oldData = history[historyIndex];
-      const newData = history[newIndex];
-      setHistoryIndex(newIndex);
+    if (historyIdxRef.current < historyRef.current.length - 1) {
+      const newIdx = historyIdxRef.current + 1;
+      const oldData = historyRef.current[historyIdxRef.current];
+      const newData = historyRef.current[newIdx];
+      historyIdxRef.current = newIdx;
+      setHistoryIndex(newIdx);
       setData([...newData]);
       const diff = findDataDiff(oldData, newData, headers);
       if (diff) {
@@ -377,9 +384,11 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
     const nextEditing = !isEditing;
     setIsEditing(nextEditing);
     setEditCell(null);
-    if (nextEditing && history.length === 0) {
-      setHistory([[...data]]);
+    if (nextEditing && historyRef.current.length === 0) {
+      historyRef.current = [[...data]];
+      historyIdxRef.current = 0;
       setHistoryIndex(0);
+      setHistoryLen(1);
     }
   };
 
@@ -958,10 +967,18 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                 <p className="text-xs text-muted-foreground">{data.length} rows loaded</p>
               </div>
             </div>
-            <Button variant="outline" size="sm" onClick={handleClear} className="gap-2">
-              <RotateCcw className="h-4 w-4" />
-              Upload New
-            </Button>
+            {showClearConfirm ? (
+              <div className="flex items-center gap-2 animate-in fade-in duration-150">
+                <span className="text-xs font-medium text-destructive">Clear all data?</span>
+                <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Yes, clear</Button>
+                <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setShowClearConfirm(false)}>Cancel</Button>
+              </div>
+            ) : (
+              <Button variant="outline" size="sm" onClick={() => setShowClearConfirm(true)} className="gap-2">
+                <RotateCcw className="h-4 w-4" />
+                Upload New
+              </Button>
+            )}
           </div>
         )}
 
@@ -1004,7 +1021,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                     variant="ghost"
                     size="sm"
                     onClick={redo}
-                    disabled={historyIndex >= history.length - 1}
+                    disabled={historyIndex >= historyLen - 1}
                     className="h-7 px-2 hover:bg-muted"
                   >
                     <Redo2 className="h-3.5 w-3.5" />
@@ -1080,15 +1097,23 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                       <Maximize2 className="h-4 w-4" />
                     )}
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleClear}
-                    className="h-9 w-9 text-destructive hover:bg-destructive/10 hover:text-destructive"
-                    title="Clear All Data"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  {showClearConfirm ? (
+                    <div className="flex items-center gap-1.5 animate-in fade-in duration-150">
+                      <span className="text-xs font-medium text-destructive whitespace-nowrap">Sure?</span>
+                      <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Yes</Button>
+                      <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setShowClearConfirm(false)}>No</Button>
+                    </div>
+                  ) : (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setShowClearConfirm(true)}
+                      className="h-9 w-9 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                      title="Clear All Data"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
                 </div>
 
                 <Button onClick={downloadCSV} size="sm" className="h-9 gap-2 ml-1">
@@ -1251,7 +1276,7 @@ Liam Davis,Sales,Sales Manager,105000,2017-12-01,Chicago`;
                             editCell?.colKey === header ? (
                               <Input
                                 autoFocus
-                                className="absolute inset-0 h-full w-full border-0 rounded-none bg-background focus-visible:ring-0 focus-visible:ring-offset-0 px-3 text-sm shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+                                className="absolute inset-0 h-full w-full border-0 rounded-none bg-amber-50 dark:bg-amber-950/40 focus-visible:ring-0 focus-visible:ring-offset-0 px-3 text-sm font-medium"
                                 value={row[header] || ""}
                                 onChange={(e) =>
                                   handleCellChange(
