@@ -231,67 +231,62 @@ export function prefetchTools(paths: string[]): void {
  * Complete ordered list of every tool path — highest traffic first.
  * The hook processes this as a rolling loop: 20 at a time, idle-only,
  * paused at 3 MB and resumed on next navigation.
+ *
+ * Batch 1 (slots 1-20)  = absolute top tools — prefetched first, always
+ * Batch 2 (slots 21-40) = next most important — prefetched second
+ * Batch 3+ = everything else, descending priority
  */
 export const TOP_TOOLS: string[] = [
-  // ── Top 20 (highest traffic) ─────────────────────────────────────────────
+  // ── Batch 1 · absolute top tools (prefetched first) ──────────────────────
   "/tools/temp-mail",
   "/tools/password-generator",
   "/tools/image-compressor",
   "/tools/qr-maker",
+  "/tools/emi-calculator",         // very high traffic calculator
+  "/tools/age-calculator",         // very high traffic calculator
+  "/tools/bmi-calculator",         // very high traffic calculator
+  "/tools/loan-calculator",        // very high traffic calculator
   "/tools/json-formatter",
   "/tools/word-counter",
-  "/tools/text-case-converter",
-  "/tools/password-strength-checker",
   "/tools/url-encoder",
   "/tools/base64-encoder",
   "/tools/color-picker",
   "/tools/image-resizer",
-  "/tools/barcode-generator",
   "/tools/pdf-merger",
   "/tools/pdf-splitter",
+  "/tools/barcode-generator",
   "/tools/invoice-generator",
   "/tools/hash-generator",
+  "/tools/markdown-editor",
+  // ── Batch 2 · next most important tools ──────────────────────────────────
+  "/tools/text-case-converter",
+  "/tools/password-strength-checker",
   "/tools/username-generator",
   "/tools/random-number-generator",
   "/tools/todo-list",
-  // ── Next 20 ──────────────────────────────────────────────────────────────
-  "/tools/pdf-compressor",
-  "/tools/pdf-watermark-adder",
-  "/tools/image-to-base64",
-  "/tools/jpg-to-png",
-  "/tools/png-to-jpg",
-  "/tools/exif-remover",
-  "/tools/csv-viewer",
-  "/tools/text-diff",
-  "/tools/text-cleaner",
-  "/tools/favicon-generator",
-  "/tools/html-beautifier",
-  "/tools/css-minifier",
-  "/tools/text-reverser",
-  "/tools/pdf-password-remover",
-  "/tools/text-to-file",
-  "/tools/receipt-generator",
-  "/tools/percentage-calculator",
-  "/tools/markdown-editor",
-  "/tools/regex-tester",
   "/tools/text-summarizer",
-  // ── Next 20 ──────────────────────────────────────────────────────────────
-  "/tools/emi-calculator",
-  "/tools/age-calculator",
-  "/tools/bmi-calculator",
-  "/tools/loan-calculator",
-  "/tools/uuid-generator",
+  "/tools/regex-tester",
   "/tools/text-encrypt-decrypt",
   "/tools/image-cropper",
+  "/tools/image-to-pdf",
+  "/tools/pdf-to-image",
+  "/tools/pdf-compressor",
+  "/tools/pdf-password-remover",
+  "/tools/html-beautifier",
+  "/tools/css-minifier",
+  "/tools/jpg-to-png",
+  "/tools/png-to-jpg",
+  "/tools/text-to-file",
   "/tools/code-beautifier",
+  "/tools/percentage-calculator",
+  // ── Batch 3 · remaining popular tools ────────────────────────────────────
+  "/tools/uuid-generator",
   "/tools/text-to-speech",
   "/tools/timer-stopwatch",
   "/tools/expense-tracker",
   "/tools/hex-rgb-converter",
   "/tools/gradient-generator",
   "/tools/color-palette-generator",
-  "/tools/image-to-pdf",
-  "/tools/pdf-to-image",
   "/tools/html-minifier",
   "/tools/js-minifier",
   "/tools/json-csv-converter",
@@ -348,7 +343,6 @@ export const TOP_TOOLS: string[] = [
   "/tools/pdf-rotator",
   "/tools/html-to-pdf",
   "/tools/excel-to-pdf",
-  "/tools/text-to-file",
   "/tools/pangram-generator",
   "/tools/case-mixer",
   "/tools/case-randomizer",
