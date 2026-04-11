@@ -1,0 +1,260 @@
+You are a senior Technical SEO engineer and web performance specialist.
+
+Your task is to fully optimize backend SEO for:
+
+👉 https://tools.pixocraft.in/tools/csv-viewer/convert-and-edit
+
+PRIMARY KEYWORDS:
+
+* convert and edit csv
+* csv converter and editor
+* convert csv file online and edit
+* edit csv after converting
+
+---
+
+## 🎯 PRIMARY OBJECTIVE
+
+* Rank top 1–3 for "convert and edit csv"
+* Capture multi-intent traffic (conversion + editing)
+* Maximize technical SEO signals
+* Ensure fast and smooth performance
+
+---
+
+1. META TAGS (CTR + INTENT MATCH)
+
+---
+
+<title>
+Convert & Edit CSV Files Online (Free CSV Converter + Editor)
+</title>
+
+<meta name="description" content="Convert and edit CSV files instantly online. Modify data, columns, and rows after conversion without Excel. Fast, free, and 100% private." />
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer/convert-and-edit" />
+
+---
+
+2. OPEN GRAPH + TWITTER SEO
+
+---
+
+<meta property="og:title" content="Convert & Edit CSV Files Online — Fast & Free" />
+<meta property="og:description" content="Convert CSV files and edit them instantly without Excel. No upload, fast and secure." />
+<meta property="og:url" content="https://tools.pixocraft.in/tools/csv-viewer/convert-and-edit" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://tools.pixocraft.in/og-csv-convert.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CSV Converter + Editor (Free Online Tool)" />
+<meta name="twitter:description" content="Convert and edit CSV files online instantly. No Excel needed, fast and private." />
+<meta name="twitter:image" content="https://tools.pixocraft.in/og-csv-convert.png" />
+
+---
+
+3. STRUCTURED DATA (CRITICAL)
+
+---
+
+A) SoftwareApplication Schema
+
+{
+"@context": "https://schema.org",
+"@type": "SoftwareApplication",
+"name": "CSV Converter and Editor",
+"operatingSystem": "Web",
+"applicationCategory": "DeveloperApplication",
+"description": "Convert and edit CSV files online without Excel. Modify data after conversion with full control over rows and columns.",
+"url": "https://tools.pixocraft.in/tools/csv-viewer/convert-and-edit",
+"featureList": [
+"Convert CSV instantly",
+"Edit CSV after conversion",
+"Modify rows and columns",
+"No Excel required",
+"No upload needed",
+"Private and secure"
+],
+"offers": {
+"@type": "Offer",
+"price": "0",
+"priceCurrency": "USD"
+}
+}
+
+---
+
+B) FAQ Schema
+
+Include:
+
+* Can I convert and edit CSV online?
+* Do I need Excel to edit CSV after converting?
+* What formats can I convert to CSV?
+* Is my data secure?
+
+---
+
+C) HowTo Schema
+
+Steps:
+
+1. Upload or paste file
+2. Convert to CSV format
+3. Edit data instantly
+4. Download updated file
+
+---
+
+D) Breadcrumb Schema
+
+Home > Tools > CSV Viewer > Convert and Edit CSV
+
+---
+
+4. CORE WEB VITALS OPTIMIZATION
+
+---
+
+Targets:
+
+* LCP < 2.5s
+* CLS < 0.1
+* INP < 200ms
+
+Implement:
+
+* Lazy load CsvToolCore
+* Optimize initial load
+* Avoid blocking scripts
+* Reduce JS bundle size
+
+---
+
+5. HTML STRUCTURE (SEO CRITICAL)
+
+---
+
+* Single H1:
+  👉 "Convert and Edit CSV Files Online Without Excel"
+
+* Proper hierarchy:
+  H1 → H2 → H3
+
+---
+
+6. INDEXABILITY
+
+---
+
+* Ensure content visible without interaction
+* Avoid JS-only rendering issues
+
+---
+
+7. INTERNAL LINKING (VERY IMPORTANT)
+
+---
+
+Add links:
+
+* "edit csv without excel" → /edit-without-excel
+* "open csv file online" → /open-csv-file-online
+* "view large csv file" → /view-large-files
+
+---
+
+8. IMAGE SEO
+
+---
+
+* Use WebP images
+* ALT text:
+
+  * "convert and edit csv online"
+  * "csv converter editor interface"
+
+---
+
+9. PAGE SPEED
+
+---
+
+* Enable CDN
+* Minify JS/CSS
+* Enable Brotli compression
+
+---
+
+10. MOBILE SEO
+
+---
+
+* Fully responsive
+* Smooth editing experience
+* No layout breaking
+
+---
+
+11. SITEMAP & INDEXING
+
+---
+
+Add to sitemap:
+
+* priority: 0.85
+* changefreq: weekly
+* lastmod: dynamic
+
+Submit in Search Console
+
+---
+
+12. ADVANCED SEO SIGNALS
+
+---
+
+* Add last updated timestamp
+* Add semantic HTML structure
+* Add accessibility attributes
+
+---
+
+## ⚠️ IMPORTANT RULES
+
+DO NOT:
+
+* Duplicate other CSV pages
+* Overload UI
+* Add unnecessary scripts
+
+FOCUS ON:
+
+* Conversion + Editing flow
+* Clear intent
+* Clean structure
+
+---
+
+## 🏆 FINAL GOAL
+
+Google sees:
+
+* multi-intent page (convert + edit)
+* strong SEO signals
+* optimized structure
+
+User sees:
+
+* easy conversion
+* instant editing
+* fast workflow
+
+---
+
+OUTPUT:
+
+* Fully optimized backend SEO
+* Production-ready system

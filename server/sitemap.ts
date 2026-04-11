@@ -293,7 +293,7 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/css-grid-generator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/css-minifier", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/csv-viewer", priority: 0.9, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/csv-viewer/convert-and-edit", priority: 0.75, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/tools/csv-viewer/convert-and-edit", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/csv-viewer/edit-without-excel", priority: 0.8, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/csv-viewer/view-in-browser", priority: 0.8, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/csv-viewer/view-large-files", priority: 0.9, changefreq: "weekly", lastmod: TODAY },
