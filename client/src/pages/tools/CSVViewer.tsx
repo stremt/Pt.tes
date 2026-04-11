@@ -118,6 +118,7 @@ export default function CSVViewer() {
       benefits={benefits}
       faqs={faqs}
       compactHeader={true}
+      hideCategorySection={true}
     >
       <Helmet>
         <title>Open CSV File Instantly (No Excel, No Upload) – Fast CSV Viewer & Editor | Pixocraft</title>

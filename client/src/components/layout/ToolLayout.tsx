@@ -106,6 +106,7 @@ interface ToolLayoutProps {
   faqs: { question: string; answer: string }[];
   badge?: ReactNode;
   compactHeader?: boolean;
+  hideCategorySection?: boolean;
 }
 
 const categoryMap: Record<string, { name: string; path: string }> = {
@@ -139,6 +140,7 @@ export function ToolLayout({
   faqs,
   badge,
   compactHeader = false,
+  hideCategorySection = false,
 }: ToolLayoutProps) {
   const relatedTools = getRelatedTools(toolId, 3);
   const categoryInfo = categoryMap[category] || { name: category, path: `/tools/${category}` };
@@ -341,22 +343,24 @@ export function ToolLayout({
           </section>
 
           {/* Footer Category Links */}
-          <section className="py-12 border-t bg-muted/30">
-            <div className="container mx-auto px-4 max-w-7xl">
-              <div className="text-center space-y-6">
-                <h3 className="text-2xl font-bold">More {categoryInfo.name}</h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Explore other tools in the {categoryInfo.name} category
-                </p>
-                <Link href={categoryInfo.path}>
-                  <Button variant="default" size="lg" data-testid="button-category-link">
-                    View All {categoryInfo.name}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
+          {!hideCategorySection && (
+            <section className="py-12 border-t bg-muted/30">
+              <div className="container mx-auto px-4 max-w-7xl">
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">More {categoryInfo.name}</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">
+                    Explore other tools in the {categoryInfo.name} category
+                  </p>
+                  <Link href={categoryInfo.path}>
+                    <Button variant="default" size="lg" data-testid="button-category-link">
+                      View All {categoryInfo.name}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
         </div>
       )}
     </div>
