@@ -427,7 +427,9 @@ export default function CSVViewer() {
               </p>
               <div className="p-4 border rounded-lg bg-muted/30 mb-4">
                 <p className="text-sm text-foreground">
-                  <strong>Built-in real-time search</strong> scans all columns across all rows instantly — no page reloads, no server calls. This makes it the fastest way to <strong>view large CSV files</strong> online for free.
+                  <strong>Built-in real-time search</strong> scans all columns across all rows instantly — no page reloads, no server calls. This makes it the fastest way to{" "}
+                  <Link href="/tools/csv-viewer/view-large-files" className="text-primary font-semibold hover:underline">view large CSV files</Link>{" "}
+                  online for free.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -444,11 +446,68 @@ export default function CSVViewer() {
               </div>
             </div>
 
+            {/* ── CSV Tool Suite (longtail interlinks) ── */}
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Dedicated CSV Tools for Every Workflow</h2>
+              <p className="text-muted-foreground mb-5">
+                Need a specific CSV task done? Each tool below is purpose-built for one job —
+                fast, private, and completely free. Or stay right here to{" "}
+                <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">
+                  open CSV files online
+                </Link>{" "}
+                and do everything in one place.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    href: "/tools/csv-viewer/edit-without-excel",
+                    title: "Edit CSV Without Excel",
+                    desc: "Click any cell, add rows, rename headers — full editing without Excel or any install.",
+                    keyword: "edit csv without excel",
+                  },
+                  {
+                    href: "/tools/csv-viewer/view-large-files",
+                    title: "View Large CSV Files",
+                    desc: "Open huge CSV files (100MB+ to 1GB) with virtual scrolling — zero lag, zero crashes.",
+                    keyword: "view large csv files",
+                  },
+                  {
+                    href: "/tools/csv-viewer/view-in-browser",
+                    title: "View CSV in Browser",
+                    desc: "Preview any CSV instantly in your browser without downloading or installing anything.",
+                    keyword: "view csv in browser",
+                  },
+                  {
+                    href: "/tools/csv-viewer/convert-and-edit",
+                    title: "Convert & Edit CSV",
+                    desc: "Paste JSON or TSV, convert to CSV, and edit — all in one step without switching tools.",
+                    keyword: "convert and edit csv",
+                  },
+                ].map(({ href, title, desc }) => (
+                  <Link key={href} href={href}>
+                    <div className="flex items-center gap-3 p-4 border rounded-md hover-elevate cursor-pointer bg-card" data-testid={`link-suite-${href.split("/").pop()}`}>
+                      <div className="p-2 rounded-md bg-primary/10 shrink-0">
+                        <ArrowRight className="h-4 w-4 text-primary" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-sm text-foreground">{title}</div>
+                        <div className="text-xs text-muted-foreground">{desc}</div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             {/* Related tools */}
             <div>
               <h2 className="text-3xl font-bold mb-4">Related Tools to Supercharge Your CSV Workflow</h2>
               <p className="text-muted-foreground mb-4">
-                Need to convert data first? Use these tools, then use the <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">best CSV viewer online</Link> to <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">open CSV file online</Link> instantly — or jump straight to our free <Link href="/tools/csv-viewer" className="text-primary font-semibold hover:underline">CSV editor free</Link>.
+                Need to convert data first? Use these tools, then{" "}
+                <Link href="/tools/csv-viewer/edit-without-excel" className="text-primary font-semibold hover:underline">edit CSV without Excel</Link>{" "}
+                or{" "}
+                <Link href="/tools/csv-viewer/view-in-browser" className="text-primary font-semibold hover:underline">view CSV in your browser</Link>{" "}
+                instantly — no install, no account.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
