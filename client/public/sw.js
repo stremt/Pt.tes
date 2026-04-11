@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const ASSET_CACHE = `pixocraft-assets-${CACHE_VERSION}`;
 
 // ── Install: nothing to precache, activate immediately ────────────────────────
