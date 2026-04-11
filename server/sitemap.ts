@@ -37,7 +37,7 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/password-strength-checker", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/random-string-generator", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/text-encrypt-decrypt", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/image-exif-remover", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/tools/exif-remover", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/youtube-thumbnail-downloader", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/instagram-profile-picture-downloader", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/robots-txt-generator", priority: 0.8, changefreq: "weekly", lastmod: TODAY },
@@ -243,19 +243,13 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/pdf-watermark-adder/professional", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
 
   // Text to file longtail
-  { loc: "/tools/text-to-file/online-notepad", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/text-to-file/plain-text-editor", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/text-to-file/create-text-file", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/text-to-file/create-config-file", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
-  { loc: "/tools/text-to-file/browser-text-editor", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/online-notepad", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/plain-text-editor", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/create-text-file-online", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/create-config-file-online", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
+  { loc: "/browser-text-editor", priority: 0.7, changefreq: "weekly", lastmod: TODAY },
 
-  // Auto-added missing pages from route audit
-  { loc: "/browser-text-editor", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
-  { loc: "/create-config-file-online", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
-  { loc: "/create-text-file-online", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
-  { loc: "/online-notepad", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
   { loc: "/password-brute-force-calculator", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
-  { loc: "/plain-text-editor", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/advanced-text-shadow", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/age-calculator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/age-gap-calculator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
@@ -308,7 +302,6 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/excel-viewer", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/excel-viewer/mobile", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/excel-viewer/no-software", priority: 0.7, changefreq: "monthly", lastmod: TODAY },
-  { loc: "/tools/exif-remover", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/expense-tracker", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/exponent-calculator", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
   { loc: "/tools/extract-numbers", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
@@ -536,8 +529,6 @@ const URLS: SitemapUrl[] = [
   { loc: "/tools/video-audio-extractor", priority: 0.8, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/extract-sound-from-video", priority: 0.8, changefreq: "weekly", lastmod: TODAY },
 
-  // Other missing tool pages
-  { loc: "/tools/text-to-file", priority: 0.85, changefreq: "weekly", lastmod: TODAY },
   { loc: "/tools/ingredient-health-analyzer", priority: 0.8, changefreq: "monthly", lastmod: TODAY },
 
 ];
