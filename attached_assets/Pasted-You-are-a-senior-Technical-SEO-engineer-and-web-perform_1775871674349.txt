@@ -1,0 +1,268 @@
+You are a senior Technical SEO engineer and web performance architect.
+
+Your task is to fully optimize backend SEO for this page:
+
+👉 https://tools.pixocraft.in/tools/csv-viewer/view-large-files
+
+This page targets high-intent keywords:
+
+* view large csv file
+* open large csv file
+* open big csv file online
+* large csv viewer online
+
+---
+
+## 🎯 PRIMARY OBJECTIVE
+
+* Achieve top 1 ranking for large CSV keywords
+* Maximize crawlability and indexability
+* Optimize for Core Web Vitals
+* Strengthen technical SEO signals
+
+---
+
+1. META TAGS (CTR + RELEVANCE)
+
+---
+
+<title>
+View Large CSV Files Online (Open Big CSV Without Excel Instantly)
+</title>
+
+<meta name="description" content="Open and view large CSV files instantly without Excel. Supports huge files (100MB+ to 1GB) with fast performance and no lag. 100% private, no upload required." />
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer/view-large-files" />
+
+---
+
+2. OPEN GRAPH + TWITTER (SHARE SEO)
+
+---
+
+<meta property="og:title" content="View Large CSV Files Online — No Excel, No Lag" />
+<meta property="og:description" content="Open huge CSV files instantly without crashes. Works with large datasets directly in your browser." />
+<meta property="og:url" content="https://tools.pixocraft.in/tools/csv-viewer/view-large-files" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://tools.pixocraft.in/og-large-csv.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Open Large CSV Files (Fast & Free)" />
+<meta name="twitter:description" content="View big CSV files online without Excel. No upload, no lag, smooth performance." />
+<meta name="twitter:image" content="https://tools.pixocraft.in/og-large-csv.png" />
+
+---
+
+3. STRUCTURED DATA (RANK BOOST)
+
+---
+
+A) SoftwareApplication Schema
+
+{
+"@context": "https://schema.org",
+"@type": "SoftwareApplication",
+"name": "Large CSV Viewer Online",
+"operatingSystem": "Web",
+"applicationCategory": "DeveloperApplication",
+"description": "View large CSV files online without Excel. Open huge datasets (up to 1GB) with fast rendering and zero lag.",
+"url": "https://tools.pixocraft.in/tools/csv-viewer/view-large-files",
+"featureList": [
+"Handles large CSV files up to 1GB",
+"No upload required",
+"Fast virtual rendering",
+"Search large datasets instantly",
+"Smooth scrolling without lag"
+],
+"offers": {
+"@type": "Offer",
+"price": "0",
+"priceCurrency": "USD"
+}
+}
+
+---
+
+B) FAQ Schema
+
+Include:
+
+* Can I open large CSV files online?
+* What is the maximum CSV size supported?
+* Why does Excel crash on large CSV files?
+* Is this CSV viewer secure?
+* Can I search in large CSV files?
+
+---
+
+C) HowTo Schema
+
+Steps:
+
+1. Upload your CSV file
+2. Instantly view large dataset
+3. Use search or scroll
+4. Export if needed
+
+---
+
+D) Breadcrumb Schema
+
+Home > Tools > CSV Viewer > View Large CSV Files
+
+---
+
+4. CORE WEB VITALS OPTIMIZATION (CRITICAL)
+
+---
+
+Target:
+
+* LCP < 2.5s
+* CLS < 0.1
+* INP < 200ms
+
+Implement:
+
+* Lazy load CsvToolCore
+* Use dynamic import for tool
+* Avoid blocking scripts
+* Optimize font loading
+* Reduce unused JS
+
+---
+
+5. JAVASCRIPT & RENDERING OPTIMIZATION
+
+---
+
+* Ensure minimal JS on initial load
+* Defer non-critical scripts
+* Avoid heavy hydration
+
+IMPORTANT:
+Content must be visible without JS dependency.
+
+---
+
+6. INDEXABILITY & CRAWLABILITY
+
+---
+
+* Page must NOT be blocked in robots.txt
+* Ensure HTML content is crawlable
+* Avoid content hidden behind interactions
+
+---
+
+7. INTERNAL LINKING (AUTHORITY BOOST)
+
+---
+
+Add keyword-based internal links:
+
+* "edit csv without excel" → /edit-without-excel
+* "open csv file online" → /open-csv-file-online
+* "csv viewer in browser" → /view-in-browser
+
+Ensure links are inside content, not just footer.
+
+---
+
+8. IMAGE SEO
+
+---
+
+* Use WebP/AVIF images
+* Add ALT text:
+
+  * "view large csv file online"
+  * "open big csv without excel"
+* Lazy load images
+
+---
+
+9. PAGE SPEED OPTIMIZATION
+
+---
+
+* Enable Brotli compression
+* Use CDN (Cloudflare recommended)
+* Minify JS & CSS
+* Remove unused libraries
+
+---
+
+10. MOBILE SEO
+
+---
+
+* Fully responsive layout
+* Smooth scrolling for large tables
+* Touch-friendly UI
+
+---
+
+11. SITEMAP & INDEXING
+
+---
+
+Add page to sitemap:
+
+* priority: 0.9
+* changefreq: weekly
+* lastmod: dynamic
+
+Submit in Google Search Console
+
+---
+
+12. ADVANCED SEO SIGNALS
+
+---
+
+* Add "Last Updated" timestamp
+* Add semantic HTML structure
+* Use proper heading hierarchy
+
+---
+
+## ⚠️ IMPORTANT RULES
+
+DO NOT:
+
+* Duplicate content from other CSV pages
+* Add unnecessary scripts
+* Block rendering
+
+FOCUS ON:
+
+* Speed
+* Clean structure
+* Strong SEO signals
+
+---
+
+## 🏆 FINAL GOAL
+
+Google should see:
+
+* Fast page
+* Clear intent
+* Strong authority
+* Perfect technical SEO
+
+User should feel:
+
+* Instant loading
+* Smooth performance
+* No lag
+
+---
+
+OUTPUT:
+
+* Fully optimized backend SEO
+* Production-ready implementation

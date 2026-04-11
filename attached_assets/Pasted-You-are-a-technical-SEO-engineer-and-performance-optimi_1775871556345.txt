@@ -1,0 +1,218 @@
+You are a technical SEO engineer and performance optimization expert.
+
+Your task is to fully optimize the backend SEO for the page:
+
+👉 /tools/csv-viewer/view-large-files
+
+PRIMARY KEYWORDS:
+
+* view large csv file
+* open large csv file
+* view big csv file online
+* open huge csv file without excel
+
+---
+
+1. META TAGS (HIGH CTR FOCUSED)
+
+---
+
+<title>
+View Large CSV Files Online (Open Big CSV Without Excel Fast)
+</title>
+
+<meta name="description" content="Open and view large CSV files instantly without Excel. Handle big CSV files (100MB+ or 1GB) smoothly in your browser. No upload, fast and secure." />
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+
+<link rel="canonical" href="https://tools.pixocraft.in/tools/csv-viewer/view-large-files" />
+
+---
+
+2. OPEN GRAPH + TWITTER
+
+---
+
+<meta property="og:title" content="View Large CSV Files Online — No Excel Needed" />
+<meta property="og:description" content="Open huge CSV files instantly without lag. Works for large datasets with fast rendering and no upload required." />
+<meta property="og:url" content="https://tools.pixocraft.in/tools/csv-viewer/view-large-files" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://tools.pixocraft.in/og-large-csv.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Open Large CSV Files Online (Fast & Free)" />
+<meta name="twitter:description" content="View big CSV files without Excel. No crashes, no uploads, smooth performance even for huge files." />
+<meta name="twitter:image" content="https://tools.pixocraft.in/og-large-csv.png" />
+
+---
+
+3. STRUCTURED DATA (CRITICAL)
+
+---
+
+A) SoftwareApplication Schema
+
+{
+"@context": "https://schema.org",
+"@type": "SoftwareApplication",
+"name": "Large CSV Viewer",
+"operatingSystem": "Web",
+"applicationCategory": "DeveloperApplication",
+"description": "View large CSV files online without Excel. Open huge datasets with fast rendering and zero lag directly in your browser.",
+"url": "https://tools.pixocraft.in/tools/csv-viewer/view-large-files",
+"featureList": [
+"Handles large CSV files (100MB+)",
+"No upload required",
+"Fast virtual rendering",
+"Search and filter large datasets"
+],
+"offers": {
+"@type": "Offer",
+"price": "0",
+"priceCurrency": "USD"
+}
+}
+
+---
+
+B) FAQ Schema
+
+Include:
+
+* Can I open large CSV files online?
+* Why Excel crashes on large CSV?
+* Is this tool safe?
+* What file size is supported?
+
+---
+
+C) HowTo Schema
+
+Steps:
+
+1. Upload large CSV
+2. View instantly
+3. Search or scroll
+4. Export if needed
+
+---
+
+4. PERFORMANCE SEO (MOST IMPORTANT FOR THIS PAGE)
+
+---
+
+This page MUST be faster than competitors.
+
+Implement:
+
+* Lazy load CsvToolCore
+* Disable heavy features in "large mode"
+* Use virtualization (already exists)
+* Avoid saving large data to localStorage
+* Avoid blocking scripts
+
+---
+
+5. HTML STRUCTURE
+
+---
+
+* H1:
+  👉 "View Large CSV Files Online Without Excel"
+
+* Proper structure:
+  H1 → H2 → H3
+
+---
+
+6. CONTENT INDEXABILITY
+
+---
+
+* Ensure content is visible without interaction
+* No hidden JS-only content
+
+---
+
+7. INTERNAL LINKING
+
+---
+
+Add links:
+
+* "edit csv online" → /edit-without-excel
+* "open csv file online" → /open-csv-file-online
+* "csv viewer in browser" → /view-in-browser
+
+---
+
+8. IMAGE SEO
+
+---
+
+Add optimized images:
+
+ALT tags:
+
+* "view large csv file online"
+* "open big csv file without excel"
+
+---
+
+9. PAGE SPEED SIGNALS
+
+---
+
+* LCP < 2.5s
+* CLS minimal
+* JS bundle optimized
+
+---
+
+10. MOBILE OPTIMIZATION
+
+---
+
+* Smooth scroll on mobile
+* Large table usability
+* No UI break
+
+---
+
+11. SITEMAP + INDEXING
+
+---
+
+* Add to sitemap.xml
+* Submit in Google Search Console
+
+---
+
+12. ADVANCED SEO SIGNALS
+
+---
+
+* Add breadcrumb schema
+* Add "last updated"
+* Add content freshness signal
+
+---
+
+## FINAL GOAL:
+
+This page should dominate for:
+👉 "view large csv file"
+
+Focus:
+
+* Speed
+* Performance
+* Simplicity
+
+---
+
+## OUTPUT:
+
+* Fully optimized backend SEO
+* Schema + meta + performance ready
+* Production-level implementation
