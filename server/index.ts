@@ -5,7 +5,14 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
-// Gzip compress all responses — biggest single performance win
+// Performance headers
+app.use((_req: Request, res: Response, next: NextFunction) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-DNS-Prefetch-Control', 'on');
+  next();
+});
+
+// Gzip compress all responses — significant payload size reduction
 app.use(compression({
   level: 6,
   threshold: 1024,
