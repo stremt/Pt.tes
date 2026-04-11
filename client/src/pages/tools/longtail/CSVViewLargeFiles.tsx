@@ -95,17 +95,18 @@ const HOW_TO_STEPS = [
 const softwareSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Large CSV Viewer",
+  name: "Large CSV Viewer Online",
   operatingSystem: "Web",
   applicationCategory: "DeveloperApplication",
   description:
-    "View large CSV files online without Excel. Open huge datasets with fast rendering and zero lag directly in your browser.",
+    "View large CSV files online without Excel. Open huge datasets (up to 1GB) with fast rendering and zero lag directly in your browser.",
   url: CANONICAL,
   featureList: [
-    "Handles large CSV files (100MB+)",
+    "Handles large CSV files up to 1GB",
     "No upload required",
     "Fast virtual rendering",
-    "Search and filter large datasets",
+    "Search large datasets instantly",
+    "Smooth scrolling without lag",
     "Edit cells and export updated CSV",
   ],
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -154,18 +155,18 @@ export default function CSVViewLargeFiles() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>View Large CSV Files Online (Open Big CSV Without Excel Fast) | Pixocraft</title>
+        <title>View Large CSV Files Online (Open Big CSV Without Excel Instantly) | Pixocraft</title>
         <meta
           name="description"
-          content="Open and view large CSV files instantly without Excel. Handle big CSV files (100MB+ or 1M rows) smoothly in your browser. No upload, fast and secure."
+          content="Open and view large CSV files instantly without Excel. Supports huge files (100MB+ to 1GB) with fast performance and no lag. 100% private, no upload required."
         />
         <meta name="robots" content="index, follow, max-image-preview:large" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="View Large CSV Files Online — No Excel Needed" />
+        <meta property="og:title" content="View Large CSV Files Online — No Excel, No Lag" />
         <meta
           property="og:description"
-          content="Open huge CSV files instantly without lag. Works for large datasets with fast virtual rendering and no upload required."
+          content="Open huge CSV files instantly without crashes. Works with large datasets directly in your browser."
         />
         <meta property="og:url" content={CANONICAL} />
         <meta property="og:type" content="website" />
@@ -174,10 +175,10 @@ export default function CSVViewLargeFiles() {
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Open Large CSV Files Online (Fast & Free)" />
+        <meta name="twitter:title" content="Open Large CSV Files (Fast & Free)" />
         <meta
           name="twitter:description"
-          content="View big CSV files without Excel. No crashes, no uploads, smooth performance even for huge files."
+          content="View big CSV files online without Excel. No upload, no lag, smooth performance."
         />
 
         {/* Freshness */}
