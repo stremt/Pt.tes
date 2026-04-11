@@ -5,7 +5,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, Home, ArrowLeft, Ghost, Compass } from "lucide-react";
 import { useState } from "react";
 import { tools } from "@/lib/tools";
-import { motion } from "framer-motion";
 import { useSEO } from "@/lib/seo";
 
 export default function NotFound() {
@@ -21,22 +20,14 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/20 to-background p-4 sm:p-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-3xl w-full text-center space-y-8"
-      >
-        {/* Animated Ghost Icon */}
-        <motion.div 
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="flex justify-center"
-        >
+      <div className="max-w-3xl w-full text-center space-y-8 animate-[fadeInUp_0.5s_ease-out]">
+        {/* Floating Ghost Icon - pure CSS animation */}
+        <div className="flex justify-center animate-[float_4s_ease-in-out_infinite]">
           <div className="relative">
             <Ghost className="h-24 w-24 text-primary opacity-20" />
             <Compass className="h-12 w-12 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
           </div>
-        </motion.div>
+        </div>
 
         <div className="space-y-4">
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-primary/10 select-none">404</h1>
@@ -61,11 +52,7 @@ export default function NotFound() {
 
         {/* Quick Results or Suggestions */}
         {searchQuery ? (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-[fadeIn_0.2s_ease-out]">
             {filteredTools.length > 0 ? (
               filteredTools.map(tool => (
                 <Link key={tool.id} href={tool.path}>
@@ -85,7 +72,7 @@ export default function NotFound() {
             ) : (
               <div className="col-span-full text-muted-foreground py-4 italic">No tools found matching your search.</div>
             )}
-          </motion.div>
+          </div>
         ) : (
           <div className="flex flex-wrap justify-center gap-4 pt-4">
             <Link href="/">
@@ -107,7 +94,7 @@ export default function NotFound() {
         <div className="pt-12 text-sm text-muted-foreground/60 font-medium italic">
           Fun fact: Our QR Maker can even make WhatsApp links!
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

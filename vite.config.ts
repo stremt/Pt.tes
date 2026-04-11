@@ -37,36 +37,138 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        // Stable chunk names improve cache hit rate across deploys
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
         assetFileNames: "assets/[name]-[hash].[ext]",
         manualChunks(id) {
-          // Vendor: React core — shared by every route
-          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/") || id.includes("node_modules/scheduler/")) {
+          // ── React core — needed by every route ────────────────────────────
+          if (
+            id.includes("node_modules/react/") ||
+            id.includes("node_modules/react-dom/") ||
+            id.includes("node_modules/scheduler/")
+          ) {
             return "vendor-react";
           }
-          // Vendor: Routing + Query
-          if (id.includes("node_modules/wouter") || id.includes("node_modules/@tanstack/react-query")) {
+
+          // ── Routing + data-fetching ────────────────────────────────────────
+          if (
+            id.includes("node_modules/wouter") ||
+            id.includes("node_modules/@tanstack/react-query")
+          ) {
             return "vendor-router";
           }
-          // Vendor: Radix UI primitives (used by every shadcn component)
+
+          // ── Radix UI primitives (every shadcn component) ──────────────────
           if (id.includes("node_modules/@radix-ui/")) {
             return "vendor-radix";
           }
-          // Vendor: Icons — large, shared across all pages
-          if (id.includes("node_modules/lucide-react") || id.includes("node_modules/react-icons")) {
+
+          // ── Icons ─────────────────────────────────────────────────────────
+          if (
+            id.includes("node_modules/lucide-react") ||
+            id.includes("node_modules/react-icons")
+          ) {
             return "vendor-icons";
           }
-          // Vendor: PDF libraries — only used on PDF tools
-          if (id.includes("node_modules/pdfjs-dist") || id.includes("node_modules/pdf-lib") || id.includes("node_modules/jspdf")) {
+
+          // ── Tiny UI utilities used by every shadcn component ─────────────
+          // These are pulled in via @/lib/utils.ts → tailwind-merge/clsx, and
+          // class-variance-authority for button/badge variants. They're tiny
+          // (~15 KB total) but were dragging in all 3 MB of vendor-misc.
+          if (
+            id.includes("node_modules/tailwind-merge") ||
+            id.includes("node_modules/clsx") ||
+            id.includes("node_modules/class-variance-authority") ||
+            id.includes("node_modules/@floating-ui/") ||
+            id.includes("node_modules/tslib")
+          ) {
+            return "vendor-ui-utils";
+          }
+
+          // ── Helmet (react-helmet-async + its tiny deps) ───────────────────
+          // Isolate this so the entry chunk only loads ~15 KB, NOT the 5 MB
+          // vendor-misc that it used to drag in transitively.
+          if (
+            id.includes("node_modules/react-helmet-async") ||
+            id.includes("node_modules/react-side-effect") ||
+            id.includes("node_modules/use-sync-external-store")
+          ) {
+            return "vendor-helmet";
+          }
+
+          // ── PDF libraries — only used on PDF tool pages (lazy) ────────────
+          if (
+            id.includes("node_modules/pdfjs-dist") ||
+            id.includes("node_modules/pdf-lib") ||
+            id.includes("node_modules/jspdf")
+          ) {
             return "vendor-pdf";
           }
-          // Vendor: QR code library
+
+          // ── Heavy libraries that are ONLY used inside lazy tool pages ─────
+          // Keep them out of vendor-misc so that even if something pulls
+          // vendor-misc in eagerly, these giants are NOT included.
+          if (
+            id.includes("node_modules/@zxcvbn-ts/") ||
+            id.includes("node_modules/zxcvbn")
+          ) {
+            return "vendor-zxcvbn";
+          }
+
+          if (
+            id.includes("node_modules/xlsx") ||
+            id.includes("node_modules/exceljs")
+          ) {
+            return "vendor-xlsx";
+          }
+
+          if (id.includes("node_modules/mammoth")) {
+            return "vendor-mammoth";
+          }
+
+          if (id.includes("node_modules/jszip")) {
+            return "vendor-jszip";
+          }
+
+          if (
+            id.includes("node_modules/highlight.js") ||
+            id.includes("node_modules/prismjs") ||
+            id.includes("node_modules/refractor") ||
+            id.includes("node_modules/react-syntax-highlighter")
+          ) {
+            return "vendor-highlight";
+          }
+
+          if (
+            id.includes("node_modules/marked") ||
+            id.includes("node_modules/dompurify") ||
+            id.includes("node_modules/turndown")
+          ) {
+            return "vendor-markdown";
+          }
+
+          // ── Zod — eagerly needed via @shared/schema → lib/tools ──────────
+          // Isolate so the entry only loads a tiny ~15 KB zod chunk, NOT all
+          // of vendor-misc which can be 3+ MB.
+          if (id.includes("node_modules/zod")) {
+            return "vendor-zod";
+          }
+
+          // ── Framer Motion — only used in specific tool pages ──────────────
+          if (
+            id.includes("node_modules/framer-motion") ||
+            id.includes("node_modules/@motionone/")
+          ) {
+            return "vendor-motion";
+          }
+
+          // ── QR code ───────────────────────────────────────────────────────
           if (id.includes("node_modules/qrcode")) {
             return "vendor-qr";
           }
-          // Vendor: Everything else from node_modules
+
+          // ── Everything else from node_modules ─────────────────────────────
+          // After splitting out the heavyweights, this chunk will be small.
           if (id.includes("node_modules/")) {
             return "vendor-misc";
           }
