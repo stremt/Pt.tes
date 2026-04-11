@@ -1,57 +1,53 @@
 import { useEffect } from "react";
 import { prefetchTools } from "@/lib/prefetch";
 
-const BATCH_SIZE = 5; // tools to prefetch per idle slot
-const INTER_BATCH_DELAY_MS = 1500; // wait between batches
-
-export function useIdlePrefetch(paths: string[]): void {
+/**
+ * Loops through each batch of tool paths one at a time during browser idle.
+ *
+ * Flow:
+ *   page load → 2 s delay → Batch 1 → 2 s delay → Batch 2 → ... → Batch N → done
+ *
+ * Each batch is fired inside a requestIdleCallback so it never blocks user
+ * interaction. Already-prefetched tools are skipped automatically.
+ */
+export function useIdlePrefetch(batches: string[][]): void {
   useEffect(() => {
-    if (paths.length === 0) return;
+    if (!batches.length) return;
 
-    // Work off a copy so we can shift() without mutating the original
-    const queue = [...paths];
+    let batchIndex = 0;
     let idleHandle = 0;
     let timerHandle = 0;
     let stopped = false;
 
-    const processBatch = (deadline?: { timeRemaining: () => number; didTimeout: boolean }) => {
-      if (stopped) return;
+    const runNextBatch = () => {
+      if (stopped || batchIndex >= batches.length) return;
 
-      // Drain as many items as the idle budget allows (at least 1 even on timeout)
-      let count = 0;
-      while (
-        queue.length > 0 &&
-        (count === 0 || !deadline || deadline.timeRemaining() > 5)
-      ) {
-        const batch: string[] = [];
-        for (let i = 0; i < BATCH_SIZE && queue.length > 0; i++) {
-          batch.push(queue.shift()!);
-          count++;
-        }
-        prefetchTools(batch);
-        if (deadline && deadline.timeRemaining() <= 5) break;
-      }
+      const batch = batches[batchIndex];
+      batchIndex++;
 
-      if (queue.length > 0) {
-        // Schedule the next batch after a short wait so we don't monopolise the thread
-        timerHandle = window.setTimeout(scheduleNextBatch, INTER_BATCH_DELAY_MS) as unknown as number;
+      // Fire every import in this batch
+      prefetchTools(batch);
+
+      // If more batches remain, wait then schedule via idle callback
+      if (batchIndex < batches.length) {
+        timerHandle = window.setTimeout(scheduleIdle, 2000) as unknown as number;
       }
     };
 
-    const scheduleNextBatch = () => {
-      if (stopped || queue.length === 0) return;
+    const scheduleIdle = () => {
+      if (stopped || batchIndex >= batches.length) return;
+
       if ("requestIdleCallback" in window) {
-        idleHandle = (window as any).requestIdleCallback(processBatch, { timeout: 4000 });
+        idleHandle = (window as any).requestIdleCallback(runNextBatch, { timeout: 5000 });
       } else {
-        // Safari fallback — just use a timer
-        timerHandle = window.setTimeout(() => processBatch(), 500) as unknown as number;
+        // Safari fallback
+        timerHandle = window.setTimeout(runNextBatch, 800) as unknown as number;
       }
     };
 
-    // Wait for the page to be fully loaded before kicking off the first batch
+    // Wait for full page load + 2 s before kicking off the first batch
     const start = () => {
-      // Small extra delay so the current page's own assets finish first
-      timerHandle = window.setTimeout(scheduleNextBatch, 2000) as unknown as number;
+      timerHandle = window.setTimeout(scheduleIdle, 2000) as unknown as number;
     };
 
     if (document.readyState === "complete") {
