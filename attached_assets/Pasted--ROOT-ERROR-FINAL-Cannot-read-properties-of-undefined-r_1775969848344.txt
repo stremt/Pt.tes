@@ -1,0 +1,149 @@
+🚨 ROOT ERROR (FINAL)
+Cannot read properties of undefined (reading 'useLayoutEffect')
+
+👉 iska matlab:
+
+❌ React ya koi library useLayoutEffect ko undefined se read kar rahi hai
+
+🧠 EXACT CAUSE (VERY IMPORTANT)
+
+Ye error 99% cases me hota hai jab:
+
+❌ React version mismatch / bundling issue
+
+Ya:
+
+❌ library wrong import kar rahi hai
+
+Ya:
+
+❌ SSR + useLayoutEffect conflict
+🔥 SABSE COMMON REASON (Tere case me)
+
+👉 tu use kar raha:
+
+batch loading
+dynamic imports
+multiple tool components
+
+👉 result:
+
+💥 React duplicate load ho raha hai
+
+🧪 QUICK CHECK (IMPORTANT)
+
+Console me ye run kar:
+
+console.log(React.version);
+
+👉 agar 2 different version aa rahe → problem confirm
+
+🚀 FIX 1 (MOST IMPORTANT — DO THIS FIRST)
+👉 Ensure SINGLE React instance
+Check package.json:
+"react": "...",
+"react-dom": "..."
+
+👉 dono SAME version hone chahiye
+
+Then:
+rm -rf node_modules
+rm package-lock.json
+npm install
+🚀 FIX 2 (useLayoutEffect SSR ISSUE)
+
+👉 SSR me useLayoutEffect crash karta hai
+
+🔥 FIX:
+
+Create hook:
+
+import { useEffect, useLayoutEffect } from "react";
+
+export const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+👉 replace all:
+
+useLayoutEffect(...)
+
+👉 with:
+
+useIsomorphicLayoutEffect(...)
+🚀 FIX 3 (LIBRARY ISSUE)
+
+Error aa raha:
+
+vendor-ui-utils...
+
+👉 matlab:
+
+👉 koi UI library use kar raha hai (shadcn/ui, radix, etc.)
+
+FIX:
+
+Check import:
+
+import { useLayoutEffect } from "react";
+
+👉 ensure:
+
+❌ wrong:
+
+import React from "react";
+React.useLayoutEffect // sometimes undefined in bundling
+🚀 FIX 4 (DYNAMIC IMPORT BREAK)
+
+👉 batch system + lazy load = React context break
+
+TEMP FIX (TEST)
+
+👉 batch loading OFF kar de
+
+👉 dynamic import OFF kar de
+
+test deploy:
+
+👉 agar chal gaya → culprit mil gaya
+
+🚀 FIX 5 (VITE / BUILD ISSUE)
+
+Agar Vite use kar raha:
+
+👉 add:
+
+optimizeDeps: {
+  include: ["react", "react-dom"]
+}
+🚀 FIX 6 (STRICT MODE ISSUE)
+
+Kabhi-kabhi:
+
+<React.StrictMode>
+
+👉 remove temporarily (test)
+
+💀 FINAL DIAGNOSIS
+
+👉 tera problem hai:
+
+Issue	Status
+Object.keys crash	fixed
+localStorage crash	fixed
+❌ React duplicate / SSR issue	ACTIVE
+⚡ EXACT ACTION PLAN (NO CONFUSION)
+STEP 1:
+
+👉 batch loading disable
+
+STEP 2:
+
+👉 node_modules delete + reinstall
+
+STEP 3:
+
+👉 replace useLayoutEffect
+
+STEP 4:
+
+👉 deploy

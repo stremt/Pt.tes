@@ -27,6 +27,7 @@ export default defineConfig({
       "@shared": path.resolve(import.meta.dirname, "shared"),
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
+    dedupe: ["react", "react-dom"],
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
@@ -45,7 +46,8 @@ export default defineConfig({
           if (
             id.includes("node_modules/react/") ||
             id.includes("node_modules/react-dom/") ||
-            id.includes("node_modules/scheduler/")
+            id.includes("node_modules/scheduler/") ||
+            id.includes("node_modules/use-sync-external-store/")
           ) {
             return "vendor-react";
           }
@@ -88,10 +90,11 @@ export default defineConfig({
           // ── Helmet (react-helmet-async + its tiny deps) ───────────────────
           // Isolate this so the entry chunk only loads ~15 KB, NOT the 5 MB
           // vendor-misc that it used to drag in transitively.
+          // NOTE: use-sync-external-store is intentionally kept in vendor-react
+          // so it always resolves before Radix UI / floating-ui load.
           if (
             id.includes("node_modules/react-helmet-async") ||
-            id.includes("node_modules/react-side-effect") ||
-            id.includes("node_modules/use-sync-external-store")
+            id.includes("node_modules/react-side-effect")
           ) {
             return "vendor-helmet";
           }
@@ -177,6 +180,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    include: ["react", "react-dom", "react/jsx-runtime"],
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
   server: {
