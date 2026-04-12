@@ -213,12 +213,12 @@ export default function CSVConvertAndEdit() {
               Free Online CSV Converter + Editor
             </Badge>
 
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
               Convert and Edit CSV Files Online{" "}
               <span className="text-primary">Without Excel</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Convert data to CSV format and edit it in the same tool — instantly, free, and
               100% private. No Excel, no install, no switching between apps.
             </p>
@@ -241,15 +241,15 @@ export default function CSVConvertAndEdit() {
               ))}
             </div>
 
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
-              <a href="#convert-edit-tool">
-                <Button size="lg" data-testid="button-hero-cta">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a href="#convert-edit-tool" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full" data-testid="button-hero-cta">
                   Convert & Edit CSV Now
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
-              <a href="#how-it-works">
-                <Button size="lg" variant="outline" data-testid="button-hero-howto">
+              <a href="#how-it-works" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full" data-testid="button-hero-howto">
                   How it works
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>

@@ -169,11 +169,11 @@ export default function CSVEditWithoutExcel() {
             <Badge variant="secondary" className="text-xs">
               Free Online CSV Editor
             </Badge>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
               Edit CSV Files Without Excel —{" "}
               <span className="text-primary">Fast, Free &amp; Online</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Modify CSV files directly in your browser. No Excel, no upload, no signup. Full
               control over rows, columns, and data.
             </p>
@@ -195,9 +195,9 @@ export default function CSVEditWithoutExcel() {
               ))}
             </div>
 
-            <div className="pt-2">
-              <a href="#csv-editor-tool">
-                <Button size="lg" data-testid="button-hero-cta">
+            <div className="pt-2 flex justify-center">
+              <a href="#csv-editor-tool" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto" data-testid="button-hero-cta">
                   Edit Your CSV Now
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

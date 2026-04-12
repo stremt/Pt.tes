@@ -204,12 +204,12 @@ export default function CSVViewInBrowser() {
               Free Online CSV Browser Viewer
             </Badge>
 
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
               View CSV in Browser{" "}
               <span className="text-primary">Without Excel</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Open any CSV file instantly in your browser. No Excel, no download, no signup.
               See your data in a clean spreadsheet grid — private, fast, and free.
             </p>
@@ -232,15 +232,15 @@ export default function CSVViewInBrowser() {
               ))}
             </div>
 
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
-              <a href="#csv-browser-tool">
-                <Button size="lg" data-testid="button-hero-cta">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a href="#csv-browser-tool" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full" data-testid="button-hero-cta">
                   View CSV in Browser
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
-              <a href="#how-it-works">
-                <Button size="lg" variant="outline" data-testid="button-hero-howto">
+              <a href="#how-it-works" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full" data-testid="button-hero-howto">
                   How it works
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>

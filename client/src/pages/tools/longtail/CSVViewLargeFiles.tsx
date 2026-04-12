@@ -206,12 +206,12 @@ export default function CSVViewLargeFiles() {
               Free Online Large CSV Viewer
             </Badge>
 
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
               View Large CSV Files Online{" "}
               <span className="text-primary">Without Excel</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Open big CSV files — 100MB+, 1M rows — instantly in your browser. Virtual scrolling
               keeps performance smooth. No Excel, no install, no upload.
             </p>
@@ -234,15 +234,15 @@ export default function CSVViewLargeFiles() {
               ))}
             </div>
 
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
-              <a href="#large-csv-tool">
-                <Button size="lg" data-testid="button-hero-cta">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a href="#large-csv-tool" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full" data-testid="button-hero-cta">
                   Open Large CSV Now
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
-              <a href="#how-it-works">
-                <Button size="lg" variant="outline" data-testid="button-hero-howto">
+              <a href="#how-it-works" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full" data-testid="button-hero-howto">
                   How it works
                   <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
@@ -251,7 +251,7 @@ export default function CSVViewLargeFiles() {
           </div>
 
           {/* ── STATS ─────────────────────────────────────────────────── */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               { stat: "100k+", label: "Rows rendered smoothly" },
               { stat: "<1s", label: "Time to first render" },
