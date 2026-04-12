@@ -68,7 +68,11 @@ export default function BlogPost() {
     if (!slug) return;
     const storedComments = localStorage.getItem(`blog-comments-${slug}`);
     if (storedComments) {
-      setComments(JSON.parse(storedComments));
+      try {
+        setComments(JSON.parse(storedComments));
+      } catch (_) {
+        localStorage.removeItem(`blog-comments-${slug}`);
+      }
     }
   }, [slug]);
 

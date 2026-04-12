@@ -133,7 +133,7 @@ export default function UnitConverter() {
 
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory as Category);
-    const units = Object.keys(conversionRates[newCategory as Category]);
+    const units = Object.keys(conversionRates[newCategory as Category] || {});
     setFromUnit(units[0]);
     setToUnit(units[1] || units[0]);
     setFromValue('');
@@ -232,7 +232,7 @@ export default function UnitConverter() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              {Object.keys(conversionRates[category]).map((unit) => (
+                              {Object.keys(conversionRates[category] || {}).map((unit) => (
                                 <SelectItem key={unit} value={unit}>
                                   {unit}
                                 </SelectItem>
@@ -261,7 +261,7 @@ export default function UnitConverter() {
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              {Object.keys(conversionRates[category]).map((unit) => (
+                              {Object.keys(conversionRates[category] || {}).map((unit) => (
                                 <SelectItem key={unit} value={unit}>
                                   {unit}
                                 </SelectItem>

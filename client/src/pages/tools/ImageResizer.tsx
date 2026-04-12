@@ -154,7 +154,7 @@ export default function ImageResizer() {
   };
 
   const applySocialPreset = (presetName: string) => {
-    const preset = socialMediaPresets[selectedSocialPlatform].presets[presetName];
+    const preset = socialMediaPresets[selectedSocialPlatform]?.presets?.[presetName];
     if (preset) {
       setWidth(preset.width);
       setHeight(preset.height);
@@ -483,7 +483,7 @@ export default function ImageResizer() {
                               <SelectValue placeholder="Select a preset..." />
                             </SelectTrigger>
                             <SelectContent>
-                              {Object.keys(socialMediaPresets[selectedSocialPlatform].presets).map((preset) => (
+                              {Object.keys(socialMediaPresets[selectedSocialPlatform]?.presets || {}).map((preset) => (
                                 <SelectItem key={preset} value={preset}>
                                   {preset}
                                 </SelectItem>

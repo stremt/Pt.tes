@@ -11,11 +11,16 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "light" || stored === "dark") {
-      return stored;
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    try {
+      const stored = typeof localStorage !== "undefined" ? localStorage.getItem("theme") : null;
+      if (stored === "light" || stored === "dark") {
+        return stored;
+      }
+      if (typeof window !== "undefined" && window.matchMedia) {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+    } catch (_) {}
+    return "light";
   });
 
   useEffect(() => {
@@ -31,7 +36,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } catch (e) {
       console.error("Failed to update theme class", e);
     }
-    localStorage.setItem("theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (_) {}
   }, [theme]);
 
   const toggleTheme = () => {
