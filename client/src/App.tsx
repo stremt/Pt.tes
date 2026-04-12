@@ -13,6 +13,7 @@ import { FeedbackButton } from "@/components/FeedbackButton";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { PageLoader } from "@/components/PageLoader";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { checkAndHandleVersionChange } from "@/lib/versionManager";
 import { VersionUpdatePopup } from "@/components/VersionUpdatePopup";
 import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
@@ -519,6 +520,7 @@ function ScrollToTop() {
 
 function Router() {
   return (
+    <ErrorBoundary>
     <Suspense fallback={<PageLoader />}>
       <VersionCheck />
       <ScrollToTop />
@@ -996,6 +998,7 @@ function Router() {
         <Route component={NotFound} />
       </Switch>
     </Suspense>
+    </ErrorBoundary>
   );
 }
 

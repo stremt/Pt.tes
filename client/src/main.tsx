@@ -13,6 +13,11 @@ class RootErrorBoundary extends Component<{ children: ReactNode }, { error: Erro
     return { error };
   }
 
+  componentDidCatch(error: Error, info: { componentStack: string }) {
+    console.error("[RootErrorBoundary] Caught error:", error);
+    console.error("[RootErrorBoundary] Component stack:", info.componentStack);
+  }
+
   render() {
     if (this.state.error) {
       return (
@@ -33,6 +38,17 @@ class RootErrorBoundary extends Component<{ children: ReactNode }, { error: Erro
   }
 }
 
+if (typeof window !== "undefined") {
+  window.onerror = function (msg, url, line, col, error) {
+    console.error("[GLOBAL ERROR]", msg, "at", url, line, col, error);
+    return false;
+  };
+
+  window.addEventListener("unhandledrejection", function (event) {
+    console.error("[UNHANDLED PROMISE REJECTION]", event.reason);
+  });
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -40,8 +56,6 @@ if ('serviceWorker' in navigator) {
       .then((registration) => {
         console.log('ServiceWorker registered:', registration);
 
-        // When a new service worker takes control, reload the page so we
-        // get the latest index.html + assets instead of stale cached ones.
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           console.log('ServiceWorker updated — reloading for fresh assets');
           window.location.reload();
