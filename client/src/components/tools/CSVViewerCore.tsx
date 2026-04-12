@@ -768,7 +768,7 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
           >
             <CardContent
               {...getRootProps()}
-              className="flex flex-col items-center justify-center p-12 h-full cursor-pointer hover:bg-accent/50 transition-colors"
+              className="flex flex-col items-center justify-center p-6 sm:p-12 h-full cursor-pointer hover:bg-accent/50 transition-colors"
             >
               <input {...getInputProps()} />
               <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -930,26 +930,27 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
           )}
         </div>
       ) : (
-        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl border mb-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-primary/10 text-primary">
+        <div className="flex items-center justify-between gap-2 p-3 sm:p-4 bg-muted/30 rounded-xl border mb-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
               <FileText className="h-5 w-5" />
             </div>
-            <div>
-              <p className="text-sm font-bold truncate max-w-[200px]">{fileName}</p>
-              <p className="text-xs text-muted-foreground">{data.length} rows loaded</p>
+            <div className="min-w-0">
+              <p className="text-sm font-bold truncate max-w-[110px] sm:max-w-[220px] md:max-w-[320px]">{fileName}</p>
+              <p className="text-xs text-muted-foreground">{data.length.toLocaleString()} rows</p>
             </div>
           </div>
           {showClearConfirm ? (
-            <div className="flex items-center gap-2 animate-in fade-in duration-150">
-              <span className="text-xs font-medium text-destructive">Clear all data?</span>
-              <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Yes, clear</Button>
+            <div className="flex items-center gap-1.5 animate-in fade-in duration-150 shrink-0">
+              <span className="text-xs font-medium text-destructive hidden sm:inline">Clear all?</span>
+              <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Clear</Button>
               <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setShowClearConfirm(false)}>Cancel</Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setShowClearConfirm(true)} className="gap-2">
+            <Button variant="outline" size="sm" onClick={() => setShowClearConfirm(true)} className="gap-1.5 shrink-0">
               <RotateCcw className="h-4 w-4" />
-              Upload New
+              <span className="hidden sm:inline">Upload New</span>
+              <span className="sm:hidden">New</span>
             </Button>
           )}
         </div>
@@ -962,9 +963,10 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
             className={cn(isFullScreen ? "flex flex-col overflow-hidden" : "space-y-4")}
             style={isFullScreen ? { position: "fixed", inset: 0, zIndex: 999999, backgroundColor: "hsl(var(--background))" } : undefined}
           >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 border-b bg-muted/30">
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="relative flex-1 min-w-[200px] md:max-w-xs group">
+            <div className="flex flex-col gap-2 p-3 sm:p-4 border-b bg-muted/30">
+              {/* Row 1: search + undo/redo */}
+              <div className="flex items-center gap-2">
+                <div className="relative flex-1 group">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground transition-colors group-focus-within:text-primary" />
                   <Input
                     placeholder="Search records..."
@@ -973,7 +975,7 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                     className="pl-9 h-9 bg-background border-muted-foreground/20 focus-visible:ring-primary/30"
                   />
                 </div>
-                <div className="flex items-center gap-1 bg-background p-1 rounded-md border border-muted-foreground/20">
+                <div className="flex items-center gap-1 bg-background p-1 rounded-md border border-muted-foreground/20 shrink-0">
                   <Button variant="ghost" size="sm" onClick={undo} disabled={historyIndex <= 0} className="h-7 px-2 hover:bg-muted">
                     <Undo2 className="h-3.5 w-3.5" />
                   </Button>
@@ -982,13 +984,14 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                   </Button>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
+              {/* Row 2: action buttons — scrollable on mobile */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-0.5 scrollbar-none">
                 <Button
                   variant={isEditing ? "default" : "outline"}
                   size="sm"
                   onClick={toggleEditing}
                   className={cn(
-                    "h-9 gap-2 transition-all border-primary/40 text-primary",
+                    "h-9 gap-1.5 shrink-0 transition-all border-primary/40 text-primary",
                     isEditing
                       ? "ring-2 ring-primary/50 ring-offset-1 shadow-[0_0_14px_rgba(37,99,235,0.35)] bg-primary text-primary-foreground"
                       : "bg-primary/5",
@@ -996,16 +999,16 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                   data-testid="button-edit-mode"
                 >
                   {isEditing ? <Eye className="h-4 w-4" /> : <Edit2 className="h-4 w-4" />}
-                  {isEditing ? "View Mode" : "Edit Mode"}
+                  <span className="whitespace-nowrap">{isEditing ? "View Mode" : "Edit Mode"}</span>
                 </Button>
 
                 {isEditing && (
-                  <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
+                  <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300 shrink-0">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm" className="h-9 gap-2 border-primary/20 hover:bg-primary/5">
+                        <Button variant="outline" size="sm" className="h-9 gap-1.5 shrink-0 border-primary/20 hover:bg-primary/5">
                           <Plus className="h-4 w-4 text-primary" />
-                          Insert
+                          <span className="whitespace-nowrap">Insert</span>
                           <ChevronDown className="h-3 w-3 opacity-50" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -1023,9 +1026,9 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                   </div>
                 )}
 
-                <div className="h-8 w-[1px] bg-muted mx-1 hidden sm:block" />
+                <div className="h-6 w-[1px] bg-muted-foreground/20 mx-0.5 shrink-0" />
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 shrink-0">
                   <Button
                     variant="ghost"
                     size="icon"
@@ -1045,9 +1048,8 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                     {isFullScreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
                   </Button>
                   {showClearConfirm ? (
-                    <div className="flex items-center gap-1.5 animate-in fade-in duration-150">
-                      <span className="text-xs font-medium text-destructive whitespace-nowrap">Sure?</span>
-                      <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Yes</Button>
+                    <div className="flex items-center gap-1.5 animate-in fade-in duration-150 shrink-0">
+                      <Button size="sm" variant="destructive" className="h-7 px-2 text-xs" onClick={handleClear}>Clear</Button>
                       <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => setShowClearConfirm(false)}>No</Button>
                     </div>
                   ) : (
@@ -1065,16 +1067,16 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
 
                 <div
                   className={cn(
-                    "flex items-center gap-1 text-[10px] font-medium overflow-hidden transition-all duration-500",
+                    "flex items-center gap-1 text-[10px] font-medium overflow-hidden transition-all duration-500 shrink-0",
                     isSaving ? "opacity-100 max-w-[70px]" : "opacity-0 max-w-0",
                   )}
                 >
                   <Cloud className="h-3 w-3 text-primary shrink-0" />
                   <span className="text-primary whitespace-nowrap">Saved</span>
                 </div>
-                <Button onClick={downloadCSV} size="sm" className="h-9 gap-2 ml-1">
+                <Button onClick={downloadCSV} size="sm" className="h-9 gap-1.5 ml-auto shrink-0">
                   <Download className="h-4 w-4" />
-                  Export
+                  <span className="whitespace-nowrap">Export</span>
                 </Button>
               </div>
             </div>
@@ -1234,7 +1236,7 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
                               onClick={() => deleteRow(dataIdx)}
                             >
                               <Trash2 className="h-4 w-4" />
@@ -1267,22 +1269,22 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
               </table>
             </div>
 
-            <div className="p-3 border-t bg-muted/30 flex items-center justify-between text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1.5">
-                  <FileText className="h-3 w-3" />
-                  {fileName || "Untitled.csv"}
+            <div className="p-3 border-t bg-muted/30 flex flex-wrap items-center justify-between gap-2 text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+                <span className="flex items-center gap-1 truncate max-w-[100px] sm:max-w-none">
+                  <FileText className="h-3 w-3 shrink-0" />
+                  <span className="truncate">{fileName || "Untitled.csv"}</span>
                 </span>
-                <span className="h-3 w-[1px] bg-muted-foreground/30" />
-                <span>
-                  {filteredData.length} records
-                  {debouncedSearch ? ` (filtered from ${data.length})` : ""}
+                <span className="h-3 w-[1px] bg-muted-foreground/30 shrink-0" />
+                <span className="shrink-0">
+                  {filteredData.length.toLocaleString()} rows
+                  {debouncedSearch ? ` / ${data.length.toLocaleString()}` : ""}
                 </span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 shrink-0">
                 {isEditing && (
                   <Badge variant="outline" className="h-5 px-1.5 bg-primary/5 text-primary border-primary/20 text-[9px]">
-                    Editor Active
+                    Editing
                   </Badge>
                 )}
                 {sortConfig && (
@@ -1292,10 +1294,10 @@ const CSVViewerCore = forwardRef<CSVViewerCoreHandle, object>((_props, ref) => {
                     onClick={() => setSortConfig(null)}
                     title="Click to clear sort"
                   >
-                    Sorted: {sortConfig.key} {sortConfig.direction === "asc" ? "↑" : "↓"}
+                    {sortConfig.key} {sortConfig.direction === "asc" ? "↑" : "↓"}
                   </Badge>
                 )}
-                <span>Click column to sort</span>
+                <span className="hidden sm:inline">Tap column to sort</span>
               </div>
             </div>
           </div>

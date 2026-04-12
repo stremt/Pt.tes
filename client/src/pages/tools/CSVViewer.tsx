@@ -194,15 +194,15 @@ export default function CSVViewer() {
             <span className="text-sm text-muted-foreground">· Trusted by 10,000+ users</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             Open CSV Files Instantly<br className="hidden sm:block" />
             <span className="text-primary"> No Excel. No Upload. 100% Private.</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
             Edit, search, and handle even large CSV files smoothly — directly in your browser. No lag. No data loss. No account needed.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
             {[
               "Auto-save (no data loss)",
               "Works offline",
@@ -216,17 +216,17 @@ export default function CSVViewer() {
             ))}
           </div>
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+          <div className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 rounded-full bg-primary/10 border border-primary/20 max-w-full">
             <Zap className="h-4 w-4 text-primary shrink-0" />
-            <span className="text-sm font-semibold text-foreground">
+            <span className="text-sm font-semibold text-foreground text-left">
               Handles massive CSV files (up to 1GB) without lag
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1 w-full sm:w-auto">
             <Button
               size="lg"
-              className="gap-2 text-base px-6"
+              className="gap-2 text-base px-6 w-full sm:w-auto"
               onClick={() => coreRef.current?.scrollToUpload()}
               data-testid="button-cta-open-csv"
             >
@@ -236,7 +236,7 @@ export default function CSVViewer() {
             <Button
               size="lg"
               variant="outline"
-              className="gap-2 text-base"
+              className="gap-2 text-base w-full sm:w-auto"
               onClick={() => coreRef.current?.loadSampleData()}
               data-testid="button-cta-try-sample"
             >
