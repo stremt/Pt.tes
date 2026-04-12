@@ -213,18 +213,24 @@ export const toolImportMap: Record<string, () => Promise<any>> = {
   "/tools/instagram-profile-picture-downloader": () => import("@/pages/tools/InstagramProfilePictureDownloader"),
 };
 
-/** Prefetch one tool — silently skipped if already done. */
-export function prefetchTool(path: string): void {
-  if (prefetched.has(path)) return;
+/** Prefetch one tool — silently skipped if already done. Returns a promise. */
+export function prefetchTool(path: string): Promise<void> {
+  if (prefetched.has(path)) return Promise.resolve();
   const importFn = toolImportMap[path];
-  if (!importFn) return;
+  if (!importFn) return Promise.resolve();
   prefetched.add(path);
-  importFn().catch(() => {});
+  return importFn().catch(() => {});
 }
 
-/** Prefetch a list of tools — already-done ones are silently skipped. */
-export function prefetchTools(paths: string[]): void {
-  paths.forEach(prefetchTool);
+/**
+ * Prefetch a list of tools sequentially — one at a time, in order.
+ * Sequential loading prevents circular-dependency / initialization-order
+ * crashes that occur when many chunks are evaluated simultaneously.
+ */
+export async function prefetchTools(paths: string[]): Promise<void> {
+  for (const path of paths) {
+    await prefetchTool(path);
+  }
 }
 
 /**

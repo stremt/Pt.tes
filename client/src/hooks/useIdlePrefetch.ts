@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { prefetchTools } from "@/lib/prefetch";
 
 // ── Module-level globals (survive re-renders and route changes) ────────────
-const BATCH_SIZE = 20;
+const BATCH_SIZE = 1;                // load one tool at a time (prevents init-order crashes)
 const BYTE_LIMIT = 3 * 1024 * 1024; // 3 MB
 const INTER_BATCH_DELAY_MS = 2000;   // pause between batches
 
@@ -44,7 +44,7 @@ function runLoop() {
   if (running || paused || queue.length === 0) return;
   running = true;
 
-  const step = () => {
+  const step = async () => {
     // Re-check limit each step (bytes accumulate asynchronously)
     if (bytesUsed >= BYTE_LIMIT) {
       paused = true;
@@ -57,9 +57,9 @@ function runLoop() {
       return;
     }
 
-    // Take next batch of 20
+    // Take next batch (size=1 by default — sequential, safe init order)
     const batch = queue.splice(0, BATCH_SIZE);
-    prefetchTools(batch);
+    await prefetchTools(batch);
 
     // Schedule next batch after a delay, but only during idle time
     setTimeout(() => {
