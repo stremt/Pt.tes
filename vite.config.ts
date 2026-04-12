@@ -170,8 +170,79 @@ export default defineConfig({
             return "vendor-qr";
           }
 
+          // ── CSV parsing ───────────────────────────────────────────────────
+          if (id.includes("node_modules/papaparse")) {
+            return "vendor-csv";
+          }
+
+          // ── Charts (recharts + deps) ──────────────────────────────────────
+          if (
+            id.includes("node_modules/recharts") ||
+            id.includes("node_modules/victory-vendor") ||
+            id.includes("node_modules/d3-")
+          ) {
+            return "vendor-charts";
+          }
+
+          // ── HTML-to-image / HTML-to-PDF ───────────────────────────────────
+          if (
+            id.includes("node_modules/html2canvas") ||
+            id.includes("node_modules/html2pdf")
+          ) {
+            return "vendor-html2canvas";
+          }
+
+          // ── Date utilities ────────────────────────────────────────────────
+          if (id.includes("node_modules/date-fns")) {
+            return "vendor-dates";
+          }
+
+          // ── Image processing utilities ─────────────────────────────────────
+          if (
+            id.includes("node_modules/browser-image-compression") ||
+            id.includes("node_modules/heic2any") ||
+            id.includes("node_modules/exifreader")
+          ) {
+            return "vendor-image-utils";
+          }
+
+          // ── Form handling ─────────────────────────────────────────────────
+          if (
+            id.includes("node_modules/react-hook-form") ||
+            id.includes("node_modules/@hookform/")
+          ) {
+            return "vendor-forms";
+          }
+
+          // ── Math / scientific rendering ───────────────────────────────────
+          if (id.includes("node_modules/katex")) {
+            return "vendor-katex";
+          }
+
+          // ── Code utilities ────────────────────────────────────────────────
+          if (
+            id.includes("node_modules/js-beautify") ||
+            id.includes("node_modules/js-yaml") ||
+            id.includes("node_modules/diff") ||
+            id.includes("node_modules/clean-css") ||
+            id.includes("node_modules/terser") ||
+            id.includes("node_modules/uglify-js")
+          ) {
+            return "vendor-code-utils";
+          }
+
+          // ── Compression / binary ──────────────────────────────────────────
+          if (id.includes("node_modules/pako")) {
+            return "vendor-pako";
+          }
+
+          // ── Barcode ───────────────────────────────────────────────────────
+          if (id.includes("node_modules/jsbarcode")) {
+            return "vendor-barcode";
+          }
+
           // ── Everything else from node_modules ─────────────────────────────
-          // After splitting out the heavyweights, this chunk will be small.
+          // After splitting out the heavyweights this chunk should be small.
           if (id.includes("node_modules/")) {
             return "vendor-misc";
           }
