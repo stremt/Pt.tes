@@ -63,6 +63,16 @@ export const longTailPagesMap: Record<string, LongTailPage[]> = {
     { title: "Bulk Resize", slug: "bulk", path: "/tools/image-resizer/bulk" },
     { title: "By Dimensions", slug: "dimensions", path: "/tools/image-resizer/dimensions" },
   ],
+  "image-cropper": [
+    { title: "Crop Image Online", slug: "online", path: "/tools/image-cropper/online" },
+    { title: "Crop for Instagram", slug: "instagram", path: "/tools/image-cropper/instagram" },
+    { title: "Crop YouTube Thumbnail", slug: "youtube-thumbnail", path: "/tools/image-cropper/youtube-thumbnail" },
+    { title: "Crop Passport Photo", slug: "passport-photo", path: "/tools/image-cropper/passport-photo" },
+    { title: "Crop to Square (1:1)", slug: "square", path: "/tools/image-cropper/square" },
+    { title: "Crop JPG Online", slug: "jpg", path: "/tools/image-cropper/jpg" },
+    { title: "Crop PNG Online", slug: "png", path: "/tools/image-cropper/png" },
+    { title: "Free - No Login", slug: "free-no-login", path: "/tools/image-cropper/free-no-login" },
+  ],
   "pdf-to-image": [
     { title: "Convert PDF to Image", slug: "convert", path: "/tools/pdf-to-image/convert" },
     { title: "Online Conversion", slug: "online", path: "/tools/pdf-to-image/online" },

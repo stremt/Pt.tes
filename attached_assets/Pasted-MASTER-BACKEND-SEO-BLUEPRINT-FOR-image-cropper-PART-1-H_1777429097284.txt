@@ -1,0 +1,267 @@
+MASTER BACKEND SEO BLUEPRINT FOR /image-cropper
+PART 1 — HEAD TAG DOMINATION
+
+Inside <head>:
+
+<title>Free Image Cropper Online – Crop JPG, PNG & WEBP Instantly | Pixocraft</title>
+
+<meta name="description" content="Crop images online for free in seconds. Use Pixocraft Image Cropper to crop JPG, PNG & WEBP instantly with no upload, no signup, and private browser processing.">
+
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+<link rel="canonical" href="https://tools.pixocraft.in/image-cropper/">
+Why Powerful?
+max-snippet = bigger snippet chance
+max-image-preview:large = richer preview
+canonical = duplicate prevention
+PART 2 — SOCIAL META (Indirect SEO + CTR)
+<meta property="og:title" content="Free Image Cropper Online | Pixocraft">
+<meta property="og:description" content="Crop JPG, PNG & WEBP images instantly with no upload required.">
+<meta property="og:url" content="https://tools.pixocraft.in/image-cropper/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://tools.pixocraft.in/assets/image-cropper-preview.webp">
+
+<meta name="twitter:card" content="summary_large_image">
+PART 3 — HREFLANG (Huge Global Traffic)
+
+If multilingual pages:
+
+<link rel="alternate" hreflang="en" href=".../image-cropper/">
+<link rel="alternate" hreflang="hi" href=".../hi/image-cropper/">
+<link rel="alternate" hreflang="es" href=".../es/image-cropper/">
+<link rel="alternate" hreflang="x-default" href=".../image-cropper/">
+
+This can unlock world traffic.
+
+PART 4 — ADVANCED SCHEMA STACK (Gold)
+A. WebApplication Schema
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"WebApplication",
+ "name":"Pixocraft Image Cropper",
+ "url":"https://tools.pixocraft.in/image-cropper/",
+ "applicationCategory":"MultimediaApplication",
+ "operatingSystem":"Any",
+ "browserRequirements":"Requires JavaScript",
+ "description":"Free online image cropper to crop JPG, PNG and WEBP images instantly.",
+ "offers":{
+   "@type":"Offer",
+   "price":"0",
+   "priceCurrency":"USD"
+ }
+}
+</script>
+B. AggregateRating (Stars Chance ⭐)
+
+Only if visible ratings/reviews on page.
+
+"aggregateRating":{
+ "@type":"AggregateRating",
+ "ratingValue":"4.9",
+ "ratingCount":"2847"
+}
+
+Need visible UI:
+
+⭐⭐⭐⭐⭐ 4.9/5 based on 2,847 users
+
+If hidden/fake = risk.
+
+C. FAQ Schema
+
+Huge CTR expansion.
+
+D. Breadcrumb Schema
+Home > Image Tools > Image Cropper
+PART 5 — CORE WEB VITALS (Massive Ranking Factor)
+
+Need:
+
+LCP < 1.8 sec
+CLS < 0.03
+INP < 150ms
+
+How:
+
+static HTML first render
+defer JS
+inline critical CSS
+lazy load heavy scripts
+preload hero font
+compress images webp/avif
+no bloated libraries
+PART 6 — INDEXATION CONTROL
+robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://tools.pixocraft.in/sitemap.xml
+XML Sitemaps
+
+Use segmented:
+
+sitemap-tools.xml
+sitemap-images.xml
+sitemap-pages.xml
+
+For scale better.
+
+PART 7 — IMAGE SEO (Hidden Traffic)
+
+Use images on page named:
+
+image-cropper-online.webp
+crop-jpg-online-tool.webp
+free-image-cropper-ui.webp
+
+Alt tags:
+
+alt="Free image cropper online tool interface"
+alt="Crop JPG PNG WEBP images instantly"
+
+Google Images traffic huge hota hai.
+
+PART 8 — INTERNAL LINK JUICE SYSTEM
+
+From /image-cropper link:
+
+image resizer
+image compressor
+rotate image
+flip image
+convert png to jpg
+
+And from all those pages back link to cropper.
+
+Anchor examples:
+
+free image cropper
+crop image online
+image cropper tool
+PART 9 — ENTITY SEO (Brand Authority)
+
+Across site consistently use:
+
+Pixocraft Tools
+Pixocraft Image Cropper
+Pixocraft Image Tools Suite
+
+Build entity memory in Google.
+
+PART 10 — USER SIGNAL OPTIMIZATION
+
+Google tracks satisfaction proxies.
+
+Increase with:
+
+instant upload
+visible result fast
+no popup ads
+no forced signup
+one-click download
+mobile smooth
+PART 11 — STAR RATING FRONTEND UI (Needed)
+
+Visible near H1:
+
+⭐⭐⭐⭐⭐ 4.9/5 Trusted by 2,847 Users
+
+Then schema can align.
+
+PART 12 — FRESHNESS SIGNALS
+
+Add:
+
+<meta property="article:modified_time" content="2026-04-29">
+
+Visible text:
+
+Updated April 2026
+
+Google freshness boost on tools sometimes.
+
+PART 13 — LOG FILE SEO (Ultra Level)
+
+Track:
+
+Googlebot hits
+crawl frequency
+wasted crawl on junk params
+404 hits
+response times
+
+Fix crawl budget waste.
+
+PART 14 — URL PURITY
+
+Use only:
+
+/image-cropper/
+
+Avoid:
+
+?ref=tool&id=22
+
+PART 15 — RICH SNIPPET HOOKS
+
+Use FAQ + ratings + breadcrumbs.
+
+Can improve SERP size massively.
+
+PART 16 — E-E-A-T PAGES REQUIRED
+
+Need live pages:
+
+/about
+/contact
+/privacy
+/terms
+/tools
+/blog (later)
+
+These indirectly help trust.
+
+PART 17 — SERVER / TECH SEO
+
+If static:
+
+Cloudflare CDN
+Brotli on
+HTTP/2 or HTTP/3
+long cache headers
+minified CSS/JS
+gzip fallback
+PART 18 — ADVANCED CTR TESTING
+
+Rotate titles every 30 days if low CTR:
+
+V1
+
+Free Image Cropper Online – Crop JPG PNG Instantly
+
+V2
+
+Best Free Image Cropper Online (No Upload)
+
+V3
+
+Crop Image Online Free in Seconds | Pixocraft
+
+PART 19 — BACKLINK BAIT
+
+Create stat section:
+
+“Over 100,000 images cropped using Pixocraft tools”
+
+People cite stats.
+
+PART 20 — PROGRAMMATIC SCALE READY
+
+Later clone backend framework for:
+
+passport photo cropper
+instagram cropper
+circle cropper
+jpg cropper
+png cropper
